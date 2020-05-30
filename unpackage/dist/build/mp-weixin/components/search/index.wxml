@@ -1,0 +1,1 @@
+<view><view class="my_search"><view class="my_search_content"><icon type="search" size="26rpx"></icon><text>请输入商品名称</text></view></view><view style="height:54px;"></view></view>

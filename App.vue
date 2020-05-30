@@ -20,84 +20,84 @@ export default {
 <style>
 /*每个页面公共css */
 @font-face {
-	font-family: 'iconfont'; /* project id 1843139 */
-	src: url('https://at.alicdn.com/t/font_1843139_jt9juwr9ifc.eot');
-	src: url('https://at.alicdn.com/t/font_1843139_jt9juwr9ifc.eot?#iefix') format('embedded-opentype'),
-		url('https://at.alicdn.com/t/font_1843139_jt9juwr9ifc.woff2') format('woff2'), url('https://at.alicdn.com/t/font_1843139_jt9juwr9ifc.woff') format('woff'),
-		url('https://at.alicdn.com/t/font_1843139_jt9juwr9ifc.ttf') format('truetype'), url('https://at.alicdn.com/t/font_1843139_jt9juwr9ifc.svg#iconfont') format('svg');
+  font-family: 'iconfont';  /* project id 1843139 */
+  src: url('//at.alicdn.com/t/font_1843139_2ho93wqi3dm.eot');
+  src: url('//at.alicdn.com/t/font_1843139_2ho93wqi3dm.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1843139_2ho93wqi3dm.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1843139_2ho93wqi3dm.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1843139_2ho93wqi3dm.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1843139_2ho93wqi3dm.svg#iconfont') format('svg');
 }
 
 .iconfont {
-	font-family: 'iconfont' !important;
-	font-size: 16px;
-	font-style: normal;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-xingxing:before {
-	content: '\e646';
+.icon-alreadystar:before {
+  content: "\e624";
 }
 
-.icon-xingxing1:before {
-	content: '\e870';
+.icon-xing:before {
+  content: "\e600";
+}
+
+.icon-tianchongxing--:before {
+  content: "\e614";
 }
 
 .icon-mima:before {
-	content: '\e645';
-}
-
-.icon-loading:before {
-	content: '\e66c';
+  content: "\e645";
 }
 
 .icon-yuyin:before {
-	content: '\e631';
+  content: "\e631";
 }
 
 .icon-08_zizhanghaoguanli:before {
-	content: '\e630';
+  content: "\e630";
 }
 
 .icon-shanchu:before {
-	content: '\e663';
+  content: "\e663";
 }
 
 .icon-qianbao:before {
-	content: '\e604';
+  content: "\e604";
 }
 
 .icon-juan:before {
-	content: '\e64b';
+  content: "\e64b";
 }
 
 .icon-huabanfuben:before {
-	content: '\e65d';
+  content: "\e65d";
 }
 
 .icon-X:before {
-	content: '\e674';
+  content: "\e674";
 }
 
 .icon-weixin:before {
-	content: '\e637';
+  content: "\e637";
 }
 
 .icon-yonghu:before {
-	content: '\e603';
+  content: "\e603";
 }
 
 .icon-fapiao:before {
-	content: '\e720';
+  content: "\e720";
 }
 
 .icon-tuichu:before {
-	content: '\e69e';
+  content: "\e69e";
 }
 
-.icon-icon-:before {
-	content: '\e655';
-}
+
 
 page {
 	background: #f8f6f9;

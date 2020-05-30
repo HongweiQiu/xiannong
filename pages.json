@@ -1,10 +1,7 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/tabar/index",
-			"usingComponents":{
-				"mys-slider":"/wxcomponents/slider/index"
-			}
+			"path": "pages/tabar/index"
 		}, {
 			"path": "pages/tabar/classify"
 		}, {
@@ -19,6 +16,14 @@
 		"root": "pages/index",
 		"pages": [{
 			"path": "shopdetail"
+		},{
+			"path": "collect"
+		},{
+			"path": "recommed"
+		},{
+			"path": "newback"
+		},{
+			"path": "search"
 		}]
 	}, {
 		"root": "pages/account",

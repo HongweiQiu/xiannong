@@ -2,9 +2,9 @@
 	<view class="shopcart">
 		<!-- #ifdef APP-PLUS -->
 		<view class="status_bar"><!-- 这里是状态栏 --></view>
-		
+
 		<!-- #endif -->
-		
+
 		<view class="cart_buy">
 			<view style="height:10px;background-color: #F8F6F9;"></view>
 			<!-- 送货地址 -->
@@ -29,21 +29,21 @@
 			<view class="select_info">
 				<view>
 					<view class="weight">子账号</view>
-					<view class="gray_font">
+					<view class="gray_font" @click="selectAccount">
 						当前账号
 						<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
 					</view>
 				</view>
 				<view>
 					<view class="weight">配送日期</view>
-					<view class="gray_font">
-						当前账号
-					<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
+					<view class="gray_font" @click="selectDate">
+						{{ defaultDate }}
+						<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
 					</view>
 				</view>
 				<view>
 					<view class="weight">配送时间</view>
-					<view class="gray_font">
+					<view class="gray_font" @click="selectTime">
 						当前账号
 						<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
 					</view>
@@ -52,7 +52,7 @@
 					<view class="weight">商品列表</view>
 					<view class="gray_font">
 						单品备注
-					<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
+						<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
 					</view>
 				</view>
 			</view>
@@ -60,9 +60,9 @@
 			<view class="price_info">
 				<view>
 					<view class="weight">现金劵</view>
-					<view class="gray_font">
+					<view class="gray_font" @click="selectCash">
 						当前账号
-					<uni-icons type="arrowright" size="18" color="black"></uni-icons>
+						<uni-icons type="arrowright" size="18" color="black"></uni-icons>
 					</view>
 				</view>
 				<view>
@@ -96,29 +96,90 @@
 						</view>
 						<view>
 							<view>
-								<text class="weight">合计</text>:<text class="red_font"> ¥12345678.00</text></view>
+								<text class="weight">合计</text>
+								:
+								<text class="red_font">¥12345678.00</text>
+							</view>
 							<view class="real_price">#808080</view>
 						</view>
 					</view>
-					<view class="determine">确认下单</view>
+					<view class="determine" @click="submit">确认下单</view>
 				</view>
 			</view>
 		</view>
 		<view></view>
-			<!-- <my-tabar tabarIndex=2></my-tabar> -->
+		<!-- 子账号 -->
+		<w-picker mode="selector" default-type="title" :default-props="childListProps" :options="childList" @confirm="onConfirmAccount($event, 'selector')" ref="account">
+			子账号
+		</w-picker>
+		<!-- 配送日期 -->
+		<w-picker mode="date" :value="defaultDate" fields="day" @confirm="onConfirmDate($event, 'date')" :startYear="startyear" endYear="2029" :disabled-after="false" ref="date">
+			配送日期
+		</w-picker>
 	</view>
 </template>
 
 <script>
-	export default{
-		methods:{
-			deliveryPage(){
-				uni.navigateTo({
-					url:"/pages/shopcart/delivery"
-				})
-			}
+import wPicker from '@/components/w-picker/w-picker.vue';
+export default {
+	components: {
+		wPicker
+	},
+	data() {
+		return {
+			childListProps: { label: 'nickname', value: 'zid' },
+			childList: [
+				{
+					zid: '',
+					nickname: '当前账号'
+				}
+			],
+			defaultDate: '',
+			startyear: ''
+		};
+	},
+	methods: {
+		deliveryPage() {
+			uni.navigateTo({
+				url: '/pages/shopcart/delivery'
+			});
+		},
+		// 显示子账号
+		selectAccount() {
+			this.$refs.account.show();
+		},
+		onConfirmAccount(e) {
+			console.log(e);
+		},
+		// 显示配送日期
+		selectDate() {
+			this.$refs.date.show();
+		},
+		onConfirmDate(e) {
+			let { year, month, day } = e.obj;
+			this.defaultDate = `${year}-${month}-${day}`;
+		},
+		submit() {}
+	},
+	onShow() {},
+	onReady() {
+		var date = new Date();
+		let n = date.getTime() + 24 * 3600000;
+		date.setTime(n);
+		var year = date.getFullYear();
+		var month = date.getMonth() + 1;
+		var day = date.getDate();
+		this.startyear = year;
+		if (month < 10) {
+			month = '0' + month;
 		}
+
+		if (day < 10) {
+			day = '0' + day;
+		}
+		this.defaultDate = year + '-' + month + '-' + day;
 	}
+};
 </script>
 
 <style>
@@ -194,7 +255,7 @@
 	background: rgba(173, 219, 140, 0.2);
 }
 .order_method .price_order {
-	height:90rpx;
+	height: 90rpx;
 }
 .order_method .total_price {
 	padding-left: 20rpx;
@@ -207,11 +268,21 @@
 	color: white;
 	width: 30%;
 	text-align: center;
-	font-size:32rpx;
+	font-size: 32rpx;
 }
-.order_method .gift_num{color: #009A44;font-size: 20rpx;}
-.order_method .cart_num {margin-right: 20rpx;}
-.order_method .real_price{color:#808080;text-decoration: line-through;font-size: 20rpx;text-indent: 70rpx;}
+.order_method .gift_num {
+	color: #009a44;
+	font-size: 20rpx;
+}
+.order_method .cart_num {
+	margin-right: 20rpx;
+}
+.order_method .real_price {
+	color: #808080;
+	text-decoration: line-through;
+	font-size: 20rpx;
+	text-indent: 70rpx;
+}
 /* #ifdef APP-PLUS |MP-WEIXIN */
 .order_method {
 	position: fixed;
@@ -222,8 +293,8 @@
 /* #ifdef H5 */
 .order_method {
 	position: fixed;
-	width:100%;
-	bottom:var(--window-bottom);
+	width: 100%;
+	bottom: var(--window-bottom);
 }
 /* #endif */
 </style>

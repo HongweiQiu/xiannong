@@ -7719,7 +7719,7 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 240:
+/***/ 270:
 /*!***********************************************************!*\
   !*** E:/Desktop/enterprise/components/uni-popup/popup.js ***!
   \***********************************************************/
@@ -7727,7 +7727,7 @@ internalMixin(Vue);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 241));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 271));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 // 定义 type 类型:弹出类型：top/bottom/center
 var config = {
   // 顶部弹出
@@ -7754,7 +7754,7 @@ var config = {
 
 /***/ }),
 
-/***/ 241:
+/***/ 271:
 /*!*************************************************************!*\
   !*** E:/Desktop/enterprise/components/uni-popup/message.js ***!
   \*************************************************************/
@@ -7792,7 +7792,38 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 270:
+/***/ 3:
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 300:
 /*!***********************************************************!*\
   !*** E:/Desktop/enterprise/components/uni-icons/icons.js ***!
   \***********************************************************/
@@ -7898,38 +7929,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 3:
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ 313:
+/***/ 350:
 /*!*************************************************************!*\
   !*** E:/Desktop/enterprise/components/uni-calendar/util.js ***!
   \*************************************************************/
@@ -7937,7 +7937,7 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 314));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 351));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
 
 Calendar = /*#__PURE__*/function () {
   function Calendar()
@@ -8292,7 +8292,7 @@ Calendar;exports.default = _default;
 
 /***/ }),
 
-/***/ 314:
+/***/ 351:
 /*!*****************************************************************!*\
   !*** E:/Desktop/enterprise/components/uni-calendar/calendar.js ***!
   \*****************************************************************/
@@ -9766,7 +9766,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": { "usingComponents": {}, "usingAutoImportComponents": { "my-search": "/components/search/index", "uni-countdown": "/components/uni-countdown/uni-countdown", "my-recomend": "/components/recomend/index", "my-loading": "/components/loading/index", "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index" } }, "pages/tabar/classify": { "usingComponents": {}, "usingAutoImportComponents": { "my-search": "/components/search/index", "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index", "uni-icons": "/components/uni-icons/uni-icons", "my-profile": "/components/profile/index", "my-loading": "/components/loading/index", "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index", "my-keyboard": "/components/keyboard/index" } }, "pages/tabar/order": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons", "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index", "my-loading": "/components/loading/index" } }, "pages/tabar/shopcart": { "usingComponents": {}, "usingAutoImportComponents": { "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/tabar/user": { "usingComponents": { "uni-icons": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": { "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/index/shopdetail": { "usingComponents": {}, "usingAutoImportComponents": { "uni-icons": "/components/uni-icons/uni-icons", "uni-countdown": "/components/uni-countdown/uni-countdown", "my-stepper": "/components/stepper/index" } }, "pages/account/login": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/account/selectway": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/order/orderdetail": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/shopcart/delivery": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/user/accountmange": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/accountadd": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/user/accountedit": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "evan-switch": "/components/evan-switch/evan-switch", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/user/modifypwd": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/receipt": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/invest": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons", "uni-popup": "/components/uni-popup/uni-popup", "my-keyboard": "/components/keyboard/index" } }, "pages/user/investlist": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/investrecord": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/bill": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-loading": "/components/loading/index", "uni-calendar": "/components/uni-calendar/uni-calendar" } }, "pages/user/billdetail": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/cash": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/user/cashdetail": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/myinfo": { "usingComponents": { "image-cropper": "/components/ling-imgcropper/ling-imgcropper" }, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/user/bindphone": { "usingComponents": { "move-verify": "/components/helang-moveVerify/helang-moveVerify" }, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-identifyingcode": "/components/identifyingcode/index" } } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "enterprise", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": {}, "pages/tabar/classify": {}, "pages/tabar/order": {}, "pages/tabar/shopcart": {}, "pages/tabar/user": {}, "pages/index/shopdetail": {}, "pages/index/collect": {}, "pages/index/recommed": {}, "pages/index/newback": {}, "pages/index/search": {}, "pages/account/login": {}, "pages/account/selectway": {}, "pages/order/orderdetail": {}, "pages/shopcart/delivery": {}, "pages/user/accountmange": {}, "pages/user/accountadd": {}, "pages/user/accountedit": {}, "pages/user/modifypwd": {}, "pages/user/receipt": {}, "pages/user/invest": {}, "pages/user/investlist": {}, "pages/user/investrecord": {}, "pages/user/bill": {}, "pages/user/billdetail": {}, "pages/user/cash": {}, "pages/user/cashdetail": {}, "pages/user/myinfo": {}, "pages/user/bindphone": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "enterprise", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 

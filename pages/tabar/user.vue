@@ -59,7 +59,7 @@ export default {
 			userList: [
 				{ icon: 'icon-08_zizhanghaoguanli', name: '账号管理', color: '#3DABFF', url: 'accountmange' },
 				{ icon: 'icon-fapiao', name: '开具发票', color: '#FF9C00', url: 'receipt' },
-				{ icon: 'icon-08_zizhanghaoguanli', name: '账单记录', color: '#FFF000', url: 'bill' },
+				{ icon: 'icon-tianchongxing--', name: '账单记录', color: '#FFF000', url: 'bill' },
 				{ icon: 'icon-qianbao', name: '充值', color: '#2DC4B4', url: 'invest' },
 				{ icon: 'icon-juan', name: '现金劵', color: '#F8632F', url: 'cash' },
 				{ icon: 'icon-weixin', name: '微信改绑', color: '#26DD5B' }

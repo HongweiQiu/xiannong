@@ -3,10 +3,7 @@
 		<uni-nav-bar left-icon="arrowleft" title="个人信息" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
 		<view class="get_info">
 			<view><input type="text" value="" placeholder="请输入手机号" placeholder-class="place_style" /></view>
-			
-			<!-- <move-verify @result="verifyResult" ref="verifyElement"></move-verify> -->
-<view><slider :value="x" @changing="changing" :disabled="disabled"></slider></view>
-			<movable-area><movable-view class="max" direction="horizontal">text</movable-view></movable-area>
+			<move-verify @result="verifyResult" ref="verifyElement"></move-verify>
 			<view class="flex_left_right">
 				<input type="number" value="" placeholder="请输入验证码" placeholder-class="place_style" />
 				<my-identifyingcode :showcode="showcode" @getCode="getCode"></my-identifyingcode>
@@ -17,21 +14,15 @@
 </template>
 
 <script>
-// import moveVerify from '@/components/helang-moveVerify/helang-moveVerify.vue';
+import moveVerify from '@/components/helang-moveVerify/helang-moveVerify.vue';
 const app = getApp().globalData;
 const { navBar } = app;
 export default {
 	components: {
-		// moveVerify
+		moveVerify
 	},
 	data() {
 		return {
-			x: 10,
-			y: 0,
-			old: {
-				x: 0,
-				y: 0
-			},
 			disabled: false,
 			navBar: navBar,
 			showcode: true,
@@ -45,20 +36,13 @@ export default {
 			});
 		},
 		bindSubmit() {
-			console.log(45);
-			this.x = 0;
+		
 		},
 		getCode() {
 			this.showcode = false;
 		},
 		verifyResult(e) {},
-		changing(e) {
-			if(e.detail.value==100){
-				this.disabled=true
-			}else{
-				this.x=0;
-			}
-		}
+		
 	}
 };
 </script>

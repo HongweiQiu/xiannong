@@ -1,14 +1,16 @@
 <template>
-	<view class="pathway" @touchend="onEnd" id="pathway">
+	<view class="pathway on-pathway" @touchend="onEnd">
 		<view class="tips">
 			<text v-if="isOk" style="color: #FFFFFF;">验证通过</text>
 			<text v-else>拖动滑块验证</text>
 		</view>
 		<view class="track" :style="{'transform':'translateX('+oldx+'px)'}"></view>
 		<movable-area :animation="true">
-			<movable-view id="track" :class="{'active':isOk}" :x="x" direction="horizontal" @change="onMove"></movable-view>
+			<movable-view class="on-track" :class="{'active':isOk}" 
+				:x="x" direction="horizontal" @change="onMove"
+				:disabled="isOk"
+			></movable-view>
 		</movable-area>
-		<view class="disabled" v-if="isOk"></view>
 	</view>
 </template>
 
@@ -37,9 +39,9 @@
 				});
 			}
 			this.$nextTick(() => {
-				getSize("#pathway").then((res1) => {
+				getSize(".on-pathway").then((res1) => {
 					this.size.pathway = res1;
-					getSize("#track").then((res2) => {
+					getSize(".on-track").then((res2) => {
 						this.size.track = res2;
 					});
 				})
@@ -49,23 +51,16 @@
 			/* 滑动中 */
 			onMove(e) {
 				this.oldx = e.detail.x;
-				if(e.detail.x!=100){
-					this.x=0;
-				}
 			},
 			/* 滑动结束 */
 			onEnd() {
-				if (this.isOk) {
-					return;
-				}
-				
-				if(this.oldx<1){
+				if (this.isOk || this.oldx<1) {
 					return;
 				}
 				
 				this.count++;
 				this.x = this.oldx;
-				if ((this.oldx + 1) > (this.size.pathway - this.size.track)) {
+				if ((this.oldx + 3) > (this.size.pathway - this.size.track)) {
 					this.isOk = true;
 					this.$emit("result",{flag:true,count:this.count});
 				} else {
@@ -93,7 +88,7 @@
 	.pathway {
 		height: 80rpx;
 		width: 100%;
-		background-color: #7ac23c;
+		background-color: #009a44;
 		position: relative;
 		overflow: hidden;
 		
@@ -146,7 +141,7 @@
 		}
 		
 		movable-view.active {
-			border: #7ac23c solid 1px;
+			border: #009a44 solid 1px;
 			background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NTc3MiwgMjAxNC8wMS8xMy0xOTo0NDowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo0ZDhlNWY5My05NmI0LTRlNWQtOGFjYi03ZTY4OGYyMTU2ZTYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDlBRDI3NjVGMkQ2MTFFNEI5NDBCMjQ2M0ExMDQ1OUYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDlBRDI3NjRGMkQ2MTFFNEI5NDBCMjQ2M0ExMDQ1OUYiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKE1hY2ludG9zaCkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDphNWEzMWNhMC1hYmViLTQxNWEtYTEwZS04Y2U5NzRlN2Q4YTEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NGQ4ZTVmOTMtOTZiNC00ZTVkLThhY2ItN2U2ODhmMjE1NmU2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+k+sHwwAAASZJREFUeNpi/P//PwMyKD8uZw+kUoDYEYgloMIvgHg/EM/ptHx0EFk9I8wAoEZ+IDUPiIMY8IN1QJwENOgj3ACo5gNAbMBAHLgAxA4gQ5igAnNJ0MwAVTsX7IKyY7L2UNuJAf+AmAmJ78AEDTBiwGYg5gbifCSxFCZoaBMCy4A4GOjnH0D6DpK4IxNSVIHAfSDOAeLraJrjgJp/AwPbHMhejiQnwYRmUzNQ4VQgDQqXK0ia/0I17wJiPmQNTNBEAgMlQIWiQA2vgWw7QppBekGxsAjIiEUSBNnsBDWEAY9mEFgMMgBk00E0iZtA7AHEctDQ58MRuA6wlLgGFMoMpIG1QFeGwAIxGZo8GUhIysmwQGSAZgwHaEZhICIzOaBkJkqyM0CAAQDGx279Jf50AAAAAABJRU5ErkJggg==");
 		}
 		

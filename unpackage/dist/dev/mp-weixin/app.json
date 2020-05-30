@@ -6,14 +6,15 @@
     "pages/tabar/shopcart",
     "pages/tabar/user"
   ],
-  "usingComponents": {
-    "movew-verify": "@/wxcomponents/slider/index"
-  },
   "subPackages": [
     {
       "root": "pages/index",
       "pages": [
-        "shopdetail"
+        "shopdetail",
+        "collect",
+        "recommed",
+        "newback",
+        "search"
       ]
     },
     {
@@ -106,5 +107,5 @@
     "enable": true
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap78.json"
+  "sitemapLocation": "sitemap54.json"
 }

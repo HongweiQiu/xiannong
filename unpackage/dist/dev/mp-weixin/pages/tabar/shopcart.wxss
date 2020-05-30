@@ -85,7 +85,7 @@
 	background: rgba(173, 219, 140, 0.2);
 }
 .order_method .price_order {
-	height:90rpx;
+	height: 90rpx;
 }
 .order_method .total_price {
 	padding-left: 20rpx;
@@ -98,11 +98,21 @@
 	color: white;
 	width: 30%;
 	text-align: center;
-	font-size:32rpx;
+	font-size: 32rpx;
 }
-.order_method .gift_num{color: #009A44;font-size: 20rpx;}
-.order_method .cart_num {margin-right: 20rpx;}
-.order_method .real_price{color:#808080;text-decoration: line-through;font-size: 20rpx;text-indent: 70rpx;}
+.order_method .gift_num {
+	color: #009a44;
+	font-size: 20rpx;
+}
+.order_method .cart_num {
+	margin-right: 20rpx;
+}
+.order_method .real_price {
+	color: #808080;
+	text-decoration: line-through;
+	font-size: 20rpx;
+	text-indent: 70rpx;
+}
 .order_method {
 	position: fixed;
 	bottom: 0px;

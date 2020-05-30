@@ -15,7 +15,7 @@
 		</view>
 		<!-- 导航 -->
 		<view class="nav">
-			<view v-for="(item, index) in 8" :key="index">
+			<view v-for="(item, index) in 8" :key="index" @click="navUrl(index + 1)">
 				<image src="../../static/img/gcaidj_pic4.png" mode=""></image>
 				<text>我的</text>
 			</view>
@@ -60,9 +60,9 @@
 		<view class="recomend" @click="shopDetailPage">
 			<view class="title">
 				<view class="line_border"></view>
-				<text class="name" >为你推荐</text>
+				<text class="name">为你推荐</text>
 			</view>
-			<view class="body"><my-recomend v-for="(item, index) in 4" :key="index"  @showCart="openCart"></my-recomend></view>
+			<view class="body"><my-recomend v-for="(item, index) in 4" :key="index" @showCart="openCart"></my-recomend></view>
 			<my-loading :loading="load"></my-loading>
 		</view>
 		<view class="support">
@@ -70,14 +70,13 @@
 			<text>菜东家</text>
 			提供技术支持
 		</view>
-		
+
 		<uni-popup ref="popup" type="bottom"><my-addcart @onClose="onClose"></my-addcart></uni-popup>
 		<!-- <my-tabar tabarIndex=0></my-tabar> -->
 	</view>
 </template>
 
 <script>
-
 export default {
 	data() {
 		return {
@@ -85,18 +84,68 @@ export default {
 		};
 	},
 	methods: {
-		openCart(){
-			uni.hideTabBar()
+		navUrl(e) {
+			switch (e) {
+				case 1:
+					uni.navigateTo({
+						url: '/pages/index/collect'
+					});
+					break;
+				case 2:
+					uni.navigateTo({
+						url: '/pages/index/newback'
+					});
+					break;
+				case 3:
+					uni.navigateTo({
+						url: '/pages/index/recommed'
+					});
+					break;
+				case 4:
+					uni.makePhoneCall({
+						phoneNumber: this.data.phone
+					});
+					break;
+				case 5:
+					uni.switchTab({
+						url: '/pages/tabar/classify'
+					});
+					break;
+				case 6:
+					uni.switchTab({
+						url: '/pages/tabar/shopcart'
+					});
+					break;
+				case 7:
+					uni.switchTab({
+						url: '/pages/tabar/order'
+					});
+					break;
+				case 8:
+					uni.switchTab({
+						url: '/pages/tabar/user'
+					});
+					break;
+				default:
+					app.globalData.classId = cate_id;
+					wx.switchTab({
+						url: '/pages/tabar/classify'
+					});
+					break;
+			}
+		},
+		openCart() {
+			uni.hideTabBar();
 			this.$refs.popup.open();
 		},
 		onClose() {
 			this.$refs.popup.close();
-				uni.showTabBar()
+			uni.showTabBar();
 		},
-		shopDetailPage(){
+		shopDetailPage() {
 			uni.navigateTo({
-				url:'/pages/index/shopdetail'
-			})
+				url: '/pages/index/shopdetail'
+			});
 		}
 	}
 };

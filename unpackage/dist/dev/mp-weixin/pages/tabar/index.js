@@ -105,22 +105,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "my-search": function() {
-    return __webpack_require__.e(/*! import() | components/search/index */ "components/search/index").then(__webpack_require__.bind(null, /*! @/components/search/index.vue */ 207))
+    return __webpack_require__.e(/*! import() | components/search/index */ "components/search/index").then(__webpack_require__.bind(null, /*! @/components/search/index.vue */ 237))
   },
   "uni-countdown": function() {
-    return __webpack_require__.e(/*! import() | components/uni-countdown/uni-countdown */ "components/uni-countdown/uni-countdown").then(__webpack_require__.bind(null, /*! @/components/uni-countdown/uni-countdown.vue */ 214))
+    return __webpack_require__.e(/*! import() | components/uni-countdown/uni-countdown */ "components/uni-countdown/uni-countdown").then(__webpack_require__.bind(null, /*! @/components/uni-countdown/uni-countdown.vue */ 244))
   },
   "my-recomend": function() {
-    return __webpack_require__.e(/*! import() | components/recomend/index */ "components/recomend/index").then(__webpack_require__.bind(null, /*! @/components/recomend/index.vue */ 221))
+    return __webpack_require__.e(/*! import() | components/recomend/index */ "components/recomend/index").then(__webpack_require__.bind(null, /*! @/components/recomend/index.vue */ 251))
   },
   "my-loading": function() {
-    return __webpack_require__.e(/*! import() | components/loading/index */ "components/loading/index").then(__webpack_require__.bind(null, /*! @/components/loading/index.vue */ 228))
+    return __webpack_require__.e(/*! import() | components/loading/index */ "components/loading/index").then(__webpack_require__.bind(null, /*! @/components/loading/index.vue */ 258))
   },
   "uni-popup": function() {
-    return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 235))
+    return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 265))
   },
   "my-addcart": function() {
-    return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 244))
+    return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 274))
   }
 }
 var render = function() {
@@ -237,7 +237,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 var _default =
-
 {
   data: function data() {
     return {
@@ -245,6 +244,56 @@ var _default =
 
   },
   methods: {
+    navUrl: function navUrl(e) {
+      switch (e) {
+        case 1:
+          uni.navigateTo({
+            url: '/pages/index/collect' });
+
+          break;
+        case 2:
+          uni.navigateTo({
+            url: '/pages/index/newback' });
+
+          break;
+        case 3:
+          uni.navigateTo({
+            url: '/pages/index/recommed' });
+
+          break;
+        case 4:
+          uni.makePhoneCall({
+            phoneNumber: this.data.phone });
+
+          break;
+        case 5:
+          uni.switchTab({
+            url: '/pages/tabar/classify' });
+
+          break;
+        case 6:
+          uni.switchTab({
+            url: '/pages/tabar/shopcart' });
+
+          break;
+        case 7:
+          uni.switchTab({
+            url: '/pages/tabar/order' });
+
+          break;
+        case 8:
+          uni.switchTab({
+            url: '/pages/tabar/user' });
+
+          break;
+        default:
+          app.globalData.classId = cate_id;
+          wx.switchTab({
+            url: '/pages/tabar/classify' });
+
+          break;}
+
+    },
     openCart: function openCart() {
       uni.hideTabBar();
       this.$refs.popup.open();
