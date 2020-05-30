@@ -1,0 +1,110 @@
+{
+  "pages": [
+    "pages/tabar/index",
+    "pages/tabar/classify",
+    "pages/tabar/order",
+    "pages/tabar/shopcart",
+    "pages/tabar/user"
+  ],
+  "usingComponents": {
+    "movew-verify": "@/wxcomponents/slider/index"
+  },
+  "subPackages": [
+    {
+      "root": "pages/index",
+      "pages": [
+        "shopdetail"
+      ]
+    },
+    {
+      "root": "pages/account",
+      "pages": [
+        "login",
+        "selectway"
+      ]
+    },
+    {
+      "root": "pages/order",
+      "pages": [
+        "orderdetail"
+      ]
+    },
+    {
+      "root": "pages/shopcart",
+      "pages": [
+        "delivery"
+      ]
+    },
+    {
+      "root": "pages/user",
+      "pages": [
+        "accountmange",
+        "accountadd",
+        "accountedit",
+        "modifypwd",
+        "receipt",
+        "invest",
+        "investlist",
+        "investrecord",
+        "bill",
+        "billdetail",
+        "cash",
+        "cashdetail",
+        "myinfo",
+        "bindphone"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "enterprise",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#009A44",
+    "list": [
+      {
+        "pagePath": "pages/tabar/index",
+        "iconPath": "static/img/index_gray.png",
+        "selectedIconPath": "static/img/index_green.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/tabar/classify",
+        "iconPath": "static/img/classify_gray.png",
+        "selectedIconPath": "static/img/classify_green.png",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/tabar/shopcart",
+        "iconPath": "static/img/shopcart_gray.png",
+        "selectedIconPath": "static/img/shopcart_green.png",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/tabar/order",
+        "iconPath": "static/img/order_gray.png",
+        "selectedIconPath": "static/img/order_green.png",
+        "text": "订单"
+      },
+      {
+        "pagePath": "pages/tabar/user",
+        "iconPath": "static/img/user_gray.png",
+        "selectedIconPath": "static/img/user_green.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "uniStatistics": {
+    "enable": true
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap78.json"
+}

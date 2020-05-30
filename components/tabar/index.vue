@@ -1,0 +1,66 @@
+<template>
+	<view>
+		<view style="height:50px;"></view>
+	<view class="my_tabar">
+		<view v-for="(item, index) in tabList" :key="index" class="single_tabar" @click="pageUrl(item)">
+			<image v-if="tabarIndex == index" :src="item.img" mode=""></image>
+			<image v-else :src="item.inImg" mode=""></image>
+			<text :class="tabarIndex==index?'color':'incolor'">{{ item.title }}</text>
+		</view>
+	</view>
+	</view>
+</template>
+
+<script>
+let path = '/pages/tabar/',
+	imgPath = '../../static/img/';
+export default {
+	props: ['tabarIndex'],
+	data() {
+		return {
+			tabList: [
+				{ title: '首页', inImg: imgPath + 'index_gray.png', img: imgPath + 'index_green.png', url: path + 'index' },
+				{ title: '分类', inImg: imgPath + 'classify_gray.png', img: imgPath + 'classify_green.png', url: path + 'classify' },
+				{ title: '购物车', inImg: imgPath + 'shopcart_gray.png', img: imgPath + 'shopcart_green.png', url: path + 'shopcart' },
+				{ title: '订单', inImg: imgPath + 'order_gray.png', img: imgPath + 'order_green.png', url: path + 'order' },
+				{ title: '我的', inImg: imgPath + 'user_gray.png', img: imgPath + 'user_green.png', url: path + 'user' }
+			]
+		};
+	},
+	methods: {
+		pageUrl(data) {
+			
+			uni.switchTab({
+				url: data.url
+			});
+		}
+	}
+};
+</script>
+
+<style>
+.my_tabar {
+	display: flex;
+	justify-content: space-around;
+	height: 50px;
+	background: white;
+	position: fixed;width:100%;
+	z-index:2;
+	bottom: 0;
+	border-top: 1px solid #efefef;
+}
+.my_tabar .single_tabar image {
+	width: 25px;
+	height: 25px;
+}
+.my_tabar .single_tabar {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: 10px;
+	
+}
+.my_tabar .single_tabar .color{color:#009A44;}
+.my_tabar .single_tabar .incolor{color:#808080;}
+</style>

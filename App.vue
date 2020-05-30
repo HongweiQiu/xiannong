@@ -1,0 +1,194 @@
+<script>
+export default {
+		//全局共享数据
+			globalData: {
+				// #ifdef APP-PLUS
+				navBar: true,
+				// #endif
+				// #ifdef MP-WEIXIN |H5
+				navBar: false,
+				// #endif
+			},
+	onLaunch: function() {
+		
+	},
+	onShow: function() {},
+	onHide: function() {}
+};
+</script>
+
+<style>
+/*每个页面公共css */
+@font-face {
+	font-family: 'iconfont'; /* project id 1843139 */
+	src: url('https://at.alicdn.com/t/font_1843139_jt9juwr9ifc.eot');
+	src: url('https://at.alicdn.com/t/font_1843139_jt9juwr9ifc.eot?#iefix') format('embedded-opentype'),
+		url('https://at.alicdn.com/t/font_1843139_jt9juwr9ifc.woff2') format('woff2'), url('https://at.alicdn.com/t/font_1843139_jt9juwr9ifc.woff') format('woff'),
+		url('https://at.alicdn.com/t/font_1843139_jt9juwr9ifc.ttf') format('truetype'), url('https://at.alicdn.com/t/font_1843139_jt9juwr9ifc.svg#iconfont') format('svg');
+}
+
+.iconfont {
+	font-family: 'iconfont' !important;
+	font-size: 16px;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-xingxing:before {
+	content: '\e646';
+}
+
+.icon-xingxing1:before {
+	content: '\e870';
+}
+
+.icon-mima:before {
+	content: '\e645';
+}
+
+.icon-loading:before {
+	content: '\e66c';
+}
+
+.icon-yuyin:before {
+	content: '\e631';
+}
+
+.icon-08_zizhanghaoguanli:before {
+	content: '\e630';
+}
+
+.icon-shanchu:before {
+	content: '\e663';
+}
+
+.icon-qianbao:before {
+	content: '\e604';
+}
+
+.icon-juan:before {
+	content: '\e64b';
+}
+
+.icon-huabanfuben:before {
+	content: '\e65d';
+}
+
+.icon-X:before {
+	content: '\e674';
+}
+
+.icon-weixin:before {
+	content: '\e637';
+}
+
+.icon-yonghu:before {
+	content: '\e603';
+}
+
+.icon-fapiao:before {
+	content: '\e720';
+}
+
+.icon-tuichu:before {
+	content: '\e69e';
+}
+
+.icon-icon-:before {
+	content: '\e655';
+}
+
+page {
+	background: #f8f6f9;
+	font-size: 28rpx;
+}
+.addcart image {
+	width: 32rpx;
+	height: 32rpx;
+}
+.status_bar {
+	/* background: white; */
+
+	height: var(--status-bar-height);
+	width: 100%;
+}
+.hidden {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.red_tag {
+	background: red;
+	color: white;
+	border-radius: 6rpx;
+	padding: 0 1px;
+	font-size: 20rpx;
+	margin-right: 5rpx;
+}
+.red_font {
+	color: red !important;
+}
+.gray_font {
+	color: #808080;
+}
+.flex {
+	display: flex;
+}
+.flex_left_right {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.align_center {
+	display: flex;
+	align-items: center;
+}
+.line_through {
+	color: #808080;
+	text-decoration: line-through;
+}
+.uni-countdown {
+	align-items: center;
+}
+.line_border {
+	width: 4px;
+	height: 40rpx;
+	background: #009a44;
+}
+.weight {
+	font-weight: 700;
+}
+.uni-countdown__number {
+	height: 30rpx !important;
+	background: black !important;
+	color: white !important;
+	border-radius: 4rpx;
+	width: 40rpx !important;
+}
+.uni-nav-bar-right-text {
+	color: #009a44;
+}
+.order .uni-icons {
+	color: #009a44 !important;
+}
+.place_style {
+	font-size: 24rpx;
+	color: #c2c2c2;
+}
+.submit_button {
+	background: #009a44;
+	color: white;
+	border-radius: 12rpx;
+	text-align: center;
+	margin: 30rpx auto;
+}
+.twelve{font-size: 28rpx;}
+.ten {font-size:24rpx;}
+.fourteen{font-size: 32rpx;}
+.fiveteen{font-size: 50rpx;}
+uni-slider{width:100%;}
+slider{width:100%;}
+uni-slider .uni-slider-handle-wrapper{height:28px;}
+uni-slider .uni-slider-handle,uni-slider .uni-slider-thumb{border-radius: 0;}
+</style>

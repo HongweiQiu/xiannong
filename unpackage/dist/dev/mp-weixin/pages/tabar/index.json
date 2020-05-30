@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "my-search": "/components/search/index",
+    "uni-countdown": "/components/uni-countdown/uni-countdown",
+    "my-recomend": "/components/recomend/index",
+    "my-loading": "/components/loading/index",
+    "uni-popup": "/components/uni-popup/uni-popup",
+    "my-addcart": "/components/addcart/index"
+  }
+}
