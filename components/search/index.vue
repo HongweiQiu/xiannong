@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="my_search">
+		<view class="my_search" @click="searchPage">
 			<!-- #ifdef APP-PLUS |H5 -->
 			<view class="status_bar"><!-- 这里是状态栏 --></view>
 
@@ -22,6 +22,13 @@
 export default {
 	data() {
 		return {};
+	},
+	methods:{
+		searchPage(){
+			uni.navigateTo({
+				url:"/pages/index/search"
+			})
+		}
 	}
 };
 </script>

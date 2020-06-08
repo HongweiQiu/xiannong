@@ -4,31 +4,32 @@
 		<!-- banner图 -->
 		<view class="banner">
 			<swiper class="swiper" indicator-dots="true" autoplay="true" duration="2000" circular="true">
-				<swiper-item v-for="(item, index) in 3" :key="index"><image src="http://load.caidj.cn/web/images/nav4.png"></image></swiper-item>
+				<swiper-item v-for="(item, index) in adList.ad" :key="index"><image :src="item.banner"></image></swiper-item>
 			</swiper>
 		</view>
 
 		<!-- 公告 -->
-		<view class="notice align_center">
-			<image src="../../static/img/gcaidj_pic4.png" mode=""></image>
-			<swiper autoplay="true" duration="2000" circular="true" interval="3000"><swiper-item v-for="(item, index) in 3" :key="index">菜东家庄主</swiper-item></swiper>
+		<view class="" v-if="adList.public_msg">
+			<uni-notice-bar showIcon="true" background-color="white"
+			 color="balck" scrollable="true" single="true" :text="adList.public_msg" :speed="speed"></uni-notice-bar>
 		</view>
 		<!-- 导航 -->
 		<view class="nav">
-			<view v-for="(item, index) in 8" :key="index" @click="navUrl(index + 1)">
-				<image src="../../static/img/gcaidj_pic4.png" mode=""></image>
-				<text>我的</text>
+			<view v-for="(item, index) in adList.nav" :key="index" @click="navUrl(item)">
+				<image :src="imgRemote + item.img_url" mode="aspectFit" v-if="item.cate_id != 0"></image>
+				<image :src="imgRemote + '/' + item.img_url" mode="aspectFit" v-if="item.cate_id == 0"></image>
+				<text class="hidden" style="width: 70%;text-align: center;">{{item.title}}</text>
 			</view>
 		</view>
 		<!-- banner4 -->
-		<view class="banner4"><image src="../../static/img/gcaidj_pic4.png" mode=""></image></view>
+		<view class="banner4"><image :src="adList.banner4" mode=""></image></view>
 		<!-- 限时抢购 -->
 		<view class="limit_buy">
-			<view class="head">
+			<view class="head" @click="newPage('flashsale')">
 				<view class="title">
 					<view class="line_border"></view>
 					<text class="name">限时抢购</text>
-					<uni-countdown :hour="1" :minute="12" :second="40"></uni-countdown>
+					<uni-countdown :hour="1" :minute="12" :second="40" :show-day="false" background-color="black"></uni-countdown>
 				</view>
 				<view class="align_center more">
 					更多
@@ -57,13 +58,15 @@
 		</view>
 		<!-- 为你推荐 -->
 
-		<view class="recomend" @click="shopDetailPage">
+		<view class="recomend" @click="newPage('detail')">
 			<view class="title">
 				<view class="line_border"></view>
 				<text class="name">为你推荐</text>
 			</view>
-			<view class="body"><my-recomend v-for="(item, index) in 4" :key="index" @showCart="openCart"></my-recomend></view>
-			<my-loading :loading="load"></my-loading>
+			<view class="body">
+				<my-recomend v-for="(item, index) in itemList.list" :key="index" @showCart="openCart"></my-recomend>
+				</view>
+			<my-loading :loading="loading"></my-loading>
 		</view>
 		<view class="support">
 			由
@@ -72,20 +75,42 @@
 		</view>
 
 		<uni-popup ref="popup" type="bottom"><my-addcart @onClose="onClose"></my-addcart></uni-popup>
-		<!-- <my-tabar tabarIndex=0></my-tabar> -->
 	</view>
 </template>
 
 <script>
+import md5 from '../../static/js/md5.js';
+import rs from '../../static/js/request.js';
+import uniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar.vue';
+
+const app = getApp().globalData;
+const { appid, appsecret,imgRemote} = app;
 export default {
+	components: { uniNoticeBar },
 	data() {
 		return {
-			load: true
+			load: true,
+			imgRemote:imgRemote,
+			speed:30,
+			loading:'',
+			page:1,
+			num:10,
+			adList: {},
+			itemList:{}
 		};
 	},
 	methods: {
 		navUrl(e) {
-			switch (e) {
+				let { id, cate_id, status } = e;
+				if (status == 0) {
+								uni.showToast({
+									title:"该栏目已下架",
+									duration:2000,
+									icon:none
+								})
+								return;
+							}
+			switch (id) {
 				case 1:
 					uni.navigateTo({
 						url: '/pages/index/collect'
@@ -103,7 +128,7 @@ export default {
 					break;
 				case 4:
 					uni.makePhoneCall({
-						phoneNumber: this.data.phone
+						phoneNumber: this.adList.phone
 					});
 					break;
 				case 5:
@@ -142,28 +167,105 @@ export default {
 			this.$refs.popup.close();
 			uni.showTabBar();
 		},
-		shopDetailPage() {
-			uni.navigateTo({
-				url: '/pages/index/shopdetail'
+		newPage(url) {
+				uni.navigateTo({
+					url: `/pages/index/${url}`
+				});
+		},
+		indexAd() {
+			let timeStamp = Math.round(new Date().getTime() / 1000);
+			let obj = {
+				appid: appid,
+				timeStamp: timeStamp
+			};
+			let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+			let params = Object.assign(
+				{
+					sign: sign
+				},
+				obj
+			);
+			rs.getRequests('indexAd', params, res => {
+				let data = res.data;
+				if (data.code == 200) {
+					this.adList = data.data;
+				}
 			});
-		}
-	}
+		},
+		indexItem() {
+					let timeStamp = Math.round(new Date().getTime() / 1000);
+					let obj = {
+						appid: appid,
+						timeStamp: timeStamp
+					};
+					let { num, page } = this;
+
+					let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+					let params = Object.assign(
+						{
+							page: 1,
+							sign: sign,
+							page: page,
+							num: num
+						},
+						obj
+					);
+		
+					rs.getRequests('indexItem', params, res => {
+						let data = res.data;
+						if (data.code == 200) {
+							this.itemList=data.data;
+							console.log(data)
+							if (data.data.total <= 10) {
+								this.loading = false;
+							} else {
+								this.loading = true;
+							}
+						}
+					});
+				},
+	},
+	onShow() {
+		this.indexAd();
+		console.log(this.page)
+		if(this.page==1){this.indexItem();}
+	},
+	onReachBottom() {
+			//页面上拉触底事件的处理函数
+			var that = this;
+			var timeStamp = Math.round(new Date().getTime() / 1000);
+			let { num, page } = that;
+			var obj = {
+				appid: appid,
+				timeStamp: timeStamp
+			};
+	
+			var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+			var data = {
+				appid: appid,
+				num: num,
+				page: page + 1,
+				timeStamp: timeStamp,
+				sign: sign
+			};
+			rs.getRequests('indexItem', data, res => {
+				let { data } = res;
+				if ((data.code = 200)) {
+					if (data.data != '') {
+						this.itemList.push(...data.data.list);
+						this.page += 1;
+						this.loading = true;
+					} else {
+						this.loading = false;
+					}
+				}
+			});
+		},
 };
 </script>
 
 <style>
-.notice {
-	height: 60rpx;
-	line-height: 60rpx;
-}
-.notice swiper {
-	width: 100%;
-	height: 60rpx;
-}
-.notice image {
-	width: 32rpx;
-	height: 32rpx;
-}
+
 .nav {
 	display: flex;
 	flex-wrap: wrap;
@@ -181,13 +283,16 @@ export default {
 	margin-top: 10rpx;
 }
 .banner image {
+	width: 100%;
 	height: 100%;
 }
 .nav > view image {
 	width: 100rpx;
 	height: 100rpx;
 }
+.banner4 {margin:10rpx 20rpx 0;height:200rpx;}
 .banner4 image {
+	
 	width: 100%;
 	height: 200rpx;
 }
@@ -278,5 +383,12 @@ export default {
 }
 .support text {
 	color: rgb(157, 212, 127);
+}
+.home .uni-countdown__number {
+	height: 30rpx !important;
+
+	color: white !important;
+	border-radius: 4rpx;
+	width: 40rpx !important;
 }
 </style>

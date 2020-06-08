@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar",
+    "uni-countdown": "/components/uni-countdown/uni-countdown",
+    "my-loading": "/components/loading/index",
+    "my-backtop": "/components/backtop/index"
+  }
+}

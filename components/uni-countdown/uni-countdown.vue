@@ -154,12 +154,14 @@
 	$countdown-width: 52rpx;
 
 	.uni-countdown {
+		height: 42rpx;
+		line-height: 42rpx;
 		/* #ifndef APP-NVUE */
 		display: flex;
 		/* #endif */
 		flex-direction: row;
 		justify-content: flex-start;
-		padding: 2rpx 0;
+		// padding: 2rpx 0;
 	}
 
 	.uni-countdown__splitor {
@@ -167,8 +169,8 @@
 		display: flex;
 		/* #endif */
 		justify-content: center;
-		line-height: $countdown-height;
-		padding: 5rpx;
+		// line-height: $countdown-height;
+		// padding: 5rpx;
 		font-size: $uni-font-size-sm;
 	}
 

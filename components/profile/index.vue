@@ -41,6 +41,7 @@ export default {
 <style>
 .my_profile {
 	padding: 0 20rpx;
+	background: white;
 }
 
 .my_profile .photo {

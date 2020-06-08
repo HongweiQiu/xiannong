@@ -10,14 +10,22 @@
     {
       "root": "pages/index",
       "pages": [
-        "shopdetail"
+        "shopdetail",
+        "collect",
+        "recommed",
+        "newback",
+        "search",
+        "flashsale"
       ]
     },
     {
       "root": "pages/account",
       "pages": [
         "login",
-        "selectway"
+        "selectway",
+        "forget",
+        "register",
+        "service"
       ]
     },
     {

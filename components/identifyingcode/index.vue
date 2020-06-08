@@ -4,33 +4,35 @@
 
 <script>
 export default {
-	props:['showcode'],
 	data() {
 		return {
-			count:this.showcode,
+			count:'',
 			str:'获取验证码'
 		};
 	},
 	methods: {
-		getCode() {
-			this.$emit('getCode')
-			console.log(this.showcode)
-			if(!this.count){return}
-	this.count=false;
-	
-			let seconds=10;
+		sendCode(){
+			this.count=true;
+			if(this.str!='获取验证码'){
+				return;
+			}
+			let seconds=60;
 			let clear=setInterval(()=>{
 				seconds--;
 				this.str=seconds+'s';
 				if(seconds<=0){
 					clearInterval(clear);
 					this.str='获取验证码';
-					this.count=true;
+					this.count=false;
 				}
 			},1000)
-				
+		},
+		getCode() {
+			if(this.str!='获取验证码'){
+				return;
+			}
+			this.$emit('getCode')		
 		}
-		
 	}
 };
 </script>

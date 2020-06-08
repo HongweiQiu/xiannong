@@ -24,6 +24,8 @@
 			"path": "newback"
 		},{
 			"path": "search"
+		},{
+			"path": "flashsale"
 		}]
 	}, {
 		"root": "pages/account",
@@ -32,6 +34,15 @@
 			},
 			{
 				"path": "selectway"
+			},
+			{
+				"path": "forget"
+			},
+			{
+				"path": "register"
+			},
+			{
+				"path": "service"
 			}
 		]
 	}, {

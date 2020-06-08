@@ -14,14 +14,18 @@
         "collect",
         "recommed",
         "newback",
-        "search"
+        "search",
+        "flashsale"
       ]
     },
     {
       "root": "pages/account",
       "pages": [
         "login",
-        "selectway"
+        "selectway",
+        "forget",
+        "register",
+        "service"
       ]
     },
     {
@@ -107,5 +111,5 @@
     "enable": true
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap54.json"
+  "sitemapLocation": "sitemap30.json"
 }

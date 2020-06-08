@@ -50,6 +50,8 @@
 /* 透明度 */
 /* 文章场景相关 */
 .uni-countdown.data-v-98f41e46 {
+  height: 42rpx;
+  line-height: 42rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -60,7 +62,6 @@
   -webkit-box-pack: start;
   -webkit-justify-content: flex-start;
           justify-content: flex-start;
-  padding: 2rpx 0;
 }
 .uni-countdown__splitor.data-v-98f41e46 {
   display: -webkit-box;
@@ -69,8 +70,6 @@
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;
-  line-height: 48rpx;
-  padding: 5rpx;
   font-size: 24rpx;
 }
 .uni-countdown__number.data-v-98f41e46 {

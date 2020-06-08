@@ -1,17 +1,28 @@
 <script>
 export default {
-		//全局共享数据
-			globalData: {
-				// #ifdef APP-PLUS
-				navBar: true,
-				// #endif
-				// #ifdef MP-WEIXIN |H5
-				navBar: false,
-				// #endif
-			},
-	onLaunch: function() {
+	//全局共享数据
+	globalData: {
+		// #ifdef APP-PLUS
+		navBar: true,
+		// #endif
+		// #ifdef MP-WEIXIN |H5
+		navBar: false,
+		// #endif
+		appid: '1',
+		active: '2',
+		appsecret: 'StJfzJcXmya6k6Ar',
+		// #ifdef APP-PLUS |MP-WEIXIN
+		rootUrl: 'https://test.caidj.cn/mobileOrder/', //主接口地址
+		imgRemote: 'https://test.caidj.cn'
+		// #endif
+		// #ifdef H5
+		rootUrl: '/api', //主接口地址
+		imgRemote: 'http://test.caidj.cn'
+		// #endif
+		
 		
 	},
+	onLaunch: function() {},
 	onShow: function() {},
 	onHide: function() {}
 };
@@ -20,84 +31,84 @@ export default {
 <style>
 /*每个页面公共css */
 @font-face {
-  font-family: 'iconfont';  /* project id 1843139 */
-  src: url('//at.alicdn.com/t/font_1843139_2ho93wqi3dm.eot');
-  src: url('//at.alicdn.com/t/font_1843139_2ho93wqi3dm.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_1843139_2ho93wqi3dm.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_1843139_2ho93wqi3dm.woff') format('woff'),
-  url('//at.alicdn.com/t/font_1843139_2ho93wqi3dm.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_1843139_2ho93wqi3dm.svg#iconfont') format('svg');
+	font-family: 'iconfont'; /* project id 1843139 */
+	src: url('https://at.alicdn.com/t/font_1843139_y7rdmkbvvuq.eot');
+	src: url('https://at.alicdn.com/t/font_1843139_y7rdmkbvvuq.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_1843139_y7rdmkbvvuq.woff2') format('woff2'),
+		url('https://at.alicdn.com/t/font_1843139_y7rdmkbvvuq.woff') format('woff'), url('//at.alicdn.com/t/font_1843139_y7rdmkbvvuq.ttf') format('truetype'),
+		url('https://at.alicdn.com/t/font_1843139_y7rdmkbvvuq.svg#iconfont') format('svg');
 }
 
 .iconfont {
-  font-family: "iconfont" !important;
-  font-size: 16px;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	font-family: 'iconfont' !important;
+	font-size: 16px;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-huidaodingbu:before {
+	content: '\e6c0';
 }
 
 .icon-alreadystar:before {
-  content: "\e624";
+	content: '\e624';
 }
 
 .icon-xing:before {
-  content: "\e600";
+	content: '\e600';
 }
 
 .icon-tianchongxing--:before {
-  content: "\e614";
+	content: '\e614';
 }
 
 .icon-mima:before {
-  content: "\e645";
+	content: '\e645';
 }
 
 .icon-yuyin:before {
-  content: "\e631";
+	content: '\e631';
 }
 
 .icon-08_zizhanghaoguanli:before {
-  content: "\e630";
+	content: '\e630';
 }
 
 .icon-shanchu:before {
-  content: "\e663";
+	content: '\e663';
 }
 
 .icon-qianbao:before {
-  content: "\e604";
+	content: '\e604';
 }
 
 .icon-juan:before {
-  content: "\e64b";
+	content: '\e64b';
 }
 
 .icon-huabanfuben:before {
-  content: "\e65d";
+	content: '\e65d';
 }
 
 .icon-X:before {
-  content: "\e674";
+	content: '\e674';
 }
 
 .icon-weixin:before {
-  content: "\e637";
+	content: '\e637';
 }
 
 .icon-yonghu:before {
-  content: "\e603";
+	content: '\e603';
 }
 
 .icon-fapiao:before {
-  content: "\e720";
+	content: '\e720';
 }
 
 .icon-tuichu:before {
-  content: "\e69e";
+	content: '\e69e';
 }
-
-
 
 page {
 	background: #f8f6f9;
@@ -159,12 +170,19 @@ page {
 .weight {
 	font-weight: 700;
 }
-.uni-countdown__number {
+.home .uni-countdown__number {
 	height: 30rpx !important;
-	background: black !important;
+
 	color: white !important;
 	border-radius: 4rpx;
 	width: 40rpx !important;
+}
+.flash_sale .uni-countdown__number {
+	height: 30rpx !important;
+
+	color: white !important;
+	border-radius: 4rpx;
+	width: 26rpx !important;
 }
 .uni-nav-bar-right-text {
 	color: #009a44;
@@ -183,12 +201,16 @@ page {
 	text-align: center;
 	margin: 30rpx auto;
 }
-.twelve{font-size: 28rpx;}
-.ten {font-size:24rpx;}
-.fourteen{font-size: 32rpx;}
-.fiveteen{font-size: 50rpx;}
-uni-slider{width:100%;}
-slider{width:100%;}
-uni-slider .uni-slider-handle-wrapper{height:28px;}
-uni-slider .uni-slider-handle,uni-slider .uni-slider-thumb{border-radius: 0;}
+.twelve {
+	font-size: 28rpx;
+}
+.ten {
+	font-size: 24rpx;
+}
+.fourteen {
+	font-size: 32rpx;
+}
+.fiveteen {
+	font-size: 50rpx;
+}
 </style>
