@@ -65,7 +65,7 @@
 			</view>
 			<view class="body">
 				<my-recomend v-for="(item, index) in itemList" :key="index" 
-				:ware="item" :config="config" @showCart="openCart" class="recomend"></my-recomend>
+				:ware="item" :config="config" @showCart="openCart" class="myc_recomend"></my-recomend>
 				</view>
 			<my-loading :loading="loading"></my-loading>
 		</view>
@@ -349,26 +349,7 @@ export default {
 	width: 0;
 	display: none;
 }
-.recomend .title {
-	display: flex;
-	align-items: center;
-	height: 80rpx;
-	line-height: 80rpx;
-	background-image: linear-gradient(180deg, #fff, #f7f7f7);
-	padding: 0 20rpx;
-	margin-top: 10rpx;
-}
-.recomend .title .name {
-	margin: 0 12rpx;
-	font-size: 32rpx;
-	font-weight: 600;
-}
-.recomend .body {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	padding: 0 20rpx;
-}
+
 .nav,
 .limit_buy {
 	background: white;
@@ -397,7 +378,5 @@ export default {
 	width: 40rpx !important;
 }
 .home .my_loading{height:70rpx;}
-.body .recomend:nth-child(n+3){
-	margin-top:30rpx;
-}
+
 </style>
