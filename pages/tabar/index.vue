@@ -64,7 +64,8 @@
 				<text class="name">为你推荐</text>
 			</view>
 			<view class="body">
-				<my-recomend v-for="(item, index) in itemList.list" :key="index" @showCart="openCart"></my-recomend>
+				<my-recomend v-for="(item, index) in itemList" :key="index" 
+				:ware="item" :config="config" @showCart="openCart" class="recomend"></my-recomend>
 				</view>
 			<my-loading :loading="loading"></my-loading>
 		</view>
@@ -96,6 +97,7 @@ export default {
 			page:1,
 			num:10,
 			adList: {},
+			config:{},
 			itemList:{}
 		};
 	},
@@ -214,7 +216,8 @@ export default {
 					rs.getRequests('indexItem', params, res => {
 						let data = res.data;
 						if (data.code == 200) {
-							this.itemList=data.data;
+							this.itemList=data.data.list;
+							this.config=data.data;
 							console.log(data)
 							if (data.data.total <= 10) {
 								this.loading = false;
@@ -380,6 +383,8 @@ export default {
 .support {
 	text-align: center;
 	color: #808080;
+	margin-bottom: 20rpx;
+	font-size: 28rpx;
 }
 .support text {
 	color: rgb(157, 212, 127);
@@ -390,5 +395,9 @@ export default {
 	color: white !important;
 	border-radius: 4rpx;
 	width: 40rpx !important;
+}
+.home .my_loading{height:70rpx;}
+.body .recomend:nth-child(n+3){
+	margin-top:30rpx;
 }
 </style>

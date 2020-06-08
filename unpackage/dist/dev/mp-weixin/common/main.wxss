@@ -183,6 +183,40 @@ page {
 .uni-nav-bar-right-text {
 	color: #009a44;
 }
+.recomend .title {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	height: 80rpx;
+	line-height: 80rpx;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f7f7f7));
+	background-image: -webkit-linear-gradient(top, #fff, #f7f7f7);
+	background-image: linear-gradient(180deg, #fff, #f7f7f7);
+	padding: 0 20rpx;
+	margin-top: 10rpx;
+}
+.recomend .title .name {
+	margin: 0 12rpx;
+	font-size: 32rpx;
+	font-weight: 600;
+}
+.recomend .body {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	        flex-wrap: wrap;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	padding: 0 20rpx;
+}
+.body .myc_recomend:nth-child(n+3){
+	margin-top:30rpx;
+}
 .order .uni-icons {
 	color: #009a44 !important;
 }

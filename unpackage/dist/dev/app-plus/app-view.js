@@ -562,6 +562,7 @@ var render = function() {
             _vm._l(_vm._$g(43, "f"), function(item, index, $23, $33) {
               return _c("my-recomend", {
                 key: item,
+                staticClass: _vm._$g("43-" + $33, "sc"),
                 attrs: { _i: "43-" + $33 },
                 on: {
                   showCart: function($event) {
@@ -1703,63 +1704,143 @@ var render = function() {
         "v-uni-view",
         { attrs: { _i: 1 } },
         [
-          _c("v-uni-image", {
-            staticClass: _vm._$g(2, "sc"),
-            attrs: { src: _vm._$g(2, "a-src"), mode: "", _i: 2 }
-          })
+          _vm._$g(2, "i")
+            ? _c("v-uni-image", {
+                staticClass: _vm._$g(2, "sc"),
+                attrs: { src: _vm._$g(2, "a-src"), mode: "aspectFit", _i: 2 }
+              })
+            : _c("v-uni-image", {
+                staticClass: _vm._$g(3, "sc"),
+                attrs: { src: _vm._$g(3, "a-src"), mode: "aspectFit", _i: 3 }
+              }),
+          _c(
+            "v-uni-view",
+            { attrs: { _i: 4 } },
+            [
+              _c("v-uni-view", { attrs: { _i: 5 } }, [
+                _vm._v(_vm._$g(5, "t0-0"))
+              ]),
+              _vm._v(_vm._$g(4, "t1-0")),
+              _c(
+                "v-uni-view",
+                {
+                  staticClass: _vm._$g(6, "sc"),
+                  staticStyle: { width: "100%" },
+                  attrs: { _i: 6 }
+                },
+                [_vm._v(_vm._$g(6, "t0-0"))]
+              )
+            ],
+            1
+          )
         ],
         1
       ),
       _c(
         "v-uni-view",
-        { attrs: { _i: 3 } },
+        { attrs: { _i: 7 } },
         [
           _c(
             "v-uni-view",
-            { attrs: { _i: 4 } },
-            [
-              _c("v-uni-view", { attrs: { _i: 5 } }, [_vm._v("小白菜")]),
-              _c(
-                "v-uni-view",
-                { staticClass: _vm._$g(6, "sc"), attrs: { _i: 6 } },
-                [_vm._v("湿哒哒")]
-              )
-            ],
-            1
-          ),
-          _c(
-            "v-uni-view",
-            { staticClass: _vm._$g(7, "sc"), attrs: { _i: 7 } },
+            { staticClass: _vm._$g(8, "sc"), attrs: { _i: 8 } },
             [
               _c(
                 "v-uni-view",
-                { attrs: { _i: 8 } },
+                { attrs: { _i: 9 } },
                 [
                   _c(
                     "v-uni-view",
-                    { attrs: { _i: 9 } },
-                    [
-                      _c(
+                    { attrs: { _i: 10 } },
+                    _vm._l(_vm._$g(11, "f"), function(item, index, $20, $30) {
+                      return _c(
                         "v-uni-text",
-                        { staticClass: _vm._$g(10, "sc"), attrs: { _i: 10 } },
-                        [_vm._v("限时")]
+                        {
+                          key: item,
+                          staticClass: _vm._$g("11-" + $30, "sc"),
+                          attrs: { _i: "11-" + $30 }
+                        },
+                        [_vm._v(_vm._$g("11-" + $30, "t0-0"))]
                       )
-                    ],
+                    }),
                     1
                   ),
-                  _c(
-                    "v-uni-view",
-                    { staticClass: _vm._$g(11, "sc"), attrs: { _i: 11 } },
-                    [_vm._v("￥2.00/斤")]
-                  )
+                  _vm._$g(12, "i")
+                    ? [
+                        _vm._$g(13, "i")
+                          ? [
+                              _vm._$g(14, "i")
+                                ? [
+                                    _c(
+                                      "v-uni-view",
+                                      {
+                                        staticClass: _vm._$g(15, "sc"),
+                                        attrs: { _i: 15 }
+                                      },
+                                      [
+                                        _vm._v("￥" + _vm._$g(15, "t0-0")),
+                                        _c(
+                                          "v-uni-text",
+                                          {
+                                            staticClass: _vm._$g(16, "sc"),
+                                            attrs: { _i: 16 }
+                                          },
+                                          [_vm._v("(多规格)")]
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ]
+                                : [
+                                    _c(
+                                      "v-uni-view",
+                                      {
+                                        staticClass: _vm._$g(18, "sc"),
+                                        attrs: { _i: 18 }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "￥" +
+                                            _vm._$g(18, "t0-0") +
+                                            "/" +
+                                            _vm._$g(18, "t0-1")
+                                        )
+                                      ]
+                                    )
+                                  ]
+                            ]
+                          : [
+                              _c(
+                                "v-uni-view",
+                                {
+                                  staticClass: _vm._$g(20, "sc"),
+                                  attrs: { _i: 20 }
+                                },
+                                [_vm._v("￥***")]
+                              )
+                            ]
+                      ]
+                    : [
+                        _c(
+                          "v-uni-view",
+                          { staticClass: _vm._$g(22, "sc"), attrs: { _i: 22 } },
+                          [
+                            _vm._v(
+                              "￥" +
+                                _vm._$g(22, "t0-0") +
+                                "/" +
+                                _vm._$g(22, "t0-1")
+                            )
+                          ]
+                        )
+                      ]
                 ],
-                1
+                2
               ),
               _c(
                 "v-uni-view",
                 {
-                  staticClass: _vm._$g(12, "sc"),
-                  attrs: { _i: 12 },
+                  staticClass: _vm._$g(23, "sc"),
+                  attrs: { _i: 23 },
                   on: {
                     click: function($event) {
                       return _vm.$handleViewEvent($event)
@@ -1768,7 +1849,7 @@ var render = function() {
                 },
                 [
                   _c("v-uni-image", {
-                    attrs: { src: _vm._$g(13, "a-src"), mode: "", _i: 13 }
+                    attrs: { src: _vm._$g(24, "a-src"), mode: "", _i: 24 }
                   })
                 ],
                 1
@@ -1871,7 +1952,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../Download/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.recomend_single[data-v-7017c6c8]{-webkit-box-shadow: 1px 1px 6px #d3d3d3;box-shadow: 1px 1px 6px #d3d3d3;\n    background: #fff;\n \n    border-radius: 6px;\n    padding: 10rpx;\n\twidth: 320rpx;}\n.recomend_single[data-v-7017c6c8]:nth-child(n+3){\n\t\t   margin: 30rpx 0 0rpx;\n}\n.recomend_single .photo[data-v-7017c6c8]{width:100%;height: 200rpx;}\n.recomend_single .price[data-v-7017c6c8] {display: -webkit-box;display: -webkit-flex;display: flex;-webkit-box-align: center;-webkit-align-items: center;align-items: center;-webkit-box-pack: justify;-webkit-justify-content: space-between;justify-content: space-between;}\n", ""]);
+exports.push([module.i, "\n.recomend_single[data-v-7017c6c8]{-webkit-box-shadow: 1px 1px 6px #d3d3d3;box-shadow: 1px 1px 6px #d3d3d3;\n    background: #fff;\n\theight:350rpx;\ndisplay: -webkit-box;\ndisplay: -webkit-flex;\ndisplay: flex;-webkit-box-orient: vertical;-webkit-box-direction: normal;-webkit-flex-direction: column;flex-direction: column;-webkit-box-pack: justify;-webkit-justify-content: space-between;justify-content: space-between;\n    border-radius: 6px;\n    padding: 10rpx;\n\twidth: 320rpx;}\n.recomend_single .photo[data-v-7017c6c8]{width:100%;height: 200rpx;}\n.recomend_single .price[data-v-7017c6c8] {display: -webkit-box;display: -webkit-flex;display: flex;-webkit-box-align: center;-webkit-align-items: center;align-items: center;-webkit-box-pack: justify;-webkit-justify-content: space-between;justify-content: space-between;}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -3100,7 +3181,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../Download/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.nav {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-flex-wrap: wrap;\r\n\t        flex-wrap: wrap;\r\n\tpadding-bottom: 20rpx;\r\n\t-webkit-box-pack: justify;\r\n\t-webkit-justify-content: space-between;\r\n\t        justify-content: space-between;\n}\n.nav > uni-view {\r\n\tmargin-top: 20rpx;\r\n\twidth: 25%;\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-orient: vertical;\r\n\t-webkit-box-direction: normal;\r\n\t-webkit-flex-direction: column;\r\n\t        flex-direction: column;\r\n\t-webkit-box-align: center;\r\n\t-webkit-align-items: center;\r\n\t        align-items: center;\n}\n.nav > uni-view uni-text {\r\n\tmargin-top: 10rpx;\n}\n.banner uni-image {\r\n\twidth: 100%;\r\n\theight: 100%;\n}\n.nav > uni-view uni-image {\r\n\twidth: 100rpx;\r\n\theight: 100rpx;\n}\n.banner4 {margin:10rpx 20rpx 0;height:200rpx;}\n.banner4 uni-image {\r\n\t\r\n\twidth: 100%;\r\n\theight: 200rpx;\n}\n.home .limit_buy .head {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-align: center;\r\n\t-webkit-align-items: center;\r\n\t        align-items: center;\r\n\t-webkit-box-pack: justify;\r\n\t-webkit-justify-content: space-between;\r\n\t        justify-content: space-between;\n}\n.home .limit_buy .title {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-align: center;\r\n\t-webkit-align-items: center;\r\n\t        align-items: center;\r\n\talign-items: center;\r\n\theight: 80rpx;\r\n\tline-height: 80rpx;\n}\n.home .limit_buy .name {\r\n\tmargin: 0 12rpx;\r\n\tfont-size: 32rpx;\r\n\tfont-weight: 600;\n}\n.home .limit_buy .body .good_img {\r\n\twidth: 240rpx;\r\n\theight: 200rpx;\n}\n.home .limit_buy .body .price {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-pack: justify;\r\n\t-webkit-justify-content: space-between;\r\n\t        justify-content: space-between;\n}\n.home .limit_buy .whole {\r\n\toverflow-x: scroll;\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\n}\n.home .limit_buy .more {\r\n\tcolor: #009a44;\n}\n.home .limit_buy .head {\r\n\tpadding: 0 20rpx;\n}\n.home .limit_buy .whole {\r\n\tpadding: 0 0 20rpx 20rpx;\n}\n.home .limit_buy .icon-jiantou {\r\n\tfont-size: 20rpx;\r\n\theight: 32rpx;\r\n\tline-height: 32rpx;\n}\n.whole::-webkit-scrollbar {\r\n\twidth: 0;\r\n\tdisplay: none;\n}\n.recomend .title {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-align: center;\r\n\t-webkit-align-items: center;\r\n\t        align-items: center;\r\n\theight: 80rpx;\r\n\tline-height: 80rpx;\r\n\tbackground-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f7f7f7));\r\n\tbackground-image: -webkit-linear-gradient(top, #fff, #f7f7f7);\r\n\tbackground-image: linear-gradient(180deg, #fff, #f7f7f7);\r\n\tpadding: 0 20rpx;\r\n\tmargin-top: 10rpx;\n}\n.recomend .title .name {\r\n\tmargin: 0 12rpx;\r\n\tfont-size: 32rpx;\r\n\tfont-weight: 600;\n}\n.recomend .body {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-flex-wrap: wrap;\r\n\t        flex-wrap: wrap;\r\n\t-webkit-box-pack: justify;\r\n\t-webkit-justify-content: space-between;\r\n\t        justify-content: space-between;\r\n\tpadding: 0 20rpx;\n}\n.nav,\r\n.limit_buy {\r\n\tbackground: white;\r\n\t/* padding: 0 20rpx; */\r\n\tmargin-top: 10rpx;\n}\n.banner,\r\n.notice {\r\n\tbackground: white;\r\n\tpadding: 0 20rpx;\n}\n.support {\r\n\ttext-align: center;\r\n\tcolor: #808080;\n}\n.support uni-text {\r\n\tcolor: rgb(157, 212, 127);\n}\n.home .uni-countdown__number {\r\n\theight: 30rpx !important;\r\n\r\n\tcolor: white !important;\r\n\tborder-radius: 4rpx;\r\n\twidth: 40rpx !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.nav {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-flex-wrap: wrap;\r\n\t        flex-wrap: wrap;\r\n\tpadding-bottom: 20rpx;\r\n\t-webkit-box-pack: justify;\r\n\t-webkit-justify-content: space-between;\r\n\t        justify-content: space-between;\n}\n.nav > uni-view {\r\n\tmargin-top: 20rpx;\r\n\twidth: 25%;\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-orient: vertical;\r\n\t-webkit-box-direction: normal;\r\n\t-webkit-flex-direction: column;\r\n\t        flex-direction: column;\r\n\t-webkit-box-align: center;\r\n\t-webkit-align-items: center;\r\n\t        align-items: center;\n}\n.nav > uni-view uni-text {\r\n\tmargin-top: 10rpx;\n}\n.banner uni-image {\r\n\twidth: 100%;\r\n\theight: 100%;\n}\n.nav > uni-view uni-image {\r\n\twidth: 100rpx;\r\n\theight: 100rpx;\n}\n.banner4 {margin:10rpx 20rpx 0;height:200rpx;}\n.banner4 uni-image {\r\n\t\r\n\twidth: 100%;\r\n\theight: 200rpx;\n}\n.home .limit_buy .head {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-align: center;\r\n\t-webkit-align-items: center;\r\n\t        align-items: center;\r\n\t-webkit-box-pack: justify;\r\n\t-webkit-justify-content: space-between;\r\n\t        justify-content: space-between;\n}\n.home .limit_buy .title {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-align: center;\r\n\t-webkit-align-items: center;\r\n\t        align-items: center;\r\n\talign-items: center;\r\n\theight: 80rpx;\r\n\tline-height: 80rpx;\n}\n.home .limit_buy .name {\r\n\tmargin: 0 12rpx;\r\n\tfont-size: 32rpx;\r\n\tfont-weight: 600;\n}\n.home .limit_buy .body .good_img {\r\n\twidth: 240rpx;\r\n\theight: 200rpx;\n}\n.home .limit_buy .body .price {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-pack: justify;\r\n\t-webkit-justify-content: space-between;\r\n\t        justify-content: space-between;\n}\n.home .limit_buy .whole {\r\n\toverflow-x: scroll;\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\n}\n.home .limit_buy .more {\r\n\tcolor: #009a44;\n}\n.home .limit_buy .head {\r\n\tpadding: 0 20rpx;\n}\n.home .limit_buy .whole {\r\n\tpadding: 0 0 20rpx 20rpx;\n}\n.home .limit_buy .icon-jiantou {\r\n\tfont-size: 20rpx;\r\n\theight: 32rpx;\r\n\tline-height: 32rpx;\n}\n.whole::-webkit-scrollbar {\r\n\twidth: 0;\r\n\tdisplay: none;\n}\n.recomend .title {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-align: center;\r\n\t-webkit-align-items: center;\r\n\t        align-items: center;\r\n\theight: 80rpx;\r\n\tline-height: 80rpx;\r\n\tbackground-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f7f7f7));\r\n\tbackground-image: -webkit-linear-gradient(top, #fff, #f7f7f7);\r\n\tbackground-image: linear-gradient(180deg, #fff, #f7f7f7);\r\n\tpadding: 0 20rpx;\r\n\tmargin-top: 10rpx;\n}\n.recomend .title .name {\r\n\tmargin: 0 12rpx;\r\n\tfont-size: 32rpx;\r\n\tfont-weight: 600;\n}\n.recomend .body {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-flex-wrap: wrap;\r\n\t        flex-wrap: wrap;\r\n\t-webkit-box-pack: justify;\r\n\t-webkit-justify-content: space-between;\r\n\t        justify-content: space-between;\r\n\tpadding: 0 20rpx;\n}\n.nav,\r\n.limit_buy {\r\n\tbackground: white;\r\n\t/* padding: 0 20rpx; */\r\n\tmargin-top: 10rpx;\n}\n.banner,\r\n.notice {\r\n\tbackground: white;\r\n\tpadding: 0 20rpx;\n}\n.support {\r\n\ttext-align: center;\r\n\tcolor: #808080;\r\n\tmargin-bottom: 20rpx;\r\n\tfont-size: 28rpx;\n}\n.support uni-text {\r\n\tcolor: rgb(157, 212, 127);\n}\n.home .uni-countdown__number {\r\n\theight: 30rpx !important;\r\n\r\n\tcolor: white !important;\r\n\tborder-radius: 4rpx;\r\n\twidth: 40rpx !important;\n}\n.home .my_loading{height:70rpx;}\n.body .recomend:nth-child(n+3){\r\n\tmargin-top:30rpx;\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -18298,7 +18379,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../Download/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n/*每个页面公共css */\n@font-face {\r\n\tfont-family: 'iconfont'; /* project id 1843139 */\r\n\tsrc: url('https://at.alicdn.com/t/font_1843139_y7rdmkbvvuq.eot');\r\n\tsrc: url('https://at.alicdn.com/t/font_1843139_y7rdmkbvvuq.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_1843139_y7rdmkbvvuq.woff2') format('woff2'),\r\n\t\turl('https://at.alicdn.com/t/font_1843139_y7rdmkbvvuq.woff') format('woff'), url('//at.alicdn.com/t/font_1843139_y7rdmkbvvuq.ttf') format('truetype'),\r\n\t\turl('https://at.alicdn.com/t/font_1843139_y7rdmkbvvuq.svg#iconfont') format('svg');\n}\n.iconfont {\r\n\tfont-family: 'iconfont' !important;\r\n\tfont-size: 16px;\r\n\tfont-style: normal;\r\n\t-webkit-font-smoothing: antialiased;\r\n\t-moz-osx-font-smoothing: grayscale;\n}\n.icon-huidaodingbu:before {\r\n\tcontent: '\\e6c0';\n}\n.icon-alreadystar:before {\r\n\tcontent: '\\e624';\n}\n.icon-xing:before {\r\n\tcontent: '\\e600';\n}\n.icon-tianchongxing--:before {\r\n\tcontent: '\\e614';\n}\n.icon-mima:before {\r\n\tcontent: '\\e645';\n}\n.icon-yuyin:before {\r\n\tcontent: '\\e631';\n}\n.icon-08_zizhanghaoguanli:before {\r\n\tcontent: '\\e630';\n}\n.icon-shanchu:before {\r\n\tcontent: '\\e663';\n}\n.icon-qianbao:before {\r\n\tcontent: '\\e604';\n}\n.icon-juan:before {\r\n\tcontent: '\\e64b';\n}\n.icon-huabanfuben:before {\r\n\tcontent: '\\e65d';\n}\n.icon-X:before {\r\n\tcontent: '\\e674';\n}\n.icon-weixin:before {\r\n\tcontent: '\\e637';\n}\n.icon-yonghu:before {\r\n\tcontent: '\\e603';\n}\n.icon-fapiao:before {\r\n\tcontent: '\\e720';\n}\n.icon-tuichu:before {\r\n\tcontent: '\\e69e';\n}\nbody {\r\n\tbackground: #f8f6f9;\r\n\tfont-size: 28rpx;\n}\n.addcart uni-image {\r\n\twidth: 32rpx;\r\n\theight: 32rpx;\n}\n.status_bar {\r\n\t/* background: white; */\r\n\r\n\theight: var(--status-bar-height);\r\n\twidth: 100%;\n}\n.hidden {\r\n\toverflow: hidden;\r\n\ttext-overflow: ellipsis;\r\n\twhite-space: nowrap;\n}\n.red_tag {\r\n\tbackground: red;\r\n\tcolor: white;\r\n\tborder-radius: 6rpx;\r\n\tpadding: 0 1px;\r\n\tfont-size: 20rpx;\r\n\tmargin-right: 5rpx;\n}\n.red_font {\r\n\tcolor: red !important;\n}\n.gray_font {\r\n\tcolor: #808080;\n}\n.flex {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\n}\n.flex_left_right {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-align: center;\r\n\t-webkit-align-items: center;\r\n\t        align-items: center;\r\n\t-webkit-box-pack: justify;\r\n\t-webkit-justify-content: space-between;\r\n\t        justify-content: space-between;\n}\n.align_center {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-align: center;\r\n\t-webkit-align-items: center;\r\n\t        align-items: center;\n}\n.line_through {\r\n\tcolor: #808080;\r\n\ttext-decoration: line-through;\n}\n.uni-countdown {\r\n\t-webkit-box-align: center;\r\n\t-webkit-align-items: center;\r\n\t        align-items: center;\n}\n.line_border {\r\n\twidth: 4px;\r\n\theight: 40rpx;\r\n\tbackground: #009a44;\n}\n.weight {\r\n\tfont-weight: 700;\n}\n.home .uni-countdown__number {\r\n\theight: 30rpx !important;\r\n\r\n\tcolor: white !important;\r\n\tborder-radius: 4rpx;\r\n\twidth: 40rpx !important;\n}\n.flash_sale .uni-countdown__number {\r\n\theight: 30rpx !important;\r\n\r\n\tcolor: white !important;\r\n\tborder-radius: 4rpx;\r\n\twidth: 26rpx !important;\n}\n.uni-nav-bar-right-text {\r\n\tcolor: #009a44;\n}\n.order .uni-icons {\r\n\tcolor: #009a44 !important;\n}\n.place_style {\r\n\tfont-size: 24rpx;\r\n\tcolor: #c2c2c2;\n}\n.submit_button {\r\n\tbackground: #009a44;\r\n\tcolor: white;\r\n\tborder-radius: 12rpx;\r\n\ttext-align: center;\r\n\tmargin: 30rpx auto;\n}\n.twelve {\r\n\tfont-size: 28rpx;\n}\n.ten {\r\n\tfont-size: 24rpx;\n}\n.fourteen {\r\n\tfont-size: 32rpx;\n}\n.fiveteen {\r\n\tfont-size: 50rpx;\n}\r\n", ""]);
+exports.push([module.i, "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n/*每个页面公共css */\n@font-face {\r\n\tfont-family: 'iconfont'; /* project id 1843139 */\r\n\tsrc: url('https://at.alicdn.com/t/font_1843139_y7rdmkbvvuq.eot');\r\n\tsrc: url('https://at.alicdn.com/t/font_1843139_y7rdmkbvvuq.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_1843139_y7rdmkbvvuq.woff2') format('woff2'),\r\n\t\turl('https://at.alicdn.com/t/font_1843139_y7rdmkbvvuq.woff') format('woff'), url('//at.alicdn.com/t/font_1843139_y7rdmkbvvuq.ttf') format('truetype'),\r\n\t\turl('https://at.alicdn.com/t/font_1843139_y7rdmkbvvuq.svg#iconfont') format('svg');\n}\n.iconfont {\r\n\tfont-family: 'iconfont' !important;\r\n\tfont-size: 16px;\r\n\tfont-style: normal;\r\n\t-webkit-font-smoothing: antialiased;\r\n\t-moz-osx-font-smoothing: grayscale;\n}\n.icon-huidaodingbu:before {\r\n\tcontent: '\\e6c0';\n}\n.icon-alreadystar:before {\r\n\tcontent: '\\e624';\n}\n.icon-xing:before {\r\n\tcontent: '\\e600';\n}\n.icon-tianchongxing--:before {\r\n\tcontent: '\\e614';\n}\n.icon-mima:before {\r\n\tcontent: '\\e645';\n}\n.icon-yuyin:before {\r\n\tcontent: '\\e631';\n}\n.icon-08_zizhanghaoguanli:before {\r\n\tcontent: '\\e630';\n}\n.icon-shanchu:before {\r\n\tcontent: '\\e663';\n}\n.icon-qianbao:before {\r\n\tcontent: '\\e604';\n}\n.icon-juan:before {\r\n\tcontent: '\\e64b';\n}\n.icon-huabanfuben:before {\r\n\tcontent: '\\e65d';\n}\n.icon-X:before {\r\n\tcontent: '\\e674';\n}\n.icon-weixin:before {\r\n\tcontent: '\\e637';\n}\n.icon-yonghu:before {\r\n\tcontent: '\\e603';\n}\n.icon-fapiao:before {\r\n\tcontent: '\\e720';\n}\n.icon-tuichu:before {\r\n\tcontent: '\\e69e';\n}\nbody {\r\n\tbackground: #f8f6f9;\r\n\tfont-size: 28rpx;\n}\n.addcart uni-image {\r\n\twidth: 32rpx;\r\n\theight: 32rpx;\n}\n.status_bar {\r\n\t/* background: white; */\r\n\r\n\theight: var(--status-bar-height);\r\n\twidth: 100%;\n}\n.hidden {\r\n\toverflow: hidden;\r\n\ttext-overflow: ellipsis;\r\n\twhite-space: nowrap;\n}\n.red_tag {\r\n\tbackground: red;\r\n\tcolor: white;\r\n\tborder-radius: 6rpx;\r\n\tpadding: 0 1px;\r\n\tfont-size: 20rpx;\r\n\tmargin-right: 5rpx;\n}\n.red_font {\r\n\tcolor: red !important;\n}\n.gray_font {\r\n\tcolor: #808080;\n}\n.flex {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\n}\n.flex_left_right {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-align: center;\r\n\t-webkit-align-items: center;\r\n\t        align-items: center;\r\n\t-webkit-box-pack: justify;\r\n\t-webkit-justify-content: space-between;\r\n\t        justify-content: space-between;\n}\n.align_center {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-align: center;\r\n\t-webkit-align-items: center;\r\n\t        align-items: center;\n}\n.line_through {\r\n\tcolor: #808080;\r\n\ttext-decoration: line-through;\n}\n.uni-countdown {\r\n\t-webkit-box-align: center;\r\n\t-webkit-align-items: center;\r\n\t        align-items: center;\n}\n.line_border {\r\n\twidth: 4px;\r\n\theight: 40rpx;\r\n\tbackground: #009a44;\n}\n.weight {\r\n\tfont-weight: 700;\n}\n.home .uni-countdown__number {\r\n\theight: 30rpx !important;\r\n\r\n\tcolor: white !important;\r\n\tborder-radius: 4rpx;\r\n\twidth: 40rpx !important;\n}\n.flash_sale .uni-countdown__number {\r\n\theight: 30rpx !important;\r\n\r\n\tcolor: white !important;\r\n\tborder-radius: 4rpx;\r\n\twidth: 26rpx !important;\n}\n.uni-nav-bar-right-text {\r\n\tcolor: #009a44;\n}\n.recomend .title {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-align: center;\r\n\t-webkit-align-items: center;\r\n\t        align-items: center;\r\n\theight: 80rpx;\r\n\tline-height: 80rpx;\r\n\tbackground-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f7f7f7));\r\n\tbackground-image: -webkit-linear-gradient(top, #fff, #f7f7f7);\r\n\tbackground-image: linear-gradient(180deg, #fff, #f7f7f7);\r\n\tpadding: 0 20rpx;\r\n\tmargin-top: 10rpx;\n}\n.recomend .title .name {\r\n\tmargin: 0 12rpx;\r\n\tfont-size: 32rpx;\r\n\tfont-weight: 600;\n}\n.recomend .body {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-flex-wrap: wrap;\r\n\t        flex-wrap: wrap;\r\n\t-webkit-box-pack: justify;\r\n\t-webkit-justify-content: space-between;\r\n\t        justify-content: space-between;\r\n\tpadding: 0 20rpx;\n}\n.body .myc_recomend:nth-child(n+3){\r\n\tmargin-top:30rpx;\n}\n.order .uni-icons {\r\n\tcolor: #009a44 !important;\n}\n.place_style {\r\n\tfont-size: 24rpx;\r\n\tcolor: #c2c2c2;\n}\n.submit_button {\r\n\tbackground: #009a44;\r\n\tcolor: white;\r\n\tborder-radius: 12rpx;\r\n\ttext-align: center;\r\n\tmargin: 30rpx auto;\n}\n.twelve {\r\n\tfont-size: 28rpx;\n}\n.ten {\r\n\tfont-size: 24rpx;\n}\n.fourteen {\r\n\tfont-size: 32rpx;\n}\n.fiveteen {\r\n\tfont-size: 50rpx;\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 

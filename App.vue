@@ -187,6 +187,29 @@ page {
 .uni-nav-bar-right-text {
 	color: #009a44;
 }
+.recomend .title {
+	display: flex;
+	align-items: center;
+	height: 80rpx;
+	line-height: 80rpx;
+	background-image: linear-gradient(180deg, #fff, #f7f7f7);
+	padding: 0 20rpx;
+	margin-top: 10rpx;
+}
+.recomend .title .name {
+	margin: 0 12rpx;
+	font-size: 32rpx;
+	font-weight: 600;
+}
+.recomend .body {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: 0 20rpx;
+}
+.body .myc_recomend:nth-child(n+3){
+	margin-top:30rpx;
+}
 .order .uni-icons {
 	color: #009a44 !important;
 }

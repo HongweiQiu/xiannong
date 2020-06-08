@@ -149,6 +149,8 @@
 .support {
 	text-align: center;
 	color: #808080;
+	margin-bottom: 20rpx;
+	font-size: 28rpx;
 }
 .support text {
 	color: rgb(157, 212, 127);
@@ -159,5 +161,9 @@
 	color: white !important;
 	border-radius: 4rpx;
 	width: 40rpx !important;
+}
+.home .my_loading{height:70rpx;}
+.body .recomend:nth-child(n+3){
+	margin-top:30rpx;
 }
 

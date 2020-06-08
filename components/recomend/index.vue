@@ -2,19 +2,38 @@
 	
 	<view class="recomend_single">
 		<view>
-			<image class="photo" src="../../static/img/addcart.png" mode=""></image>
-		</view>
-		<view>
+			<image class="photo" :src="ware.img" mode="aspectFit" v-if="ware.img"></image>
+			
+			<image class="photo" :src="imgRemote+config.item_default" mode="aspectFit" v-else></image>
 			<view>
-				<view>小白菜</view>
-				<view class="gray_font">湿哒哒</view>
+				<view>{{ware.title}}</view>
+			{{token}}
+				<view class="gray_font hidden" style="width: 100%;">{{ware.describe}}</view>
 			</view>
+		</view>
+		<view >
+			
 			<view class="price">
 				<view>
 					<view>
-						<text class="red_tag">限时</text>
+						<text class="red_tag" v-for="(item,index) in ware.label" :key="index">{{item}}</text>
 					</view>
-					<view class="red_font">￥2.00/斤</view>
+					<block v-if="token">
+						<block v-if="config.is_look==1"><block v-if="ware.attr.length">
+							<view class="red_font">￥{{ware.area_price}}
+							<text class="gray_font">(多规格)</text></view>
+						</block>
+						<block v-else>
+							<view class="red_font">￥{{ware.price}}/{{ware.unit}}</view>
+						</block></block>
+						<block v-else>
+							<view class="red_font">￥***</view>
+						</block>
+					</block>
+					<block v-else>
+							<view class="red_font">￥{{ware.price}}/{{ware.unit}}</view>
+					</block>
+					
 				</view>
 				<view class="addcart" @click="showCart"><image src="../../static/img/addcart.png" mode=""></image></view>
 			</view>
@@ -23,7 +42,16 @@
 </template>
 
 <script>
+	const app = getApp().globalData;
+	const {imgRemote} = app;
 	export default{
+		props:['ware','config'],
+		data(){
+			return {
+				imgRemote:imgRemote,
+				token:uni.getStorageSync('cdj_token')
+			}
+		},
 		methods:{
 			showCart(){
 				this.$emit('showCart')
@@ -35,13 +63,11 @@
 <style>
 	.recomend_single{box-shadow: 1px 1px 6px #d3d3d3;
     background: #fff;
- 
+	height:350rpx;
+display: flex;flex-direction: column;justify-content: space-between;
     border-radius: 6px;
     padding: 10rpx;
 	width: 320rpx;}
-	.recomend_single:nth-child(n+3){
-		   margin: 30rpx 0 0rpx;
-	}
 	.recomend_single .photo{width:100%;height: 200rpx;}
 	.recomend_single .price {display: flex;align-items: center;justify-content: space-between;}
 </style>
