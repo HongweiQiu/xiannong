@@ -4,6 +4,7 @@
     "uni-icons": "/components/uni-icons/uni-icons",
     "my-s-tabs": "/components/s-tabs/index",
     "my-s-tab": "/components/s-tab/index",
-    "my-loading": "/components/loading/index"
+    "my-loading": "/components/loading/index",
+    "w-picker": "/components/w-picker/w-picker"
   }
 }

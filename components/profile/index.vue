@@ -4,7 +4,7 @@
 		<view class="info">
 			<view class="operate flex">
 				<view>
-					<view>小白菜</view>
+					<view>{{list.title}}</view>
 					<view>小白菜</view>
 				</view>
 				<view v-if="url=='collect'">
@@ -29,7 +29,7 @@
 
 <script>
 export default {
-	props:['url'],
+	props:['url','list','config'],
 	methods: {
 		keyBoard() {
 			this.$emit('showKey');

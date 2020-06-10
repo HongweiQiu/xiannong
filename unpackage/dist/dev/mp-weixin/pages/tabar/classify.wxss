@@ -3,7 +3,7 @@ page {
 	background: white;
 }
 .classify .second_name {
-	
+
 	height: 96rpx;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -16,15 +16,16 @@ page {
 	        justify-content: center;
 	background: #f7f7f7;
 	border-bottom: 1px solid;
-	border-color: hsla(0,0%,59.2%,.1);
+	border-color: hsla(0, 0%, 59.2%, .1);
 }
 .classify .first_name {
-	position: fixed;z-index: 5;
+	position: fixed;
+	z-index: 5;
 	/* padding-right: 20rpx; */
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
-	width:75%;
+	width: 75%;
 
 
 
@@ -32,7 +33,8 @@ page {
 	background: white;
 	-webkit-box-align: center;
 	-webkit-align-items: center;
-	        align-items: center;}
+	        align-items: center;
+}
 .classify .left_area {
 	width: 25%;
 	position: fixed;
@@ -54,7 +56,7 @@ page {
 	width: 75%;
 	margin-left: 25%;
 }
-.classify > .classify_good {
+.classify>.classify_good {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -76,8 +78,13 @@ page {
 .mp_tab_width {
 	width: 90%;
 }
-.classify .right_area .single_good:nth-last-child(n+3) .my_profile{border-bottom: 1px solid #eaeaea;
+.classify .right_area .single_good:nth-last-child(n+3) .my_profile {
+	border-bottom: 1px solid #eaeaea;
 }
-.classify .right_area .single_good {border-bottom: 1px solid #eaeaea; padding-right: 20rpx;}
+.classify .right_area .single_good {
+	border-bottom: 1px solid #eaeaea;
+	padding-right: 20rpx;
+}
+
 
 

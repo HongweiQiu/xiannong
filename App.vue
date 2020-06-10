@@ -8,6 +8,7 @@ export default {
 		// #ifdef MP-WEIXIN |H5
 		navBar: false,
 		// #endif
+		isTop:false,
 		appid: '1',
 		active: '2',
 		appsecret: 'StJfzJcXmya6k6Ar',
@@ -208,7 +209,7 @@ page {
 	padding: 0 20rpx;
 }
 .body .myc_recomend:nth-child(n+3){
-	margin-top:30rpx;
+	margin-top:40rpx;
 }
 .order .uni-icons {
 	color: #009a44 !important;
@@ -236,4 +237,5 @@ page {
 .fiveteen {
 	font-size: 50rpx;
 }
+.shuiyin{width: 60rpx;height:40rpx;position: absolute;z-index: 3;margin-top: -1%;}
 </style>

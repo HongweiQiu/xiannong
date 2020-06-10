@@ -22,14 +22,14 @@
 			</view>
 		</view>
 		<!-- banner4 -->
-		<view class="banner4"><image :src="adList.banner4" mode=""></image></view>
+		<view class="banner4" v-if="adList.banner4"><image :src="adList.banner4" mode=""></image></view>
 		<!-- 限时抢购 -->
-		<view class="limit_buy">
+		<view class="limit_buy" v-if="activeList">
 			<view class="head" @click="newPage('flashsale')">
 				<view class="title">
 					<view class="line_border"></view>
 					<text class="name">限时抢购</text>
-					<uni-countdown :hour="1" :minute="12" :second="40" :show-day="false" background-color="black"></uni-countdown>
+					<uni-countdown :hour="hours" :minute="minu" :second="second" :show-day="false" background-color="black"></uni-countdown>
 				</view>
 				<view class="align_center more">
 					更多
@@ -38,18 +38,24 @@
 			</view>
 
 			<view class="whole">
-				<view class="body" v-for="(item, index) in 6" :key="index">
-					<view><image class="good_img" src="../../static/img/gcaidj_pic4.png" mode=""></image></view>
+				<view class="body" v-for="(item, index) in activeList" :key="index" @click="newPage('shopdetail')">
+					<view><image class="good_img" :src="item.img==''?imgRemote+activeConf.item_default:item.img" mode="aspectFit"></image></view>
 					<view>
 						<view>
-							<view>西红柿</view>
-							<view><text class="red_tag">限时</text></view>
+							<view>{{item.item_title}}</view>
+							<view><text class="red_tag" v-for="(label,index) in item.label">{{label}}</text></view>
 						</view>
 						<view class="price">
-							<view>
-								<view class="red_font">¥18.98-1...</view>
-								<view class="line_through">¥18.98-1...</view>
-							</view>
+							<block v-if="token">
+								<view  style="width:66%;">
+									<view class="red_font hidden">¥{{item.activity_price}}/{{item.unit}}</view>
+									<view class="line_through hidden">¥{{item.price}}</view>
+								</view>
+							</block>
+							<block v-else>
+								<view class="red_font">￥{{item.price+'/'+item.unit}}</view>
+							</block>
+							
 							<view class="addcart"><image src="../../static/img/addcart.png"></image></view>
 						</view>
 					</view>
@@ -57,15 +63,14 @@
 			</view>
 		</view>
 		<!-- 为你推荐 -->
-
-		<view class="recomend" @click="newPage('detail')">
+		<view class="recomend" >
 			<view class="title">
 				<view class="line_border"></view>
 				<text class="name">为你推荐</text>
 			</view>
 			<view class="body">
 				<my-recomend v-for="(item, index) in itemList" :key="index" 
-				:ware="item" :config="config" @showCart="openCart" class="myc_recomend"></my-recomend>
+				:ware="item" :config="config" @showCart="openCart(item)" class="myc_recomend"></my-recomend>
 				</view>
 			<my-loading :loading="loading"></my-loading>
 		</view>
@@ -75,7 +80,7 @@
 			提供技术支持
 		</view>
 
-		<uni-popup ref="popup" type="bottom"><my-addcart @onClose="onClose"></my-addcart></uni-popup>
+		<uni-popup ref="popup" type="bottom"><my-addcart @onClose="onClose" :cartware="cartware" :config="config"></my-addcart></uni-popup>
 	</view>
 </template>
 
@@ -90,13 +95,20 @@ export default {
 	components: { uniNoticeBar },
 	data() {
 		return {
+			token:uni.getStorageSync('cdj_token'),
 			load: true,
 			imgRemote:imgRemote,
 			speed:30,
 			loading:'',
 			page:1,
 			num:10,
+			hours:'',
+			minu:0,
+			second:0,
 			adList: {},
+			activeList:{},
+			activeConf:{},
+			cartware:{},
 			config:{},
 			itemList:{}
 		};
@@ -161,9 +173,10 @@ export default {
 					break;
 			}
 		},
-		openCart() {
+		openCart(item) {
 			uni.hideTabBar();
 			this.$refs.popup.open();
+			this.cartware=item;
 		},
 		onClose() {
 			this.$refs.popup.close();
@@ -218,7 +231,6 @@ export default {
 						if (data.code == 200) {
 							this.itemList=data.data.list;
 							this.config=data.data;
-							console.log(data)
 							if (data.data.total <= 10) {
 								this.loading = false;
 							} else {
@@ -227,11 +239,36 @@ export default {
 						}
 					});
 				},
+				//限时抢购
+						limitList() {
+							let timeStamp = Math.round(new Date().getTime() / 1000);
+							let obj = {
+								appid: appid,
+								timeStamp: timeStamp
+							};
+							let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+							let params = Object.assign(
+								{
+									sign: sign
+								},
+								obj
+							);
+							rs.getRequests('panicBuyIndex', params, res => {
+								let data = res.data;
+								if (data.code == 200) {
+									let { itemList, timeRemain } = data.data;
+									this.hours = Math.abs(timeRemain) / 3600;
+									this.activeConf = data.data;
+									this.activeList = itemList;
+								}
+							});
+						},
+	
 	},
 	onShow() {
 		this.indexAd();
-		console.log(this.page)
 		if(this.page==1){this.indexItem();}
+		this.limitList();
 	},
 	onReachBottom() {
 			//页面上拉触底事件的处理函数
@@ -378,5 +415,5 @@ export default {
 	width: 40rpx !important;
 }
 .home .my_loading{height:70rpx;}
-
+.home .limit_buy .whole .body{margin-right:20rpx;width:33%;}
 </style>

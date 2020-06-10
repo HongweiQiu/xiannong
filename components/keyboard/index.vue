@@ -46,8 +46,7 @@ export default {
 		},
 		cancel() {
 			this.val = '';
-			this.$emit('keyBoard');
-			uni.showTabBar();
+			this.$emit('cancelKey');
 		},
 		changeNum(data) {
 			let str = String(data);

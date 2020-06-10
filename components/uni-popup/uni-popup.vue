@@ -73,6 +73,7 @@
 			 * @param {Object} val
 			 */
 			maskClick(val) {
+				
 				this.mkclick = val
 			}
 		},
@@ -154,6 +155,7 @@
 				})
 			},
 			onTap() {
+			uni.showTabBar();
 				if (!this.mkclick) return
 				this.close()
 			},

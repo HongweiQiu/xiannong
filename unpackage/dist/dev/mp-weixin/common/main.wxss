@@ -29,6 +29,7 @@
 
 
 
+
 /*每个页面公共css */
 @font-face {
 	font-family: 'iconfont'; /* project id 1843139 */
@@ -215,7 +216,7 @@ page {
 	padding: 0 20rpx;
 }
 .body .myc_recomend:nth-child(n+3){
-	margin-top:30rpx;
+	margin-top:40rpx;
 }
 .order .uni-icons {
 	color: #009a44 !important;
@@ -243,4 +244,5 @@ page {
 .fiveteen {
 	font-size: 50rpx;
 }
+.shuiyin{width: 60rpx;height:40rpx;position: absolute;z-index: 3;margin-top: -1%;}
 

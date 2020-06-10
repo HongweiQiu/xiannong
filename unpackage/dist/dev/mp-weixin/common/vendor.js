@@ -757,7 +757,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -7221,7 +7221,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7242,14 +7242,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7325,7 +7325,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -7720,9 +7720,9 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 21:
-/*!**********************************************!*\
-  !*** E:/Desktop/enterprise/static/js/md5.js ***!
-  \**********************************************/
+/*!**********************************!*\
+  !*** E:/uniapp/static/js/md5.js ***!
+  \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -7946,9 +7946,9 @@ module.exports = {
 /***/ }),
 
 /***/ 22:
-/*!**************************************************!*\
-  !*** E:/Desktop/enterprise/static/js/request.js ***!
-  \**************************************************/
+/*!**************************************!*\
+  !*** E:/uniapp/static/js/request.js ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8004,7 +8004,7 @@ function getRequest(url, datas, _success) {
           }
           if (res.data.code == 401) {
             uni.navigateTo({
-              url: '/pages/account/login.vue' });
+              url: '/pages/account/login' });
 
           }
 
@@ -8046,12 +8046,12 @@ function getRequests(url, datas, _success2) {
 
       if (res.data.code == 401) {
         uni.navigateTo({
-          url: '/pages/account/login.vue' });
+          url: '/pages/account/login' });
 
       }
       if (res.data.code == 408) {
         uni.navigateTo({
-          url: '/pages/account/service.vue' });
+          url: '/pages/account/service' });
 
       }
     },
@@ -8105,7 +8105,7 @@ function postRequest(url, datas, _success3) {
           }
           if (res.data.code == 401) {
             uni.navigateTo({
-              url: '/pages/account/login.vue' });
+              url: '/pages//account/login' });
 
           }
           if (res.data.code == 403) {
@@ -8115,7 +8115,7 @@ function postRequest(url, datas, _success3) {
               duration: 2000,
               success: function success() {
                 uni.navigateTo({
-                  url: '/pages/account/login.vue' });
+                  url: '/pages/account/login' });
 
               } });
 
@@ -8162,7 +8162,7 @@ function postRequests(url, datas, _success4) {
       }
       if (res.data.code == 401) {
         uni.navigateTo({
-          url: '/pages/account/login.vue' });
+          url: '/pages/account/login' });
 
       }
     },
@@ -8237,9 +8237,9 @@ module.exports = g;
 /***/ }),
 
 /***/ 313:
-/*!***********************************************************!*\
-  !*** E:/Desktop/enterprise/components/uni-popup/popup.js ***!
-  \***********************************************************/
+/*!***********************************************!*\
+  !*** E:/uniapp/components/uni-popup/popup.js ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8272,9 +8272,9 @@ var config = {
 /***/ }),
 
 /***/ 314:
-/*!*************************************************************!*\
-  !*** E:/Desktop/enterprise/components/uni-popup/message.js ***!
-  \*************************************************************/
+/*!*************************************************!*\
+  !*** E:/uniapp/components/uni-popup/message.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8309,10 +8309,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 343:
-/*!***********************************************************!*\
-  !*** E:/Desktop/enterprise/components/uni-icons/icons.js ***!
-  \***********************************************************/
+/***/ 350:
+/*!***********************************************!*\
+  !*** E:/uniapp/components/uni-icons/icons.js ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8416,9 +8416,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ }),
 
 /***/ 4:
-/*!****************************************!*\
-  !*** E:/Desktop/enterprise/pages.json ***!
-  \****************************************/
+/*!****************************!*\
+  !*** E:/uniapp/pages.json ***!
+  \****************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -8426,15 +8426,15 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 414:
-/*!*************************************************************!*\
-  !*** E:/Desktop/enterprise/components/uni-calendar/util.js ***!
-  \*************************************************************/
+/***/ 421:
+/*!*************************************************!*\
+  !*** E:/uniapp/components/uni-calendar/util.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 415));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 422));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
 
 Calendar = /*#__PURE__*/function () {
   function Calendar()
@@ -8789,10 +8789,10 @@ Calendar;exports.default = _default;
 
 /***/ }),
 
-/***/ 415:
-/*!*****************************************************************!*\
-  !*** E:/Desktop/enterprise/components/uni-calendar/calendar.js ***!
-  \*****************************************************************/
+/***/ 422:
+/*!*****************************************************!*\
+  !*** E:/uniapp/components/uni-calendar/calendar.js ***!
+  \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10245,9 +10245,9 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ }),
 
 /***/ 7:
-/*!*********************************************************!*\
-  !*** E:/Desktop/enterprise/pages.json?{"type":"style"} ***!
-  \*********************************************************/
+/*!*********************************************!*\
+  !*** E:/uniapp/pages.json?{"type":"style"} ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10257,9 +10257,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ }),
 
 /***/ 8:
-/*!********************************************************!*\
-  !*** E:/Desktop/enterprise/pages.json?{"type":"stat"} ***!
-  \********************************************************/
+/*!********************************************!*\
+  !*** E:/uniapp/pages.json?{"type":"stat"} ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

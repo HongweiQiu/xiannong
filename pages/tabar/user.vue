@@ -46,13 +46,18 @@
 				<view><uni-icons type="arrowright" size="18" color="black"></uni-icons></view>
 			</view>
 		</view>
+		<uni-popup ref="popup" type="dialog">
+    <uni-popup-dialog type="input" title="确定要退出账号吗？" :duration="2000" :before-close="true" @close="close" @confirm="confirm"></uni-popup-dialog>
+</uni-popup>
 	</view>
 </template>
 
 <script>
+import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue'
 import uniIcons from '../../components/uni-icons/uni-icons.vue';
 export default {
-	components: { uniIcons },
+	components: { uniIcons , 
+        uniPopupDialog},
 	data() {
 		return {
 			token: '',
@@ -100,6 +105,15 @@ export default {
 			}
 		},
 		exit() {
+			this.$refs.popup.open();
+uni.hideTabBar()
+		},
+		close(){
+			uni.showTabBar();
+			this.$refs.popup.close();
+		},
+		confirm(){
+				uni.showTabBar();
 			uni.reLaunch({
 				url: '/pages/account/login'
 			});

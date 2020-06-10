@@ -10,6 +10,6 @@
 
 <style>
 	.service {background: url(../../static/img/background.jpg);width:100vw;height:100vh;text-align: center;}
-	.service image{width:50%;}
+	.service image{width:50%;height: 20%;margin-top: 40%;}
 	.service .contact{color:white;font-size: 40rpx;}
 </style>

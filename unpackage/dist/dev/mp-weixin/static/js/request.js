@@ -50,7 +50,7 @@ function getRequest(url, datas, success) {
           }
           if (res.data.code == 401) {
 				uni.navigateTo({
-				    url: '/pages/account/login.vue'
+				    url: '/pages/account/login'
 				});
           }
   
@@ -92,13 +92,13 @@ function getRequests(url, datas, success) {
 
       if (res.data.code == 401) {
         uni.navigateTo({
-            url: '/pages/account/login.vue'
+            url: '/pages/account/login'
         });
       }
 	  if (res.data.code == 408) {
-	    uni.navigateTo({
-	        url: '/pages/account/service.vue'
-	    });
+	  uni.navigateTo({
+	  	url:'/pages/account/service'
+	  })
 	  }
     },
     fail: res => {
@@ -151,7 +151,7 @@ function postRequest(url, datas, success) {
           }
           if (res.data.code == 401) {
             uni.navigateTo({
-                url: '/pages/account/login.vue'
+                url: '/pages//account/login'
             });
           }
           if (res.data.code == 403) {
@@ -161,7 +161,7 @@ function postRequest(url, datas, success) {
               duration: 2000,
               success: function() {
                 uni.navigateTo({
-                    url: '/pages/account/login.vue'
+                    url: '/pages/account/login'
                 });
               }
             })
@@ -208,7 +208,7 @@ function postRequests(url, datas, success) {
       }
       if (res.data.code == 401) {
         uni.navigateTo({
-            url: '/pages/account/login.vue'
+            url: '/pages/account/login'
         });
       }
     },

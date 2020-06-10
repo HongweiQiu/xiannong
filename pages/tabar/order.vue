@@ -4,7 +4,7 @@
 			<uni-nav-bar right-icon="more-filled" right-text="菜单" :title="orderTitle" :status-bar="navBar" fixed="true" @clickRight="rightClick"></uni-nav-bar>
 			<view class="account_info">
 				<!-- 选择账号 -->
-				<view class="select_account">
+				<view class="select_account" @click="selectAccount">
 					<view>选择子账号:</view>
 					<view>
 						<text>当前账号</text>
@@ -63,12 +63,18 @@
 
 			<view class="bitmap"></view>
 		</view>
-		
+		<w-picker mode="selector" default-type="title" :default-props="childListProps" :options="childList" @confirm="onConfirmAccount($event, 'selector')" ref="account">
+			子账号
+		</w-picker>
 	</view>
 </template>
 
 <script>
+import wPicker from '@/components/w-picker/w-picker.vue';
 export default {
+	components: {
+		wPicker
+	},
 	data() {
 		return {
 			orderTitle: '全部订单',
@@ -85,9 +91,11 @@ export default {
 		};
 	},
 	methods: {
+		selectAccount() {
+			this.$refs.account.show();
+		},
 		changeFirst() {},
 		rightClick(){
-		
 			this.showOrderType=true;
 		},
 		orderDetailPage(){

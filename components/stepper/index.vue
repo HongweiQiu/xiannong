@@ -1,31 +1,32 @@
 <template>
 	<view class="my_stepper addcart">
 		<image src="../../static/img/jian.png" mode="" @click="minus"></image>
-		<input type="text" v-model="val" disabled="true" @click="showKey"/>
+		<input type="text" v-model="value" disabled="true" @click="showkey"/>
 		<image src="../../static/img/plus.png" mode="" @click="plus"></image>
 	</view>
 </template>
 
 <script>
 export default {
+	props:['val'],
 	data() {
 		return {
-			val: 1
+			 value: this.val
 		};
 	},
 	methods: {
 		minus() {
-			this.val -= 1;
-			if (this.val <=0) {
-				this.val = 0;
-				
+			this.value --;
+			if (this.value <=0) {
+				this.value = 0;
 			}
+			this.$emit('minus',this.val)
 		},
 		plus(){
-			let num=Number(this.val)
-			this.val=num+1;
+			let num=Number(this.value)
+			this.value++;
 		},
-		showKey(){
+		showkey(){
 			this.$emit('showKey')
 		}
 	}
