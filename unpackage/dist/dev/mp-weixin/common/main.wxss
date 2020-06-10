@@ -193,7 +193,6 @@ page {
 	        align-items: center;
 	height: 80rpx;
 	line-height: 80rpx;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f7f7f7));
 	background-image: -webkit-linear-gradient(top, #fff, #f7f7f7);
 	background-image: linear-gradient(180deg, #fff, #f7f7f7);
 	padding: 0 20rpx;

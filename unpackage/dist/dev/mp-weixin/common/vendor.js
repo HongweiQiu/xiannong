@@ -720,10 +720,10 @@ function initVueComponent(Vue, vueOptions) {
   var VueComponent;
   if (isFn(vueOptions)) {
     VueComponent = vueOptions;
-    vueOptions = VueComponent.extendOptions;
   } else {
     VueComponent = Vue.extend(vueOptions);
   }
+  vueOptions = VueComponent.options;
   return [VueComponent, vueOptions];
 }
 
@@ -757,7 +757,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -1409,6 +1409,10 @@ function parseBaseComponent(vueComponentOptions)
       __e: handleEvent } };
 
 
+  // externalClasses
+  if (vueOptions.externalClasses) {
+    componentOptions.externalClasses = vueOptions.externalClasses;
+  }
 
   if (Array.isArray(vueOptions.wxsCallMethods)) {
     vueOptions.wxsCallMethods.forEach(function (callMethod) {
@@ -7221,7 +7225,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7242,14 +7246,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7325,7 +7329,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -7720,9 +7724,9 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 21:
-/*!**********************************!*\
-  !*** E:/uniapp/static/js/md5.js ***!
-  \**********************************/
+/*!********************************************************!*\
+  !*** C:/Users/123/Desktop/uni/uniapp/static/js/md5.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -7946,9 +7950,9 @@ module.exports = {
 /***/ }),
 
 /***/ 22:
-/*!**************************************!*\
-  !*** E:/uniapp/static/js/request.js ***!
-  \**************************************/
+/*!************************************************************!*\
+  !*** C:/Users/123/Desktop/uni/uniapp/static/js/request.js ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8237,9 +8241,9 @@ module.exports = g;
 /***/ }),
 
 /***/ 313:
-/*!***********************************************!*\
-  !*** E:/uniapp/components/uni-popup/popup.js ***!
-  \***********************************************/
+/*!*********************************************************************!*\
+  !*** C:/Users/123/Desktop/uni/uniapp/components/uni-popup/popup.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8272,9 +8276,9 @@ var config = {
 /***/ }),
 
 /***/ 314:
-/*!*************************************************!*\
-  !*** E:/uniapp/components/uni-popup/message.js ***!
-  \*************************************************/
+/*!***********************************************************************!*\
+  !*** C:/Users/123/Desktop/uni/uniapp/components/uni-popup/message.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8309,10 +8313,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 350:
-/*!***********************************************!*\
-  !*** E:/uniapp/components/uni-icons/icons.js ***!
-  \***********************************************/
+/***/ 343:
+/*!*********************************************************************!*\
+  !*** C:/Users/123/Desktop/uni/uniapp/components/uni-icons/icons.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8416,9 +8420,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ }),
 
 /***/ 4:
-/*!****************************!*\
-  !*** E:/uniapp/pages.json ***!
-  \****************************/
+/*!**************************************************!*\
+  !*** C:/Users/123/Desktop/uni/uniapp/pages.json ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -8427,9 +8431,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ }),
 
 /***/ 421:
-/*!*************************************************!*\
-  !*** E:/uniapp/components/uni-calendar/util.js ***!
-  \*************************************************/
+/*!***********************************************************************!*\
+  !*** C:/Users/123/Desktop/uni/uniapp/components/uni-calendar/util.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8790,9 +8794,9 @@ Calendar;exports.default = _default;
 /***/ }),
 
 /***/ 422:
-/*!*****************************************************!*\
-  !*** E:/uniapp/components/uni-calendar/calendar.js ***!
-  \*****************************************************/
+/*!***************************************************************************!*\
+  !*** C:/Users/123/Desktop/uni/uniapp/components/uni-calendar/calendar.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9362,7 +9366,9 @@ var STAT_H5_URL = 'https://tongji.dcloud.io/uni/stat.gif';
 var PAGE_PVER_TIME = 1800;
 var APP_PVER_TIME = 300;
 var OPERATING_TIME = 10;
+var DIFF_TIME = 60 * 1000 * 60 * 24;
 
+var statConfig = __webpack_require__(/*! uni-stat-config */ 7).default || __webpack_require__(/*! uni-stat-config */ 7);
 var UUID_KEY = '__DC_STAT_UUID';
 var UUID_VALUE = '__DC_UUID_VALUE';
 
@@ -9653,8 +9659,99 @@ var calibration = function calibration(eventName, options) {
   }
 };
 
-var PagesJson = __webpack_require__(/*! uni-pages?{"type":"style"} */ 7).default;
-var statConfig = __webpack_require__(/*! uni-stat-config */ 8).default || __webpack_require__(/*! uni-stat-config */ 8);
+var Report_Data_Time = 'Report_Data_Time';
+var Report_Status = 'Report_Status';
+var isReportData = function isReportData() {
+  return new Promise(function (resolve, reject) {
+    var start_time = '';
+    var end_time = new Date().getTime();
+    var diff_time = DIFF_TIME;
+    var report_status = 1;
+    try {
+      start_time = uni.getStorageSync(Report_Data_Time);
+      report_status = uni.getStorageSync(Report_Status);
+    } catch (e) {
+      start_time = '';
+      report_status = 1;
+    }
+
+    if (report_status === '') {
+      requestData(function (_ref)
+
+      {var enable = _ref.enable;
+        uni.setStorageSync(Report_Data_Time, end_time);
+        uni.setStorageSync(Report_Status, enable);
+        if (enable === 1) {
+          resolve();
+        }
+      });
+      return;
+    }
+
+    if (report_status === 1) {
+      resolve();
+    }
+
+    if (!start_time) {
+      uni.setStorageSync(Report_Data_Time, end_time);
+      start_time = end_time;
+    }
+
+    if (end_time - start_time > diff_time) {
+      requestData(function (_ref2)
+
+      {var enable = _ref2.enable;
+        uni.setStorageSync(Report_Data_Time, end_time);
+        uni.setStorageSync(Report_Status, enable);
+      });
+    }
+
+  });
+};
+
+var requestData = function requestData(done) {
+  var formData = {
+    usv: STAT_VERSION,
+    conf: JSON.stringify({
+      ak: statConfig.appid }) };
+
+
+  uni.request({
+    url: STAT_URL,
+    method: 'GET',
+    data: formData,
+    success: function success(res) {var
+
+      data =
+      res.data;
+      if (data.ret === 0) {
+        typeof done === 'function' && done({
+          enable: data.enable });
+
+      }
+    },
+    fail: function fail(e) {
+      var report_status_code = 1;
+      try {
+        report_status_code = uni.getStorageSync(Report_Status);
+      } catch (e) {
+        report_status_code = 1;
+      }
+      if (report_status_code === '') {
+        report_status_code = 1;
+      }
+      if (report_status_code === 1) {
+        typeof done === 'function' && done({
+          enable: res.enable });
+
+      }
+      // console.error('统计请求错误');
+    } });
+
+};
+
+var PagesJson = __webpack_require__(/*! uni-pages?{"type":"style"} */ 8).default;
+var statConfig$1 = __webpack_require__(/*! uni-stat-config */ 7).default || __webpack_require__(/*! uni-stat-config */ 7);
 
 var resultOptions = uni.getSystemInfoSync();var
 
@@ -9684,7 +9781,7 @@ Util = /*#__PURE__*/function () {
       uuid: getUuid(),
       ut: getPlatformName(),
       mpn: getPackName(),
-      ak: statConfig.appid,
+      ak: statConfig$1.appid,
       usv: STAT_VERSION,
       v: getVersion(),
       ch: getChannel(),
@@ -9707,7 +9804,11 @@ Util = /*#__PURE__*/function () {
       sh: resultOptions.screenHeight };
 
 
-  }_createClass(Util, [{ key: "_applicationShow", value: function _applicationShow()
+  }_createClass(Util, [{ key: "getIsReportData", value: function getIsReportData()
+
+    {
+      return isReportData();
+    } }, { key: "_applicationShow", value: function _applicationShow()
 
     {
       if (this.__licationHide) {
@@ -9868,7 +9969,7 @@ Util = /*#__PURE__*/function () {
 
 
 
-    {var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},_ref$key = _ref.key,key = _ref$key === void 0 ? '' : _ref$key,_ref$value = _ref.value,value = _ref$value === void 0 ? "" : _ref$value;
+    {var _ref3 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},_ref3$key = _ref3.key,key = _ref3$key === void 0 ? '' : _ref3$key,_ref3$value = _ref3.value,value = _ref3$value === void 0 ? "" : _ref3$value;
       var route = this._lastPageRoute;
       var options = {
         ak: this.statData.ak,
@@ -9903,7 +10004,7 @@ Util = /*#__PURE__*/function () {
     } }, { key: "getLocation", value: function getLocation()
 
     {var _this3 = this;
-      if (statConfig.getLocation) {
+      if (statConfig$1.getLocation) {
         uni.getLocation({
           type: 'wgs84',
           geocode: true,
@@ -9998,34 +10099,38 @@ Util = /*#__PURE__*/function () {
       this._sendRequest(optionsData);
     } }, { key: "_sendRequest", value: function _sendRequest(
     optionsData) {var _this5 = this;
-      uni.request({
-        url: STAT_URL,
-        method: 'POST',
-        // header: {
-        //   'content-type': 'application/json' // 默认值
-        // },
-        data: optionsData,
-        success: function success() {
-          // if (process.env.NODE_ENV === 'development') {
-          //   console.log('stat request success');
-          // }
-        },
-        fail: function fail(e) {
-          if (++_this5._retry < 3) {
-            setTimeout(function () {
-              _this5._sendRequest(optionsData);
-            }, 1000);
-          }
-        } });
+      this.getIsReportData().then(function () {
+        uni.request({
+          url: STAT_URL,
+          method: 'POST',
+          // header: {
+          //   'content-type': 'application/json' // 默认值
+          // },
+          data: optionsData,
+          success: function success() {
+            // if (process.env.NODE_ENV === 'development') {
+            //   console.log('stat request success');
+            // }
+          },
+          fail: function fail(e) {
+            if (++_this5._retry < 3) {
+              setTimeout(function () {
+                _this5._sendRequest(optionsData);
+              }, 1000);
+            }
+          } });
 
+      });
     }
     /**
        * h5 请求
        */ }, { key: "imageRequest", value: function imageRequest(
     data) {
-      var image = new Image();
-      var options = getSgin(GetEncodeURIComponentOptions(data)).options;
-      image.src = STAT_H5_URL + '?' + options;
+      this.getIsReportData().then(function () {
+        var image = new Image();
+        var options = getSgin(GetEncodeURIComponentOptions(data)).options;
+        image.src = STAT_H5_URL + '?' + options;
+      });
     } }, { key: "sendEvent", value: function sendEvent(
 
     key, value) {
@@ -10240,31 +10345,31 @@ main();
 /*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, devDependencies, files, gitHead, homepage, license, main, name, repository, scripts, version, default */
 /***/ (function(module) {
 
-module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.0.0-26920200424005","_inBundle":false,"_integrity":"sha512-FT8Z/C5xSmIxooqhV1v69jTkxATPz+FsRQIFOrbdlWekjGkrE73jfrdNMWm7gL5u41ALPJTVArxN1Re9by1bjQ==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@next","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"next","saveSpec":null,"fetchSpec":"next"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-26920200424005.tgz","_shasum":"47f4375095eda3089cf4678b4b96fc656a7ab623","_spec":"@dcloudio/uni-stat@next","_where":"/Users/guoshengqiang/Documents/dcloud-plugins/release/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"94494d54ed23e2dcf9ab8e3245b48b770b4e98a9","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-26920200424005"};
+module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.0.0-27820200527001","_inBundle":false,"_integrity":"sha512-mUmsdrO9iZv5E8lpR+yZsdxjuNz3yvPfd9KQkeWAQhOfUj9LvkHifYTC8j/Hz6rdfo0Y208wqRixNq77TzxI5A==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@next","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"next","saveSpec":null,"fetchSpec":"next"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-27820200527001.tgz","_shasum":"2324942ff6417c2319ac24cd87ea9af04a4796eb","_spec":"@dcloudio/uni-stat@next","_where":"/Users/guoshengqiang/Documents/dcloud-plugins/release/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"2cef0c9a12c4c980acd11787d6f4632d06dc00b0","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-27820200527001"};
 
 /***/ }),
 
 /***/ 7:
-/*!*********************************************!*\
-  !*** E:/uniapp/pages.json?{"type":"style"} ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": {}, "pages/tabar/classify": {}, "pages/tabar/order": {}, "pages/tabar/shopcart": {}, "pages/tabar/user": {}, "pages/index/shopdetail": {}, "pages/index/collect": {}, "pages/index/recommed": {}, "pages/index/newback": {}, "pages/index/search": {}, "pages/index/flashsale": {}, "pages/account/login": {}, "pages/account/selectway": {}, "pages/account/forget": {}, "pages/account/register": {}, "pages/account/service": {}, "pages/order/orderdetail": {}, "pages/shopcart/delivery": {}, "pages/user/accountmange": {}, "pages/user/accountadd": {}, "pages/user/accountedit": {}, "pages/user/modifypwd": {}, "pages/user/receipt": {}, "pages/user/invest": {}, "pages/user/investlist": {}, "pages/user/investrecord": {}, "pages/user/bill": {}, "pages/user/billdetail": {}, "pages/user/cash": {}, "pages/user/cashdetail": {}, "pages/user/myinfo": {}, "pages/user/bindphone": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "enterprise", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
-
-/***/ }),
-
-/***/ 8:
-/*!********************************************!*\
-  !*** E:/uniapp/pages.json?{"type":"stat"} ***!
-  \********************************************/
+/*!******************************************************************!*\
+  !*** C:/Users/123/Desktop/uni/uniapp/pages.json?{"type":"stat"} ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "__UNI__5EBDEB4" };exports.default = _default;
+
+/***/ }),
+
+/***/ 8:
+/*!*******************************************************************!*\
+  !*** C:/Users/123/Desktop/uni/uniapp/pages.json?{"type":"style"} ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": {}, "pages/tabar/classify": {}, "pages/tabar/order": {}, "pages/tabar/shopcart": {}, "pages/tabar/user": {}, "pages/index/shopdetail": {}, "pages/index/collect": {}, "pages/index/recommed": {}, "pages/index/newback": {}, "pages/index/search": {}, "pages/index/flashsale": {}, "pages/account/login": {}, "pages/account/selectway": {}, "pages/account/forget": {}, "pages/account/register": {}, "pages/account/service": {}, "pages/order/orderdetail": {}, "pages/shopcart/delivery": {}, "pages/user/accountmange": {}, "pages/user/accountadd": {}, "pages/user/accountedit": {}, "pages/user/modifypwd": {}, "pages/user/receipt": {}, "pages/user/invest": {}, "pages/user/investlist": {}, "pages/user/investrecord": {}, "pages/user/bill": {}, "pages/user/billdetail": {}, "pages/user/cash": {}, "pages/user/cashdetail": {}, "pages/user/myinfo": {}, "pages/user/bindphone": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "enterprise", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ })
 
