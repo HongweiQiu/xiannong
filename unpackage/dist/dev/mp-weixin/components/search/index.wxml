@@ -1,1 +1,1 @@
-<view><view data-event-opts="{{[['tap',[['searchPage',['$event']]]]]}}" class="my_search" bindtap="__e"><view class="my_search_content"><icon type="search" size="26rpx"></icon><text>请输入商品名称</text></view></view><view style="height:54px;"></view></view>
+<view><view data-event-opts="{{[['tap',[['searchPage',['$event']]]]]}}" class="my_search" bindtap="__e"><view class="my_search_content"><icon type="search" size="26rpx"></icon><text>请输入商品名称</text></view></view><view style="height:105rpx;"></view></view>

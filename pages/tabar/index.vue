@@ -81,6 +81,7 @@
 		</view>
 
 		<uni-popup ref="popup" type="bottom"><my-addcart @onClose="onClose" :cartware="cartware" :config="config"></my-addcart></uni-popup>
+		<my-tabar tabarIndex=0></my-tabar>
 	</view>
 </template>
 
@@ -180,7 +181,7 @@ export default {
 		},
 		onClose() {
 			this.$refs.popup.close();
-			uni.showTabBar();
+			// uni.showTabBar();
 		},
 		newPage(url) {
 				uni.navigateTo({
@@ -266,10 +267,13 @@ export default {
 	
 	},
 	onShow() {
+		
 		this.indexAd();
 		if(this.page==1){this.indexItem();}
 		this.limitList();
-	},
+	},onLoad(){
+			uni.hideTabBar();
+		},
 	onReachBottom() {
 			//页面上拉触底事件的处理函数
 			var that = this;

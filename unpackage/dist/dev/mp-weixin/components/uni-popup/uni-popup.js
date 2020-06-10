@@ -118,7 +118,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -275,7 +275,6 @@ var _popup = _interopRequireDefault(__webpack_require__(/*! ./popup.js */ 313));
       });
     },
     onTap: function onTap() {
-      uni.showTabBar();
       if (!this.mkclick) return;
       this.close();
     },
@@ -324,7 +323,6 @@ var _popup = _interopRequireDefault(__webpack_require__(/*! ./popup.js */ 313));
         'alignItems': 'center' };
 
     } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

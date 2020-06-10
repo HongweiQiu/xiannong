@@ -14,7 +14,7 @@
 		<view class="status_bar"><!-- 这里是状态栏 --></view>
 	
 		<!-- #endif -->
-			<view style="height:54px;"></view>
+			<view style="height:105rpx;"></view>
 	</view>
 </template>
 

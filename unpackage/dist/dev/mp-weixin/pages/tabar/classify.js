@@ -119,6 +119,9 @@ var components = {
   },
   myKeyboard: function() {
     return __webpack_require__.e(/*! import() | components/keyboard/index */ "components/keyboard/index").then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 353))
+  },
+  myTabar: function() {
+    return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 527))
   }
 }
 var render = function() {
@@ -197,41 +200,71 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default = { data: function data() {return { kind: 0, activeTab: 2, loading: true, firstId: '', secondId: '', page: 1, num: 10, firstCate: [], secondCate: [], list: [], config: [] };}, methods: { mpItem: function mpItem() {var _this = this;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var firstId =
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniDrawer = function uniDrawer() {__webpack_require__.e(/*! require.ensure | components/uni-drawer/uni-drawer */ "components/uni-drawer/uni-drawer").then((function () {return resolve(__webpack_require__(/*! @/components/uni-drawer/uni-drawer.vue */ 534));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var app = getApp().globalData;var
+
+appid =
+
+
+app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
+
+{
+  components: {
+    uniDrawer: uniDrawer },
+
+  data: function data() {
+    return {
+      kind: 0,
+      active: -1,
+      activeTab: 0,
+      loading: true,
+      firstId: '',
+      secondId: '',
+      page: 1,
+      num: 10,
+      firstCate: [],
+      secondCate: [],
+      list: [],
+      config: [],
+      cartware: [] };
+
+  },
+  methods: {
+    mpItem: function mpItem() {var _this = this;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp };var
+
+
+      firstId =
+
 
 
       this.firstId,secondId = this.secondId,page = this.page,num = this.num;
@@ -265,18 +298,12 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
           // }
           _this.config = data.data;
           _this.firstCate = data.data.firstCate;
-
           _this.secondCate = data.data.secondCate;
-          if (data.data.list.length == 0) {
-            _this.bitmap = true;
+          _this.list = data.data.list;
+          if (data.data.list.length < 10) {
+            _this.loading = false;
           } else {
-            _this.list = data.data.list;
-            _this.bitmap = false;
-            if (data.data.list.length < 10) {
-              _this.loading = false;
-            } else {
-              _this.loading = true;
-            }
+            _this.loading = true;
           }
         }
       });
@@ -293,17 +320,55 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       this.secondId = this.secondCate[index].id;
       this.kind = index;
       this.mpItem();
-
+    },
+    openCart: function openCart(item) {
+      this.cartware = item;
+      this.$refs.cart.open();
+      uni.hideTabBar();
+    },
+    onClose: function onClose() {
+      this.$refs.cart.close();
+      uni.showTabBar();
     },
     // 显示键盘
     showKey: function showKey() {
       this.$refs.popup.open();
       uni.hideTabBar();
+    },
+    showDraw: function showDraw() {
+      uni.hideTabBar();
+      this.$refs.drawer.open();
+    },
+    selectSort: function selectSort(index) {
+      this.active = index;
+    },
+    cancelSort: function cancelSort() {
+      this.active = -1;
+      this.$refs.drawer.close();
+      uni.showTabBar();
+    },
+    deterSort: function deterSort() {
+      if (this.active == -1) {
+        uni.showToast({
+          title: '请先选择分类',
+          icon: 'none' });
+
+
+        return;
+      }
+      this.firstId = this.firstCate[this.active].id;
+      this.activeTab = this.active;
+      this.secondId = "";
+      this.kind = 0;
+      this.mpItem();
+      this.cancelSort();
     } },
 
   onShow: function onShow() {
-    console.log(45);
     this.mpItem();
+  },
+  onLoad: function onLoad() {
+    uni.hideTabBar();
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

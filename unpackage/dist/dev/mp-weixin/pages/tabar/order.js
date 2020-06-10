@@ -110,6 +110,9 @@ var components = {
   },
   wPicker: function() {
     return __webpack_require__.e(/*! import() | components/w-picker/w-picker */ "components/w-picker/w-picker").then(__webpack_require__.bind(null, /*! @/components/w-picker/w-picker.vue */ 367))
+  },
+  myTabar: function() {
+    return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 527))
   }
 }
 var render = function() {
@@ -227,6 +230,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 {
   components: {
     wPicker: wPicker },
@@ -258,7 +262,11 @@ __webpack_require__.r(__webpack_exports__);
       uni.navigateTo({
         url: '/pages/order/orderdetail' });
 
-    } } };exports.default = _default;
+    } },
+
+  onLoad: function onLoad() {
+    uni.hideTabBar();
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

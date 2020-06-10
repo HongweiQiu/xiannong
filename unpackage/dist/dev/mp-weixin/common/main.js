@@ -116,7 +116,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-  onLaunch: function onLaunch() {},
+  onLaunch: function onLaunch() {
+
+  },
   onShow: function onShow() {},
   onHide: function onHide() {} };exports.default = _default;
 

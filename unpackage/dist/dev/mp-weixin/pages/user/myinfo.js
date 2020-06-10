@@ -93,10 +93,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
+<<<<<<< HEAD
   uniNavBar: function() {
     return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 360))
   },
   uniIcons: function() {
+=======
+  "uni-nav-bar": function() {
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 367))
+  },
+  "uni-icons": function() {
+>>>>>>> 5f95d8ca3e66fc577791b3eb2443d340209d0cd3
     return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 338))
   }
 }
@@ -137,7 +144,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var ImageCropper = function ImageCropper() {__webpack_require__.e(/*! require.ensure | components/ling-imgcropper/ling-imgcropper */ "components/ling-imgcropper/ling-imgcropper").then((function () {return resolve(__webpack_require__(/*! @/components/ling-imgcropper/ling-imgcropper.vue */ 425));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var ImageCropper = function ImageCropper() {__webpack_require__.e(/*! require.ensure | components/ling-imgcropper/ling-imgcropper */ "components/ling-imgcropper/ling-imgcropper").then((function () {return resolve(__webpack_require__(/*! @/components/ling-imgcropper/ling-imgcropper.vue */ 432));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 
 

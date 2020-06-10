@@ -118,7 +118,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -147,13 +147,62 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
-var _default =
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var app = getApp().globalData;var
+
+imgRemote =
+app.imgRemote;var _default =
 {
-  props: ['url', 'list', 'config'],
+  props: ['ware', 'config', 'url'],
+  data: function data() {
+    return {
+      imgRemote: imgRemote,
+      token: uni.getStorageSync('cdj_token') };
+
+  },
   methods: {
-    keyBoard: function keyBoard() {
+    showCart: function showCart() {
+      this.$emit('showCart');
+    },
+    showKey: function showKey() {
       this.$emit('showKey');
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

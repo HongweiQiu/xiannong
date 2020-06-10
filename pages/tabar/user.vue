@@ -49,6 +49,7 @@
 		<uni-popup ref="popup" type="dialog">
     <uni-popup-dialog type="input" title="确定要退出账号吗？" :duration="2000" :before-close="true" @close="close" @confirm="confirm"></uni-popup-dialog>
 </uni-popup>
+<my-tabar tabarIndex=4></my-tabar>
 	</view>
 </template>
 
@@ -106,10 +107,8 @@ export default {
 		},
 		exit() {
 			this.$refs.popup.open();
-uni.hideTabBar()
 		},
 		close(){
-			uni.showTabBar();
 			this.$refs.popup.close();
 		},
 		confirm(){
@@ -118,6 +117,9 @@ uni.hideTabBar()
 				url: '/pages/account/login'
 			});
 		}
+	},
+	onLoad(){
+		uni.hideTabBar();
 	}
 };
 </script>

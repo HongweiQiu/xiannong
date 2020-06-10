@@ -66,6 +66,7 @@
 		<w-picker mode="selector" default-type="title" :default-props="childListProps" :options="childList" @confirm="onConfirmAccount($event, 'selector')" ref="account">
 			子账号
 		</w-picker>
+	<my-tabar tabarIndex=3></my-tabar>
 	</view>
 </template>
 
@@ -103,6 +104,9 @@ export default {
 				url:'/pages/order/orderdetail'
 			})
 		}
+	},
+	onLoad(){
+		uni.hideTabBar();
 	}
 };
 </script>

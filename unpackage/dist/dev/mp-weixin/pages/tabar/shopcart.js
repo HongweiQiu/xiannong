@@ -98,6 +98,9 @@ var components = {
   },
   wPicker: function() {
     return __webpack_require__.e(/*! import() | components/w-picker/w-picker */ "components/w-picker/w-picker").then(__webpack_require__.bind(null, /*! @/components/w-picker/w-picker.vue */ 367))
+  },
+  myTabar: function() {
+    return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 527))
   }
 }
 var render = function() {
@@ -138,6 +141,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 367));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
 
 
 
@@ -301,6 +305,9 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {} },
 
   onShow: function onShow() {},
+  onLoad: function onLoad() {
+    uni.hideTabBar();
+  },
   onReady: function onReady() {
     var date = new Date();
     var n = date.getTime() + 24 * 3600000;

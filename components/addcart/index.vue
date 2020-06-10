@@ -26,7 +26,10 @@
 								</block>
 							</block>
 							<block v-else>
-								<view class="red_font">￥{{cartware.price}}/{{cartware.unit}}</view>
+								<view v-if="cartware.attr.length" class="red_font">￥{{cartware.attr[kind].attr_price}}/{{cartware.attr[kind].unit}}</view>
+								<view v-else class="red_font">
+									￥{{cartware.price}}/{{cartware.unit}}
+								</view>
 							</block>
 						</view>
 

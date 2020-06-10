@@ -30,6 +30,8 @@
 
 
 
+
+
 /*每个页面公共css */
 @font-face {
 	font-family: 'iconfont'; /* project id 1843139 */
@@ -243,5 +245,5 @@ page {
 .fiveteen {
 	font-size: 50rpx;
 }
-.shuiyin{width: 60rpx;height:40rpx;position: absolute;z-index: 3;margin-top: -1%;}
+.shuiyin{width: 60rpx;height:20rpx;position: absolute;z-index: 2;}
 
