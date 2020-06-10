@@ -23,7 +23,9 @@ export default {
 		
 		
 	},
-	onLaunch: function() {},
+	onLaunch: function() {
+	
+	},
 	onShow: function() {},
 	onHide: function() {}
 };
@@ -237,5 +239,5 @@ page {
 .fiveteen {
 	font-size: 50rpx;
 }
-.shuiyin{width: 60rpx;height:40rpx;position: absolute;z-index: 3;margin-top: -1%;}
+.shuiyin{width: 60rpx;height:20rpx;position: absolute;z-index: 2;}
 </style>

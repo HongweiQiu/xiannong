@@ -155,7 +155,6 @@
 				})
 			},
 			onTap() {
-			uni.showTabBar();
 				if (!this.mkclick) return
 				this.close()
 			},

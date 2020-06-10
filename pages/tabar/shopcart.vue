@@ -116,6 +116,7 @@
 		<w-picker mode="date" :value="defaultDate" fields="day" @confirm="onConfirmDate($event, 'date')" :startYear="startyear" endYear="2029" :disabled-after="false" ref="date">
 			配送日期
 		</w-picker>
+		<my-tabar tabarIndex=2></my-tabar>
 	</view>
 </template>
 
@@ -162,6 +163,9 @@ export default {
 		submit() {}
 	},
 	onShow() {},
+	onLoad(){
+		uni.hideTabBar();
+	},
 	onReady() {
 		var date = new Date();
 		let n = date.getTime() + 24 * 3600000;
@@ -283,18 +287,11 @@ export default {
 	font-size: 20rpx;
 	text-indent: 70rpx;
 }
-/* #ifdef APP-PLUS |MP-WEIXIN */
+
 .order_method {
 	position: fixed;
-	bottom: 0px;
+	bottom: 50px;
 	width: 100%;
 }
-/* #endif */
-/* #ifdef H5 */
-.order_method {
-	position: fixed;
-	width: 100%;
-	bottom: var(--window-bottom);
-}
-/* #endif */
+
 </style>

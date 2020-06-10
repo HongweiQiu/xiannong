@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "uni-icons": "/components/uni-icons/uni-icons",
-    "w-picker": "/components/w-picker/w-picker"
+    "w-picker": "/components/w-picker/w-picker",
+    "my-tabar": "/components/tabar/index"
   }
 }

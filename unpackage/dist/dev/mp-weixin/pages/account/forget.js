@@ -94,10 +94,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 360))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 367))
   },
   "my-identifyingcode": function() {
-    return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 395))
+    return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 402))
   }
 }
 var render = function() {
@@ -137,7 +137,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var moveVerify = function moveVerify() {__webpack_require__.e(/*! require.ensure | components/helang-moveVerify/helang-moveVerify */ "components/helang-moveVerify/helang-moveVerify").then((function () {return resolve(__webpack_require__(/*! @/components/helang-moveVerify/helang-moveVerify.vue */ 402));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var moveVerify = function moveVerify() {__webpack_require__.e(/*! require.ensure | components/helang-moveVerify/helang-moveVerify */ "components/helang-moveVerify/helang-moveVerify").then((function () {return resolve(__webpack_require__(/*! @/components/helang-moveVerify/helang-moveVerify.vue */ 409));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 
 

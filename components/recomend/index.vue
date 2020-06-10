@@ -30,11 +30,20 @@
 							</block>
 						</block>
 						<block v-else>
-							<view class="red_font">￥***</view>
+							<view class="red_font">
+								￥***
+							</view>
 						</block>
 					</block>
 					<block v-else>
-						<view class="red_font">￥{{ware.price}}/{{ware.unit}}</view>
+						<view v-if="ware.attr.length">
+							<text class="red_font">￥{{ware.area_price}}</text>
+							<text class="gray_font">(多规格)</text>
+						
+						</view>
+						<view v-else class="red_font">
+							￥{{ware.price}}/{{ware.unit}}
+						</view>
 					</block>
 
 				</view>

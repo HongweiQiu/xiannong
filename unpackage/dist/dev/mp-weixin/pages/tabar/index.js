@@ -124,6 +124,9 @@ var components = {
   },
   "my-addcart": function() {
     return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 317))
+  },
+  "my-tabar": function() {
+    return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 535))
   }
 }
 var render = function() {
@@ -162,6 +165,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
 
 
 
@@ -343,7 +347,7 @@ appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _defau
     },
     onClose: function onClose() {
       this.$refs.popup.close();
-      uni.showTabBar();
+      // uni.showTabBar();
     },
     newPage: function newPage(url) {
       uni.navigateTo({
@@ -429,9 +433,12 @@ appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _defau
 
 
   onShow: function onShow() {
+
     this.indexAd();
     if (this.page == 1) {this.indexItem();}
     this.limitList();
+  }, onLoad: function onLoad() {
+    uni.hideTabBar();
   },
   onReachBottom: function onReachBottom() {var _this4 = this;
     //页面上拉触底事件的处理函数

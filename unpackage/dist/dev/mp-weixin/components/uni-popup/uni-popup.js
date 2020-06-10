@@ -78,7 +78,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-transition": function() {
-    return __webpack_require__.e(/*! import() | components/uni-transition/uni-transition */ "components/uni-transition/uni-transition").then(__webpack_require__.bind(null, /*! @/components/uni-transition/uni-transition.vue */ 432))
+    return __webpack_require__.e(/*! import() | components/uni-transition/uni-transition */ "components/uni-transition/uni-transition").then(__webpack_require__.bind(null, /*! @/components/uni-transition/uni-transition.vue */ 439))
   }
 }
 var render = function() {
@@ -118,7 +118,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -132,7 +132,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _popup = _interopRequireDefault(__webpack_require__(/*! ./popup.js */ 313));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniTransition = function uniTransition() {__webpack_require__.e(/*! require.ensure | components/uni-transition/uni-transition */ "components/uni-transition/uni-transition").then((function () {return resolve(__webpack_require__(/*! ../uni-transition/uni-transition.vue */ 432));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var _popup = _interopRequireDefault(__webpack_require__(/*! ./popup.js */ 313));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniTransition = function uniTransition() {__webpack_require__.e(/*! require.ensure | components/uni-transition/uni-transition */ "components/uni-transition/uni-transition").then((function () {return resolve(__webpack_require__(/*! ../uni-transition/uni-transition.vue */ 439));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 /**
                                                                                                                                                                                                                                                                                                                                                          * PopUp 弹出层
                                                                                                                                                                                                                                                                                                                                                          * @description 弹出层组件，为了解决遮罩弹层的问题
@@ -275,7 +275,6 @@ var _popup = _interopRequireDefault(__webpack_require__(/*! ./popup.js */ 313));
       });
     },
     onTap: function onTap() {
-      uni.showTabBar();
       if (!this.mkclick) return;
       this.close();
     },
@@ -324,7 +323,6 @@ var _popup = _interopRequireDefault(__webpack_require__(/*! ./popup.js */ 313));
         'alignItems': 'center' };
 
     } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
