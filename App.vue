@@ -14,13 +14,15 @@ export default {
 		appsecret: 'StJfzJcXmya6k6Ar',
 		// #ifdef APP-PLUS |MP-WEIXIN
 		rootUrl: 'https://test.caidj.cn/mobileOrder/', //主接口地址
-		imgRemote: 'https://test.caidj.cn'
+		imgRemote: 'https://test.caidj.cn',
 		// #endif
 		// #ifdef H5
 		rootUrl: '/api', //主接口地址
-		imgRemote: 'http://test.caidj.cn'
+		imgRemote: 'http://test.caidj.cn',
 		// #endif
-		
+		aData: {
+		  show: true
+		}
 		
 	},
 	onLaunch: function() {

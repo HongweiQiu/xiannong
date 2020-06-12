@@ -9,7 +9,7 @@
     "uni-popup": "/components/uni-popup/uni-popup",
     "my-addcart": "/components/addcart/index",
     "my-keyboard": "/components/keyboard/index",
-    "my-tabar": "/components/tabar/index",
-    "uni-drawer": "/components/uni-drawer/uni-drawer"
+    "uni-drawer": "/components/uni-drawer/uni-drawer",
+    "my-tabar": "/components/tabar/index"
   }
 }

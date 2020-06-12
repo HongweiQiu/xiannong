@@ -1,12 +1,12 @@
 
-.order_detail .order_info > view {
+.order_detail .order_info>view {
 	margin-top: 10rpx;
 	background: white;
 	padding: 0rpx 20rpx;
 	font-size: 24rpx;
 }
-.order_detail .order_info .pay_info > view,
-.order_detail .order_info .money_info > view {
+.order_detail .order_info .pay_info>view,
+.order_detail .order_info .money_info>view {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -15,13 +15,14 @@
 	        justify-content: space-between;
 	padding: 10rpx 0;
 }
-.order_detail .pay_info > view > view:last-child,.order_detail .money_info > view > view:last-child {
+.order_detail .pay_info>view>view:last-child,
+.order_detail .money_info>view>view:last-child {
 	color: #808080;
 	width: 74%;
 	text-align: right;
 }
-.order_detail .pay_info > view:nth-child(n + 2) > view:first-child,
-.order_detail .money_info > view:nth-child(n + 2) > view:first-child {
+.order_detail .pay_info>view:nth-child(n + 2)>view:first-child,
+.order_detail .money_info>view:nth-child(n + 2)>view:first-child {
 	width: 100rpx;
 	text-align: right;
 }
@@ -43,5 +44,7 @@
 .order_detail .good_info .single_good {
 	margin-top: 10rpx !important;
 }
-.order_detail .good_info .single_good>view{height:40rpx;}
+.order_detail .good_info .single_good>view {
+	height: 40rpx;
+}
 
