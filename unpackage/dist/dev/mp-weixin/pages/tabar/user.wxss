@@ -5,6 +5,8 @@ page {
 .user .author image {
 	width: 140rpx;
 	height: 140rpx;
+	margin-right: 20rpx;
+	border-radius: 50%;
 }
 .user .author {
 	background: #094;
@@ -37,7 +39,7 @@ page {
 	height: 40rpx;
 	margin-left: 10rpx;
 }
-.user .middle > view {
+.user .middle>view {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -49,7 +51,7 @@ page {
 	-webkit-justify-content: center;
 	        justify-content: center;
 }
-.user .middle > view text {
+.user .middle>view text {
 	margin-left: 10rpx;
 }
 .user .middle .modify_address {
@@ -81,10 +83,10 @@ page {
 .user .select_operate {
 	padding: 0 20rpx;
 }
-.user .select_operate > view {
+.user .select_operate>view {
 	height: 80rpx;
 }
-.user .select_operate > view .name {
+.user .select_operate>view .name {
 	margin-left: 10rpx;
 }
 

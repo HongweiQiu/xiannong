@@ -292,4 +292,12 @@
   -webkit-justify-content: space-between;
           justify-content: space-between;
 }
+.order .bitmap {
+  text-align: center;
+}
+.order .bitmap image {
+  width: 400rpx;
+  height: 400rpx;
+  margin-top: 150rpx;
+}
 

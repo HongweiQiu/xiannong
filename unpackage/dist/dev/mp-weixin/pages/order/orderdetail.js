@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniNavBar: function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 374))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 382))
   }
 }
 var render = function() {
@@ -134,7 +134,23 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -304,7 +320,30 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar };}, methods: {}, onShow: function onShow() {app.aData.show = true;var that = this;that.orderInfo();} };exports.default = _default;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, id: '', orderDetail: '', detail: '' };}, methods: { /**
+                                                                                                                                                                                                                                                  * 客服电话
+                                                                                                                                                                                                                                                  */phone: function phone() {var that = this;console.log(that.orderDetail);uni.makePhoneCall({ phoneNumber: that.orderDetail.tel });}, LeftClick: function LeftClick() {uni.navigateBack({ delta: 1 });}, /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                           * 订单详情
+                                                                                                                                                                                                                                                                                                                                                                                                                                                           */orderInfo: function orderInfo() {var that = this;var id = that.id;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, id: id, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, timeStamp: timeStamp, sign: sign, id: id };_request.default.getRequests("orderInfo", data, function (res) {if (res.data.code == 200) {that.orderDetail = res.data.data;that.detail = res.data.data.orderInfo;} else {uni.showToast({ title: res.data.msg, icon: 'none' });}});} }, /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           * 生命周期函数--监听页面加载
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           */onLoad: function onLoad(options) {this.id = options.orderItem;}, onShow: function onShow() {app.aData.show = true;var that = this;that.orderInfo();} };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

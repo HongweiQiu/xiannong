@@ -47,4 +47,11 @@
 .order_detail .good_info .single_good>view {
 	height: 40rpx;
 }
+.order_detail .good_info .labe {
+	background: #FF3E1E;
+	color: #fff;
+	border-radius: 5rpx;
+	padding: 0 5rpx;
+	margin-right: 10rpx;
+}
 

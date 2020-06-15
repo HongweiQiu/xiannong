@@ -7,78 +7,94 @@
 			<view class="pay_info">
 				<view>
 					<view class="title">支付信息</view>
-					<view>sadf</view>
+					<view style="color:#1EA55A;" class="right" v-if="detail.order_status==0">待审核</view>
+					<view style="color:#1EA55A;" class="right" v-if="detail.order_status==1">备货中</view>
+					<view style="color:#1EA55A;" class="right" v-if="detail.order_status==2">配送中</view>
+					<view style="color:#1EA55A;" class="right" v-if="detail.order_status==3">已收货</view>
+					<view style="color:#FF3E1E;" class="right" v-if="detail.order_status==4">已取消</view>
 				</view>
 				<view>
 					<view>下单时间</view>
-					<view>df</view>
+					<view>{{detail.create_time}}</view>
 				</view>
 				<view>
 					<view>配送时间</view>
-					<view>sdf</view>
+					<view>{{detail.delivery_time_info}}</view>
 				</view>
 				<view>
 					<view>订单编号</view>
-					<view>三大法师</view>
+					<view>{{detail.order_sn}}</view>
 				</view>
 				<view>
 					<view>联系电话</view>
-					<view></view>
+					<view>{{detail.mobile}}</view>
 				</view>
 				<view>
 					<view>送货地址</view>
-					<view>撒旦法</view>
+					<view>{{detail.address}}</view>
 				</view>
 				<view>
 					<view>备注</view>
-					<view>撒旦法撒旦法撒旦法撒旦法撒旦法撒旦法撒旦法撒旦法撒旦法撒旦法撒旦法</view>
+					<view>{{detail.remark?detail.remark:''}}</view>
 				</view>
 			</view>
 			<!-- 金额信息 -->
 			<view class="money_info">
 				<view>
 					<view class="title">金额信息</view>
-					<view>sdf </view>
+					<view></view>
 				</view>
 				<view>
 					<view>下单金额</view>
-					<view class="red_font">df </view>
+					<view class="red_font" v-if="orderDetail.is_look==0">¥ ***</view>
+					<view class="red_font" v-if="orderDetail.is_look==1">¥{{detail.xd_price}}</view>
 				</view>
 				<view>
 					<view>退货金额</view>
-					<view class="red_font">dsfa </view>
+					<view class="red_font" v-if="orderDetail.is_look==0">¥ ***</view>
+					<view class="red_font" v-if="orderDetail.is_look==1">¥{{detail.th_price}}</view>
 				</view>
 				<view>
 					<view>运费</view>
-					<view>sdfa </view>
+					<view class="red_font" v-if="orderDetail.is_look==0">¥ ***</view>
+					<view class="red_font" v-if="orderDetail.is_look==1">¥{{detail.delivery_fee}}</view>
 				</view>
 				<view>
 					<view>应付金额</view>
-					<view class="red_font">sdfa </view>
+					<view class="red_font" v-if="orderDetail.is_look==0">¥ ***</view>
+					<view class="red_font" v-if="orderDetail.is_look==1">¥{{detail.yf_price}}</view>
+				</view>
+				<view v-if="orderInfo.is_cash_delivery == 1">
+					<view>实付金额</view>
+					<view v-if="orderDetail.is_look==0">¥ ***</view>
+					<view v-if="orderDetail.is_look==1">¥{{detail.total_fee}}</view>
 				</view>
 				<view>
-					<view>送货地址</view>
-					<view></view>
+					<view>支付状态</view>
+					<view v-if="detail.pay_status==0">未支付</view>
+					<view v-if="detail.pay_status==1">已支付</view>
 				</view>
+
 			</view>
 
 			<!-- 商品信息 -->
 			<view class="good_info">
 				<view class="title">商品信息</view>
-				<view class="single_good">
+				<view class="single_good" v-for="item in detail.order_list">
 					<view class="flex_left_right">
-						<text>澳洲极品牛肉</text>
-						<text>¥54.20/斤</text>
+						<text><text class="labe" v-if="item.is_gift==1">赠</text>{{item.item_title}}</text>
+						<view v-if="orderDetail.is_look==0">¥ ***</view>
+						<view v-if="orderDetail.is_look==1">¥{{item.price}}/{{item.unit}}</view>
 					</view>
 
 					<view class="flex_left_right gray_font">
-						<text>下单数量 : 5.00</text>
-						<text>下单数量 : 5.00</text>
+						<text>下单数量 : {{item.num}}</text>
+						<text>下单数量 : {{item.weight}}</text>
 					</view>
 				</view>
 			</view>
 		</view>
-		<image class="contact_phone" src="../../static/img/service.png" mode=""></image>
+		<image class="contact_phone" src="../../static/img/service.png" mode="" @click="phone"></image>
 	</view>
 </template>
 
@@ -95,12 +111,66 @@
 	export default {
 		data() {
 			return {
-				navBar: navBar
+				navBar: navBar,
+				id: '',
+				orderDetail: '',
+				detail: ''
 			};
 		},
 		methods: {
-
-		}, 
+			/**
+			 * 客服电话
+			 */
+			phone() {
+				var that = this;
+				console.log(that.orderDetail)
+				uni.makePhoneCall({
+					phoneNumber: that.orderDetail.tel
+				})
+			},
+			LeftClick() {
+				uni.navigateBack({
+					delta: 1
+				});
+			},
+			/**
+			 * 订单详情
+			 */
+			orderInfo() {
+				var that = this;
+				var id = that.id;
+				var timeStamp = Math.round(new Date().getTime() / 1000);
+				var obj = {
+					appid: appid,
+					id: id,
+					timeStamp: timeStamp,
+				}
+				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				var data = {
+					appid: appid,
+					timeStamp: timeStamp,
+					sign: sign,
+					id: id,
+				}
+				rs.getRequests("orderInfo", data, (res) => {
+					if (res.data.code == 200) {
+						that.orderDetail = res.data.data;
+						that.detail = res.data.data.orderInfo;
+					} else {
+						uni.showToast({
+							title: res.data.msg,
+							icon: 'none'
+						})
+					}
+				})
+			}
+		},
+		/**
+		 * 生命周期函数--监听页面加载
+		 */
+		onLoad(options) {
+			this.id = options.orderItem
+		},
 		onShow() {
 			app.aData.show = true;
 			var that = this
@@ -161,5 +231,13 @@
 
 	.order_detail .good_info .single_good>view {
 		height: 40rpx;
+	}
+
+	.order_detail .good_info .labe {
+		background: #FF3E1E;
+		color: #fff;
+		border-radius: 5rpx;
+		padding: 0 5rpx;
+		margin-right: 10rpx;
 	}
 </style>
