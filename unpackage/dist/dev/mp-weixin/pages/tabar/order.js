@@ -400,10 +400,290 @@ var _uniNoticeBar = _interopRequireDefault(__webpack_require__(/*! @/components/
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 404));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { wPicker: wPicker }, data: function data() {return { is_child: '', is_miniBind: '', imgRemote: imgRemote, load: true, navBar: navBar, tabList: [{ name: '待审核' }, { name: '备货中' }, { name: '配送中' }, { name: '已收货' }, { name: '已取消' }], activeTab: 6, showOrderType: false, childListProps: { "label": "nickname", "value": "zid" }, childList: [{ "zid": "", "nickname": "当前账号" }], childzid: '', childtxt: '当前账号', isActive: '全部', orderTitle: '全部订单', type: 1, search_default: false, is_look: '', orderList: [], orderInfo: '', page: 1, map: false };}, methods: { /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * 获取子账号信息
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */childInfo: function childInfo() {var that = this;that.childList = [{ "zid": "", "nickname": "当前账号" }];var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, timeStamp: timeStamp, sign: sign };_request.default.getRequests("childInfo", data, function (res) {if (res.data.code == 200) {var childInfo = res.data.data;var arr = ["当前账号"];var num = [""];for (var i = 0; i < childInfo.length; i++) {that.childList.push(childInfo[i]);}}});}, //初始订单请求
-    orderListb: function orderListb() {var that = this;that.search_default = false;var page = 1;var type = that.type;if (that.isActive != "全部") {var status = that.isActive + 1;} else {var status = '';}var num = 10;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, page: page, timeStamp: timeStamp, type: type };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, page: page, timeStamp: timeStamp, num: num, sign: sign, type: type, status: status };_request.default.getRequest("orderList", data, function (res) {if (res.data.code == 200) {if (res.data.data.list.length > 0) {if (res.data.data.list.length <= 9) {that.load = false;} else {that.load = true;}that.is_look = res.data.data.is_look;
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 404));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { wPicker: wPicker }, data: function data() {return { is_child: '', is_miniBind: '', imgRemote: imgRemote, load: true, navBar: navBar, tabList: [{ name: '待审核' }, { name: '备货中' }, { name: '配送中' }, { name: '已收货' }, { name: '已取消' }], activeTab: 1, lineShow: false, showOrderType: false, childListProps: { "label": "nickname", "value": "zid" }, childList: [{ "zid": "", "nickname": "当前账号" }], childzid: '', childtxt: '当前账号', isActive: '全部', orderTitle: '全部订单', type: 1, search_default: false, is_look: '', orderList: [], orderInfo: '', page: 1, map: false };}, methods: { /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * 确认收货
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */receiveOrder: function receiveOrder(data, index) {var that = this;var dataId = data;var dataIndex = index;uni.showModal({ title: '提示', content: '是否确认收货？', success: function success(res) {if (res.confirm) {// console.log('用户点击确定');
+            var id = dataId;var orderindex = dataIndex;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, id: id, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, timeStamp: timeStamp, id: id, sign: sign };_request.default.getRequests("receiveOrder", data, function (res) {if (res.data.code == 200) {uni.showToast({ title: "确认收货成功", icon: 'none' });that.orderList.splice(index, 1);if (that.orderList.length <= 0) {that.orderLista();}} else {uni.showToast({ title: res.data.msg, icon: 'none' });}});} else if (res.cancel) {// console.log('用户点击取消');
+          }} });}, /**
+                    * 页面跳转
+                    */ //支付
+    play: function play(data) {var oid = data;wx.navigateTo({ url: '/pages/order/pay?oid=' + oid });}, orderDetailPage: function orderDetailPage(url, item) {if (url == 'orderDetail') {uni.navigateTo({ url: '/pages/order/orderdetail?orderItem=' + item.id });} else if (url == 'user') {uni.showToast({ title: "还未绑定微信,请去我的页面绑定微信", duration: 2000, icon: 'none' });
+
+        uni.navigateTo({
+          url: '/pages/tabar/user' });
+
+      }
+
+    },
+    /**
+        * 取消订单
+        */
+    cancelOrder: function cancelOrder(data, index) {
+      var that = this;
+      var dataId = data;
+      var dataIndex = index;
+      uni.showModal({
+        title: '提示',
+        content: '是否取消订单？',
+        success: function success(res) {
+          if (res.confirm) {
+            // console.log('用户点击确定');
+            var id = dataId;
+            var orderindex = dataIndex;
+            var timeStamp = Math.round(new Date().getTime() / 1000);
+            var obj = {
+              appid: appid,
+              id: id,
+              timeStamp: timeStamp };
+
+            var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+            var data = {
+              appid: appid,
+              timeStamp: timeStamp,
+              id: id,
+              sign: sign };
+
+            _request.default.getRequests("cancelOrder", data, function (res) {
+              console.log(res);
+              if (res.data.code == 200) {
+                uni.showToast({
+                  title: "取消订单成功",
+                  icon: 'none' });
+
+                that.orderList.splice(index, 1);
+                if (that.orderList.length <= 0) {
+                  that.orderLista();
+                }
+              } else if (res.data.code == 101) {
+                uni.showToast({
+                  title: "订单已审核，不能取消",
+                  icon: 'none' });
+
+              } else {
+                uni.showToast({
+                  title: res.data.msg,
+                  icon: 'none' });
+
+              }
+            });
+          } else if (res.cancel) {
+            // console.log('用户点击取消');
+          }
+        } });
+
+    },
+    /**
+        * 查看物流
+        */
+    ckwl: function ckwl(data) {
+      var that = this;
+      var id = data;
+      if (id <= 0) {
+        uni.showToast({
+          title: "无物流信息",
+          duration: 2000,
+          icon: 'none' });
+
+        return;
+      }
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        id: id,
+        timeStamp: timeStamp };
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var data = {
+        appid: appid,
+        timeStamp: timeStamp,
+        id: id,
+        sign: sign };
+
+      _request.default.postRequests("carPosition", data, function (res) {
+        if (res.data.code == 200) {
+          if (res.data.data != '') {
+            var latitude = parseInt(res.data.data.latitude);
+            var longitude = parseInt(res.data.data.longitude);
+            if (res.data.data.latitude == '' || res.data.data.longitude == '') {
+              uni.showToast({
+                title: "无物流信息",
+                duration: 2000,
+                icon: 'none' });
+
+            } else {
+              uni.getLocation({
+                type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
+                success: function success(res) {
+                  that.map = true;
+                  var mapObj = that.bd_decrypt(longitude, latitude);
+                  uni.openLocation({
+                    latitude: mapObj.lat, // 纬度，范围为-90~90，负数表示南纬
+                    longitude: mapObj.lng // 经度，范围为-180~180，负数表示西经
+                  });
+                } });
+
+            }
+          } else {
+            uni.showToast({
+              title: "无物流信息",
+              duration: 2000,
+              icon: 'none' });
+
+          }
+        } else {
+          uni.showToast({
+            title: res.data.msg,
+            duration: 2000,
+            icon: 'none' });
+
+        }
+      });
+    },
+    //百度坐标转高德（传入经度、纬度）
+    bd_decrypt: function bd_decrypt(bd_lng, bd_lat) {
+      var X_PI = Math.PI * 3000.0 / 180.0;
+      var x = bd_lng - 0.0065;
+      var y = bd_lat - 0.006;
+      var z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * X_PI);
+      var theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * X_PI);
+      var gg_lng = z * Math.cos(theta);
+      var gg_lat = z * Math.sin(theta);
+      return {
+        lng: gg_lng,
+        lat: gg_lat };
+
+    },
+    /**
+        * 再来一单
+        */
+    oneMoreTime: function oneMoreTime(data) {
+      var dataId = data;
+      uni.showModal({
+        title: '提示',
+        content: '是否再来一单？',
+        success: function success(res) {
+          if (res.confirm) {
+            // console.log('用户点击确定');
+            var that = this;
+            var id = dataId;
+            var timeStamp = Math.round(new Date().getTime() / 1000);
+            var obj = {
+              appid: appid,
+              id: id,
+              timeStamp: timeStamp };
+
+            var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+            var data = {
+              appid: appid,
+              timeStamp: timeStamp,
+              id: id,
+              sign: sign };
+
+            _request.default.getRequests("oneMoreTime", data, function (res) {
+              console.log(res);
+              if (res.data.code == 200) {
+                uni.showToast({
+                  title: "再来一单成功",
+                  duration: 2000,
+                  icon: 'none' });
+
+                uni.switchTab({
+                  url: '/pages/tabar/shopcart' });
+
+              } else if (res.data.code == 102) {
+                uni.showToast({
+                  title: "有下架商品",
+                  duration: 2000,
+                  icon: 'none' });
+
+                uni.switchTab({
+                  url: '/pages/tabar/shopcat' });
+
+              } else {
+                uni.showToast({
+                  title: res.data.msg,
+                  duration: 2000,
+                  icon: 'none' });
+
+              }
+            });
+          } else if (res.cancel) {
+            // console.log('用户点击取消');
+          }
+        } });
+
+    },
+    /**
+        * 获取子账号信息
+        */
+    childInfo: function childInfo() {
+      var that = this;
+      that.childList = [{
+        "zid": "",
+        "nickname": "当前账号" }];
+
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp };
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var data = {
+        appid: appid,
+        timeStamp: timeStamp,
+        sign: sign };
+
+      _request.default.getRequests("childInfo", data, function (res) {
+        if (res.data.code == 200) {
+          var childInfo = res.data.data;
+          var arr = ["当前账号"];
+          var num = [""];
+          for (var i = 0; i < childInfo.length; i++) {
+            that.childList.push(childInfo[i]);
+          }
+        }
+      });
+    },
+    //初始订单请求
+    orderListb: function orderListb() {
+      var that = this;
+      that.orderList = [];
+      that.search_default = false;
+
+      var page = that.page;
+      var type = that.type;
+      if (that.isActive != "全部") {
+        var status = that.isActive + 1;
+      } else {
+        var status = '';
+      }
+      var num = 10;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        page: page,
+        timeStamp: timeStamp,
+        type: type };
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var data = {
+        appid: appid,
+        page: page,
+        timeStamp: timeStamp,
+        num: num,
+        sign: sign,
+        type: type,
+        status: status };
+
+      _request.default.getRequest("orderList", data, function (res) {
+        if (res.data.code == 200) {
+          if (res.data.data.list.length > 0) {
+            if (res.data.data.list.length <= 9) {
+              that.load = false;
+            } else {
+              that.load = true;
+            }
+            that.is_look = res.data.data.is_look;
             that.orderInfo = res.data.data;
             that.orderList = res.data.data.list;
             // console.log(res.data.orderInfo)
@@ -424,6 +704,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       } else {
         var status = '';
       }
+
       var page = 1;
       var type = that.type;
       var num = 10;
@@ -466,6 +747,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
     onChild: function onChild(e) {
       this.childtxt = e.obj.nickname;
       this.childzid = e.obj.zid;
+      this.page = 1;
       this.orderLista();
     },
     selectAccount: function selectAccount() {
@@ -479,19 +761,17 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       } else if (data == "全部订单") {
         this.type = 1;
       }
+      this.page = 1;
       this.orderLista();
     },
     changeFirst: function changeFirst(index) {
       this.isActive = index;
+      this.lineShow = true;
+      this.page = 1;
       this.orderLista();
     },
     rightClick: function rightClick() {
       this.showOrderType = true;
-    },
-    orderDetailPage: function orderDetailPage() {
-      uni.navigateTo({
-        url: '/pages/order/orderdetail' });
-
     },
     // //回到顶部
     goTop: function goTop() {// 一键回到顶部
@@ -517,15 +797,19 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
 
     } else {
       var aShow = app.aData.show;
-      // console.log(aShow)
+      console.log(aShow);
       if (aShow == false) {
-        that.orderListb(); //订单列表
-        that.goTop();
         that.orderList = [];
         that.childtxt = '当前账号';
         that.childzid = '';
+        that.page = 1;
         that.type = 1;
+        that.activeTab = 6;
+        this.lineShow = false;
+        that.orderTitle = '全部订单';
         that.isActive = '全部';
+        that.orderListb(); //订单列表
+        that.goTop();
       }
       if (uni.getStorageSync("is_child") == 0) {
         that.childInfo();
@@ -549,7 +833,6 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
   onReachBottom: function onReachBottom() {
     //订单列表流加载
     var that = this;
-
     if (that.isActive != "全部") {
       var status = that.isActive + 1;
     } else {
@@ -581,7 +864,6 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
     _request.default.getRequest("orderList", data, function (res) {
       if (res.data.code == 200) {
         if (res.data.data.list != '') {
-
           for (var i = 0; i < res.data.data.list.length; i++) {
             that.orderList.push(res.data.data.list[i]);
           }
@@ -589,7 +871,6 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
           that.page = page + 1;
         } else {
           that.load = false;
-
         }
       }
     });

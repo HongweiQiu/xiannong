@@ -19,8 +19,10 @@ export default {
 		rootUrl: '/api', //主接口地址
 		imgRemote: 'http://test.caidj.cn',
 		// #endif
-		classId:''
-		
+		classId:'',
+		aData: {
+		  show: true
+		}
 	},
 	onLaunch: function() {
 	

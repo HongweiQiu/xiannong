@@ -49,6 +49,8 @@
 		"root": "pages/order",
 		"pages": [{
 			"path": "orderdetail"
+		},{
+			"path": "pay"
 		}]
 	}, {
 		"root": "pages/shopcart",

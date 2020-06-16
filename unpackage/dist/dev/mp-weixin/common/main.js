@@ -112,7 +112,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-    classId: '' },
+    classId: '',
+    aData: {
+      show: true } },
 
 
   onLaunch: function onLaunch() {

@@ -13,7 +13,7 @@
 					</view>
 				</view>
 				<view class="">
-					<my-s-tabs slot-title @change="changeFirst" v-model="activeTab" class="custom-tabs">
+					<my-s-tabs effect slot-title @change="changeFirst" v-model="activeTab" class="custom-tabs" :line="lineShow">
 						<my-s-tab v-for="(item, index) of tabList" :key="index">{{ item.name }}</my-s-tab>
 					</my-s-tabs>
 				</view>
@@ -38,7 +38,7 @@
 						<view style="color:#1EA55A;" class="right" v-if="item.order_status==3">已收货</view>
 						<view style="color:#FF3E1E;" class="right" v-if="item.order_status==4">已取消</view>
 					</view>
-					<view class="flex detail" @click="orderDetailPage">
+					<view class="flex detail" @click="orderDetailPage('orderDetail',item)">
 						<image class="order_img" :src="item.item_img==''?imgRemote+orderInfo.item_default:item.item_img" mode="aspectFit"></image>
 						<view style="width: 100%;">
 							<view class="">
@@ -89,18 +89,18 @@
 						</view>
 					</view>
 					<view class="order_option">
-						<text class="another_order" v-if="item.order_status==3 || item.order_status==2">再来一单</text>
-						<text class="look_logist" v-if="item.order_status==2">查看物流</text>
-						<text class="cancel_order" v-if="item.order_status==0 || item.order_status==2">取消订单</text>
+						<text class="another_order" v-if="item.order_status==3 || item.order_status==2" @click="oneMoreTime(item.id)">再来一单</text>
+						<text class="look_logist" v-if="item.order_status==2" @click="ckwl(item.vehicle_id)">查看物流</text>
+						<text class="cancel_order" v-if="item.order_status==0 || item.order_status==2" @click="cancelOrder(item.id,index)">取消订单</text>
 						<text class="cancel_order" v-if="item.order_status==3 && item.pay_status==1">已支付</text>
 
 						<block v-if="is_child==0 && item.order_status==3 && item.pay_status==0">
-							<text class="confirm_good" v-if="is_miniBind==1">马上支付</text>
-							<text class="confirm_good" v-if="is_miniBind==0">马上支付</text>
+							<text class="confirm_good" v-if="is_miniBind==1" @click="play(item.id)">马上支付</text>
+							<text class="confirm_good" v-if="is_miniBind==0" @click="orderDetailPage('user')">马上支付</text>
 						</block>
 
 
-						<text class="confirm_good" v-if="item.order_status==2">确认收货</text>
+						<text class="confirm_good" v-if="item.order_status==2" @click="receiveOrder(item.id,index)">确认收货</text>
 					</view>
 				</view>
 				<my-loading :loading="load" v-if="load != '空'"></my-loading>
@@ -152,7 +152,8 @@
 				}, {
 					name: '已取消'
 				}],
-				activeTab: 6,
+				activeTab: 1,
+				lineShow:false,
 				showOrderType: false,
 				childListProps: {
 					"label": "nickname",
@@ -176,6 +177,283 @@
 			};
 		},
 		methods: {
+			/**
+			 * 确认收货
+			 */
+			receiveOrder(data, index) {
+				var that = this;
+				let dataId = data;
+				let dataIndex = index;
+				uni.showModal({
+					title: '提示',
+					content: '是否确认收货？',
+					success: function(res) {
+						if (res.confirm) {
+							// console.log('用户点击确定');
+							var id = dataId;
+							var orderindex = dataIndex;
+							var timeStamp = Math.round(new Date().getTime() / 1000);
+							var obj = {
+								appid: appid,
+								id: id,
+								timeStamp: timeStamp,
+							}
+							var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+							var data = {
+								appid: appid,
+								timeStamp: timeStamp,
+								id: id,
+								sign: sign,
+							}
+							rs.getRequests("receiveOrder", data, (res) => {
+								if (res.data.code == 200) {
+									uni.showToast({
+										title: "确认收货成功",
+										icon: 'none'
+									})
+									that.orderList.splice(index, 1)
+									if (that.orderList.length <= 0) {
+										that.orderLista()
+									}
+								}else{
+									uni.showToast({
+										title: res.data.msg,
+										icon: 'none'
+									})
+								}
+							})
+						} else if (res.cancel) {
+							// console.log('用户点击取消');
+						}
+					}
+				});
+			
+			},
+			/**
+			 * 页面跳转
+			 */
+			//支付
+			play(data) {
+			  var oid = data;
+			  wx.navigateTo({
+			    url: '/pages/order/pay?oid=' + oid,
+			  })
+			},
+			orderDetailPage(url, item) {
+				if (url == 'orderDetail') {
+					uni.navigateTo({
+						url: '/pages/order/orderdetail?orderItem=' + item.id
+					})
+				} else if (url == 'user') {
+					uni.showToast({
+						title: "还未绑定微信,请去我的页面绑定微信",
+						duration: 2000,
+						icon: 'none'
+					})
+					uni.navigateTo({
+						url: '/pages/tabar/user'
+					});
+				}
+			
+			},
+			/**
+			 * 取消订单
+			 */
+			cancelOrder(data, index) {
+				var that = this
+				let dataId = data;
+				let dataIndex = index;
+				uni.showModal({
+					title: '提示',
+					content: '是否取消订单？',
+					success: function(res) {
+						if (res.confirm) {
+							// console.log('用户点击确定');
+							var id = dataId;
+							var orderindex = dataIndex;
+							var timeStamp = Math.round(new Date().getTime() / 1000);
+							var obj = {
+								appid: appid,
+								id: id,
+								timeStamp: timeStamp,
+							}
+							var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+							var data = {
+								appid: appid,
+								timeStamp: timeStamp,
+								id: id,
+								sign: sign,
+							}
+							rs.getRequests("cancelOrder", data, (res) => {
+								console.log(res)
+								if (res.data.code == 200) {
+									uni.showToast({
+										title: "取消订单成功",
+										icon: 'none'
+									})
+									that.orderList.splice(index, 1)
+									if (that.orderList.length <= 0) {
+										that.orderLista()
+									}
+								} else if (res.data.code == 101) {
+									uni.showToast({
+										title: "订单已审核，不能取消",
+										icon: 'none'
+									})
+								} else {
+									uni.showToast({
+										title: res.data.msg,
+										icon: 'none'
+									})
+								}
+							})
+						} else if (res.cancel) {
+							// console.log('用户点击取消');
+						}
+					}
+				});
+			},
+			/**
+			 * 查看物流
+			 */
+			ckwl(data) {
+				var that = this
+				var id = data;
+				if (id <= 0) {
+					uni.showToast({
+						title: "无物流信息",
+						duration: 2000,
+						icon: 'none'
+					})
+					return;
+				}
+				var timeStamp = Math.round(new Date().getTime() / 1000);
+				var obj = {
+					appid: appid,
+					id: id,
+					timeStamp: timeStamp,
+				}
+				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				var data = {
+					appid: appid,
+					timeStamp: timeStamp,
+					id: id,
+					sign: sign,
+				}
+				rs.postRequests("carPosition", data, (res) => {
+					if (res.data.code == 200) {
+						if (res.data.data != '') {
+							var latitude = parseInt(res.data.data.latitude)
+							var longitude = parseInt(res.data.data.longitude)
+							if (res.data.data.latitude == '' || res.data.data.longitude == '') {
+								uni.showToast({
+									title: "无物流信息",
+									duration: 2000,
+									icon: 'none'
+								})
+							} else {
+								uni.getLocation({
+									type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
+									success: function(res) {
+										that.map = true;
+										let mapObj = that.bd_decrypt(longitude, latitude);
+										uni.openLocation({
+											latitude: mapObj.lat, // 纬度，范围为-90~90，负数表示南纬
+											longitude: mapObj.lng, // 经度，范围为-180~180，负数表示西经
+										})
+									}
+								})
+							}
+						} else {
+							uni.showToast({
+								title: "无物流信息",
+								duration: 2000,
+								icon: 'none'
+							})
+						}
+					} else {
+						uni.showToast({
+							title: res.data.msg,
+							duration: 2000,
+							icon: 'none'
+						})
+					}
+				})
+			},
+			//百度坐标转高德（传入经度、纬度）
+			bd_decrypt(bd_lng, bd_lat) {
+				var X_PI = Math.PI * 3000.0 / 180.0;
+				var x = bd_lng - 0.0065;
+				var y = bd_lat - 0.006;
+				var z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * X_PI);
+				var theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * X_PI);
+				var gg_lng = z * Math.cos(theta);
+				var gg_lat = z * Math.sin(theta);
+				return {
+					lng: gg_lng,
+					lat: gg_lat
+				} 
+			},
+			/**
+			 * 再来一单
+			 */
+			oneMoreTime(data) {
+				let dataId = data;
+				uni.showModal({
+					title: '提示',
+					content: '是否再来一单？',
+					success: function(res) {
+						if (res.confirm) {
+							// console.log('用户点击确定');
+							var that = this
+							var id = dataId;
+							var timeStamp = Math.round(new Date().getTime() / 1000);
+							var obj = {
+								appid: appid,
+								id: id,
+								timeStamp: timeStamp,
+							}
+							var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+							var data = {
+								appid: appid,
+								timeStamp: timeStamp,
+								id: id,
+								sign: sign,
+							}
+							rs.getRequests("oneMoreTime", data, (res) => {
+								console.log(res)
+								if (res.data.code == 200) {
+									uni.showToast({
+										title: "再来一单成功",
+										duration: 2000,
+										icon: 'none'
+									})
+									uni.switchTab({
+										url: '/pages/tabar/shopcart'
+									})
+								} else if (res.data.code == 102) {
+									uni.showToast({
+										title: "有下架商品",
+										duration: 2000,
+										icon: 'none'
+									})
+									uni.switchTab({
+										url: '/pages/tabar/shopcat'
+									})
+								} else {
+									uni.showToast({
+										title: res.data.msg,
+										duration: 2000,
+										icon: 'none'
+									})
+								}
+							})
+						} else if (res.cancel) {
+							// console.log('用户点击取消');
+						}
+					}
+				});
+			},
 			/**
 			 * 获取子账号信息
 			 */
@@ -210,8 +488,10 @@
 			//初始订单请求
 			orderListb() {
 				var that = this;
+				that.orderList = [];
 				that.search_default = false;
-				var page = 1;
+				
+				var page = that.page;
 				var type = that.type;
 				if (that.isActive != "全部") {
 					var status = that.isActive + 1;
@@ -265,6 +545,7 @@
 				} else {
 					var status = '';
 				}
+				
 				var page = 1;
 				var type = that.type;
 				var num = 10
@@ -307,6 +588,7 @@
 			onChild(e) {
 				this.childtxt = e.obj.nickname;
 				this.childzid = e.obj.zid;
+				this.page = 1;
 				this.orderLista();
 			},
 			selectAccount() {
@@ -320,19 +602,17 @@
 				} else if (data == "全部订单") {
 					this.type = 1;
 				}
+				this.page = 1;
 				this.orderLista();
 			},
 			changeFirst(index) {
 				this.isActive = index;
+				this.lineShow = true;
+				this.page = 1;
 				this.orderLista();
 			},
 			rightClick() {
 				this.showOrderType = true;
-			},
-			orderDetailPage() {
-				uni.navigateTo({
-					url: '/pages/order/orderdetail'
-				})
 			},
 			// //回到顶部
 			goTop() { // 一键回到顶部
@@ -358,15 +638,19 @@
 				});
 			} else {
 				let aShow = app.aData.show;
-				// console.log(aShow)
+				console.log(aShow)
 				if (aShow == false) {
-					that.orderListb() //订单列表
-					that.goTop()
 					that.orderList = [];
 					that.childtxt = '当前账号';
 					that.childzid = '';
+					that.page = 1;
 					that.type = 1;
+					that.activeTab = 6;
+					this.lineShow = false;
+					that.orderTitle = '全部订单';
 					that.isActive = '全部';
+					that.orderListb() //订单列表
+					that.goTop()
 				}
 				if (uni.getStorageSync("is_child") == 0) {
 					that.childInfo();
@@ -390,7 +674,6 @@
 		onReachBottom: function() {
 			//订单列表流加载
 			var that = this;
-		
 			if (that.isActive != "全部") {
 				var status = that.isActive + 1;
 			} else {
@@ -422,7 +705,6 @@
 			rs.getRequest("orderList", data, (res) => {
 				if (res.data.code == 200) {
 					if (res.data.data.list != '') {
-		
 						for (var i = 0; i < res.data.data.list.length; i++) {
 							that.orderList.push(res.data.data.list[i])
 						}
@@ -430,7 +712,6 @@
 						that.page = page + 1;
 					} else {
 						that.load = false;
-		
 					}
 				}
 			})
@@ -548,5 +829,13 @@
 			display: flex;
 			justify-content: space-between;
 		}
+	}
+	.order .bitmap {
+		text-align: center;
+	}
+	.order .bitmap image {
+		width: 400rpx;
+		height: 400rpx;
+		margin-top: 150rpx;
 	}
 </style>
