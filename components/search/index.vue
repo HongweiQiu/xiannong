@@ -7,7 +7,7 @@
 			<!-- #endif -->
 			<view class="my_search_content">
 				<icon type="search" size="26rpx" />
-				<text>请输入商品名称</text>
+				<text class="text">请输入商品名称</text>
 			</view>
 		</view>
 		<!-- #ifdef APP-PLUS |H5 -->
@@ -50,7 +50,7 @@ export default {
 	justify-content: center;
 	align-items: center;
 }
-.my_search_content text {
+.my_search_content .text {
 	color: #d6cdd2;
 }
 

@@ -1,7 +1,7 @@
 <template>
 
 	<view class="recomend_single">
-		<view>
+		<view @click="detail">
 			<view>
 				<image :src="config.logo" mode="aspectFit" class="shuiyin" v-if="config.logo&&config.shuiyin==1"></image>
 				<image class="photo" :src="ware.img==''?imgRemote+config.item_default:ware.img" mode="aspectFit"></image>
@@ -71,6 +71,11 @@
 		methods: {
 			showCart() {
 				this.$emit('showCart')
+			},
+			detail(){
+				uni.navigateTo({
+					url:`/pages/index/shopdetail?id=${this.ware.id}`
+				})
 			}
 		}
 	}

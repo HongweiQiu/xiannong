@@ -1,0 +1,53 @@
+
+.shoplist .icon-shanchu {
+	color: red;
+	font-weight: 700;
+}
+.shoplist .class_name {
+	padding-top: 10rpx;
+}
+.shoplist .shop {
+	background: white;
+	margin-top: 10rpx;
+	padding: 0 20rpx;
+}
+.shoplist .single_good {
+	padding: 10rpx 0;
+	border-bottom: 1px solid #f7f6f6;
+}
+.shoplist .class_tag {
+	background: #009a44;
+	color: #fff;
+	padding: 0 8rpx;
+	margin-right: 10rpx;
+	border-radius: 6rpx;
+}
+.shoplist .good_img {
+	width: 30%;
+}
+.shoplist .good_img .have_img {
+	width: 100%;
+	height: 160rpx;
+}
+.shoplist .include_delete {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	width: 70%;
+}
+.shoplist .include_delete .info {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+}
+

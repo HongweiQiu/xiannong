@@ -137,7 +137,7 @@ function postRequest(url, datas, success) {
         success: res => {
           success(res)
           if (res.header.Authorization != undefined) {
-            uni.setStorageSync("token", res.header.Authorization)
+            uni.setStorageSync("cdj_token", res.header.Authorization)
           }
           if (res.data.code == 400) {
             uni.showToast({

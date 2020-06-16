@@ -21,7 +21,7 @@
 	-webkit-align-items: center;
 	        align-items: center;
 }
-.my_search_content text {
+.my_search_content .text {
 	color: #d6cdd2;
 }
 

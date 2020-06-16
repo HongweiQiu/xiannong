@@ -50,7 +50,7 @@
 			<view class="buy_num">
 				<view>购买数量</view>
 				<view>
-					<my-stepper :val="value" @showKey="showKey"></my-stepper>
+					<my-stepper :val="value" @showKey="showKey" @change="change" min=1></my-stepper>
 				</view>
 			</view>
 		</view>
@@ -75,7 +75,7 @@
 				token: uni.getStorageSync('cdj_token'),
 				imgRemote: imgRemote,
 				kind: 0,
-				value: 20,
+				value: 1,
 				isTop:false,
 				arrObj:{}
 			}
@@ -91,13 +91,74 @@
 				this.isTop=true;
 				this.arrObj=this.cartware;
 			},
+			change(e){
+				this.value=e;
+			},
 			toParent(e){
 					this.isTop=false;
-					this.value=5;
+					this.value=e.val;
 				   
 			},
 			determine() {
+			let info = this.cartware;
+							let timeStamp = Math.round(new Date().getTime() / 1000);
+							let obj = {
+								appid: appid,
+								timeStamp: timeStamp
+							};
+							let newobj = {};
 			
+							if (info.attr.length == 0) {
+								newobj = Object.assign({
+										item_id: info.id,
+										attr_id: 0,
+										item_num: this.value
+									},
+									obj
+								);
+							} else {
+								newobj = Object.assign({
+										item_id: info.attr[this.kind].item_id,
+										attr_id: info.attr[this.kind].id,
+										item_num: this.value
+									},
+									obj
+								);
+							}
+							let sign = md5.hexMD5(rs.objKeySort(newobj) + appsecret);
+							let params = Object.assign({
+									sign: sign
+								},
+								newobj
+							);
+			
+							rs.postRequests('firstChangeNum', params, res => {
+								if (res.data.code == 200) {
+									uni.showToast({
+										title: '成功加入购物车',
+										duration: 1000,
+										icon: 'none'
+									});
+									if (getCurrentPages()[0].route == 'pages/shopcat/shopcat') {
+										uni.reLaunch({
+											url: '/pages/shopcat/shopcat'
+										})
+									}
+								} else if (res.data.code == 407 || res.data.code == 406) {
+									uni.showToast({
+										title: '购买数量不能超过活动数量',
+										duration: 1000,
+										icon: 'none'
+									});
+								} else {
+									uni.showToast({
+										title: res.data.msg,
+										duration: 1000,
+										icon: 'none'
+									});
+								}
+							});
+							this.onClose();
 			}
 		}
 	};

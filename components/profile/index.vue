@@ -54,7 +54,9 @@
 						<image class="add_cart" src="../../static/img/addcart.png" @click="showCart"></image>
 					</block>
 					<block v-else>
-						<my-stepper @showKey="showKey"></my-stepper>
+						
+						<my-stepper @showKey="showKey" :val="ware.cart_num" @minus="minus" @plus="plus" v-if="ware.cart_num"></my-stepper>
+							<image v-else class="add_cart" src="../../static/img/plus.png" @click="plusCart"></image>
 					</block>
 				</view>
 			</view>
@@ -63,10 +65,17 @@
 </template>
 
 <script>
+	import md5 from '../../static/js/md5.js';
+	import rs from '../../static/js/request.js';
 	const app = getApp().globalData;
 	const {
+		appid,
+		appsecret,
 		imgRemote
 	} = app;
+	let {
+		log
+	} = console;
 	export default {
 		props: ['ware', 'config', 'url'],
 		data() {
@@ -78,6 +87,58 @@
 		methods: {
 			showCart() {
 				this.$emit('showCart')
+			},
+			addcart(url, num, message = '成功加入购物车') {
+							let item = this.ware;
+							let timeStamp = Math.round(new Date().getTime() / 1000);
+							let obj = {
+								appid: appid,
+								timeStamp: timeStamp,
+								item_id: item.id,
+								attr_id: 0,
+								item_num: num
+							};
+							let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+							let params = Object.assign({
+									sign: sign
+								},
+								obj
+							);
+							rs.postRequests(url, params, res => { 
+								let data = res.data;
+								if (data.code == 200) {
+									uni.showToast({
+										title:message,
+										icon:'none',
+										duration:2000
+									})
+									if (num <= 0) {
+										this.ware.cart_num = 0;
+									} else {
+										this.ware.cart_num = num;
+									}
+								} else if (data.code == 407 || data.code == 406) {
+									Toast("购买数量不能超过活动数量");
+									console.log(this.shopList.cart_num)
+									console.log(item)
+									this.ware.cart_num = item.activity_num;
+								} else {
+									Toast(res.data.msg);
+								}
+							});
+						},
+			minus(e){
+				if(e==0){
+						this.addcart('deleteCart', e, '成功删除商品');
+				}else{
+					this.addcart('changeNum', e);
+				}
+			},
+			plus(e){
+			this.addcart('changeNum', e);
+			},
+			plusCart(){
+				this.addcart('changeNum', 1);
 			},
 			showKey() {
 				this.$emit('showKey')
@@ -93,7 +154,7 @@
 	}
 
 	.my_profile .photo {
-		width: 40%;
+		width: 200rpx;
 	}
 
 	.my_profile .good_img {
@@ -102,7 +163,7 @@
 	}
 
 	.my_profile .info {
-		width: 60%;
+		width: calc(100% - 200rpx);
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;

@@ -101,19 +101,18 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
     navBar: false,
 
-    isTop: false,
     appid: '1',
     active: '2',
     appsecret: 'StJfzJcXmya6k6Ar',
 
     rootUrl: 'https://test.caidj.cn/mobileOrder/', //主接口地址
-    imgRemote: 'https://test.caidj.cn' },
+    imgRemote: 'https://test.caidj.cn',
 
 
 
 
 
-
+    classId: '' },
 
 
   onLaunch: function onLaunch() {

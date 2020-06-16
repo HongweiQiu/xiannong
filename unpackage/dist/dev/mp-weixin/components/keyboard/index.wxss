@@ -38,11 +38,11 @@
 .smaller_font {
   font-size: 20rpx;
 }
-.height, .keyboard .left view, .keyboard .right view {
+.height, .keyboard .left .num, .keyboard .right .option_button {
   height: 80rpx;
   line-height: 80rpx;
 }
-.green_b, .keyboard .right view {
+.green_b, .keyboard .right .option_button {
   background: #009a44;
 }
 .width {
@@ -53,7 +53,7 @@
   font-size: 28rpx;
   border-radius: 10rpx 10rpx 0 0;
 }
-.inputval input {
+.inputval .getval {
   height: 120rpx;
   line-height: 120rpx;
 }
@@ -74,7 +74,7 @@
   -webkit-flex-wrap: wrap;
           flex-wrap: wrap;
 }
-.keyboard .left view {
+.keyboard .left .num {
   margin: 20rpx 0 0;
   width: 165rpx;
   text-align: center;
@@ -89,7 +89,7 @@
   -webkit-align-items: center;
           align-items: center;
 }
-.keyboard .left .shanchu image {
+.keyboard .left .shanchu .delte {
   width: 50%;
   height: 40rpx;
   line-height: 60rpx;
@@ -97,7 +97,7 @@
 .keyboard .right {
   width: 25%;
 }
-.keyboard .right view {
+.keyboard .right .option_button {
   width: 80%;
   margin: 20rpx 0 0;
   width: 165rpx;

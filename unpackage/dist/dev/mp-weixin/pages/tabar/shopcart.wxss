@@ -1,12 +1,8 @@
 
-.shopcart .cart_buy > view {
+.shopcart .cart_buy>view {
 	background: white;
 }
-.shopcart .cart_buy .icon-jiantou {
-	font-weight: 800;
-	font-size: 20rpx;
-}
-.shopcart .cart_buy > view:nth-child(n + 3) {
+.shopcart .cart_buy>view:nth-child(n + 3) {
 	margin-top: 5px;
 }
 .shopcart .cart_buy .gray_font {
@@ -15,7 +11,7 @@
 	display: flex;
 }
 .deliver_address {
-	padding: 10rpx 20rpx;
+	padding: 10rpx 5rpx 10rpx 20rpx;
 }
 .deliver_address {
 	margin-top: 0 !important;
@@ -53,6 +49,10 @@
 	-webkit-align-items: center;
 	        align-items: center;
 }
+.deliver_address .dizhi image {
+	width: 40rpx;
+	height: 40rpx;
+}
 .order_time {
 	padding: 0 !important;
 	background: #f8f6f9 !important;
@@ -62,9 +62,9 @@
 	width: 60rpx;
 	height: 40rpx;
 }
-.select_info > view,
-.price_info > view {
-	padding: 0rpx 20rpx;
+.select_info>view,
+.price_info>view {
+	padding: 0rpx 5rpx 0 20rpx;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -74,14 +74,22 @@
 	height: 68rpx;
 	line-height: 58rpx;
 }
-.remark {
+.shopcart .remark {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
 	padding: 15rpx 20rpx !important;
 }
+.shopcart .remark .weight {
+	width: 70rpx;
+}
+.shopcart .remark .remark_note {
+	margin-right: 20rpx;
+}
 .order_method .active_info {
-	padding: 5rpx 20rpx;
+	/* padding: 5rpx 20rpx; */
+	padding:0 0 0 20rpx;
+	height:50rpx;
 	background: rgba(173, 219, 140, 0.2);
 }
 .order_method .price_order {
@@ -90,6 +98,18 @@
 .order_method .total_price {
 	padding-left: 20rpx;
 	width: 70%;
+}
+.order_method .total_price .count {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
 }
 .order_method .determine {
 	height: 100%;
@@ -111,12 +131,21 @@
 	color: #808080;
 	text-decoration: line-through;
 	font-size: 20rpx;
-	text-indent: 70rpx;
+	text-indent: 80rpx;
 }
 .order_method {
 	position: fixed;
 	bottom: 50px;
 	width: 100%;
 }
-
+.null_cart .null_img {
+	background: white;
+	text-align: center;
+	padding: 20% 0;
+}
+.null_cart .null_img image {
+	width: 37%;
+	height: 260rpx;
+}
+.margin_right{margin-right:10rpx;}
 

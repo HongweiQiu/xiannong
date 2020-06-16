@@ -39,6 +39,7 @@ page {
 	width: 25%;
 	position: fixed;
 	overflow-x: scroll;
+	height: calc(100vh - 104rpx - 50px);
 }
 .classify .left_area::-webkit-scrollbar {
 	display: none;
@@ -75,15 +76,7 @@ page {
 }
 .classify .bitmap {
 	text-align: center;
-
-
-
-
-
-
-
-	height: calc(100vh - 205rpx);
-
+	height: calc(100vh - 104rpx - 100px);
 	background: white;
 }
 .classify .bitmap image {

@@ -39,8 +39,7 @@
 	width: 100%;
 	padding: 0 20rpx;
 }
-.search_list .hot_search .title {
-}
+.search_list .hot_search .title {}
 .search_list .hot_search .key_tag {
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -62,5 +61,7 @@
 .search_list .search_bitmap .bitmap {
 	width: 47%;
 }
-.search_list .search_result .my_profile{margin-bottom: 10rpx;}
+.search_list .search_result .my_profile {
+	margin-bottom: 10rpx;
+}
 

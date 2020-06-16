@@ -119,7 +119,12 @@
 					second = '0' + second
 				}
 				this.d = day
-				this.h = hour
+								let timeh= parseInt(hour)+parseInt(day*24);
+								if(timeh<10){
+									this.h = '0'+timeh;
+								}else{
+									this.h = timeh;
+								}
 				this.i = minute
 				this.s = second
 			},

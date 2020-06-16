@@ -8,23 +8,33 @@
 
 <script>
 export default {
-	props:['val'],
+	props:['val','min'],
 	data() {
 		return {
-			 value: this.val
+			 value:this.val
 		};
 	},
+  watch:{
+	  val(newval){
+		  this.value=newval;
+	  }
+  },
 	methods: {
 		minus() {
 			this.value --;
 			if (this.value <=0) {
 				this.value = 0;
 			}
-			this.$emit('minus',this.val)
+			if(this.value<=this.min){
+				this.value=this.min;
+			}
+			this.$emit('minus',this.value); this.$emit('change',this.value)
 		},
 		plus(){
 			let num=Number(this.value)
 			this.value++;
+			this.$emit('plus',this.value);
+			 this.$emit('change',this.value)
 		},
 		showkey(){
 			this.$emit('showKey')
