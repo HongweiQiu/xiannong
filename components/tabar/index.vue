@@ -29,7 +29,7 @@ export default {
 	},
 	methods: {
 		pageUrl(data) {
-			
+			getApp().globalData.isReload=true;
 			uni.switchTab({
 				url: data.url
 			});
@@ -54,6 +54,7 @@ export default {
 	height: 25px;
 }
 .my_tabar .single_tabar {
+	width:25%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

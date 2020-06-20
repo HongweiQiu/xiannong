@@ -25,6 +25,7 @@
 </template>
 
 <script>
+	import rs from '../../static/js/request.js';
 	export default {
 		props: {
 			keyStatu: {
@@ -56,11 +57,7 @@
 					this.val = this.val.substring(0, this.val.length - 1);
 				} else {
 					if (this.val.indexOf('.') >= 0 && data == '.') {
-						uni.showToast({
-							title: '格式不正确',
-							duration: 1000,
-							icon: 'none'
-						});
+						rs.Toast('格式不正确');
 						return;
 					}
 					this.val += str;
@@ -68,27 +65,15 @@
 			},
 			toParent() {
 				if (this.val == '') {
-					uni.showToast({
-						title: '还没有输入',
-						duration: 1000,
-						icon: 'none'
-					});
+					rs.Toast('还没有输入');
 				} else if (this.val == 0) {
-					uni.showToast({
-						title: '购买数量不能为零',
-						duration: 1000,
-						icon: 'none'
-					});
+					rs.Toast( '购买数量不能为零');
 				} else if (this.arrObj.is_float == 1 && !Number.isInteger(Number(this.val))) {
-					uni.showToast({
-						title: '购买数量不能为小数',
-						duration: 1000,
-						icon: 'none'
-					});
+					rs.Toast( '购买数量不能为小数');
 				} else {
 					var obj = {
 						arrObj: this.arrObj,
-						val: this.val
+						val: parseFloat(this.val)
 					};
 					this.$emit('keyBoard', this.keyStatu);
 					this.$emit('toParent', obj);

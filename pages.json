@@ -43,6 +43,9 @@
 			},
 			{
 				"path": "service"
+			},
+			{
+				"path": "treaty"
 			}
 		]
 	}, {

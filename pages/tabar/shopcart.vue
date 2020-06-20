@@ -1,5 +1,5 @@
 <template>
-	<view class="">
+	<view>
 		<!-- #ifdef APP-PLUS -->
 		<view class="status_bar">
 			<!-- 这里是状态栏 -->
@@ -84,7 +84,8 @@
 				<!-- 备注 -->
 				<view class="remark">
 					<text class="weight">备注</text>
-					<textarea placeholder="请告诉我们需要注意的地方" placeholder-style="font-size:28rpx;" class="twelve remark_note"></textarea>
+					<input placeholder="请告诉我们需要注意的地方"  v-model="remark"
+					 placeholder-style="font-size:28rpx;" class="twelve remark_note" show-confirm-bar=false />
 				</view>
 				<!-- 下单 -->
 				<view class="order_method" v-if="display">
@@ -98,8 +99,8 @@
 					<view class="flex_left_right price_order">
 						<view class="flex total_price">
 							<view class="cart_num">
-								<view class="gray_font">共{{cartInfo.countNum}}件</view>
-								<view class="gift_num">(含赠品1件)</view>
+								<view class="gray_font">共{{cartInfo.countNum+gift}}件</view>
+								<view class="gift_num" v-if="gift==1">(含赠品1件)</view>
 							</view>
 							<view class="count">
 								<view>
@@ -114,7 +115,7 @@
 					</view>
 				</view>
 			</view>
-			<view></view>
+
 			<!-- 子账号 -->
 			<w-picker mode="selector" default-type="title" :default-props="childListProps" :options="childList" @confirm="onConfirmAccount($event, 'selector')"
 			 ref="account">
@@ -158,7 +159,7 @@
 				<my-addcart @onClose="onClose" :cartware="cartware" :config="config"></my-addcart>
 			</uni-popup>
 		</view>
-		<my-tabar tabarIndex=2 v-if="display"></my-tabar>
+		<my-tabar tabarIndex=2  v-if="display"></my-tabar>
 	</view>
 </template>
 
@@ -228,7 +229,9 @@
 				showTop: false,
 				config: [],
 				cartware: [],
-				itemList: []
+				itemList: [],
+				remark:'',
+				gift:0
 			};
 		},
 		methods: {
@@ -242,9 +245,9 @@
 					url: '/pages/shopcart/delivery'
 				});
 			},
-			collectBill(){
+			collectBill() {
 				uni.switchTab({
-					url:'/pages/tabar/index'
+					url: '/pages/tabar/index'
 				})
 			},
 			childInfo() {
@@ -260,10 +263,6 @@
 				rs.getRequests("childInfo", params, (res) => {
 					let data = res.data;
 					if (data.code == 200) {
-						this.childList = [{
-							zid: '',
-							nickname: '当前账号'
-						}];
 						this.childList.push(...data.data)
 					}
 				})
@@ -301,7 +300,6 @@
 					this.contact = userInfo.contact;
 					this.mobile = userInfo.phone;
 					this.address = userInfo.address;
-					log(uni.getStorageSync('is_child'))
 					// 判断购物车是否有数量
 					if (data.data.countNum == 0 && this.page == 1) {
 						this.indexItem()
@@ -317,10 +315,18 @@
 						}
 						this.couponsList.push(...nrr);
 					}
+					// 满赠
+					if(activity_type==2){
+						if(data.data.fullPrice>=activity_rule[0].price){
+							this.gift=1
+						}else{
+							this.gift=0;
+						}
+					}
 					// 满减
 					let length = activity_rule.length - 1;
 					if (activity_type == 1) {
-						if (activity_rule[length].price <=totalPrice) {
+						if (activity_rule[length].price <= totalPrice) {
 							this.reduce =
 								`已享受满<text style='color: #FF3E1E;'>${activity_rule[length].price}元</text>减<text style='color: #FF3E1E;'>${activity_rule[length].reduce}元<text>`;
 
@@ -385,6 +391,8 @@
 			onConfirmCash(e) {
 				this.cash = e.result;
 				this.couponsId = e.value;
+				this.juanPrice = 0;
+				log(e)
 				if (e.obj.id != '') {
 					let timeStamp = Math.round(new Date().getTime() / 1000);
 					let obj = {
@@ -401,13 +409,8 @@
 						if (res.data.code == 200) {
 							this.juanPrice = res.data.data.couponsPrice;
 						} else {
-							uni.showToast({
-								title: res.data.msg,
-								duration: 1000,
-								icon: 'none'
-							})
+							rs.Toast(res.data.msg)
 						}
-
 					})
 				}
 			},
@@ -437,8 +440,6 @@
 									success: function(res) {
 										if (res.confirm) {
 											that.order();
-										} else if (res.cancel) {
-											// console.log('用户点击取消');
 										}
 									}
 								});
@@ -451,8 +452,6 @@
 									success: function(res) {
 										if (res.confirm) {
 											that.order();
-										} else if (res.cancel) {
-											// console.log('用户点击取消');
 										}
 									}
 								});
@@ -472,8 +471,6 @@
 												success: function(res) {
 													if (res.confirm) {
 														that.order();
-													} else if (res.cancel) {
-														// console.log('用户点击取消');
 													}
 												}
 											});
@@ -504,8 +501,6 @@
 												success: function(res) {
 													if (res.confirm) {
 														that.order();
-													} else if (res.cancel) {
-														// console.log('用户点击取消');
 													}
 												}
 											});
@@ -521,8 +516,6 @@
 							success: function(res) {
 								if (res.confirm) {
 									that.order();
-								} else if (res.cancel) {
-									// console.log('用户点击取消');
 								}
 							}
 						});
@@ -533,11 +526,21 @@
 			mergeOrder() {
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				var date = this.dateOfTime;
+				// way 1公众号 2App 3小程序 下单方式
+				// #ifdef H5
+				     let way=1;
+				// #endif
+				// #ifdef APP-PLUS
+				     let way=2;
+				// #endif
+				// #ifdef MP-WEIXIN
+				     let way=3;
+				// #endif
 				let obj = {
 					appid: appid,
 					timeStamp: timeStamp,
 					send_time: date,
-					way: 2
+					way: way
 				};
 				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
 				let params = Object.assign({
@@ -545,17 +548,11 @@
 				}, obj)
 				rs.postRequests('mergeOrder', params, (res) => {
 					if (res.data.code != 200) {
-						Toast({
-							message: res.data.msg,
-							duration: 1000
-						})
+						rs.Toast(res.data.msg)
 					} else {
-						Toast({
-							message: '合拼订单成功',
-							duration: 1000
-						})
+						rs.Toast('合拼订单成功');
 						uni.switchTab({
-							url: '/pages/order/order',
+							url: '/pages/tabar/order',
 						})
 					}
 				})
@@ -567,18 +564,27 @@
 				var select_zid = this.childzid;
 				var timearea = this.deliveryTime;
 				var timeId = this.deliveryId;
-				var remark = this.remark;
+				var remark = this.remark.replace(/\s/g,'');
 				let timeInfo = '';
 				if (timearea == "不限") {
 					timeInfo = '';
 				} else {
 					timeInfo = timearea;
 				}
+				// #ifdef H5
+				     let way=1;
+				// #endif
+				// #ifdef APP-PLUS
+				     let way=2;
+				// #endif
+				// #ifdef MP-WEIXIN
+				     let way=3;
+				// #endif
 				let obj = {
 					appid: appid,
 					timeStamp: timeStamp,
 					send_time: date,
-					way: 2
+					way: way
 				};
 				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
 				let params = Object.assign({
@@ -594,10 +600,7 @@
 					let data = res.data;
 
 					if (data.code == 104) {
-						uni.showToast({
-							message: '超出下单时间，不能下单',
-							duration: 1200
-						});
+						rs.Toast('超出下单时间，不能下单');
 						return false;
 					} else if (data.code == 200) {
 						if (data.data.on_delivery == 0) {
@@ -607,24 +610,16 @@
 							})
 							return;
 						}
-						Toast({
-							message: '下单成功',
-							duration: 1000
-						})
-						this.remark = '';
+						rs.Toast('下单成功');
 						uni.switchTab({
-							url: '/pages/order/order',
+							url: '/pages/tabar/order',
 						})
 					} else if (data.code == 500) {
-						Toast({
-							message: '服务器内部错误,请稍候再试',
-							duration: 1000
-						})
-					} else {
-						Toast({
-							message: data.msg,
-							duration: 1000
-						})
+						rs.Toast('服务器内部错误,请稍候再试')
+					} else if(data.code==407){
+						rs.Toast('超出活动限制,请删除部分商品');
+					}else{
+						rs.Toast(data.msg)
 					}
 				})
 			},
@@ -668,38 +663,62 @@
 			},
 			onClose() {
 				this.$refs.popup.close();
-			}
+			},
+			getSendTime(){
+				var date = new Date();
+				let n = date.getTime() + 24 * 3600000;
+				date.setTime(n);
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var day = date.getDate();
+				this.startyear = year;
+				if (month < 10) {
+					month = '0' + month;
+				}
+				if (day < 10) {
+					day = '0' + day;
+				}
+				this.sendDate = `${year}-${month}-${day}`;	
 		},
 		onShow() {
 			if (uni.getStorageSync("is_child") != 1) {
 				this.childInfo();
 			}
+            this.getSendTime();
 			this.addInfo();
+		},
+		onHide() {
+			this.childzid = '';
+			this.childList = [{
+				zid: '',
+				nickname: '当前账号'
+			}];
+			this.deliveryList = [{
+				delivery_time_id: '',
+				delivery_time_info: '不限'
+			}];
+			this.couponsList = [{
+				id: '',
+				txt: '不使用'
+			}];
+			this.deliveryId = '';
+			this.deliveryTime = '不限';
+			this.account = '当前账号';
+			this.cash = '不使用';
+			this.couponsId = '';
+			this.juanPrice = 0;
+			this.remark='';
 		},
 		onLoad() {
 			uni.hideTabBar();
 		},
-		onReady() {
-			var date = new Date();
-			let n = date.getTime() + 24 * 3600000;
-			date.setTime(n);
-			var year = date.getFullYear();
-			var month = date.getMonth() + 1;
-			var day = date.getDate();
-			this.startyear = year;
-			if (month < 10) {
-				month = '0' + month;
-			}
-
-			if (day < 10) {
-				day = '0' + day;
-			}
-			this.sendDate = `${year}-${month}-${day}`;
+		onReady(){
 			uni.onWindowResize((res) => {
-				this.display = !this.display;
-			})
-
+					this.display = !this.display;
+				})
+			}
 		},
+		
 		onReachBottom() {
 			//页面上拉触底事件的处理函数
 			var that = this;
@@ -737,7 +756,6 @@
 			});
 		},
 		onPageScroll(e) {
-			console.log(e)
 			if (e.scrollTop == 0) {
 				this.showTop = false;
 			} else {
@@ -826,6 +844,7 @@
 	.shopcart .remark {
 		display: flex;
 		padding: 15rpx 20rpx !important;
+		height: 100rpx;
 	}
 
 	.shopcart .remark .weight {
@@ -834,12 +853,13 @@
 
 	.shopcart .remark .remark_note {
 		margin-right: 20rpx;
+		width: 100%;
 	}
 
 	.order_method .active_info {
 		/* padding: 5rpx 20rpx; */
-		padding:0 0 0 20rpx;
-		height:50rpx;
+		padding: 0 0 0 20rpx;
+		height: 50rpx;
 		background: rgba(173, 219, 140, 0.2);
 	}
 
@@ -900,5 +920,11 @@
 		width: 37%;
 		height: 260rpx;
 	}
-	.margin_right{margin-right:10rpx;}
+
+	.margin_right {
+		margin-right: 10rpx;
+	}
+
+	/* .showNav .order_method{display: none;}
+	.showNav .my_tabar{display: none;} */
 </style>

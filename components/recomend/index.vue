@@ -15,15 +15,17 @@
 		<view>
 
 			<view class="price">
-				<view>
+				<view style="width:90%;">
 					<view>
 						<text class="red_tag" v-for="(item,index) in ware.label" :key="index">{{item}}</text>
 					</view>
 					<block v-if="token">
 						<block v-if="config.is_look==1">
 							<block v-if="ware.attr.length">
-								<view class="red_font">￥{{ware.area_price}}
-									<text class="gray_font">(多规格)</text></view>
+								<view class="hidden">
+									<text class="red_font">￥{{ware.area_price}}/{{ware.unit}}</text>
+									<text class="gray_font">(多规格)</text>
+									</view>
 							</block>
 							<block v-else>
 								<view class="red_font">￥{{ware.price}}/{{ware.unit}}</view>
@@ -36,8 +38,8 @@
 						</block>
 					</block>
 					<block v-else>
-						<view v-if="ware.attr.length">
-							<text class="red_font">￥{{ware.area_price}}</text>
+						<view v-if="ware.attr.length" class="hidden">
+							<text class="red_font">￥{{ware.area_price}}/{{ware.unit}}</text>
 							<text class="gray_font">(多规格)</text>
 						
 						</view>
@@ -73,9 +75,11 @@
 				this.$emit('showCart')
 			},
 			detail(){
-				uni.navigateTo({
+				if(this.config.is_detail==1){
+					uni.navigateTo({
 					url:`/pages/index/shopdetail?id=${this.ware.id}`
 				})
+				}
 			}
 		}
 	}

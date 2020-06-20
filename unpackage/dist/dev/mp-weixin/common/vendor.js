@@ -757,7 +757,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -7221,7 +7221,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7242,14 +7242,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7325,7 +7325,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8191,6 +8191,13 @@ function objKeySort(obj) {//排序的函数
   return sz.substr(1); //返回排好序的新对象
 }
 
+function Toast(message) {
+  uni.showToast({
+    title: message,
+    icon: 'none',
+    duration: 1000 });
+
+}
 
 
 module.exports = {
@@ -8198,6 +8205,7 @@ module.exports = {
   getRequests: getRequests,
   postRequest: postRequest,
   postRequests: postRequests,
+  Toast: Toast,
   header: header, //请求头部
   objKeySort: objKeySort //加密排序
 };
@@ -8236,7 +8244,7 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 336:
+/***/ 344:
 /*!***********************************************!*\
   !*** E:/uniapp/components/uni-popup/popup.js ***!
   \***********************************************/
@@ -8244,7 +8252,7 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 337));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 345));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 // 定义 type 类型:弹出类型：top/bottom/center
 var config = {
   // 顶部弹出
@@ -8271,7 +8279,7 @@ var config = {
 
 /***/ }),
 
-/***/ 337:
+/***/ 345:
 /*!*************************************************!*\
   !*** E:/uniapp/components/uni-popup/message.js ***!
   \*************************************************/
@@ -8309,7 +8317,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 373:
+/***/ 381:
 /*!***********************************************!*\
   !*** E:/uniapp/components/uni-icons/icons.js ***!
   \***********************************************/
@@ -8426,7 +8434,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 444:
+/***/ 459:
 /*!*************************************************!*\
   !*** E:/uniapp/components/uni-calendar/util.js ***!
   \*************************************************/
@@ -8434,7 +8442,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 445));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 460));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
 
 Calendar = /*#__PURE__*/function () {
   function Calendar()
@@ -8789,7 +8797,7 @@ Calendar;exports.default = _default;
 
 /***/ }),
 
-/***/ 445:
+/***/ 460:
 /*!*****************************************************!*\
   !*** E:/uniapp/components/uni-calendar/calendar.js ***!
   \*****************************************************/
@@ -10252,7 +10260,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": { "usingComponents": { "uni-notice-bar": "/components/uni-notice-bar/uni-notice-bar" }, "usingAutoImportComponents": { "my-search": "/components/search/index", "uni-notice-bar": "/components/uni-notice-bar/uni-notice-bar", "uni-countdown": "/components/uni-countdown/uni-countdown", "my-recomend": "/components/recomend/index", "my-loading": "/components/loading/index", "my-backtop": "/components/backtop/index", "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index", "my-tabar": "/components/tabar/index" } }, "pages/tabar/classify": { "usingComponents": { "uni-drawer": "/components/uni-drawer/uni-drawer" }, "usingAutoImportComponents": { "my-search": "/components/search/index", "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index", "uni-icons": "/components/uni-icons/uni-icons", "my-profile": "/components/profile/index", "my-loading": "/components/loading/index", "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index", "my-keyboard": "/components/keyboard/index", "uni-drawer": "/components/uni-drawer/uni-drawer", "my-tabar": "/components/tabar/index" } }, "pages/tabar/order": { "usingComponents": { "w-picker": "/components/w-picker/w-picker" }, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons", "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index", "my-loading": "/components/loading/index", "w-picker": "/components/w-picker/w-picker", "my-tabar": "/components/tabar/index" } }, "pages/tabar/shopcart": { "usingComponents": { "w-picker": "/components/w-picker/w-picker" }, "usingAutoImportComponents": { "uni-icons": "/components/uni-icons/uni-icons", "w-picker": "/components/w-picker/w-picker", "my-recomend": "/components/recomend/index", "my-loading": "/components/loading/index", "my-backtop": "/components/backtop/index", "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index", "my-tabar": "/components/tabar/index" } }, "pages/tabar/user": { "usingComponents": { "uni-icons": "/components/uni-icons/uni-icons", "uni-popup-dialog": "/components/uni-popup/uni-popup-dialog" }, "usingAutoImportComponents": { "uni-icons": "/components/uni-icons/uni-icons", "uni-popup": "/components/uni-popup/uni-popup", "my-tabar": "/components/tabar/index" } }, "pages/index/shopdetail": { "usingComponents": {}, "usingAutoImportComponents": { "uni-icons": "/components/uni-icons/uni-icons", "uni-countdown": "/components/uni-countdown/uni-countdown", "my-stepper": "/components/stepper/index", "uni-popup": "/components/uni-popup/uni-popup", "my-keyboard": "/components/keyboard/index" } }, "pages/index/collect": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-profile": "/components/profile/index", "my-loading": "/components/loading/index", "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index", "my-keyboard": "/components/keyboard/index" } }, "pages/index/recommed": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-profile": "/components/profile/index", "my-loading": "/components/loading/index", "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index", "my-keyboard": "/components/keyboard/index" } }, "pages/index/newback": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/index/search": { "usingComponents": {}, "usingAutoImportComponents": { "uni-icons": "/components/uni-icons/uni-icons", "my-profile": "/components/profile/index" } }, "pages/index/flashsale": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-countdown": "/components/uni-countdown/uni-countdown", "my-stepper": "/components/stepper/index", "my-loading": "/components/loading/index", "my-backtop": "/components/backtop/index", "uni-popup": "/components/uni-popup/uni-popup", "my-keyboard": "/components/keyboard/index" } }, "pages/account/login": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/account/selectway": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/account/forget": { "usingComponents": { "move-verify": "/components/helang-moveVerify/helang-moveVerify" }, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-identifyingcode": "/components/identifyingcode/index" } }, "pages/account/register": { "usingComponents": { "move-verify": "/components/helang-moveVerify/helang-moveVerify" }, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-identifyingcode": "/components/identifyingcode/index" } }, "pages/account/service": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/order/orderdetail": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/shopcart/delivery": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/shopcart/pay": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/shopcart/shoplist": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-stepper": "/components/stepper/index" } }, "pages/user/accountmange": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/accountadd": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/user/accountedit": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "evan-switch": "/components/evan-switch/evan-switch", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/user/modifypwd": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/receipt": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/invest": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons", "uni-popup": "/components/uni-popup/uni-popup", "my-keyboard": "/components/keyboard/index" } }, "pages/user/investlist": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/investrecord": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/bill": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-loading": "/components/loading/index", "uni-calendar": "/components/uni-calendar/uni-calendar" } }, "pages/user/billdetail": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/cash": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/user/cashdetail": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/myinfo": { "usingComponents": { "image-cropper": "/components/ling-imgcropper/ling-imgcropper" }, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/user/bindphone": { "usingComponents": { "move-verify": "/components/helang-moveVerify/helang-moveVerify" }, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-identifyingcode": "/components/identifyingcode/index" } }, "pages/order/pay": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": { "usingComponents": { "uni-notice-bar": "/components/uni-notice-bar/uni-notice-bar" }, "usingAutoImportComponents": { "my-search": "/components/search/index", "uni-notice-bar": "/components/uni-notice-bar/uni-notice-bar", "uni-countdown": "/components/uni-countdown/uni-countdown", "my-recomend": "/components/recomend/index", "my-loading": "/components/loading/index", "my-backtop": "/components/backtop/index", "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index", "my-tabar": "/components/tabar/index" } }, "pages/tabar/classify": { "usingComponents": { "uni-drawer": "/components/uni-drawer/uni-drawer" }, "usingAutoImportComponents": { "my-search": "/components/search/index", "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index", "uni-icons": "/components/uni-icons/uni-icons", "my-profile": "/components/profile/index", "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index", "my-keyboard": "/components/keyboard/index", "uni-drawer": "/components/uni-drawer/uni-drawer", "my-tabar": "/components/tabar/index" } }, "pages/tabar/order": { "usingComponents": { "w-picker": "/components/w-picker/w-picker" }, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons", "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index", "my-loading": "/components/loading/index", "w-picker": "/components/w-picker/w-picker", "my-tabar": "/components/tabar/index" } }, "pages/tabar/shopcart": { "usingComponents": { "w-picker": "/components/w-picker/w-picker" }, "usingAutoImportComponents": { "uni-icons": "/components/uni-icons/uni-icons", "w-picker": "/components/w-picker/w-picker", "my-recomend": "/components/recomend/index", "my-loading": "/components/loading/index", "my-backtop": "/components/backtop/index", "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index", "my-tabar": "/components/tabar/index" } }, "pages/tabar/user": { "usingComponents": { "uni-icons": "/components/uni-icons/uni-icons", "uni-popup-dialog": "/components/uni-popup/uni-popup-dialog" }, "usingAutoImportComponents": { "uni-icons": "/components/uni-icons/uni-icons", "uni-popup": "/components/uni-popup/uni-popup", "my-tabar": "/components/tabar/index" } }, "pages/index/shopdetail": { "usingComponents": {}, "usingAutoImportComponents": { "uni-icons": "/components/uni-icons/uni-icons", "uni-countdown": "/components/uni-countdown/uni-countdown", "my-stepper": "/components/stepper/index", "uni-popup": "/components/uni-popup/uni-popup", "my-keyboard": "/components/keyboard/index" } }, "pages/index/collect": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-profile": "/components/profile/index", "my-loading": "/components/loading/index", "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index", "my-keyboard": "/components/keyboard/index" } }, "pages/index/recommed": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-profile": "/components/profile/index", "my-loading": "/components/loading/index", "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index", "my-keyboard": "/components/keyboard/index" } }, "pages/index/newback": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/index/search": { "usingComponents": {}, "usingAutoImportComponents": { "uni-icons": "/components/uni-icons/uni-icons", "my-profile": "/components/profile/index", "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index", "my-keyboard": "/components/keyboard/index" } }, "pages/index/flashsale": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-countdown": "/components/uni-countdown/uni-countdown", "my-stepper": "/components/stepper/index", "my-loading": "/components/loading/index", "my-backtop": "/components/backtop/index", "uni-popup": "/components/uni-popup/uni-popup", "my-keyboard": "/components/keyboard/index" } }, "pages/account/login": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/account/selectway": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/account/forget": { "usingComponents": { "move-verify": "/components/helang-moveVerify/helang-moveVerify" }, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-identifyingcode": "/components/identifyingcode/index" } }, "pages/account/register": { "usingComponents": { "move-verify": "/components/helang-moveVerify/helang-moveVerify" }, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-identifyingcode": "/components/identifyingcode/index" } }, "pages/account/service": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/order/orderdetail": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/order/pay": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/shopcart/delivery": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/shopcart/pay": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/shopcart/shoplist": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-stepper": "/components/stepper/index", "uni-popup": "/components/uni-popup/uni-popup", "my-keyboard": "/components/keyboard/index" } }, "pages/user/accountmange": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/accountadd": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/user/accountedit": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "evan-switch": "/components/evan-switch/evan-switch", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/user/modifypwd": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/receipt": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/invest": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons", "uni-popup": "/components/uni-popup/uni-popup", "my-keyboard": "/components/keyboard/index" } }, "pages/user/investlist": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/investrecord": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/bill": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-loading": "/components/loading/index", "uni-calendar": "/components/uni-calendar/uni-calendar" } }, "pages/user/billdetail": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/cash": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/user/cashdetail": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/myinfo": { "usingComponents": { "image-cropper": "/components/ling-imgcropper/ling-imgcropper" }, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/user/bindphone": { "usingComponents": { "move-verify": "/components/helang-moveVerify/helang-moveVerify" }, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-identifyingcode": "/components/identifyingcode/index" } }, "pages/account/treaty": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 

@@ -1,10 +1,9 @@
 <template>
 	<view class="collect">
-		<uni-nav-bar left-icon="arrowleft"  title="常用推荐" :status-bar="navBar" fixed="true" @clickLeft="leftClick"
-		></uni-nav-bar>
+		<uni-nav-bar left-icon="arrowleft" title="常用推荐" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
 		<view class="all_collect" v-if="list.length!=0">
 			<my-profile class="single_collect" v-for="(item, index) in list" :ware="item" :config="config" :key="index"
-			 @showCart="openCart(item)" @showKey="showKey"></my-profile>
+			 @showCart="openCart(item)" @showKey="showKey(item, index)"></my-profile>
 			<my-loading></my-loading>
 		</view>
 		<view v-else class="bitmap">
@@ -14,7 +13,7 @@
 			<my-addcart :config="config" :cartware="cartware" @onClose="onClose"></my-addcart>
 		</uni-popup>
 		<uni-popup ref="popup" type="bottom">
-			<my-keyboard @cancelKey="$refs.popup.close()"></my-keyboard>
+			<my-keyboard @cancelKey="$refs.popup.close()" @toParent="toParent" :arrObj="arrObj"></my-keyboard>
 		</uni-popup>
 	</view>
 </template>
@@ -41,14 +40,49 @@
 				list: [],
 				page: 1,
 				num: 10,
+				arrObj: [],
+				index: '',
 				cartware: []
 			};
 		},
 		methods: {
-			leftClick() {
+			leftClick(e) {
 				uni.navigateBack({
 					delta: 1
 				});
+			},
+			toParent(e) {
+				let item = e.arrObj;
+				let timeStamp = Math.round(new Date().getTime() / 1000);
+				let obj = {
+					appid: appid,
+					timeStamp: timeStamp,
+					item_id: item.id,
+					attr_id: 0,
+					item_num: e.val
+				};
+				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				let params = Object.assign({
+						sign: sign
+					},
+					obj
+				);
+				rs.postRequests('changeNum', params, res => {
+					let data = res.data;
+					if (data.code == 200) {
+						uni.showToast({
+							title: '加入购物车成功',
+							icon: 'none',
+							duration: 2000
+						})
+						this.list[this.index].cart_num = e.val;
+					} else if (data.code == 407 || data.code == 406) {
+						rs.Toast("购买数量不能超过活动数量")
+					} else {
+						rs.Toast(res.data.msg)
+					}
+				});
+				this.$refs.popup.close();
 			},
 			getIndexSelect() {
 				let {
@@ -56,12 +90,6 @@
 					num,
 					list
 				} = this;
-
-				if (page != 1) {
-					this.list = uni.getStorageSync("collect")
-					return;
-				}
-
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -102,13 +130,27 @@
 				this.$refs.cart.close();
 			},
 			// 显示键盘
-			showKey() {
+			showKey(item, index) {
+				this.arrObj = item;
+				this.index = index;
 				this.$refs.popup.open();
-			},
+			}
+		},
+		onHide(){
+			// uni.setStorageSync('recommed',);
+			uni.setStorageSync('recommed',this.list);
+			console.log(this.list)
 		},
 		onShow() {
+			console.log(this.page)
+			if (this.page==1) {
+				this.getIndexSelect();
+			}else{
+				
+				this.list=uni.getStorageSync('recommed');
+				// console.log(this.list);
+			}
 
-			this.getIndexSelect();
 		},
 		onReachBottom() {
 			let {

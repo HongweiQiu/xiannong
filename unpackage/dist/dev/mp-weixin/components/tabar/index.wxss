@@ -17,6 +17,7 @@
 	height: 25px;
 }
 .my_tabar .single_tabar {
+	width:25%;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;

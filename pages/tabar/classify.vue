@@ -21,7 +21,15 @@
 				<view v-if="list.length">
 					<my-profile v-for="(item,index) in list" :key="index" :ware="item" :config="config" class="single_good" @showCart="openCart(item)"
 					 @showKey="showKey(item,index)"></my-profile>
-					<my-loading :loading="loading"></my-loading>
+					 
+					<view class="my_loading">
+						<view class="loading" v-if="loading">
+							<image class="load_img" src="../../static/img/loading.gif" mode=""></image>
+							<text>正在加载中...</text>
+						</view>
+
+						<view v-else v-html="textInfo" @click="nextSecond"></view>
+					</view>
 				</view>
 				<view v-else class="bitmap">
 					<view style="height:150rpx;"></view>
@@ -87,13 +95,13 @@
 				list: [],
 				config: [],
 				cartware: [],
-				arrObj:{},
-				index:''
+				arrObj: {},
+				index: '',
+				textInfo:''
 			};
 		},
 		methods: {
-			toParent(e){
-			
+			toParent(e) {
 				let item = e.arrObj;
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
@@ -109,27 +117,19 @@
 					},
 					obj
 				);
-				rs.postRequests('changeNum', params, res => { 
+				rs.postRequests('changeNum', params, res => {
 					let data = res.data;
 					if (data.code == 200) {
 						uni.showToast({
-							title:'加入购物车成功',
-							icon:'none',
-							duration:2000
+							title: '加入购物车成功',
+							icon: 'none',
+							duration: 2000
 						})
-						this.list[this.index].cart_num=e.val;
+						this.list[this.index].cart_num = e.val;
 					} else if (data.code == 407 || data.code == 406) {
-						uni.showToast({
-							title:"购买数量不能超过活动数量",
-							icon:'none',
-							duration:2000
-						})
+						rs.Toast("购买数量不能超过活动数量")
 					} else {
-						uni.showToast({
-							title:res.data.msg,
-							icon:'none',
-							duration:2000
-						})
+						rs.Toast(res.data.msg)
 					}
 				});
 				this.$refs.popup.close();
@@ -176,6 +176,7 @@
 						this.list = data.data.list;
 						if (data.data.list.length < 10) {
 							this.loading = false;
+							this.textInfo="没有更多呢"
 						} else {
 							this.loading = true;
 						}
@@ -196,6 +197,13 @@
 				this.kind = index;
 				this.mpItem();
 			},
+			nextSecond(){
+				if(this.textInfo!='没有更多呢'){
+					this.secondId = this.secondCate[this.kind+1].id;
+					this.kind +=1;
+					this.mpItem();
+				}
+			},
 			openCart(item) {
 				this.cartware = item;
 				this.$refs.cart.open();
@@ -204,10 +212,10 @@
 				this.$refs.cart.close();
 			},
 			// 显示键盘
-			showKey(item,index) {
-				
-				this.arrObj=item;
-				this.index=index;
+			showKey(item, index) {
+
+				this.arrObj = item;
+				this.index = index;
 				this.$refs.popup.open();
 			},
 			showDraw() {
@@ -222,11 +230,7 @@
 			},
 			deterSort() {
 				if (this.active == -1) {
-					uni.showToast({
-						title: '请先选择分类',
-						icon: 'none'
-
-					})
+					rs.Toast('请先选择分类')
 					return;
 				}
 				this.firstId = this.firstCate[this.active].id;
@@ -239,14 +243,25 @@
 		},
 		onShow() {
 			let classId = getApp().globalData.classId;
-			if (classId) {
+			if (app.isReload == true) {
+				this.kind = 0;
+				this.active = -1;
+				this.activeTab = 0;
+				this.loading = true;
+				this.firstId = '';
+				this.secondId = '';
 				this.page = 1;
-				this.firstId = classId
-			}
-			if (this.page == 1) {
+				this.num = 10;
+				if (classId) {
+					this.firstId = classId
+				}
 				this.mpItem();
+			} else {
+				this.list = uni.getStorageSync('classify');
 			}
-
+		},
+		onHide() {
+			uni.setStorageSync('classify', this.list);
 		},
 		onReachBottom() {
 			var that = this;
@@ -280,12 +295,13 @@
 						this.loading = true;
 					} else {
 						this.loading = false;
+                        this.textInfo="上滑或点击进入<span class='red_font'>"+this.secondCate[this.kind+1].name+'</span>';
+				
 					}
 				}
 			})
 		},
 		onLoad(e) {
-
 			uni.hideTabBar();
 		}
 	};
@@ -384,7 +400,7 @@
 	/* #endif */
 	.classify .bitmap {
 		text-align: center;
-		height: calc(100vh - 104rpx - 100px);
+		height: calc(100vh - 104rpx - 50px);
 		background: white;
 
 	}
@@ -443,4 +459,11 @@
 		margin: 2%;
 		padding: 2rpx 14rpx;
 	}
+	.loading {
+		display: flex;align-items: center;justify-content: center;
+	}
+	.loading .load_img{width:25rpx;height:25rpx;margin-right: 10rpx;}
+	
+	
+	.my_loading{color: #808080;font-size: 24rpx!important;text-align: center;height:80rpx;line-height: 80rpx;background:#F8F6F9 ;}
 </style>

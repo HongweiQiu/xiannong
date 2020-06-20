@@ -20,6 +20,7 @@ export default {
 		imgRemote: 'http://test.caidj.cn',
 		// #endif
 		classId:'',
+		isReload:true,
 		aData: {
 		  show: true
 		}
@@ -244,4 +245,8 @@ page {
 .uni-modal__btn_primary{color:#009a44!important;}
 .uni-modal__btn_default{color:#999!important;}
 .uni-modal__bd{color:black!important;}
+input{font-size: 28rpx!important;
+    line-height: initial!important;min-height: initial!important;}
+	.green_b{background: #009a44!important;}
+	.gray_b{background: gray!important;}
 </style>

@@ -34,31 +34,34 @@
 				</view>
 			</view>
 			<view class="info">
-				<view class="" >{{ware.title}}</view>
-				<view class="gray_font" v-if="ware.desribe" >{{ware.desribe}}</view>
+				<view class="">{{ware.title}}</view>
+				<view class="gray_font" v-if="ware.desribe">{{ware.desribe}}</view>
 				<view class="align_center">
 					<view v-for="(item, index) in ware.label" :key="index" class="red_tag">{{item}}</view>
-					<view class="gift_info" style="">
-						<view class="hidden">新鲜的樱桃的樱桃的樱桃的樱桃樱桃樱桃樱桃樱桃樱桃樱桃樱 桃</view>
-						<uni-icons type="arrowdown" size="28rpx" color="white" v-if="arrowDirect" @click="arrowDirect = false"></uni-icons>
-						<uni-icons type="arrowup" size="28rpx" color="white" v-else @click="arrowDirect = true"></uni-icons>
+					<view class="gift_info" v-if="ware.is_activity==3||attrspec.is_activity==3">
+						<view class="hidden">{{ware.activity_rule}}</view>
+						<uni-icons type="arrowdown" size="36rpx" color="white" v-if="arrowDirect" @click="arrowDirect = false"></uni-icons>
+						<uni-icons type="arrowup" size="36rpx" color="white" v-else @click="arrowDirect = true"></uni-icons>
 					</view>
 				</view>
 
 				<!-- 满赠 -->
-				<view class="gift_label" v-if="arrowDirect">新鲜的樱桃的樱桃的樱桃的樱桃樱桃樱桃樱桃樱桃樱桃樱桃樱 桃</view>
+				<view class="gift_label" v-if="arrowDirect">{{ware.activity_rule}}</view>
 				<!-- 满减 -->
 				<view class="" v-if="ware.is_activity==2||attrspec.is_activity == 2">
 					<text v-for="(item, index) in ware.activity_rule" :key="index" class="full_reduction">满{{item.price}}减{{item.reduce}}</text></view>
 
-				<view class="judge_price twelve">
+				<view class="judge_price">
 					<block v-if="token">
 						<block v-if="ware.is_look==1">
 							<block v-if="spec">
 								<block v-if="attrspec.is_activity == 1">
-									<view>
+									<view v-if="attrspec.activity_num >attrspec.cart_num">
 										<text class="red_font">￥{{attrspec.activity_price}}/{{attrspec.unit}}</text>
-										<text class="line_through gray_font add_leftpx">{{attrspec.attr_price}}</text>
+										<text class="line_through gray_font add_leftpx">￥{{attrspec.attr_price}}/{{attrspec.unit}}</text>
+									</view>
+									<view v-else>
+										<text class="red_font">￥{{attrspec.attr_price}}/{{attrspec.unit}}</text>
 									</view>
 								</block>
 								<block v-else>
@@ -69,9 +72,12 @@
 							</block>
 							<block v-else>
 								<block v-if="ware.is_activity==1">
-									<view>
+									<view v-if="ware.activity_num>ware.cart_num">
 										<text class="red_font">￥{{ware.activity_price}}/{{ware.unit}}</text>
-										<text class="line_through gray_font add_leftpx">{{ware.price}}</text>
+										<text class="line_through gray_font add_leftpx twelve">￥{{ware.price}}/{{ware.unit}}</text>
+									</view>
+									<view v-else>
+										<text class="red_font">￥{{ware.price}}/{{ware.unit}}</text>
 									</view>
 								</block>
 								<block v-else>
@@ -103,7 +109,7 @@
 					</view>
 					<view class="flex_left_right buy_num">
 						<text>购买数量</text>
-						<my-stepper :val="value" min="1" @showKey="showKey"></my-stepper>
+						<my-stepper :val="value" @minus="minus" @plus="plus" @showKey="showKey"></my-stepper>
 					</view>
 				</view>
 			</view>
@@ -123,14 +129,14 @@
 							<image :src="recommend.logo" mode="aspectFit" class="shuiyin1" v-if="recommend.logo&&recommend.shuiyin==1"></image>
 							<image class="good_img" :src="item.img==''?imgRemote+recommend.item_default:item.img" mode="aspectFit"></image>
 						</view>
-						<view class="twelve">{{item.title}}</view>
+						<view>{{item.title}}</view>
 					</view>
 
 					<view>
 
 						<view>
 							<view class=""><text v-for="(item, index) in item.label" :key="index" class="red_tag">{{item}}</text></view>
-							<view class="red_font twelve">
+							<view class="red_font">
 								<block v-if="token">
 									<block v-if="recommend.is_look==1">
 										￥{{item.price}}/{{item.unit}}
@@ -165,26 +171,25 @@
 		<!-- 加入购物车 -->
 		<view class="is_add_cart">
 			<view class="operateing">
-				<view class="collect ">
-					<!-- <text class="iconfont icon-alreadystar" style="color:orange;"></text> -->
-					<text class="iconfont icon-xing center"></text>
+				<view class="collect" @click="collecting">
+					<text class="iconfont icon-alreadystar center" style="color:orange;" v-if="ware.collect_status == 2"></text>
+					<text class="iconfont icon-xing center" v-else></text>
 					<text>收藏</text>
 
 				</view>
 				<view class="addcart_method">
 					<view class="self_buy" @click="addCart">加入购物车</view>
-					<view class="other_buy">立即购买</view>
+					<view class="other_buy" @click="addCart(true)">立即购买</view>
 				</view>
 			</view>
 		</view>
-	<uni-popup ref="popup" type="bottom">
-		<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="ware" @toParent="toParent"></my-keyboard>
-	</uni-popup>
+		<uni-popup ref="popup" type="bottom">
+			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="ware" @toParent="toParent"></my-keyboard>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
-	// import uniNumberBox from "/components/uni-number-box/uni-number-box.vue
 	import md5 from '../../static/js/md5.js';
 	import rs from '../../static/js/request.js';
 	let {
@@ -197,7 +202,6 @@
 		imgRemote
 	} = app;
 	export default {
-		 // components: {uniNumberBox},
 		data() {
 			return {
 				token: uni.getStorageSync('cdj_token'),
@@ -206,7 +210,7 @@
 				ware: [],
 				recommend: [],
 				recommendLength: '',
-				value:1,
+				value: 1,
 				id: '',
 				hours: '0',
 				minu: 0,
@@ -223,13 +227,48 @@
 					delta: 1
 				})
 			},
+			collecting() {
+				let statu = this.ware.collect_status,
+					status;
+				if (statu == 2) {
+					status = 1;
+				} else {
+					status = 2;
+				}
+				let timeStamp = Math.round(new Date().getTime() / 1000);
+				let obj = {
+					item_id: this.id,
+					appid: appid,
+					timeStamp: timeStamp,
+					status: status
+				};
+				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				let params = Object.assign({
+						sign: sign
+					},
+					obj
+				);
+				rs.getRequests('changeCollect', params, res => {
+					let data = res.data;
+					if (data.code == 200) {
+						this.ware.collect_status = status;
+						statu = status;
+						if (statu == 1) {
+							rs.Toast('取消收藏');
+						} else {
+							rs.Toast('收藏成功');
+						}
+					} else {
+						rs.Toast(res.msg);
+					}
+				});
+			},
 			showKey() {
 				this.$refs.popup.open();
 			},
 			selectSpec(index) {
 				this.kind = index;
 				this.attrspec = this.ware.attr[index];
-				console.log(index)
 			},
 			getItem() {
 				let {
@@ -259,7 +298,7 @@
 						} else {
 							this.spec = false;
 						}
-						this.collect = data.data.collect_status;
+						console.log(this.spec);
 						this.hours = data.data.panicActivity.timeRemain / 3600;
 					}
 				});
@@ -271,7 +310,7 @@
 						if (data.data.list.length) {
 							this.recommendLength = true;
 						}
-					} 
+					}
 				});
 			},
 			detailPage(id) {
@@ -279,15 +318,152 @@
 					url: 'shopdetail?id=' + id
 				});
 			},
-			addCart(){
-		
+			minus() {
+				if (this.spec) {
+					if (this.attrspec.is_float == 1 && !Number.isInteger(Number(this.value))) {
+						rs.Toast('购买数量不能为小数');
+						return;
+					}
+				} else {
+					if (this.ware.is_float == 1 && !Number.isInteger(Number(this.value))) {
+						rs.Toast('购买数量不能为小数');
+						return;
+					}
+				}
+				this.value--;
+				if (this.value <= 1) {
+					this.value = 1;
+				}
 			},
-			toParent(e){
-			
-				log(this.value)
-				this.value=e.val;
+			plus() {
+				if (this.spec) {
+					if (this.attrspec.is_float == 1 && !Number.isInteger(Number(this.value))) {
+						rs.Toast('购买数量不能为小数');
+						return;
+					}
+				} else {
+					if (this.ware.is_float == 1 && !Number.isInteger(Number(this.value))) {
+						rs.Toast('购买数量不能为小数');
+						return;
+					}
+				}
+				this.value++;
+			},
+			addCart(cartUrl) {
+				if (this.spec) {
+					if (this.attrspec.is_float == 1 && !Number.isInteger(Number(this.value))) {
+						rs.Toast('购买数量不能为小数');
+						return;
+					}
+				} else {
+					if (this.ware.is_float == 1 && !Number.isInteger(Number(this.value))) {
+						rs.Toast('购买数量不能为小数');
+						return;
+					}
+				}
+				let timeStamp = Math.round(new Date().getTime() / 1000);
+				let {
+					ware,
+					value,
+					kind
+				} = this;
+				let id, attrid;
+				if (ware.attr.length == 0) {
+					id = ware.id;
+					attrid = 0;
+				} else {
+					id = ware.attr[kind].item_id;
+					attrid = ware.attr[kind].id;
+				}
+				let obj = {
+					appid: appid,
+					timeStamp: timeStamp,
+					item_id: id,
+					attr_id: attrid,
+					item_num: value
+				};
+
+				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				let params = Object.assign({
+						sign: sign
+					},
+					obj
+				);
+				rs.postRequests('firstChangeNum', params, res => {
+					let data = res.data;
+					if (data.code == 200) {
+						rs.Toast('加入购物车成功');
+						// 分类
+						let classify = uni.getStorageSync('classify');
+						let newclassify = [];
+						for (let i of classify) {
+							if (i.id == id) {
+								i.cart_num = data.data.new_num;
+							}
+							newclassify.push(i);
+						}
+					
+						uni.setStorageSync('classify', newclassify);
+						// 推荐
+						let recommed = uni.getStorageSync('recommed');
+						
+						let newrecommed = [];
+						for (let i of recommed) {
+							if (i.id == id) {
+								i.cart_num = data.data.new_num;
+							}
+							newrecommed.push(i);
+						}
+						uni.setStorageSync('recommed', newrecommed);
+						// 收藏
+						let collect = uni.getStorageSync('collect');
+						let newcollect = [];
+						for (let i of collect) {
+							if (i.id == id) {
+								i.cart_num = data.data.new_num;
+							}
+							newcollect.push(i);
+						}
+						uni.setStorageSync('collect', newcollect);
+						// 查找
+						let search = uni.getStorageSync('search');
+						let newsearch = [];
+						for (let i of search) {
+							if (i.id == id) {
+								i.cart_num = data.data.new_num;
+							}
+							newsearch.push(i);
+						}
+						uni.setStorageSync('search', newsearch);
+						
+						if (this.spec) {
+							this.attrspec.cart_num = data.data.new_num;
+						} else {
+							this.ware.cart_num = data.data.new_num;
+						}
+						setTimeout(() => {
+							if (cartUrl == true) {
+								
+								uni.switchTab({
+									url: '/pages/tabar/shopcart'
+								});
+							}
+						}, 500);
+					} else {
+						rs.Toast(res.data.msg);
+					}
+				});
+			},
+			toParent(e) {
+				if (this.spec) {
+					if (this.attrspec.is_float == 1 && !Number.isInteger(Number(e.val))) {
+						rs.Toast('购买数量不能为小数');
+						return;
+					}
+				}
+				this.value = e.val;
+				this.$refs.popup.close();
 			}
-			
 		},
 		onLoad(option) {
 			//option为object类型，会序列化上个页面传递的参数
@@ -295,6 +471,7 @@
 		},
 		onShow() {
 			this.getItem();
+			getApp().globalData.isReload = false;
 		},
 		onPageScroll(e) {
 			if (e.scrollTop == 0) {
@@ -333,7 +510,7 @@
 	}
 
 	.shop_detail .good_info .gift_label {
-		font-size: 18rpx;
+		font-size: 24rpx;
 		color: #808080;
 	}
 
@@ -430,8 +607,18 @@
 		flex-wrap: nowrap;
 		overflow-x: scroll;
 	}
-.shop_detail .simary .all_good .column{display: flex;flex-direction: column;justify-content: space-between;}
-.shop_detail .simary .all_good .column .column_img{display: flex;flex-direction: column;}
+
+	.shop_detail .simary .all_good .column {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.shop_detail .simary .all_good .column .column_img {
+		display: flex;
+		flex-direction: column;
+	}
+
 	.shop_detail .simary .all_good .shuiyin1 {
 		width: 60rpx;
 		height: 20rpx;

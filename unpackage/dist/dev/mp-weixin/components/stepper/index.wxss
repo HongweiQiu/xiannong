@@ -7,7 +7,7 @@
 	-webkit-align-items: center;
 	        align-items: center;
 }
-.my_stepper input {
+.my_stepper .input_value {
 	width: 80rpx;
 	height: initial;
 	text-align: center;

@@ -1,5 +1,5 @@
 <template>
-	<view class="my_addcart" >
+	<view class="my_addcart">
 		<view class="top">
 			<view class="info">
 				<view class="detail">
@@ -16,10 +16,30 @@
 							<view><text class="red_tag" v-for="(item,index) in cartware.label" :key="index">{{item}}</text></view>
 							<block v-if="token">
 								<block v-if="config.is_look==1">
-									<view v-if="cartware.attr.length" class="red_font">￥{{cartware.attr[kind].attr_price}}/{{cartware.attr[kind].unit}}</view>
-									<view v-else class="red_font">
-										￥{{cartware.price}}/{{cartware.unit}}
-									</view>
+									<block  v-if="cartware.attr.length">
+										<block v-if="cartware.attr[kind].is_activity==1">
+											<view>
+											<text class="red_font">￥{{cartware.attr[kind].activity_price}}/{{cartware.attr[kind].unit}}</text>	
+											<text class="line_through ten">￥{{cartware.attr[kind].attr_price}}</text>
+											</view>
+										</block>
+										<block v-else>	<view class="red_font">￥{{cartware.attr[kind].attr_price}}/{{cartware.attr[kind].unit}}</view></block>
+									</block>
+								
+									<block v-else>
+										<block v-if="cartware.is_activity==1">
+											<view>
+												<text class="red_font">￥{{cartware.activity_price}}/{{cartware.unit}}</text>
+												<text class="line_through ten">￥{{cartware.price}}/{{cartware.unit}}</text>
+											</view>
+										</block>
+										<block v-else>
+											<view class="red_font">
+												￥{{cartware.price}}/{{cartware.unit}}
+											</view>
+										</block>
+									</block>
+
 								</block>
 								<block v-else>
 									<view class="red_font">￥***</view>
@@ -50,7 +70,7 @@
 			<view class="buy_num">
 				<view>购买数量</view>
 				<view>
-					<my-stepper :val="value" @showKey="showKey" @change="change" min=1></my-stepper>
+					<my-stepper :val="value" @showKey="showKey" @minus="minus" @plus="plus" min=1></my-stepper>
 				</view>
 			</view>
 		</view>
@@ -76,8 +96,8 @@
 				imgRemote: imgRemote,
 				kind: 0,
 				value: 1,
-				isTop:false,
-				arrObj:{}
+				isTop: false,
+				arrObj: {}
 			}
 		},
 		methods: {
@@ -87,78 +107,87 @@
 			onClose() {
 				this.$emit('onClose')
 			},
-			showKey(){
-				this.isTop=true;
-				this.arrObj=this.cartware;
+			showKey() {
+				this.isTop = true;
+				this.arrObj = this.cartware;
+				console.log(this.arrObj)
 			},
-			change(e){
-				this.value=e;
+			plus() {
+				this.value++;
 			},
-			toParent(e){
-					this.isTop=false;
-					this.value=e.val;
-				   
+			minus() {
+				this.value--;
+				if (this.value <= 0) {
+					this.value = 1;
+				}
+			},
+			toParent(e) {	
+				console.log(this.cartware);
+				// return;
+				if(this.cartware.attr.length){
+					if (this.cartware.attr[this.kind].is_float == 1 && !Number.isInteger(Number(e.val))) {
+						rs.Toast( '购买数量不能为小数');
+						return;
+					}
+				}
+				
+				this.isTop = false;
+				this.value = e.val;
 			},
 			determine() {
-			let info = this.cartware;
-							let timeStamp = Math.round(new Date().getTime() / 1000);
-							let obj = {
-								appid: appid,
-								timeStamp: timeStamp
-							};
-							let newobj = {};
-			
-							if (info.attr.length == 0) {
-								newobj = Object.assign({
-										item_id: info.id,
-										attr_id: 0,
-										item_num: this.value
-									},
-									obj
-								);
-							} else {
-								newobj = Object.assign({
-										item_id: info.attr[this.kind].item_id,
-										attr_id: info.attr[this.kind].id,
-										item_num: this.value
-									},
-									obj
-								);
-							}
-							let sign = md5.hexMD5(rs.objKeySort(newobj) + appsecret);
-							let params = Object.assign({
-									sign: sign
-								},
-								newobj
-							);
-			
-							rs.postRequests('firstChangeNum', params, res => {
-								if (res.data.code == 200) {
-									uni.showToast({
-										title: '成功加入购物车',
-										duration: 1000,
-										icon: 'none'
-									});
-									if (getCurrentPages()[0].route == 'pages/shopcat/shopcat') {
-										uni.reLaunch({
-											url: '/pages/shopcat/shopcat'
-										})
-									}
-								} else if (res.data.code == 407 || res.data.code == 406) {
-									uni.showToast({
-										title: '购买数量不能超过活动数量',
-										duration: 1000,
-										icon: 'none'
-									});
-								} else {
-									uni.showToast({
-										title: res.data.msg,
-										duration: 1000,
-										icon: 'none'
-									});
-								}
-							});
-							this.onClose();
+				let info = this.cartware;
+				let timeStamp = Math.round(new Date().getTime() / 1000);
+				let obj = {
+					appid: appid,
+					timeStamp: timeStamp
+				};
+				
+				let newobj = {};
+				let itemId, attrId;
+				if (info.attr.length == 0) {
+					itemId = info.id;
+					attrId = 0;
+				} else {
+					itemId = info.attr[this.kind].item_id;
+					attrId = info.attr[this.kind].id
+				}
+				newobj = Object.assign({
+						item_id: itemId,
+						attr_id: attrId,
+						item_num: this.value
+					},
+					obj
+				);
+				let sign = md5.hexMD5(rs.objKeySort(newobj) + appsecret);
+				let params = Object.assign({
+						sign: sign
+					},
+					newobj
+				);
+
+				rs.postRequests('firstChangeNum', params, res => {
+					if (res.data.code == 200) {
+						rs.Toast('成功加入购物车');
+						let pages = getCurrentPages();
+
+						if (pages[0].route == 'pages/tabar/shopcart') {
+							// #ifdef APP-PLUS |MP-WEIXIN
+							uni.reLaunch({
+								url: '/pages/tabar/shopcart'
+							})
+							// #endif
+
+							// #ifdef H5
+							window.location.reload();
+							// #endif
+						}
+					} else if (res.data.code == 407 || res.data.code == 406) {
+						rs.Toast('购买数量不能超过活动数量')
+					} else {
+						rs.Toast(res.data.msg)
+					}
+				});
+				this.onClose();
 			}
 		}
 	};
@@ -182,7 +211,11 @@
 	.my_addcart .detail {
 		display: flex;
 	}
-.is_top{margin-bottom: 540rpx;}
+
+	.is_top {
+		margin-bottom: 540rpx;
+	}
+
 	.my_addcart .info,
 	.my_addcart .spec {
 		border-bottom: 1px solid #f7f6f6;
@@ -240,5 +273,12 @@
 		line-height: 80rpx;
 		font-size: 36rpx;
 	}
-	.my_addcart .cart_ware_info{width:450rpx;margin-left:20rpx;display: flex;flex-direction: column;justify-content: space-around;}
+
+	.my_addcart .cart_ware_info {
+		width: 450rpx;
+		margin-left: 20rpx;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+	}
 </style>

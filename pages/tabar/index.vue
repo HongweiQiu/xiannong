@@ -28,7 +28,8 @@
 			<image :src="adList.banner4" mode="aspectFit"></image>
 		</view>
 		<!-- 限时抢购 -->
-		<view class="limit_buy" v-if="activeList">
+		
+		<view class="limit_buy" v-if="activeConf.length!=0">
 			<view class="head" @click="newPage('flashsale')">
 				<view class="title">
 					<view class="line_border"></view>
@@ -120,7 +121,7 @@
 				loading: '',
 				page: 1,
 				num: 10,
-				hours: '',
+				hours:0,
 				minu: 0,
 				second: 0,
 				adList: {},
@@ -297,10 +298,15 @@
 
 		},
 		onShow() {
-
+			console.log(app.isReload);
 			this.indexAd();
-			if (this.page == 1) {
+			if (app.isReload==true) {
+				this.page=1;
+				this.itemList=[];
 				this.indexItem();
+				uni.pageScrollTo({
+					scrollTop: 0
+				})
 			}
 			this.limitList();
 		},

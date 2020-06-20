@@ -4,7 +4,7 @@
 		 @clickRight="rightClick"></uni-nav-bar>
 		<view class="all_collect" v-if="list.length!=0">
 			<my-profile class="single_collect" v-for="(item, index) in list" :ware="item" :config="config" :key="index" url="collect"
-			 @showCart="openCart(item)" @showKey="showKey"></my-profile>
+			 @showCart="openCart(item)" @showKey="showKey" @cancelCollect="cancelCollect(item,index)"></my-profile>
 			<my-loading></my-loading>
 		</view>
 		<view v-else class="bitmap">
@@ -48,6 +48,69 @@
 			leftClick() {
 				uni.navigateBack({
 					delta: 1
+				});
+			},
+			rightClick(){
+			
+				if(this.list.length){
+					uni.showModal({
+									content: '确定将收藏商品全部清空吗？',
+									success: function(res) {
+										if (res.confirm) {
+											let timeStamp = Math.round(new Date().getTime() / 1000);
+											let obj = {
+												appid: appid,
+												timeStamp: timeStamp
+											};
+											let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+											let params = Object.assign(
+												{
+													sign: sign
+												},
+												obj
+											);
+											rs.getRequests('deleteCollect', params, res => {
+												let data = res.data;
+												if (data.code == 200) {
+													rs.Toast('成功清空收藏列表');
+													setTimeout(() => {
+														uni.navigateBack({
+															delta: 1
+														});
+													}, 1000);
+												} else {
+													rs.Toast(res.data.msg);
+												}
+											});
+										}
+									}
+								});
+				}else{
+					rs.Toast('没有可以清空的商品')
+				}
+			},
+			cancelCollect(item,index){
+				let timeStamp = Math.round(new Date().getTime() / 1000);
+				let obj = {
+					item_id: item.id,
+					appid: appid,
+					timeStamp: timeStamp,
+					status: 1
+				};
+				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				let params = Object.assign({
+						sign: sign
+					},
+					obj
+				);
+				rs.getRequests('changeCollect', params, res => {
+					let data = res.data;
+					if (data.code == 200) {
+						this.list.splice(index,1)
+						rs.Toast('取消收藏');
+					} else {
+						rs.Toast(data.msg);
+					}
 				});
 			},
 			getIndexSelect() {
@@ -94,7 +157,6 @@
 					}
 				});
 			},
-			rightClick() {},
 			openCart(item) {
 				this.cartware = item;
 				this.$refs.cart.open();
@@ -107,9 +169,16 @@
 				this.$refs.popup.open();
 			},
 		},
+		onHide(){
+			uni.setStorageSync('collect',this.list);
+		},
 		onShow() {
-
-			this.getIndexSelect();
+                  if(this.page==1){
+						this.getIndexSelect();  
+				  }else{
+					  this.list=uni.getStorageSync('collect');
+				  }
+		
 		},
 		onReachBottom() {
 			let {

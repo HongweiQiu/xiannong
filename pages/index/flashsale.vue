@@ -25,17 +25,18 @@
 		</view>
 
 		<view class="all_things">
-			<view v-for="(item, index) in list" class="flex single_good">
-				<view class="photo">
+			<view v-for="(item, index) in list" :key="index" class="flex single_good">
+				<view class="photo" @click="detailPage(item.item_id)">
 					<image :src="config.logo" mode="aspectFit" class="shuiyin" v-if="config.logo&&config.shuiyin==1"></image>
 					<image class="good_img" :src="item.img==''?imgRemote+config.item_default:item.img" mode="aspectFit"></image>
 				</view>
-				<view class="good_info">
+				<view class="good_info" @click="detailPage(item.item_id)">
 					<view>{{item.item_title}}</view>
+					<view class="gray_font twelve">{{item.attr_title}}</view>
 					<view>
 						<view class="align_center">
 							<text class="red_tag">爆品</text>
-							<view class="distance align_center" v-if="item.activity_num > item.cart_num">
+							<view class="distance align_center">
 								<text class="red_tag">省</text>
 								<text class="red_font">{{item.difference}}元</text>
 							</view>
@@ -47,26 +48,33 @@
 							<text class="line_through ten">￥{{item.price}}</text>
 						</view>
 					</view>
-					<view class="num_limit" v-if="item.num_limit!=0">
+					<view class="num_limit" v-if="item.num_limit!=0&&item.activity_num<=item.cart_num">
 						<text>限购{{item.num_limit}}已恢复原价</text></view>
 				</view>
 				<view class="good_num">
-					<view class="buy_num" v-if="item.activity_num > item.cart_num">
-						<image v-if="item.cart_num == 0" src="../../static/img/plus.png" mode=""
-						 class="plus"></image>
-						<my-stepper v-else  @showKey="showKey"></my-stepper>
-					</view>
+					<block v-if="activeList[kind].status==1">
+						<view class="buy_num" v-if="item.activity_num > item.cart_num">
+							<image v-if="item.cart_num == 0" src="../../static/img/plus.png" class="plus" @click="plusSing(item,index)"></image>
+							<block v-else>
+								<my-stepper @showKey="showKey(item,index)" :val="item.cart_num" @plus="plus(item,item.cart_num+1,index)" @minus="minus(item,item.cart_num-1,index)">
+								</my-stepper>
+							</block>
+						</view>
 
-					<view class="no_num" v-else><text>已抢完</text></view>
+						<view class="no_num" v-else><text>已抢完</text></view>
+					</block>
+					<block v-else>
+						<view class="no_num"><text>即将开始</text></view>
+					</block>
 				</view>
 			</view>
 			<my-loading></my-loading>
 
 		</view>
-		<my-backtop bottom="10" :showTop="showTop" ></my-backtop>
-      <uni-popup ref="popup" type="bottom">
-      	<my-keyboard @cancelKey="$refs.popup.close()"></my-keyboard>
-      </uni-popup>
+		<my-backtop bottom="10" :showTop="showTop"></my-backtop>
+		<uni-popup ref="popup" type="bottom">
+			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent"></my-keyboard>
+		</uni-popup>
 	</view>
 </template>
 
@@ -91,9 +99,11 @@
 				pbId: '',
 				list: [],
 				activeList: [],
-				minute: '',
-				second: '',
-				config: []
+				minute: 0,
+				second: 0,
+				config: [],
+				goodIndex: '',
+				arrObj: {}
 
 			};
 		},
@@ -103,9 +113,16 @@
 					delta: 1
 				});
 			},
+			detailPage(id){
+				if(this.config.is_detail==1){
+					uni.navigateTo({
+						url:`shopdetail?id=${id}`
+					})
+				}
+			},
 			selectStage(index) {
 				this.kind = index;
-				this.pbId=this.activeList[index].id;
+				this.pbId = this.activeList[index].id;
 				this.panicBuylist();
 			},
 			panicBuylist() {
@@ -131,24 +148,78 @@
 					if (data.code == 200) {
 						this.config = data.data;
 						this.activeList = data.data.activeList;
-
 						this.list = data.data.goodsList;
 					}
 				});
 			},
 			// 显示键盘
-			showKey() {
+			showKey(item, index) {
 				this.$refs.popup.open();
+				this.arrObj = item;
+				this.goodIndex = index;
+			},
+			toParent(e) {
+				this.addCart(this.arrObj, 'changeNum', e.val, '成功加入购物车', this.goodIndex);
+				this.$refs.popup.close();
+			},
+			addCart(item, url, num, message, index) {
+				let timeStamp = Math.round(new Date().getTime() / 1000);
+				let obj = {
+					appid: appid,
+					timeStamp: timeStamp,
+					item_id: item.item_id,
+					attr_id: item.attr_id,
+					item_num: num
+				};
+
+				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				let params = Object.assign({
+						sign: sign
+					},
+					obj
+				);
+				rs.postRequests(url, params, res => {
+					let data = res.data;
+					if (data.code == 200) {
+						rs.Toast(message);
+						this.list[index].cart_num = num;
+					} else if (data.code == 407 || data.code == 406) {
+						rs.Toast("购买数量不能超过活动数量");
+					} else {
+						rs.Toast(res.data.msg);
+					}
+				});
+			},
+			plusSing(item, index) {
+				this.addCart(item, 'changeNum', 1, '成功加入购物车', index)
+			},
+			plus(item, num, index) {
+				if 	(item.is_float == 1 && !Number.isInteger(Number(num))) {
+					rs.Toast( '购买数量不能为小数');
+					return;
+				}
+				this.addCart(item, 'changeNum', num, '成功加入购物车', index)
+			},
+			minus(item, num, index) {
+				if 	(item.is_float == 1 && !Number.isInteger(Number(num))) {
+					rs.Toast( '购买数量不能为小数');
+					return;
+				}
+				if (num <= 0) {
+					this.addCart(item, 'deleteCart', num, '删除商品成功', index);
+				} else {
+					this.addCart(item, 'changeNum', num, '成功加入购物车', index)
+				}
 			}
 		},
 		onShow() {
 			this.panicBuylist();
 		},
-		onPageScroll(e){
-			if(e.scrollTop==0){
-					this.showTop=false;
-			}else{
-				this.showTop=true;
+		onPageScroll(e) {
+			if (e.scrollTop == 0) {
+				this.showTop = false;
+			} else {
+				this.showTop = true;
 			}
 		}
 	};
@@ -172,7 +243,10 @@
 
 	.flash_sale .all_things .good_num .buy_num {
 		margin-top: 75%;
-		text-align: end;
+		height: 19px;
+		    display: flex;
+		    align-items: center;
+			justify-content: flex-end;
 	}
 
 	.flash_sale .all_things .good_num .buy_num .plus {

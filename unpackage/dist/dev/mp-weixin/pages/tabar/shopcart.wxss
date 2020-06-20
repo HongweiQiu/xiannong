@@ -79,17 +79,19 @@
 	display: -webkit-flex;
 	display: flex;
 	padding: 15rpx 20rpx !important;
+	height: 100rpx;
 }
 .shopcart .remark .weight {
 	width: 70rpx;
 }
 .shopcart .remark .remark_note {
 	margin-right: 20rpx;
+	width: 100%;
 }
 .order_method .active_info {
 	/* padding: 5rpx 20rpx; */
-	padding:0 0 0 20rpx;
-	height:50rpx;
+	padding: 0 0 0 20rpx;
+	height: 50rpx;
 	background: rgba(173, 219, 140, 0.2);
 }
 .order_method .price_order {
@@ -147,5 +149,10 @@
 	width: 37%;
 	height: 260rpx;
 }
-.margin_right{margin-right:10rpx;}
+.margin_right {
+	margin-right: 10rpx;
+}
+
+/* .showNav .order_method{display: none;}
+.showNav .my_tabar{display: none;} */
 

@@ -27,11 +27,17 @@
 		</view>
 		<!-- 搜索结果 -->
 		<view class="search_result" v-else>
-			<my-profile v-for="(item,index) in list" :ware="item" :config="config" :key="index"></my-profile>
+			<my-profile v-for="(item,index) in list" :ware="item" :config="config" :key="index" @showCart="openCart(item)"
+					 @showKey="showKey(item,index)"></my-profile>
 			<!-- 占位图 -->
 			<view class="search_bitmap" v-if="bitmap"><image class="bitmap" src="../../static/img/no_content.png" mode="aspectFit"></image></view>
 		</view>
-	
+	<uni-popup ref="cart" type="bottom">
+		<my-addcart :config="config" :cartware="cartware" @onClose="onClose"></my-addcart>
+	</uni-popup>
+	<uni-popup ref="popup" type="bottom">
+		<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent"></my-keyboard>
+	</uni-popup>
 	</view>
 </template>
 
@@ -59,7 +65,10 @@
 				keyword:'',
 				showSearch:true,
 				config:[],
-				bitmap:false
+				bitmap:false,
+				arrObj:{},
+				index:'',
+				cartware:{}
 			}
 		},
 		methods: {
@@ -68,7 +77,48 @@
 					delta: 1
 				})
 			},
-			
+			toParent(e){
+				let item = e.arrObj;
+				let timeStamp = Math.round(new Date().getTime() / 1000);
+				let obj = {
+					appid: appid,
+					timeStamp: timeStamp,
+					item_id: item.id,
+					attr_id: 0,
+					item_num: e.val
+				};
+				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				let params = Object.assign({
+						sign: sign
+					},
+					obj
+				);
+				rs.postRequests('changeNum', params, res => { 
+					let data = res.data;
+					if (data.code == 200) {
+						rs.Toast('加入购物车成功')
+						this.list[this.index].cart_num=e.val;
+					} else if (data.code == 407 || data.code == 406) {
+						rs.Toast("购买数量不能超过活动数量")
+					} else {
+						rs.Toast(res.data.msg)
+					}
+				});
+				this.$refs.popup.close();
+			},
+			openCart(item) {
+				this.cartware = item;
+				this.$refs.cart.open();
+			},
+			onClose() {
+				this.$refs.cart.close();
+			},
+			// 显示键盘
+			showKey(item,index) {
+				this.arrObj=item;
+				this.index=index;
+				this.$refs.popup.open();
+			},
 			// 热门搜索
 			getSearchData() {
 			let timeStamp = Math.round(new Date().getTime() / 1000);
@@ -89,11 +139,7 @@
 					this.keyList = data.data;
 					
 				} else {
-					uni.showToast({
-						title:data.msg,
-						icon:'none',
-						duration:2000
-					});
+					rs.Toast(data.msg);
 				}
 			});
 		},
@@ -107,7 +153,6 @@
 		// 搜索列表
 		searchList(key) {
 					this.list = [];
-					console.log(key)
 					let timeStamp = Math.round(new Date().getTime() / 1000);
 					let obj = {
 						appid: appid,
@@ -134,11 +179,7 @@
 								this.bitmap = true;
 							}
 						} else {
-							uni.showToast({
-								title:data.msg,
-								icon:'none',
-								duration:2000
-							})
+							rs.Toast(data.msg)
 						}
 					});
 				},
@@ -230,9 +271,15 @@
 				});
 			}
 		},
+		onHide(){
+			uni.setStorageSync('search',this.list);
+		},
 		onShow() {
 			this.wxConfig();
 			this.getSearchData();
+			if(this.keyword){
+				this.list=uni.getStorageSync('search');
+			}
 		}
 	}
 </script>
