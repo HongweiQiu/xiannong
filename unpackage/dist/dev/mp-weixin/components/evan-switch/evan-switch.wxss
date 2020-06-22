@@ -24,7 +24,7 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.evan-switch.data-v-be301288 {
+.evan-switch.data-v-65d8598c {
   position: relative;
   border-width: 1px;
   border-color: rgba(0, 0, 0, 0.1);
@@ -33,10 +33,10 @@
   transition: background-color 0.3s;
   box-sizing: content-box;
 }
-.evan-switch--disabled.data-v-be301288 {
+.evan-switch--disabled.data-v-65d8598c {
   opacity: 0.3;
 }
-.evan-switch__circle.data-v-be301288 {
+.evan-switch__circle.data-v-65d8598c {
   position: absolute;
   left: 0;
   top: 0;

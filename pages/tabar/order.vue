@@ -107,7 +107,7 @@
 			</view>
 
 			<view class="bitmap" v-if="search_default">
-				<image src="../../static/img/no_content.png" alt=""></image>
+				<image src="../../static/img/no_content.png" mode="aspectFit"></image>
 			</view>
 		</view>
 		<w-picker mode="selector" default-type="title" :default-props="childListProps" :options="childList" @confirm="onChild($event, 'selector')"

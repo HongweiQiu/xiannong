@@ -72,9 +72,6 @@
 				</view>
 			</view>
 		</view>
-		<uni-popup ref="popup" type="dialog">
-			<uni-popup-dialog type="input" title="确定要退出账号吗？" :duration="2000" :before-close="true" @close="close" @confirm="confirm"></uni-popup-dialog>
-		</uni-popup>
 		<my-tabar tabarIndex=4></my-tabar>
 	</view>
 </template>
@@ -89,12 +86,10 @@
 		imgRemote,
 		navBar
 	} = app;
-	import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue'
 	import uniIcons from '../../components/uni-icons/uni-icons.vue';
 	export default {
 		components: {
 			uniIcons,
-			uniPopupDialog
 		},
 		data() {
 			return {
@@ -115,6 +110,12 @@
 						name: '账单记录',
 						color: '#FFF000',
 						url: 'bill'
+					},
+					{
+						color: '#ffab9a',
+						icon: 'icon-buy-fill',
+						name: '购买记录',
+						url: 'purchase_record'
 					},
 					{
 						icon: 'icon-qianbao',
@@ -176,11 +177,11 @@
 				});
 			},
 			threePage(data) {
-				if (!this.token) {
+				if (this.token) {
 					switch (data) {
 						case 'recomend':
 							uni.navigateTo({
-								url: '/pages/index/recomendlist'
+								url: '/pages/index/recommed'
 							});
 							break;
 						case 'address':
@@ -194,20 +195,53 @@
 							});
 							break;
 					}
-				} else {}
+				} else {
+					uni.reLaunch({
+						url: '/pages/account/login'
+					});
+				}
 			},
 			exit() {
-				this.$refs.popup.open();
-			},
-			close() {
-				this.$refs.popup.close();
-			},
-			confirm() {
-				uni.showTabBar();
-				uni.reLaunch({
-					url: '/pages/account/login'
+				uni.showModal({
+					title: '提示',
+					content: '是否退出登录？',
+					success: function(res) {
+						if (res.confirm) {
+							// console.log('用户点击确定');
+							var that = this
+							var timeStamp = Math.round(new Date().getTime() / 1000);
+							var obj = {
+								appid: appid,
+								timeStamp: timeStamp,
+							}
+							var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+							var data = {
+								appid: appid,
+								timeStamp: timeStamp,
+								sign: sign,
+							}
+							rs.getRequests("logout", data, (res) => {
+								if (res.data.code == 200) {
+									uni.showToast({
+										title: "退出成功",
+										icon: 'none'
+									})
+									uni.clearStorage({
+										success: function(reg) {
+											uni.navigateTo({
+												url: '/pages/account/login'
+											});
+										}
+									})
+								}
+							})
+						} else if (res.cancel) {
+							// console.log('用户点击取消');
+						}
+					}
 				});
-			}
+			},
+	
 		},
 		onLoad() {
 			uni.hideTabBar();

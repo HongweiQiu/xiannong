@@ -64,7 +64,7 @@ var component = Object(_D_360_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio
   renderjs
 )
 
-component.options.__file = "C:/Users/123/Desktop/uni/uniapp/App.vue"
+component.options.__file = "App.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
