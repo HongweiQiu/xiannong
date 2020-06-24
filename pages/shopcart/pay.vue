@@ -37,8 +37,9 @@
 			<view>平台不会以订单异常，系统升级等理由要求您点击任何链接进行退款操作，请提高警惕谨防受骗！</view>
 		</view>
 		<view class="select">
-			<view class="determine" @click="payOrder">确认支付</view>
-			<view class="cancel" @click="cancalPay">取消支付</view>
+			<view class="determine" @click="payOrder" v-if="is_miniBind==1">确认支付</view>
+			<view class="determine" @click="bindWechat" v-else>确认支付</view>
+			<view class="cancel" @click="cancelPay">取消支付</view>
 		</view>
 	</view>
 </template>
@@ -61,7 +62,9 @@
 			return {
 				navBar: navBar,
 				id: '',
-				list: []
+				is_miniBind: uni.getStorageSync('is_miniBind'),
+				list: [],
+				isDisable: true
 			};
 		},
 		methods: {
@@ -75,7 +78,106 @@
 					url: '/pages/tabar/shopcart'
 				})
 			},
+			bindWechat() {
+				rs.Toast('该账号未绑定微信，请先绑定再来支付');
+				setTimeout(() => {
+					uni.switchTab({
+						url: '/pages/tabar/user'
+					})
+				}, 1000)
+
+			},
+			// #ifdef H5
 			payOrder() {
+				console.log(typeof WeixinJSBridge)
+				if (typeof WeixinJSBridge == "undefined") {
+					if (document.addEventListener) {
+						document.addEventListener('WeixinJSBridgeReady', this.jsApiCall(), false);
+					} else if (document.attachEvent) {
+						document.attachEvent('WeixinJSBridgeReady', this.jsApiCall());
+						document.attachEvent('onWeixinJSBridgeReady', this.jsApiCall());
+					}
+				} else {
+					this.jsApiCall();
+				}
+
+			},
+			jsApiCall() {
+				if (!this.isDisable) {
+					return
+				}
+				let timeStamp = Math.round(new Date().getTime() / 1000);
+				var obj = {
+					appid: appid,
+					timeStamp: timeStamp,
+					oid: this.id,
+					type: 'mp'
+				};
+				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				let params = Object.assign({
+					sign: sign,
+				}, obj)
+				rs.postRequests('payTemOrder', params, (res) => {
+					let {
+						data
+					} = res;
+					
+					if (data.code == 406) {
+						rs.Toast('请您先绑定微信')
+						setTimeout(() => {
+							this.isDisable = true;
+							uni.switchTab({
+								url: '../tabar/user'
+							})
+						}, 1000)
+						return false
+					} else if (data.code == 200) {
+						this.isDisable = false;
+						if (data.data.payType == 1) {
+							var that = this;
+							rs.Toast('支付成功')
+							setTimeout(() => {
+								this.isDisable = true;
+								uni.switchTab({
+									url: '../tabar/order'
+								})
+							}, 1000)
+						} else if (data.data.payType == 2) {
+							var thta = this;
+							var wxOrder = data.data.wxParams;
+						
+							WeixinJSBridge.invoke(
+								'getBrandWCPayRequest', {
+									"appId": wxOrder.appId, //公众号名称，由商户传入
+									"timeStamp": wxOrder.timeStamp, //时间戳，自1970年以来的秒数
+									"nonceStr": wxOrder.nonceStr, //随机串
+									"package": wxOrder.package,
+									"signType": wxOrder.signType, //微信签名方式：
+									"paySign": wxOrder.paySign //微信签名
+								},
+								function(res) {
+									if (res.err_msg == "get_brand_wcpay_request:ok") {
+										rs.Toast('支付成功')
+										setTimeout(() => {
+											uni.switchTab({
+												url: '../tabar/order'
+											})
+										}, 1000)
+									}
+								}
+							);
+						}
+					} else {
+						this.isDisable = true;
+						rs.Toast(data.msg)
+					}
+				});
+
+			},
+			// #endif
+			// #ifdef APP-PLUS
+			payOrder() {
+
 				let {
 					id
 				} = this;
@@ -94,46 +196,33 @@
 					let {
 						data
 					} = res;
-						log(res)
+
 					if (data.code == 200) {
 						if (data.data.payType == 1) {
-							uni.showToast({
-								title: '支付成功',
-								duration: 2000,
-								icon: "none"
-							});
-							// app.aData.pageClassify = false;
-							wx.switchTab({
+							rs.Toast('支付成功');
+							uni.switchTab({
 								url: '/pages/tabar/order',
 							})
 						}
+						log(data)
 						if (res.data.data.payType == 2) {
 							let {
 								wxParams
 							} = res.data.data;
-					
+
 							uni.requestPayment({
 								provider: 'wxpay',
 								orderInfo: wxParams, //微信、支付宝订单数据
 								success: function(res) {
 									console.log('success:' + JSON.stringify(res));
-									uni.showToast({
-										title: '支付成功',
-										duration: 2000,
-										icon: "none"
-									});
-									// app.aData.pageClassify = false;
-									wx.switchTab({
+									rs.Toast('支付成功');
+									uni.switchTab({
 										url: '/pages/tabbar/order',
 									})
 								},
 								fail: function(err) {
 									console.log(err)
-									uni.showToast({
-										title: "充值失败",
-										duration: 2000,
-										icon: "none"
-									});
+									rs.Toast("充值失败");
 								}
 							});
 
@@ -141,6 +230,70 @@
 					}
 				})
 			},
+
+			// #endif
+			// #ifdef MP-WEIXIN
+			payOrder() {
+				let {
+					id
+				} = this;
+				let timeStamp = Math.round(new Date().getTime() / 1000);
+				let obj = {
+					appid: appid,
+					timeStamp: timeStamp,
+					oid: id,
+					type: 'mini'
+				};
+				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				let params = Object.assign({
+					sign: sign,
+				}, obj)
+				rs.postRequests("payTemOrder", params, (res) => {
+					let {
+						data
+					} = res;
+
+					if (data.code == 200) {
+						if (data.data.payType == 1) {
+							rs.Toast('支付成功');
+							uni.switchTab({
+								url: '/pages/tabar/order',
+							})
+						}
+						log(res.data.data.wxParams);
+						if (res.data.data.payType == 2) {
+							let {
+								wxParams
+							} = res.data.data;
+
+							uni.requestPayment({
+								provider: 'wxpay',
+								orderInfo: wxParams, //微信、支付宝订单数据
+								timeStamp: wxParams.timeStamp,
+								nonceStr: wxParams.nonceStr,
+								package: wxParams.package,
+								signType: wxParams.signType,
+								paySign: wxParams.paySign,
+								success: function(res) {
+									console.log('success:' + JSON.stringify(res));
+									rs.Toast('支付成功');
+									uni.switchTab({
+										url: '/pages/tabbar/order',
+									})
+								},
+								fail: function(err) {
+									console.log(err)
+									rs.Toast("充值失败");
+								}
+							});
+
+						}
+					} else {
+						rs.Toast(data.msg)
+					}
+				})
+			},
+			// #endif
 			// 临时订单信息
 			temOrder() {
 				let timeStamp = Math.round(new Date().getTime() / 1000);

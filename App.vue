@@ -16,6 +16,7 @@ export default {
 		imgRemote: 'https://test.caidj.cn',
 		// #endif
 		// #ifdef H5
+		isWeixin:false,
 		rootUrl: '/api', //主接口地址
 		imgRemote: 'http://test.caidj.cn',
 		// #endif

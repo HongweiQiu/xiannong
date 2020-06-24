@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 405))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 419))
   }
 }
 var render = function() {
@@ -135,6 +135,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
 
 
 
@@ -222,12 +224,10 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecret = app.appsecret;var _default = { data: function data() {return { navBar: navBar, logo: '', mobile: '', password: '' };}, methods: { clickLeft: function clickLeft() {uni.switchTab({ url: '/pages/tabar/index' });}, pageUrl: function pageUrl(data) {uni.navigateTo({ url: data });}, // 手机登录
-    mobileLogin: function mobileLogin() {var mobile = this.mobile,password = this.password;var timeStamp = Math.round(new Date().getTime() / 1000);if (!mobile) {uni.showToast({ title: '手机号码不能为空，请输入手机号', duration: 2000, icon: 'none' });return;}if (!password) {uni.showToast({ title: '密码不能为空，请输入密码', duration: 2000, icon: 'none' });return;}if (password.length < 6) {uni.showToast({
-          title: '密码不能少于六位',
-          duration: 2000,
-          icon: 'none' });
-
+//
+//
+var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecret = app.appsecret,isWeixin = app.isWeixin;var _default = { data: function data() {return { display: true, navBar: navBar, logo: '', mobile: '', password: '' };}, methods: { clickLeft: function clickLeft() {uni.switchTab({ url: '/pages/tabar/index' });}, pageUrl: function pageUrl(data) {uni.navigateTo({ url: data });}, // 手机登录
+    mobileLogin: function mobileLogin() {var mobile = this.mobile,password = this.password;var timeStamp = Math.round(new Date().getTime() / 1000);if (!mobile) {_request.default.Toast('手机号码不能为空，请输入手机号');return;}if (!password) {_request.default.Toast('密码不能为空，请输入密码');return;}if (password.length < 6) {_request.default.Toast('密码不能少于六位');
         return;
       }
       var obj = {
@@ -237,8 +237,7 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
         timeStamp: timeStamp };
 
       var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-      var params = Object.assign(
-      {
+      var params = Object.assign({
         sign: sign },
 
       obj);
@@ -246,26 +245,175 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
       _request.default.postRequests('login', params, function (res) {
         var data = res.data;
         if (data.code == 200) {
-          uni.showToast({
-            title: '登录成功，将跳转到首页',
-            duration: 2000,
-            icon: 'none' });
-
+          _request.default.Toast('登录成功，将跳转到首页');
           uni.setStorageSync('cdj_token', data.data.token);
           uni.setStorageSync('is_child', data.data.is_child);
-          uni.setStorageSync('is_miniBind', data.data.is_appBind);
-          uni.reLaunch({
+
+
+
+
+
+
+
+
+
+
+          uni.setStorageSync('is_miniBind', data.data.is_miniBind);
+
+
+          uni.switchTab({
             url: '/pages/tabar/index' });
 
         } else {
-          uni.showToast({
-            title: data.msg,
-            duration: 2000,
-            icon: 'none' });
-
+          _request.default.Toast(data.msg);
         }
       });
+    },
+    // app端微信登录
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // H5端微信登录
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // 微信端微信登录
+
+    wechatLogin: function wechatLogin() {
+      console.log('weixin');
+      uni.getUserInfo({
+        provider: 'weixin',
+        success: function success(infoRes) {var
+
+          encryptedData =
+
+          infoRes.encryptedData,iv = infoRes.iv;
+          console.log(infoRes);
+          uni.login({
+            provider: 'weixin',
+            success: function success(res) {
+              var timeStamp = Math.round(new Date().getTime() / 1000);
+              var obj = {
+                appid: appid,
+                timeStamp: timeStamp,
+                code: res.code };
+
+              var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+              var params = Object.assign({
+                type: 'mini',
+                sign: sign,
+                code: res.code,
+                encryptedData: encryptedData,
+                iv: iv },
+              obj);
+              _request.default.postRequests('wxLogin', params, function (result) {
+                var data = result.data;
+                if (data.code == 200) {
+                  _request.default.Toast('登录成功，将跳转到首页');
+                  wx.setStorageSync("cdj_token", data.data.token);
+                  wx.setStorageSync("is_child", data.data.is_child);
+                  wx.setStorageSync("is_miniBind", data.data.is_miniBind);
+                  wx.switchTab({
+                    url: '../tabar/index' });
+
+                } else if (data.code == 201) {
+                  wx.navigateTo({
+                    url: 'selectway?identifying=' + data.data.identifying });
+
+                } else {
+                  _request.default.Toast(data.msg);
+                }
+              });
+            } });
+
+
+        } });
+
     } },
+
+
 
   onShow: function onShow() {var _this = this;
     var timeStamp = Math.round(new Date().getTime() / 1000);
@@ -274,8 +422,7 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
       timeStamp: timeStamp };
 
     var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-    var params = Object.assign(
-    {
+    var params = Object.assign({
       sign: sign },
 
     obj);
@@ -286,6 +433,63 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
         _this.logo = data.data.logo;
       }
     });
+
+    //H5微信登录
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  },
+  onReady: function onReady() {
+
+
+
+
+
+
+
+  },
+  onHide: function onHide() {
+
+
+
+
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

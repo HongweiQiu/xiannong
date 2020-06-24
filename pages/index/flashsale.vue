@@ -27,8 +27,14 @@
 		<view class="all_things">
 			<view v-for="(item, index) in list" :key="index" class="flex single_good">
 				<view class="photo" @click="detailPage(item.item_id)">
+
 					<image :src="config.logo" mode="aspectFit" class="shuiyin" v-if="config.logo&&config.shuiyin==1"></image>
-					<image class="good_img" :src="item.img==''?imgRemote+config.item_default:item.img" mode="aspectFit"></image>
+					<view style="width: 100%;height: 100%;display: flex;align-items: center;justify-content: center;">
+						<view class="show_text" v-if="item.activity_num <= item.cart_num">抢光了</view>
+						<image class="good_img" :src="item.img==''?imgRemote+config.item_default:item.img" mode="aspectFit"></image>
+					</view>
+
+
 				</view>
 				<view class="good_info" @click="detailPage(item.item_id)">
 					<view>{{item.item_title}}</view>
@@ -113,10 +119,10 @@
 					delta: 1
 				});
 			},
-			detailPage(id){
-				if(this.config.is_detail==1){
+			detailPage(id) {
+				if (this.config.is_detail == 1) {
 					uni.navigateTo({
-						url:`shopdetail?id=${id}`
+						url: `shopdetail?id=${id}`
 					})
 				}
 			},
@@ -194,15 +200,15 @@
 				this.addCart(item, 'changeNum', 1, '成功加入购物车', index)
 			},
 			plus(item, num, index) {
-				if 	(item.is_float == 1 && !Number.isInteger(Number(num))) {
-					rs.Toast( '购买数量不能为小数');
+				if (item.is_float == 1 && !Number.isInteger(Number(num))) {
+					rs.Toast('购买数量不能为小数');
 					return;
 				}
 				this.addCart(item, 'changeNum', num, '成功加入购物车', index)
 			},
 			minus(item, num, index) {
-				if 	(item.is_float == 1 && !Number.isInteger(Number(num))) {
-					rs.Toast( '购买数量不能为小数');
+				if (item.is_float == 1 && !Number.isInteger(Number(num))) {
+					rs.Toast('购买数量不能为小数');
 					return;
 				}
 				if (num <= 0) {
@@ -230,6 +236,19 @@
 		width: 30%;
 	}
 
+	.flash_sale .all_things .photo .show_text{
+		position: absolute;
+		z-index: 2;
+		width: 140rpx;
+		height: 140rpx;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: rgba(0.1, 0.2, 0.3, 0.5);
+		color: white;
+	}
+
 	.flash_sale .all_things .good_info {
 		width: 50%;
 		display: flex;
@@ -244,9 +263,9 @@
 	.flash_sale .all_things .good_num .buy_num {
 		margin-top: 75%;
 		height: 19px;
-		    display: flex;
-		    align-items: center;
-			justify-content: flex-end;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
 	}
 
 	.flash_sale .all_things .good_num .buy_num .plus {

@@ -38,6 +38,7 @@ export default {
 .my_stepper {
 	display: flex;
 	align-items: center;
+	height:38rpx;
 }
 .my_stepper .input_value {
 	width: 80rpx;

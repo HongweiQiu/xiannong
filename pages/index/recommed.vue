@@ -2,7 +2,7 @@
 	<view class="collect">
 		<uni-nav-bar left-icon="arrowleft" title="常用推荐" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
 		<view class="all_collect" v-if="list.length!=0">
-			<my-profile class="single_collect" v-for="(item, index) in list" :ware="item" :config="config" :key="index"
+			<my-profile class="single_collect" v-for="(item, index) in list" :wares="item" :config="config" :key="index"
 			 @showCart="openCart(item)" @showKey="showKey(item, index)"></my-profile>
 			<my-loading></my-loading>
 		</view>

@@ -29,8 +29,8 @@
 			</view>
 		</view>
 		<view class="submit_button button_style" @click="register" :class="{'gray_b':back}">提交</view>
-		<view class="now_login">已有账户？现在登录>></view>
-		<view class="agree">注册协议</view>
+		<view class="now_login" @click="pageUrl('login')">已有账户？现在登录>></view>
+		<view class="agree" @click="pageUrl('treaty')">注册协议</view>
 	</view>
 </template>
 
@@ -58,7 +58,9 @@
 				number_code: '',
 				verify_code: '',
 				showcode: false,
-				back:true
+				back: true,
+				identifying:'',
+				resultData: {}
 			};
 		},
 		methods: {
@@ -67,8 +69,21 @@
 					delta: 1
 				});
 			},
+			pageUrl(data){
+				uni.navigateTo({
+					url:data
+				})
+			},
 			// 滑动验证
-			verifyResult() {
+			verifyResult(res) {
+				// console.log(res);
+				this.resultData = res;
+				if (this.resultData.flag == true) {
+					this.captcha()
+					return;
+				}
+			},
+			captcha() {
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -102,6 +117,16 @@
 					return;
 				}
 
+				var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
+				if (!reg.test(this.mobile)) {
+					uni.showToast({
+						title: '不能输入特殊字符和空格',
+						duration: 2000,
+						icon: "none"
+					});
+					return;
+				}
+
 				let obj = {
 					appid: appid,
 					mobile: this.mobile,
@@ -131,16 +156,46 @@
 							that.number_code = res.data.data.random_str;
 							rs.Toast('验证码已发送到你手机中，请注意查收');
 						} else {
+							that.verifyReset();
 							rs.Toast(res.data.msg);
 						}
 					},
 				})
 
 			},
-
+			verifyReset() {
+				this.$refs.verifyElement.reset();
+				/* 删除当前页面的数据 */
+				this.resultData = {};
+			},
 			register() {
+				console.log(this.identifying)
+				if (!this.nickname) {
+					rs.Toast('单位名称不能为空');
+					return;
+				}
+				if (!this.mobile) {
+					rs.Toast('手机号不能为空');
+					return;
+				}
+				if (!this.password) {
+					rs.Toast('密码不能为空');
+					return;
+				}
+				var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
+				if (!reg.test(this.nickname) || !reg.test(this.mobile) || !reg.test(this.password)) {
+					rs.Toast('不能输入特殊字符和空格');
+					return;
+				}
+				if (this.password.length <6) {
+					rs.Toast('请设置六位及以上的密码');
+					return;
+				}
+				if (this.password != this.confirm_pwd) {
+					rs.Toast('请确保密码一致');
+					return;
+				}
 				let timeStamp = Math.round(new Date().getTime() / 1000);
-
 				let obj = {
 					appid: appid,
 					timeStamp: timeStamp,
@@ -159,26 +214,33 @@
 				}, obj)
 				var that = this;
 				uni.request({
-									url: app.rootUrl + "register",
-									method: 'POST',
-									data: params,
-									header: {
-										'content-type': 'application/json', // 默认值
-										'cookie': uni.getStorageSync("laravel_session")
-									},
-									success: function(res) {
-										if (res.data.code == 200) {
-											rs.Toast( '注册成功');
-												uni.navigateTo({
-													url: '/login',
-												})
-										} else {
-											rs.Toast( res.data.msg);
-										}
-									}
+					url: app.rootUrl + "register",
+					method: 'POST',
+					data: params,
+					header: {
+						'content-type': 'application/json', // 默认值
+						'cookie': uni.getStorageSync("laravel_session")
+					},
+					success: function(res) {
+						if (res.data.code == 200) {
+							rs.Toast('注册成功');
+							setTimeout(() => {
+								uni.navigateTo({
+									url: './login',
 								})
+							}, 1000)
+						} else {
+							rs.Toast(res.data.msg);
+							that.verifyReset()
+						}
+					}
+				})
 			}
-		}
+		},
+		onLoad(options) {
+					var that = this;
+					that.identifying = options.identifying
+				}
 	};
 </script>
 
@@ -216,6 +278,7 @@
 		color: #a1a1a1;
 		text-align: center;
 		font-size: 24rpx;
+		height: 500rpx;
 	}
 
 	.register .agree {

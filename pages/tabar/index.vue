@@ -118,7 +118,7 @@
 				load: true,
 				imgRemote: imgRemote,
 				speed: 30,
-				loading: '',
+				loading: true,
 				page: 1,
 				num: 10,
 				hours:0,

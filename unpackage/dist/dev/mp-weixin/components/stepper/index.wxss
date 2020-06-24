@@ -6,6 +6,7 @@
 	-webkit-box-align: center;
 	-webkit-align-items: center;
 	        align-items: center;
+	height:38rpx;
 }
 .my_stepper .input_value {
 	width: 80rpx;

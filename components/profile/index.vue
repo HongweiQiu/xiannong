@@ -17,7 +17,7 @@
 			</view>
 			<view class="flex_left_right">
 				<view style="width:82%;" @click="detail">
-					<view><text class="red_tag" v-for="(item,index) in ware.label">{{item}}</text></view>
+					<view><text class="red_tag" v-for="(item,index) in ware.label" :key="index">{{item}}</text></view>
 
 					<block v-if="token">
 						<block v-if="config.is_look==1">
@@ -77,9 +77,15 @@
 		log
 	} = console;
 	export default {
-		props: ['ware', 'config', 'url'],
+		props: ['wares', 'config', 'url'],
+		watch:{
+			wares(newvalue){
+				this.ware=newvalue;
+			}
+		},
 		data() {
 			return {
+				ware:this.wares,
 				imgRemote: imgRemote,
 				token: uni.getStorageSync('cdj_token')
 			}
@@ -115,7 +121,8 @@
 						if (num <= 0) {
 							this.ware.cart_num = 0;
 						} else {
-							this.ware.cart_num = num;
+							console.log(this.ware)
+							this.ware.cart_num =num;
 						}
 					} else if (data.code == 407 || data.code == 406) {
 						rs.Toast("购买数量不能超过活动数量");
@@ -132,6 +139,7 @@
 				}
 			},
 			plus(e) {
+				console.log(e)
 				this.addcart('changeNum', e);
 			},
 			plusCart() {
@@ -161,6 +169,7 @@
 	}
 
 	.my_profile .photo {
+		margin-right:20rpx;
 		width: 200rpx;
 	}
 
@@ -184,4 +193,5 @@
 		width: 32rpx;
 		height: 32rpx;
 	}
+	
 </style>

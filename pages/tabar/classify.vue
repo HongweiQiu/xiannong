@@ -19,7 +19,8 @@
 				</view>
 				<view style="height: 99rpx;"></view>
 				<view v-if="list.length">
-					<my-profile v-for="(item,index) in list" :key="index" :ware="item" :config="config" class="single_good" @showCart="openCart(item)"
+					<my-profile v-for="(item,index) in list" :key="index" 
+					:wares="item" :config="config" class="single_good" @showCart="openCart(item)" 
 					 @showKey="showKey(item,index)"></my-profile>
 					 
 					<view class="my_loading">
@@ -52,7 +53,7 @@
 			<!-- #endif -->
 			<view class="all_title">全部分类</view>
 			<view class="show_all_sort">
-				<text v-for="(item,index) in firstCate" @click="selectSort(index)" :class="active==index?'select_back':''">{{item.name}}</text>
+				<text v-for="(item,index) in firstCate"  :key="index" @click="selectSort(index)" :class="active==index?'select_back':''">{{item.name}}</text>
 			</view>
 			<view class="option">
 				<view class="cancel" @click="cancelSort">取消</view>
@@ -201,6 +202,10 @@
 				if(this.textInfo!='没有更多呢'){
 					this.secondId = this.secondCate[this.kind+1].id;
 					this.kind +=1;
+					uni.pageScrollTo({
+						scrollTop: 0,
+						duration: 300
+					});
 					this.mpItem();
 				}
 			},

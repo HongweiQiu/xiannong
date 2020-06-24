@@ -2,6 +2,7 @@
 page {
 	background: #fff;
 }
+
 /* .login{position: fixed;width:100%;height:100%;} */
 .logo_width {
 	text-align: center;
@@ -31,7 +32,7 @@ page {
 }
 .login .mobilelogin {
 	width: 580rpx;
-	height:600rpx;
+	height: 600rpx;
 	margin: 0 auto;
 }
 .login .determine_mobile {
@@ -60,9 +61,9 @@ page {
 }
 .wechat_login {
 	position: fixed !important;
+	z-index: 0;
 	bottom: 20rpx;
 	width: 100%;
-	z-index: -1;
 	text-align: center;
 	font-size: 24rpx;
 }

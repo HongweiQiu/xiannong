@@ -94,10 +94,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 405))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 419))
   },
   "my-identifyingcode": function() {
-    return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 433))
+    return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 447))
   }
 }
 var render = function() {
@@ -181,7 +181,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var moveVerify = function moveVerify() {__webpack_require__.e(/*! require.ensure | components/helang-moveVerify/helang-moveVerify */ "components/helang-moveVerify/helang-moveVerify").then((function () {return resolve(__webpack_require__(/*! @/components/helang-moveVerify/helang-moveVerify.vue */ 440));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var moveVerify = function moveVerify() {__webpack_require__.e(/*! require.ensure | components/helang-moveVerify/helang-moveVerify */ "components/helang-moveVerify/helang-moveVerify").then((function () {return resolve(__webpack_require__(/*! @/components/helang-moveVerify/helang-moveVerify.vue */ 454));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 var app = getApp().globalData;var
 
 navBar =
@@ -202,7 +202,9 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
       number_code: '',
       verify_code: '',
       showcode: false,
-      back: true };
+      back: true,
+      identifying: '',
+      resultData: {} };
 
   },
   methods: {
@@ -211,8 +213,21 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
         delta: 1 });
 
     },
+    pageUrl: function pageUrl(data) {
+      uni.navigateTo({
+        url: data });
+
+    },
     // 滑动验证
-    verifyResult: function verifyResult() {var _this = this;
+    verifyResult: function verifyResult(res) {
+      // console.log(res);
+      this.resultData = res;
+      if (this.resultData.flag == true) {
+        this.captcha();
+        return;
+      }
+    },
+    captcha: function captcha() {var _this = this;
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         appid: appid,
@@ -246,6 +261,16 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
         return;
       }
 
+      var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
+      if (!reg.test(this.mobile)) {
+        uni.showToast({
+          title: '不能输入特殊字符和空格',
+          duration: 2000,
+          icon: "none" });
+
+        return;
+      }
+
       var obj = {
         appid: appid,
         mobile: this.mobile,
@@ -275,16 +300,46 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
             that.number_code = res.data.data.random_str;
             _request.default.Toast('验证码已发送到你手机中，请注意查收');
           } else {
+            that.verifyReset();
             _request.default.Toast(res.data.msg);
           }
         } });
 
 
     },
-
+    verifyReset: function verifyReset() {
+      this.$refs.verifyElement.reset();
+      /* 删除当前页面的数据 */
+      this.resultData = {};
+    },
     register: function register() {
+      console.log(this.identifying);
+      if (!this.nickname) {
+        _request.default.Toast('单位名称不能为空');
+        return;
+      }
+      if (!this.mobile) {
+        _request.default.Toast('手机号不能为空');
+        return;
+      }
+      if (!this.password) {
+        _request.default.Toast('密码不能为空');
+        return;
+      }
+      var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
+      if (!reg.test(this.nickname) || !reg.test(this.mobile) || !reg.test(this.password)) {
+        _request.default.Toast('不能输入特殊字符和空格');
+        return;
+      }
+      if (this.password.length < 6) {
+        _request.default.Toast('请设置六位及以上的密码');
+        return;
+      }
+      if (this.password != this.confirm_pwd) {
+        _request.default.Toast('请确保密码一致');
+        return;
+      }
       var timeStamp = Math.round(new Date().getTime() / 1000);
-
       var obj = {
         appid: appid,
         timeStamp: timeStamp,
@@ -313,15 +368,23 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
         success: function success(res) {
           if (res.data.code == 200) {
             _request.default.Toast('注册成功');
-            uni.navigateTo({
-              url: '/login' });
+            setTimeout(function () {
+              uni.navigateTo({
+                url: './login' });
 
+            }, 1000);
           } else {
             _request.default.Toast(res.data.msg);
+            that.verifyReset();
           }
         } });
 
-    } } };exports.default = _default;
+    } },
+
+  onLoad: function onLoad(options) {
+    var that = this;
+    that.identifying = options.identifying;
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
