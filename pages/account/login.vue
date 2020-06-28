@@ -346,8 +346,6 @@
 				this.display = !this.display;
 			}
 			// #endif
-
-
 		},
 		onHide() {
 			// #ifdef H5
