@@ -25,7 +25,8 @@
         "selectway",
         "forget",
         "register",
-        "service"
+        "service",
+        "treaty"
       ]
     },
     {
@@ -38,7 +39,9 @@
     {
       "root": "pages/shopcart",
       "pages": [
-        "delivery"
+        "delivery",
+        "pay",
+        "shoplist"
       ]
     },
     {
@@ -63,7 +66,7 @@
   ],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "enterprise",
+    "navigationBarTitleText": "",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
@@ -111,5 +114,6 @@
   "uniStatistics": {
     "enable": true
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap90.json"
 }

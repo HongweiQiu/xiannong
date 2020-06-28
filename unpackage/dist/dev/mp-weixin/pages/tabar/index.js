@@ -105,28 +105,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   mySearch: function() {
-    return __webpack_require__.e(/*! import() | components/search/index */ "components/search/index").then(__webpack_require__.bind(null, /*! @/components/search/index.vue */ 288))
+    return __webpack_require__.e(/*! import() | components/search/index */ "components/search/index").then(__webpack_require__.bind(null, /*! @/components/search/index.vue */ 312))
   },
   uniNoticeBar: function() {
     return __webpack_require__.e(/*! import() | components/uni-notice-bar/uni-notice-bar */ "components/uni-notice-bar/uni-notice-bar").then(__webpack_require__.bind(null, /*! @/components/uni-notice-bar/uni-notice-bar.vue */ 39))
   },
   uniCountdown: function() {
-    return __webpack_require__.e(/*! import() | components/uni-countdown/uni-countdown */ "components/uni-countdown/uni-countdown").then(__webpack_require__.bind(null, /*! @/components/uni-countdown/uni-countdown.vue */ 295))
+    return __webpack_require__.e(/*! import() | components/uni-countdown/uni-countdown */ "components/uni-countdown/uni-countdown").then(__webpack_require__.bind(null, /*! @/components/uni-countdown/uni-countdown.vue */ 319))
   },
   myRecomend: function() {
-    return __webpack_require__.e(/*! import() | components/recomend/index */ "components/recomend/index").then(__webpack_require__.bind(null, /*! @/components/recomend/index.vue */ 302))
+    return __webpack_require__.e(/*! import() | components/recomend/index */ "components/recomend/index").then(__webpack_require__.bind(null, /*! @/components/recomend/index.vue */ 326))
   },
   myLoading: function() {
-    return __webpack_require__.e(/*! import() | components/loading/index */ "components/loading/index").then(__webpack_require__.bind(null, /*! @/components/loading/index.vue */ 309))
+    return __webpack_require__.e(/*! import() | components/loading/index */ "components/loading/index").then(__webpack_require__.bind(null, /*! @/components/loading/index.vue */ 333))
+  },
+  myBacktop: function() {
+    return __webpack_require__.e(/*! import() | components/backtop/index */ "components/backtop/index").then(__webpack_require__.bind(null, /*! @/components/backtop/index.vue */ 340))
   },
   uniPopup: function() {
-    return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 316))
+    return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 347))
   },
   myAddcart: function() {
-    return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 325))
+    return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 356))
   },
   myTabar: function() {
-    return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 332))
+    return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 363))
   }
 }
 var render = function() {
@@ -252,16 +255,34 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniNoticeBar = function uniNoticeBar() {__webpack_require__.e(/*! require.ensure | components/uni-notice-bar/uni-notice-bar */ "components/uni-notice-bar/uni-notice-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-notice-bar/uni-notice-bar.vue */ 39));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 
 var app = getApp().globalData;var
-appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
+
+appid =
+
+
+app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
 {
-  components: { uniNoticeBar: uniNoticeBar },
+  components: {
+    uniNoticeBar: uniNoticeBar },
+
   data: function data() {
     return {
+      showTop: false,
       token: uni.getStorageSync('cdj_token'),
       load: true,
       imgRemote: imgRemote,
@@ -269,7 +290,7 @@ appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _defau
       loading: '',
       page: 1,
       num: 10,
-      hours: '',
+      hours: 0,
       minu: 0,
       second: 0,
       adList: {},
@@ -282,12 +303,16 @@ appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _defau
   },
   methods: {
     navUrl: function navUrl(e) {var
-      id = e.id,cate_id = e.cate_id,status = e.status;
+
+      id =
+
+
+      e.id,cate_id = e.cate_id,status = e.status;
       if (status == 0) {
         uni.showToast({
           title: "该栏目已下架",
           duration: 2000,
-          icon: none });
+          icon: "none" });
 
         return;
       }
@@ -333,7 +358,8 @@ appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _defau
 
           break;
         default:
-          app.globalData.classId = cate_id;
+          console.log(cate_id);
+          getApp().globalData.classId = cate_id;
           wx.switchTab({
             url: '/pages/tabar/classify' });
 
@@ -341,17 +367,22 @@ appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _defau
 
     },
     openCart: function openCart(item) {
-      uni.hideTabBar();
       this.$refs.popup.open();
       this.cartware = item;
     },
     onClose: function onClose() {
       this.$refs.popup.close();
-      // uni.showTabBar();
     },
-    newPage: function newPage(url) {
-      uni.navigateTo({
-        url: "/pages/index/".concat(url) });
+    newPage: function newPage(url, id) {
+      if (id) {
+        uni.navigateTo({
+          url: "/pages/index/".concat(url, "?id=").concat(id) });
+
+      } else {
+        uni.navigateTo({
+          url: "/pages/index/".concat(url) });
+
+      }
 
     },
     indexAd: function indexAd() {var _this = this;
@@ -361,8 +392,7 @@ appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _defau
         timeStamp: timeStamp };
 
       var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-      var params = Object.assign(
-      {
+      var params = Object.assign({
         sign: sign },
 
       obj);
@@ -380,11 +410,13 @@ appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _defau
         appid: appid,
         timeStamp: timeStamp };var
 
-      num = this.num,page = this.page;
+
+      num =
+
+      this.num,page = this.page;
 
       var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
       var params = Object.assign((_Object$assign = {
-
         page: 1,
         sign: sign }, _defineProperty(_Object$assign, "page",
       page), _defineProperty(_Object$assign, "num",
@@ -414,8 +446,7 @@ appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _defau
         timeStamp: timeStamp };
 
       var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-      var params = Object.assign(
-      {
+      var params = Object.assign({
         sign: sign },
 
       obj);
@@ -423,6 +454,9 @@ appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _defau
       _request.default.getRequests('panicBuyIndex', params, function (res) {
         var data = res.data;
         if (data.code == 200) {var _data$data =
+
+
+
           data.data,itemList = _data$data.itemList,timeRemain = _data$data.timeRemain;
           _this3.hours = Math.abs(timeRemain) / 3600;
           _this3.activeConf = data.data;
@@ -433,18 +467,30 @@ appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _defau
 
 
   onShow: function onShow() {
-
+    console.log(app.isReload);
     this.indexAd();
-    if (this.page == 1) {this.indexItem();}
+    if (app.isReload == true) {
+      this.page = 1;
+      this.itemList = [];
+      this.indexItem();
+      uni.pageScrollTo({
+        scrollTop: 0 });
+
+    }
     this.limitList();
-  }, onLoad: function onLoad() {
+  },
+  onLoad: function onLoad() {
     uni.hideTabBar();
   },
   onReachBottom: function onReachBottom() {var _this4 = this;
     //页面上拉触底事件的处理函数
     var that = this;
+
     var timeStamp = Math.round(new Date().getTime() / 1000);var
-    num = that.num,page = that.page;
+
+    num =
+
+    that.num,page = that.page;
     var obj = {
       appid: appid,
       timeStamp: timeStamp };
@@ -459,7 +505,9 @@ appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _defau
       sign: sign };
 
     _request.default.getRequests('indexItem', data, function (res) {var
-      data = res.data;
+
+      data =
+      res.data;
       if (data.code = 200) {
         if (data.data != '') {var _this4$itemList;
           (_this4$itemList = _this4.itemList).push.apply(_this4$itemList, _toConsumableArray(data.data.list));
@@ -470,6 +518,14 @@ appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _defau
         }
       }
     });
+  },
+  onPageScroll: function onPageScroll(e) {
+    if (e.scrollTop == 0) {
+
+      this.showTop = false;
+    } else {
+      this.showTop = true;
+    }
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

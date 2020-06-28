@@ -1,17 +1,18 @@
 
+page{background:#f8f6f9 ;}
 .invest_record .tip {
 	color: red;
 	background: #f9d1cb;
 	font-size: 24rpx;
-	height: 40rpx;
+	height: 50rpx;
 	text-align: center;
-	line-height: 40rpx;
+	line-height: 50rpx;
 }
 .invest_record .info > view {
-	height: 60rpx;
+	height: 80rpx;
 	background: white;
 	font-size: 24rpx;
-	line-height: 60rpx;
+	line-height: 80rpx;
 	padding: 0 20rpx;
 
 	display: -webkit-box;

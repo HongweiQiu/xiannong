@@ -31,7 +31,7 @@
 						<image class="weixin_img" src="../../static/img/wechat.png" mode=""></image>
 						<text>微信登录</text>
 					</view>
-					<view class="read_treaty">
+					<view class="read_treaty" @click="pageUrl('treaty')">
 						已阅读并同意
 						<text>注册协议</text>
 					</view>

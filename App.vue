@@ -8,7 +8,6 @@ export default {
 		// #ifdef MP-WEIXIN |H5
 		navBar: false,
 		// #endif
-		isTop:false,
 		appid: '1',
 		active: '2',
 		appsecret: 'StJfzJcXmya6k6Ar',
@@ -20,10 +19,11 @@ export default {
 		rootUrl: '/api', //主接口地址
 		imgRemote: 'http://test.caidj.cn',
 		// #endif
+		classId:'',
+		isReload:true,
 		aData: {
 		  show: true
 		}
-		
 	},
 	onLaunch: function() {
 	
@@ -193,7 +193,7 @@ page {
 
 	color: white !important;
 	border-radius: 4rpx;
-	width: 26rpx !important;
+	width: 35rpx !important;
 }
 .uni-nav-bar-right-text {
 	color: #009a44;
@@ -228,6 +228,7 @@ page {
 	font-size: 24rpx;
 	color: #c2c2c2;
 }
+.center{text-align: center;}
 .submit_button {
 	background: #009a44;
 	color: white;
@@ -236,16 +237,22 @@ page {
 	margin: 30rpx auto;
 }
 .twelve {
-	font-size: 28rpx;
-}
-.ten {
 	font-size: 24rpx;
 }
-.fourteen {
-	font-size: 32rpx;
+.ten {
+	font-size: 20rpx;
 }
+
 .fiveteen {
 	font-size: 50rpx;
 }
-.shuiyin{width: 60rpx;height:20rpx;position: absolute;z-index: 2;}
+.width{width:100%;}
+.shuiyin{width: 60rpx;height:20rpx;position: absolute;z-index: 1;}
+.uni-modal__btn_primary{color:#009a44!important;}
+.uni-modal__btn_default{color:#999!important;}
+.uni-modal__bd{color:black!important;}
+input{font-size: 28rpx!important;
+    line-height: initial!important;min-height: initial!important;}
+	.green_b{background: #009a44!important;}
+	.gray_b{background: gray!important;}
 </style>

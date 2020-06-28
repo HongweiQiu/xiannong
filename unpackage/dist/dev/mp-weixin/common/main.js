@@ -101,7 +101,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
     navBar: false,
 
-    isTop: false,
     appid: '1',
     active: '2',
     appsecret: 'StJfzJcXmya6k6Ar',
@@ -113,9 +112,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+    classId: '',
+    isReload: true,
     aData: {
       show: true } },
-
 
 
   onLaunch: function onLaunch() {

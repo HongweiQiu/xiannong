@@ -3,8 +3,8 @@
 		<view style="height:50px;"></view>
 	<view class="my_tabar">
 		<view v-for="(item, index) in tabList" :key="index" class="single_tabar" @click="pageUrl(item)">
-			<image v-if="tabarIndex == index" :src="item.img" mode=""></image>
-			<image v-else :src="item.inImg" mode=""></image>
+			<image class="image" v-if="tabarIndex == index" :src="item.img" mode=""></image>
+			<image class="image" v-else :src="item.inImg" mode=""></image>
 			<text :class="tabarIndex==index?'color':'incolor'">{{ item.title }}</text>
 		</view>
 	</view>
@@ -29,7 +29,7 @@ export default {
 	},
 	methods: {
 		pageUrl(data) {
-			
+			getApp().globalData.isReload=true;
 			uni.switchTab({
 				url: data.url
 			});
@@ -49,11 +49,12 @@ export default {
 	bottom: 0;
 	border-top: 1px solid #efefef;
 }
-.my_tabar .single_tabar image {
+.my_tabar .single_tabar .image {
 	width: 25px;
 	height: 25px;
 }
 .my_tabar .single_tabar {
+	width:25%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

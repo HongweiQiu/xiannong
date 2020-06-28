@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniNavBar: function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 382))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 413))
   }
 }
 var render = function() {
@@ -134,36 +134,41 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _createForOfIteratorHelper(o) {if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) {var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var it,normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-// const md5 = require('../../components/md5.js');
-// const rs = require('../../components/request.js');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _createForOfIteratorHelper(o) {if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) {var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var it,normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}
 var app = getApp().globalData;var
-appid = app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.rootUrl,imgUrl = app.imgUrl;var _default =
+
+appid =
+
+
+
+
+app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.rootUrl,imgUrl = app.imgUrl;var _default =
 {
   data: function data() {
     return {
@@ -181,7 +186,9 @@ appid = app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.ro
     },
     deletePhoto: function deletePhoto(e) {var
 
-      img = this.img;
+
+      img =
+      this.img;
       img.splice(e, 1);
     },
     uploadImg: function uploadImg() {
@@ -193,7 +200,7 @@ appid = app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.ro
         success: function success(res) {
           // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
           var media_id = res.tempFilePaths;
-
+          console.log(media_id);
           var feed = 'feed';
           var timeStamp = Math.round(new Date().getTime() / 1000);
           var obj = {
@@ -201,16 +208,16 @@ appid = app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.ro
             type: feed,
             timeStamp: timeStamp };
 
-          var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+
+          var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
           for (var i = 0; i < media_id.length; i++) {
             uni.uploadFile({
               method: 'POST',
               url: rootUrl + 'uploadImg', //此处换上你的接口地址
               name: 'img',
               header: {
-                Accept: 'application/json',
-                'content-type': 'application/json', //
-                Authorization: uni.getStorageSync('token') },
+
+                Authorization: uni.getStorageSync('cdj_token') },
 
               formData: {
                 appid: appid,
@@ -221,9 +228,8 @@ appid = app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.ro
 
               filePath: media_id[i],
               success: function success(res) {
-
+                console.log(res);
                 var img = JSON.parse(res.data);
-
                 that.img.push(img.data);
               } });
 
@@ -232,9 +238,7 @@ appid = app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.ro
 
     },
     feedBack: function feedBack() {
-
       var that = this;
-
       var img = that.img;
       var path = [];var _iterator = _createForOfIteratorHelper(
       img),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var i = _step.value;
@@ -248,7 +252,7 @@ appid = app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.ro
         contents: contents,
         timeStamp: timeStamp };
 
-      var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
       var data = {
         appid: appid,
         contents: contents,
@@ -256,13 +260,15 @@ appid = app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.ro
         timeStamp: timeStamp,
         sign: sign };
 
-      rs.postRequests("feedBack", data, function (res) {
+      _request.default.postRequests("feedBack", data, function (res) {
         if (res.data.code == 200) {
 
-          Toast('提交成功');
+          uni.showToast({
+            title: '提交成功' });
+
           setTimeout(function () {
             uni.switchTab({
-              url: '/pages/index/index' });
+              url: '/pages/tabar/index' });
 
           }, 1000);
 

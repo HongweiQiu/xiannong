@@ -347,4 +347,6 @@
 	.user .select_operate>view .name {
 		margin-left: 10rpx;
 	}
+
 </style>
+

@@ -12,11 +12,12 @@
 	bottom: 0;
 	border-top: 1px solid #efefef;
 }
-.my_tabar .single_tabar image {
+.my_tabar .single_tabar .image {
 	width: 25px;
 	height: 25px;
 }
 .my_tabar .single_tabar {
+	width:25%;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;

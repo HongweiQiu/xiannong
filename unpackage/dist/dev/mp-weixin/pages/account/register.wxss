@@ -7,7 +7,7 @@ page {
 	padding: 0 20rpx;
 	margin-top: 10rpx;
 }
-.register .get_info > view {
+.register .get_info>view {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -17,7 +17,7 @@ page {
 	        align-items: center;
 	border-bottom: 1px solid #f7f6f6;
 }
-.register .get_info > view > text {
+.register .get_info>view>text {
 	width: 150rpx;
 	color: #808080;
 }

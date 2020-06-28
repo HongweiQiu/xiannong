@@ -28,4 +28,11 @@
   background: white;
   margin-top: 10rpx;
 }
+.collect .bitmap {
+  text-align: center;
+}
+.collect .bitmap image {
+  width: 50%;
+  margin-top: 20%;
+}
 

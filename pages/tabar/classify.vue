@@ -20,8 +20,16 @@
 				<view style="height: 99rpx;"></view>
 				<view v-if="list.length">
 					<my-profile v-for="(item,index) in list" :key="index" :ware="item" :config="config" class="single_good" @showCart="openCart(item)"
-					 @showKey="showKey"></my-profile>
-					<my-loading :loading="loading"></my-loading>
+					 @showKey="showKey(item,index)"></my-profile>
+					 
+					<view class="my_loading">
+						<view class="loading" v-if="loading">
+							<image class="load_img" src="../../static/img/loading.gif" mode=""></image>
+							<text>正在加载中...</text>
+						</view>
+
+						<view v-else v-html="textInfo" @click="nextSecond"></view>
+					</view>
 				</view>
 				<view v-else class="bitmap">
 					<view style="height:150rpx;"></view>
@@ -33,7 +41,7 @@
 			<my-addcart :config="config" :cartware="cartware" @onClose="onClose"></my-addcart>
 		</uni-popup>
 		<uni-popup ref="popup" type="bottom">
-			<my-keyboard @cancelKey="$refs.popup.close()"></my-keyboard>
+			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent"></my-keyboard>
 		</uni-popup>
 		<uni-drawer ref="drawer" mode="right">
 			<!-- #ifdef APP-PLUS |H5 -->
@@ -65,7 +73,9 @@
 		appsecret,
 		imgRemote
 	} = app;
-
+	let {
+		log
+	} = console;
 	export default {
 		components: {
 			uniDrawer
@@ -84,10 +94,46 @@
 				secondCate: [],
 				list: [],
 				config: [],
-				cartware: []
+				cartware: [],
+				arrObj: {},
+				index: '',
+				textInfo:''
 			};
 		},
 		methods: {
+			toParent(e) {
+				let item = e.arrObj;
+				let timeStamp = Math.round(new Date().getTime() / 1000);
+				let obj = {
+					appid: appid,
+					timeStamp: timeStamp,
+					item_id: item.id,
+					attr_id: 0,
+					item_num: e.val
+				};
+				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				let params = Object.assign({
+						sign: sign
+					},
+					obj
+				);
+				rs.postRequests('changeNum', params, res => {
+					let data = res.data;
+					if (data.code == 200) {
+						uni.showToast({
+							title: '加入购物车成功',
+							icon: 'none',
+							duration: 2000
+						})
+						this.list[this.index].cart_num = e.val;
+					} else if (data.code == 407 || data.code == 406) {
+						rs.Toast("购买数量不能超过活动数量")
+					} else {
+						rs.Toast(res.data.msg)
+					}
+				});
+				this.$refs.popup.close();
+			},
 			mpItem() {
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
@@ -101,10 +147,6 @@
 					num
 				} = this;
 
-				if (page != 1) {
-					this.list = uni.getStorageSync('classify')
-					return;
-				}
 				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
 				let params = Object.assign({
 						sign: sign,
@@ -118,22 +160,23 @@
 				rs.getRequest('mpItemList', params, res => {
 					let data = res.data;
 					if (data.code == 200) {
-						// if (!firstId) {
-						// 	firstId = data.data.firstCate[0].id;
-						// }
-						// if (firstId) {
-						// 	data.data.firstCate.map((e, index) => {
-						// 		if (firstId == e.id) {
-						// 			this.active = index;
-						// 		}
-						// 	});
-						// }
+						if (!firstId) {
+							firstId = data.data.firstCate[0].id;
+						}
+						if (firstId) {
+							data.data.firstCate.map((e, index) => {
+								if (firstId == e.id) {
+									this.activeTab = index;
+								}
+							});
+						}
 						this.config = data.data;
 						this.firstCate = data.data.firstCate;
 						this.secondCate = data.data.secondCate;
 						this.list = data.data.list;
 						if (data.data.list.length < 10) {
 							this.loading = false;
+							this.textInfo="没有更多呢"
 						} else {
 							this.loading = true;
 						}
@@ -145,6 +188,7 @@
 				this.firstId = this.firstCate[index].id;
 				this.secondId = "";
 				this.kind = 0;
+				getApp().globalData.classId = "";
 				this.mpItem();
 			},
 			// 切换二级分类
@@ -153,22 +197,28 @@
 				this.kind = index;
 				this.mpItem();
 			},
+			nextSecond(){
+				if(this.textInfo!='没有更多呢'){
+					this.secondId = this.secondCate[this.kind+1].id;
+					this.kind +=1;
+					this.mpItem();
+				}
+			},
 			openCart(item) {
 				this.cartware = item;
 				this.$refs.cart.open();
-				uni.hideTabBar()
 			},
 			onClose() {
 				this.$refs.cart.close();
-				uni.showTabBar();
 			},
 			// 显示键盘
-			showKey() {
+			showKey(item, index) {
+
+				this.arrObj = item;
+				this.index = index;
 				this.$refs.popup.open();
-				uni.hideTabBar()
 			},
 			showDraw() {
-				uni.hideTabBar();
 				this.$refs.drawer.open()
 			},
 			selectSort(index) {
@@ -177,15 +227,10 @@
 			cancelSort() {
 				this.active = -1;
 				this.$refs.drawer.close();
-				uni.showTabBar();
 			},
 			deterSort() {
 				if (this.active == -1) {
-					uni.showToast({
-						title: '请先选择分类',
-						icon: 'none'
-
-					})
+					rs.Toast('请先选择分类')
 					return;
 				}
 				this.firstId = this.firstCate[this.active].id;
@@ -197,9 +242,66 @@
 			}
 		},
 		onShow() {
-			this.mpItem();
+			let classId = getApp().globalData.classId;
+			if (app.isReload == true) {
+				this.kind = 0;
+				this.active = -1;
+				this.activeTab = 0;
+				this.loading = true;
+				this.firstId = '';
+				this.secondId = '';
+				this.page = 1;
+				this.num = 10;
+				if (classId) {
+					this.firstId = classId
+				}
+				this.mpItem();
+			} else {
+				this.list = uni.getStorageSync('classify');
+			}
 		},
-		onLoad() {
+		onHide() {
+			uni.setStorageSync('classify', this.list);
+		},
+		onReachBottom() {
+			var that = this;
+			var timeStamp = Math.round(new Date().getTime() / 1000);
+			var {
+				num,
+				page,
+				list,
+				secondId,
+				firstId
+			} = that;
+			var obj = {
+				appid: appid,
+				timeStamp: timeStamp
+			};
+			var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+			var data = {
+				appid: appid,
+				num: num,
+				page: page + 1,
+				firstId: firstId,
+				secondId: secondId,
+				timeStamp: timeStamp,
+				sign: sign
+			};
+			rs.getRequests('mpItemList', data, res => {
+				if (res.data.code == 200) {
+					if (res.data.data.list.length != 0) {
+						this.list.push(...res.data.data.list);
+						this.page += 1;
+						this.loading = true;
+					} else {
+						this.loading = false;
+                        this.textInfo="上滑或点击进入<span class='red_font'>"+this.secondCate[this.kind+1].name+'</span>';
+				
+					}
+				}
+			})
+		},
+		onLoad(e) {
 			uni.hideTabBar();
 		}
 	};
@@ -240,13 +342,7 @@
 		width: 25%;
 		position: fixed;
 		overflow-x: scroll;
-		/* #ifdef H5 */
 		height: calc(100vh - 104rpx - 50px);
-		/* #endif */
-		/* #ifdef APP-PLUS */
-		height: calc(100vh - 104rpx);
-		/* #endif */
-
 	}
 
 	.classify .left_area::-webkit-scrollbar {
@@ -304,15 +400,7 @@
 	/* #endif */
 	.classify .bitmap {
 		text-align: center;
-		/* #ifdef H5 */
-		height: calc(100vh - 308rpx);
-		/* #endif */
-		/* #ifdef APP-PLUS */
-		height: calc(100vh - 175rpx);
-		/* #endif */
-		/* #ifdef MP-WEIXIN */
-		height: calc(100vh - 205rpx);
-		/* #endif */
+		height: calc(100vh - 104rpx - 50px);
 		background: white;
 
 	}
@@ -371,4 +459,11 @@
 		margin: 2%;
 		padding: 2rpx 14rpx;
 	}
+	.loading {
+		display: flex;align-items: center;justify-content: center;
+	}
+	.loading .load_img{width:25rpx;height:25rpx;margin-right: 10rpx;}
+	
+	
+	.my_loading{color: #808080;font-size: 24rpx!important;text-align: center;height:80rpx;line-height: 80rpx;background:#F8F6F9 ;}
 </style>

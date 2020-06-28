@@ -43,6 +43,9 @@
 			},
 			{
 				"path": "service"
+			},
+			{
+				"path": "treaty"
 			}
 		]
 	}, {
@@ -56,6 +59,12 @@
 		"root": "pages/shopcart",
 		"pages": [{
 			"path": "delivery"
+		},
+		{
+			"path": "pay"
+		},
+		{
+			"path": "shoplist"
 		}]
 	}, {
 		"root": "pages/user",
@@ -93,7 +102,7 @@
 	}],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "enterprise",
+		"navigationBarTitleText": "",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8",
 		"app-plus": {

@@ -94,16 +94,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniNavBar: function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 382))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 413))
   },
   myIdentifyingcode: function() {
-    return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 410))
+    return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 434))
   }
 }
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      _vm.back = false
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -176,16 +181,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var moveVerify = function moveVerify() {__webpack_require__.e(/*! require.ensure | components/helang-moveVerify/helang-moveVerify */ "components/helang-moveVerify/helang-moveVerify").then((function () {return resolve(__webpack_require__(/*! @/components/helang-moveVerify/helang-moveVerify.vue */ 417));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var moveVerify = function moveVerify() {__webpack_require__.e(/*! require.ensure | components/helang-moveVerify/helang-moveVerify */ "components/helang-moveVerify/helang-moveVerify").then((function () {return resolve(__webpack_require__(/*! @/components/helang-moveVerify/helang-moveVerify.vue */ 441));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 var app = getApp().globalData;var
-navBar = app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
+
+navBar =
+
+
+app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
 {
   components: {
     moveVerify: moveVerify },
 
   data: function data() {
     return {
-      address: '',
       navBar: navBar,
       nickname: '',
       mobile: '',
@@ -193,7 +201,8 @@ navBar = app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
       confirm_pwd: '',
       number_code: '',
       verify_code: '',
-      showcode: false };
+      showcode: false,
+      back: true };
 
   },
   methods: {
@@ -210,8 +219,7 @@ navBar = app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
         timeStamp: timeStamp };
 
       var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-      var params = Object.assign(
-      {
+      var params = Object.assign({
         sign: sign },
 
       obj);
@@ -220,63 +228,98 @@ navBar = app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
         var data = res.data;
         if (data.code == 200) {
           _this.number_code = data.data.number;
-          console.log(_this.number_code);
-          uni.setStorageSync('laravel_session', res.header['Set-Cookie']);
+          uni.setStorageSync("laravel_session", res.header["Set-Cookie"]);
         } else {
-          uni.showToast({
-            title: data.msg,
-            duration: 2000,
-            icon: 'none' });
-
+          _request.default.Toast(data.msg);
         }
       });
     },
-    getCode: function getCode() {var _this2 = this;
+    // 获取短信验证码
+    getCode: function getCode() {
       var timeStamp = Math.round(new Date().getTime() / 1000);
       if (!this.mobile) {
-        uni.showToast({
-          title: '手机号不能为空',
-          duration: 2000,
-          icon: 'none' });
-
+        _request.default.Toast('手机号不能为空');
         return;
       }
       if (!this.number_code) {
-        uni.showToast({
-          title: '请先拖动滑块',
-          duration: 2000,
-          icon: 'none' });
-
+        _request.default.Toast('请先拖动滑块');
         return;
       }
 
       var obj = {
         appid: appid,
         mobile: this.mobile,
-
         timeStamp: timeStamp };
 
       var that = this;
       var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
       var random_str = _md.default.hexMD5(appsecret + this.number_code);
-      var params = Object.assign(
-      {
-        sign: sign, secret_str: random_str, active: 2 },
+      var params = Object.assign({
+        sign: sign,
+        secret_str: random_str,
+        active: 2 },
 
       obj);
 
-      _request.default.postRequest('sendCode', params, function (res) {var
-        data = res.data;
-        if (data.code == 200) {
-          _this2.$refs.code.sendCode();
-        } else {
-          uni.showToast({
-            title: data.msg,
-            duration: 2000,
-            icon: 'none' });
+      uni.request({
+        url: app.rootUrl + "sendCode",
+        method: 'POST',
+        header: {
+          'content-type': 'application/json', // 默认值
+          'cookie': uni.getStorageSync("laravel_session") },
 
-        }
-      });
+        data: params,
+        success: function success(res) {
+          if (res.data.code == 200) {
+            that.$refs.code.sendCode();
+            that.number_code = res.data.data.random_str;
+            _request.default.Toast('验证码已发送到你手机中，请注意查收');
+          } else {
+            _request.default.Toast(res.data.msg);
+          }
+        } });
+
+
+    },
+
+    register: function register() {
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp,
+        nickname: this.nickname,
+        mobile: this.mobile,
+        password: this.password,
+        confirm_pwd: this.confirm_pwd,
+        verify_code: this.verify_code };
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      if (this.identifying) {
+        obj.openid = this.identifying;
+      }
+      var params = Object.assign({
+        sign: sign },
+      obj);
+      var that = this;
+      uni.request({
+        url: app.rootUrl + "register",
+        method: 'POST',
+        data: params,
+        header: {
+          'content-type': 'application/json', // 默认值
+          'cookie': uni.getStorageSync("laravel_session") },
+
+        success: function success(res) {
+          if (res.data.code == 200) {
+            _request.default.Toast('注册成功');
+            uni.navigateTo({
+              url: '/login' });
+
+          } else {
+            _request.default.Toast(res.data.msg);
+          }
+        } });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

@@ -24,46 +24,289 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
-{
-  methods: {
-    back: function back() {
-      uni.navigateBack({
-        delta: 1 });
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-    } } };exports.default = _default;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default = { data: function data() {return { keyList: [], list: [], keyword: '', showSearch: true, config: [], bitmap: false, arrObj: {}, index: '', cartware: {} };}, methods: { back: function back() {uni.navigateBack({ delta: 1 });}, toParent: function toParent(e) {var _this = this;var item = e.arrObj;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp, item_id: item.id, attr_id: 0, item_num: e.val };
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var params = Object.assign({
+        sign: sign },
+
+      obj);
+
+      _request.default.postRequests('changeNum', params, function (res) {
+        var data = res.data;
+        if (data.code == 200) {
+          _request.default.Toast('加入购物车成功');
+          _this.list[_this.index].cart_num = e.val;
+        } else if (data.code == 407 || data.code == 406) {
+          _request.default.Toast("购买数量不能超过活动数量");
+        } else {
+          _request.default.Toast(res.data.msg);
+        }
+      });
+      this.$refs.popup.close();
+    },
+    openCart: function openCart(item) {
+      this.cartware = item;
+      this.$refs.cart.open();
+    },
+    onClose: function onClose() {
+      this.$refs.cart.close();
+    },
+    // 显示键盘
+    showKey: function showKey(item, index) {
+      this.arrObj = item;
+      this.index = index;
+      this.$refs.popup.open();
+    },
+    // 热门搜索
+    getSearchData: function getSearchData() {var _this2 = this;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp };
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var params = Object.assign(
+      {
+        sign: sign },
+
+      obj);
+
+      _request.default.getRequests('getSearchData', params, function (res) {
+        var data = res.data;
+        if (data.code == 200) {
+          _this2.keyList = data.data;
+
+        } else {
+          _request.default.Toast(data.msg);
+        }
+      });
+    },
+    submit: function submit() {
+      this.searchList(this.keyword);
+    },
+    focus: function focus() {
+      this.keyword = '',
+      this.showSearch = true;
+    },
+    // 搜索列表
+    searchList: function searchList(key) {var _this3 = this;
+      this.list = [];
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp,
+        keyword: key };
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var params = Object.assign(
+      {
+        sign: sign },
+
+      obj);
+
+      _request.default.getRequest('getSearchItem', params, function (res) {
+        var data = res.data;
+        if (data.code == 200) {
+          _this3.keyword = key;
+          _this3.showSearch = false;
+          if (data.data.length != 0) {
+            _this3.list = data.data.list;
+            _this3.config = data.data;
+            _this3.bitmap = false;
+          } else {
+            _this3.bitmap = true;
+          }
+        } else {
+          _request.default.Toast(data.msg);
+        }
+      });
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    wxuploadVoice: function wxuploadVoice(localId) {
+      var that = this;
+      //调用微信的上传录音接口把本地录音先上传到微信的服务器
+      //不过，微信只保留3天，而我们需要长期保存，我们需要把资源从微信服务器下载到自己的服务器
+      wx.uploadVoice({
+        localId: localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+        isShowProgressTips: 1, // 默认为1，显示进度提示
+        success: function success(res) {
+          wx.downloadVoice({
+            serverId: res.serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+            isShowProgressTips: 1, // 默认为1，显示进度提示
+            success: function success(res) {
+              var localId = res.localId; // 返回音频的本地ID
+              wx.translateVoice({
+                localId: localId, // 需要识别的音频的本地Id，由录音相关接口获得
+                isShowProgressTips: 1, // 默认为1，显示进度提示
+                success: function success(res) {
+                  console.log(res);
+                  var transl = res.translateResult;
+                  transl = transl.replace(/。/g, "");
+                  that.keyWord = transl;
+                  that.list = [];
+                  that.languagepd = true;
+                  that.searchItem();
+                } });
+
+            } });
+
+        } });
+
+    },
+    wxConfig: function wxConfig() {
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp };
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var params = Object.assign({
+        sign: sign },
+      obj);
+      _request.default.getRequests("wxConfig", params, function (response) {
+        if (response.code == 200) {
+          wx.config({
+            debug: true, // 开启调试模式
+            appId: response.data.appId, // 必填，公众号的唯一标识
+            timestamp: response.data.timestamp, // 必填，生成签名的时间戳
+            nonceStr: response.data.nonceStr, // 必填，生成签名的随机串
+            signature: response.data.signature, // 必填，签名，见附录1
+            jsApiList: [
+            'checkJsApi',
+            'startRecord',
+            'stopRecord',
+            'translateVoice',
+            'downloadVoice',
+            'uploadVoice']
+            // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+          });
+        }
+      });
+    } },
+
+  onHide: function onHide() {
+    uni.setStorageSync('search', this.list);
+  },
+  onShow: function onShow() {
+    this.wxConfig();
+    this.getSearchData();
+    if (this.keyword) {
+      this.list = uni.getStorageSync('search');
+    }
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
@@ -191,16 +434,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniIcons: function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 353))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 384))
   },
   myProfile: function() {
-    return __webpack_require__.e(/*! import() | components/profile/index */ "components/profile/index").then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 361))
+    return __webpack_require__.e(/*! import() | components/profile/index */ "components/profile/index").then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 392))
+  },
+  uniPopup: function() {
+    return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 347))
+  },
+  myAddcart: function() {
+    return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 356))
+  },
+  myKeyboard: function() {
+    return Promise.all(/*! import() | components/keyboard/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/keyboard/index")]).then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 399))
   }
 }
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      return _vm.$refs.popup.close()
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []

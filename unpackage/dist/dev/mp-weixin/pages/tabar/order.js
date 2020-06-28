@@ -94,25 +94,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniNavBar: function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 382))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 413))
   },
   uniIcons: function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 353))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 384))
   },
   mySTabs: function() {
-    return __webpack_require__.e(/*! import() | components/s-tabs/index */ "components/s-tabs/index").then(__webpack_require__.bind(null, /*! @/components/s-tabs/index.vue */ 339))
+    return __webpack_require__.e(/*! import() | components/s-tabs/index */ "components/s-tabs/index").then(__webpack_require__.bind(null, /*! @/components/s-tabs/index.vue */ 370))
   },
   mySTab: function() {
-    return __webpack_require__.e(/*! import() | components/s-tab/index */ "components/s-tab/index").then(__webpack_require__.bind(null, /*! @/components/s-tab/index.vue */ 346))
+    return __webpack_require__.e(/*! import() | components/s-tab/index */ "components/s-tab/index").then(__webpack_require__.bind(null, /*! @/components/s-tab/index.vue */ 377))
   },
   myLoading: function() {
-    return __webpack_require__.e(/*! import() | components/loading/index */ "components/loading/index").then(__webpack_require__.bind(null, /*! @/components/loading/index.vue */ 309))
+    return __webpack_require__.e(/*! import() | components/loading/index */ "components/loading/index").then(__webpack_require__.bind(null, /*! @/components/loading/index.vue */ 333))
   },
   wPicker: function() {
-    return __webpack_require__.e(/*! import() | components/w-picker/w-picker */ "components/w-picker/w-picker").then(__webpack_require__.bind(null, /*! @/components/w-picker/w-picker.vue */ 389))
+    return __webpack_require__.e(/*! import() | components/w-picker/w-picker */ "components/w-picker/w-picker").then(__webpack_require__.bind(null, /*! @/components/w-picker/w-picker.vue */ 420))
   },
   myTabar: function() {
-    return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 332))
+    return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 363))
   }
 }
 var render = function() {
@@ -400,15 +400,14 @@ var _uniNoticeBar = _interopRequireDefault(__webpack_require__(/*! @/components/
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 389));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { wPicker: wPicker }, data: function data() {return { is_child: '', is_miniBind: '', imgRemote: imgRemote, load: true, navBar: navBar, tabList: [{ name: '待审核' }, { name: '备货中' }, { name: '配送中' }, { name: '已收货' }, { name: '已取消' }], activeTab: 1, lineShow: false, showOrderType: false, childListProps: { "label": "nickname", "value": "zid" }, childList: [{ "zid": "", "nickname": "当前账号" }], childzid: '', childtxt: '当前账号', isActive: '全部', orderTitle: '全部订单', type: 1, search_default: false, is_look: '', orderList: [], orderInfo: '', page: 1, map: false };}, methods: { /**
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 420));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { wPicker: wPicker }, data: function data() {return { is_child: '', is_miniBind: '', imgRemote: imgRemote, load: true, navBar: navBar, tabList: [{ name: '待审核' }, { name: '备货中' }, { name: '配送中' }, { name: '已收货' }, { name: '已取消' }], activeTab: 1, lineShow: false, showOrderType: false, childListProps: { "label": "nickname", "value": "zid" }, childList: [{ "zid": "", "nickname": "当前账号" }], childzid: '', childtxt: '当前账号', isActive: '全部', orderTitle: '全部订单', type: 1, search_default: false, is_look: '', orderList: [], orderInfo: '', page: 1, map: false };}, methods: { /**
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        * 确认收货
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */receiveOrder: function receiveOrder(data, index) {var that = this;var dataId = data;var dataIndex = index;uni.showModal({ title: '提示', content: '是否确认收货？', success: function success(res) {if (res.confirm) {// console.log('用户点击确定');
             var id = dataId;var orderindex = dataIndex;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, id: id, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, timeStamp: timeStamp, id: id, sign: sign };_request.default.getRequests("receiveOrder", data, function (res) {if (res.data.code == 200) {uni.showToast({ title: "确认收货成功", icon: 'none' });that.orderList.splice(index, 1);if (that.orderList.length <= 0) {that.orderLista();}} else {uni.showToast({ title: res.data.msg, icon: 'none' });}});} else if (res.cancel) {// console.log('用户点击取消');
           }} });}, /**
                     * 页面跳转
                     */ //支付
-    play: function play(data) {var oid = data;wx.navigateTo({ url: '/pages/order/pay?oid=' + oid });}, orderDetailPage: function orderDetailPage(url, item) {if (url == 'orderDetail') {uni.navigateTo({ url: '/pages/order/orderdetail?orderItem=' + item.id });} else if (url == 'user') {uni.showToast({ title: "还未绑定微信,请去我的页面绑定微信", duration: 2000,
-          icon: 'none' });
+    play: function play(data) {var oid = data;wx.navigateTo({ url: '/pages/order/pay?oid=' + oid });}, orderDetailPage: function orderDetailPage(url, item) {if (url == 'orderDetail') {uni.navigateTo({ url: '/pages/order/orderdetail?orderItem=' + item.id });} else if (url == 'user') {uni.showToast({ title: "还未绑定微信,请去我的页面绑定微信", duration: 2000, icon: 'none' });
 
         uni.navigateTo({
           url: '/pages/tabar/user' });
@@ -460,7 +459,6 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
                   title: "订单已审核，不能取消",
                   icon: 'none' });
 
-
               } else {
                 uni.showToast({
                   title: res.data.msg,
@@ -472,7 +470,6 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
             // console.log('用户点击取消');
           }
         } });
-
 
     },
     /**
@@ -615,7 +612,6 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
           }
         } });
 
-
     },
     /**
         * 获取子账号信息
@@ -744,7 +740,6 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
           } else {
             that.search_default = true;
             that.load = '空';
-
           }
         }
       });
@@ -838,7 +833,6 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
   onReachBottom: function onReachBottom() {
     //订单列表流加载
     var that = this;
-
     if (that.isActive != "全部") {
       var status = that.isActive + 1;
     } else {
@@ -870,7 +864,6 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
     _request.default.getRequest("orderList", data, function (res) {
       if (res.data.code == 200) {
         if (res.data.data.list != '') {
-
           for (var i = 0; i < res.data.data.list.length; i++) {
             that.orderList.push(res.data.data.list[i]);
           }
@@ -878,7 +871,6 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
           that.page = page + 1;
         } else {
           that.load = false;
-
         }
       }
     });
@@ -969,7 +961,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniIcons: function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 353))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 384))
   }
 }
 var render = function() {
@@ -1009,7 +1001,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniIcons = function uniIcons() {Promise.all(/*! require.ensure | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then((function () {return resolve(__webpack_require__(/*! ../uni-icons/uni-icons.vue */ 353));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniIcons = function uniIcons() {Promise.all(/*! require.ensure | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then((function () {return resolve(__webpack_require__(/*! ../uni-icons/uni-icons.vue */ 384));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 
 
