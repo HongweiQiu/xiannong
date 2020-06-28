@@ -64,4 +64,34 @@
 .search_list .search_result .my_profile {
 	margin-bottom: 10rpx;
 }
+.search_list .lang_search {
+	background: white;
+	border-radius: 10rpx 10rpx 0 0;
+	height: 371rpx;
+	color: #009943;
+}
+.search_list .lang_search .icon-X {
+	position: absolute;
+	right: 20rpx;
+	text-align: right;
+	color: gray;
+	margin-top: 20rpx;
+}
+.search_list .lang_search .correct>view {
+	height: 50rpx;
+	line-height: 50rpx;
+	text-align: center;
+}
+.search_list .lang_search .error_txt>view {
+	height: 50rpx;
+	line-height: 50rpx;
+	text-align: center;
+}
+.search_list .lang_search .error_txt .mic_filled .uni-icons {
+	background: #009943;
+	border-radius: 50%;
+	padding: 10rpx;
+}
+
+
 

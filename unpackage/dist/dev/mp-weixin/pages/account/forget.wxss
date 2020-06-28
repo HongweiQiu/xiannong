@@ -1,11 +1,13 @@
 
-page{background: white;}
+page {
+	background: white;
+}
 .register .get_info {
 	background: white;
 	padding: 0 20rpx;
 	margin-top: 10rpx;
 }
-.register .get_info > view {
+.register .get_info>view {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -15,7 +17,7 @@ page{background: white;}
 	        align-items: center;
 	border-bottom: 1px solid #f7f6f6;
 }
-.register .get_info > view > text {
+.register .get_info>view>text {
 	width: 150rpx;
 	color: #808080;
 }
@@ -25,10 +27,17 @@ page{background: white;}
 	height: 64rpx;
 	line-height: 64rpx;
 }
-.register .now_login{
-	color:#A1A1A1;
+.register .now_login {
+	color: #A1A1A1;
 	text-align: center;
 	font-size: 24rpx;
 }
-.register .agree{position:fixed;width: 100%;bottom:20rpx;text-align: center;font-size: 24rpx;color:#418d5f;}
+.register .agree {
+	position: fixed;
+	width: 100%;
+	bottom: 20rpx;
+	text-align: center;
+	font-size: 24rpx;
+	color: #418d5f;
+}
 

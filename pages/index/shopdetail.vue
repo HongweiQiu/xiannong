@@ -1,10 +1,10 @@
 <template>
 	<view class="shop_detail">
-		<!-- <uni-nav-bar left-icon="arrowleft" status-bar="true" fixed="true" @clickLeft="leftClick"></uni-nav-bar> -->
-
-
 		<view class="nab_title" :class="nav?'nab_title1':'nab_title2'">
+			<!-- #ifdef APP-PLUS -->
 			<view class="status_bar"></view>
+			<!-- #endif -->
+			
 
 			<view style="height:80rpx;line-height: 80rpx;" @click="leftClick">
 				<uni-icons type="arrowleft" size="24" color="#1a1a1a" style="margin-left: 5rpx;"></uni-icons>

@@ -27,17 +27,43 @@
 		</view>
 		<!-- 搜索结果 -->
 		<view class="search_result" v-else>
-			<my-profile v-for="(item,index) in list" :ware="item" :config="config" :key="index" @showCart="openCart(item)"
-					 @showKey="showKey(item,index)"></my-profile>
+			<my-profile v-for="(item,index) in list" :wares="item" :config="config" :key="index" @showCart="openCart(item)"
+			 @showKey="showKey(item,index)"></my-profile>
 			<!-- 占位图 -->
-			<view class="search_bitmap" v-if="bitmap"><image class="bitmap" src="../../static/img/no_content.png" mode="aspectFit"></image></view>
+			<view class="search_bitmap" v-if="bitmap">
+				<image class="bitmap" src="../../static/img/no_content.png" mode="aspectFit"></image>
+			</view>
 		</view>
-	<uni-popup ref="cart" type="bottom">
-		<my-addcart :config="config" :cartware="cartware" @onClose="onClose"></my-addcart>
-	</uni-popup>
-	<uni-popup ref="popup" type="bottom">
-		<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent"></my-keyboard>
-	</uni-popup>
+
+		<uni-popup ref="speech" type="bottom">
+			<view class="lang_search">
+				<text class="iconfont icon-X" @click="$refs.speech.close()"></text>
+
+				<view style="display: flex;justify-content: center;align-items: center;height: 371rpx;">
+					<view v-if="startSpeech" class="correct">
+						<view>正在倾听</view>
+						<view>请说出你想要的的内容</view>
+					</view>
+					<view v-else class="error_txt">
+						<view>没有听清,请重试</view>
+						<view>点击说话</view>
+						<view style="height: 40rpx;line-height: 14rpx;">
+							<uni-icons type="arrowdown" size="18" color="#009943"></uni-icons>
+						</view>
+						<view style="margin-top:10rpx;" @click="speed">
+							<uni-icons type="mic-filled" size="40" color="white" class="mic_filled"></uni-icons>
+						</view>
+					</view>
+				</view>
+			</view>
+		</uni-popup>
+		<uni-popup ref="cart" type="bottom">
+			<my-addcart :config="config" :cartware="cartware" @onClose="onClose"></my-addcart>
+		</uni-popup>
+
+		<uni-popup ref="popup" type="bottom">
+			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent"></my-keyboard>
+		</uni-popup>
 	</view>
 </template>
 
@@ -54,21 +80,22 @@
 		imgRemote
 	} = app;
 	// #ifdef H5
-		var wx = require('jweixin-module');
+	var wx = require('jweixin-module');
 	// #endif
-	
+
 	export default {
-		data(){
+		data() {
 			return {
-				keyList:[],
-				list:[],
-				keyword:'',
-				showSearch:true,
-				config:[],
-				bitmap:false,
-				arrObj:{},
-				index:'',
-				cartware:{}
+				keyList: [],
+				list: [],
+				keyword: '',
+				showSearch: true,
+				startSpeech: true,
+				config: [],
+				bitmap: false,
+				arrObj: {},
+				index: '',
+				cartware: {}
 			}
 		},
 		methods: {
@@ -77,7 +104,7 @@
 					delta: 1
 				})
 			},
-			toParent(e){
+			toParent(e) {
 				let item = e.arrObj;
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
@@ -93,11 +120,11 @@
 					},
 					obj
 				);
-				rs.postRequests('changeNum', params, res => { 
+				rs.postRequests('changeNum', params, res => {
 					let data = res.data;
 					if (data.code == 200) {
 						rs.Toast('加入购物车成功')
-						this.list[this.index].cart_num=e.val;
+						this.list[this.index].cart_num = e.val;
 					} else if (data.code == 407 || data.code == 406) {
 						rs.Toast("购买数量不能超过活动数量")
 					} else {
@@ -114,132 +141,191 @@
 				this.$refs.cart.close();
 			},
 			// 显示键盘
-			showKey(item,index) {
-				this.arrObj=item;
-				this.index=index;
+			showKey(item, index) {
+				this.arrObj = item;
+				this.index = index;
 				this.$refs.popup.open();
 			},
 			// 热门搜索
 			getSearchData() {
-			let timeStamp = Math.round(new Date().getTime() / 1000);
-			let obj = {
-				appid: appid,
-				timeStamp: timeStamp
-			};
-			let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-			let params = Object.assign(
-				{
-					sign: sign
-				},
-				obj
-			);
-			rs.getRequests('getSearchData', params, res => {
-				let data = res.data;
-				if (data.code == 200) {
-					this.keyList = data.data;
-					
-				} else {
-					rs.Toast(data.msg);
+				let timeStamp = Math.round(new Date().getTime() / 1000);
+				let obj = {
+					appid: appid,
+					timeStamp: timeStamp
+				};
+				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				let params = Object.assign({
+						sign: sign
+					},
+					obj
+				);
+				rs.getRequests('getSearchData', params, res => {
+					let data = res.data;
+					if (data.code == 200) {
+						this.keyList = data.data;
+					} else {
+						rs.Toast(data.msg);
+					}
+				});
+			},
+			submit() {
+				this.searchList(this.keyword);
+			},
+			focus() {
+				this.keyword = '',
+					this.showSearch = true;
+			},
+			// 搜索列表
+			searchList(key) {
+				this.list = [];
+				let timeStamp = Math.round(new Date().getTime() / 1000);
+				let obj = {
+					appid: appid,
+					timeStamp: timeStamp,
+					keyword: key
+				};
+				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				let params = Object.assign({
+						sign: sign
+					},
+					obj
+				);
+				rs.getRequest('getSearchItem', params, res => {
+					let data = res.data;
+					if (data.code == 200) {
+						this.keyword = key;
+						this.showSearch = false;
+						if (data.data.length != 0) {
+							this.list = data.data.list;
+							this.config = data.data;
+							this.bitmap = false;
+						} else {
+							this.bitmap = true;
+						}
+					} else {
+						rs.Toast(data.msg)
+					}
+				});
+			},
+			// #ifdef APP-PLUS |MP-WEIXIN
+			speed() {
+				this.$refs.speech.open();
+				let that = this;
+				that.startSpeech = true;
+				const recorderManager = uni.getRecorderManager();
+
+				const options = {
+					duration: 3000, //指定录音的时长，单位 ms
+					sampleRate: 16000, //采样率
+					numberOfChannels: 1, //录音通道数
+					encodeBitRate: 96000, //编码码率
+					format: 'mp3', //音频格式，有效值 aac/mp3
+					frameSize: 50, //指定帧大小，单位 KB
 				}
-			});
-		},
-		submit(){
-			this.searchList(this.keyword);
-		},
-		focus(){
-			this.keyword='',
-			this.showSearch=true;
-		},
-		// 搜索列表
-		searchList(key) {
-					this.list = [];
-					let timeStamp = Math.round(new Date().getTime() / 1000);
-					let obj = {
+
+				recorderManager.start(options)
+
+				recorderManager.onStop((res) => {
+					var timeStamp = Math.round(new Date().getTime() / 1000);
+					var obj = {
 						appid: appid,
 						timeStamp: timeStamp,
-						keyword: key
-					};
+					}
 					let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-					let params = Object.assign(
-						{
-							sign: sign
+					var audio = res.tempFilePath;
+					uni.uploadFile({
+						url: app.rootUrl + "voiceSearch",
+						filePath: audio,
+						method: 'POST',
+						name: 'audio',
+						header: {
+							'content-type': 'multipart/form-data',
 						},
-						obj
-					);
-					rs.getRequest('getSearchItem', params, res => {
-						let data = res.data;
-						if (data.code == 200) {
-							this.keyword = key;
-							this.showSearch = false;
-							if (data.data.length != 0) {
-								this.list = data.data.list;
-								this.config = data.data;
-								this.bitmap = false;
-							} else {
-								this.bitmap = true;
+						formData: {
+							appid: appid,
+							timeStamp: timeStamp,
+							audio: audio,
+							sign: sign,
+						},
+						success: function(reg) {
+							console.log(JSON.parse(reg.data))
+							var reg = JSON.parse(reg.data)
+
+							if (reg.code == 200) {
+								that.keyword = reg.data.message.replace(/。/g, '');
+								that.showSearch = false;
+								that.$refs.speech.close();
+								that.searchList(that.keyword);
 							}
-						} else {
-							rs.Toast(data.msg)
+							if (reg.code == 501) {
+								that.startSpeech = false;
+							}
+						},
+						fail: function() {
+							console.log("语音识别失败");
 						}
-					});
-				},
-		// #ifdef H5
-		speed() {
-			
-			let that = this;
-			
-		        wx.startRecord({
-		          success: function() {
-		            recordTimer = setTimeout(() => {
-		              wx.stopRecord({
-		                success: function(res) {
-		               that.wxuploadVoice(res.localId);
-		                               clearTimeout(recordTimer);
-		                },
-		                fail: function(res) {
-		                  alert(JSON.stringify(res));
-		                }
-		              });
-		            }, 5000);
-		          },
-		          cancel: function() {
-		            that.$toast('用户拒绝授权录音');
-		          }
-		        });
-		},
-		// #endif
-			
-		    wxuploadVoice(localId) {
-			        var that = this;
-			        //调用微信的上传录音接口把本地录音先上传到微信的服务器
-			        //不过，微信只保留3天，而我们需要长期保存，我们需要把资源从微信服务器下载到自己的服务器
-			        wx.uploadVoice({
-			          localId: localId, // 需要上传的音频的本地ID，由stopRecord接口获得
-			          isShowProgressTips: 1, // 默认为1，显示进度提示
-			          success: function(res) {
-			            wx.downloadVoice({
-			              serverId: res.serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
-			              isShowProgressTips: 1, // 默认为1，显示进度提示
-			              success: function(res) {
-			                var localId = res.localId; // 返回音频的本地ID
-			                wx.translateVoice({
-			                  localId: localId, // 需要识别的音频的本地Id，由录音相关接口获得
-			                  isShowProgressTips: 1, // 默认为1，显示进度提示
-			                  success: function(res) {
-								  console.log(res)
-			                    var transl = res.translateResult
-			                    transl = transl.replace(/。/g, "");
-			                    that.keyWord = transl;
-			                    that.list = [];
-			                    that.languagepd = true;
-			                    that.searchItem();
-			                  }
-			                });
-			              }
-			            });
-			          }
-			        });
-			      },
+					})
+				});
+			},
+
+			// #endif
+
+			// #ifdef H5
+			speed() {
+	          this.$refs.speech.open();
+				let that = this;
+                  that.startSpeech = true;
+				wx.startRecord({
+					success: function() {
+						recordTimer = setTimeout(() => {
+							wx.stopRecord({
+								success: function(res) {
+									alert(res)
+									that.wxuploadVoice(res.localId);
+									clearTimeout(recordTimer);
+								},
+								fail: function(res) {
+									alert(JSON.stringify(res));
+								}
+							});
+						}, 5000);
+					},
+					cancel: function() {
+						that.$toast('用户拒绝授权录音');
+					}
+				});
+			},
+			wxuploadVoice(localId) {
+				var that = this;
+				//调用微信的上传录音接口把本地录音先上传到微信的服务器
+				//不过，微信只保留3天，而我们需要长期保存，我们需要把资源从微信服务器下载到自己的服务器
+				wx.uploadVoice({
+					localId: localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+					isShowProgressTips: 1, // 默认为1，显示进度提示
+					success: function(res) {
+						wx.downloadVoice({
+							serverId: res.serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+							isShowProgressTips: 1, // 默认为1，显示进度提示
+							success: function(res) {
+								var localId = res.localId; // 返回音频的本地ID
+								wx.translateVoice({
+									localId: localId, // 需要识别的音频的本地Id，由录音相关接口获得
+									isShowProgressTips: 1, // 默认为1，显示进度提示
+									success: function(res) {
+										console.log(res)
+										var transl = res.translateResult
+										transl = transl.replace(/。/g, "");
+										that.keyword = transl;
+										that.list = [];
+										that.searchList(that.keyword);
+									}
+								});
+							}
+						});
+					}
+				});},
+			// #endif
+
 			wxConfig() {
 				var timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
@@ -271,14 +357,14 @@
 				});
 			}
 		},
-		onHide(){
-			uni.setStorageSync('search',this.list);
+		onHide() {
+			uni.setStorageSync('search', this.list);
 		},
 		onShow() {
 			this.wxConfig();
 			this.getSearchData();
-			if(this.keyword){
-				this.list=uni.getStorageSync('search');
+			if (this.keyword) {
+				this.list = uni.getStorageSync('search');
 			}
 		}
 	}
@@ -352,4 +438,50 @@
 	.search_list .search_result .my_profile {
 		margin-bottom: 10rpx;
 	}
+
+	.search_list .lang_search {
+		background: white;
+		border-radius: 10rpx 10rpx 0 0;
+		height: 371rpx;
+		color: #009943;
+	}
+
+
+	.search_list .lang_search .icon-X {
+		position: absolute;
+		right: 20rpx;
+		text-align: right;
+		color: gray;
+		margin-top: 20rpx;
+
+	}
+
+	.search_list .lang_search .correct>view {
+		height: 50rpx;
+		line-height: 50rpx;
+		text-align: center;
+	}
+
+	.search_list .lang_search .error_txt>view {
+		height: 50rpx;
+		line-height: 50rpx;
+		text-align: center;
+	}
+
+	/* #ifdef APP-PLUS */
+	.search_list .lang_search .error_txt .mic_filled {
+		background: #009943;
+		border-radius: 50%;
+		padding: 10rpx;
+	}
+
+	/* #endif */
+	/* #ifdef MP-WEIXIN */
+	.search_list .lang_search .error_txt .mic_filled .uni-icons {
+		background: #009943;
+		border-radius: 50%;
+		padding: 10rpx;
+	}
+
+	/* #endif */
 </style>

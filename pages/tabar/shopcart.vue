@@ -184,6 +184,7 @@
 		data() {
 			return {
 				display: true,
+				scrollHeight:'',
 				title: '',
 				contact: '',
 				mobile: '',
@@ -225,7 +226,7 @@
 				reduce: '',
 				page: 1,
 				num: 10,
-				loading: false,
+				loading: true,
 				showTop: false,
 				config: [],
 				cartware: [],
@@ -242,7 +243,7 @@
 			},
 			deliveryPage() {
 				uni.navigateTo({
-					url: '/pages/shopcart/delivery'
+					url: '/pages/shopcart/delivery?childzid='+this.childzid
 				});
 			},
 			collectBill() {
@@ -525,7 +526,7 @@
 			// 合拼下单
 			mergeOrder() {
 				let timeStamp = Math.round(new Date().getTime() / 1000);
-				var date = this.dateOfTime;
+				var date = this.sendDate;
 				// way 1公众号 2App 3小程序 下单方式
 				// #ifdef H5
 				     let way=1;
@@ -686,6 +687,10 @@
 			}
             this.getSendTime();
 			this.addInfo();
+			// #ifdef H5
+			this.scrollHeight=document.body.clientHeight
+			// #endif
+			
 		},
 		onHide() {
 			this.childzid = '';
@@ -711,12 +716,20 @@
 		},
 		onLoad() {
 			uni.hideTabBar();
-		},
-		onReady(){
-			uni.onWindowResize((res) => {
-					this.display = !this.display;
-				})
+			// #ifdef H5
+			
+			window.onresize = () => {
+			// 解决刷新底部会隐藏的问题
+				let newHeight=document.body.clientHeight;
+				if(this.scrollHeight==newHeight){
+					this.display=true;
+				}else{
+					this.display=false;
+				}
+				
 			}
+			// #endif
+		}
 		},
 		
 		onReachBottom() {

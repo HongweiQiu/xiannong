@@ -97,7 +97,7 @@
 
 				<view class="title">确定要修改备注吗</view>
 				<view class="textarea">
-					<textarea v-model="remark" placeholder="请输入你想说的" placeholder-class="place_style" show-confirm-bar="false" />
+					<textarea v-model="remark" placeholder="请输入你想说的" placeholder-class="place_style" :show-confirm-bar="confirmBar" />
 					</view>
 					  <view class="buttons">
 						  <view class="cancel" @click="showRemark=false">取消</view>
@@ -133,6 +133,7 @@
 				shop: [],
 				config: [],
 				showRemark:false,
+				confirmBar:false,
 				remark:'',
 				shopItem:{},
 				firstIndex:'',

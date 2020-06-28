@@ -4,6 +4,7 @@
 	background: white;
 }
 .my_profile .photo {
+	margin-right:20rpx;
 	width: 200rpx;
 }
 .my_profile .good_img {
@@ -32,4 +33,5 @@
 	width: 32rpx;
 	height: 32rpx;
 }
+
 

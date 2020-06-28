@@ -93,6 +93,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
+<<<<<<< HEAD
   uniNavBar: function() {
     return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 413))
   },
@@ -113,6 +114,28 @@ var components = {
   },
   myKeyboard: function() {
     return Promise.all(/*! import() | components/keyboard/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/keyboard/index")]).then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 399))
+=======
+  "uni-nav-bar": function() {
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 419))
+  },
+  "uni-countdown": function() {
+    return __webpack_require__.e(/*! import() | components/uni-countdown/uni-countdown */ "components/uni-countdown/uni-countdown").then(__webpack_require__.bind(null, /*! @/components/uni-countdown/uni-countdown.vue */ 325))
+  },
+  "my-stepper": function() {
+    return __webpack_require__.e(/*! import() | components/stepper/index */ "components/stepper/index").then(__webpack_require__.bind(null, /*! @/components/stepper/index.vue */ 440))
+  },
+  "my-loading": function() {
+    return __webpack_require__.e(/*! import() | components/loading/index */ "components/loading/index").then(__webpack_require__.bind(null, /*! @/components/loading/index.vue */ 339))
+  },
+  "my-backtop": function() {
+    return __webpack_require__.e(/*! import() | components/backtop/index */ "components/backtop/index").then(__webpack_require__.bind(null, /*! @/components/backtop/index.vue */ 346))
+  },
+  "uni-popup": function() {
+    return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 353))
+  },
+  "my-keyboard": function() {
+    return Promise.all(/*! import() | components/keyboard/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/keyboard/index")]).then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 405))
+>>>>>>> 527d539382e85162a80016e2f5ee287ff93c2f3d
   }
 }
 var render = function() {
@@ -158,6 +181,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
 
 
 
@@ -319,14 +348,14 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { imgRemote: imgRemote, showTop: false, kind: 0, navBar: navBar, pbId: '', list: [], activeList: [], minute: 0, second: 0, config: [], goodIndex: '', arrObj: {} };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, detailPage: function detailPage(id) {if (this.config.is_detail == 1) {uni.navigateTo({ url: "shopdetail?id=".concat(id) });}}, selectStage: function selectStage(index) {this.kind = index;this.pbId = this.activeList[index].id;this.panicBuylist();}, panicBuylist: function panicBuylist() {var _this = this;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var pbId = this.pbId;var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var params = Object.assign({ sign: sign, pbId: pbId }, obj);_request.default.getRequest('panicBuyList', params, function (res) {var data = res.data;if (data.code == 200) {_this.config = data.data;_this.activeList = data.data.activeList;_this.list = data.data.goodsList;}});}, // 显示键盘
-    showKey: function showKey(item, index) {this.$refs.popup.open();this.arrObj = item;this.goodIndex = index;}, toParent: function toParent(e) {this.addCart(this.arrObj, 'changeNum', e.val, '成功加入购物车', this.goodIndex);this.$refs.popup.close();},
-    addCart: function addCart(item, url, num, message, index) {var _this2 = this;
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        timeStamp: timeStamp,
-        item_id: item.item_id,
+    showKey: function showKey(item, index) {this.$refs.popup.open();this.arrObj = item;this.goodIndex = index;}, toParent: function toParent(e) {this.addCart(this.arrObj, 'changeNum', e.val, '成功加入购物车', this.goodIndex);this.$refs.popup.close();}, addCart: function addCart(item, url, num, message, index) {var _this2 = this;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp, item_id: item.item_id,
         attr_id: item.attr_id,
         item_num: num };
 

@@ -3,7 +3,7 @@
 		<uni-nav-bar left-icon="arrowleft" right-text="清空" title="收藏列表" :status-bar="navBar" fixed="true" @clickLeft="leftClick"
 		 @clickRight="rightClick"></uni-nav-bar>
 		<view class="all_collect" v-if="list.length!=0">
-			<my-profile class="single_collect" v-for="(item, index) in list" :ware="item" :config="config" :key="index" url="collect"
+			<my-profile class="single_collect" v-for="(item, index) in list" :wares="item" :config="config" :key="index" url="collect"
 			 @showCart="openCart(item)" @showKey="showKey" @cancelCollect="cancelCollect(item,index)"></my-profile>
 			<my-loading></my-loading>
 		</view>

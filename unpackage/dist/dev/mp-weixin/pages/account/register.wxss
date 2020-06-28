@@ -31,6 +31,7 @@ page {
 	color: #a1a1a1;
 	text-align: center;
 	font-size: 24rpx;
+	height: 500rpx;
 }
 .register .agree {
 	position: fixed;

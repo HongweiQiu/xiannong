@@ -8250,15 +8250,26 @@ module.exports = g;
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 352:
 /*!*********************************************************************!*\
   !*** C:/Users/123/Desktop/uni/uniapp/components/uni-popup/popup.js ***!
   \*********************************************************************/
+=======
+/***/ 358:
+/*!***********************************************!*\
+  !*** E:/uniapp/components/uni-popup/popup.js ***!
+  \***********************************************/
+>>>>>>> 527d539382e85162a80016e2f5ee287ff93c2f3d
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 353));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+=======
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 359));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+>>>>>>> 527d539382e85162a80016e2f5ee287ff93c2f3d
 // 定义 type 类型:弹出类型：top/bottom/center
 var config = {
   // 顶部弹出
@@ -8285,10 +8296,17 @@ var config = {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 353:
 /*!***********************************************************************!*\
   !*** C:/Users/123/Desktop/uni/uniapp/components/uni-popup/message.js ***!
   \***********************************************************************/
+=======
+/***/ 359:
+/*!*************************************************!*\
+  !*** E:/uniapp/components/uni-popup/message.js ***!
+  \*************************************************/
+>>>>>>> 527d539382e85162a80016e2f5ee287ff93c2f3d
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8323,10 +8341,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 389:
 /*!*********************************************************************!*\
   !*** C:/Users/123/Desktop/uni/uniapp/components/uni-icons/icons.js ***!
   \*********************************************************************/
+=======
+/***/ 395:
+/*!***********************************************!*\
+  !*** E:/uniapp/components/uni-icons/icons.js ***!
+  \***********************************************/
+>>>>>>> 527d539382e85162a80016e2f5ee287ff93c2f3d
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8440,15 +8465,26 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 460:
 /*!***********************************************************************!*\
   !*** C:/Users/123/Desktop/uni/uniapp/components/uni-calendar/util.js ***!
   \***********************************************************************/
+=======
+/***/ 473:
+/*!*************************************************!*\
+  !*** E:/uniapp/components/uni-calendar/util.js ***!
+  \*************************************************/
+>>>>>>> 527d539382e85162a80016e2f5ee287ff93c2f3d
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 461));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
+=======
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 474));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
+>>>>>>> 527d539382e85162a80016e2f5ee287ff93c2f3d
 
 Calendar = /*#__PURE__*/function () {
   function Calendar()
@@ -8803,10 +8839,17 @@ Calendar;exports.default = _default;
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 461:
 /*!***************************************************************************!*\
   !*** C:/Users/123/Desktop/uni/uniapp/components/uni-calendar/calendar.js ***!
   \***************************************************************************/
+=======
+/***/ 474:
+/*!*****************************************************!*\
+  !*** E:/uniapp/components/uni-calendar/calendar.js ***!
+  \*****************************************************/
+>>>>>>> 527d539382e85162a80016e2f5ee287ff93c2f3d
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10367,7 +10410,11 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "__UNI__5EBDEB4" };exports.default = _default;
+=======
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": { "usingComponents": { "uni-notice-bar": "/components/uni-notice-bar/uni-notice-bar" }, "usingAutoImportComponents": { "my-search": "/components/search/index", "uni-notice-bar": "/components/uni-notice-bar/uni-notice-bar", "uni-countdown": "/components/uni-countdown/uni-countdown", "my-recomend": "/components/recomend/index", "my-loading": "/components/loading/index", "my-backtop": "/components/backtop/index", "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index", "my-tabar": "/components/tabar/index" } }, "pages/tabar/classify": { "usingComponents": { "uni-drawer": "/components/uni-drawer/uni-drawer" }, "usingAutoImportComponents": { "my-search": "/components/search/index", "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index", "uni-icons": "/components/uni-icons/uni-icons", "my-profile": "/components/profile/index", "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index", "my-keyboard": "/components/keyboard/index", "uni-drawer": "/components/uni-drawer/uni-drawer", "my-tabar": "/components/tabar/index" } }, "pages/tabar/order": { "usingComponents": { "w-picker": "/components/w-picker/w-picker" }, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons", "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index", "my-loading": "/components/loading/index", "w-picker": "/components/w-picker/w-picker", "my-tabar": "/components/tabar/index" } }, "pages/tabar/shopcart": { "usingComponents": { "w-picker": "/components/w-picker/w-picker" }, "usingAutoImportComponents": { "uni-icons": "/components/uni-icons/uni-icons", "w-picker": "/components/w-picker/w-picker", "my-recomend": "/components/recomend/index", "my-loading": "/components/loading/index", "my-backtop": "/components/backtop/index", "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index", "my-tabar": "/components/tabar/index" } }, "pages/tabar/user": { "usingComponents": { "uni-icons": "/components/uni-icons/uni-icons", "uni-popup-dialog": "/components/uni-popup/uni-popup-dialog" }, "usingAutoImportComponents": { "uni-icons": "/components/uni-icons/uni-icons", "uni-popup": "/components/uni-popup/uni-popup", "my-tabar": "/components/tabar/index" } }, "pages/index/shopdetail": { "usingComponents": {}, "usingAutoImportComponents": { "uni-icons": "/components/uni-icons/uni-icons", "uni-countdown": "/components/uni-countdown/uni-countdown", "my-stepper": "/components/stepper/index", "uni-popup": "/components/uni-popup/uni-popup", "my-keyboard": "/components/keyboard/index" } }, "pages/index/collect": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-profile": "/components/profile/index", "my-loading": "/components/loading/index", "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index", "my-keyboard": "/components/keyboard/index" } }, "pages/index/recommed": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-profile": "/components/profile/index", "my-loading": "/components/loading/index", "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index", "my-keyboard": "/components/keyboard/index" } }, "pages/index/newback": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/index/search": { "usingComponents": {}, "usingAutoImportComponents": { "uni-icons": "/components/uni-icons/uni-icons", "my-profile": "/components/profile/index", "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index", "my-keyboard": "/components/keyboard/index" } }, "pages/index/flashsale": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-countdown": "/components/uni-countdown/uni-countdown", "my-stepper": "/components/stepper/index", "my-loading": "/components/loading/index", "my-backtop": "/components/backtop/index", "uni-popup": "/components/uni-popup/uni-popup", "my-keyboard": "/components/keyboard/index" } }, "pages/account/login": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/account/selectway": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/account/forget": { "usingComponents": { "move-verify": "/components/helang-moveVerify/helang-moveVerify" }, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-identifyingcode": "/components/identifyingcode/index" } }, "pages/account/register": { "usingComponents": { "move-verify": "/components/helang-moveVerify/helang-moveVerify" }, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-identifyingcode": "/components/identifyingcode/index" } }, "pages/account/service": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/account/treaty": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/order/orderdetail": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/order/pay": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/shopcart/delivery": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/shopcart/pay": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/shopcart/address": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopcart/shoplist": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-stepper": "/components/stepper/index", "uni-popup": "/components/uni-popup/uni-popup", "my-keyboard": "/components/keyboard/index" } }, "pages/user/accountmange": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/accountadd": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/user/accountedit": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "evan-switch": "/components/evan-switch/evan-switch", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/user/modifypwd": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/receipt": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/invest": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons", "uni-popup": "/components/uni-popup/uni-popup", "my-keyboard": "/components/keyboard/index" } }, "pages/user/investlist": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/investrecord": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/bill": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-loading": "/components/loading/index", "uni-calendar": "/components/uni-calendar/uni-calendar" } }, "pages/user/billdetail": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/cash": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/user/cashdetail": { "usingComponents": {}, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar" } }, "pages/user/myinfo": { "usingComponents": { "image-cropper": "/components/ling-imgcropper/ling-imgcropper" }, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons" } }, "pages/user/bindphone": { "usingComponents": { "move-verify": "/components/helang-moveVerify/helang-moveVerify" }, "usingAutoImportComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "my-identifyingcode": "/components/identifyingcode/index" } } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+>>>>>>> 527d539382e85162a80016e2f5ee287ff93c2f3d
 
 /***/ }),
 

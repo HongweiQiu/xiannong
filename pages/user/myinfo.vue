@@ -150,7 +150,6 @@
 					filePath: media_id,
 					success: function(res) {
 						var imga = JSON.parse(res.data);
-						console.log(res.data)
 						that.imgPath = imga.data.path
 						that.cropFilePath = imga.data.src;   
 						that.uploadAvatar()
