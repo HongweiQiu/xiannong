@@ -94,13 +94,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-icons": function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 392))
-  },
-  "uni-popup": function() {
-    return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 355))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 400))
   },
   "my-tabar": function() {
-    return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 371))
+    return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 379))
   }
 }
 var render = function() {
@@ -141,9 +138,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
 
 
 
@@ -301,11 +295,21 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-//
-//
-//
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 435));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniIcons = function uniIcons() {Promise.all(/*! require.ensure | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then((function () {return resolve(__webpack_require__(/*! ../../components/uni-icons/uni-icons.vue */ 392));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { uniIcons: uniIcons, uniPopupDialog: uniPopupDialog }, data: function data() {return { userList: [{ icon: 'icon-08_zizhanghaoguanli', name: '账号管理', color: '#3DABFF', url: 'accountmange' }, { icon: 'icon-fapiao', name: '开具发票', color: '#FF9C00', url: 'receipt' }, { icon: 'icon-tianchongxing--', name: '账单记录', color: '#FFF000', url: 'bill' }, { icon: 'icon-qianbao', name: '充值', color: '#2DC4B4', url: 'invest' }, { icon: 'icon-juan', name: '现金劵', color: '#F8632F', url: 'cash' }, { icon: 'icon-weixin', name: '微信改绑', color: '#26DD5B' }], is_bind: '', is_child: '', token: '', imgRemote: imgRemote, memberInfoData: '', member_default: '', code: '' };}, methods: { memberInfo: function memberInfo() {var _this = this;var that = this;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, timeStamp: timeStamp, sign: sign };_request.default.getRequests("memberInfo", data, function (res) {// console.log(res)
-        if (res.data.code == 200) {_this.memberInfoData = res.data.data.info;_this.member_default = res.data.data.member_default;}});
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var uniIcons = function uniIcons() {Promise.all(/*! require.ensure | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then((function () {return resolve(__webpack_require__(/*! ../../components/uni-icons/uni-icons.vue */ 400));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { uniIcons: uniIcons }, data: function data() {return { userList: [{ icon: 'icon-08_zizhanghaoguanli', name: '账号管理', color: '#3DABFF', url: 'accountmange' }, { icon: 'icon-fapiao', name: '开具发票', color: '#FF9C00', url: 'receipt' }, { icon: 'icon-tianchongxing--', name: '账单记录', color: '#FFF000', url: 'bill' }, { color: '#ffab9a', icon: 'icon-buy-fill', name: '购买记录', url: 'purchase_record' }, { icon: 'icon-qianbao', name: '充值', color: '#2DC4B4', url: 'invest' }, { icon: 'icon-juan', name: '现金劵', color: '#F8632F', url: 'cash' }, { icon: 'icon-weixin', name: '微信改绑', color: '#26DD5B' }, { icon: 'icon-fenxiang', name: '分享', color: '#26DD5B', url: 'share' }], is_bind: '', is_child: '', token: '', imgRemote: imgRemote, memberInfoData: '', member_default: '', code: '' };}, methods: { memberInfo: function memberInfo() {var _this = this;var that = this;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var data = {
+        appid: appid,
+        timeStamp: timeStamp,
+        sign: sign };
+
+      _request.default.getRequests("memberInfo", data, function (res) {
+        // console.log(res)
+        if (res.data.code == 200) {
+          _this.memberInfoData = res.data.data.info;
+          _this.member_default = res.data.data.member_default;
+        }
+      });
     },
     myinfoPage: function myinfoPage() {
       uni.navigateTo({
@@ -313,16 +317,21 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
 
     },
     pageUrl: function pageUrl(item) {
-      uni.navigateTo({
-        url: "/pages/user/".concat(item.url) });
+      if (item.url != 'share') {
+        uni.navigateTo({
+          url: "/pages/user/".concat(item.url) });
+
+      } else {
+
+      }
 
     },
     threePage: function threePage(data) {
-      if (!this.token) {
+      if (this.token) {
         switch (data) {
           case 'recomend':
             uni.navigateTo({
-              url: '/pages/index/recomendlist' });
+              url: '/pages/index/recommed' });
 
             break;
           case 'address':
@@ -336,20 +345,53 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
 
             break;}
 
-      } else {}
+      } else {
+        uni.reLaunch({
+          url: '/pages/account/login' });
+
+      }
     },
     exit: function exit() {
-      this.$refs.popup.open();
-    },
-    close: function close() {
-      this.$refs.popup.close();
-    },
-    confirm: function confirm() {
-      uni.showTabBar();
-      uni.reLaunch({
-        url: '/pages/account/login' });
+      uni.showModal({
+        title: '提示',
+        content: '是否退出登录？',
+        success: function success(res) {
+          if (res.confirm) {
+            // console.log('用户点击确定');
+            var that = this;
+            var timeStamp = Math.round(new Date().getTime() / 1000);
+            var obj = {
+              appid: appid,
+              timeStamp: timeStamp };
+
+            var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+            var data = {
+              appid: appid,
+              timeStamp: timeStamp,
+              sign: sign };
+
+            _request.default.getRequests("logout", data, function (res) {
+              if (res.data.code == 200) {
+                uni.showToast({
+                  title: "退出成功",
+                  icon: 'none' });
+
+                uni.clearStorage({
+                  success: function success(reg) {
+                    uni.navigateTo({
+                      url: '/pages/account/login' });
+
+                  } });
+
+              }
+            });
+          } else if (res.cancel) {
+            // console.log('用户点击取消');
+          }
+        } });
 
     } },
+
 
   onLoad: function onLoad() {
     uni.hideTabBar();

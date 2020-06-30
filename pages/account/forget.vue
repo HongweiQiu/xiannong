@@ -128,7 +128,7 @@
 					secret_str: random_str
 				}, obj)
 				uni.request({
-					url: app.rootUrl + "sendCodeNot",
+					url: app.rootUrl + "/mobileOrder/sendCodeNot",
 					method: 'POST',
 					header: {
 						'content-type': 'application/json', // 默认值
@@ -192,7 +192,7 @@
 							}, obj)
 							var that = this;
 							uni.request({
-								url: app.rootUrl + "forgetPassword",
+								url: app.rootUrl + "/mobileOrder/forgetPassword",
 								method: 'POST',
 								data: params,
 								header: {

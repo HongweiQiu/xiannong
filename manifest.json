@@ -7,7 +7,7 @@
     "transformPx" : false,
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "wx1fed840ccc7639b6",
+        "appid" : "wx4f24afa0c5d9be68",
         "setting" : {
             "urlCheck" : false,
             "es6" : true,
@@ -31,7 +31,7 @@
             "host" : "192.168.0.126",
             "proxy" : {
                 "/api" : {
-                    "target" : "https://test.caidj.cn/mobileOrder", //目标接口域名
+                    "target" : "http://three.caidj.cn", //目标接口域名
                     "changeOrigin" : true, //是否跨域
                     "pathRewrite" : {
                         "^/api" : ""
@@ -41,7 +41,8 @@
             }
         },
         "router" : {
-            "mode" : "hash"
+            "mode" : "hash",
+            "base" : "/new"
         },
         "sdkConfigs" : {
             "maps" : {
@@ -53,7 +54,12 @@
         "uniStatistics" : {
             "enable" : true
         },
-        "domain" : "test"
+        "domain" : "test",
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : true
+            }
+        }
     },
     /* 5+App特有相关 */
     "app-plus" : {
@@ -125,7 +131,9 @@
                         "appid" : "wx50089ffa80a2ec23",
                         "UniversalLinks" : ""
                     }
-                }
+                },
+                "ad" : {},
+                "share" : {}
             }
         },
         "uniStatistics" : {

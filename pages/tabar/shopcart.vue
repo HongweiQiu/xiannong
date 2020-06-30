@@ -1,13 +1,13 @@
 <template>
 	<view>
 		<!-- #ifdef APP-PLUS -->
-		<view class="status_bar">
+		<view class="status_bar white_b" >
 			<!-- 这里是状态栏 -->
 		</view>
 		<!-- #endif -->
 		<view class="shopcart" v-if="cartInfo.countNum!=0">
 			<view class="cart_buy">
-				<view style="height:10px;background-color: #F8F6F9;"></view>
+				<!-- <view style="height:10px;background-color: #F8F6F9;"></view> -->
 				<!-- 送货地址 -->
 				<view class="deliver_address" @click="deliveryPage">
 					<view>
@@ -77,7 +77,7 @@
 					</view>
 					<view>
 						<view class="weight">运费</view>
-						<view class="weight margin_right" v-if="cartInfo.fare">{{cartInfo.fare}}</view>
+						<view class="weight margin_right" v-if="cartInfo.fare!=0">￥{{cartInfo.fare}}</view>
 						<view v-else class="gray_font margin_right">(免运费)</view>
 					</view>
 				</view>
@@ -417,6 +417,15 @@
 			},
 			//确认下单
 			confirmOrder() {
+				if(!this.contact||!this.mobile||!this.address){
+					rs.Toast('请先填写收货信息');
+					setTimeout(()=>{
+						uni.navigateTo({
+							url:'../shopcart/delivery'
+						})
+					},1000)
+					return;
+				}
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,

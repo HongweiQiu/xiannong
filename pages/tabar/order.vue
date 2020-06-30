@@ -107,7 +107,7 @@
 			</view>
 
 			<view class="bitmap" v-if="search_default">
-				<image src="../../static/img/no_content.png" alt=""></image>
+				<image src="../../static/img/no_content.png" mode="aspectFit"></image>
 			</view>
 		</view>
 		<w-picker mode="selector" default-type="title" :default-props="childListProps" :options="childList" @confirm="onChild($event, 'selector')"
@@ -122,7 +122,7 @@
 	import md5 from '../../static/js/md5.js';
 	import rs from '../../static/js/request.js';
 	import uniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar.vue';
-	const app = getApp().globalData;
+	const app = getApp().globalData; 
 	const {
 		appid,
 		appsecret,

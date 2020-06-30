@@ -9,7 +9,7 @@
 			</view>
 			<view>
 				<text>新密码</text>
-				<input type="number" value="" placeholder="请填写六位及以上的密码" placeholder-class="place_style" />
+				<input type="number" value="" placeholder="请填写六位及以上的密码" placeholder-class="place_style" /> 
 			</view>
 			<view>
 				<text>确认密码</text>

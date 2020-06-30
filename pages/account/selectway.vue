@@ -79,4 +79,5 @@
 		border: 1px solid #009A44;
 		color: #009A44;
 	}
+	.select_way .uni-navbar{margin:0 20rpx!important;}
 </style>

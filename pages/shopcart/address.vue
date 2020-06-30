@@ -55,8 +55,10 @@
 			},
 			test() {
 				window.location.reload();
+
 			},
 			wxConfig() {
+				let that = this;
 				var timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -67,24 +69,44 @@
 					sign: sign
 				}, obj)
 				rs.getRequests("wxConfig", params, (response) => {
-					if (response.code == 200) {
+					if (response.data.code == 200) {
 						wx.config({
-							debug: true, // 开启调试模式
-							appId: response.data.appId, // 必填，公众号的唯一标识
-							timestamp: response.data.timestamp, // 必填，生成签名的时间戳
-							nonceStr: response.data.nonceStr, // 必填，生成签名的随机串
-							signature: response.data.signature, // 必填，签名，见附录1
+							debug: false, // 开启调试模式
+							appId: response.data.data.appId, // 必填，公众号的唯一标识
+							timestamp: response.data.data.timestamp, // 必填，生成签名的时间戳
+							nonceStr: response.data.data.nonceStr, // 必填，生成签名的随机串
+							signature: response.data.data.signature, // 必填，签名，见附录1
 							jsApiList: [
 								'getLocation'
 							] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 						});
 					}
 				});
+				wx.ready(function() {
+					wx.getLocation({
+						type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+						success: function(res) {
+							log(res)
+							let lat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+							let lng = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+							uni.setStorageSync('lat', lat)
+							uni.setStorageSync('lng', lng)
+							that.a =
+								'https://apis.map.qq.com/tools/locpicker?search=1&type=1&coord=' + uni.getStorageSync('lat') + ',' + uni.getStorageSync(
+									'lng') +
+								'&key=UNFBZ-3J6LO-HYCWC-SOMXY-NIFI7-4GFZO&referer=myapp';
+							var speed = res.speed; // 速度，以米/每秒计
+							var accuracy = res.accuracy; // 位置精度
+						}
+					});
+
+
+				})
+
 			}
 		},
 		onShow() {
 			this.wxConfig();
-			
 		},
 		onLoad(option) {
 			let that = this;
@@ -92,12 +114,11 @@
 			this.mobile = option.mobile;
 			this.address = option.address;
 			this.details = option.details;
-			this.a =
-				"https://apis.map.qq.com/tools/locpicker?search=1&type=1&coord=28.688967,115.849754&key=UNFBZ-3J6LO-HYCWC-SOMXY-NIFI7-4GFZO&referer=myapp";
 			window.addEventListener('message', function(event) {
 				// 接收位置信息，用户选择确认位置点后选点组件会触发该事件，回传用户的位置信息
 				var loc = event.data;
 
+				// alert(JSON.stringify(loc))
 				if (loc && loc.module == 'locationPicker') { //防止其他应用也会向该页面post信息，需判断module是否为'locationPicker'
 
 					that.address1 = loc.poiaddress;

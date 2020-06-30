@@ -260,7 +260,7 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
         var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
         var audio = res.tempFilePath;
         uni.uploadFile({
-          url: app.rootUrl + "voiceSearch",
+          url: app.rootUrl + "/mobileOrder/voiceSearch",
           filePath: audio,
           method: 'POST',
           name: 'audio',
@@ -288,11 +288,20 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
             }
           },
           fail: function fail() {
+            that.startSpeech = false;
             console.log("语音识别失败");
           } });
 
       });
     },
+
+
+
+
+
+
+
+
 
 
 
@@ -363,20 +372,23 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
         sign: sign },
       obj);
       _request.default.getRequests("wxConfig", params, function (response) {
-        if (response.code == 200) {
+
+        if (response.data.code == 200) {
+          console.log(response.data);
           wx.config({
-            debug: true, // 开启调试模式
-            appId: response.data.appId, // 必填，公众号的唯一标识
-            timestamp: response.data.timestamp, // 必填，生成签名的时间戳
-            nonceStr: response.data.nonceStr, // 必填，生成签名的随机串
-            signature: response.data.signature, // 必填，签名，见附录1
+            debug: false, // 开启调试模式
+            appId: response.data.data.appId, // 必填，公众号的唯一标识
+            timestamp: response.data.data.timestamp, // 必填，生成签名的时间戳
+            nonceStr: response.data.data.nonceStr, // 必填，生成签名的随机串
+            signature: response.data.data.signature, // 必填，签名，见附录1
             jsApiList: [
             'checkJsApi',
             'startRecord',
             'stopRecord',
             'translateVoice',
             'downloadVoice',
-            'uploadVoice']
+            'uploadVoice',
+            'getLocation']
             // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
           });
         }
@@ -520,19 +532,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-icons": function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 392))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 400))
   },
   "my-profile": function() {
-    return __webpack_require__.e(/*! import() | components/profile/index */ "components/profile/index").then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 400))
+    return __webpack_require__.e(/*! import() | components/profile/index */ "components/profile/index").then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 408))
   },
   "uni-popup": function() {
-    return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 355))
+    return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 363))
   },
   "my-addcart": function() {
-    return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 364))
+    return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 372))
   },
   "my-keyboard": function() {
-    return Promise.all(/*! import() | components/keyboard/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/keyboard/index")]).then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 407))
+    return Promise.all(/*! import() | components/keyboard/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/keyboard/index")]).then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 415))
   }
 }
 var render = function() {

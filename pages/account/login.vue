@@ -205,9 +205,9 @@
 						data
 					} = res;
 					if (data.code == 200) {
-
-						getApp().globalData.isWeixin = true;
-						let url = app.rootUrl + "#/login";
+						
+					uni.setStorageSync('isWeixin',true)
+						let url = app.rootUrl + "/#/pages/account/login";
 						let redirect_uri = encodeURIComponent(url);
 						let a = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
 							"appid=" + data.data.appId + "&redirect_uri=" + redirect_uri +
@@ -280,6 +280,7 @@
 			// #endif
 		},
 		onShow() {
+			
 			let timeStamp = Math.round(new Date().getTime() / 1000);
 			let obj = {
 				appid: appid,
@@ -302,16 +303,15 @@
 			// #ifdef H5
 			let code = location.search;
 			let getCode = code.substring(code.indexOf('=') + 1, code.lastIndexOf('&'));
-
-
-			if (isWeixin && getCode) {
+          let isWeixin=uni.getStorageSync('isWeixin');
+			if (isWeixin&&getCode) {
 
 				let obj = {
-					appid: APIUrl.appid,
-					timeStamp: APIUrl.timeStamp,
+					appid: appid,
+					timeStamp: timeStamp,
 					code: getCode
 				};
-				let sign = this.$md5(this.$sort(obj) + APIUrl.appsecret);
+				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
 				let params = Object.assign({
 					sign: sign
 				}, obj);
@@ -319,20 +319,20 @@
 					let {
 						data
 					} = res;
-					if (data.code) {
-						localStorage.setItem('cdj_token', data.data.token);
-						localStorage.setItem('is_minibind', data.data.is_bind);
-						localStorage.setItem('is_child', data.data.is_child);
-						window.location.href = APIUrl.root;
-					} else if (res.code == 201) {
+					uni.clearStorageSync('isWeixin')
+					if (data.code==200) {
+						uni.setStorageSync('cdj_token', data.data.token);
+						uni.setStorageSync('is_miniBind', data.data.is_bind);
+						uni.setStorageSync('is_child', data.data.is_child);
+						window.location.href = app.rootUrl;
+					} else if (data.code == 201) {
 						wx.navigateTo({
 							url: 'selectway?identifying=' + data.data.identifying
 						})
 					} else {
-						getApp().globalData.isWeixin = false;
 						rs.Toast(data.msg);
 						setTimeout(() => {
-							window.location.href = APIUrl.root + "#/login";
+							window.location.href = app.rootUrl + "/#/pages/account/login";
 						}, 1000)
 
 					}
@@ -349,7 +349,7 @@
 		},
 		onHide() {
 			// #ifdef H5
-			getApp().globalData.isWeixin = false;
+			//
 			// #endif
 
 		}

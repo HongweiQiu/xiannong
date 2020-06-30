@@ -234,7 +234,7 @@
 					let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
 					var audio = res.tempFilePath;
 					uni.uploadFile({
-						url: app.rootUrl + "voiceSearch",
+						url: app.rootUrl + "/mobileOrder/voiceSearch",
 						filePath: audio,
 						method: 'POST',
 						name: 'audio',
@@ -262,6 +262,7 @@
 							}
 						},
 						fail: function() {
+							that.startSpeech = false;
 							console.log("语音识别失败");
 						}
 					})
@@ -272,15 +273,17 @@
 
 			// #ifdef H5
 			speed() {
-	          this.$refs.speech.open();
+				this.$refs.speech.open();
 				let that = this;
-                  that.startSpeech = true;
+				that.startSpeech = true;
+
 				wx.startRecord({
 					success: function() {
+						console.log(wx)
 						recordTimer = setTimeout(() => {
 							wx.stopRecord({
 								success: function(res) {
-									alert(res)
+
 									that.wxuploadVoice(res.localId);
 									clearTimeout(recordTimer);
 								},
@@ -312,18 +315,24 @@
 									localId: localId, // 需要识别的音频的本地Id，由录音相关接口获得
 									isShowProgressTips: 1, // 默认为1，显示进度提示
 									success: function(res) {
-										console.log(res)
+
 										var transl = res.translateResult
 										transl = transl.replace(/。/g, "");
 										that.keyword = transl;
 										that.list = [];
+										that.showSearch = false;
+										that.$refs.speech.close();
 										that.searchList(that.keyword);
+									},
+									fail: function(res) {
+										that.startSpeech = false;
 									}
 								});
 							}
 						});
 					}
-				});},
+				});
+			},
 			// #endif
 
 			wxConfig() {
@@ -337,20 +346,23 @@
 					sign: sign
 				}, obj)
 				rs.getRequests("wxConfig", params, (response) => {
-					if (response.code == 200) {
+
+					if (response.data.code == 200) {
+						console.log(response.data)
 						wx.config({
-							debug: true, // 开启调试模式
-							appId: response.data.appId, // 必填，公众号的唯一标识
-							timestamp: response.data.timestamp, // 必填，生成签名的时间戳
-							nonceStr: response.data.nonceStr, // 必填，生成签名的随机串
-							signature: response.data.signature, // 必填，签名，见附录1
+							debug: false, // 开启调试模式
+							appId: response.data.data.appId, // 必填，公众号的唯一标识
+							timestamp: response.data.data.timestamp, // 必填，生成签名的时间戳
+							nonceStr: response.data.data.nonceStr, // 必填，生成签名的随机串
+							signature: response.data.data.signature, // 必填，签名，见附录1
 							jsApiList: [
 								'checkJsApi',
 								'startRecord',
 								'stopRecord',
 								'translateVoice',
 								'downloadVoice',
-								'uploadVoice'
+								'uploadVoice',
+								'getLocation'
 							] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 						});
 					}

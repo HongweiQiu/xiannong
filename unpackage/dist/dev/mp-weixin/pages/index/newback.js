@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 421))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 429))
   }
 }
 var render = function() {
@@ -135,6 +135,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
 
 
 
@@ -200,7 +202,7 @@ app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.rootUrl,im
         success: function success(res) {
           // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
           var media_id = res.tempFilePaths;
-          console.log(media_id);
+
           var feed = 'feed';
           var timeStamp = Math.round(new Date().getTime() / 1000);
           var obj = {
@@ -213,10 +215,9 @@ app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.rootUrl,im
           for (var i = 0; i < media_id.length; i++) {
             uni.uploadFile({
               method: 'POST',
-              url: rootUrl + 'uploadImg', //此处换上你的接口地址
+              url: rootUrl + '/mobileOrder/uploadImg', //此处换上你的接口地址
               name: 'img',
               header: {
-
                 Authorization: uni.getStorageSync('cdj_token') },
 
               formData: {
@@ -228,9 +229,13 @@ app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.rootUrl,im
 
               filePath: media_id[i],
               success: function success(res) {
-                console.log(res);
                 var img = JSON.parse(res.data);
-                that.img.push(img.data);
+                if (img.code == 200) {
+                  that.img.push(img.data);
+                } else {
+                  _request.default.Toast(img.msg);
+                }
+
               } });
 
           }
@@ -262,18 +267,14 @@ app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.rootUrl,im
 
       _request.default.postRequests("feedBack", data, function (res) {
         if (res.data.code == 200) {
-
-          uni.showToast({
-            title: '提交成功' });
-
+          _request.default.Toast('提交成功');
           setTimeout(function () {
             uni.switchTab({
               url: '/pages/tabar/index' });
 
           }, 1000);
-
         } else {
-          Toast(res.data.msg);
+          _request.default.Toast(res.data.msg);
         }
       });
     } } };exports.default = _default;

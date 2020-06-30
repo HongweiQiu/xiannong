@@ -2,7 +2,7 @@ let app = getApp();
 var active = {
 	'active': app.globalData.active
 };
-var rootDocment = app.globalData.rootUrl; //主接口
+var rootDocment = app.globalData.rootUrl+'/mobileOrder/'; //主接口; //主接口
 var globalUrl = ["login"]
 if (uni.getStorageSync("cdj_token")) {
 	var header = {

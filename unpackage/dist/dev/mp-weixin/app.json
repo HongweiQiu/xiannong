@@ -26,7 +26,8 @@
         "forget",
         "register",
         "service",
-        "treaty"
+        "treaty",
+        "bind"
       ]
     },
     {
@@ -101,5 +102,5 @@
     "enable": true
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap85.json"
+  "sitemapLocation": "sitemap32.json"
 }

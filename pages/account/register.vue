@@ -30,7 +30,7 @@
 		</view>
 		<view class="submit_button button_style" @click="register" :class="{'gray_b':back}">提交</view>
 		<view class="now_login" @click="pageUrl('login')">已有账户？现在登录>></view>
-		<view class="agree" @click="pageUrl('treaty')">注册协议</view>
+		<view class="agree" @click="pageUrl('treaty')" v-if="display">注册协议</view>
 	</view>
 </template>
 
@@ -59,6 +59,7 @@
 				verify_code: '',
 				showcode: false,
 				back: true,
+				display:true,
 				identifying:'',
 				resultData: {}
 			};
@@ -143,7 +144,7 @@
 					obj
 				);
 				uni.request({
-					url: app.rootUrl + "sendCode",
+					url: app.rootUrl + "/mobileOrder/sendCode",
 					method: 'POST',
 					header: {
 						'content-type': 'application/json', // 默认值
@@ -169,7 +170,7 @@
 				this.resultData = {};
 			},
 			register() {
-				console.log(this.identifying)
+				
 				if (!this.nickname) {
 					rs.Toast('单位名称不能为空');
 					return;
@@ -214,7 +215,7 @@
 				}, obj)
 				var that = this;
 				uni.request({
-					url: app.rootUrl + "register",
+					url: app.rootUrl + "/mobileOrder/register",
 					method: 'POST',
 					data: params,
 					header: {
@@ -236,6 +237,13 @@
 					}
 				})
 			}
+		},
+		onReady() {
+			// #ifdef H5
+			window.onresize = () => {
+				this.display = !this.display;
+			}
+			// #endif
 		},
 		onLoad(options) {
 					var that = this;

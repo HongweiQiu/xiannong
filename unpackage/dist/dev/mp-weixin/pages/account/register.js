@@ -94,10 +94,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 421))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 429))
   },
   "my-identifyingcode": function() {
-    return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 449))
+    return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 450))
   }
 }
 var render = function() {
@@ -181,7 +181,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var moveVerify = function moveVerify() {__webpack_require__.e(/*! require.ensure | components/helang-moveVerify/helang-moveVerify */ "components/helang-moveVerify/helang-moveVerify").then((function () {return resolve(__webpack_require__(/*! @/components/helang-moveVerify/helang-moveVerify.vue */ 456));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var moveVerify = function moveVerify() {__webpack_require__.e(/*! require.ensure | components/helang-moveVerify/helang-moveVerify */ "components/helang-moveVerify/helang-moveVerify").then((function () {return resolve(__webpack_require__(/*! @/components/helang-moveVerify/helang-moveVerify.vue */ 457));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 var app = getApp().globalData;var
 
 navBar =
@@ -203,6 +203,7 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
       verify_code: '',
       showcode: false,
       back: true,
+      display: true,
       identifying: '',
       resultData: {} };
 
@@ -287,7 +288,7 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
       obj);
 
       uni.request({
-        url: app.rootUrl + "sendCode",
+        url: app.rootUrl + "/mobileOrder/sendCode",
         method: 'POST',
         header: {
           'content-type': 'application/json', // 默认值
@@ -313,7 +314,7 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
       this.resultData = {};
     },
     register: function register() {
-      console.log(this.identifying);
+
       if (!this.nickname) {
         _request.default.Toast('单位名称不能为空');
         return;
@@ -358,7 +359,7 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
       obj);
       var that = this;
       uni.request({
-        url: app.rootUrl + "register",
+        url: app.rootUrl + "/mobileOrder/register",
         method: 'POST',
         data: params,
         header: {
@@ -381,6 +382,13 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
 
     } },
 
+  onReady: function onReady() {
+
+
+
+
+
+  },
   onLoad: function onLoad(options) {
     var that = this;
     that.identifying = options.identifying;
