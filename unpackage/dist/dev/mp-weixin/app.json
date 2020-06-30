@@ -62,7 +62,11 @@
         "cash",
         "cashdetail",
         "myinfo",
-        "bindphone"
+        "bindphone",
+        "userAddress",
+        "address",
+        "purchase_detail",
+        "purchase_record"
       ]
     }
   ],
@@ -101,6 +105,5 @@
   "uniStatistics": {
     "enable": true
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap32.json"
+  "usingComponents": {}
 }

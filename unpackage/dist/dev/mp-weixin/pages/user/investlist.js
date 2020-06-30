@@ -95,6 +95,9 @@ __webpack_require__.r(__webpack_exports__);
 var components = {
   "uni-nav-bar": function() {
     return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 429))
+  },
+  "my-loading": function() {
+    return __webpack_require__.e(/*! import() | components/loading/index */ "components/loading/index").then(__webpack_require__.bind(null, /*! @/components/loading/index.vue */ 349))
   }
 }
 var render = function() {
@@ -134,54 +137,112 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-var app = getApp().globalData;var
-navBar = app.navBar;var _default =
-{
-  data: function data() {
-    return {
-      navBar: navBar };
 
-  },
-  methods: {
-    leftClick: function leftClick() {
-      uni.navigateBack({
-        delta: 1 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, bitmap: true, page: 1, loading: false, rechargeList: [] };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });
     },
-    rightClick: function rightClick() {
-      uni.navigateTo({
-        url: "/pages/user/accountadd" });
+    /**
+        * 账单列表
+        */
+    rechargeLista: function rechargeLista() {
+      var that = this;
+      var page = 1;
+      var num = 15;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = { appid: appid, timeStamp: timeStamp };
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var data = { appid: appid, timeStamp: timeStamp, sign: sign, page: 1, num: 15 };
+      _request.default.getRequest("rechargeList", data, function (res) {
+        if (res.data.code == 200) {
+          if (res.data.data != '') {
+            that.rechargeList = res.data.data;
+            that.bitmap = false;
+            if (res.data.data.length <= 10) {
+              that.loading = false;
+            }
 
-    },
-    editPage: function editPage() {
-      uni.navigateTo({
-        url: "/pages/user/accountedit" });
-
+          } else {
+            that.loading = '空';
+            that.bitmap = true;
+          }
+        }
+      });
     } },
 
   onShow: function onShow() {
+    var that = this;
+    that.rechargeLista();
+  },
+  /**
+      * 页面上拉触底事件的处理函数
+      */
+  onReachBottom: function onReachBottom() {
+    var that = this;
+    var page = that.page;
+    var num = 15;
+    var timeStamp = Math.round(new Date().getTime() / 1000);
+    var obj = { appid: appid, timeStamp: timeStamp };
+    var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+    var data = { appid: appid, timeStamp: timeStamp, sign: sign, page: page + 1, num: 15 };
+    _request.default.getRequest("rechargeList", data, function (res) {
+      if (res.data.code == 200) {
+        if (res.data.data != '') {
+          for (var i = 0; i < res.data.data.length; i++) {
+            that.rechargeList.push(res.data.data[i]);
+          }
+          that.loading = true;
+          that.bitmap = false;
+          that.page = page + 1;
+        } else {
+          that.loading = false;
+        }
+      }
+    });
+
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

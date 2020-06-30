@@ -102,6 +102,14 @@
 				"path": "myinfo"
 			}, {
 				"path": "bindphone"
+			}, {
+				"path": "userAddress"
+			}, {
+				"path": "address"
+			}, {
+				"path": "purchase_detail"
+			}, {
+				"path": "purchase_record"
 			}
 
 		]

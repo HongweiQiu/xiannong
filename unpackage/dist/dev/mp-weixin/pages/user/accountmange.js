@@ -134,54 +134,92 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-var app = getApp().globalData;var
-navBar = app.navBar;var _default =
-{
-  data: function data() {
-    return {
-      navBar: navBar };
 
-  },
-  methods: {
-    leftClick: function leftClick() {
-      uni.navigateBack({
-        delta: 1 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, show: false, childInfo: '' };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, rightClick: function rightClick() {uni.navigateTo({ url: "/pages/user/accountadd" });
 
     },
-    rightClick: function rightClick() {
+    editPage: function editPage(data) {
       uni.navigateTo({
-        url: "/pages/user/accountadd" });
+        url: "/pages/user/accountedit?select_zid=" + data.zid });
 
     },
-    editPage: function editPage() {
-      uni.navigateTo({
-        url: "/pages/user/accountedit" });
+    childInfoa: function childInfoa() {
+      var that = this;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp };
 
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var data = {
+        appid: appid,
+        timeStamp: timeStamp,
+        sign: sign };
+
+      _request.default.getRequests("childInfo", data, function (res) {
+        if (res.data.code == 200) {
+          if (res.data.data != '') {
+            that.childInfo = res.data.data;
+            that.show = false;
+          } else {
+            that.show = true;
+          }
+        }
+      });
     } },
 
   onShow: function onShow() {
+    var that = this;
+    that.childInfoa();
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

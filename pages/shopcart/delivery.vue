@@ -139,7 +139,7 @@
 			this.address = option.address;
 			this.details = option.details;
 			let count = option.count || 1;
-			console.log(option.count)
+			// console.log(option.count)
 			if (count == 1) {
 				if (this)
 					this.memberAddressInfo()

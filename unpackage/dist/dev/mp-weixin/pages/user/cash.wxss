@@ -151,4 +151,11 @@
 .cash .cash4 .color {
   color: #808080;
 }
+.bitmap {
+  text-align: center;
+  margin-top: 20%;
+}
+.bitmap image {
+  width: 50%;
+}
 

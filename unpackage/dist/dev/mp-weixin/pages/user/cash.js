@@ -104,12 +104,33 @@ var components = {
   },
   "uni-icons": function() {
     return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 400))
+  },
+  "my-loading": function() {
+    return __webpack_require__.e(/*! import() | components/loading/index */ "components/loading/index").then(__webpack_require__.bind(null, /*! @/components/loading/index.vue */ 349))
   }
 }
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.list, function(item, index) {
+    var g0 = item.residue.split(".")
+    var g1 = item.residue.split(".")
+    return {
+      $orig: _vm.__get_orig(item),
+      g0: g0,
+      g1: g1
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -143,53 +164,68 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}
 var app = getApp().globalData;var
-navBar = app.navBar;var _default =
+
+appid =
+
+
+
+app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default =
 {
   data: function data() {
     return {
       navBar: navBar,
-      cashList: [
-      {
+      cashList: [{
         name: '正常',
         id: '2' },
 
@@ -206,8 +242,13 @@ navBar = app.navBar;var _default =
         id: '4' }],
 
 
+      list: [],
+      page: 1,
+      num: 10,
+      bitmap: false,
+      loading: false,
       activeTab: 0,
-      price: '1200.00' };
+      orderType: 2 };
 
   },
   methods: {
@@ -216,11 +257,102 @@ navBar = app.navBar;var _default =
         delta: 1 });
 
     },
-    detailPage: function detailPage() {
-      uni.navigateTo({
-        url: 'cashdetail' });
+    changeFirst: function changeFirst(index) {
+      console.log(index);
+      this.page = 1;
+      this.list = [];
+      this.orderType = this.cashList[index].id;
+      this.myCash();
+    },
+    myCash: function myCash() {var _this = this;
+      var that = this;
+      if (that.page != 1) {
+        return;
+      }
+      var timeStamp = Math.round(new Date().getTime() / 1000);var
 
-    } } };exports.default = _default;
+      num =
+
+
+      that.num,page = that.page,orderType = that.orderType;
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp };
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var data = {
+        appid: appid,
+        num: num,
+        page: page,
+        timeStamp: timeStamp,
+        type: orderType,
+        sign: sign };
+
+      _request.default.getRequests('couponsList', data, function (res) {var
+
+        data =
+        res.data;
+
+        if (data.code == 200) {
+          var list = data.data.list;
+          _this.list = list;
+          if (list.length == 0) {
+            _this.bitmap = true;
+            _this.loading = '空';
+          } else {
+            _this.bitmap = false;
+            if (list.length == 10) {
+              _this.loading = true;
+            }
+          }
+        }
+      });
+    },
+    detailPage: function detailPage(id) {
+      uni.navigateTo({
+        url: 'cashdetail?id=' + id });
+
+    } },
+
+  onShow: function onShow() {
+    this.myCash();
+  },
+  onReachBottom: function onReachBottom() {
+    var that = this;
+    var timeStamp = Math.round(new Date().getTime() / 1000);var
+
+    num =
+
+
+    that.num,page = that.page,orderType = that.orderType;
+    var obj = {
+      appid: appid,
+      timeStamp: timeStamp };
+
+    var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+    var data = {
+      appid: appid,
+      num: num,
+      page: page + 1,
+      timeStamp: timeStamp,
+      type: orderType,
+      sign: sign };
+
+    _request.default.getRequests("couponsList", data, function (res) {var
+
+      data =
+      res.data;
+      if (data.code == 200) {
+        if (res.data.data.list == '') {
+          that.loading = false;
+        } else {var _that$list;
+          (_that$list = that.list).push.apply(_that$list, _toConsumableArray(res.data.data.list));
+          that.page += 1;
+          that.loading = true;
+        }
+      }
+    });
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

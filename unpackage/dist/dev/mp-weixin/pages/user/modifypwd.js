@@ -134,57 +134,85 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-var app = getApp().globalData;var
-navBar = app.navBar;var _default =
-{
-  data: function data() {
-    return {
-      address: '',
-      navBar: navBar };
 
-  },
-  methods: {
-    leftClick: function leftClick() {
-      uni.navigateBack({
-        delta: 1 });
 
-    },
 
-    mapPage: function mapPage() {
-      var that = this;
 
-      uni.chooseLocation({
-        success: function success(res) {
-          that.address = res.address;
-        },
-        fail: function fail(err) {
-          console.log(err);
-        } });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { old_pwd: '', //旧密码
+      password: '', //旧密码
+      password_confirmation: '', //旧密码
+      navBar: navBar };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, formSubmit: function formSubmit() {var _this = this;var old_pwd = this.old_pwd;
+      var password = this.password;
+      var password_confirmation = this.password_confirmation;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = { appid: appid, old_pwd: old_pwd, password: password, password_confirmation: password_confirmation, timeStamp: timeStamp };
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      if (old_pwd == "") {
+        _request.default.Toast("原始密码不能为空");
+        return false;
+      }
+      if (password.length < 6) {
+        _request.default.Toast("密码不能小于六位数");
+        return false;
+      }
+      if (password_confirmation != password) {
+        _request.default.Toast("密码不一致");
+        return false;
+      }
+      var data = { appid: appid, old_pwd: old_pwd, password: password, password_confirmation: password_confirmation, timeStamp: timeStamp, sign: sign };
+      _request.default.postRequests("modifyPassword", data, function (res) {
+        if (res.data.code == 200) {
+          _request.default.Toast('修改成功');
+          setTimeout(function () {
+            _this.leftClick();
+          }, 1000);
+        }
+        if (res.data.code == 400) {
+          _request.default.Toast(res.data.msg);
+        }
+      });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

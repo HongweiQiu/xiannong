@@ -92,19 +92,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
-var components = {
-  "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 429))
-  }
-}
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-}
-var recyclableRender = false
+var render = function () {}
 var staticRenderFns = []
-render._withStripped = true
+var recyclableRender
+var components
 
 
 
@@ -134,74 +125,138 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-var app = getApp().globalData;var
-navBar = app.navBar;var _default =
-{
-  data: function data() {
-    return {
-      navBar: navBar };
 
-  },
-  methods: {
-    leftClick: function leftClick() {
-      uni.navigateBack({
-        delta: 1 });
 
-    } } };exports.default = _default;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, id: '', exist: false, detailList: [] };}, filters: { // 根据后台的coupons_status字段来判断样式,以下是模拟,
+    coupons_status: function coupons_status(val) {switch (val) {case 1:return 'cash_se1';case 2:return 'cash_se2';case 3:return 'cash_se3';default:return 'cash_se4';}} }, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, list: function list() {var _this = this;var timeStamp = Math.round(new Date().getTime() / 1000);var id = this.id;var obj = { appid: appid, id: id, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var params = Object.assign({ sign: sign }, obj);_request.default.getRequests('couponsDetails', params, function (res) {if (res.data.code == 200) {
+          _this.detailList = res.data.data;
+          var length = res.data.data.details.length;
+          if (!length) {
+            _this.exist = true;
+          }
+        }
+      });
+    } },
+
+  onLoad: function onLoad(options) {var
+
+    id =
+    options.id;
+
+    this.id = id;
+
+    this.list();
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

@@ -101,15 +101,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      _vm.isactive = true
-    }
-
-    _vm.e1 = function($event) {
-      _vm.isactive = false
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -143,69 +134,134 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-var app = getApp().globalData;var
-navBar = app.navBar;var _default =
-{
-  data: function data() {
-    return {
-      address: '',
-      navBar: navBar,
-      isactive: true };
 
-  },
-  methods: {
-    leftClick: function leftClick() {
-      uni.navigateBack({
-        delta: 1 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, isactive: true, types: 1, header: '', number: '', content: '', price: '' };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, formSubmit: function formSubmit() {var that = this;var header = that.header;var number = that.number;var content = that.content;var price = that.price;var type = that.types;var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = { appid: appid, content: content, header: header, number: number, price: price, timeStamp: timeStamp, type: type };
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var data = { appid: appid, content: content, header: header, number: number, price: price, timeStamp: timeStamp, sign: sign, type: type };
+      _request.default.postRequests('handleBill', data, function (res) {
+        if (res.data.code == 200) {
+          _request.default.Toast('提交成功');
+          setTimeout(function () {
+            uni.navigateBack({});
+          }, 1000);
+        } else {
+          _request.default.Toast(res.data.msg);
+        }
+      });
     },
-
-    mapPage: function mapPage() {
+    receipType: function receipType() {
+      this.isactive = !this.isactive;
+      if (this.isactive == true) {
+        this.types = 1;
+      } else if (this.isactive == false) {
+        this.types = 2;
+      }
+    },
+    /**
+        * 发票信息
+        */
+    billInfoa: function billInfoa() {
       var that = this;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp };
 
-      uni.chooseLocation({
-        success: function success(res) {
-          that.address = res.address;
-        },
-        fail: function fail(err) {
-          console.log(err);
-        } });
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var data = {
+        appid: appid,
+        timeStamp: timeStamp,
+        sign: sign };
 
-    } } };exports.default = _default;
+      _request.default.getRequests('billInfo', data, function (res) {
+        if (res.data.code == 200) {
+          that.header = res.data.data.header;
+          that.number = res.data.data.number;
+          that.content = res.data.data.content;
+          that.price = res.data.data.price;
+          that.types = res.data.data.type;
+          if (that.billInfo.type == 1) {
+            that.isactive = true;
+          } else if (that.billInfo.type == 2) {
+            that.isactive = false;
+          }
+        }
+      });
+    } },
+
+
+  onShow: function onShow() {
+    var that = this;
+    that.billInfoa();
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

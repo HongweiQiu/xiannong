@@ -4,71 +4,67 @@
 		<view class="bill_record">
 			<view class="record_box">
 				<view class="img">
-					<image :src="imgUrl+'img/nullcart.png'" alt=""></image>
-					<!-- <van-image use-error-slot :src="item.item_img==''?imgRemote+orderInfo.item_default:item.item_img" width="100px"
-					 height="80px" fit="contain">
-						<van-image width="100px" height="80px" fit="contain" slot="error" :src="imgRemote+orderInfo.item_default"></van-image>
-					</van-image> -->
+					<image :src="detailItem.item_url"></image>
 				</view>
 				<view class="record_detail">
 					<view class="top">
 						<view class="left">
 							<view class="title">
-								红色山东苹果红色山东约500g红  
+								{{detailItem.item_title}} 
 							</view>
 							<view class="txt">
-								描述描述描述描述描述描述描述描述描
-								描述描述描述描述描述描述描述描述描                         
+								{{detailItem.describe}}                         
 							</view>
-							<view class="txt">
-								【三斤装】                    
+							<view class="txt" v-if="detailItem.attr_title">
+								({{detailItem.attr_title}})            
 							</view>
 						</view>
 						
 					</view>
 					<view class="bottom">
-		                    合计：<text>¥1000.00</text>
+		                    合计：<text>¥{{detail.total}}</text>
 					</view>
 				</view>
 			</view>
 		</view>
 		
 		<view class="pur_list">
-			<view class="item">
+			<view class="item" v-for="item in detail.list">
 				<view class="left">
 					<view class="time">
-						2020-01-01
+						{{item.send_time}}
 					</view>
 					<view class="num">
-						<text>数量：99斤</text>
-						<text>单价：¥2.00</text>
+						<text>数量：{{item.nums}}{{detailItem.unit}}</text>
+						<text>单价：¥{{item.price}}</text>
 					</view>
 				</view>
 				<view class="right">
-					小计：¥198.00
+					小计：¥{{item.subtotal}}
 				</view>
 			</view>
 		</view>
 		
-		<van-toast id="van-toast" />
 	</view>
 </template>
 
 <script>
-	//引入组件
-	let app = getApp().globalData
-	const md5 = require('../../components/md5.js');
-	const rs = require('../../components/request.js')
-	let {
+	import md5 from '../../static/js/md5.js';
+	import rs from '../../static/js/request.js';
+	const app = getApp().globalData;
+	const {
 		appid,
 		appsecret,
-		imgRemote
+		imgRemote,
+		navBar
 	} = app;
-	import Toast from '../../wxcomponents/vant/toast/toast';
 	export default {
 		data() {
 			return {
-				imgUrl: app.imgUrl
+				imgUrl: app.imgUrl,
+				data:'',
+				detail:'',
+				detailItem:''
 			};
 		},
 		methods: {
@@ -77,6 +73,37 @@
 					delta: 1
 				});
 			},
+			/**
+			 * 购买记录
+			 */
+			recordDetail() {
+				var that = this;
+				var data = that.data;
+				console.log(data)
+				var timeStamp = Math.round(new Date().getTime() / 1000);
+				var obj = {
+					appid: appid,
+					timeStamp: timeStamp,
+				}
+				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				var data = {
+					appid: appid,
+					timeStamp: timeStamp,
+					sign: sign,
+					item_id:data.item_id,
+					attr_id:data.attr_id,
+					start:data.date[0],
+					end:data.date[1],
+				}
+				rs.getRequest("buyRecordDetail", data, (res) => {
+					if (res.data.code == 200) {
+						that.detail = res.data.data;
+						that.detailItem = res.data.data.item;
+					} else {
+						rs.Toast(res.data.msg)
+					}
+				})
+			},
 		
 		},
 		/**
@@ -84,6 +111,10 @@
 		 */
 		onShow() {
 			var that = this;
+			that.recordDetail()
+		},
+		onLoad(options) {
+			this.data = JSON.parse(options.obj);
 		},
 		/**
 		 * 页面上拉触底事件的处理函数
@@ -95,9 +126,10 @@
 </script>
 
 <style>
-	body {
-		background: #FFFFFF;
+	page {
+		background: #FFFFFF !important;
 	}
+
 
 	.uni-searchbar__box {
 		border-style: none !important;
@@ -167,6 +199,7 @@
 	.pur_list .item{
 		padding: 10px;
 		border-bottom: 1px solid #F7F6F6;
+		background: #ffffff;
 		display: flex;
 		align-items: flex-end;
 		justify-content: space-between;

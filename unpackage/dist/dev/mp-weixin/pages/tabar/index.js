@@ -467,6 +467,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
 
 
   onShow: function onShow() {
+
     this.indexAd();
     if (app.isReload == true) {
       this.page = 1;

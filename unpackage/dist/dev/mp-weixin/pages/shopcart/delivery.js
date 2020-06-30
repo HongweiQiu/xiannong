@@ -278,7 +278,7 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
     this.address = option.address;
     this.details = option.details;
     var count = option.count || 1;
-    console.log(option.count);
+    // console.log(option.count)
     if (count == 1) {
       if (this)
       this.memberAddressInfo();

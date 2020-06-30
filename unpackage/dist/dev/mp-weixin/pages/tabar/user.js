@@ -336,7 +336,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
             break;
           case 'address':
             uni.navigateTo({
-              url: '/pages/shopcart/delivery' });
+              url: '/pages/user/userAddress' });
 
             break;
           case 'password':
@@ -402,10 +402,9 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
   onShow: function onShow() {
     var that = this;
     that.memberInfo();
-    that.is_bind = uni.getStorageSync('is_bind');
+    that.is_bind = uni.getStorageSync('is_miniBind');
     that.is_child = uni.getStorageSync("is_child");
-    that.token = uni.getStorageSync("token");
-
+    that.token = uni.getStorageSync("cdj_token");
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

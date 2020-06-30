@@ -298,6 +298,7 @@
 
 		},
 		onShow() {
+
 			this.indexAd();
 			if (app.isReload==true) {
 				this.page=1;

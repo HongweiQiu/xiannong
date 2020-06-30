@@ -140,71 +140,181 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-var app = getApp().globalData;var
-navBar = app.navBar;var _default =
-{
-  data: function data() {
-    return {
-      date: '请选择日期',
-      bitmap: true,
-      navBar: navBar };
 
-  },
-  methods: {
-    leftClick: function leftClick() {
-      uni.navigateBack({
-        delta: 1 });
 
-    },
-    detailPage: function detailPage() {
-      uni.navigateTo({
-        url: 'billdetail' });
 
-    },
-    openCalendar: function openCalendar() {
-      this.$refs.calendar.open();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { date: '请选择日期', dateArr: '', bitmap: true, navBar: navBar, list: [], page: 1, loading: false };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, detailPage: function detailPage(id) {uni.navigateTo({ url: 'billdetail?id=' + id });}, openCalendar: function openCalendar() {this.$refs.calendar.open();
     },
     confirm: function confirm(e) {
-      var length = e.range.data.length - 1;
-      this.date = "".concat(e.range.data[0], ",").concat(e.range.data[length]);
+      if (!e.range.before || !e.range.after) {
+        _request.default.Toast("请选择正确的日期区间");
+      } else {
+        this.date = e.range.before + ',' + e.range.after;
+        this.dateArr = e.range.before + ',' + e.range.after;
+        this.list = [];
+        this.moneyList();
+      }
+    },
+    /**
+        * 账单列表
+        */
+    moneyList: function moneyList() {var _this = this;
+      var that = this;
+      var time = JSON.stringify(that.dateArr);
+      if (time == "") {
+        time = '';
+      } else {
+        time = JSON.stringify(that.dateArr);
+      }
+      var date = time;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp };
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var data = {
+        appid: appid,
+        timeStamp: timeStamp,
+        sign: sign,
+        page: 1,
+        date_str: date,
+        num: 20 };
+
+      that.list = [];
+      _request.default.getRequest("moneyListPaginate", data, function (res) {
+        if (res.data.code == 200) {
+          if (res.data.data.list != '') {
+            that.bitmap = true;
+            for (var i = 0; i < res.data.data.list.length; i++) {
+              that.list.push(res.data.data.list[i]);
+            }
+            if (that.list.length < 20) {
+              _this.loading = false;
+            } else {
+              _this.loading = true;
+            }
+          } else {
+            _this.loading = '空';
+            that.bitmap = false;
+          }
+        } else {
+          _this.loading = '空';
+          _request.default.Toast(res.data.msg);
+        }
+      });
     } },
 
-  onShow: function onShow() {} };exports.default = _default;
+  onShow: function onShow() {
+    var that = this;
+    that.moneyList();
+  },
+  /**
+      * 页面上拉触底事件的处理函数
+      */
+  onReachBottom: function onReachBottom() {var _this2 = this;
+    var that = this;
+    var time = that.dateArr;
+    if (time == "请选择日期") {
+      time = '';
+    } else {
+      time = that.dateArr;
+    }
+    var page = that.page;
+    var num = 20;
+    var date = time;
+    var timeStamp = Math.round(new Date().getTime() / 1000);
+    var obj = {
+      appid: appid,
+      timeStamp: timeStamp };
+
+    var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + app.globalData.appsecret);
+    var data = {
+      appid: appid,
+      timeStamp: timeStamp,
+      sign: sign,
+      page: page + 1,
+      date: date,
+      num: 20 };
+
+    _request.default.getRequest("moneyListPaginate", data, function (res) {
+      if (res.data.code == 200) {
+        if (res.data.data.moneyList != '') {
+          for (var i = 0; i < res.data.data.moneyList.length; i++) {
+            _this2.list.push(res.data.data.moneyList[i]);
+          }
+          _this2.page = page + 1;
+          _this2.loading = true;
+        } else {
+          _this2.loading = false;
+        }
+      }
+    });
+
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
