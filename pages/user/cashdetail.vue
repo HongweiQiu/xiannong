@@ -6,44 +6,46 @@
 			<view class="keys_str">
 				<view>
 					<view>标签</view>
-					<view></view>
+					<view>
+						<text class="cash_se" :class="detailList.coupons_status | coupons_status" v-for="item in detailList.coupons_label">{{item}}</text>
+					</view>
 				</view>
 				<view>
 					<view>名称</view>
-					<view>分宜县扶贫现金劵</view>
+					<view>{{detailList.coupons_title}}</view>
 				</view>
 				<view>
 					<view>面值</view>
-					<view>分宜县扶贫现金劵</view>
+					<view>{{detailList.money}}</view>
 				</view>
 				<view>
 					<view>余额</view>
-					<view>分宜县扶贫现金劵</view>
+					<view>{{detailList.residue}}</view>
 				</view>
 				<view>
 					<view>开始时间</view>
-					<view>分宜县扶贫现金劵</view>
+					<view>{{detailList.start_time}}</view>
 				</view>
 				<view>
 					<view>结束时间</view>
-					<view></view>
+					<view>{{detailList.expire_time}}</view>
 				</view>
 				<view>
 					<view>描述</view>
-					<view>分宜县扶贫现金劵</view>
+					<view>{{detailList.describe}}</view>
 				</view>
 			</view>
 		</view>
 		<view class="usage_record">
 			<view class="record_title">使用记录</view>
 			<view>
-				<view v-for="(item, index) in 2" class="record_info">
-					<text>DD2020040700000029</text>
-					<text>100元</text>
-					<text>2020-4-31</text>
+				<view v-for="(item, index) in detailList.details" class="record_info">
+					<text>{{item.order_sn}}</text>
+					<text>{{item.spend}}元</text>
+					<text>{{item.created_at}}</text>
 				</view>
 			</view>
-			<view class="bitmap">
+			<view class="bitmap" v-if="exist">
 				<image src="../../static/img/cash_record.png" mode=""></image>
 				<text class="ten">无记录</text>
 			</view>
@@ -52,55 +54,157 @@
 </template>
 
 <script>
-const app = getApp().globalData;
-const { navBar } = app;
-export default {
-	data() {
-		return {
-			navBar: navBar
-		};
-	},
-	methods: {
-		leftClick() {
-			uni.navigateBack({
-				delta: 1
-			});
+	import md5 from '../../static/js/md5.js';
+	import rs from '../../static/js/request.js';
+	const app = getApp().globalData;
+	const {
+		appid,
+		appsecret,
+		imgRemote,
+		navBar
+	} = app;
+	export default {
+		data() {
+			return {
+				navBar: navBar,
+				id: '',
+				exist: false,
+				detailList: []
+			};
+		},
+		filters: {
+			// 根据后台的coupons_status字段来判断样式,以下是模拟,
+			coupons_status(val) {
+				switch (val) {
+					case 1:
+						return 'cash_se1';
+					case 2:
+						return 'cash_se2';
+					case 3:
+						return 'cash_se3';
+					default:
+						return 'cash_se4';
+				}
+			}
+		},
+		methods: {
+			leftClick() {
+				uni.navigateBack({
+					delta: 1
+				});
+			},
+			list() {
+				var timeStamp = Math.round(new Date().getTime() / 1000);
+				var {
+					id
+				} = this;
+				var obj = {
+					appid: appid,
+					id: id,
+					timeStamp: timeStamp
+				};  
+				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				var params = Object.assign({
+						sign: sign
+					},
+					obj
+				);
+			
+				rs.getRequests('couponsDetails', params, res => {
+					if (res.data.code == 200) {
+						this.detailList = res.data.data;
+						let length = res.data.data.details.length;
+						if (!length) {
+							this.exist = true;
+						}
+					}
+				});
+			}
+		},
+		onLoad: function(options) {
+			let {
+				id
+			} = options;
+		
+			this.id = id;
+		
+			this.list();
 		}
-	}
-};
+	};
 </script>
 
 <style lang="scss">
-.cash_detail {
-	.information,.usage_record {
-		background: white;
-		padding: 20rpx;
-		margin-top: 10rpx;
+	.cash_detail {
+
+		.information,
+		.usage_record {
+			background: white;
+			padding: 20rpx;
+			margin-top: 10rpx;
+		}
 	}
-}
-.cash_detail .information .keys_str > view {
-	display: flex;
-	justify-content: space-between;
-	padding: 10rpx 0;
-	font-size: 24rpx;
-}
-.cash_detail .information .keys_str > view > view:first-child {
-	width: 100rpx;
-	text-align: right;
-}
-.cash_detail .information .keys_str > view > view:last-child {
-	color: #808080;
-}
-.usage_record .record_title{text-align: center;}
-.usage_record .record_info{display: flex;justify-content: space-between;font-size: 24rpx;padding:10rpx 0;}
-.usage_record .bitmap {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-.usage_record .bitmap image {
-	width: 44rpx;
-	height: 56rpx;
-}
+
+	.cash_detail .information .keys_str>view {
+		display: flex;
+		justify-content: space-between;
+		padding: 10rpx 0;
+		font-size: 24rpx;
+	}
+
+	.cash_detail .information .keys_str>view>view:first-child {
+		width: 100rpx;
+		text-align: right;
+	}
+
+	.cash_detail .information .keys_str>view>view:last-child {
+		color: #808080;
+	}
+
+	.usage_record .record_title {
+		text-align: center;
+	}
+
+	.usage_record .record_info {
+		display: flex;
+		justify-content: space-between;
+		font-size: 24rpx;
+		padding: 10rpx 0;
+	}
+
+	.usage_record .bitmap {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.usage_record .bitmap image {
+		width: 44rpx;
+		height: 56rpx;
+	}
+	.cash_se {
+		padding: 0 2px;
+		border-radius: 3px;
+		margin-left: 3px;
+	}
+	
+	.cash_se1 {
+		border: 1px solid #3D98FF;
+		color: #3D98FF;
+	}
+	
+	.cash_se2 {
+		border: 1px solid #009A44;
+		color: #009A44;
+	}
+	
+	.cash_se3 {
+		border: 1px solid #CD2D44;
+		color: #CD2D44;
+	}
+	
+	.cash_se4 {
+		border: 1px solid #808080;
+		color: #808080;
+	}
 </style>

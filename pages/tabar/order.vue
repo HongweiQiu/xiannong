@@ -3,7 +3,7 @@
 		<view class="order_top">
 			<uni-nav-bar right-icon="more-filled" right-text="菜单" :title="orderTitle" :status-bar="navBar" fixed="true"
 			 @clickRight="rightClick"></uni-nav-bar>
-			<view class="account_info">
+			<view class="account_info" v-if="is_child != 1">
 				<!-- 选择账号 -->
 				<view class="select_account" @click="selectAccount">
 					<view>选择子账号:</view>
@@ -835,7 +835,7 @@
 	}
 	.order .bitmap image {
 		width: 400rpx;
-		height: 400rpx;
+		height: 360rpx;
 		margin-top: 150rpx;
 	}
 </style>

@@ -159,7 +159,7 @@
 					});
 				} else {
 					uni.navigateTo({
-						url: '/pages/logn/logn'
+						url: '/pages/account/login'
 					});
 				}
 			},
@@ -188,7 +188,7 @@
 									uni.clearStorage({
 										success: function(reg) {
 											uni.navigateTo({
-												url: '/pages/logn/logn'
+												url: '/pages/account/login'
 											});
 										}
 									})
@@ -211,7 +211,7 @@
 							break;
 						case 'address':
 							uni.navigateTo({
-								url: '../shippingAddress/shippingAddress',
+								url: 'userAddress',
 							});
 							break;
 						case 'pwd':
@@ -222,7 +222,7 @@
 					}
 				} else {
 					uni.navigateTo({
-						url: '/pages/logn/logn'
+						url: '/pages/account/login'
 					});
 				}
 			},
@@ -234,7 +234,7 @@
 
 				} else {
 					uni.navigateTo({
-						url: '/pages/logn/logn'
+						url: '/pages/account/login'
 					});
 				}
 
@@ -345,7 +345,6 @@
 			that.is_bind = uni.getStorageSync('is_miniBind');
 			that.is_child = uni.getStorageSync("is_child");
 			that.token = uni.getStorageSync("cdj_token");
-
 		},
 	};
 </script>
