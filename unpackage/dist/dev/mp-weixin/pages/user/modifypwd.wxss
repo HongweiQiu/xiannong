@@ -4,7 +4,7 @@
 	padding: 0 20rpx;
 	margin-top: 10rpx;
 }
-.modifypwd .get_info > view {
+.modifypwd .get_info>view {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -14,7 +14,7 @@
 	        align-items: center;
 	border-bottom: 1px solid #f7f6f6;
 }
-.modifypwd .get_info > view > text {
+.modifypwd .get_info>view>text {
 	width: 150rpx;
 	color: #808080;
 }

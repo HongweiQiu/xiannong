@@ -15,7 +15,7 @@
 .bill .single .account_info {
 	width: 90%;
 }
-.bill .single .account_info > view {
+.bill .single .account_info>view {
 	height: 40rpx;
 	line-height: 40rpx;
 }
@@ -48,5 +48,4 @@
 .bill .bitmap image {
 	width: 314rpx;
 }
-
 

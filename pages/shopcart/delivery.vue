@@ -49,7 +49,9 @@
 				details: '',
 				mobile: '',
 				childzid: '',
-				navBar: navBar
+				navBar: navBar,
+				lat: '',
+				lng: ''
 			};
 		},
 		methods: {
@@ -59,19 +61,21 @@
 				})
 			},
 			mapPage() {
+				let that = this;
 				// #ifdef H5
+				
 				uni.navigateTo({
-					url: `address?contact=${this.contact}&mobile=${this.mobile}&address=${this.address}&details=${this.details}`
+					url: `address?contact=${this.contact}&mobile=${this.mobile}&address=${this.address}&details=${this.details}&lat=${that.lat}&lng=${that.lng}`
 				})
 				return;
 				// #endif
 
 				uni.chooseLocation({
 					success: function(res) {
-						console.log('位置名称：' + res.name);
-						console.log('详细地址：' + res.address);
-						console.log('纬度：' + res.latitude);
-						console.log('经度：' + res.longitude);
+						// console.log('位置名称：' + res.name);
+						that.address = res.address;
+						that.lat = res.latitude;
+						that.lng = res.longitude;
 					}
 				});
 			},

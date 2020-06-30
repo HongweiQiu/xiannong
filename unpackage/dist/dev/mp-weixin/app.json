@@ -26,7 +26,8 @@
         "forget",
         "register",
         "service",
-        "treaty"
+        "treaty",
+        "bind"
       ]
     },
     {
@@ -61,7 +62,11 @@
         "cash",
         "cashdetail",
         "myinfo",
-        "bindphone"
+        "bindphone",
+        "userAddress",
+        "address",
+        "purchase_detail",
+        "purchase_record"
       ]
     }
   ],
@@ -100,6 +105,5 @@
   "uniStatistics": {
     "enable": true
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap90.json"
+  "usingComponents": {}
 }

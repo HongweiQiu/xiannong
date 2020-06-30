@@ -2,7 +2,7 @@ let app = getApp();
 var active = {
 	'active': app.globalData.active
 };
-var rootDocment = app.globalData.rootUrl; //主接口
+var rootDocment = app.globalData.rootUrl+'/mobileOrder/'; //主接口; //主接口
 var globalUrl = ["login"]
 if (uni.getStorageSync("cdj_token")) {
 	var header = {
@@ -245,6 +245,23 @@ function Toast(message) {
 	})
 }
 
+function thedefaulttime() { //购买记录默认时间
+	var date = new Date();
+	var year = date .getFullYear().toString();
+	var time = (date.getMonth()+1).toString();
+	var month = '';
+	if(time < 10){
+		month = "0"+time;
+	}else{
+		month = time;
+	}
+	var day = date.getDate().toString();
+	var start = year +'-'+ month +'-01';
+	var end = year +'-'+ month +'-'+ day;
+	var dateArr = [start,end];
+	return dateArr;
+}
+
 
 module.exports = {
 	getRequest: getRequest,
@@ -253,5 +270,6 @@ module.exports = {
 	postRequests: postRequests,
 	Toast:Toast,
 	header: header, //请求头部
-	objKeySort: objKeySort //加密排序
+	objKeySort: objKeySort, //加密排序
+	thedefaulttime: thedefaulttime //加密排序
 }

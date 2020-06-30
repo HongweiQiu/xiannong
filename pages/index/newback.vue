@@ -1,15 +1,17 @@
 <template>
-	<view>
+	<view class="newback">
 		<uni-nav-bar left-icon="arrowleft" title="新品反馈" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
 
 
-		<view class="xp-con"><textarea placeholder-style="font-size:14px;" placeholder="商城没有您要的商品？请提供资料我们帮您找..." v-model="contents"></textarea></view>
-
+		<view class="xp-con"><textarea maxlength="60" placeholder-style="font-size:14px;" placeholder="商城没有您要的商品？请提供资料我们帮您找..." v-model="contents"></textarea></view>
+		  <view class="text_length">
+		  	{{contents.length}}/60
+		  </view>
 		<view class="xp-sc">
 			<block v-for="(item, index) in img" :key="index" v-if="img != ''">
 				<view class="select-photo">
-					<van-icon name="cross" class="delete-icon" @click="deletePhoto(index)" />
-
+					<!-- <van-icon name="cross" class="delete-icon" @click="deletePhoto(index)" /> -->
+					<text class="delete-icon iconfont icon-X" @click="deletePhoto(index)"></text>
 					<image class="xp-sc-img" :src="item.src"></image>
 				</view>
 			</block>
@@ -64,7 +66,7 @@
 					success: function(res) {
 						// 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
 						var media_id = res.tempFilePaths;
-                       console.log(media_id)
+
 						var feed = 'feed';
 						var timeStamp = Math.round(new Date().getTime() / 1000);
 						var obj = {
@@ -72,19 +74,18 @@
 							type: feed,
 							timeStamp: timeStamp
 						};
-					
+
 						var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
 						for (var i = 0; i < media_id.length; i++) {
 							uni.uploadFile({
 								method: 'POST',
-								url: rootUrl + 'uploadImg', //此处换上你的接口地址
+								url: rootUrl + '/mobileOrder/uploadImg', //此处换上你的接口地址
 								name: 'img',
 								header: {
-								
 									Authorization: uni.getStorageSync('cdj_token')
 								},
 								formData: {
-									appid:appid,
+									appid: appid,
 									timeStamp: timeStamp,
 									type: feed,
 									img: media_id,
@@ -92,9 +93,13 @@
 								},
 								filePath: media_id[i],
 								success: function(res) {
-									console.log(res)
 									var img = JSON.parse(res.data);
-									that.img.push(img.data);
+									if (img.code == 200) {
+										that.img.push(img.data);
+									} else {
+										rs.Toast(img.msg)
+									}
+
 								}
 							});
 						}
@@ -126,18 +131,14 @@
 				}
 				rs.postRequests("feedBack", data, (res) => {
 					if (res.data.code == 200) {
-
-						uni.showToast({
-							title: '提交成功'
-						})
+						rs.Toast('提交成功')
 						setTimeout(() => {
 							uni.switchTab({
 								url: '/pages/tabar/index',
 							})
 						}, 1000)
-
 					} else {
-						Toast(res.data.msg)
+						rs.Toast(res.data.msg)
 					}
 				})
 			}
@@ -298,7 +299,11 @@
 		width: 30rpx;
 		height: 30rpx;
 		z-index: 8;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		text-align: center;
-		font-size: 20rpx;
+		font-size: 15rpx;
 	}
+	.newback .text_length{position: absolute;font-size: 20rpx;color:gray;right:20rpx;margin-top:-40rpx;}
 </style>

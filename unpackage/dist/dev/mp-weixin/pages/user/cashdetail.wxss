@@ -24,7 +24,8 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.cash_detail .information, .cash_detail .usage_record {
+.cash_detail .information,
+.cash_detail .usage_record {
   background: white;
   padding: 20rpx;
   margin-top: 10rpx;
@@ -77,5 +78,26 @@
 .usage_record .bitmap image {
   width: 44rpx;
   height: 56rpx;
+}
+.cash_se {
+  padding: 0 2px;
+  border-radius: 3px;
+  margin-left: 3px;
+}
+.cash_se1 {
+  border: 1px solid #3D98FF;
+  color: #3D98FF;
+}
+.cash_se2 {
+  border: 1px solid #009A44;
+  color: #009A44;
+}
+.cash_se3 {
+  border: 1px solid #CD2D44;
+  color: #CD2D44;
+}
+.cash_se4 {
+  border: 1px solid #808080;
+  color: #808080;
 }
 

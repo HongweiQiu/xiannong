@@ -121,7 +121,7 @@
 					let {
 						data
 					} = res;
-					
+
 					if (data.code == 406) {
 						rs.Toast('请您先绑定微信')
 						setTimeout(() => {
@@ -145,7 +145,7 @@
 						} else if (data.data.payType == 2) {
 							var thta = this;
 							var wxOrder = data.data.wxParams;
-						
+
 							WeixinJSBridge.invoke(
 								'getBrandWCPayRequest', {
 									"appId": wxOrder.appId, //公众号名称，由商户传入
@@ -204,12 +204,12 @@
 								url: '/pages/tabar/order',
 							})
 						}
-						log(data)
+
 						if (res.data.data.payType == 2) {
 							let {
 								wxParams
 							} = res.data.data;
-
+							log(wxParams)
 							uni.requestPayment({
 								provider: 'wxpay',
 								orderInfo: wxParams, //微信、支付宝订单数据
@@ -234,6 +234,7 @@
 			// #endif
 			// #ifdef MP-WEIXIN
 			payOrder() {
+				console.log(132)
 				let {
 					id
 				} = this;

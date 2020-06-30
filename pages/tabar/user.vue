@@ -32,7 +32,7 @@
 			</view>
 			<uni-icons type="arrowright" size="20" color="white"></uni-icons>
 		</view>
-		
+
 		<view class="back_green"></view>
 		<view class="middle">
 			<view class="" @click="threePage('recomend')">
@@ -133,6 +133,12 @@
 						icon: 'icon-weixin',
 						name: '微信改绑',
 						color: '#26DD5B'
+					},
+					{
+						icon: 'icon-fenxiang',
+						name: '分享',
+						color: '#26DD5B',
+						url: 'share'
 					}
 				],
 				is_bind: '',
@@ -172,9 +178,14 @@
 				})
 			},
 			pageUrl(item) {
-				uni.navigateTo({
-					url: `/pages/user/${item.url}`
-				});
+				if (item.url != 'share') {
+					uni.navigateTo({
+						url: `/pages/user/${item.url}`
+					});
+				} else {
+					
+				}
+
 			},
 			threePage(data) {
 				if (this.token) {
@@ -241,7 +252,7 @@
 					}
 				});
 			},
-	
+
 		},
 		onLoad() {
 			uni.hideTabBar();
@@ -255,7 +266,6 @@
 			that.is_bind = uni.getStorageSync('is_miniBind');
 			that.is_child = uni.getStorageSync("is_child");
 			that.token = uni.getStorageSync("cdj_token");
-		
 		},
 	};
 </script>
@@ -302,7 +312,7 @@
 		width: 40rpx;
 		height: 40rpx;
 		margin-left: 10rpx;
-		
+
 	}
 
 	.user .middle>view {
@@ -347,6 +357,4 @@
 	.user .select_operate>view .name {
 		margin-left: 10rpx;
 	}
-
 </style>
-

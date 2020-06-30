@@ -4,7 +4,7 @@
 	padding: 0 20rpx;
 	margin-top: 10rpx;
 }
-.receipt .get_info > view {
+.receipt .get_info>view {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -14,7 +14,7 @@
 	        align-items: center;
 	border-bottom: 1px solid #f7f6f6;
 }
-.receipt .get_info > view > text {
+.receipt .get_info>view>text {
 	width: 120rpx;
 	text-align: right;
 	margin-right: 30rpx;
@@ -46,15 +46,22 @@
 	-webkit-justify-content: center;
 	        justify-content: center;
 }
-.receipt .receipt_type > view {
+.receipt .receipt_type>view {
 	width: 164rpx;
 	height: 46rpx;
 	border: 1px solid #009a44;
 	text-align: center;
 	line-height: 46rpx;
-	color:#009A44 ;
+	color: #009A44;
 }
-.receipt .receipt_type .enterprise{border-radius:4rpx 0 0 4rpx;}
-.receipt .receipt_type .person{border-radius:0rpx 4rpx 4rpx 0;}
-.receipt .checked{background:#009A44 ;color:white!important;}
+.receipt .receipt_type .enterprise {
+	border-radius: 4rpx 0 0 4rpx;
+}
+.receipt .receipt_type .person {
+	border-radius: 0rpx 4rpx 4rpx 0;
+}
+.receipt .checked {
+	background: #009A44;
+	color: white !important;
+}
 

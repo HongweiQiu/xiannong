@@ -19,10 +19,9 @@
 				</view>
 				<view style="height: 99rpx;"></view>
 				<view v-if="list.length">
-					<my-profile v-for="(item,index) in list" :key="index" 
-					:wares="item" :config="config" class="single_good" @showCart="openCart(item)" 
+					<my-profile v-for="(item,index) in list" :key="index" :wares="item" :config="config" class="single_good" @showCart="openCart(item)"
 					 @showKey="showKey(item,index)"></my-profile>
-					 
+
 					<view class="my_loading">
 						<view class="loading" v-if="loading">
 							<image class="load_img" src="../../static/img/loading.gif" mode=""></image>
@@ -53,7 +52,7 @@
 			<!-- #endif -->
 			<view class="all_title">全部分类</view>
 			<view class="show_all_sort">
-				<text v-for="(item,index) in firstCate"  :key="index" @click="selectSort(index)" :class="active==index?'select_back':''">{{item.name}}</text>
+				<text v-for="(item,index) in firstCate" :key="index" @click="selectSort(index)" :class="active==index?'select_back':''">{{item.name}}</text>
 			</view>
 			<view class="option">
 				<view class="cancel" @click="cancelSort">取消</view>
@@ -98,7 +97,7 @@
 				cartware: [],
 				arrObj: {},
 				index: '',
-				textInfo:''
+				textInfo: ''
 			};
 		},
 		methods: {
@@ -136,6 +135,10 @@
 				this.$refs.popup.close();
 			},
 			mpItem() {
+				uni.pageScrollTo({
+					scrollTop: 0,
+					duration: 300
+				});
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -177,7 +180,12 @@
 						this.list = data.data.list;
 						if (data.data.list.length < 10) {
 							this.loading = false;
-							this.textInfo="没有更多呢"
+							if (this.kind == this.secondCate.length - 1) {
+								this.textInfo = "没有更多呢"
+							} else {
+								this.textInfo = "上滑或点击<span class='red_font'>" + this.secondCate[1].name + '</span>进入下一分类';
+							}
+
 						} else {
 							this.loading = true;
 						}
@@ -198,10 +206,10 @@
 				this.kind = index;
 				this.mpItem();
 			},
-			nextSecond(){
-				if(this.textInfo!='没有更多呢'){
-					this.secondId = this.secondCate[this.kind+1].id;
-					this.kind +=1;
+			nextSecond() {
+				if (this.textInfo != '没有更多呢') {
+					this.secondId = this.secondCate[this.kind + 1].id;
+					this.kind += 1;
 					uni.pageScrollTo({
 						scrollTop: 0,
 						duration: 300
@@ -300,8 +308,13 @@
 						this.loading = true;
 					} else {
 						this.loading = false;
-                        this.textInfo="上滑或点击进入<span class='red_font'>"+this.secondCate[this.kind+1].name+'</span>';
-				
+						if (this.kind == this.secondCate.length - 1) {
+							this.textInfo = "没有更多呢";
+						} else {
+							this.textInfo = "上滑或点击<span class='red_font'>" + this.secondCate[this.kind + 1].name + '</span>进入下一分类';
+						}
+
+
 					}
 				}
 			})
@@ -464,11 +477,26 @@
 		margin: 2%;
 		padding: 2rpx 14rpx;
 	}
+
 	.loading {
-		display: flex;align-items: center;justify-content: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
-	.loading .load_img{width:25rpx;height:25rpx;margin-right: 10rpx;}
-	
-	
-	.my_loading{color: #808080;font-size: 24rpx!important;text-align: center;height:80rpx;line-height: 80rpx;background:#F8F6F9 ;}
+
+	.loading .load_img {
+		width: 25rpx;
+		height: 25rpx;
+		margin-right: 10rpx;
+	}
+
+
+	.my_loading {
+		color: #808080;
+		font-size: 24rpx !important;
+		text-align: center;
+		height: 80rpx;
+		line-height: 80rpx;
+		background: #F8F6F9;
+	}
 </style>

@@ -178,7 +178,7 @@
 							// #endif
 
 							// #ifdef H5
-							pages[0].addInfo();
+						     window.location.reload();
 							// #endif
 						}
 					} else if (res.data.code == 407 || res.data.code == 406) {

@@ -217,7 +217,7 @@
 .shop_detail .nab_title {
 	position: fixed;
 	width: 100%;
-	z-index: 2;
+	z-index: 5;
 }
 .shop_detail .nab_title1 {
 	background: white !important;
