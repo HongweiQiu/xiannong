@@ -227,7 +227,7 @@
 				}
 			},
 			userInfoPage() {
-				if (this.token) {
+				if (this.token != '') {
 					uni.navigateTo({
 						url: 'userinfo',
 					});

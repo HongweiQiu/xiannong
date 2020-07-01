@@ -133,11 +133,9 @@
 				var that = this
 				uni.uploadFile({
 					method: 'POST',
-					url: app.rootUrl + "uploadImg", //此处换上你的接口地址
+					url: app.rootUrl + "/mobileOrder/uploadImg", //此处换上你的接口地址
 					name: 'img',
 					header: {
-						'Accept': 'application/json',
-						'content-type': 'application/json', //
 						'Authorization': uni.getStorageSync('cdj_token'),
 					},
 					formData: {
