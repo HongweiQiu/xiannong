@@ -135,4 +135,6 @@ page {
 	font-size: 28rpx;
 	color: #c2c2c2;
 }
+.login button{background: none;line-height: initial;}
+.login button::after{border: none;}
 

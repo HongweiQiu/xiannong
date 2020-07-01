@@ -76,6 +76,7 @@
           align-items: center;
 }
 .usage_record .bitmap image {
+  margin: 30rpx 0 10rpx 0;
   width: 44rpx;
   height: 56rpx;
 }

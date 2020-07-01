@@ -30,7 +30,16 @@
 				<view class="">
 					<view class="divider gray_font">其他登录</view>
 					<view class="weixin_button" @click="wechatLogin">
+						<!-- #ifdef APP-PLUS |H5 -->
 						<image class="weixin_img" src="../../static/img/wechat.png" mode=""></image>
+						<!-- #endif -->
+
+						<!-- #ifdef MP-WEIXIN -->
+						<button open-type="getUserInfo">
+							<image class="weixin_img" src="../../static/img/wechat.png" mode=""></image>
+						</button>
+						<!-- #endif -->
+
 						<text>微信登录</text>
 					</view>
 					<view class="read_treaty" @click="pageUrl('treaty')">
@@ -205,8 +214,8 @@
 						data
 					} = res;
 					if (data.code == 200) {
-						
-					uni.setStorageSync('isWeixin',true)
+
+						uni.setStorageSync('isWeixin', true)
 						let url = app.rootUrl + "/#/pages/account/login";
 						let redirect_uri = encodeURIComponent(url);
 						let a = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
@@ -280,7 +289,7 @@
 			// #endif
 		},
 		onShow() {
-			
+
 			let timeStamp = Math.round(new Date().getTime() / 1000);
 			let obj = {
 				appid: appid,
@@ -303,8 +312,8 @@
 			// #ifdef H5
 			let code = location.search;
 			let getCode = code.substring(code.indexOf('=') + 1, code.lastIndexOf('&'));
-          let isWeixin=uni.getStorageSync('isWeixin');
-			if (isWeixin&&getCode) {
+			let isWeixin = uni.getStorageSync('isWeixin');
+			if (isWeixin && getCode) {
 
 				let obj = {
 					appid: appid,
@@ -320,7 +329,7 @@
 						data
 					} = res;
 					uni.clearStorageSync('isWeixin')
-					if (data.code==200) {
+					if (data.code == 200) {
 						uni.setStorageSync('cdj_token', data.data.token);
 						uni.setStorageSync('is_miniBind', data.data.is_bind);
 						uni.setStorageSync('is_child', data.data.is_child);
@@ -486,4 +495,6 @@
 		font-size: 28rpx;
 		color: #c2c2c2;
 	}
+	.login button{background: none;line-height: initial;}
+	.login button::after{border: none;}
 </style>

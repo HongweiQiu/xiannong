@@ -20,7 +20,7 @@
 			</view>
 			<view>
 				<text>门牌号</text>
-				<input type="number" v-model="details" placeholder="例如：5号509室" placeholder-class="place_style" />
+				<input type="text" v-model="details" placeholder="例如：5号509室" placeholder-class="place_style" />
 			</view>
 		</view>
 		<view class="submit_button button_style" @click="submit">保存</view>
@@ -103,6 +103,16 @@
 				})
 			},
 			submit() {
+				var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
+				if (!this.mobile) {
+					rs.Toast('手机号不能为空');
+					return;
+				}
+				
+				if (!reg.test(this.contact)||!reg.test(this.details)) {
+					rs.Toast('不能输入特殊字符和空格');
+					return;
+				}
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,

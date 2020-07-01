@@ -298,20 +298,23 @@
 						} else {
 							this.spec = false;
 						}
-						console.log(this.spec);
+
 						this.hours = data.data.panicActivity.timeRemain / 3600;
+						// 推荐列表
+						rs.getRequests('itemRecommend', params, res => {
+							let data = res.data;
+							if (data.code == 200) {
+								this.recommend = data.data;
+								if (data.data.list.length) {
+									this.recommendLength = true;
+								}
+							}
+						});
+					}else{
+						rs.Toast(data.msg)
 					}
 				});
-				// 推荐列表
-				rs.getRequests('itemRecommend', params, res => {
-					let data = res.data;
-					if (data.code == 200) {
-						this.recommend = data.data;
-						if (data.data.list.length) {
-							this.recommendLength = true;
-						}
-					}
-				});
+
 			},
 			detailPage(id) {
 				uni.navigateTo({
@@ -449,6 +452,8 @@
 								});
 							}
 						}, 500);
+					} else if (data.code == 406 || data.code == 407) {
+						rs.Toast('超出活动购买数量');
 					} else {
 						rs.Toast(res.data.msg);
 					}

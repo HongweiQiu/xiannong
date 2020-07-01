@@ -25,19 +25,25 @@
         "selectway",
         "forget",
         "register",
-        "service"
+        "service",
+        "treaty",
+        "bind"
       ]
     },
     {
       "root": "pages/order",
       "pages": [
-        "orderdetail"
+        "orderdetail",
+        "pay"
       ]
     },
     {
       "root": "pages/shopcart",
       "pages": [
-        "delivery"
+        "delivery",
+        "pay",
+        "address",
+        "shoplist"
       ]
     },
     {
@@ -56,13 +62,17 @@
         "cash",
         "cashdetail",
         "myinfo",
-        "bindphone"
+        "bindphone",
+        "userAddress",
+        "address",
+        "purchase_detail",
+        "purchase_record"
       ]
     }
   ],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "enterprise",
+    "navigationBarTitleText": "",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
@@ -71,34 +81,19 @@
     "selectedColor": "#009A44",
     "list": [
       {
-        "pagePath": "pages/tabar/index",
-        "iconPath": "static/img/index_gray.png",
-        "selectedIconPath": "static/img/index_green.png",
-        "text": "首页"
+        "pagePath": "pages/tabar/index"
       },
       {
-        "pagePath": "pages/tabar/classify",
-        "iconPath": "static/img/classify_gray.png",
-        "selectedIconPath": "static/img/classify_green.png",
-        "text": "分类"
+        "pagePath": "pages/tabar/classify"
       },
       {
-        "pagePath": "pages/tabar/shopcart",
-        "iconPath": "static/img/shopcart_gray.png",
-        "selectedIconPath": "static/img/shopcart_green.png",
-        "text": "购物车"
+        "pagePath": "pages/tabar/shopcart"
       },
       {
-        "pagePath": "pages/tabar/order",
-        "iconPath": "static/img/order_gray.png",
-        "selectedIconPath": "static/img/order_green.png",
-        "text": "订单"
+        "pagePath": "pages/tabar/order"
       },
       {
-        "pagePath": "pages/tabar/user",
-        "iconPath": "static/img/user_gray.png",
-        "selectedIconPath": "static/img/user_green.png",
-        "text": "我的"
+        "pagePath": "pages/tabar/user"
       }
     ]
   },

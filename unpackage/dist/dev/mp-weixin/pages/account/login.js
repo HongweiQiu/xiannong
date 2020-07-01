@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 429))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 461))
   }
 }
 var render = function() {
@@ -135,6 +135,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
 
 
 
@@ -226,17 +235,17 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecret = app.appsecret,isWeixin = app.isWeixin;var _default = { data: function data() {return { display: true, navBar: navBar, logo: '', mobile: '', password: '' };}, methods: { clickLeft: function clickLeft() {uni.switchTab({ url: '/pages/tabar/index' });}, pageUrl: function pageUrl(data) {uni.navigateTo({ url: data });}, // 手机登录
-    mobileLogin: function mobileLogin() {var mobile = this.mobile,password = this.password;var timeStamp = Math.round(new Date().getTime() / 1000);if (!mobile) {_request.default.Toast('手机号码不能为空，请输入手机号');return;}if (!password) {_request.default.Toast('密码不能为空，请输入密码');return;}if (password.length < 6) {_request.default.Toast('密码不能少于六位');
-        return;
-      }
-      var obj = {
-        mobile: mobile,
-        password: password,
-        appid: appid,
-        timeStamp: timeStamp };
-
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+    mobileLogin: function mobileLogin() {var mobile = this.mobile,password = this.password;var timeStamp = Math.round(new Date().getTime() / 1000);if (!mobile) {_request.default.Toast('手机号码不能为空，请输入手机号');return;}if (!password) {_request.default.Toast('密码不能为空，请输入密码');return;}if (password.length < 6) {_request.default.Toast('密码不能少于六位');return;}var obj = { mobile: mobile, password: password, appid: appid, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
       var params = Object.assign({
         sign: sign },
 

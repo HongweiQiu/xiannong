@@ -2,12 +2,19 @@
 	<view class="cash_detail">
 		<uni-nav-bar left-icon="arrowleft" title="现金劵信息" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
 		<view class="information">
-			<view class="weight fourteen">正常</view>
+			<view class="weight fourteen">
+				<text  v-if="detailList.coupons_status == 2">正常</text>
+				<text  v-if="detailList.coupons_status == 1">未开始</text>
+				<text  v-if="detailList.coupons_status == 3">已使用</text>
+				<text  v-if="detailList.coupons_status == 4">已过期</text>
+			</view>
 			<view class="keys_str">
 				<view>
 					<view>标签</view>
 					<view>
-						<text class="cash_se" :class="detailList.coupons_status | coupons_status" v-for="item in detailList.coupons_label">{{item}}</text>
+						<text class="cash_se" :class="{cash_se2:detailList.coupons_status==2,
+						cash_se1:detailList.coupons_status==1,cash_se3:detailList.coupons_status==3,cash_se4:detailList.coupons_status==4}"
+						v-for="item in detailList.coupons_label">{{item}}</text>
 					</view>
 				</view>
 				<view>
@@ -16,11 +23,11 @@
 				</view>
 				<view>
 					<view>面值</view>
-					<view>{{detailList.money}}</view>
+					<view>{{detailList.money}}元</view>
 				</view>
 				<view>
 					<view>余额</view>
-					<view>{{detailList.residue}}</view>
+					<view>{{detailList.residue}}元</view>
 				</view>
 				<view>
 					<view>开始时间</view>
@@ -172,6 +179,7 @@
 	}
 
 	.usage_record .bitmap {
+		
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -179,6 +187,7 @@
 	}
 
 	.usage_record .bitmap image {
+		margin:30rpx 0 10rpx 0 ;
 		width: 44rpx;
 		height: 56rpx;
 	}

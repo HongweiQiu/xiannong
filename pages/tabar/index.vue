@@ -28,7 +28,7 @@
 			<image :src="adList.banner4" mode="aspectFit"></image>
 		</view>
 		<!-- 限时抢购 -->
-		
+
 		<view class="limit_buy" v-if="activeConf.length!=0">
 			<view class="head" @click="newPage('flashsale')">
 				<view class="title">
@@ -45,6 +45,7 @@
 			<view class="whole">
 				<view class="body" v-for="(item, index) in activeList" :key="index" @click="newPage('shopdetail',item.item_id)">
 					<view>
+						<image :src="config.logo" mode="aspectFit" class="shuiyin" v-if="config.logo&&config.shuiyin==1"></image>
 						<image class="good_img" :src="item.img==''?imgRemote+activeConf.item_default:item.img" mode="aspectFit"></image>
 					</view>
 					<view>
@@ -53,6 +54,7 @@
 							<view><text class="red_tag" v-for="(label,index) in item.label" :key="index">{{label}}</text></view>
 						</view>
 						<view class="price">
+
 							<block v-if="token">
 								<view style="width:66%;">
 									<view class="red_font hidden">¥{{item.activity_price}}/{{item.unit}}</view>
@@ -83,7 +85,7 @@
 			</view>
 			<my-loading :loading="loading"></my-loading>
 		</view>
-		<view class="support">
+		<view class="support" v-if="support">
 			由
 			<text>菜东家</text>
 			提供技术支持
@@ -113,15 +115,16 @@
 		},
 		data() {
 			return {
+				support:false,
 				showTop: false,
-				token: uni.getStorageSync('cdj_token'),
+				token: '',
 				load: true,
 				imgRemote: imgRemote,
 				speed: 30,
 				loading: true,
 				page: 1,
 				num: 10,
-				hours:0,
+				hours: 0,
 				minu: 0,
 				second: 0,
 				adList: {},
@@ -140,11 +143,7 @@
 					status
 				} = e;
 				if (status == 0) {
-					uni.showToast({
-						title: "该栏目已下架",
-						duration: 2000,
-						icon: "none"
-					})
+					rs.Toast("该栏目已下架");
 					return;
 				}
 				switch (id) {
@@ -189,7 +188,7 @@
 						});
 						break;
 					default:
-					console.log(cate_id)
+						console.log(cate_id)
 						getApp().globalData.classId = cate_id;
 						wx.switchTab({
 							url: '/pages/tabar/classify'
@@ -204,17 +203,17 @@
 			onClose() {
 				this.$refs.popup.close();
 			},
-			newPage(url,id) {
-				if(id){
-				uni.navigateTo({
-					url: `/pages/index/${url}?id=${id}`
-				});	
-				}else{
+			newPage(url, id) {
+				if (id) {
+					uni.navigateTo({
+						url: `/pages/index/${url}?id=${id}`
+					});
+				} else {
 					uni.navigateTo({
 						url: `/pages/index/${url}`
 					});
 				}
-				
+
 			},
 			indexAd() {
 				let timeStamp = Math.round(new Date().getTime() / 1000);
@@ -263,7 +262,9 @@
 						this.config = data.data;
 						if (data.data.total <= 10) {
 							this.loading = false;
+							this.support=true;
 						} else {
+							this.support=false;
 							this.loading = true;
 						}
 					}
@@ -298,11 +299,11 @@
 
 		},
 		onShow() {
-
+			this.token = uni.getStorageSync('cdj_token');
 			this.indexAd();
-			if (app.isReload==true) {
-				this.page=1;
-				this.itemList=[];
+			if (app.isReload == true) {
+				this.page = 1;
+				this.itemList = [];
 				this.indexItem();
 				uni.pageScrollTo({
 					scrollTop: 0
@@ -345,6 +346,7 @@
 						this.page += 1;
 						this.loading = true;
 					} else {
+						this.support=true;
 						this.loading = false;
 					}
 				}

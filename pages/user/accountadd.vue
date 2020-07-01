@@ -10,7 +10,7 @@
 			</view>
 			<view>
 				<text>联系人</text>
-				<input type="number" value="" placeholder="请输入联系人" placeholder-class="place_style" />
+				<input type="text" value="" placeholder="请输入联系人" placeholder-class="place_style" />
 			</view>
 			<view>
 				<text>手机号</text>
@@ -18,7 +18,7 @@
 			</view>
 			<view>
 				<text>密码</text>
-				<input type="number" value="" placeholder="请输入六位及以上的号码" placeholder-class="place_style" />
+				<input type="password" value="" placeholder="请输入六位及以上的号码" placeholder-class="place_style" />
 			</view>
 			<view @click="mapPage">
 				<text>收货地址</text>
@@ -29,7 +29,7 @@
 			</view>
 			<view>
 				<text>门牌号</text>
-				<input type="number" value="" placeholder="例如：5号509室" placeholder-class="place_style" />
+				<input type="text" value="" placeholder="例如：5号509室" placeholder-class="place_style" />
 			</view>
 		</view>
 		<view class="submit_button button_style">保存</view>
