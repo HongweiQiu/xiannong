@@ -19,6 +19,7 @@
 					<view>
 						<text class="red_tag" v-for="(item,index) in ware.label" :key="index">{{item}}</text>
 					</view>
+					
 					<block v-if="token">
 						<block v-if="config.is_look==1">
 							<block v-if="ware.attr.length">

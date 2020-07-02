@@ -67,7 +67,6 @@
 					mobile:this.mobile,
 					address:this.address,
 					details:this.details,
-					childzid:this.childzid
 				}
 				var url = 'user';
 				uni.setStorageSync('userAddress', data);
@@ -161,7 +160,6 @@
 		onLoad(option) {
 			var data = uni.getStorageSync('userAddress');
 			if(data){
-				this.childzid = data.childzid;
 				this.contact = data.contact;
 				this.mobile = data.mobile;
 				this.address = data.address;

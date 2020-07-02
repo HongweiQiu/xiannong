@@ -94,19 +94,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-icons": function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 400))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 432))
   },
   "uni-countdown": function() {
-    return __webpack_require__.e(/*! import() | components/uni-countdown/uni-countdown */ "components/uni-countdown/uni-countdown").then(__webpack_require__.bind(null, /*! @/components/uni-countdown/uni-countdown.vue */ 335))
+    return __webpack_require__.e(/*! import() | components/uni-countdown/uni-countdown */ "components/uni-countdown/uni-countdown").then(__webpack_require__.bind(null, /*! @/components/uni-countdown/uni-countdown.vue */ 367))
   },
   "my-stepper": function() {
-    return __webpack_require__.e(/*! import() | components/stepper/index */ "components/stepper/index").then(__webpack_require__.bind(null, /*! @/components/stepper/index.vue */ 443))
+    return __webpack_require__.e(/*! import() | components/stepper/index */ "components/stepper/index").then(__webpack_require__.bind(null, /*! @/components/stepper/index.vue */ 475))
   },
   "uni-popup": function() {
-    return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 363))
+    return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 395))
   },
   "my-keyboard": function() {
-    return Promise.all(/*! import() | components/keyboard/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/keyboard/index")]).then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 415))
+    return Promise.all(/*! import() | components/keyboard/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/keyboard/index")]).then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 447))
   }
 }
 var render = function() {
@@ -459,20 +459,23 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
           } else {
             _this2.spec = false;
           }
-          console.log(_this2.spec);
+
           _this2.hours = data.data.panicActivity.timeRemain / 3600;
+          // 推荐列表
+          _request.default.getRequests('itemRecommend', params, function (res) {
+            var data = res.data;
+            if (data.code == 200) {
+              _this2.recommend = data.data;
+              if (data.data.list.length) {
+                _this2.recommendLength = true;
+              }
+            }
+          });
+        } else {
+          _request.default.Toast(data.msg);
         }
       });
-      // 推荐列表
-      _request.default.getRequests('itemRecommend', params, function (res) {
-        var data = res.data;
-        if (data.code == 200) {
-          _this2.recommend = data.data;
-          if (data.data.list.length) {
-            _this2.recommendLength = true;
-          }
-        }
-      });
+
     },
     detailPage: function detailPage(id) {
       uni.navigateTo({
@@ -610,6 +613,8 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
 
             }
           }, 500);
+        } else if (data.code == 406 || data.code == 407) {
+          _request.default.Toast('超出活动购买数量');
         } else {
           _request.default.Toast(res.data.msg);
         }

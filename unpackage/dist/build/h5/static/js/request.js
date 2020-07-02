@@ -49,9 +49,9 @@ function getRequest(url, datas, success) {
 						})
 					}
 					if (res.data.code == 401) {
-						uni.navigateTo({
-							url: '/pages/account/login'
-						});
+					setTimeout(()=>{uni.navigateTo({
+						url: '/pages/account/login'
+					});},2000)
 					}
 
 					uni.hideLoading();
@@ -91,9 +91,10 @@ function getRequests(url, datas, success) {
 			}
 
 			if (res.data.code == 401) {
-				uni.navigateTo({
+				setTimeout(()=>{uni.navigateTo({
 					url: '/pages/account/login'
-				});
+				});},2000)
+				
 			}
 			if (res.data.code == 408) {
 				uni.navigateTo({
@@ -150,9 +151,9 @@ function postRequest(url, datas, success) {
 						})
 					}
 					if (res.data.code == 401) {
-						uni.navigateTo({
-							url: '/pages//account/login'
-						});
+						setTimeout(()=>{uni.navigateTo({
+							url: '/pages/account/login'
+						});},2000)
 					}
 					if (res.data.code == 403) {
 						uni.showToast({
@@ -207,9 +208,9 @@ function postRequests(url, datas, success) {
 				uni.setStorageSync("cdj_token", res.header.Authorization)
 			}
 			if (res.data.code == 401) {
-				uni.navigateTo({
+				setTimeout(()=>{uni.navigateTo({
 					url: '/pages/account/login'
-				});
+				});},2000)
 			}
 		},
 		fail: res => {

@@ -1,41 +1,42 @@
 <template>
 	<view class="accountedit">
-		<uni-nav-bar left-icon="arrowleft" title="账号编辑" :status-bar="navBar" fixed="true" @clickLeft="leftClick" right-text="删除"></uni-nav-bar>
-
-		<view class="get_info">
-			<view>
-				<text>账号名称</text>
-				<input type="text" value="" placeholder="联系人姓名" placeholder-class="place_style" />
-			</view>
-			<view>
-				<text>联系人</text>
-				<input type="number" value="" placeholder="请输入联系人" placeholder-class="place_style" />
-			</view>
-			<view>
-				<text>手机号</text>
-				<input type="number" value="" placeholder="请输入手机号" placeholder-class="place_style" />
-			</view>
-			<view>
-				<text>密码</text>
-				<input type="number" value="" placeholder="请输入六位及以上的号码" placeholder-class="place_style" />
-			</view>
-			<view class="flex_left_right">
-				<view style="color:#1EA55A;">账号启用和禁用</view>
-				<evan-switch v-model="checked" active-color="#1EA55A"></evan-switch>
-			</view>
-			<view @click="mapPage">
-				<text>收货地址</text>
-				<view class="flex_left_right" style="width: 83%;">
-					<text>{{ address }}</text>
-					<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
+		<uni-nav-bar left-icon="arrowleft" title="账号编辑" :status-bar="navBar" fixed="true" @clickLeft="leftClick" right-text="删除" @clickRight="deleteAccount"></uni-nav-bar>
+		<form @submit="formSubmit">
+			<view class="get_info">
+				<view>
+					<text>账号名称</text>
+					<input name="nickname" type="text" :value="childInfo.nickname" placeholder="联系人姓名" placeholder-class="place_style" />
+				</view>
+				<view>
+					<text>联系人</text>
+					<input name="contact" type="number" :value="childInfo.contact" placeholder="请输入联系人" placeholder-class="place_style" />
+				</view>
+				<view>
+					<text>手机号</text>
+					<input name="mobile" type="number" :value="childInfo.phone" placeholder="请输入手机号" maxlength="11" placeholder-class="place_style" />
+				</view>
+				<view>
+					<text>密码</text>
+					<input name="password" type="number" v-model="password" placeholder="请输入六位及以上的号码" placeholder-class="place_style" />
+				</view>
+				<view class="flex_left_right">
+					<view style="color:#1EA55A;">账号启用和禁用</view>
+					<evan-switch v-model="checked" active-color="#1EA55A" @change="openStatu"></evan-switch>
+				</view>
+				<view @click="mapPage">
+					<text>收货地址</text>
+					<view class="flex_left_right" style="width: 83%;">
+						<text>{{ childInfo.address }}</text>
+						<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
+					</view>
+				</view>
+				<view>
+					<text>门牌号</text>
+					<input name="details" type="text" :value="childInfo.details" placeholder="例如：5号509室" placeholder-class="place_style" />
 				</view>
 			</view>
-			<view>
-				<text>门牌号</text>
-				<input type="number" value="" placeholder="例如：5号509室" placeholder-class="place_style" />
-			</view>
-		</view>
-		<view class="submit_button button_style">保存</view>
+			<button form-type="submit" class="submit_button button_style">保存</button>
+		</form>
 	</view>
 </template>
 
@@ -63,13 +64,15 @@
 				longitude: '',
 				latitude: '',
 				save: true,
+				password: '',
+				count:''
 			};
 		},
 		methods: {
 			leftClick() {
-				uni.navigateBack({
-					delta: 1
-				});
+				uni.navigateTo({
+					url: "accountmange"
+				})
 			},
 			urlPage() {
 				if (this.save == false) {
@@ -78,23 +81,30 @@
 						content: '地址信息未保存，确定离开吗？',
 						success: function(res) {
 							if (res.confirm) {
-								uni.navigateBack({
-									delta: 1
-								});
+								uni.navigateTo({
+									url: "accountmange"
+								})
 							} else if (res.cancel) {}
 						}
 					});
 				} else {
-					uni.navigateBack({
-						delta: 1
-					});
+					uni.navigateTo({
+						url: "accountmange"
+					})
 				}
 			},
 
 			mapPage() {
 				// #ifdef H5
+				var data = {
+					childInfo:this.childInfo,
+					password:this.password,
+					select_zid:this.select_zid
+				}
+				var url = 'accountedit';
+				uni.setStorageSync('amend', data);
 				uni.navigateTo({
-					url: `address?contact=${this.contact}&mobile=${this.mobile}&address=${this.address}&details=${this.details}`
+					url: `address?url=${url}`
 				})
 				return;
 				// #endif
@@ -105,8 +115,8 @@
 						// console.log('详细地址：' + res.address);
 						// console.log('纬度：' + res.latitude);
 						// console.log('经度：' + res.longitude);
-						that.address = res.address
-						var obj = that.tobdMap(res.longitude,res.latitude);
+						that.childInfo.address = res.address
+						var obj = that.tobdMap(res.longitude, res.latitude);
 						that.lng = obj.lng;
 						that.lat = obj.lat;
 					}
@@ -120,7 +130,7 @@
 				let theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * x_pi);
 				let lngs = z * Math.cos(theta) + 0.0065;
 				let lats = z * Math.sin(theta) + 0.006;
-			
+
 				return {
 					lng: lngs,
 					lat: lats
@@ -150,12 +160,14 @@
 							}
 							rs.getRequests("delChild", data, (res) => {
 								if (res.data.code == 101) {
-									Toast('该账号已产生数据，无法删除')
+									rs.Toast('该账号已产生数据，无法删除')
 								}
 								if (res.data.code == 200) {
-									Toast('删除成功')
+									rs.Toast('删除成功')
 									setTimeout(function() {
-										uni.navigateBack({});
+										uni.navigateTo({
+											url: "accountmange"
+										})
 									}, 1000);
 								}
 							})
@@ -164,7 +176,7 @@
 						}
 					}
 				});
-			
+
 			},
 			openStatu(e) {
 				var that = this;
@@ -227,18 +239,18 @@
 				}
 				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
 				if (nickname == "") {
-					Toast("名称不能为空")
+					rs.Toast("名称不能为空")
 					return false;
 				}
 				if (contact == "") {
-					Toast("联系人不能为空")
+					rs.Toast("联系人不能为空")
 					return false;
 				}
 				if (mobile == "") {
-					Toast("手机号不能为空")
+					rs.Toast("手机号不能为空")
 					return false;
 				}
-			
+
 				var data = {
 					address: address,
 					appid: appid,
@@ -256,28 +268,36 @@
 				}
 				rs.postRequests("editChild", data, (res) => {
 					if (res.data.code == 200) {
-						Toast('修改成功')
+						rs.Toast('修改成功')
 						that.save = true;
 						setTimeout(function() {
-							uni.navigateBack({});
+							uni.navigateTo({
+								url: "accountmange"
+							})
 						}, 1000);
 					}
 					if (res.data.code == 400) {
-						Toast(res.data.msg)
+						rs.Toast(res.data.msg)
 					}
 				})
 			},
 		},
 		onLoad(options) {
-			this.select_zid = options.select_zid
-		
-		},
-		/**
-		 * 生命周期函数--监听页面初次渲染完成
-		 */
-		onReady() {
-			var that = this
-			that.memberAddressInfo()
+			var data = uni.getStorageSync('amend');
+			if(data){
+				this.childInfo = data.childInfo;
+				this.password = data.password;
+				this.select_zid = data.select_zid;
+			}else{
+				this.select_zid = options.select_zid;
+			}
+			this.latitude = options.lat;
+			this.longitude = options.lng;
+			this.count = options.count || 1;
+			if (this.count == 1) {
+				if (this)
+					this.memberAddressInfo()
+			}
 		},
 	};
 </script>

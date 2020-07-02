@@ -43,20 +43,49 @@
 					uni.navigateTo({
 						url: `userAddress?count=2`
 					})
+					return
+				}
+				if (this.url == 'accountedit') {
+					uni.navigateTo({
+						url: `accountedit?count=2`
+					})
+					return
+				}
+				if (this.url == 'accountadd') {
+					uni.navigateTo({
+						url: `accountadd?count=2`
+					})
+					return
 				}
 			},
 			rightClick() {
-				console.log(111)
 				if (this.address1) {
-					console.log(222)
 					if (this.url == 'user') {
-						console.log(333)
 						var data = uni.getStorageSync('userAddress');
-						data.address = that.address1;
+						data.address = this.address1;
 						uni.setStorageSync('userAddress', data);
 						uni.navigateTo({
 							url: `userAddress?lat=${this.lat}&lng=${this.lng}&count=2`
 						})
+						return;
+					}
+					if (this.url == 'accountedit') {
+						var data = uni.getStorageSync('amend');
+						data.childInfo.address = this.address1;
+						uni.setStorageSync('amend', data);
+						uni.navigateTo({
+							url: `accountedit?lat=${this.lat}&lng=${this.lng}&count=2`
+						})
+						return;
+					}
+					if (this.url == 'accountadd') {
+						var data = uni.getStorageSync('append');
+						data.childInfo.address = this.address1;
+						uni.setStorageSync('append', data);
+						uni.navigateTo({
+							url: `accountadd?lat=${this.lat}&lng=${this.lng}&count=2`
+						})
+						return;
 					}
 				}
 			},

@@ -1,11 +1,14 @@
 <template>
 	<view class="cash">
 		<uni-nav-bar left-icon="arrowleft" title="现金劵" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
-		<my-s-tabs slot-title :nav-per-view="5" @change="changeFirst" v-model="activeTab" class="custom-tabs">
-			<my-s-tab v-for="(item, index) in cashList" :key="index">{{ item.name }}</my-s-tab>
-		</my-s-tabs>
+		<view style="position: fixed;width:100%;background:#f8f6f9;">
+			<my-s-tabs slot-title :nav-per-view="5" @change="changeFirst" v-model="activeTab" class="custom-tabs">
+				<my-s-tab v-for="(item, index) in cashList" :key="index">{{ item.name }}</my-s-tab>
+			</my-s-tabs>
+		</view>
 
-		<view style="margin-bottom: 50rpx;">
+		<view class="" style="height:80rpx;"></view>
+		<view>
 			<view class="flex single_cash" v-for="(item, index) in list" :key="index" @click="detailPage(item.id)" :class="{cash2:item.coupons_status==2,cash1:item.coupons_status==1,cash3:item.coupons_status==3,cash4:item.coupons_status==4}">
 				<view class="price_cash">
 					<view class="color">余额</view>
@@ -13,7 +16,7 @@
 						￥
 						<text class="fiveteen" style="font-size: 28px;">{{ item.residue.split('.')[0] }}</text>
 						.
-						<text class="fiveteen">{{ item.residue.split('.')[1] }}</text>
+						<text class="twelve">{{ item.residue.split('.')[1] }}</text>
 					</view>
 					<view>面值{{ item.money }}元</view>
 				</view>
@@ -27,14 +30,14 @@
 							<text class="ten" v-if="item.coupons_status == 4">已过期</text>
 						</view>
 						<view class=" all_tag">
-							<view class="tag_cash"><text v-for="(item, index) in item.coupons_label" :key="index">{{ item }}</text></view>
+							<view class="tag_cash"><text v-for="(label, index) in item.coupons_label" :key="index" class="color">{{label}}</text></view>
 
 							<uni-icons type="arrowright" size="18" color="black"></uni-icons>
 						</view>
 					</view>
 					<view class="date gray_font ten" v-if="item.coupons_status == 1">{{ item.start_time }} 开始</view>
 					<view class="date gray_font ten" v-if="item.coupons_status == 2">{{ item.expire_time }} 过期</view>
-					
+
 				</view>
 			</view>
 			<my-loading :loading="loading" v-if="loading != '空'"></my-loading>
@@ -126,7 +129,7 @@
 					let {
 						data
 					} = res;
-			
+
 					if (data.code == 200) {
 						let list = data.data.list;
 						this.list = list;
@@ -245,14 +248,15 @@
 	.cash .tag_cash {
 		display: flex;
 		flex-wrap: wrap;
-		width: 140rpx;
+		width: 160rpx;
 	}
 
 	.cash .tag_cash>text {
 		margin-right: 10rpx;
 		font-size: 20rpx;
-		border: 1px solid red;
-		padding: 0 2rpx;
+		display: flex;
+		align-items: center;
+		padding: 0 6rpx;
 		border-radius: 4rpx;
 	}
 
@@ -286,20 +290,20 @@
 		background-size: cover;
 	}
 
-	.cash .cash2 .tag_cash>uni-text {
+	.cash .cash2 .tag_cash>text {
 		border: 1px solid #009a44;
 	}
 
-	.cash .cash1 .tag_cash>uni-text {
-		border: 1px solid#3d98ff;
+	.cash .cash1 .tag_cash>text {
+		border: 1px solid #3d98ff;
 	}
 
-	.cash .cash3 .tag_cash>uni-text {
-		border: 1px solid#CD2D44;
+	.cash .cash3 .tag_cash>text {
+		border: 1px solid #CD2D44;
 	}
 
-	.cash .cash4 .tag_cash>uni-text {
-		border: 1px solid#808080;
+	.cash .cash4 .tag_cash>text {
+		border: 1px solid #808080;
 	}
 
 	.cash .cash2 .color {
@@ -317,11 +321,12 @@
 	.cash .cash4 .color {
 		color: #808080;
 	}
+
 	.bitmap {
 		text-align: center;
 		margin-top: 20%;
 	}
-	
+
 	.bitmap image {
 		width: 50%;
 	}
