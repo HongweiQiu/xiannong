@@ -35,6 +35,7 @@
       "root": "pages/order",
       "pages": [
         "orderdetail",
+        "address",
         "pay"
       ]
     },

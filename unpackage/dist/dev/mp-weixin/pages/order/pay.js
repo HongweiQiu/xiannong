@@ -220,9 +220,18 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, oid: '', payOrder: '' };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, /**
-                                                                                                                                                                                                                                                                                                       * 支付信息
-                                                                                                                                                                                                                                                                                                       */payOrdera: function payOrdera() {var that = this;var oid = that.oid;var type = "app";var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, oid: oid, type: type, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, oid: oid, type: 'app', timeStamp: timeStamp, sign: sign };_request.default.postRequests("payOrder", data, function (res) {
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, oid: '', payOrder: '', is_miniBind: uni.getStorageSync('is_miniBind') };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, /**
+                                                                                                                                                                                                                                                                                                                                                       * 支付信息
+                                                                                                                                                                                                                                                                                                                                                       */payOrdera: function payOrdera() {var that = this;var oid = that.oid;var type = 'mini';var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, oid: oid, type: type, timeStamp: timeStamp };
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var data = {
+        appid: appid,
+        oid: oid,
+        type: type,
+        timeStamp: timeStamp,
+        sign: sign };
+
+      _request.default.postRequests("payOrder", data, function (res) {
         if (res.data.code == 200) {
           that.payOrder = res.data.data;
         } else if (res.data.code == 406) {
@@ -238,31 +247,109 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         }
       });
     },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     querenchongzhi: function querenchongzhi() {
+      console.log('微信支付');
       var that = this;
       uni.requestPayment({
         provider: 'wxpay',
         orderInfo: that.payOrder.wxParams, //微信、支付宝订单数据
+        timeStamp: that.payOrder.wxParams.timeStamp,
+        nonceStr: that.payOrder.wxParams.nonceStr,
+        package: that.payOrder.wxParams.package,
+        signType: that.payOrder.wxParams.signType,
+        paySign: that.payOrder.wxParams.paySign,
         success: function success(res) {
-          console.log('success:' + JSON.stringify(res));
-          uni.showToast({
-            title: '支付成功',
-            duration: 2000,
-            icon: "none" });
+          _request.default.Toast('充值成功');
+          setTimeout(function () {
+            uni.switchTab({
+              url: "/pages/tabar/order" });
 
-          wx.switchTab({
-            url: '/pages/index/index' });
-
+          }, 1000);
         },
         fail: function fail(err) {
-          uni.showToast({
-            title: err.errMsg,
-            duration: 2000,
-            icon: "none" });
-
+          console.log(err);
+          _request.default.Toast("充值失败");
         } });
 
+
     },
+
+
     goPay: function goPay() {
       var that = this;
       var oid = that.oid;

@@ -103,7 +103,7 @@ var components = {
     return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 401))
   },
   "my-keyboard": function() {
-    return Promise.all(/*! import() | components/keyboard/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/keyboard/index")]).then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 453))
+    return __webpack_require__.e(/*! import() | components/keyboard/index */ "components/keyboard/index").then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 453))
   }
 }
 var render = function() {
@@ -152,32 +152,49 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-var app = getApp().globalData;var
-navBar = app.navBar;var _default =
-{
-  data: function data() {
-    return { navBar: navBar };
-  },
-  methods: {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, arrObj: { is_float: 0 }, is_miniBind: '', memberInfoData: '', code: '' };}, methods: {
     leftClick: function leftClick() {
       uni.navigateBack({
         delta: 1 });
@@ -187,7 +204,86 @@ navBar = app.navBar;var _default =
       uni.navigateTo({
         url: './investlist' });
 
-    } } };exports.default = _default;
+    },
+    memberInfo: function memberInfo() {
+      var that = this;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp };
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var data = {
+        appid: appid,
+        timeStamp: timeStamp,
+        sign: sign };
+
+      _request.default.getRequests("memberInfo", data, function (res) {
+        if (res.data.code == 200) {
+          that.memberInfoData = res.data.data.info;
+        }
+      });
+    },
+    //充值
+    toParent: function toParent(e) {
+      if (this.is_miniBind == 0) {
+        _request.default.Toast('请先绑定微信');
+        setTimeout(function () {
+          uni.switchTab({
+            url: "/pages/tabar/user" });
+
+        }, 1000);
+        return;
+      }
+      var that = this;
+      var price = e.val;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        price: price,
+        timeStamp: timeStamp };
+
+
+
+
+
+
+
+
+      var type = 'mini';
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var data = {
+        appid: appid,
+        price: price,
+        type: type,
+        timeStamp: timeStamp,
+        sign: sign };
+
+      _request.default.postRequests("createRecharge", data, function (res) {
+        if (res.data.code == 200) {
+          uni.navigateTo({
+            url: './investrecord?orderId=' + res.data.data.orderId });
+
+        } else if (res.data.code == 404) {
+          _request.default.Toast('未找到用户');
+        } else if (res.data.code == 500) {
+          _request.default.Toast('充值失败');
+        } else {
+          _request.default.Toast(res.data.msg);
+        }
+      });
+    } },
+
+
+  /**
+          * 生命周期函数--监听页面显示
+          */
+  onShow: function onShow() {
+    var that = this;
+    that.is_miniBind = uni.getStorageSync("is_miniBind"),
+    that.memberInfo();
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

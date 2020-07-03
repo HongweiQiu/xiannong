@@ -108,7 +108,7 @@
 			},
 			confirm(e) {
 				if (!e.range.before || !e.range.after) {
-					Toast("请选择正确的日期区间")
+					rs.Toast("请选择正确的日期区间")
 				}else{
 					this.date = e.range.before + ',' + e.range.after;
 					this.dateArr =  [e.range.before,e.range.after];
@@ -159,7 +159,7 @@
 						}
 					} else {
 						this.loading = '空';
-						Toast(res.data.msg)
+						rs.Toast(res.data.msg)
 					}
 				})
 			},

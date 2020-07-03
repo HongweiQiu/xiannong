@@ -291,6 +291,22 @@ function thedefaulttime() { //购买记录默认时间
 	return dateArr;
 }
 
+// 百度地图
+function MP(ak) {
+  return new Promise(function (resolve, reject) {
+    window.init = function () {
+      resolve(BMap)
+    }
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "http://api.map.baidu.com/api?v=2.0&ak=" + ak + "&callback=init";
+    script.onerror = reject;
+    document.head.appendChild(script);
+  })
+
+}
+
+
 
 module.exports = {
 	getRequest: getRequest,
@@ -300,5 +316,6 @@ module.exports = {
 	Toast: Toast,
 	header: header, //请求头部
 	objKeySort: objKeySort, //加密排序
-	thedefaulttime: thedefaulttime //加密排序
+	thedefaulttime: thedefaulttime ,//加密排序
+	MP:MP
 }

@@ -235,7 +235,7 @@
 			//支付
 			play(data) {
 			  var oid = data;
-			  wx.navigateTo({
+			  uni.navigateTo({
 			    url: '/pages/order/pay?oid=' + oid,
 			  })
 			},
@@ -352,6 +352,13 @@
 									icon: 'none'
 								})
 							} else {
+								// #ifdef H5
+								uni.navigateTo({
+									url: '/pages/order/address?data='+JSON.stringify(res.data.data)
+								});
+								// #endif
+								
+								
 								uni.getLocation({
 									type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
 									success: function(res) {

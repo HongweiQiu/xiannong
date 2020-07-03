@@ -115,7 +115,7 @@ var components = {
     return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 410))
   },
   "my-keyboard": function() {
-    return Promise.all(/*! import() | components/keyboard/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/keyboard/index")]).then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 453))
+    return __webpack_require__.e(/*! import() | components/keyboard/index */ "components/keyboard/index").then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 453))
   },
   "uni-drawer": function() {
     return __webpack_require__.e(/*! import() | components/uni-drawer/uni-drawer */ "components/uni-drawer/uni-drawer").then(__webpack_require__.bind(null, /*! @/components/uni-drawer/uni-drawer.vue */ 460))

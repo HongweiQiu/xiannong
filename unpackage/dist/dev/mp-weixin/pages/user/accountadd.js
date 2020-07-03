@@ -137,74 +137,208 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-var app = getApp().globalData;var
-navBar = app.navBar;var _default =
-{
-  data: function data() {
-    return {
-      address: '',
-      navBar: navBar };
 
-  },
-  methods: {
-    leftClick: function leftClick() {
-      uni.navigateBack({
-        delta: 1 });
 
-    },
 
-    mapPage: function mapPage() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, nickname: '', contact: '', mobile: '', password: '', address: '', details: '', longitude: '', latitude: '', hide: true };}, methods: { leftClick: function leftClick() {this.hide = true;uni.navigateTo({ url: "accountmange" });}, mapPage: function mapPage() {
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       var that = this;
-
       uni.chooseLocation({
         success: function success(res) {
           that.address = res.address;
+          var obj = that.tobdMap(res.longitude, res.latitude);
+          that.lng = obj.lng;
+          that.lat = obj.lat;
         },
         fail: function fail(err) {
           console.log(err);
         } });
 
-    } } };exports.default = _default;
+    },
+    tobdMap: function tobdMap(lng, lat) {
+      var x_pi = 3.14159265358979324 * 3000.0 / 180.0;
+      var x = lng;
+      var y = lat;
+      var z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * x_pi);
+      var theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * x_pi);
+      var lngs = z * Math.cos(theta) + 0.0065;
+      var lats = z * Math.sin(theta) + 0.006;
+
+      return {
+        lng: lngs,
+        lat: lats };
+
+    },
+    formSubmit: function formSubmit() {
+      var that = this;
+      var nickname = that.nickname;
+      var contact = that.contact;
+      var mobile = that.mobile;
+      var password = that.password;
+      var address = that.address;
+      var longitude = that.longitude;
+      var latitude = that.latitude;
+      var details = that.details;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        address: address,
+        appid: appid,
+        contact: contact,
+        mobile: mobile,
+        nickname: nickname,
+        password: password,
+        timeStamp: timeStamp };
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      if (nickname == "") {
+        _request.default.Toast("名称不能为空");
+        return false;
+      }
+      if (contact == "") {
+        _request.default.Toast("联系人不能为空");
+        return false;
+      }
+      if (mobile == "") {
+        _request.default.Toast("手机号不能为空");
+        return false;
+      }
+      if (password.length < 6) {
+        _request.default.Toast("密码不能小于六位数");
+        return false;
+      }
+
+      var data = {
+        address: address,
+        appid: appid,
+        contact: contact,
+        mobile: mobile,
+        nickname: nickname,
+        password: password,
+        timeStamp: timeStamp,
+        sign: sign,
+        longitude: longitude,
+        latitude: latitude,
+        details: details };
+
+      _request.default.postRequests("addChild", data, function (res) {
+        if (res.data.code == 200) {
+          _request.default.Toast('添加成功');
+          setTimeout(function () {
+            uni.navigateTo({
+              url: "accountmange" });
+
+          }, 1000);
+        } else {
+          _request.default.Toast(res.data.msg);
+        }
+      });
+    } },
+
+  onLoad: function onLoad(options) {
+    var data = uni.getStorageSync('append');
+    console.log(uni.getStorageSync('append'));
+    if (data) {
+      this.nickname = data.nickname;
+      this.contact = data.contact;
+      this.mobile = data.mobile;
+      this.password = data.password;
+      this.address = data.address;
+      this.details = data.details;
+    }
+    this.latitude = options.lat;
+    this.longitude = options.lng;
+  },
+  onHide: function onHide() {
+    if (this.hide == true) {
+      uni.removeStorage({ key: 'append' });
+    }
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

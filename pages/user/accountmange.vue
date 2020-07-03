@@ -42,8 +42,8 @@
 		},
 		methods: {
 			leftClick() {
-				uni.navigateBack({
-					delta: 1
+				uni.switchTab({
+					url: "/pages/tabar/user"
 				})
 			},
 			rightClick() {
@@ -52,7 +52,7 @@
 				})
 			},
 			editPage(data) {
-				uni.navigateTo({
+				uni.navigateTo({ 
 					url: "/pages/user/accountedit?select_zid=" + data.zid
 				})
 			},

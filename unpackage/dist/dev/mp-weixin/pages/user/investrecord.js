@@ -134,46 +134,209 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-var app = getApp().globalData;var
-navBar = app.navBar;var _default =
-{
-  data: function data() {
-    return {
-      navBar: navBar };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, is_bind: '', orderId: '', placeRecharge: '' };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, order: function order() {this.leftClick();},
+    /**
+                                                                                                                                                                                                                                                                                                                                                                          * 充值信息
+                                                                                                                                                                                                                                                                                                                                                                          */
+    placeRechargea: function placeRechargea() {
+      var that = this;
+      var id = that.orderId;
+
+
+
+
+
+
+
+      var type = 'mini';
+
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        id: id,
+        type: type,
+        timeStamp: timeStamp };
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var data = {
+        appid: appid,
+        id: id,
+        type: type,
+        timeStamp: timeStamp,
+        sign: sign };
+
+      _request.default.postRequests("placeRecharge", data, function (res) {
+        if (res.data.code == 200) {
+          that.placeRecharge = res.data.data;
+        } else if (res.data.code == 406) {
+          _request.default.Toast('请先绑定微信');
+        } else {
+          _request.default.Toast(res.data.msg);
+        }
+      });
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    querenchongzhi: function querenchongzhi() {
+      console.log('微信支付');
+      var that = this;
+      uni.requestPayment({
+        provider: 'wxpay',
+        orderInfo: that.placeRecharge.wxParams, //微信、支付宝订单数据
+        timeStamp: that.placeRecharge.wxParams.timeStamp,
+        nonceStr: that.placeRecharge.wxParams.nonceStr,
+        package: that.placeRecharge.wxParams.package,
+        signType: that.placeRecharge.wxParams.signType,
+        paySign: that.placeRecharge.wxParams.paySign,
+        success: function success(res) {
+          _request.default.Toast('充值成功');
+          setTimeout(function () {
+            uni.switchTab({
+              url: "/pages/tabar/user" });
+
+          }, 1000);
+        },
+        fail: function fail(err) {
+          console.log(err);
+          _request.default.Toast("充值失败");
+        } });
+
+
+    } },
+
+
+  onLoad: function onLoad(options) {
+    this.orderId = options.orderId;
   },
-  methods: {
-    leftClick: function leftClick() {
-      uni.navigateBack({
-        delta: 1 });
-
-    } } };exports.default = _default;
+  onShow: function onShow() {
+    var that = this;
+    that.placeRechargea();
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

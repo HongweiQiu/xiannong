@@ -167,10 +167,7 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return {
       navBar: navBar,
-      contact: '',
-      mobile: '',
-      address: '',
-      details: '',
+      url: '',
       lat: '',
       lng: '',
       a: '' };
@@ -178,21 +175,61 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
   },
   methods: {
     leftClick: function leftClick() {
-      uni.navigateTo({
-        url: "userAddress?contact=".concat(this.contact, "&mobile=").concat(this.mobile, "&address=").concat(this.address, "&details=").concat(this.details, "&lat=").concat(this.lat, "&lng=").concat(this.lng, "&count=2") });
+      if (this.url == 'user') {
+        uni.navigateTo({
+          url: "userAddress?count=2" });
 
+        return;
+      }
+      if (this.url == 'accountedit') {
+        uni.navigateTo({
+          url: "accountedit?count=2" });
+
+        return;
+      }
+      if (this.url == 'accountadd') {
+        uni.navigateTo({
+          url: "accountadd?count=2" });
+
+        return;
+      }
     },
     rightClick: function rightClick() {
       if (this.address1) {
-        uni.navigateTo({
-          url: "userAddress?contact=".concat(this.contact, "&mobile=").concat(this.mobile, "&address=").concat(this.address, "&details=").concat(this.details, "&lat=").concat(this.lat, "&lng=").concat(this.lng, "&count=2") });
+        if (this.url == 'user') {
+          var data = uni.getStorageSync('userAddress');
+          data.address = this.address1;
+          uni.setStorageSync('userAddress', data);
+          uni.navigateTo({
+            url: "userAddress?lat=".concat(this.lat, "&lng=").concat(this.lng, "&count=2") });
 
+          return;
+        }
+        if (this.url == 'accountedit') {
+          var data = uni.getStorageSync('amend');
+          data.childInfo.address = this.address1;
+          uni.setStorageSync('amend', data);
+          uni.navigateTo({
+            url: "accountedit?lat=".concat(this.lat, "&lng=").concat(this.lng, "&count=2") });
+
+          return;
+        }
+        if (this.url == 'accountadd') {
+          var data = uni.getStorageSync('append');
+          data.address = this.address1;
+          uni.setStorageSync('append', data);
+          uni.navigateTo({
+            url: "accountadd?lat=".concat(this.lat, "&lng=").concat(this.lng, "&count=2") });
+
+          return;
+        }
       }
     },
     test: function test() {
       window.location.reload();
     },
     wxConfig: function wxConfig() {
+      var that = this;
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         appid: appid,
@@ -203,16 +240,29 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
         sign: sign },
       obj);
       _request.default.getRequests("wxConfig", params, function (response) {
-        if (response.code == 200) {
+        if (response.data.code == 200) {
           wx.config({
-            debug: true, // 开启调试模式
-            appId: response.data.appId, // 必填，公众号的唯一标识
-            timestamp: response.data.timestamp, // 必填，生成签名的时间戳
-            nonceStr: response.data.nonceStr, // 必填，生成签名的随机串
-            signature: response.data.signature, // 必填，签名，见附录1
+            debug: false, // 开启调试模式
+            appId: response.data.data.appId, // 必填，公众号的唯一标识
+            timestamp: response.data.data.timestamp, // 必填，生成签名的时间戳
+            nonceStr: response.data.data.nonceStr, // 必填，生成签名的随机串
+            signature: response.data.data.signature, // 必填，签名，见附录1
             jsApiList: [
             'getLocation']
             // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+          });
+          wx.ready(function () {
+            wx.getLocation({
+              type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+              success: function success(res) {
+                // rs.Toast(res);
+                var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                that.a =
+                "https://apis.map.qq.com/tools/locpicker?search=1&type=1&coord=" + latitude + "," + longitude +
+                "&key=UNFBZ-3J6LO-HYCWC-SOMXY-NIFI7-4GFZO&referer=myapp";
+              } });
+
           });
         }
       });
@@ -224,32 +274,17 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
   },
   onLoad: function onLoad(option) {
     var that = this;
-    this.contact = option.contact;
-    this.mobile = option.mobile;
-    this.address = option.address;
-    this.details = option.details;
-    wx.getLocation({
-      type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-      success: function success(res) {
-        _request.default.Toast(res);
-        var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-        var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-        // var speed = res.speed; // 速度，以米/每秒计
-        // var accuracy = res.accuracy; // 位置精度
-        this.a =
-        "https://apis.map.qq.com/tools/locpicker?search=1&type=1&coord=28.688967,115.849754&key=UNFBZ-3J6LO-HYCWC-SOMXY-NIFI7-4GFZO&referer=myapp";
-        window.addEventListener('message', function (event) {
-          // 接收位置信息，用户选择确认位置点后选点组件会触发该事件，回传用户的位置信息
-          var loc = event.data;
-          if (loc && loc.module == 'locationPicker') {//防止其他应用也会向该页面post信息，需判断module是否为'locationPicker'
-            that.address1 = loc.poiaddress;
-            that.lat = loc.latlng.lat;
-            that.lng = loc.latlng.lng;
-          }
-        }, false);
-
-      } });
-
+    this.url = option.url;
+    console.log(this.url);
+    window.addEventListener('message', function (event) {
+      // 接收位置信息，用户选择确认位置点后选点组件会触发该事件，回传用户的位置信息
+      var loc = event.data;
+      if (loc && loc.module == 'locationPicker') {//防止其他应用也会向该页面post信息，需判断module是否为'locationPicker'
+        that.address1 = loc.poiaddress;
+        that.lat = loc.latlng.lat;
+        that.lng = loc.latlng.lng;
+      }
+    }, false);
 
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

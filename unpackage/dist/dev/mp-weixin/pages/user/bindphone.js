@@ -104,6 +104,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      _vm.back = false
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -137,7 +142,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var moveVerify = function moveVerify() {__webpack_require__.e(/*! require.ensure | components/helang-moveVerify/helang-moveVerify */ "components/helang-moveVerify/helang-moveVerify").then((function () {return resolve(__webpack_require__(/*! @/components/helang-moveVerify/helang-moveVerify.vue */ 495));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -154,18 +159,37 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var moveVerify = function moveVerify() {__webpack_require__.e(/*! require.ensure | components/helang-moveVerify/helang-moveVerify */ "components/helang-moveVerify/helang-moveVerify").then((function () {return resolve(__webpack_require__(/*! @/components/helang-moveVerify/helang-moveVerify.vue */ 495));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 var app = getApp().globalData;var
-navBar = app.navBar;var _default =
+
+navBar =
+
+
+app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
 {
   components: {
     moveVerify: moveVerify },
 
   data: function data() {
     return {
-      disabled: false,
+      resultData: {},
+      mobile: '',
+      verify_code: '',
+      secret_str: '',
+      identifying: '',
       navBar: navBar,
-      showcode: true,
-      strcode: 10 };
+      back: true };
 
   },
   methods: {
@@ -174,13 +198,179 @@ navBar = app.navBar;var _default =
         delta: 1 });
 
     },
-    bindSubmit: function bindSubmit() {
+    verifyResult: function verifyResult(res) {
+      this.resultData = res;
+      if (this.resultData.flag == true) {
+        this.captcha();
+        return;
+      }
+    },
+    /* 校验插件重置 */
+    verifyReset: function verifyReset() {
+      this.$refs.verifyElement.reset();
+      /* 删除当前页面的数据 */
+      this.resultData = {};
+    },
+
+    captcha: function captcha() {var _this = this;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp };
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var params = Object.assign({
+        sign: sign },
+      obj);
+      _request.default.getRequests("random", params, function (res) {
+        var data = res.data;
+        if (data.code == 200) {
+          _this.secret_str = data.data.number;
+          uni.setStorageSync("laravel_session", res.header["Set-Cookie"]);
+        } else {
+          _request.default.Toast(data.msg);
+        }
+      });
+    },
+    // 获取短信验证码
+    getCode: function getCode() {
+      var that = this;
+
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      if (!that.mobile) {
+        _request.default.Toast('手机号不能为空');
+        return;
+      }
+      var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
+      if (!reg.test(that.mobile)) {
+        _request.default.Toast('不能输入特殊字符和空格');
+        return;
+      }
+      if (!that.secret_str) {
+        _request.default.Toast('请拖动滑块验证');
+        return;
+      }
+
+      var obj = {
+        appid: appid,
+        mobile: that.mobile,
+        timeStamp: timeStamp };
+
+
+      var random_str = _md.default.hexMD5(appsecret + that.secret_str);
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var params = Object.assign({
+        sign: sign,
+        secret_str: random_str },
+      obj);
+      uni.request({
+        url: app.rootUrl + "/mobileOrder/sendCode",
+        method: 'POST',
+        header: {
+          'content-type': 'application/json', // 默认值
+          'cookie': uni.getStorageSync("laravel_session") },
+
+        data: params,
+        success: function success(res) {
+          if (res.data.code == 200) {
+            that.secret_str = res.data.data.random_str;
+            _request.default.Toast('验证码已发送到你手机中，请注意查收');
+            that.$refs.code.sendCode();
+          } else {
+            that.verifyReset();
+            _request.default.Toast(res.data.msg);
+          }
+        } });
 
     },
-    getCode: function getCode() {
-      this.showcode = false;
-    },
-    verifyResult: function verifyResult(e) {} } };exports.default = _default;
+    //提交
+    forget: function forget() {
+      var that = this;
+
+      var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
+      if (!this.mobile) {
+        _request.default.Toast('手机号不能为空');
+        return;
+      }
+
+      if (!reg.test(this.mobile)) {
+        _request.default.Toast('不能输入特殊字符和空格');
+        return;
+      }
+      if (!this.verify_code) {
+        _request.default.Toast('请输入验证码');
+        return;
+      }
+
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp };
+
+
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var params = Object.assign({
+        sign: sign,
+        mobile: this.mobile,
+        code: this.verify_code,
+        identifying: that.identifying },
+
+      obj);
+
+      uni.request({
+        url: app.rootUrl + "/mobileOrder/bindMobile",
+        method: 'POST',
+        data: params,
+        header: {
+          'content-type': 'application/json', // 默认值
+          'cookie': uni.getStorageSync("laravel_session") },
+
+        success: function success(res) {
+          if (res.data.code == 200) {var
+
+            data =
+            res.data;
+            _request.default.Toast('手机号绑定成功');
+            uni.setStorageSync('cdj_token', data.data.token);
+            uni.setStorageSync('is_child', data.data.is_child);
+
+
+
+
+
+
+
+
+
+
+            uni.setStorageSync('is_miniBind', data.data.is_miniBind);
+
+            setTimeout(function () {
+              uni.switchTab({
+                url: "../tabar/index" });
+
+            }, 1000);
+
+          } else if (res.data.code == 403) {
+            _request.default.Toast('绑定手机成功，请耐心等待审核');
+            setTimeout(function () {
+              uni.navigateTo({
+                url: './login' });
+
+            }, 1000);
+
+          } else {
+            _request.default.Toast(res.data.msg);
+          }
+        } });
+
+    } },
+
+  onLoad: function onLoad(options) {
+    this.identifying = options.identifying;
+
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

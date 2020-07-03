@@ -53,7 +53,7 @@
 			</view>
 		</view>
 		<view class="select_operate">
-			<view class="" @click="pageUrl(item)" v-for="(item, index) in userList" :key="index" class="flex_left_right">
+			<view v-if="is_child != 1" @click="pageUrl(item)" v-for="(item, index) in userList" :key="index" class="flex_left_right">
 				<view class="">
 					<icon :class="'iconfont ' + item.icon" :style="{ color: item.color }"></icon>
 					<text class="name">{{ item.name }}</text>
@@ -62,7 +62,7 @@
 					<uni-icons type="arrowright" size="18" color="black"></uni-icons>
 				</view>
 			</view>
-			<view class="" class="flex_left_right" @click="exit">
+			<view class="flex_left_right" @click="exit">
 				<view class="">
 					<icon class="iconfont  icon-tuichu" style="color:#ADDB8C"></icon>
 					<text class="name">退出登录</text>
@@ -131,8 +131,9 @@
 					},
 					{
 						icon: 'icon-weixin',
-						name: '微信改绑',
-						color: '#26DD5B'
+						name: '绑定微信',
+						color: '#26DD5B',
+						url: 'bindWeChat'
 					},
 					{
 						icon: 'icon-fenxiang',
@@ -147,7 +148,10 @@
 				imgRemote: imgRemote,
 				memberInfoData: '',
 				member_default: '',
-				code: ''
+				code: '',
+				// #ifdef H5
+				userinfo: '',
+				// #endif
 			};
 		},
 		methods: {
@@ -173,19 +177,195 @@
 				})
 			},
 			myinfoPage() {
-				uni.navigateTo({
-					url: "/pages/user/myinfo"
-				})
+				if (!this.token) {
+					uni.navigateTo({
+						url: '/pages/account/login'
+					})
+				} else {
+					uni.navigateTo({
+						url: "/pages/user/myinfo"
+					})
+				}
+
 			},
 			pageUrl(item) {
-				if (item.url != 'share') {
+				if (item.url == 'bindWeChat') {
+
+					// #ifdef H5
+					this.adminisus_weixin()
+					// #endif
+					
+					// #ifdef APP-PLUS
+					this.bindWeChat()
+					// #endif
+
+					// #ifdef MP-WEIXIN
+					this.wxbindWeChat()
+					// #endif
+
+				} else if (item.url == 'share') {
+					console.log("点击分享")
+				} else {
 					uni.navigateTo({
 						url: `/pages/user/${item.url}`
 					});
-				} else {
-					
 				}
 
+			},
+			//小程序绑定
+			wxbindWeChat(e) {
+				console.log("小程序绑定")
+				var that = this;
+				uni.getUserInfo({
+					provider: 'weixin',
+					success(infoRes) {
+						let {
+							encryptedData,
+							iv
+						} = infoRes;
+						console.log(infoRes);
+						uni.login({
+							provider: 'weixin',
+							success(res) {
+								console.log(res.code)
+								that.wxbindWeChata(res.code)
+							}
+
+						})
+					}
+				})
+			},
+			wxbindWeChata(code) {
+				var that = this;
+				var timeStamp = Math.round(new Date().getTime() / 1000);
+				var obj = {
+					appid: appid,
+					code: code,
+					timeStamp: timeStamp,
+				}
+				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				var data = {
+					appid: appid,
+					code: code,
+					type: "mini",
+					timeStamp: timeStamp,
+					sign: sign,
+				}
+				rs.postRequests("bindWeChat", data, (res) => {
+					if (res.data.code == 200) {
+						rs.Toast('绑定微信成功')
+						uni.setStorageSync('is_miniBind', 1)
+						that.is_bind = uni.getStorageSync("is_miniBind")
+					} else {
+						rs.Toast(res.data.msg)
+					}
+				})
+			},
+			// h5绑定微信
+			adminisus_weixin() {
+				console.log("H5绑定")
+				var that = this;
+				uni.showModal({
+					content: this.is_bind == 1 ? '是否微信改绑' : '是否绑定微信',
+					cancelText: "我再想想",
+					cancelColor: "#999",
+					confirmText: "确认",
+					confirmColor: "#DEC17C",
+					success: function(res) {
+						if (res.confirm) {
+							uni.setStorageSync('isWeixin', true)
+							let code = location.search;
+							let getCode =    code.substring(code.indexOf('=') + 1, code.lastIndexOf('&'));
+							if (!getCode) {
+								let url = window.location.href;
+								let redirect_uri = encodeURIComponent(url);
+								let a = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
+									"appid=" + that.userinfo.appId + "&redirect_uri=" + redirect_uri +
+									"&response_type=code&scope=snsapi_userinfo#wechat_redirect"
+								window.location.href = a;
+							}
+						} else if (res.cancel) {
+							// console.log('用户点击取消');
+						}
+					}
+				});
+			},
+			//APP绑定
+			bindWeChat() {
+				console.log("APP绑定")
+				var that = this
+				uni.getProvider({
+					service: 'oauth',
+					success: function(res) {
+						//res.provider  检测手机上是否安装微信、QQ、新浪微博等
+						if (~res.provider.indexOf('weixin')) {
+							//手机安装了微信
+							uni.login({
+								provider: 'weixin',
+								success: function(loginRes) {
+									// console.log('-------获取openid(unionid)-----');
+									// console.log(JSON.stringify(loginRes));
+									uni.getUserInfo({
+										provider: 'weixin',
+										success: function(infoRes) {
+											that.code = infoRes.userInfo.openId;
+											that.bindWeChata()
+										}
+									});
+
+								}
+							});
+						} else {
+							uni.showToast({
+								title: '手机上还没安装微信,请安装微信后重试',
+								duration: 2000,
+								icon: "none"
+							});
+						}
+
+					}
+				});
+			},
+			bindWeChata() {
+				var that = this;
+				uni.showModal({
+					content: this.is_bind == 1 ? '是否微信改绑' : '是否绑定微信',
+					cancelText: "我再想想",
+					cancelColor: "#999",
+					confirmText: "确认",
+					confirmColor: "#DEC17C",
+					success: function(res) {
+						if (res.confirm) {
+							// console.log('用户点击确定');
+							var app_openid = that.code;
+							var timeStamp = Math.round(new Date().getTime() / 1000);
+							var obj = {
+								appid: appid,
+								timeStamp: timeStamp,
+							}
+							var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+							var data = {
+								appid: appid,
+								app_openid: app_openid,
+								type: "app",
+								timeStamp: timeStamp,
+								sign: sign,
+							}
+							rs.postRequests("saveMemberInfo", data, (res) => {
+								// console.log(res)
+								if (res.data.code == 200) {
+									rs.Toast('绑定微信成功')
+									uni.setStorageSync('is_miniBind', 1)
+									that.is_bind = uni.getStorageSync("is_miniBind")
+								} else {
+									rs.Toast(res.data.msg)
+								}
+							})
+						} else if (res.cancel) {
+							// console.log('用户点击取消');
+						}
+					}
+				});
 			},
 			threePage(data) {
 				if (this.token) {
@@ -252,6 +432,31 @@
 					}
 				});
 			},
+			wxConfig() {
+
+				if (this.token) {
+
+					var that = this
+					var timeStamp = Math.round(new Date().getTime() / 1000);
+					var obj = {
+						appid: appid,
+						timeStamp: timeStamp,
+					}
+					var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+					var data = {
+						appid: appid,
+						timeStamp: timeStamp,
+						sign: sign,
+					}
+					rs.getRequests("wxConfig", data, (res) => {
+						if (res.data.code == 200) {
+							this.userinfo = res.data.data;
+						}
+					})
+				}
+
+			}
+
 
 		},
 		onLoad() {
@@ -266,6 +471,42 @@
 			that.is_bind = uni.getStorageSync('is_miniBind');
 			that.is_child = uni.getStorageSync("is_child");
 			that.token = uni.getStorageSync("cdj_token");
+			// console.log(that.is_bind)
+			//H5
+			// #ifdef H5
+			that.wxConfig()
+			let code = location.search;
+			let getCode = code.substring(code.indexOf('=') + 1, code.lastIndexOf('&'));
+			let isWeixin = uni.getStorageSync('isWeixin');
+			if (isWeixin && getCode) {
+				var timeStamp = Math.round(new Date().getTime() / 1000);
+				var obj = {
+					appid: appid,
+					timeStamp: timeStamp,
+					code: getCode,
+				}
+				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				var data = {
+					appid: appid,
+					code: getCode,
+					timeStamp: timeStamp,
+					sign: sign,
+				}
+				rs.postRequests("bindWeChat", data, (res) => {
+					uni.clearStorageSync('isWeixin')
+					getCode = '';
+					// console.log(res)
+					if (res.data.code == 200) {
+						rs.Toast('绑定微信成功')
+						uni.setStorageSync('is_miniBind', 1)
+						that.is_bind = uni.getStorageSync("is_miniBind")
+					} else {
+						rs.Toast(res.data.msg)
+					}
+				})
+			
+			}
+			// #endif
 		},
 	};
 </script>

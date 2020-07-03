@@ -199,7 +199,18 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { address: '', contact: '', details: '', mobile: '', childzid: '', navBar: navBar, lat: '', lng: '' };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, mapPage: function mapPage() {
+var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { address: '', contact: '', details: '', mobile: '', childzid: '', navBar: navBar, lat: '', lng: '' };}, methods: { leftClick: function leftClick() {this.hide = true;uni.navigateBack({ delta: 1 });},
+    mapPage: function mapPage() {
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -288,16 +299,24 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
     } },
 
   onLoad: function onLoad(option) {
-    this.childzid = option.childzid;
-    this.contact = option.contact;
-    this.mobile = option.mobile;
-    this.address = option.address;
-    this.details = option.details;
+    var data = uni.getStorageSync('userAddress');
+    if (data) {
+      this.contact = data.contact;
+      this.mobile = data.mobile;
+      this.address = data.address;
+      this.details = data.details;
+    }
+    this.lat = option.lat;
+    this.lng = option.lng;
     var count = option.count || 1;
-    // console.log(option.count)
     if (count == 1) {
       if (this)
       this.memberAddressInfo();
+    }
+  },
+  onHide: function onHide() {
+    if (this.hide == true) {
+      uni.removeStorage({ key: 'userAddress' });
     }
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

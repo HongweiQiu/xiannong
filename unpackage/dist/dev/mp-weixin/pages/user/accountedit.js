@@ -140,74 +140,315 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-var app = getApp().globalData;var
-navBar = app.navBar;var _default =
-{
-  data: function data() {
-    return {
-      address: '',
-      navBar: navBar };
 
-  },
-  methods: {
-    leftClick: function leftClick() {
-      uni.navigateBack({
-        delta: 1 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, checked: false, status: '', childInfo: '', select_zid: '', longitude: '', latitude: '', save: true, password: '', count: '', hide: '' };}, methods: { leftClick: function leftClick() {this.hide = true;uni.navigateTo({ url: "accountmange" });}, urlPage: function urlPage() {if (this.save == false) {uni.showModal({ title: '放弃编辑', content: '地址信息未保存，确定离开吗？', success: function success(res) {if (res.confirm) {uni.navigateTo({ url: "accountmange" });
+
+            } else if (res.cancel) {}
+          } });
+
+      } else {
+        uni.navigateTo({
+          url: "accountmange" });
+
+      }
     },
 
     mapPage: function mapPage() {
-      var that = this;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+      var that = this;
       uni.chooseLocation({
         success: function success(res) {
-          that.address = res.address;
-        },
-        fail: function fail(err) {
-          console.log(err);
+          // console.log('位置名称：' + res.name);
+          // console.log('详细地址：' + res.address);
+          // console.log('纬度：' + res.latitude);
+          // console.log('经度：' + res.longitude);
+          that.childInfo.address = res.address;
+          var obj = that.tobdMap(res.longitude, res.latitude);
+          that.lng = obj.lng;
+          that.lat = obj.lat;
         } });
 
-    } } };exports.default = _default;
+    },
+    tobdMap: function tobdMap(lng, lat) {
+      var x_pi = 3.14159265358979324 * 3000.0 / 180.0;
+      var x = lng;
+      var y = lat;
+      var z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * x_pi);
+      var theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * x_pi);
+      var lngs = z * Math.cos(theta) + 0.0065;
+      var lats = z * Math.sin(theta) + 0.006;
+
+      return {
+        lng: lngs,
+        lat: lats };
+
+    },
+    deleteAccount: function deleteAccount() {
+      var that = this;
+      uni.showModal({
+        title: '提示',
+        content: '是否删除该子账号？',
+        success: function success(res) {
+          if (res.confirm) {
+            // console.log('用户点击确定');
+            var select_zid = that.select_zid;
+            var timeStamp = Math.round(new Date().getTime() / 1000);
+            var obj = {
+              appid: appid,
+              select_zid: select_zid,
+              timeStamp: timeStamp };
+
+            var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+            var data = {
+              appid: appid,
+              timeStamp: timeStamp,
+              select_zid: select_zid,
+              sign: sign };
+
+            _request.default.getRequests("delChild", data, function (res) {
+              if (res.data.code == 101) {
+                _request.default.Toast('该账号已产生数据，无法删除');
+              }
+              if (res.data.code == 200) {
+                _request.default.Toast('删除成功');
+                setTimeout(function () {
+                  uni.navigateTo({
+                    url: "accountmange" });
+
+                }, 1000);
+              }
+            });
+          } else if (res.cancel) {
+            // console.log('用户点击取消');
+          }
+        } });
+
+
+    },
+    openStatu: function openStatu(e) {
+      var that = this;
+      that.checked = e.target.value;
+    },
+    memberAddressInfo: function memberAddressInfo() {
+      var that = this;
+      var select_zid = that.select_zid;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp };
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var data = {
+        appid: appid,
+        timeStamp: timeStamp,
+        sign: sign,
+        select_zid: select_zid };
+
+      _request.default.getRequests("memberAddressInfo", data, function (res) {
+        if (res.data.code == 200) {
+          that.childInfo = res.data.data;
+          that.status = res.data.data.status;
+          if (that.status == 0) {
+            that.checked = false;
+          } else if (that.status == 1) {
+            that.checked = true;
+          }
+        }
+      });
+    },
+    formSubmit: function formSubmit(e) {
+      var that = this;
+      var zid = that.select_zid;
+      if (that.checked == false) {
+        var status = 0;
+      } else if (that.checked == true) {
+        var status = 1;
+      }
+      var nickname = e.detail.value.nickname;
+      var contact = e.detail.value.contact;
+      var mobile = e.detail.value.mobile;
+      var password = e.detail.value.password;
+      var address = that.childInfo.address;
+      var longitude = that.longitude;
+      var latitude = that.latitude;
+      var details = e.detail.value.details;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        address: address,
+        appid: appid,
+        contact: contact,
+        mobile: mobile,
+        nickname: nickname,
+        password: password,
+        status: status,
+        timeStamp: timeStamp,
+        zid: zid };
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      if (nickname == "") {
+        _request.default.Toast("名称不能为空");
+        return false;
+      }
+      if (contact == "") {
+        _request.default.Toast("联系人不能为空");
+        return false;
+      }
+      if (mobile == "") {
+        _request.default.Toast("手机号不能为空");
+        return false;
+      }
+
+      var data = {
+        address: address,
+        appid: appid,
+        contact: contact,
+        mobile: mobile,
+        nickname: nickname,
+        password: password,
+        status: status,
+        zid: zid,
+        timeStamp: timeStamp,
+        sign: sign,
+        longitude: longitude,
+        latitude: latitude,
+        details: details };
+
+      _request.default.postRequests("editChild", data, function (res) {
+        if (res.data.code == 200) {
+          _request.default.Toast('修改成功');
+          that.save = true;
+          setTimeout(function () {
+            uni.navigateTo({
+              url: "accountmange" });
+
+          }, 1000);
+        }
+        if (res.data.code == 400) {
+          _request.default.Toast(res.data.msg);
+        }
+      });
+    } },
+
+  onLoad: function onLoad(options) {
+    var data = uni.getStorageSync('amend');
+    if (data) {
+      this.childInfo = data.childInfo;
+      this.password = data.password;
+      this.select_zid = data.select_zid;
+    } else {
+      this.select_zid = options.select_zid;
+    }
+    this.latitude = options.lat;
+    this.longitude = options.lng;
+    this.count = options.count || 1;
+    if (this.count == 1) {
+      if (this)
+      this.memberAddressInfo();
+    }
+  },
+  onHide: function onHide() {
+    if (this.hide == true) {
+      uni.removeStorage({ key: 'amend' });
+    }
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

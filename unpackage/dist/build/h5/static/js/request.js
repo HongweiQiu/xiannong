@@ -49,9 +49,9 @@ function getRequest(url, datas, success) {
 						})
 					}
 					if (res.data.code == 401) {
-						uni.navigateTo({
-							url: '/pages/account/login'
-						});
+					setTimeout(()=>{uni.navigateTo({
+						url: '/pages/account/login'
+					});},2000)
 					}
 
 					uni.hideLoading();
@@ -91,9 +91,10 @@ function getRequests(url, datas, success) {
 			}
 
 			if (res.data.code == 401) {
-				uni.navigateTo({
+				setTimeout(()=>{uni.navigateTo({
 					url: '/pages/account/login'
-				});
+				});},2000)
+				
 			}
 			if (res.data.code == 408) {
 				uni.navigateTo({
@@ -150,9 +151,9 @@ function postRequest(url, datas, success) {
 						})
 					}
 					if (res.data.code == 401) {
-						uni.navigateTo({
-							url: '/pages//account/login'
-						});
+						setTimeout(()=>{uni.navigateTo({
+							url: '/pages/account/login'
+						});},2000)
 					}
 					if (res.data.code == 403) {
 						uni.showToast({
@@ -207,9 +208,9 @@ function postRequests(url, datas, success) {
 				uni.setStorageSync("cdj_token", res.header.Authorization)
 			}
 			if (res.data.code == 401) {
-				uni.navigateTo({
+				setTimeout(()=>{uni.navigateTo({
 					url: '/pages/account/login'
-				});
+				});},2000)
 			}
 		},
 		fail: res => {
@@ -262,6 +263,22 @@ function thedefaulttime() { //购买记录默认时间
 	return dateArr;
 }
 
+// 百度地图
+function MP(ak) {
+  return new Promise(function (resolve, reject) {
+    window.init = function () {
+      resolve(BMap)
+    }
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "http://api.map.baidu.com/api?v=2.0&ak=" + ak + "&callback=init";
+    script.onerror = reject;
+    document.head.appendChild(script);
+  })
+
+}
+
+
 
 module.exports = {
 	getRequest: getRequest,
@@ -271,5 +288,6 @@ module.exports = {
 	Toast:Toast,
 	header: header, //请求头部
 	objKeySort: objKeySort, //加密排序
-	thedefaulttime: thedefaulttime //加密排序
+	thedefaulttime: thedefaulttime ,//加密排序
+	MP:MP
 }

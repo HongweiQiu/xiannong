@@ -59,6 +59,8 @@
 		"pages": [{
 			"path": "orderdetail"
 		}, {
+			"path": "address"
+		}, {
 			"path": "pay"
 		}]
 	}, {
@@ -122,7 +124,7 @@
 		"navigationBarTitleText": "",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8",
-		
+
 		"app-plus": {
 			"titleNView": false
 		},

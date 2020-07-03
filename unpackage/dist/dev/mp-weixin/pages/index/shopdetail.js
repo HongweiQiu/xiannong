@@ -106,7 +106,7 @@ var components = {
     return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 401))
   },
   "my-keyboard": function() {
-    return Promise.all(/*! import() | components/keyboard/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/keyboard/index")]).then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 453))
+    return __webpack_require__.e(/*! import() | components/keyboard/index */ "components/keyboard/index").then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 453))
   }
 }
 var render = function() {

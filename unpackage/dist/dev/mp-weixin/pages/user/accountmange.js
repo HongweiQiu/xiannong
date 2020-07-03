@@ -184,7 +184,7 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, show: false, childInfo: '' };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, rightClick: function rightClick() {uni.navigateTo({ url: "/pages/user/accountadd" });
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, show: false, childInfo: '' };}, methods: { leftClick: function leftClick() {uni.switchTab({ url: "/pages/tabar/user" });}, rightClick: function rightClick() {uni.navigateTo({ url: "/pages/user/accountadd" });
 
     },
     editPage: function editPage(data) {

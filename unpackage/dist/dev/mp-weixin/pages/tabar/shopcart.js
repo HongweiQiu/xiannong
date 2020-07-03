@@ -660,7 +660,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
               break;
 
             case 500:
-              Toast({
+              _request.default.Toast({
                 message: '信用金已用完，不能下单',
                 duration: 1200 });
 

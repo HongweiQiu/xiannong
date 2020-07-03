@@ -407,7 +407,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
           }} });}, /**
                     * 页面跳转
                     */ //支付
-    play: function play(data) {var oid = data;wx.navigateTo({ url: '/pages/order/pay?oid=' + oid });}, orderDetailPage: function orderDetailPage(url, item) {if (url == 'orderDetail') {uni.navigateTo({ url: '/pages/order/orderdetail?orderItem=' + item.id });} else if (url == 'user') {uni.showToast({ title: "还未绑定微信,请去我的页面绑定微信", duration: 2000, icon: 'none' });
+    play: function play(data) {var oid = data;uni.navigateTo({ url: '/pages/order/pay?oid=' + oid });}, orderDetailPage: function orderDetailPage(url, item) {if (url == 'orderDetail') {uni.navigateTo({ url: '/pages/order/orderdetail?orderItem=' + item.id });} else if (url == 'user') {uni.showToast({ title: "还未绑定微信,请去我的页面绑定微信", duration: 2000, icon: 'none' });
 
         uni.navigateTo({
           url: '/pages/tabar/user' });
@@ -511,6 +511,13 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
                 icon: 'none' });
 
             } else {
+
+
+
+
+
+
+
               uni.getLocation({
                 type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
                 success: function success(res) {

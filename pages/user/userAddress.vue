@@ -56,14 +56,25 @@
 		},
 		methods: {
 			leftClick() {
+				this.hide = true;
 				uni.navigateBack({
 					delta: 1
 				});
 			},
 			mapPage() {
 				// #ifdef H5
+				this.hide = false;
+				var data = {
+					contact:this.contact,
+					mobile:this.mobile,
+					address:this.address,
+					details:this.details,
+				}
+				var url = 'user';
+				uni.setStorageSync('userAddress', data);
+				
 				uni.navigateTo({
-					url: `address?contact=${this.contact}&mobile=${this.mobile}&address=${this.address}&details=${this.details}`
+					url: `address?url=${url}`
 				})
 				return;
 				// #endif
@@ -149,18 +160,26 @@
 			},
 		},
 		onLoad(option) {
-			this.childzid = option.childzid;
-			this.contact = option.contact;
-			this.mobile = option.mobile;
-			this.address = option.address;
-			this.details = option.details;
+			var data = uni.getStorageSync('userAddress');
+			if(data){
+				this.contact = data.contact;
+				this.mobile = data.mobile;
+				this.address = data.address;
+				this.details = data.details;
+			}
+			this.lat = option.lat;
+			this.lng = option.lng;
 			let count = option.count || 1;
-			// console.log(option.count)
 			if (count == 1) {
 				if (this)
 					this.memberAddressInfo()
 			}
 		},
+		onHide(){
+			if(this.hide == true){
+				uni.removeStorage({ key: 'userAddress'})
+			}
+		}
 
 
 
