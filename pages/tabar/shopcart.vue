@@ -490,7 +490,7 @@
 								break;
 
 							case 500:
-								Toast({
+								rs.Toast({
 									message: '信用金已用完，不能下单',
 									duration: 1200
 								});

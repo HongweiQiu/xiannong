@@ -34,6 +34,7 @@
       "root": "pages/order",
       "pages": [
         "orderdetail",
+        "address",
         "pay"
       ]
     },
@@ -105,6 +106,5 @@
   "uniStatistics": {
     "enable": true
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap11.json"
+  "usingComponents": {}
 }

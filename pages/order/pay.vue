@@ -55,7 +55,8 @@
 			return {
 				navBar: navBar,
 				oid: '',
-				payOrder: ''
+				payOrder: '',
+				is_miniBind: uni.getStorageSync('is_miniBind'),
 			};
 		},
 		methods: {
@@ -70,7 +71,15 @@
 			payOrdera() {
 				var that = this
 				var oid = that.oid;
-				var type = "app";
+				// #ifdef H5
+				var type = 'mp';
+				// #endif
+				// #ifdef APP-PLUS
+				var type = 'app';
+				// #endif
+				// #ifdef MP-WEIXIN
+				var type = 'mini';
+				// #endif
 				var timeStamp = Math.round(new Date().getTime() / 1000);
 				var obj = {
 					appid: appid,
@@ -82,7 +91,7 @@
 				var data = {
 					appid: appid,
 					oid: oid,
-					type: 'app',
+					type: type,
 					timeStamp: timeStamp,
 					sign: sign,
 				}
@@ -102,31 +111,109 @@
 					}
 				})
 			},
+			
+			// #ifdef APP-PLUS
 			querenchongzhi() {
+				var that = this
+				uni.getProvider({
+					service: 'payment',
+					success: function(res) {
+						if (~res.provider.indexOf('wxpay')) {
+							uni.requestPayment({
+								provider: 'wxpay',
+								orderInfo: that.payOrder.wxParams, //微信、支付宝订单数据
+								success: function(res) {
+									console.log('success:' + JSON.stringify(res));
+									rs.Toast('支付成功')
+									setTimeout(function() {
+										uni.switchTab({
+											url: "/pages/tabar/order"
+										})
+									}, 1000);
+								},
+								fail: function(err) {
+									console.log(err)
+									rs.Toast('充值失败')
+								}
+							});
+						}
+				
+				
+					}
+				});	
+				
+			},
+			// #endif
+			// #ifdef H5
+			querenchongzhi() {
+				console.log(typeof WeixinJSBridge)
+				if (typeof WeixinJSBridge == "undefined") {
+					if (document.addEventListener) {
+						document.addEventListener('WeixinJSBridgeReady', this.jsApiCall(), false);
+					} else if (document.attachEvent) {
+						document.attachEvent('WeixinJSBridgeReady', this.jsApiCall());
+						document.attachEvent('onWeixinJSBridgeReady', this.jsApiCall());
+					}
+				} else {
+					this.jsApiCall();
+				}
+			
+			},
+			jsApiCall() {
+				var thta = this;
+				WeixinJSBridge.invoke(
+					'getBrandWCPayRequest', {
+						"appId": this.payOrder.wxParams.appId, //公众号名称，由商户传入 
+						"timeStamp": this.payOrder.wxParams.timeStamp, //时间戳，自1970年以来的秒数 
+						"nonceStr": this.payOrder.wxParams.nonceStr, //随机串 
+						"package": this.payOrder.wxParams.package,
+						"signType": this.payOrder.wxParams.signType, //微信签名方式： 
+						"paySign": this.payOrder.wxParams.paySign //微信签名 
+					},
+					function(res) {
+						if (res.err_msg == "get_brand_wcpay_request:ok") {
+							rs.Toast('支付成功')
+							setTimeout(function() {
+								uni.switchTab({
+									url: "/pages/tabar/order"
+								})
+							}, 1000);
+						}
+					}
+				);
+			
+			},
+			// #endif
+			
+			// #ifdef MP-WEIXIN
+			querenchongzhi() {
+				console.log('微信支付')
 				var that = this
 				uni.requestPayment({
 					provider: 'wxpay',
 					orderInfo: that.payOrder.wxParams, //微信、支付宝订单数据
+					timeStamp: that.payOrder.wxParams.timeStamp,
+					nonceStr: that.payOrder.wxParams.nonceStr,
+					package: that.payOrder.wxParams.package,
+					signType: that.payOrder.wxParams.signType,
+					paySign: that.payOrder.wxParams.paySign,
 					success: function(res) {
-						console.log('success:' + JSON.stringify(res));
-						uni.showToast({
-							title: '支付成功',
-							duration: 2000,
-							icon: "none"
-						});
-						wx.switchTab({
-							url: '/pages/index/index',
-						})
+						rs.Toast('充值成功')
+						setTimeout(function() {
+							uni.switchTab({
+								url: "/pages/tabar/order"
+							})
+						}, 1000);
 					},
 					fail: function(err) {
-						uni.showToast({
-							title: err.errMsg,
-							duration: 2000,
-							icon: "none"
-						});
+						console.log(err)
+						rs.Toast("充值失败");
 					}
-				});
+			
+				})
 			},
+			// #endif
+			
 			goPay() {
 				var that = this
 				var oid = that.oid;

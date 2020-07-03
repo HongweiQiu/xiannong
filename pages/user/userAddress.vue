@@ -56,12 +56,14 @@
 		},
 		methods: {
 			leftClick() {
+				this.hide = true;
 				uni.navigateBack({
 					delta: 1
 				});
 			},
 			mapPage() {
 				// #ifdef H5
+				this.hide = false;
 				var data = {
 					contact:this.contact,
 					mobile:this.mobile,
@@ -173,6 +175,11 @@
 					this.memberAddressInfo()
 			}
 		},
+		onHide(){
+			if(this.hide == true){
+				uni.removeStorage({ key: 'userAddress'})
+			}
+		}
 
 
 

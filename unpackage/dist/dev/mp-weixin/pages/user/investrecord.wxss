@@ -1,5 +1,7 @@
 
-page{background:#f8f6f9 ;}
+page {
+	background: #f8f6f9;
+}
 .invest_record .tip {
 	color: red;
 	background: #f9d1cb;
@@ -8,7 +10,7 @@ page{background:#f8f6f9 ;}
 	text-align: center;
 	line-height: 50rpx;
 }
-.invest_record .info > view {
+.invest_record .info>view {
 	height: 80rpx;
 	background: white;
 	font-size: 24rpx;
@@ -24,7 +26,7 @@ page{background:#f8f6f9 ;}
 	-webkit-justify-content: space-between;
 	        justify-content: space-between;
 }
-.invest_record .info > view:first-child {
+.invest_record .info>view:first-child {
 	border-bottom: 1px solid #efefef;
 }
 .invest_record .notice {
@@ -35,14 +37,15 @@ page{background:#f8f6f9 ;}
 	display: flex;
 	padding: 20rpx 20rpx 80rpx;
 }
-.invest_record .select > view {
+.invest_record .select>view {
 	width: 329rpx;
 	height: 64rpx;
-	color: white;margin:0 auto;
+	color: white;
+	margin: 0 auto;
 	border-radius: 12rpx;
 	text-align: center;
 	line-height: 64rpx;
-	margin-top:20rpx;
+	margin-top: 20rpx;
 }
 .invest_record .select .determine {
 	background: #009a44;

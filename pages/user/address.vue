@@ -80,7 +80,7 @@
 					}
 					if (this.url == 'accountadd') {
 						var data = uni.getStorageSync('append');
-						data.childInfo.address = this.address1;
+						data.address = this.address1;
 						uni.setStorageSync('append', data);
 						uni.navigateTo({
 							url: `accountadd?lat=${this.lat}&lng=${this.lng}&count=2`
@@ -139,6 +139,7 @@
 		onLoad(option) {
 			let that = this;
 			this.url = option.url;
+			console.log(this.url)
 			window.addEventListener('message', function(event) {
 				// 接收位置信息，用户选择确认位置点后选点组件会触发该事件，回传用户的位置信息
 				var loc = event.data;

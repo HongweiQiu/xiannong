@@ -157,10 +157,7 @@
 						that.orderDetail = res.data.data;
 						that.detail = res.data.data.orderInfo;
 					} else {
-						uni.showToast({
-							title: res.data.msg,
-							icon: 'none'
-						})
+						rs.Toast(res.data.msg)
 					}
 				})
 			}

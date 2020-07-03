@@ -65,11 +65,13 @@
 				latitude: '',
 				save: true,
 				password: '',
-				count:''
+				count:'',
+				hide:''
 			};
 		},
 		methods: {
 			leftClick() {
+				this.hide = true;
 				uni.navigateTo({
 					url: "accountmange"
 				})
@@ -96,6 +98,7 @@
 
 			mapPage() {
 				// #ifdef H5
+				this.hide = false;
 				var data = {
 					childInfo:this.childInfo,
 					password:this.password,
@@ -299,6 +302,11 @@
 					this.memberAddressInfo()
 			}
 		},
+		onHide(){
+			if(this.hide == true){
+				uni.removeStorage({key: 'amend'})
+			}
+		}
 	};
 </script>
 

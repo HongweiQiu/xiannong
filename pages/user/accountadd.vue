@@ -59,11 +59,13 @@
 				address: '',
 				details: '',
 				longitude:'',
-				latitude:''
+				latitude:'',
+				hide:true
 			};
 		},
 		methods: {
 			leftClick() {
+				this.hide = true;
 				uni.navigateTo({
 					url: "accountmange"
 				})
@@ -71,6 +73,7 @@
 
 			mapPage() {
 				// #ifdef H5
+				this.hide = false;
 				var data = {
 					childInfo:this.nickname,
 					contact:this.contact,
@@ -167,7 +170,6 @@
 				rs.postRequests("addChild", data, (res) => {
 				  if (res.data.code == 200) {
 				    rs.Toast('添加成功')
-				    that.save = true;
 				    setTimeout(function() {
 				    	uni.navigateTo({
 				    		url: "accountmange"
@@ -181,17 +183,23 @@
 		},
 		onLoad(options) {
 			var data = uni.getStorageSync('append');
+			console.log(uni.getStorageSync('append'))
 			if(data){
-				that.nickname = data.nickname;
-				that.contact = data.contact;
-				that.mobile = data.mobile;
-				that.password = data.password;
-				that.address = data.address;
-				that.details = data.details;
+				this.nickname = data.nickname;
+				this.contact = data.contact;
+				this.mobile = data.mobile;
+				this.password = data.password;
+				this.address = data.address;
+				this.details = data.details;
 			}
 			this.latitude = options.lat;
 			this.longitude = options.lng;
 		},
+		onHide(){
+			if(this.hide == true){
+				uni.removeStorage({ key: 'append'})
+			}
+		}
 	};
 </script>
 
