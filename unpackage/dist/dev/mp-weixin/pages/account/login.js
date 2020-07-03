@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 461))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 467))
   }
 }
 var render = function() {
@@ -257,7 +257,7 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
           _request.default.Toast('登录成功，将跳转到首页');
           uni.setStorageSync('cdj_token', data.data.token);
           uni.setStorageSync('is_child', data.data.is_child);
-
+          console.log(data);
 
 
 
@@ -279,6 +279,7 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
       });
     },
     // app端微信登录
+
 
 
 

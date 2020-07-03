@@ -418,7 +418,7 @@
 	/* #endif */
 	.classify .bitmap {
 		text-align: center;
-		height: calc(100vh - 104rpx - 50px);
+		height: calc(100vh - 204rpx - 50px);
 		background: white;
 
 	}

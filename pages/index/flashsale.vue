@@ -4,7 +4,7 @@
 		<view class="time_stage">
 			<image src="../../static/img/secondsha.png"></image>
 			<view class="single_stage">
-				<view v-for="(item, index) in activeList" :class="index == kind ? 'active_back' : ''" @click="selectStage(index)">
+				<view v-for="(item, index) in activeList" :key="index" :class="index == kind ? 'active_back' : ''" @click="selectStage(index)">
 					<view class="twelve">
 						<text v-if="item.status== 1">距离结束</text>
 						<text v-else>即将开始</text>

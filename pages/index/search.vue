@@ -1,29 +1,41 @@
 <template>
 	<view class="search_list">
+
+		<view class="fixed">
+			<!-- #ifdef APP-PLUS |H5 -->
+
+			<view class="status_bar fixed white_b">
+				<!-- 这里是状态栏 -->
+			</view>
+			<view class="status_bar">
+				<!-- 这里是状态栏 -->
+			</view>
+			<!-- #endif -->
+			<view class="input_key">
+				<view class="arrow_left" @click="back">
+					<uni-icons type="arrowleft" size="25"></uni-icons>
+				</view>
+				<view class="flex_left_right right_area">
+					<view class="select_key align_center">
+						<icon type="search" size="30rpx" />
+						<input v-model="keyword" placeholder="请输入商品名称" @focus="focus" placeholder-class="place_style" class="keyword" />
+						<uni-icons type="mic-filled" size="20" color="#808080" @click="speed"></uni-icons>
+					</view>
+					<view style="color:#009B44;" @click="submit">搜索</view>
+				</view>
+			</view>
+		</view>
+
 		<!-- #ifdef APP-PLUS |H5 -->
 		<view class="status_bar">
 			<!-- 这里是状态栏 -->
 		</view>
-
 		<!-- #endif -->
-		<view class="input_key">
-			<view class="arrow_left" @click="back">
-				<uni-icons type="arrowleft" size="25"></uni-icons>
-			</view>
-			<view class="flex_left_right right_area">
-				<view class="select_key align_center">
-					<icon type="search" size="30rpx" />
-					<input v-model="keyword" placeholder="请输入商品名称" @focus="focus" placeholder-class="place_style" class="keyword" />
-					<uni-icons type="mic-filled" size="20" color="#808080" @click="speed"></uni-icons>
-				</view>
-				<view style="color:#009B44;" @click="submit">搜索</view>
-			</view>
-		</view>
-		<view style="height:108rpx;"></view>
+		<view style="height:105rpx;"></view>
 		<!-- 热门搜索 -->
 		<view class="hot_search" v-if="showSearch">
 			<view class="title">热门搜索</view>
-			<view class="key_tag"><text v-for="(item, index) in keyList" @click="searchList(item.keywords)">{{item.keywords}}</text></view>
+			<view class="key_tag"><text v-for="(item, index) in keyList" :key="index" @click="searchList(item.keywords)">{{item.keywords}}</text></view>
 		</view>
 		<!-- 搜索结果 -->
 		<view class="search_result" v-else>
@@ -373,7 +385,10 @@
 			uni.setStorageSync('search', this.list);
 		},
 		onShow() {
+			// #ifdef H5
 			this.wxConfig();
+			// #endif
+			
 			this.getSearchData();
 			if (this.keyword) {
 				this.list = uni.getStorageSync('search');
@@ -386,6 +401,7 @@
 	.search_list .input_key {
 		position: fixed;
 		width: 98%;
+		z-index: 9;
 		background: white;
 		height: 68rpx;
 		padding: 20rpx 0;
@@ -423,7 +439,6 @@
 		padding: 0 20rpx;
 	}
 
-	.search_list .hot_search .title {}
 
 	.search_list .hot_search .key_tag {
 		display: flex;
@@ -485,6 +500,12 @@
 		background: #009943;
 		border-radius: 50%;
 		padding: 10rpx;
+	}
+
+	.search_list .fixed {
+		background: white;
+		position: fixed;
+		z-index: 9;
 	}
 
 	/* #endif */

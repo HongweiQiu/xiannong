@@ -3,7 +3,7 @@
 		<uni-nav-bar left-icon="arrowleft" title="新品反馈" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
 
 
-		<view class="xp-con"><textarea maxlength="60" placeholder-style="font-size:14px;" placeholder="商城没有您要的商品？请提供资料我们帮您找..." v-model="contents"></textarea></view>
+		<view class="xp-con"><textarea maxlength="60" show-confirm-bar=false placeholder-style="font-size:14px;" placeholder="商城没有您要的商品？请提供资料我们帮您找..." v-model="contents"></textarea></view>
 		  <view class="text_length">
 		  	{{contents.length}}/60
 		  </view>

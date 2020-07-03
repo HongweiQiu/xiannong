@@ -198,6 +198,7 @@
 					} = res;
 
 					if (data.code == 200) {
+					
 						if (data.data.payType == 1) {
 							rs.Toast('支付成功');
 							uni.switchTab({
@@ -209,7 +210,7 @@
 							let {
 								wxParams
 							} = res.data.data;
-							log(wxParams)
+							log( res.data)
 							uni.requestPayment({
 								provider: 'wxpay',
 								orderInfo: wxParams, //微信、支付宝订单数据

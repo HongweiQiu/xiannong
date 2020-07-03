@@ -45,7 +45,7 @@
 			<view class="whole">
 				<view class="body" v-for="(item, index) in activeList" :key="index" @click="newPage('shopdetail',item.item_id)">
 					<view>
-						<image :src="config.logo" mode="aspectFit" class="shuiyin" v-if="config.logo&&config.shuiyin==1"></image>
+						<image :src="config.logo" mode="aspectFit" class="shuiyin1" v-if="config.logo&&config.shuiyin==1"></image>
 						<image class="good_img" :src="item.img==''?imgRemote+activeConf.item_default:item.img" mode="aspectFit"></image>
 					</view>
 					<view>
@@ -504,4 +504,6 @@
 		margin-right: 20rpx;
 		width: 33%;
 	}
+	.home .shuiyin1{width: 60rpx;
+    height: 20rpx;}
 </style>

@@ -12,8 +12,8 @@
 			active: '2',
 			appsecret: 'StJfzJcXmya6k6Ar',
 			// #ifdef APP-PLUS |MP-WEIXIN
-			rootUrl: 'https://test.caidj.cn', //主接口地址
-			imgRemote: 'https://test.caidj.cn',
+			rootUrl: 'https://new.caidj.cn', //主接口地址
+			imgRemote: 'https://new.caidj.cn',
 			// #endif
 			// #ifdef H5
 			rootUrl: '/api', //主接口地址
