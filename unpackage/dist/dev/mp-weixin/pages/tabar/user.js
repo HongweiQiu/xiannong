@@ -94,10 +94,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-icons": function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 438))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 446))
   },
   "my-tabar": function() {
-    return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 417))
+    return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 425))
   }
 }
 var render = function() {
@@ -138,6 +138,18 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -295,14 +307,19 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var uniIcons = function uniIcons() {Promise.all(/*! require.ensure | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then((function () {return resolve(__webpack_require__(/*! ../../components/uni-icons/uni-icons.vue */ 438));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { uniIcons: uniIcons }, data: function data() {return { userList: [{ icon: 'icon-08_zizhanghaoguanli', name: '账号管理', color: '#3DABFF', url: 'accountmange' }, { icon: 'icon-fapiao', name: '开具发票', color: '#FF9C00', url: 'receipt' }, { icon: 'icon-tianchongxing--', name: '账单记录', color: '#FFF000', url: 'bill' }, { color: '#ffab9a', icon: 'icon-buy-fill', name: '购买记录', url: 'purchase_record' }, { icon: 'icon-qianbao', name: '充值', color: '#2DC4B4', url: 'invest' }, { icon: 'icon-juan', name: '现金劵', color: '#F8632F', url: 'cash' }, { icon: 'icon-weixin', name: '绑定微信', color: '#26DD5B', url: 'bindWeChat' }, { icon: 'icon-fenxiang', name: '分享', color: '#26DD5B', url: 'share' }], is_bind: '', is_child: '', token: '', imgRemote: imgRemote, memberInfoData: '', member_default: '', code: '' };}, methods: { memberInfo: function memberInfo() {var _this = this;var that = this;
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        timeStamp: timeStamp };
-
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-      var data = {
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var uniIcons = function uniIcons() {Promise.all(/*! require.ensure | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then((function () {return resolve(__webpack_require__(/*! ../../components/uni-icons/uni-icons.vue */ 446));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { uniIcons: uniIcons }, data: function data() {return { userList: [{ icon: 'icon-08_zizhanghaoguanli', name: '账号管理', color: '#3DABFF', url: 'accountmange' }, { icon: 'icon-fapiao', name: '开具发票', color: '#FF9C00', url: 'receipt' }, { icon: 'icon-tianchongxing--', name: '账单记录', color: '#FFF000', url: 'bill' }, { color: '#ffab9a', icon: 'icon-buy-fill', name: '购买记录', url: 'purchase_record' }, { icon: 'icon-qianbao', name: '充值', color: '#2DC4B4', url: 'invest' }, { icon: 'icon-juan', name: '现金劵', color: '#F8632F', url: 'cash' }, { icon: 'icon-weixin', name: '绑定微信', color: '#26DD5B', url: 'bindWeChat' }], is_bind: '', is_child: '', token: '', imgRemote: imgRemote, memberInfoData: '', member_default: '', code: '' };}, methods: { memberInfo: function memberInfo() {var _this = this;var that = this;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = {
         appid: appid,
         timeStamp: timeStamp,
         sign: sign };
@@ -343,7 +360,20 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
 
 
       } else if (item.url == 'share') {
-        console.log("点击分享");
+        wx.ready(function () {//需在用户可能点击分享按钮前就先调用
+          wx.updateAppMessageShareData({
+            title: '213', // 分享标题
+            desc: '123', // 分享描述
+            link: app.rootUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: '123', // 分享图标
+            success: function success() {
+              // 设置成功
+              console.log(45);
+            } });
+
+        });
+
+
       } else {
         uni.navigateTo({
           url: "/pages/user/".concat(item.url) });
@@ -590,6 +620,16 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         _request.default.getRequests("wxConfig", data, function (res) {
           if (res.data.code == 200) {
             _this2.userinfo = res.data.data;
+            wx.config({
+              debug: false, // 开启调试模式
+              appId: res.data.data.appId, // 必填，公众号的唯一标识
+              timestamp: res.data.data.timestamp, // 必填，生成签名的时间戳
+              nonceStr: res.data.data.nonceStr, // 必填，生成签名的随机串
+              signature: res.data.data.signature, // 必填，签名，见附录1
+              jsApiList: [
+              'updateAppMessageShareData']
+              // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+            });
           }
         });
       }
