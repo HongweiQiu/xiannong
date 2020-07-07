@@ -29,7 +29,7 @@
 				</view>
 				<!-- 下单时间段 -->
 				<view class="order_time align_center">
-					<image src="../../static/img/clock.gif" mode=""></image>
+					<image src="../../static/img/clock.gif" mode="aspectFit"></image>
 					<text class="red_font">请在( {{cartInfo.open_time+'-'+cartInfo.end_time}})之间下单</text>
 				</view>
 				<view class="select_info">
@@ -90,7 +90,7 @@
 				<!-- 下单 -->
 				<view class="order_method" v-if="display">
 					<view class="flex_left_right active_info" v-if="cartInfo.activity_type==1" @click="collectBill">
-						<view v-html="reduce"></view>
+						<view > <rich-text :nodes="reduce"></rich-text></view>
 						<view class="red_font">
 							去凑单
 							<uni-icons type="arrowright" size="18" color="red"></uni-icons>
@@ -166,6 +166,7 @@
 <script>
 	import wPicker from '@/components/w-picker/w-picker.vue';
 	import md5 from '../../static/js/md5.js';
+	import parseHtml from '../../static/js/parseHtml.js';
 	import rs from '../../static/js/request.js';
 	let {
 		log
@@ -328,14 +329,11 @@
 					let length = activity_rule.length - 1;
 					if (activity_type == 1) {
 						if (activity_rule[length].price <= totalPrice) {
-							this.reduce =
-								`已享受满<text style='color: #FF3E1E;'>${activity_rule[length].price}元</text>减<text style='color: #FF3E1E;'>${activity_rule[length].reduce}元<text>`;
-
-						} else {
+							this.reduce =parseHtml(`已享受满<span style='color: #FF3E1E;'>${activity_rule[length].price}元</span>减<span style='color: #FF3E1E;'>${activity_rule[length].reduce}元<span>`);
+								} else {
 							for (let i of activity_rule) {
 								if (totalPrice < i.price) {
-									this.reduce =
-										`再满<text style='color: #FF3E1E;'>${i.price - totalPrice}元</text>减<text style='color: #FF3E1E;'>${i.reduce}元</text>`;
+									this.reduce =parseHtml(`再满<span style='color: #FF3E1E;'>${i.price - totalPrice}元</span>减<span style='color: #FF3E1E;'>${i.reduce}元</span>`);
 									return;
 								}
 							}
@@ -872,11 +870,19 @@
 	.shopcart .remark .weight {
 		width: 70rpx;
 	}
-
 	.shopcart .remark .remark_note {
 		margin-right: 20rpx;
 		width: 100%;
+	
 	}
+/* #ifdef MP-ALIPAY */
+	.shopcart .remark .remark_note {
+		margin-right: 20rpx;
+		width: 100%;
+		height: 28rpx;
+	}
+
+/* #endif */
 
 	.order_method .active_info {
 		/* padding: 5rpx 20rpx; */

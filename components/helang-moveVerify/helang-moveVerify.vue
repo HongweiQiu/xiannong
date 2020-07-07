@@ -28,6 +28,21 @@
 			};
 		},
 		mounted() {
+			// #ifdef MP-ALIPAY
+			
+			let getSize = (selector) => {
+				return new Promise((resolve, reject) => {
+					let view = uni.createSelectorQuery().select(selector);
+					view.fields({
+						size: true,
+					}, (res) => {
+						resolve(res.width);
+						
+					}).exec();
+				});
+			}
+			// #endif
+			// #ifndef MP-ALIPAY
 			let getSize = (selector) => {
 				return new Promise((resolve, reject) => {
 					let view = uni.createSelectorQuery().in(this).select(selector);
@@ -35,12 +50,20 @@
 						size: true,
 					}, (res) => {
 						resolve(res.width);
+						
 					}).exec();
 				});
 			}
+				
+			
+			
+			// #endif
+			
+			
 			this.$nextTick(() => {
 				getSize(".on-pathway").then((res1) => {
 					this.size.pathway = res1;
+					console.log(res1)
 					getSize(".on-track").then((res2) => {
 						this.size.track = res2;
 					});
@@ -51,6 +74,7 @@
 			/* 滑动中 */
 			onMove(e) {
 				this.oldx = e.detail.x;
+				
 			},
 			/* 滑动结束 */
 			onEnd() {

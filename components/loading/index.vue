@@ -3,7 +3,7 @@
 		
 		<view class="loading" v-if="loading">
 			
-			<image class="load_img" src="../../static/img/loading.gif" mode=""></image>
+			<image class="load_img" src="../../static/img/loading.gif" mode="aspectFit"></image>
 			<text>正在加载中...</text>
 		</view>
 	

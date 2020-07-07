@@ -1,265 +1,333 @@
 <script>
-export default {
-	//全局共享数据
-	globalData: {
-		// #ifdef APP-PLUS
-		navBar: true,
-		// #endif
-		// #ifdef MP-WEIXIN |H5
-		navBar: false,
-		// #endif
-		appid: '1',
-		active: '2',
-		appsecret: 'StJfzJcXmya6k6Ar',
-		// #ifdef APP-PLUS |MP-WEIXIN
-		rootUrl: 'https://test.caidj.cn', //主接口地址
-		imgRemote: 'https://test.caidj.cn',
-		// #endif
-		// #ifdef H5
-		isWeixin:false,
-		// rootUrl: '/api', //主接口地址
-		rootUrl: window.location.protocol + "//" + window.location.hostname, //线上地址
-		imgRemote: 'http://three.caidj.cn',
-		// #endif
-		classId:'',
-		isReload:true,
-		aData: {
-		  show: true
-		}
-	},
-	onLaunch: function() {
-	
-	},
-	onShow: function() {},
-	onHide: function() {}
-};
+	export default {
+		//全局共享数据
+		globalData: {
+			// #ifdef APP-PLUS
+			navBar: true,
+			// #endif
+			// #ifdef MP-WEIXIN |H5
+			navBar: false,
+			// #endif
+			appid: '1',
+			active: '2',
+			appsecret: 'StJfzJcXmya6k6Ar',
+			// #ifdef APP-PLUS |MP-WEIXIN |MP-ALIPAY
+			rootUrl: 'https://test.caidj.cn', //主接口地址
+			imgRemote: 'https://test.caidj.cn',
+			// #endif
+			// #ifdef H5
+			isWeixin: false,
+			rootUrl: '/api', //主接口地址
+			// rootUrl: window.location.protocol + "//" + window.location.hostname, //线上地址
+			imgRemote: 'http://three.caidj.cn',
+			// #endif
+			classId: '',
+			isReload: true,
+			aData: {
+				show: true
+			}
+		},
+		onLaunch: function() {
+
+		},
+		onShow: function() {},
+		onHide: function() {}
+	};
 </script>
 
 <style>
-/*每个页面公共css */
-@font-face {
-  font-family: 'iconfont';  /* project id 1843139 */
-  src: url('https://at.alicdn.com/t/font_1843139_q51815v70if.eot');
-  src: url('https://at.alicdn.com/t/font_1843139_q51815v70if.eot?#iefix') format('embedded-opentype'),
-  url('https://at.alicdn.com/t/font_1843139_q51815v70if.woff2') format('woff2'),
-  url('https://at.alicdn.com/t/font_1843139_q51815v70if.woff') format('woff'),
-  url('https://at.alicdn.com/t/font_1843139_q51815v70if.ttf') format('truetype'),
-  url('https://at.alicdn.com/t/font_1843139_q51815v70if.svg#iconfont') format('svg');
-}
-.iconfont {
-  font-family: "iconfont" !important;
-  font-size: 16px;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+	/*每个页面公共css */
+	@font-face {
+		font-family: 'iconfont';
+		/* project id 1843139 */
+		src: url('https://at.alicdn.com/t/font_1843139_f7bqeh44kh.eot');
+		src: url('https://at.alicdn.com/t/font_1843139_f7bqeh44kh.eot?#iefix') format('embedded-opentype'),
+			url('https://at.alicdn.com/t/font_1843139_f7bqeh44kh.woff2') format('woff2'),
+			url('https://at.alicdn.com/t/font_1843139_f7bqeh44kh.woff') format('woff'),
+			url('https://at.alicdn.com/t/font_1843139_f7bqeh44kh.ttf') format('truetype'),
+			url('https://at.alicdn.com/t/font_1843139_f7bqeh44kh.svg#iconfont') format('svg');
+	}
 
-.icon-fenxiang:before {
-  content: "\e623";
-}
+	.iconfont {
+		font-family: "iconfont" !important;
+		font-size: 16px;
+		font-style: normal;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
 
-.icon-buy-fill:before {
-  content: "\e64c";
-}
+	.icon-sousuo:before {
+		content: "\e60f";
+	}
 
-.icon-huidaodingbu:before {
-  content: "\e6c0";
-}
+	.icon-fenxiang:before {
+		content: "\e623";
+	}
 
-.icon-alreadystar:before {
-  content: "\e624";
-}
+	.icon-buy-fill:before {
+		content: "\e64c";
+	}
 
-.icon-xing:before {
-  content: "\e600";
-}
+	.icon-huidaodingbu:before {
+		content: "\e6c0";
+	}
 
-.icon-tianchongxing--:before {
-  content: "\e614";
-}
+	.icon-alreadystar:before {
+		content: "\e624";
+	}
 
-.icon-mima:before {
-  content: "\e645";
-}
+	.icon-xing:before {
+		content: "\e600";
+	}
 
-.icon-yuyin:before {
-  content: "\e631";
-}
+	.icon-tianchongxing--:before {
+		content: "\e614";
+	}
 
-.icon-08_zizhanghaoguanli:before {
-  content: "\e630";
-}
+	.icon-mima:before {
+		content: "\e645";
+	}
 
-.icon-shanchu:before {
-  content: "\e663";
-}
+	.icon-yuyin:before {
+		content: "\e631";
+	}
 
-.icon-qianbao:before {
-  content: "\e604";
-}
+	.icon-08_zizhanghaoguanli:before {
+		content: "\e630";
+	}
 
-.icon-juan:before {
-  content: "\e64b";
-}
+	.icon-shanchu:before {
+		content: "\e663";
+	}
 
-.icon-huabanfuben:before {
-  content: "\e65d";
-}
+	.icon-qianbao:before {
+		content: "\e604";
+	}
 
-.icon-X:before {
-  content: "\e674";
-}
+	.icon-juan:before {
+		content: "\e64b";
+	}
 
-.icon-weixin:before {
-  content: "\e637";
-}
+	.icon-huabanfuben:before {
+		content: "\e65d";
+	}
 
-.icon-yonghu:before {
-  content: "\e603";
-}
+	.icon-X:before {
+		content: "\e674";
+	}
 
-.icon-fapiao:before {
-  content: "\e720";
-}
+	.icon-weixin:before {
+		content: "\e637";
+	}
 
-.icon-tuichu:before {
-  content: "\e69e";
-}
+	.icon-yonghu:before {
+		content: "\e603";
+	}
+
+	.icon-fapiao:before {
+		content: "\e720";
+	}
+
+	.icon-tuichu:before {
+		content: "\e69e";
+	}
 
 
 
-page {
-	background: #f8f6f9;
-	font-size: 28rpx;
-}
-.addcart image {
-	width: 32rpx;
-	height: 32rpx;
-}
-.status_bar {
-	/* background: white; */
 
-	height: var(--status-bar-height);
-	width: 100%;
-}
-.hidden {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-.red_tag {
-	background: red;
-	color: white;
-	border-radius: 6rpx;
-	padding: 0 1px;
-	font-size: 20rpx;
-	margin-right: 5rpx;
-}
-.red_font {
-	color: red !important;
-}
-.gray_font {
-	color: #808080;
-}
-.flex {
-	display: flex;
-}
-.flex_left_right {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-}
-.align_center {
-	display: flex;
-	align-items: center;
-}
-.line_through {
-	color: #808080;
-	text-decoration: line-through;
-}
-.uni-countdown {
-	align-items: center;
-}
-.line_border {
-	width: 4px;
-	height: 40rpx;
-	background: #009a44;
-}
-.weight {
-	font-weight: 700;
-}
-.home .uni-countdown__number {
-	height: 30rpx !important;
 
-	color: white !important;
-	border-radius: 4rpx;
-	width: 40rpx !important;
-}
-.flash_sale .uni-countdown__number {
-	height: 30rpx !important;
+	page {
+		background: #f8f6f9;
+		font-size: 28rpx;
+	}
 
-	color: white !important;
-	border-radius: 4rpx;
-	width: 35rpx !important;
-}
-.uni-nav-bar-right-text {
-	color: #009a44;
-}
-.recomend .title {
-	display: flex;
-	align-items: center;
-	height: 80rpx;
-	line-height: 80rpx;
-	background-image: linear-gradient(180deg, #fff, #f7f7f7);
-	padding: 0 20rpx;
-	margin-top: 10rpx;
-}
-.recomend .title .name {
-	margin: 0 12rpx;
-	font-size: 32rpx;
-	font-weight: 600;
-}
-.recomend .body {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	padding: 0 20rpx;
-}
-.body .myc_recomend:nth-child(n+3){
-	margin-top:40rpx;
-}
-.order .uni-icons {
-	color: #009a44 !important;
-}
-.place_style {
-	font-size: 24rpx;
-	color: #c2c2c2;
-}
-.center{text-align: center;}
-.submit_button {
-	background: #009a44;
-	color: white;
-	border-radius: 12rpx;
-	text-align: center;
-	margin: 30rpx auto;
-}
-.twelve {
-	font-size: 24rpx;
-}
-.ten {
-	font-size: 20rpx;
-}
+	.addcart image {
+		width: 32rpx;
+		height: 32rpx;
+	}
 
-.fiveteen {
-	font-size: 50rpx;
-}
-.width{width:100%;}
-.shuiyin{width: 60rpx;height:20rpx;position: absolute;z-index: 1;}
-.uni-modal__btn_primary{color:#009a44!important;}
-.uni-modal__btn_default{color:#999!important;}
-.uni-modal__bd{color:black!important;}
-input{font-size: 28rpx!important;
-    line-height: initial!important;min-height: initial!important;}
-	.green_b{background: #009a44!important;}
-	.gray_b{background: gray!important;}
+	.status_bar {
+		/* background: white; */
+
+		height: var(--status-bar-height);
+		width: 100%;
+	}
+
+	.hidden {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.red_tag {
+		background: red;
+		color: white;
+		border-radius: 6rpx;
+		padding: 0 1px;
+		font-size: 20rpx;
+		margin-right: 5rpx;
+	}
+
+	.red_font {
+		color: red !important;
+	}
+
+	.gray_font {
+		color: #808080;
+	}
+
+	.flex {
+		display: flex;
+	}
+
+	.flex_left_right {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.align_center {
+		display: flex;
+		align-items: center;
+	}
+
+	.line_through {
+		color: #808080;
+		text-decoration: line-through;
+	}
+
+	.uni-countdown {
+		align-items: center;
+	}
+
+	.line_border {
+		width: 4px;
+		height: 40rpx;
+		background: #009a44;
+	}
+
+	.weight {
+		font-weight: 700;
+	}
+
+	.home .uni-countdown__number {
+		height: 30rpx !important;
+
+		color: white !important;
+		border-radius: 4rpx;
+		width: 40rpx !important;
+	}
+
+	.flash_sale .uni-countdown__number {
+		height: 30rpx !important;
+
+		color: white !important;
+		border-radius: 4rpx;
+		width: 35rpx !important;
+	}
+
+	.uni-nav-bar-right-text {
+		color: #009a44;
+	}
+
+	.recomend .title {
+		display: flex;
+		align-items: center;
+		height: 80rpx;
+		line-height: 80rpx;
+		background-image: linear-gradient(180deg, #fff, #f7f7f7);
+		padding: 0 20rpx;
+		margin-top: 10rpx;
+	}
+
+	.recomend .title .name {
+		margin: 0 12rpx;
+		font-size: 32rpx;
+		font-weight: 600;
+	}
+
+	.recomend .body {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		padding: 0 20rpx;
+	}
+
+	.body .recomend_single:nth-child(n+3) {
+		margin-top: 40rpx;
+	}
+
+	.order .uni-icons {
+		color: #009a44 !important;
+	}
+
+	.place_style {
+		font-size: 24rpx;
+		color: #c2c2c2;
+	}
+
+	.center {
+		text-align: center;
+	}
+
+	.submit_button {
+		background: #009a44;
+		color: white;
+		border-radius: 12rpx;
+		text-align: center;
+		margin: 30rpx auto;
+	}
+
+	.twelve {
+		font-size: 24rpx;
+	}
+
+	.ten {
+		font-size: 20rpx;
+	}
+
+	.fiveteen {
+		font-size: 50rpx;
+	}
+
+	.width {
+		width: 100%;
+	}
+
+	.shuiyin {
+		width: 60rpx;
+		height: 20rpx;
+		/* position: absolute; */
+		z-index: 1;
+	}
+
+	.uni-modal__btn_primary {
+		color: #009a44 !important;
+	}
+
+	.uni-modal__btn_default {
+		color: #999 !important;
+	}
+
+	.uni-modal__bd {
+		color: black !important;
+	}
+
+	input {
+		font-size: 28rpx !important;
+		line-height: initial !important;
+		min-height: initial !important;
+	}
+
+	.green_b {
+		background: #009a44 !important;
+	}
+
+	.gray_b {
+		background: gray !important;
+	}
+
+	.icon-sousuo {
+		color: #d6cdd2;
+	}
 </style>

@@ -6,7 +6,7 @@
 
 			<!-- #endif -->
 			<view class="my_search_content">
-				<icon type="search" size="26rpx" />
+			<text class="iconfont icon-sousuo"></text>
 				<text class="text">请输入商品名称</text>
 			</view>
 		</view>

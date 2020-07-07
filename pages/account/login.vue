@@ -26,29 +26,32 @@
 				</view>
 			</view>
 			<!-- 微信登录 -->
+			<!-- #ifndef MP-ALIPAY -->
 			<view class="wechat_login" v-if="display">
-				<view class="">
-					<view class="divider gray_font">其他登录</view>
-					<view class="weixin_button" @click="wechatLogin">
-						<!-- #ifdef APP-PLUS |H5 -->
-						<image class="weixin_img" src="../../static/img/wechat.png" mode=""></image>
-						<!-- #endif -->
-
-						<!-- #ifdef MP-WEIXIN -->
-						<button open-type="getUserInfo">
+					<view class="">
+						<view class="divider gray_font">其他登录</view>
+						<view class="weixin_button" @click="wechatLogin">
+							<!-- #ifdef APP-PLUS |H5 -->
 							<image class="weixin_img" src="../../static/img/wechat.png" mode=""></image>
-						</button>
-						<!-- #endif -->
-
-						<text>微信登录</text>
-					</view>
-					<view class="read_treaty" @click="pageUrl('treaty')">
-						已阅读并同意
-						<text>注册协议</text>
+							<!-- #endif -->
+			
+							<!-- #ifdef MP-WEIXIN -->
+							<button open-type="getUserInfo">
+								<image class="weixin_img" src="../../static/img/wechat.png" mode=""></image>
+							</button>
+							<!-- #endif -->
+			
+							<text>微信登录</text>
+						</view>
+						<view class="read_treaty" @click="pageUrl('treaty')">
+							已阅读并同意
+							<text>注册协议</text>
+						</view>
 					</view>
 				</view>
+			
+			<!-- #endif -->
 			</view>
-		</view>
 	</view>
 </template>
 

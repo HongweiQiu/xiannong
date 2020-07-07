@@ -221,20 +221,18 @@
 					// #endif
 
 				} else if (item.url == 'share') {
-					wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
-					  wx.updateAppMessageShareData({ 
-					    title: '213', // 分享标题
-					    desc: '123', // 分享描述
-					    link: app.rootUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-					    imgUrl: '123', // 分享图标
-					    success: function () {
-					      // 设置成功
-						  console.log(45)
-					    }
-					  })
-					}); 
-					
-				
+				wx.onMenuShareAppMessage({
+				  title: '123', // 分享标题
+				  desc: '123', // 分享描述
+				  link: app.rootUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+				  imgUrl: '', // 分享图标
+				  type: '', // 分享类型,music、video或link，不填默认为link
+				  dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+				  success: function () {
+				    // 用户点击了分享后执行的回调函数
+					alert(45)
+				  }
+				});
 				} else {
 					uni.navigateTo({
 						url: `/pages/user/${item.url}`
@@ -488,7 +486,7 @@
 								nonceStr: res.data.data.nonceStr, // 必填，生成签名的随机串
 								signature: res.data.data.signature, // 必填，签名，见附录1
 								jsApiList: [
-									'updateAppMessageShareData'
+									'updateAppMessageShareData','onMenuShareAppMessage'
 								] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 							});
 						}

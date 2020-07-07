@@ -11,6 +11,7 @@
 			</view>
 			<view class="right_area">
 				<view class="first_name">
+					
 					<my-s-tabs effect slot-title @change="changeFirst" class="mp_tab_width" activeColor="#009a44" lineColor="none"
 					 v-model="activeTab">
 						<my-s-tab v-for="(item,index) of firstCate" :key="index">{{item.name}}</my-s-tab>
@@ -24,11 +25,12 @@
 
 					<view class="my_loading">
 						<view class="loading" v-if="loading">
-							<image class="load_img" src="../../static/img/loading.gif" mode=""></image>
+							<image class="load_img" src="../../static/img/loading.gif" mode="aspectFit"></image>
 							<text>正在加载中...</text>
 						</view>
-
-						<view v-else v-html="textInfo" @click="nextSecond"></view>
+						<view v-else @click="nextSecond">
+							<rich-text :nodes="textInfo"></rich-text>
+						</view>
 					</view>
 				</view>
 				<view v-else class="bitmap">
@@ -67,6 +69,9 @@
 	import uniDrawer from "@/components/uni-drawer/uni-drawer.vue"
 	import md5 from '../../static/js/md5.js';
 	import rs from '../../static/js/request.js';
+	import parseHtml from '../../static/js/parseHtml.js';
+
+
 	const app = getApp().globalData;
 	const {
 		appid,
@@ -82,6 +87,7 @@
 		},
 		data() {
 			return {
+
 				kind: 0,
 				active: -1,
 				activeTab: 0,
@@ -181,9 +187,9 @@
 						if (data.data.list.length < 10) {
 							this.loading = false;
 							if (this.kind == this.secondCate.length - 1) {
-								this.textInfo = "没有更多呢"
+								this.textInfo = parseHtml('没有更多呢');
 							} else {
-								this.textInfo = "上滑或点击<span class='red_font'>" + this.secondCate[1].name + '</span>进入下一分类';
+								this.textInfo = parseHtml("上滑或点击<span class='red_font'>" + this.secondCate[1].name + '</span>进入下一分类');
 							}
 
 						} else {
@@ -226,7 +232,7 @@
 			},
 			// 显示键盘
 			showKey(item, index) {
-
+				console.log(45)
 				this.arrObj = item;
 				this.index = index;
 				this.$refs.popup.open();
@@ -309,12 +315,11 @@
 					} else {
 						this.loading = false;
 						if (this.kind == this.secondCate.length - 1) {
-							this.textInfo = "没有更多呢";
+							this.textInfo = parseHtml("没有更多呢");
 						} else {
-							this.textInfo = "上滑或点击<span class='red_font'>" + this.secondCate[this.kind + 1].name + '</span>进入下一分类';
+							this.textInfo = parseHtml("上滑或点击<span class='red_font'>" + this.secondCate[this.kind + 1].name +
+								'</span>进入下一分类');
 						}
-
-
 					}
 				}
 			})
@@ -405,7 +410,18 @@
 	}
 
 	/* #endif */
-	/* #ifdef MP-WEIXIN */
+	/* #ifdef MP-ALIPAY */
+	.classify .right_area .my_profile:nth-last-child(n+3) {
+		border-bottom: 1px solid #eaeaea;
+	}
+
+	.classify .right_area .my_profile {
+		border-bottom: 1px solid #eaeaea;
+		padding-right: 20rpx;
+	}
+
+	/* #endif */
+	/* #ifdef MP-WEIXIN   */
 	.classify .right_area .single_good:nth-last-child(n+3) .my_profile {
 		border-bottom: 1px solid #eaeaea;
 	}
