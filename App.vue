@@ -18,8 +18,8 @@ export default {
 		// #ifdef H5
 		isWeixin:false,
 		rootUrl: '/api', //主接口地址
-		rootUrl: window.location.protocol + "//" + window.location.hostname, //线上地址
-		// imgRemote: 'http://test.caidj.cn',
+		// rootUrl: window.location.protocol + "//" + window.location.hostname, //线上地址
+		imgRemote: 'http://test.caidj.cn',
 		// #endif
 		classId:'',
 		isReload:true,
@@ -45,7 +45,6 @@ export default {
   url('//at.alicdn.com/t/font_1843139_q51815v70if.ttf?t=1593499245241') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
   url('//at.alicdn.com/t/font_1843139_q51815v70if.svg?t=1593499245241#iconfont') format('svg'); /* iOS 4.1- */
 }
-
 .iconfont {
   font-family: "iconfont" !important;
   font-size: 16px;
@@ -125,6 +124,7 @@ export default {
 .icon-tuichu:before {
   content: "\e69e";
 }
+
 
 
 page {

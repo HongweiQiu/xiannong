@@ -62,6 +62,18 @@
 					<uni-icons type="arrowright" size="18" color="black"></uni-icons>
 				</view>
 			</view>
+			<!-- #ifdef MP-WEIXIN --><button open-type="share">
+			<view v-if="is_child != 1" @click="share"  class="flex_left_right">
+				<view class="">
+					<icon class="'iconfont icon-fenxiang" style="color: #26DD5B;"></icon>
+					<text class="name">分享小程序</text>
+				</view>
+				<view>
+					<uni-icons type="arrowright" size="18" color="black"></uni-icons>
+				</view>
+			</view></button>
+			<!-- #endif -->
+			
 			<view class="flex_left_right" @click="exit">
 				<view class="">
 					<icon class="iconfont  icon-tuichu" style="color:#ADDB8C"></icon>
@@ -86,6 +98,9 @@
 		imgRemote,
 		navBar
 	} = app;
+	// #ifdef H5
+	var wx = require('jweixin-module');
+	// #endif
 	import uniIcons from '../../components/uni-icons/uni-icons.vue';
 	export default {
 		components: {
@@ -135,12 +150,14 @@
 						color: '#26DD5B',
 						url: 'bindWeChat'
 					},
+					// #ifdef H5
 					{
 						icon: 'icon-fenxiang',
-						name: '分享',
+						name: '分享公众号',
 						color: '#26DD5B',
 						url: 'share'
 					}
+					// #endif
 				],
 				is_bind: '',
 				is_child: '',
@@ -204,7 +221,20 @@
 					// #endif
 
 				} else if (item.url == 'share') {
-					console.log("点击分享")
+					wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
+					  wx.updateAppMessageShareData({ 
+					    title: '213', // 分享标题
+					    desc: '123', // 分享描述
+					    link: app.rootUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+					    imgUrl: '123', // 分享图标
+					    success: function () {
+					      // 设置成功
+						  console.log(45)
+					    }
+					  })
+					}); 
+					
+				
 				} else {
 					uni.navigateTo({
 						url: `/pages/user/${item.url}`
@@ -471,6 +501,16 @@
 					rs.getRequests("wxConfig", data, (res) => {
 						if (res.data.code == 200) {
 							this.userinfo = res.data.data;
+							wx.config({
+								debug: false, // 开启调试模式
+								appId: res.data.data.appId, // 必填，公众号的唯一标识
+								timestamp: res.data.data.timestamp, // 必填，生成签名的时间戳
+								nonceStr: res.data.data.nonceStr, // 必填，生成签名的随机串
+								signature: res.data.data.signature, // 必填，签名，见附录1
+								jsApiList: [
+									'updateAppMessageShareData'
+								] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+							});
 						}
 					})
 				}
@@ -627,4 +667,5 @@
 	.user .select_operate>view .name {
 		margin-left: 10rpx;
 	}
+	.user button{position:static;padding:0;background: none;font-size: 28rpx;}
 </style>

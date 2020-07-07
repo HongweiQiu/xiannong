@@ -37,6 +37,7 @@
 
 
 /*每个页面公共css */
+<<<<<<< HEAD
 @font-face {font-family: "iconfont";
   src: url('//at.alicdn.com/t/font_1843139_q51815v70if.eot?t=1593499245241'); /* IE9 */
   src: url('//at.alicdn.com/t/font_1843139_q51815v70if.eot?t=1593499245241#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -44,6 +45,16 @@
   url('//at.alicdn.com/t/font_1843139_q51815v70if.woff?t=1593499245241') format('woff'),
   url('//at.alicdn.com/t/font_1843139_q51815v70if.ttf?t=1593499245241') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
   url('//at.alicdn.com/t/font_1843139_q51815v70if.svg?t=1593499245241#iconfont') format('svg'); /* iOS 4.1- */
+=======
+@font-face {
+  font-family: 'iconfont';  /* project id 1843139 */
+  src: url('https://at.alicdn.com/t/font_1843139_q51815v70if.eot');
+  src: url('https://at.alicdn.com/t/font_1843139_q51815v70if.eot?#iefix') format('embedded-opentype'),
+  url('https://at.alicdn.com/t/font_1843139_q51815v70if.woff2') format('woff2'),
+  url('https://at.alicdn.com/t/font_1843139_q51815v70if.woff') format('woff'),
+  url('https://at.alicdn.com/t/font_1843139_q51815v70if.ttf') format('truetype'),
+  url('https://at.alicdn.com/t/font_1843139_q51815v70if.svg#iconfont') format('svg');
+>>>>>>> b3ec33be5a0aa020c27359cc6536ec08720bf3d2
 }
 .iconfont {
   font-family: "iconfont" !important;

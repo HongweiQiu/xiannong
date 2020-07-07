@@ -284,6 +284,7 @@ function thedefaulttime() { //购买记录默认时间
 	} else {
 		month = time;
 	}
+<<<<<<< HEAD
 	var num = date.getDate().toString();
 	var day = '';
 	if (num < 10) {
@@ -291,6 +292,9 @@ function thedefaulttime() { //购买记录默认时间
 	} else {
 		day = num;
 	}
+=======
+	var day = date.getDate().toString();
+>>>>>>> b3ec33be5a0aa020c27359cc6536ec08720bf3d2
 	var start = year + '-' + month + '-01';
 	var end = year + '-' + month + '-' + day;
 	var dateArr = [start, end];

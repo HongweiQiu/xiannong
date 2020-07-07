@@ -8331,9 +8331,15 @@ module.exports = g;
 /***/ }),
 
 /***/ 414:
+<<<<<<< HEAD
 /*!*********************************************************************!*\
   !*** C:/Users/123/Desktop/uni/uniapp/components/uni-popup/popup.js ***!
   \*********************************************************************/
+=======
+/*!***********************************************!*\
+  !*** E:/uniapp/components/uni-popup/popup.js ***!
+  \***********************************************/
+>>>>>>> b3ec33be5a0aa020c27359cc6536ec08720bf3d2
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8366,9 +8372,15 @@ var config = {
 /***/ }),
 
 /***/ 415:
+<<<<<<< HEAD
 /*!***********************************************************************!*\
   !*** C:/Users/123/Desktop/uni/uniapp/components/uni-popup/message.js ***!
   \***********************************************************************/
+=======
+/*!*************************************************!*\
+  !*** E:/uniapp/components/uni-popup/message.js ***!
+  \*************************************************/
+>>>>>>> b3ec33be5a0aa020c27359cc6536ec08720bf3d2
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8404,9 +8416,15 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ }),
 
 /***/ 451:
+<<<<<<< HEAD
 /*!*********************************************************************!*\
   !*** C:/Users/123/Desktop/uni/uniapp/components/uni-icons/icons.js ***!
   \*********************************************************************/
+=======
+/*!***********************************************!*\
+  !*** E:/uniapp/components/uni-icons/icons.js ***!
+  \***********************************************/
+>>>>>>> b3ec33be5a0aa020c27359cc6536ec08720bf3d2
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9498,9 +9516,15 @@ main();
 /***/ }),
 
 /***/ 522:
+<<<<<<< HEAD
 /*!***********************************************************************!*\
   !*** C:/Users/123/Desktop/uni/uniapp/components/uni-calendar/util.js ***!
   \***********************************************************************/
+=======
+/*!*************************************************!*\
+  !*** E:/uniapp/components/uni-calendar/util.js ***!
+  \*************************************************/
+>>>>>>> b3ec33be5a0aa020c27359cc6536ec08720bf3d2
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9861,9 +9885,15 @@ Calendar;exports.default = _default;
 /***/ }),
 
 /***/ 523:
+<<<<<<< HEAD
 /*!***************************************************************************!*\
   !*** C:/Users/123/Desktop/uni/uniapp/components/uni-calendar/calendar.js ***!
   \***************************************************************************/
+=======
+/*!*****************************************************!*\
+  !*** E:/uniapp/components/uni-calendar/calendar.js ***!
+  \*****************************************************/
+>>>>>>> b3ec33be5a0aa020c27359cc6536ec08720bf3d2
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10436,7 +10466,11 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "__UNI__5EBDEB4" };exports.default = _default;
+=======
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": {}, "pages/tabar/classify": {}, "pages/tabar/order": {}, "pages/tabar/shopcart": {}, "pages/tabar/user": {}, "pages/index/shopdetail": {}, "pages/index/collect": {}, "pages/index/recommed": {}, "pages/index/newback": {}, "pages/index/search": {}, "pages/index/flashsale": {}, "pages/account/login": {}, "pages/account/selectway": {}, "pages/account/forget": {}, "pages/account/register": {}, "pages/account/service": {}, "pages/account/treaty": {}, "pages/account/bind": {}, "pages/account/404": {}, "pages/order/orderdetail": {}, "pages/order/address": {}, "pages/order/pay": {}, "pages/shopcart/delivery": {}, "pages/shopcart/pay": {}, "pages/shopcart/address": {}, "pages/shopcart/shoplist": {}, "pages/user/accountmange": {}, "pages/user/accountadd": {}, "pages/user/accountedit": {}, "pages/user/modifypwd": {}, "pages/user/receipt": {}, "pages/user/invest": {}, "pages/user/investlist": {}, "pages/user/investrecord": {}, "pages/user/bill": {}, "pages/user/billdetail": {}, "pages/user/cash": {}, "pages/user/cashdetail": {}, "pages/user/myinfo": {}, "pages/user/bindphone": {}, "pages/user/userAddress": {}, "pages/user/address": {}, "pages/user/purchase_detail": {}, "pages/user/purchase_record": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+>>>>>>> b3ec33be5a0aa020c27359cc6536ec08720bf3d2
 
 /***/ }),
 
