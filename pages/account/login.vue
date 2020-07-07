@@ -174,9 +174,11 @@
 										uni.setStorageSync("is_child", data.data.is_child);
 										uni.setStorageSync("is_miniBind", data.data.is_appBind);
 										console.log(data)
-										uni.switchTab({
-											url: '../tabar/index'
-										})
+										setTimeout(function() {
+											uni.switchTab({
+												url: '../tabar/index'
+											})
+										}, 1000);
 									} else if (data.code == 201) {
 										uni.navigateTo({
 											url: 'selectway?identifying=' + data.data.identifying
@@ -269,9 +271,11 @@
 										wx.setStorageSync("cdj_token", data.data.token);
 										wx.setStorageSync("is_child", data.data.is_child);
 										wx.setStorageSync("is_miniBind", data.data.is_miniBind);
-										wx.switchTab({
-											url: '../tabar/index'
-										})
+										setTimeout(function() {
+											uni.switchTab({
+												url: '../tabar/index'
+											})
+										}, 1000);
 									} else if (data.code == 201) {
 										wx.navigateTo({
 											url: 'selectway?identifying=' + data.data.identifying

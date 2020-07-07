@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
 	"description": "项目配置文件。",
 	"packOptions": {
 		"ignore": []
@@ -7,18 +6,28 @@
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
+		"enhance": true,
 		"postcss": false,
 		"preloadBackgroundData": false,
 		"minified": true,
 		"newFeature": true,
-		"autoAudits": false,
 		"coverView": true,
+		"autoAudits": false,
 		"showShadowRootInWxmlPanel": true,
 		"scopeDataCheck": false,
-		"useCompilerModule": false
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		},
+		"useCompilerModule": true,
+		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.9.2",
+	"libVersion": "",
 	"appid": "wx4f24afa0c5d9be68",
 	"projectname": "enterprise",
 	"simulatorType": "wechat",
@@ -41,38 +50,4 @@
 			"list": []
 		}
 	}
-=======
-  "description": "项目配置文件。",
-  "packOptions": {
-    "ignore": []
-  },
-  "setting": {
-    "urlCheck": false,
-    "es6": true,
-    "postcss": false,
-    "minified": true
-  },
-  "compileType": "miniprogram",
-  "libVersion": "",
-  "appid": "wx4f24afa0c5d9be68",
-  "projectname": "enterprise",
-  "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
-      "list": []
-    },
-    "game": {
-      "current": -1,
-      "list": []
-    },
-    "miniprogram": {
-      "current": -1,
-      "list": []
-    }
-  }
->>>>>>> 107335ca1d8109478c1eb99035a32e48682e9a71
 }

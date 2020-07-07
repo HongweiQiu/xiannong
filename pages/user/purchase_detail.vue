@@ -72,6 +72,7 @@
 				uni.navigateBack({
 					delta: 1
 				});
+				
 			},
 			/**
 			 * 购买记录
@@ -79,7 +80,7 @@
 			recordDetail() {
 				var that = this;
 				var data = that.data;
-				console.log(data)
+				// console.log(data)
 				var timeStamp = Math.round(new Date().getTime() / 1000);
 				var obj = {
 					appid: appid,

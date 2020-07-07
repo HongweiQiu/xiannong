@@ -15,7 +15,7 @@
 			
 		</view>
 
-		<view style="height:50px;">   
+		<view style="height:55px;">   
 
 		</view>
 		<view class="bill" v-if="bitmap">
@@ -216,6 +216,7 @@
 		width: 100px;
 		height: 80px;
 		margin-right: 10px;
+		z-index: 1;
 	}
 	.bill .bill_record .record_box .img image{
 		width: 100px;
@@ -269,6 +270,7 @@
 		background: white;
 		height: 70px;
 		width: 93%;
+		z-index: 99;
 	}
 
 	.search_date {

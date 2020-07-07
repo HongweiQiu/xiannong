@@ -2,7 +2,7 @@ let app = getApp();
 var active = {
 	'active': app.globalData.active
 };
-var rootDocment = app.globalData.rootUrl+'/mobileOrder/'; //主接口; //主接口
+var rootDocment = app.globalData.rootUrl + '/mobileOrder/'; //主接口; //主接口
 var globalUrl = ["login"]
 if (uni.getStorageSync("cdj_token")) {
 	var header = {
@@ -49,9 +49,18 @@ function getRequest(url, datas, success) {
 						})
 					}
 					if (res.data.code == 401) {
-					setTimeout(()=>{uni.navigateTo({
-						url: '/pages/account/login'
-					});},2000)
+						setTimeout(() => {
+							uni.navigateTo({
+								url: '/pages/account/login'
+							});
+						}, 2000)
+					}
+					if (res.data.code == 404) {
+						setTimeout(() => {
+							uni.navigateTo({
+								url: '/pages/account/404'
+							});
+						}, 2000)
 					}
 
 					uni.hideLoading();
@@ -91,10 +100,18 @@ function getRequests(url, datas, success) {
 			}
 
 			if (res.data.code == 401) {
-				setTimeout(()=>{uni.navigateTo({
-					url: '/pages/account/login'
-				});},2000)
-				
+				setTimeout(() => {
+					uni.navigateTo({
+						url: '/pages/account/login'
+					});
+				}, 2000)
+			}
+			if (res.data.code == 404) {
+				setTimeout(() => {
+					uni.navigateTo({
+						url: '/pages/account/404'
+					});
+				}, 2000)
 			}
 			if (res.data.code == 408) {
 				uni.navigateTo({
@@ -151,9 +168,11 @@ function postRequest(url, datas, success) {
 						})
 					}
 					if (res.data.code == 401) {
-						setTimeout(()=>{uni.navigateTo({
-							url: '/pages/account/login'
-						});},2000)
+						setTimeout(() => {
+							uni.navigateTo({
+								url: '/pages/account/login'
+							});
+						}, 2000)
 					}
 					if (res.data.code == 403) {
 						uni.showToast({
@@ -166,6 +185,13 @@ function postRequest(url, datas, success) {
 								});
 							}
 						})
+					}
+					if (res.data.code == 404) {
+						setTimeout(() => {
+							uni.navigateTo({
+								url: '/pages/account/404'
+							});
+						}, 2000)
 					}
 					if (res.data.code == 408) {
 						uni.showToast({
@@ -208,9 +234,11 @@ function postRequests(url, datas, success) {
 				uni.setStorageSync("cdj_token", res.header.Authorization)
 			}
 			if (res.data.code == 401) {
-				setTimeout(()=>{uni.navigateTo({
-					url: '/pages/account/login'
-				});},2000)
+				setTimeout(() => {
+					uni.navigateTo({
+						url: '/pages/account/login'
+					});
+				}, 2000)
 			}
 		},
 		fail: res => {
@@ -240,26 +268,32 @@ function objKeySort(obj) { //排序的函数
 
 function Toast(message) {
 	uni.showToast({
-      title:message,
-	  icon:'none',
-	  duration:1000
+		title: message,
+		icon: 'none',
+		duration: 1000
 	})
 }
 
 function thedefaulttime() { //购买记录默认时间
 	var date = new Date();
-	var year = date .getFullYear().toString();
-	var time = (date.getMonth()+1).toString();
+	var year = date.getFullYear().toString();
+	var time = (date.getMonth() + 1).toString();
 	var month = '';
-	if(time < 10){
-		month = "0"+time;
-	}else{
+	if (time < 10) {
+		month = "0" + time;
+	} else {
 		month = time;
 	}
-	var day = date.getDate().toString();
-	var start = year +'-'+ month +'-01';
-	var end = year +'-'+ month +'-'+ day;
-	var dateArr = [start,end];
+	var num = date.getDate().toString();
+	var day = '';
+	if (num < 10) {
+		day = "0" + num;
+	} else {
+		day = num;
+	}
+	var start = year + '-' + month + '-01';
+	var end = year + '-' + month + '-' + day;
+	var dateArr = [start, end];
 	return dateArr;
 }
 
@@ -285,7 +319,7 @@ module.exports = {
 	getRequests: getRequests,
 	postRequest: postRequest,
 	postRequests: postRequests,
-	Toast:Toast,
+	Toast: Toast,
 	header: header, //请求头部
 	objKeySort: objKeySort, //加密排序
 	thedefaulttime: thedefaulttime ,//加密排序

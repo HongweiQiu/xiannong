@@ -14,7 +14,7 @@
 			<view @click="mapPage">
 				<text>收货地址</text>
 				<view class="flex_left_right" style="width: 83%;">
-					<text>{{address}}</text>
+					<text class="hidden2">{{address}}</text>
 					<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
 				</view>
 			</view>
@@ -48,7 +48,6 @@
 				contact: '',
 				details: '',
 				mobile: '',
-				childzid: '',
 				navBar: navBar,
 				lat:'',
 				lng:''
@@ -57,9 +56,9 @@
 		methods: {
 			leftClick() {
 				this.hide = true;
-				uni.navigateBack({
-					delta: 1
-				});
+				uni.switchTab({
+					url: "/pages/tabar/user"
+				})
 			},
 			mapPage() {
 				// #ifdef H5
@@ -115,7 +114,6 @@
 
 				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
 				let params = Object.assign({
-					select_zid: this.childzid,
 					sign: sign
 				}, obj)
 				rs.getRequests("memberAddressInfo", params, (res) => {
@@ -134,14 +132,14 @@
 				let obj = {
 					appid: appid,
 					timeStamp: timeStamp,
-					contact: this.contact,
-					mobile: this.mobile,
-					address: this.address,
+					contact: this.contact.replace(/\s+/g,""),
+					mobile: this.mobile.replace(/\s+/g,""),
+					address: this.address.replace(/\s+/g,""),
 				};
 				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
 				let params = Object.assign({
 					sign: sign,
-					details: this.details,
+					details: this.details.replace(/\s+/g,""),
 					latitude: this.lat,
 					longitude: this.lng
 				}, obj)
@@ -149,7 +147,9 @@
 					if (res.data.code == 200) {
 						rs.Toast('保存成功');
 						setTimeout(() => {
-							this.leftClick();
+							uni.switchTab({
+								url: "/pages/tabar/user"
+							})
 						}, 1000);
 
 					} else {

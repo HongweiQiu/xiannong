@@ -84,12 +84,12 @@
 					<view class="flex_left_right">
 						<text><text class="labe" v-if="item.is_gift==1">赠</text>{{item.item_title}}</text>
 						<view v-if="orderDetail.is_look==0">¥ ***</view>
-						<view v-if="orderDetail.is_look==1">¥{{item.price}}/{{item.unit}}</view>
+						<view class="red_font" v-if="orderDetail.is_look==1">¥{{item.price}}/{{item.unit}}</view>
 					</view>
 
 					<view class="flex_left_right gray_font">
 						<text>下单数量 : {{item.num}}</text>
-						<text>下单数量 : {{item.weight}}</text>
+						<text>配送数量 : {{item.weight}}</text>
 					</view>
 				</view>
 			</view>

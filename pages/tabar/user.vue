@@ -254,8 +254,17 @@
 				rs.postRequests("bindWeChat", data, (res) => {
 					if (res.data.code == 200) {
 						rs.Toast('绑定微信成功')
-						uni.setStorageSync('is_miniBind', 1)
-						that.is_bind = uni.getStorageSync("is_miniBind")
+						setTimeout(function() {
+							uni.clearStorage({
+								success: function(reg) {
+									uni.navigateTo({
+										url: '/pages/account/login'
+									});
+								}
+							})
+						}, 1000);
+						// uni.setStorageSync('is_miniBind', 1)
+						// that.is_bind = uni.getStorageSync("is_miniBind")
 					} else {
 						rs.Toast(res.data.msg)
 					}
@@ -354,9 +363,18 @@
 							rs.postRequests("saveMemberInfo", data, (res) => {
 								// console.log(res)
 								if (res.data.code == 200) {
-									rs.Toast('绑定微信成功')
-									uni.setStorageSync('is_miniBind', 1)
-									that.is_bind = uni.getStorageSync("is_miniBind")
+									rs.Toast('绑定微信成功,')
+									setTimeout(function() {
+										uni.clearStorage({
+											success: function(reg) {
+												uni.navigateTo({
+													url: '/pages/account/login'
+												});
+											}
+										})
+									}, 1000);
+									// uni.setStorageSync('is_miniBind', 1)
+									// that.is_bind = uni.getStorageSync("is_miniBind")
 								} else {
 									rs.Toast(res.data.msg)
 								}
@@ -417,13 +435,15 @@
 										title: "退出成功",
 										icon: 'none'
 									})
-									uni.clearStorage({
-										success: function(reg) {
-											uni.navigateTo({
-												url: '/pages/account/login'
-											});
-										}
-									})
+									setTimeout(function() {
+										uni.clearStorage({
+											success: function(reg) {
+												uni.navigateTo({
+													url: '/pages/account/login'
+												});
+											}
+										})
+									}, 1000);
 								}
 							})
 						} else if (res.cancel) {
@@ -498,8 +518,17 @@
 					// console.log(res)
 					if (res.data.code == 200) {
 						rs.Toast('绑定微信成功')
-						uni.setStorageSync('is_miniBind', 1)
-						that.is_bind = uni.getStorageSync("is_miniBind")
+						setTimeout(function() {
+							uni.clearStorage({
+								success: function(reg) {
+									uni.navigateTo({
+										url: '/pages/account/login'
+									});
+								}
+							})
+						}, 1000);
+						// uni.setStorageSync('is_miniBind', 1)
+						// that.is_bind = uni.getStorageSync("is_miniBind")
 					} else {
 						rs.Toast(res.data.msg)
 					}

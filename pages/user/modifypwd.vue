@@ -70,7 +70,9 @@
 				  if (res.data.code == 200) {
 					  rs.Toast('修改成功');
 					  setTimeout(() => {
-					  	this.leftClick();
+					  	uni.navigateTo({
+					  		url:"/pages/account/login"
+					  	})
 					  }, 1000);
 				  }
 				  if(res.data.code == 400){

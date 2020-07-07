@@ -284,7 +284,13 @@ function thedefaulttime() { //购买记录默认时间
 	} else {
 		month = time;
 	}
-	var day = date.getDate().toString();
+	var num = date.getDate().toString();
+	var day = '';
+	if (num < 10) {
+		day = "0" + num;
+	} else {
+		day = num;
+	}
 	var start = year + '-' + month + '-01';
 	var end = year + '-' + month + '-' + day;
 	var dateArr = [start, end];

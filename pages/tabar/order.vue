@@ -6,9 +6,9 @@
 			<view class="account_info" v-if="is_child != 1">
 				<!-- 选择账号 -->
 				<view class="select_account" @click="selectAccount">
-					<view>选择子账号:</view>
+					<view>选择子账号: </view>
 					<view>
-						<text>{{childtxt}}</text>
+						 <text>{{childtxt}}</text>
 						<uni-icons type="arrowright" size="18"></uni-icons>
 					</view>
 				</view>
@@ -88,10 +88,10 @@
 							</view>
 						</view>
 					</view>
-					<view class="order_option">
+					<view class="order_option" v-if="item.order_status == 0 || item.order_status == 2 || item.order_status == 3">
 						<text class="another_order" v-if="item.order_status==3 || item.order_status==2" @click="oneMoreTime(item.id)">再来一单</text>
 						<text class="look_logist" v-if="item.order_status==2" @click="ckwl(item.vehicle_id)">查看物流</text>
-						<text class="cancel_order" v-if="item.order_status==0 || item.order_status==2" @click="cancelOrder(item.id,index)">取消订单</text>
+						<text class="cancel_order" v-if="item.order_status==0" @click="cancelOrder(item.id,index)">取消订单</text>
 						<text class="cancel_order" v-if="item.order_status==3 && item.pay_status==1">已支付</text>
 
 						<block v-if="is_child==0 && item.order_status==3 && item.pay_status==0">
@@ -435,18 +435,23 @@
 										duration: 2000,
 										icon: 'none'
 									})
-									uni.switchTab({
-										url: '/pages/tabar/shopcart'
-									})
+									setTimeout(function() {
+										uni.switchTab({
+											url: '/pages/tabar/shopcart'
+										})
+									}, 1000);
+									
 								} else if (res.data.code == 102) {
 									uni.showToast({
 										title: "有下架商品",
 										duration: 2000,
 										icon: 'none'
 									})
-									uni.switchTab({
-										url: '/pages/tabar/shopcat'
-									})
+									setTimeout(function() {
+										uni.switchTab({
+											url: '/pages/tabar/shopcart'
+										})
+									}, 1000);
 								} else {
 									uni.showToast({
 										title: res.data.msg,
@@ -738,6 +743,14 @@
 		align-items: center;
 		height: 65rpx;
 		padding-right: 18rpx;
+	}
+	.order .select_account text{
+		 color: grey;
+		 display: inline-block;
+		 margin-left:10rpx;
+	}
+	.order .select_account .uni-icons{
+		 color: grey!important;
 	}
 	.order .account_info {
 		border-top: 10rpx solid #efefef;
