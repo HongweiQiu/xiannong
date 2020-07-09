@@ -23,7 +23,10 @@
 											<text class="line_through ten">￥{{cartware.attr[kind].attr_price}}</text>
 											</view>
 										</block>
-										<block v-else>	<view class="red_font">￥{{cartware.attr[kind].attr_price}}/{{cartware.attr[kind].unit}}</view></block>
+										<block v-else>	
+										<view class="red_font" v-if="cartware.attr[kind].market_price==1">时价</view>
+										<view class="red_font" v-else>￥{{cartware.attr[kind].attr_price}}/{{cartware.attr[kind].unit}}</view>
+										</block>
 									</block>
 								
 									<block v-else>
@@ -34,7 +37,11 @@
 											</view>
 										</block>
 										<block v-else>
-											<view class="red_font">
+										
+											<view class="red_font" v-if="cartware.market_price==1">
+											时价
+											</view>
+											<view class="red_font" v-else>
 												￥{{cartware.price}}/{{cartware.unit}}
 											</view>
 										</block>

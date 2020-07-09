@@ -524,7 +524,7 @@
 	}
 
 	.shop_detail .info {
-		padding: 0 20rpx;
+		padding: 20rpx 20rpx 0;
 	}
 
 	.shop_detail .info .full_reduction {

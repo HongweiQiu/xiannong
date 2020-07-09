@@ -232,9 +232,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));
 var _parseHtml = _interopRequireDefault(__webpack_require__(/*! ../../static/js/parseHtml.js */ 31));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}var uniDrawer = function uniDrawer() {__webpack_require__.e(/*! require.ensure | components/uni-drawer/uni-drawer */ "components/uni-drawer/uni-drawer").then((function () {return resolve(__webpack_require__(/*! @/components/uni-drawer/uni-drawer.vue */ 469));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+
+
 var app = getApp().globalData;var
 
 appid =
@@ -480,7 +485,8 @@ console,log = _console.log;var _default =
           if (_this3.kind == _this3.secondCate.length - 1) {
             _this3.textInfo = (0, _parseHtml.default)("没有更多呢");
           } else {
-            _this3.textInfo = (0, _parseHtml.default)("上滑或点击<span class='red_font'>" + _this3.secondCate[_this3.kind + 1].name + '</span>进入下一分类');
+            _this3.textInfo = (0, _parseHtml.default)("上滑或点击<span class='red_font'>" + _this3.secondCate[_this3.kind + 1].name +
+            '</span>进入下一分类');
           }
         }
       }

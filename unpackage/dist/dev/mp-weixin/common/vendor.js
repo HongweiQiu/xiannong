@@ -7996,7 +7996,7 @@ function getRequest(url, datas, _success) {
             uni.showToast({
               title: res.data.msg,
               icon: 'none',
-              duration: 2000,
+              duration: 1000,
               success: function success() {
 
               } });
@@ -8014,7 +8014,7 @@ function getRequest(url, datas, _success) {
               uni.navigateTo({
                 url: '/pages/account/404' });
 
-            }, 2000);
+            }, 1000);
           }
 
           uni.hideLoading();
@@ -8058,14 +8058,14 @@ function getRequests(url, datas, _success2) {
           uni.navigateTo({
             url: '/pages/account/login' });
 
-        }, 2000);
+        }, 1000);
       }
       if (res.data.code == 404) {
         setTimeout(function () {
           uni.navigateTo({
             url: '/pages/account/404' });
 
-        }, 2000);
+        }, 1000);
       }
       if (res.data.code == 408) {
         uni.navigateTo({
@@ -8115,7 +8115,7 @@ function postRequest(url, datas, _success3) {
             uni.showToast({
               title: res.data.msg,
               icon: 'none',
-              duration: 2000,
+              duration: 1000,
               success: function success() {
 
               } });
@@ -8126,13 +8126,13 @@ function postRequest(url, datas, _success3) {
               uni.navigateTo({
                 url: '/pages/account/login' });
 
-            }, 2000);
+            }, 1000);
           }
           if (res.data.code == 403) {
             uni.showToast({
               title: '账号已禁用',
               icon: 'none',
-              duration: 2000,
+              duration: 1000,
               success: function success() {
                 uni.navigateTo({
                   url: '/pages/account/login' });
@@ -8145,7 +8145,7 @@ function postRequest(url, datas, _success3) {
               uni.navigateTo({
                 url: '/pages/account/404' });
 
-            }, 2000);
+            }, 1000);
           }
           if (res.data.code == 408) {
             uni.showToast({
@@ -8192,7 +8192,7 @@ function postRequests(url, datas, _success4) {
           uni.navigateTo({
             url: '/pages/account/login' });
 
-        }, 2000);
+        }, 1000);
       }
     },
     fail: function fail(res) {

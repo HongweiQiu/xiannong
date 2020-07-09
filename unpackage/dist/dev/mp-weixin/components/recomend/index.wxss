@@ -3,7 +3,7 @@
 	-webkit-box-shadow: 1px 1px 6px #d3d3d3;
 	        box-shadow: 1px 1px 6px #d3d3d3;
 	background: #fff;
-	height: 360rpx;
+	height: 400rpx;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;

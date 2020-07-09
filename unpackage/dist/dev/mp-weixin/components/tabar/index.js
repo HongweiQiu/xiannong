@@ -146,6 +146,9 @@ imgPath = '../../static/img/';var _default =
   methods: {
     pageUrl: function pageUrl(data) {
       getApp().globalData.isReload = true;
+      if (this.tabarIndex != 1) {
+        getApp().globalData.classId = '';
+      }
       uni.switchTab({
         url: data.url });
 

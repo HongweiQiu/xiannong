@@ -260,10 +260,20 @@ var _default =
 
   },
   watch: {
-    value: function value(index) {
+    value: function value(index, oldindex) {
       this.active = this.value;
+
       this.renderContent();
       this.refreshNavScroll();
+
+
+
+
+
+
+
+
+
     } },
 
   methods: {
@@ -274,6 +284,7 @@ var _default =
         this.$emit('change', index);
         this.renderContent();
         this.refreshNavScroll();
+
       }
     },
     renderContent: function renderContent() {var _this = this;
@@ -286,12 +297,16 @@ var _default =
       });
     },
     refreshNavScroll: function refreshNavScroll(isInit) {var _this2 = this;
+
       this.$nextTick(function () {
         var query = function query() {return uni.createSelectorQuery().in(_this2);};
+
         query().select('.s-tabs-nav-wrap').boundingClientRect().exec(function (_ref) {var _ref2 = _slicedToArray(_ref, 1),wrap = _ref2[0];
+
           query().select('.s-tab-nav-view').boundingClientRect().exec(function (_ref3) {var _ref4 = _slicedToArray(_ref3, 1),view = _ref4[0];
             if (isInit) {
               _this2.diffLeft = view.left - wrap.left;
+
             }
             var setNavScroll = function setNavScroll(item) {
               if (item) {
@@ -304,6 +319,7 @@ var _default =
               }
             };
             if (_this2.slotTitle) {
+
               uni.createSelectorQuery().in(_this2.navContextList[_this2.active]).select('.s-tab-nav').boundingClientRect().exec(function (_ref5) {var _ref6 = _slicedToArray(_ref5, 1),item = _ref6[0];
                 setNavScroll(item);
               });
@@ -319,8 +335,10 @@ var _default =
 
   created: function created() {
     this.active = this.value;
+
   },
   mounted: function mounted() {
+
     this.renderContent();
     this.refreshNavScroll(true);
   } };exports.default = _default;

@@ -19,17 +19,20 @@
 					<view>
 						<text class="red_tag" v-for="(item,index) in ware.label" :key="index">{{item}}</text>
 					</view>
-					
+
 					<block v-if="token">
 						<block v-if="config.is_look==1">
 							<block v-if="ware.attr.length">
 								<view class="hidden">
 									<text class="red_font">￥{{ware.area_price}}/{{ware.unit}}</text>
 									<text class="gray_font">(多规格)</text>
-									</view>
+								</view>
 							</block>
 							<block v-else>
-								<view class="red_font">￥{{ware.price}}/{{ware.unit}}</view>
+
+								<view class="red_font" v-if="ware.market_price==1">时价</view>
+
+								<view class="red_font" v-else>￥{{ware.price}}/{{ware.unit}}</view>
 							</block>
 						</block>
 						<block v-else>
@@ -42,7 +45,7 @@
 						<view v-if="ware.attr.length" class="hidden">
 							<text class="red_font">￥{{ware.area_price}}/{{ware.unit}}</text>
 							<text class="gray_font">(多规格)</text>
-						
+
 						</view>
 						<view v-else class="red_font">
 							￥{{ware.price}}/{{ware.unit}}
@@ -75,11 +78,11 @@
 			showCart() {
 				this.$emit('showCart')
 			},
-			detail(){
-				if(this.config.is_detail==1){
+			detail() {
+				if (this.config.is_detail == 1) {
 					uni.navigateTo({
-					url:`/pages/index/shopdetail?id=${this.ware.id}`
-				})
+						url: `/pages/index/shopdetail?id=${this.ware.id}`
+					})
 				}
 			}
 		}
@@ -90,7 +93,7 @@
 	.recomend_single {
 		box-shadow: 1px 1px 6px #d3d3d3;
 		background: #fff;
-		height: 360rpx;
+		height: 400rpx;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;

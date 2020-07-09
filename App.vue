@@ -330,4 +330,7 @@
 	.icon-sousuo {
 		color: #d6cdd2;
 	}
+	text-no-space{
+	white-space:nowrap
+	}
 </style>

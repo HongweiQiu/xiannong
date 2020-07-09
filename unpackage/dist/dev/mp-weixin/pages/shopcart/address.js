@@ -230,7 +230,7 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
             that.a =
             'https://apis.map.qq.com/tools/locpicker?search=1&type=1&coord=' + uni.getStorageSync('lat') + ',' + uni.getStorageSync(
             'lng') +
-            '&key=UNFBZ-3J6LO-HYCWC-SOMXY-NIFI7-4GFZO&referer=myapp';
+            '&key=EE7BZ-2ODH2-DFUUE-C2PG7-RWE6F-XDBMG&referer=myapp';
             var speed = res.speed; // 速度，以米/每秒计
             var accuracy = res.accuracy; // 位置精度
           } });

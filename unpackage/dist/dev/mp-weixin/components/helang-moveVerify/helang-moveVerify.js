@@ -144,6 +144,21 @@ var _default =
 
   },
   mounted: function mounted() {var _this = this;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     var getSize = function getSize(selector) {
       return new Promise(function (resolve, reject) {
         var view = uni.createSelectorQuery().in(_this).select(selector);
@@ -151,12 +166,17 @@ var _default =
           size: true },
         function (res) {
           resolve(res.width);
+
         }).exec();
       });
     };
+
+
+
     this.$nextTick(function () {
       getSize(".on-pathway").then(function (res1) {
         _this.size.pathway = res1;
+        console.log(res1);
         getSize(".on-track").then(function (res2) {
           _this.size.track = res2;
         });
@@ -167,6 +187,7 @@ var _default =
     /* 滑动中 */
     onMove: function onMove(e) {
       this.oldx = e.detail.x;
+
     },
     /* 滑动结束 */
     onEnd: function onEnd() {var _this2 = this;

@@ -208,6 +208,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
@@ -290,15 +297,15 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default = { props: ['cartware', 'config'], data: function data() {return { token: uni.getStorageSync('cdj_token'), imgRemote: imgRemote, kind: 0, value: 1, isTop: false, arrObj: {} };}, methods: { selectSpec: function selectSpec(e) {this.kind = e;}, onClose: function onClose() {this.$emit('onClose');}, showKey: function showKey() {this.isTop = true;this.arrObj = this.cartware;console.log(this.arrObj);}, plus: function plus() {this.value++;}, minus: function minus() {this.value--;if (this.value <= 0) {this.value = 1;}}, toParent: function toParent(e) {console.log(this.cartware); // return;
-      if (this.cartware.attr.length) {if (this.cartware.attr[this.kind].is_float == 1 && !Number.isInteger(Number(e.val))) {_request.default.Toast('购买数量不能为小数');return;}}this.isTop = false;this.value = e.val;}, determine: function determine() {var info = this.cartware;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var newobj = {};var itemId, attrId;if (info.attr.length == 0) {itemId = info.id;attrId = 0;} else {itemId = info.attr[this.kind].item_id;attrId = info.attr[this.kind].id;}newobj = Object.assign({ item_id: itemId, attr_id: attrId, item_num: this.value }, obj);var sign = _md.default.hexMD5(_request.default.objKeySort(newobj) + appsecret);var params = Object.assign({ sign: sign }, newobj);
-
-      _request.default.postRequests('firstChangeNum', params, function (res) {
-        if (res.data.code == 200) {
-          _request.default.Toast('成功加入购物车');
-          var pages = getCurrentPages();
-
-          if (pages[0].route == 'pages/tabar/shopcart') {
+      if (this.cartware.attr.length) {if (this.cartware.attr[this.kind].is_float == 1 && !Number.isInteger(Number(e.val))) {_request.default.Toast('购买数量不能为小数');return;}}this.isTop = false;this.value = e.val;}, determine: function determine() {var info = this.cartware;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var newobj = {};var itemId, attrId;if (info.attr.length == 0) {itemId = info.id;attrId = 0;} else {itemId = info.attr[this.kind].item_id;attrId = info.attr[this.kind].id;}newobj = Object.assign({ item_id: itemId, attr_id: attrId, item_num: this.value }, obj);var sign = _md.default.hexMD5(_request.default.objKeySort(newobj) + appsecret);var params = Object.assign({ sign: sign }, newobj);_request.default.postRequests('firstChangeNum', params, function (res) {if (res.data.code == 200) {_request.default.Toast('成功加入购物车');var pages = getCurrentPages();if (pages[0].route == 'pages/tabar/shopcart') {
 
             uni.reLaunch({
               url: '/pages/tabar/shopcart' });

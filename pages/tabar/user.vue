@@ -63,17 +63,18 @@
 				</view>
 			</view>
 			<!-- #ifdef MP-WEIXIN --><button open-type="share">
-			<view v-if="is_child != 1" @click="share"  class="flex_left_right">
-				<view class="">
-					<icon class="'iconfont icon-fenxiang" style="color: #26DD5B;"></icon>
-					<text class="name">分享小程序</text>
+				<view v-if="is_child != 1" @click="share" class="flex_left_right">
+					<view class="">
+						<icon class="'iconfont icon-fenxiang" style="color: #26DD5B;"></icon>
+						<text class="name">分享小程序</text>
+					</view>
+					<view>
+						<uni-icons type="arrowright" size="18" color="black"></uni-icons>
+					</view>
 				</view>
-				<view>
-					<uni-icons type="arrowright" size="18" color="black"></uni-icons>
-				</view>
-			</view></button>
+			</button>
 			<!-- #endif -->
-			
+
 			<view class="flex_left_right" @click="exit">
 				<view class="">
 					<icon class="iconfont  icon-tuichu" style="color:#ADDB8C"></icon>
@@ -211,7 +212,7 @@
 					// #ifdef H5
 					this.adminisus_weixin()
 					// #endif
-					
+
 					// #ifdef APP-PLUS
 					this.bindWeChat()
 					// #endif
@@ -221,18 +222,24 @@
 					// #endif
 
 				} else if (item.url == 'share') {
-				wx.onMenuShareAppMessage({
-				  title: '123', // 分享标题
-				  desc: '123', // 分享描述
-				  link: app.rootUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-				  imgUrl: '', // 分享图标
-				  type: '', // 分享类型,music、video或link，不填默认为link
-				  dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-				  success: function () {
-				    // 用户点击了分享后执行的回调函数
-					alert(45)
-				  }
-				});
+					let that = this;
+					WeixinJSBridge.on('menu:share:appmessage', function(argv){
+					 
+					WeixinJSBridge.invoke('sendAppMessage',{
+					 
+					"appid":that.userinfo.appId, //appid 设置空就好了。
+					"img_url": 'https://caidj-image.oss-cn-beijing.aliyuncs.com/uploads/gallery/1/空心菜.jpg', //分享时所带的图片路径
+					"img_width": "120", //图片宽度
+					"img_height": "120", //图片高度
+					"link":app.rootUrl, //分享附带链接地址
+					"desc":"我是一个介绍", //分享内容介绍
+					"title":"标题，再简单不过了。"
+					}, function(res){/*** 回调函数，最好设置为空 ***/
+					 console.log(res)
+					 console.log(1)
+					});
+					 
+					});
 				} else {
 					uni.navigateTo({
 						url: `/pages/user/${item.url}`
@@ -240,6 +247,7 @@
 				}
 
 			},
+	
 			//小程序绑定
 			wxbindWeChat(e) {
 				console.log("小程序绑定")
@@ -303,7 +311,7 @@
 						if (res.confirm) {
 							uni.setStorageSync('isWeixin', true)
 							let code = location.search;
-							let getCode =    code.substring(code.indexOf('=') + 1, code.lastIndexOf('&'));
+							let getCode = code.substring(code.indexOf('=') + 1, code.lastIndexOf('&'));
 							if (!getCode) {
 								let url = window.location.href;
 								let redirect_uri = encodeURIComponent(url);
@@ -486,7 +494,7 @@
 								nonceStr: res.data.data.nonceStr, // 必填，生成签名的随机串
 								signature: res.data.data.signature, // 必填，签名，见附录1
 								jsApiList: [
-									'updateAppMessageShareData','onMenuShareAppMessage'
+									'updateAppMessageShareData', 'onMenuShareAppMessage'
 								] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 							});
 						}
@@ -512,7 +520,7 @@
 			// console.log(that.is_bind)
 			//H5
 			// #ifdef H5
-			that.wxConfig()
+			that.wxConfig();
 			let code = location.search;
 			let getCode = code.substring(code.indexOf('=') + 1, code.lastIndexOf('&'));
 			let isWeixin = uni.getStorageSync('isWeixin');
@@ -542,7 +550,7 @@
 						rs.Toast(res.data.msg)
 					}
 				})
-			
+
 			}
 			// #endif
 		},
@@ -636,5 +644,11 @@
 	.user .select_operate>view .name {
 		margin-left: 10rpx;
 	}
-	.user button{position:static;padding:0;background: none;font-size: 28rpx;}
+
+	.user button {
+		position: static;
+		padding: 0;
+		background: none;
+		font-size: 28rpx;
+	}
 </style>

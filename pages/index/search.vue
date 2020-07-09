@@ -19,7 +19,10 @@
 					<view class="select_key align_center">
 						<text class="iconfont icon-sousuo"></text>
 						<input v-model="keyword" placeholder="请输入商品名称" @focus="focus" placeholder-class="place_style" class="keyword" />
-						<uni-icons type="mic-filled" size="20" color="#808080" @click="speed"></uni-icons>
+						<!-- #ifndef MP-ALIPAY -->
+							<uni-icons type="mic-filled" size="20" color="#808080" @click="speed"></uni-icons>
+						<!-- #endif -->
+					
 					</view>
 					<view style="color:#009B44;" @click="submit">搜索</view>
 				</view>

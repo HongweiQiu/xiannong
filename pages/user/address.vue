@@ -124,7 +124,7 @@
 									var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
 									that.a =
 										"https://apis.map.qq.com/tools/locpicker?search=1&type=1&coord=" + latitude + "," + longitude +
-										"&key=UNFBZ-3J6LO-HYCWC-SOMXY-NIFI7-4GFZO&referer=myapp";
+										"&key=EE7BZ-2ODH2-DFUUE-C2PG7-RWE6F-XDBMG&referer=myapp";
 								}
 							});
 						})

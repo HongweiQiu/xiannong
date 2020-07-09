@@ -185,5 +185,8 @@
 		width: 384rpx;
 		height: 64rpx;
 		line-height: 64rpx;
+		
 	}
+	.delivery input{padding:0;}
+	.delivery text-no-space{white-space: pre-line;}
 </style>

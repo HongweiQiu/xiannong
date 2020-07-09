@@ -29,7 +29,10 @@
 								<block v-if="ware.activity_num>=ware.cart_num&&ware.is_activity==1">
 									￥{{ware.activity_price+'/'+ware.unit}}
 								</block>
-								<block v-else>	￥{{ware.price+'/'+ware.unit}}</block>
+								<block v-else>	
+								<view v-if="ware.market_price==1">时价</view>
+								<view v-else>￥{{ware.price+'/'+ware.unit}}</view>
+								</block>
 							
 							</view>
 						</block>

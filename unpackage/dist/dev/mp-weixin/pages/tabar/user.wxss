@@ -90,5 +90,10 @@ page {
 .user .select_operate>view .name {
 	margin-left: 10rpx;
 }
-.user button{position:static;padding:0;background: none;font-size: 28rpx;}
+.user button {
+	position: static;
+	padding: 0;
+	background: none;
+	font-size: 28rpx;
+}
 

@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 479))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 472))
   }
 }
 var render = function() {
@@ -260,7 +260,7 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
                 var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
                 that.a =
                 "https://apis.map.qq.com/tools/locpicker?search=1&type=1&coord=" + latitude + "," + longitude +
-                "&key=UNFBZ-3J6LO-HYCWC-SOMXY-NIFI7-4GFZO&referer=myapp";
+                "&key=EE7BZ-2ODH2-DFUUE-C2PG7-RWE6F-XDBMG&referer=myapp";
               } });
 
           });

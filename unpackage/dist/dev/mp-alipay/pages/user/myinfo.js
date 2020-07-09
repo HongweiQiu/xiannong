@@ -94,10 +94,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 479))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 472))
   },
   "uni-icons": function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 450))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 443))
   }
 }
 var render = function() {
@@ -223,7 +223,7 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var ImageCropper = function ImageCropper() {__webpack_require__.e(/*! require.ensure | components/ling-imgcropper/ling-imgcropper */ "components/ling-imgcropper/ling-imgcropper").then((function () {return resolve(__webpack_require__(/*! @/components/ling-imgcropper/ling-imgcropper.vue */ 530));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { ImageCropper: ImageCropper }, data: function data() {return { tempFilePath: '', cropFilePath: '', showtitle: true, navBar: navBar, imgUrl: app.imgUrl, imgRemote: imgRemote, phone: '', memberInfoData: '', member_default: '', nickname: '', password: '', confirmPwd: '', imgPath: '' };}, methods: { memberInfo: function memberInfo() {var that = this;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, timeStamp: timeStamp, sign: sign };
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var ImageCropper = function ImageCropper() {__webpack_require__.e(/*! require.ensure | components/ling-imgcropper/ling-imgcropper */ "components/ling-imgcropper/ling-imgcropper").then((function () {return resolve(__webpack_require__(/*! @/components/ling-imgcropper/ling-imgcropper.vue */ 523));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { ImageCropper: ImageCropper }, data: function data() {return { tempFilePath: '', cropFilePath: '', showtitle: true, navBar: navBar, imgUrl: app.imgUrl, imgRemote: imgRemote, phone: '', memberInfoData: '', member_default: '', nickname: '', password: '', confirmPwd: '', imgPath: '' };}, methods: { memberInfo: function memberInfo() {var that = this;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, timeStamp: timeStamp, sign: sign };
 
       _request.default.getRequests("memberInfo", data, function (res) {
         if (res.data.code == 200) {
