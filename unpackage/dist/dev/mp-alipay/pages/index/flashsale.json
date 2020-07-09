@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar",
+    "uni-countdown": "/components/uni-countdown/uni-countdown",
+    "my-stepper": "/components/stepper/index",
+    "my-loading": "/components/loading/index",
+    "my-backtop": "/components/backtop/index",
+    "uni-popup": "/components/uni-popup/uni-popup",
+    "my-keyboard": "/components/keyboard/index"
+  }
+}

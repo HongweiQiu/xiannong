@@ -31,7 +31,7 @@
 	width: 85%;
 }
 .search_list .input_key .select_key .keyword {
-	width: 100%;
+	width: 100%;background: #f7f6f6;
 }
 .search_list .hot_search {
 	position: fixed;

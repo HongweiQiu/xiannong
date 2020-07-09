@@ -144,10 +144,20 @@ export default {
     };
   },
   watch: {
-    value (index) {
+    value (index,oldindex) {
       this.active = this.value;
+	  
       this.renderContent();
       this.refreshNavScroll();
+	  // #ifdef MP-ALIPAY
+	 
+	  if(index>oldindex){
+	  	this.scrollLeft=80*index;
+	  }else{
+		  	this.scrollLeft=80*index-100;
+	  }
+	  // #endif
+	
     }
   },
   methods: {
@@ -158,6 +168,7 @@ export default {
         this.$emit('change', index);
         this.renderContent();
         this.refreshNavScroll();
+		
       }
     },
     renderContent () {
@@ -170,24 +181,33 @@ export default {
       });
     },
     refreshNavScroll (isInit) {
+		 
       this.$nextTick(() => {
         const query = () => uni.createSelectorQuery().in(this);
+		// // #ifdef APP-PLUS |MP-WEIXIN |MP-ALIPAY
+		// const query = () => uni.createSelectorQuery().call(this);
+		// // #endif
+		
+			
         query().select('.s-tabs-nav-wrap').boundingClientRect().exec(([wrap]) => {
+		
           query().select('.s-tab-nav-view').boundingClientRect().exec(([view]) => {
             if (isInit) {
               this.diffLeft = view.left - wrap.left;
+			 
             }
             const setNavScroll = (item) => {
               if (item) {
                 const centerLeft = (wrap.width - item.width) / 2;
 
                 this.scrollLeft = Math.abs(view.left - wrap.left - this.diffLeft) + (item.left - centerLeft - wrap.left);
-
+                   
                 this.lineWidth = item.width * this.lineScale;
                 this.lineLeft = this.scrollLeft + centerLeft + (item.width - this.lineWidth) / 2;
               }
             };
             if (this.slotTitle) {
+			
               uni.createSelectorQuery().in(this.navContextList[this.active]).select('.s-tab-nav').boundingClientRect().exec(([item]) => {
                 setNavScroll(item);
               });
@@ -203,8 +223,10 @@ export default {
   },
   created () {
     this.active = this.value;
+	
   },
   mounted () {
+	  
     this.renderContent();
     this.refreshNavScroll(true);
   }

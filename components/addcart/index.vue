@@ -171,7 +171,7 @@
 						let pages = getCurrentPages();
 
 						if (pages[0].route == 'pages/tabar/shopcart') {
-							// #ifdef APP-PLUS |MP-WEIXIN
+							// #ifdef APP-PLUS |MP-WEIXIN |MP-ALIPAY
 							uni.reLaunch({
 								url: '/pages/tabar/shopcart'
 							})

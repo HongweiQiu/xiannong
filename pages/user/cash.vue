@@ -2,9 +2,19 @@
 	<view class="cash">
 		<uni-nav-bar left-icon="arrowleft" title="现金劵" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
 		<view style="position: fixed;width:100%;background:#f8f6f9;">
+			
+			<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN -->
 			<my-s-tabs slot-title :nav-per-view="5" @change="changeFirst" v-model="activeTab" class="custom-tabs">
 				<my-s-tab v-for="(item, index) in cashList" :key="index">{{ item.name }}</my-s-tab>
 			</my-s-tabs>
+			<!-- #endif -->
+			
+			<!-- #ifdef MP-ALIPAY -->
+			<my-o-tabs :tabList="cashList" :isShow="activeTab" @tab="tabClick"></my-o-tabs>
+			<!-- #endif -->
+			
+			
+			
 		</view>
 
 		<view class="" style="height:80rpx;"></view>
@@ -84,11 +94,23 @@
 				num: 10,
 				bitmap: false,
 				loading: false,
+				// #ifdef MP-ALIPAY
+				activeTab: -1,
+				// #endif
 				activeTab: 0,
 				orderType: 2,
 			};
 		},
 		methods: {
+			// #ifdef MP-ALIPAY
+			tabClick(data){
+				this.activeTab = data;
+				this.orderType = this.cashList[data].id;
+				this.list = [];
+				this.page = 1;
+				this.myCash();
+			},
+			// #endif
 			leftClick() {
 				uni.navigateBack({
 					delta: 1

@@ -6,7 +6,7 @@
 		</view>
 		<view v-if="showIcon === true || showIcon === 'true'" class="uni-noticebar-icon">
 			<!-- <uni-icons type="sound" :color="color" size="14" /> -->
-			<image src="../../static/img/gcaidj_pic4.png" mode="" style="width:32rpx;height:32rpx;margin-right: 20rpx;"></image>
+			<image src="../../static/img/gcaidj_pic4.png" mode="aspectFit" style="width:32rpx;height:32rpx;margin-right: 20rpx;"></image>
 		</view>
 		<!-- #endif -->
 		<!-- #ifndef MP-ALIPAY -->
@@ -14,7 +14,7 @@
 		 size="12" @click="close" />
 		<!-- <uni-icons v-if="showIcon === true || showIcon === 'true'" class="uni-noticebar-icon" type="sound" :color="color"
 		 size="14" /> -->
-		 <image v-if="showIcon === true || showIcon === 'true'" src="../../static/img/gcaidj_pic4.png" mode="" style="width:32rpx;height:32rpx;margin-right: 20rpx;"></image>
+		 <image v-if="showIcon === true || showIcon === 'true'" src="../../static/img/gcaidj_pic4.png" mode="aspectFit" style="width:32rpx;height:32rpx;margin-right: 20rpx;"></image>
 		 
 		<!-- #endif -->
 		<view ref="textBox" class="uni-noticebar__content-wrapper" :class="{'uni-noticebar__content-wrapper--scrollable':scrollable, 'uni-noticebar__content-wrapper--single':!scrollable && (single || moreText)}">

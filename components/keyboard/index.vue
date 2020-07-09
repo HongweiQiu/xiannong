@@ -183,7 +183,7 @@
 		}
 	}
 
-	.determine {
+	.my_keyboard .determine {
 		height: 180rpx !important;
 		line-height: 180rpx !important;
 	}

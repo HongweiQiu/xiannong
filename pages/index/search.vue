@@ -17,7 +17,7 @@
 				</view>
 				<view class="flex_left_right right_area">
 					<view class="select_key align_center">
-						<icon type="search" size="30rpx" />
+						<text class="iconfont icon-sousuo"></text>
 						<input v-model="keyword" placeholder="请输入商品名称" @focus="focus" placeholder-class="place_style" class="keyword" />
 						<uni-icons type="mic-filled" size="20" color="#808080" @click="speed"></uni-icons>
 					</view>
@@ -31,7 +31,7 @@
 			<!-- 这里是状态栏 -->
 		</view>
 		<!-- #endif -->
-		<view style="height:105rpx;"></view>
+		<view style="height:109rpx;"></view>
 		<!-- 热门搜索 -->
 		<view class="hot_search" v-if="showSearch">
 			<view class="title">热门搜索</view>
@@ -428,7 +428,7 @@
 	}
 
 	.search_list .input_key .select_key .keyword {
-		width: 100%;
+		width: 100%;background: #f7f6f6;
 	}
 
 	.search_list .hot_search {

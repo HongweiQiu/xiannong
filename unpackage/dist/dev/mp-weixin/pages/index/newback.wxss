@@ -125,7 +125,12 @@ page {
 .xp-tj {
 		margin-top: 70rpx;
 		font-size: 30rpx;
-		text-align: center;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		        justify-content: center;
 }
 .xp-tj button {
 		line-height: 72rpx;

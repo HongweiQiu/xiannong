@@ -13,9 +13,16 @@
 					</view>
 				</view>
 				<view class="">
+					<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN -->
 					<my-s-tabs effect slot-title @change="changeFirst" v-model="activeTab" class="custom-tabs" :line="lineShow">
 						<my-s-tab v-for="(item, index) of tabList" :key="index">{{ item.name }}</my-s-tab>
 					</my-s-tabs>
+					<!-- #endif -->
+					
+					<!-- #ifdef MP-ALIPAY -->
+					<my-o-tabs :tabList="tabList" :isShow="activeTab" @tab="tabClick"></my-o-tabs>
+					<!-- #endif -->
+					
 				</view>
 			</view>
 			<view class="order_statu" v-if="showOrderType">
@@ -152,6 +159,9 @@
 				}, {
 					name: '已取消'
 				}],
+				// #ifdef MP-ALIPAY
+				activeTab: -1,
+				// #endif
 				activeTab: 1,
 				lineShow:false,
 				showOrderType: false,
@@ -177,6 +187,14 @@
 			};
 		},
 		methods: {
+			// #ifdef MP-ALIPAY
+			tabClick(data){
+				this.activeTab = data;
+				this.isActive = data;
+				this.page = 1;
+				this.orderLista();
+			},
+			// #endif
 			/**
 			 * 确认收货
 			 */

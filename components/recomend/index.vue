@@ -51,7 +51,7 @@
 
 				</view>
 				<view class="addcart" @click="showCart">
-					<image src="../../static/img/addcart.png" mode=""></image>
+					<image src="../../static/img/addcart.png" mode="aspectFit"></image>
 				</view>
 			</view>
 		</view>

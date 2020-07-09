@@ -4,9 +4,12 @@
 
 
 		<view class="xp-con"><textarea maxlength="60" show-confirm-bar=false placeholder-style="font-size:14px;" placeholder="商城没有您要的商品？请提供资料我们帮您找..." v-model="contents"></textarea></view>
-		  <view class="text_length">
-		  	{{contents.length}}/60
-		  </view>
+		 <!-- #ifndef MP-ALIPAY -->
+		 <view class="text_length">
+		 	{{contents.length}}/60
+		 </view>
+		 <!-- #endif -->
+		
 		<view class="xp-sc">
 			<block v-for="(item, index) in img" :key="index" v-if="img != ''">
 				<view class="select-photo">
@@ -279,7 +282,8 @@
 	.xp-tj {
 		margin-top: 70rpx;
 		font-size: 30rpx;
-		text-align: center;
+		display: flex;
+		justify-content: center;
 	}
 
 	.xp-tj button {
