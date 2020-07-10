@@ -42,7 +42,6 @@
   text-overflow: ellipsis;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  cursor: pointer;
 }
 .s-tab-nav.is-disabled {
   color: #c8c9cc !important;

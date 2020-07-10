@@ -184,6 +184,14 @@
   height: 65rpx;
   padding-right: 18rpx;
 }
+.order .select_account text {
+  color: grey;
+  display: inline-block;
+  margin-left: 10rpx;
+}
+.order .select_account .uni-icons {
+  color: grey !important;
+}
 .order .account_info {
   border-top: 10rpx solid #efefef;
   background: white;

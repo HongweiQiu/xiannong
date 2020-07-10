@@ -4,8 +4,8 @@
 			<view class="info">
 				<view class="detail">
 					<view>
-						<image :src="config.logo" mode="aspectFit" class="shuiyin" v-if="config.logo&&config.shuiyin==1"></image>
-						<image class="good_img" :src="cartware.img==''?imgRemote+config.item_default:cartware.img"></image>
+						<image :src="config.logo" mode="aspectFit" class="shuiyin position_a" v-if="config.logo&&config.shuiyin==1"></image>
+						<image class="good_img" :src="cartware.img==''?imgRemote+config.item_default:cartware.img" mode="aspectFit"></image>
 					</view>
 					<view class="cart_ware_info">
 						<view>
@@ -53,9 +53,14 @@
 								</block>
 							</block>
 							<block v-else>
-								<view v-if="cartware.attr.length" class="red_font">￥{{cartware.attr[kind].attr_price}}/{{cartware.attr[kind].unit}}</view>
+								<view v-if="cartware.attr.length" class="red_font">
+									<text v-if="cartware.attr[kind].market_price==1">时价</text>
+									<text v-else>￥{{cartware.attr[kind].attr_price}}/{{cartware.attr[kind].unit}}</text>
+									</view>
 								<view v-else class="red_font">
-									￥{{cartware.price}}/{{cartware.unit}}
+									<text v-if="cartware.market_price==1">时价</text>
+									<text v-else>￥{{cartware.price}}/{{cartware.unit}}</text>
+									
 								</view>
 							</block>
 						</view>
@@ -112,6 +117,7 @@
 				this.kind = e;
 			},
 			onClose() {
+				this.kind=0;
 				this.$emit('onClose')
 			},
 			showKey() {
@@ -288,4 +294,5 @@
 		flex-direction: column;
 		justify-content: space-around;
 	}
+	.my_addcart .position_a{position:absolute;}
 </style>

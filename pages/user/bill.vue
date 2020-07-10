@@ -20,7 +20,7 @@
 				</view>
 				<view class="red_font">¥{{item.receivable}}</view>
 			</view>
-			<my-loading :loading="loading" v-if="loading != '空'"></my-loading>
+			<my-loading :loading="loading" v-if="list.length"></my-loading>
 		</view>
 		<!-- 占位图 -->
 		<view v-else class="bitmap">
@@ -128,7 +128,8 @@
 		},
 		onShow() {
 			var that = this;
-			that.moneyList()
+			if(app.isReload){that.moneyList()}
+			
 		},
 		/**
 		 * 页面上拉触底事件的处理函数

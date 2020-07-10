@@ -1,21 +1,27 @@
 <template>
 	<view class="">
-		<uni-nav-bar left-icon="back" left-text=""title="购买记录" status-bar="true" fixed="true" @clickLeft="urlPage"></uni-nav-bar>
+		<uni-nav-bar left-icon="back" left-text=" " title="购买记录" :status-bar="navbar" fixed="true" @clickLeft="urlPage"></uni-nav-bar>
 		<!-- <uni-search-bar :radius="100" @="search" cancelButton="none" placeholder="请选择日期"></uni-search-bar> -->
 		<view class="bill_search" @click="open">
 			<view class="search_date">
-				<icon type="search" size="26rpx" style="margin-right: 10rpx;"/> 
+				<text class="iconfont icon-sousuo"></text>
 				<text v-if="!date">请选择日期</text>
 				<text v-else>{{date}}</text>
 				
 			</view>
-			<view class="total_box">
-				合计：<text>¥{{record.total}}</text>
+			<view v-if="list.length" class="flex_left_right" style="padding-top:6px;">
+				<view class="">
+					商品数量 : {{list.length}}种
+				</view>
+				<view class="total_box">
+					合计：<text>¥{{record.total}}</text>
+				</view>
 			</view>
+			
 			
 		</view>
 
-		<view style="height:50px;">   
+		<view style="height:55px;">   
 
 		</view>
 		<view class="bill" v-if="bitmap">
@@ -33,6 +39,7 @@
 							<view class="left">
 								<view class="title">
 									{{item.item_title}}
+									<text v-if="item.attr_title" class="gray_font">【{{item.attr_title}}】</text>
 								</view>
 								<view class="txt">
 									{{item.describe}}                          
@@ -45,14 +52,14 @@
 					</view>
 				</view>
 			</view>
-			<my-loading :loading="loading" v-if="loading != '空'"></my-loading>
+			<my-loading :loading="loading" v-if="list.length"></my-loading>
 	
 		</view>
 		<view v-else class="bitmap">
 			<image src="../../static/img/no_record.png" mode="aspectFit"></image>
 		</view>
 		<uni-calendar :insert="false" :lunar="true" ref="calendar" :range="true" @confirm="confirm" />
-		<van-toast id="van-toast" />
+		<!-- <van-toast id="van-toast" /> -->
 	</view>
 </template>
 
@@ -69,6 +76,7 @@
 	export default {
 		data() {
 			return {
+				navBar:navBar,
 				imgUrl: app.imgUrl,
 				imgRemote:imgRemote,
 				date: '',
@@ -110,8 +118,10 @@
 				if (!e.range.before || !e.range.after) {
 					rs.Toast("请选择正确的日期区间")
 				}else{
-					this.date = e.range.before + ',' + e.range.after;
-					this.dateArr =  [e.range.before,e.range.after];
+					let startDate=e.range.data[0];
+					let endDate=e.range.data[e.range.data.length-1];
+					this.date = startDate + ',' + endDate;
+					this.dateArr =  [startDate,endDate];
 					this.list = [];
 					this.moneyList()
 				}
@@ -150,9 +160,7 @@
 						that.record = res.data.data;
 						if (res.data.data.list != '') {
 							that.bitmap = true;
-							for(var i=0;i<res.data.data.list.length;i++){
-								that.list.push(res.data.data.list[i]);
-							}
+								that.list.push(...res.data.data.list);
 						} else {
 							this.loading = '空';
 							that.bitmap = false;
@@ -169,9 +177,12 @@
 		 */
 		onShow() {
 			var that = this;
-			var timeArr = rs.thedefaulttime();
-			that.date = timeArr[0] + ',' + timeArr[1];
-			that.moneyList()
+			if(app.isReload){
+				var timeArr = rs.thedefaulttime();
+				that.date = timeArr[0] + ',' + timeArr[1];
+				that.moneyList()
+			}
+			
 		},
 	};
 </script>
@@ -191,9 +202,9 @@
 		width: 94%;
 	}
 	.total_box{
-		background: #FFFFFF;
+	/* 	background: #FFFFFF;
 		text-align: end;
-		padding: 10px 0 0 0;
+		padding: 10px 0 0 0; */
 	}
 	.total_box text{ 
 		color: #FF3E1E;
@@ -204,8 +215,8 @@
 	
 	.bill .bill_record {
 		background: #FFFFFF;
-		padding: 10px 15px;
-		margin: 10px 0;
+		padding: 8rpx 20rpx;
+		margin: 10rpx 0;
 	}
 	
 	.bill .bill_record .record_box {
@@ -216,6 +227,7 @@
 		width: 100px;
 		height: 80px;
 		margin-right: 10px;
+		z-index: 1;
 	}
 	.bill .bill_record .record_box .img image{
 		width: 100px;
@@ -249,11 +261,11 @@
 	.bill .bill_record .record_box .record_detail .bottom{
 		color: #808080;
 		margin-top: 10px;
-		text-align: end;
+		/* text-align: end; */
 		font-size: 12px;
 	}
 	
-
+  .record_detail{width:100%;}
 	.bitmap {
 		text-align: center;
 		margin-top: 20%;
@@ -265,10 +277,11 @@
 
 	.bill_search {
 		position: fixed;
-		padding: 0 14px;
+		padding: 0 14px 8px 14px;
 		background: white;
-		height: 70px;
+	
 		width: 93%;
+		z-index: 99;
 	}
 
 	.search_date {
@@ -284,4 +297,7 @@
 	.loading__text {
 		padding: 10px 0;
 	}
+	/* #ifdef MP-WEIXIN */
+	.uni-navbar__content_view.data-v-9404327c{}
+	/* #endif */
 </style>

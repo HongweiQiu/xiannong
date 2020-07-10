@@ -64,10 +64,11 @@
 					<view class="red_font" v-if="orderDetail.is_look==0">¥ ***</view>
 					<view class="red_font" v-if="orderDetail.is_look==1">¥{{detail.yf_price}}</view>
 				</view>
-				<view v-if="orderInfo.is_cash_delivery == 1">
+			
+				<view v-if="detail.is_cash_delivery == 1">
 					<view>实付金额</view>
-					<view v-if="orderDetail.is_look==0">¥ ***</view>
-					<view v-if="orderDetail.is_look==1">¥{{detail.total_fee}}</view>
+					<view v-if="orderDetail.is_look==0" class="red_font">¥ ***</view>
+					<view v-if="orderDetail.is_look==1" class="red_font">¥{{detail.total_fee}}</view>
 				</view>
 				<view>
 					<view>支付状态</view>
@@ -84,17 +85,17 @@
 					<view class="flex_left_right">
 						<text><text class="labe" v-if="item.is_gift==1">赠</text>{{item.item_title}}</text>
 						<view v-if="orderDetail.is_look==0">¥ ***</view>
-						<view v-if="orderDetail.is_look==1">¥{{item.price}}/{{item.unit}}</view>
+						<view class="red_font" v-if="orderDetail.is_look==1">¥{{item.price}}/{{item.unit}}</view>
 					</view>
 
 					<view class="flex_left_right gray_font">
 						<text>下单数量 : {{item.num}}</text>
-						<text>下单数量 : {{item.weight}}</text>
+						<text>配送数量 : {{item.weight}}</text>
 					</view>
 				</view>
 			</view>
 		</view>
-		<image class="contact_phone" src="../../static/img/service.png" mode="" @click="phone"></image>
+		<image class="contact_phone" src="../../static/img/service.png" mode="aspectFit" @click="phone"></image>
 	</view>
 </template>
 

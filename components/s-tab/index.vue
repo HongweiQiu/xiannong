@@ -104,7 +104,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   box-sizing: border-box;
-  cursor: pointer;
+  // cursor: pointer;
   &.is-disabled {
     color: #c8c9cc !important;
     cursor: not-allowed;

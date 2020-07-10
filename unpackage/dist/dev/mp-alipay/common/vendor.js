@@ -2683,7 +2683,7 @@ function getRequest(url, datas, _success) {
             uni.showToast({
               title: res.data.msg,
               icon: 'none',
-              duration: 2000,
+              duration: 1000,
               success: function success() {
 
               } });
@@ -2701,7 +2701,7 @@ function getRequest(url, datas, _success) {
               uni.navigateTo({
                 url: '/pages/account/404' });
 
-            }, 2000);
+            }, 1000);
           }
 
           uni.hideLoading();
@@ -2745,14 +2745,14 @@ function getRequests(url, datas, _success2) {
           uni.navigateTo({
             url: '/pages/account/login' });
 
-        }, 2000);
+        }, 1000);
       }
       if (res.data.code == 404) {
         setTimeout(function () {
           uni.navigateTo({
             url: '/pages/account/404' });
 
-        }, 2000);
+        }, 1000);
       }
       if (res.data.code == 408) {
         uni.navigateTo({
@@ -2802,7 +2802,7 @@ function postRequest(url, datas, _success3) {
             uni.showToast({
               title: res.data.msg,
               icon: 'none',
-              duration: 2000,
+              duration: 1000,
               success: function success() {
 
               } });
@@ -2813,13 +2813,13 @@ function postRequest(url, datas, _success3) {
               uni.navigateTo({
                 url: '/pages/account/login' });
 
-            }, 2000);
+            }, 1000);
           }
           if (res.data.code == 403) {
             uni.showToast({
               title: '账号已禁用',
               icon: 'none',
-              duration: 2000,
+              duration: 1000,
               success: function success() {
                 uni.navigateTo({
                   url: '/pages/account/login' });
@@ -2832,7 +2832,7 @@ function postRequest(url, datas, _success3) {
               uni.navigateTo({
                 url: '/pages/account/404' });
 
-            }, 2000);
+            }, 1000);
           }
           if (res.data.code == 408) {
             uni.showToast({
@@ -2879,7 +2879,7 @@ function postRequests(url, datas, _success4) {
           uni.navigateTo({
             url: '/pages/account/login' });
 
-        }, 2000);
+        }, 1000);
       }
     },
     fail: function fail(res) {
@@ -2907,6 +2907,7 @@ function objKeySort(obj) {//排序的函数
   return sz.substr(1); //返回排好序的新对象
 }
 
+
 function Toast(message) {
   uni.showToast({
     title: message,
@@ -2914,18 +2915,37 @@ function Toast(message) {
     duration: 1000 });
 
 }
+function getLastDay() {
+  var current = new Date();
+  var currentMonth = current.getMonth();
+  var nextMonth = ++currentMonth;
 
+  var nextMonthDayOne = new Date(current.getFullYear(), nextMonth, 1);
+
+  var minusDate = 1000 * 60 * 60 * 24;
+
+  return new Date(nextMonthDayOne.getTime() - minusDate);
+}
 function thedefaulttime() {//购买记录默认时间
   var date = new Date();
   var year = date.getFullYear().toString();
   var time = (date.getMonth() + 1).toString();
+
+
   var month = '';
   if (time < 10) {
     month = "0" + time;
   } else {
     month = time;
   }
-  var day = date.getDate().toString();
+  var num = date.getDate().toString();
+  var day = getLastDay().getDate();
+
+  // if (num < 10) {
+  // 	day = "0" + num;
+  // } else {
+  // 	day = num;
+  // }
   var start = year + '-' + month + '-01';
   var end = year + '-' + month + '-' + day;
   var dateArr = [start, end];
@@ -9398,7 +9418,7 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 411:
+/***/ 413:
 /*!***********************************************!*\
   !*** E:/uniapp/components/uni-popup/popup.js ***!
   \***********************************************/
@@ -9406,7 +9426,7 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 412));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 414));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 // 定义 type 类型:弹出类型：top/bottom/center
 var config = {
   // 顶部弹出
@@ -9433,7 +9453,7 @@ var config = {
 
 /***/ }),
 
-/***/ 412:
+/***/ 414:
 /*!*************************************************!*\
   !*** E:/uniapp/components/uni-popup/message.js ***!
   \*************************************************/
@@ -9471,7 +9491,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 448:
+/***/ 450:
 /*!***********************************************!*\
   !*** E:/uniapp/components/uni-icons/icons.js ***!
   \***********************************************/
@@ -9577,7 +9597,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 519:
+/***/ 528:
 /*!*************************************************!*\
   !*** E:/uniapp/components/uni-calendar/util.js ***!
   \*************************************************/
@@ -9585,7 +9605,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 520));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 529));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
 
 Calendar = /*#__PURE__*/function () {
   function Calendar()
@@ -9940,7 +9960,7 @@ Calendar;exports.default = _default;
 
 /***/ }),
 
-/***/ 520:
+/***/ 529:
 /*!*****************************************************!*\
   !*** E:/uniapp/components/uni-calendar/calendar.js ***!
   \*****************************************************/

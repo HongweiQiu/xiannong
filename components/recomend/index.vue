@@ -48,7 +48,9 @@
 
 						</view>
 						<view v-else class="red_font">
-							￥{{ware.price}}/{{ware.unit}}
+							<text v-if="ware.market_price==1">时价</text>
+							<text v-else>	￥{{ware.price}}/{{ware.unit}}</text>
+						
 						</view>
 					</block>
 

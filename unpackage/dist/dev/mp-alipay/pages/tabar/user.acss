@@ -77,7 +77,7 @@ page {
 .user .middle .modify_address .address image {
 	width: 32rpx;
 }
-.user .middle .modify_address icon {
+.user .middle .modify_address .icon_border {
 	border: 0.5px solid black;
 	height: 25rpx;
 }
@@ -91,9 +91,12 @@ page {
 	margin-left: 10rpx;
 }
 .user button {
-	position: static;
+
 	padding: 0;
 	background: none;
 	font-size: 28rpx;
+}
+.user button::after {
+	border: none;
 }
 

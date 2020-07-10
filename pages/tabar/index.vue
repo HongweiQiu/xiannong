@@ -29,12 +29,13 @@
 		</view>
 		<!-- 限时抢购 -->
 
-		<view class="limit_buy" v-if="activeConf.length!=0">
+		<view class="limit_buy" v-if="showActive">
 			<view class="head" @click="newPage('flashsale')">
 				<view class="title">
 					<view class="line_border"></view>
 					<text class="name">限时抢购</text>
-					<uni-countdown :hour="hours" :minute="minu" :second="second" :show-day="false" background-color="black"></uni-countdown>
+					<my-countdown :time="hours"></my-countdown>
+					<!-- <uni-countdown :hour="hours" :minute="minu" :second="second" :show-day="false" background-color="black"></uni-countdown> -->
 				</view>
 				<view class="align_center more">
 					更多
@@ -51,7 +52,7 @@
 					<view>
 						<view>
 							<view>{{item.item_title}}</view>
-							<view><text class="red_tag" v-for="(label,index) in item.label" :key="index">{{label}}</text></view>
+							<view class="hidden"><text class="red_tag" v-for="(label,index) in item.label" :key="index">{{label}}</text></view>
 						</view>
 						<view class="price">
 
@@ -115,6 +116,7 @@
 		},
 		data() {
 			return {
+				showActive:false,
 				support:false,
 				showTop: false,
 				token: '',
@@ -290,7 +292,13 @@
 							itemList,
 							timeRemain
 						} = data.data;
-						this.hours = Math.abs(timeRemain) / 3600;
+						
+						if(data.data.length!=0){
+							this.showActive=true;
+						}else{
+								this.showActive=false;
+						}
+						this.hours = Math.abs(timeRemain);
 						this.activeConf = data.data;
 						this.activeList = itemList;
 					}

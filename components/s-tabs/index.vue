@@ -8,7 +8,7 @@
         scroll-x
         :scroll-left="scrollLeft"
       >
-        <div class="scroll-view">
+        <div class="scroll-view" >
           <div class="s-tab-nav-view">
             <template v-if="!slotTitle">
               <div
@@ -184,6 +184,10 @@ export default {
 		 
       this.$nextTick(() => {
         const query = () => uni.createSelectorQuery().in(this);
+		// // #ifdef APP-PLUS |MP-WEIXIN |MP-ALIPAY
+		// const query = () => uni.createSelectorQuery().call(this);
+		// // #endif
+		
 			
         query().select('.s-tabs-nav-wrap').boundingClientRect().exec(([wrap]) => {
 		
@@ -273,7 +277,7 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     box-sizing: border-box;
-    cursor: pointer;
+    // cursor: pointer;
     &.is-disabled {
       color: #c8c9cc !important;
       cursor: not-allowed;

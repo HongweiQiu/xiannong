@@ -11,7 +11,7 @@
 				<view v-if="item.consume == 1">-{{item.price}}</view>
 				<view v-if="item.consume == 0" class="red_font">+{{item.price}}</view>
 			</view>
-			<my-loading :loading="loading" v-if="loading != '空'"></my-loading>
+			<my-loading :loading="loading"></my-loading>
 		</view>
 		<view v-else class="bitmap">
 			<image src="../../static/img/no_record.png" mode="aspectFit"></image>
@@ -36,7 +36,7 @@
 				navBar: navBar,
 				bitmap: true,
 				page:1,
-				loading:false,
+				loading:true,
 				rechargeList:[],
 			}
 		},

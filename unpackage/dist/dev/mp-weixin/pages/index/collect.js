@@ -94,22 +94,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 476))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 478))
   },
   "my-profile": function() {
-    return __webpack_require__.e(/*! import() | components/profile/index */ "components/profile/index").then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 455))
+    return __webpack_require__.e(/*! import() | components/profile/index */ "components/profile/index").then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 457))
   },
   "my-loading": function() {
-    return __webpack_require__.e(/*! import() | components/loading/index */ "components/loading/index").then(__webpack_require__.bind(null, /*! @/components/loading/index.vue */ 396))
+    return __webpack_require__.e(/*! import() | components/loading/index */ "components/loading/index").then(__webpack_require__.bind(null, /*! @/components/loading/index.vue */ 398))
   },
   "uni-popup": function() {
-    return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 410))
+    return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 412))
   },
   "my-addcart": function() {
-    return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 419))
+    return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 421))
   },
   "my-keyboard": function() {
-    return __webpack_require__.e(/*! import() | components/keyboard/index */ "components/keyboard/index").then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 462))
+    return __webpack_require__.e(/*! import() | components/keyboard/index */ "components/keyboard/index").then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 464))
   }
 }
 var render = function() {
@@ -197,7 +197,9 @@ app.navBar,imgRemote = app.imgRemote,appid = app.appid,appsecret = app.appsecret
       list: [],
       page: 1,
       num: 10,
-      cartware: [] };
+      arrObj: {},
+      cartware: [],
+      count: 1 };
 
   },
   methods: {
@@ -246,6 +248,8 @@ app.navBar,imgRemote = app.imgRemote,appid = app.appid,appsecret = app.appsecret
       }
     },
     cancelCollect: function cancelCollect(item, index) {var _this = this;
+      this.count++;
+      if (this.count != 2) {return;}
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         item_id: item.id,
@@ -261,7 +265,9 @@ app.navBar,imgRemote = app.imgRemote,appid = app.appid,appsecret = app.appsecret
 
       _request.default.getRequests('changeCollect', params, function (res) {
         var data = res.data;
+        _this.count = 1;
         if (data.code == 200) {
+
           _this.list.splice(index, 1);
           _request.default.Toast('取消收藏');
         } else {
@@ -321,8 +327,40 @@ app.navBar,imgRemote = app.imgRemote,appid = app.appid,appsecret = app.appsecret
       this.$refs.cart.close();
     },
     // 显示键盘
-    showKey: function showKey() {
+    showKey: function showKey(item, index) {
+      console.log(45);
+      this.arrObj = item;
+      this.index = index;
       this.$refs.popup.open();
+    },
+    toParent: function toParent(e) {var _this3 = this;
+      var item = e.arrObj;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp,
+        item_id: item.id,
+        attr_id: 0,
+        item_num: e.val };
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var params = Object.assign({
+        sign: sign },
+
+      obj);
+
+      _request.default.postRequests('changeNum', params, function (res) {
+        var data = res.data;
+        if (data.code == 200) {
+          _request.default.Toast('加入购物车成功');
+          _this3.list[_this3.index].cart_num = e.val;
+        } else if (data.code == 407 || data.code == 406) {
+          _request.default.Toast("购买数量不能超过活动数量");
+        } else {
+          _request.default.Toast(res.data.msg);
+        }
+      });
+      this.$refs.popup.close();
     } },
 
   onHide: function onHide() {
@@ -336,7 +374,7 @@ app.navBar,imgRemote = app.imgRemote,appid = app.appid,appsecret = app.appsecret
     }
 
   },
-  onReachBottom: function onReachBottom() {var _this3 = this;var
+  onReachBottom: function onReachBottom() {var _this4 = this;var
 
     page =
 
@@ -357,12 +395,12 @@ app.navBar,imgRemote = app.imgRemote,appid = app.appid,appsecret = app.appsecret
 
     _request.default.getRequests('getIndexSelect', params, function (res) {
       if (res.data.code == 200) {
-        if (res.data.data.list.length != 0) {var _this3$list;
-          (_this3$list = _this3.list).push.apply(_this3$list, _toConsumableArray(res.data.data.list));
-          _this3.page += 1;
-          _this3.loading = true;
+        if (res.data.data.list.length != 0) {var _this4$list;
+          (_this4$list = _this4.list).push.apply(_this4$list, _toConsumableArray(res.data.data.list));
+          _this4.page += 1;
+          _this4.loading = true;
         } else {
-          _this3.loading = false;
+          _this4.loading = false;
         }
       }
     });

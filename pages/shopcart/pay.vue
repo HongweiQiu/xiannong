@@ -258,9 +258,10 @@
 					if (data.code == 200) {
 						if (data.data.payType == 1) {
 							rs.Toast('支付成功');
-							uni.switchTab({
+							setTimeout(()=>{uni.switchTab({
 								url: '/pages/tabar/order',
-							})
+							})},1000)
+							
 						}
 						log(res.data.data.wxParams);
 						if (res.data.data.payType == 2) {
@@ -279,9 +280,9 @@
 								success: function(res) {
 									console.log('success:' + JSON.stringify(res));
 									rs.Toast('支付成功');
-									uni.switchTab({
-										url: '/pages/tabbar/order',
-									})
+									setTimeout(()=>{uni.switchTab({
+										url: '/pages/tabar/order',
+									})},1000)
 								},
 								fail: function(err) {
 									console.log(err)

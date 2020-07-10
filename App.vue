@@ -253,9 +253,14 @@
 		padding: 0 20rpx;
 	}
 
+	.body .myc_recomend:nth-child(n+3) {
+		margin-top: 40rpx;
+	}
+	/* #ifdef MP-ALIPAY */
 	.body .recomend_single:nth-child(n+3) {
 		margin-top: 40rpx;
 	}
+	/* #endif */
 
 	.order .uni-icons {
 		color: #009a44 !important;

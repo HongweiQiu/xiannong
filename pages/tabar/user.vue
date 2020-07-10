@@ -36,48 +36,51 @@
 		<view class="back_green"></view>
 		<view class="middle">
 			<view class="" @click="threePage('recomend')">
-				<image src="../../static/img/recommand.png" mode=""></image>
+				<image src="../../static/img/recommand.png" mode="aspectFit"></image>
 				<text>推荐</text>
 			</view>
 			<view class="modify_address" @click="threePage('address')">
-				<icon></icon>
+				<text class="icon_border"></text>
 				<view class="address">
-					<image src="../../static/img/address.png" mode=""></image>
+					<image src="../../static/img/address.png" mode="aspectFit"></image>
 					<text>地址</text>
 				</view>
-				<icon></icon>
+				<text class="icon_border"></text>
 			</view>
 			<view class="" @click="threePage('password')">
-				<image src="../../static/img/password.png" mode=""></image>
+				<image src="../../static/img/password.png" mode="aspectFit"></image>
 				<text>密码</text>
 			</view>
 		</view>
 		<view class="select_operate">
 			<view v-if="is_child != 1" @click="pageUrl(item)" v-for="(item, index) in userList" :key="index" class="flex_left_right">
 				<view class="">
-					<icon :class="'iconfont ' + item.icon" :style="{ color: item.color }"></icon>
+					<text :class="'iconfont ' + item.icon" :style="{ color: item.color }"></text>
 					<text class="name">{{ item.name }}</text>
 				</view>
 				<view>
 					<uni-icons type="arrowright" size="18" color="black"></uni-icons>
 				</view>
 			</view>
-			<!-- #ifdef MP-WEIXIN --><button open-type="share">
-				<view v-if="is_child != 1" @click="share" class="flex_left_right">
+			<!-- #ifdef MP-WEIXIN -->
+
+			<view v-if="is_child != 1">
+				<button open-type="share" class="flex_left_right">
 					<view class="">
-						<icon class="'iconfont icon-fenxiang" style="color: #26DD5B;"></icon>
+						<text class="'iconfont icon-fenxiang" style="color: #26DD5B;"></text>
 						<text class="name">分享小程序</text>
 					</view>
 					<view>
 						<uni-icons type="arrowright" size="18" color="black"></uni-icons>
 					</view>
-				</view>
-			</button>
+				</button>
+			</view>
+
 			<!-- #endif -->
 
 			<view class="flex_left_right" @click="exit">
 				<view class="">
-					<icon class="iconfont  icon-tuichu" style="color:#ADDB8C"></icon>
+					<text class="iconfont  icon-tuichu" style="color:#ADDB8C"></text>
 					<text class="name">退出登录</text>
 				</view>
 				<view>
@@ -145,20 +148,16 @@
 						color: '#F8632F',
 						url: 'cash'
 					},
+					// #ifndef MP-ALIPAY
 					{
 						icon: 'icon-weixin',
 						name: '绑定微信',
 						color: '#26DD5B',
 						url: 'bindWeChat'
-					},
-					// #ifdef H5
-					{
-						icon: 'icon-fenxiang',
-						name: '分享公众号',
-						color: '#26DD5B',
-						url: 'share'
 					}
 					// #endif
+
+
 				],
 				is_bind: '',
 				is_child: '',
@@ -223,31 +222,32 @@
 
 				} else if (item.url == 'share') {
 					let that = this;
-					WeixinJSBridge.on('menu:share:appmessage', function(argv){
-					 
-					WeixinJSBridge.invoke('sendAppMessage',{
-					 
-					"appid":that.userinfo.appId, //appid 设置空就好了。
-					"img_url": 'https://caidj-image.oss-cn-beijing.aliyuncs.com/uploads/gallery/1/空心菜.jpg', //分享时所带的图片路径
-					"img_width": "120", //图片宽度
-					"img_height": "120", //图片高度
-					"link":app.rootUrl, //分享附带链接地址
-					"desc":"我是一个介绍", //分享内容介绍
-					"title":"标题，再简单不过了。"
-					}, function(res){/*** 回调函数，最好设置为空 ***/
-					 console.log(res)
-					 console.log(1)
-					});
-					 
+					WeixinJSBridge.on('menu:share:appmessage', function(argv) {
+
+						WeixinJSBridge.invoke('sendAppMessage', {
+
+							"appid": that.userinfo.appId, //appid 设置空就好了。
+							"img_url": 'https://caidj-image.oss-cn-beijing.aliyuncs.com/uploads/gallery/1/空心菜.jpg', //分享时所带的图片路径
+							"img_width": "120", //图片宽度
+							"img_height": "120", //图片高度
+							"link": app.rootUrl, //分享附带链接地址
+							"desc": "我是一个介绍", //分享内容介绍
+							"title": "标题，再简单不过了。"
+						}, function(res) { /*** 回调函数，最好设置为空 ***/
+							console.log(res)
+							console.log(1)
+						});
+
 					});
 				} else {
+					getApp().globalData.isReload = true;
 					uni.navigateTo({
 						url: `/pages/user/${item.url}`
 					});
 				}
 
 			},
-	
+
 			//小程序绑定
 			wxbindWeChat(e) {
 				console.log("小程序绑定")
@@ -290,8 +290,17 @@
 				rs.postRequests("bindWeChat", data, (res) => {
 					if (res.data.code == 200) {
 						rs.Toast('绑定微信成功')
-						uni.setStorageSync('is_miniBind', 1)
-						that.is_bind = uni.getStorageSync("is_miniBind")
+						setTimeout(function() {
+							uni.clearStorage({
+								success: function(reg) {
+									uni.navigateTo({
+										url: '/pages/account/login'
+									});
+								}
+							})
+						}, 1000);
+						// uni.setStorageSync('is_miniBind', 1)
+						// that.is_bind = uni.getStorageSync("is_miniBind")
 					} else {
 						rs.Toast(res.data.msg)
 					}
@@ -390,9 +399,18 @@
 							rs.postRequests("saveMemberInfo", data, (res) => {
 								// console.log(res)
 								if (res.data.code == 200) {
-									rs.Toast('绑定微信成功')
-									uni.setStorageSync('is_miniBind', 1)
-									that.is_bind = uni.getStorageSync("is_miniBind")
+									rs.Toast('绑定微信成功,')
+									setTimeout(function() {
+										uni.clearStorage({
+											success: function(reg) {
+												uni.navigateTo({
+													url: '/pages/account/login'
+												});
+											}
+										})
+									}, 1000);
+									// uni.setStorageSync('is_miniBind', 1)
+									// that.is_bind = uni.getStorageSync("is_miniBind")
 								} else {
 									rs.Toast(res.data.msg)
 								}
@@ -453,13 +471,15 @@
 										title: "退出成功",
 										icon: 'none'
 									})
-									uni.clearStorage({
-										success: function(reg) {
-											uni.navigateTo({
-												url: '/pages/account/login'
-											});
-										}
-									})
+									setTimeout(function() {
+										uni.clearStorage({
+											success: function(reg) {
+												uni.navigateTo({
+													url: '/pages/account/login'
+												});
+											}
+										})
+									}, 1000);
 								}
 							})
 						} else if (res.cancel) {
@@ -544,8 +564,17 @@
 					// console.log(res)
 					if (res.data.code == 200) {
 						rs.Toast('绑定微信成功')
-						uni.setStorageSync('is_miniBind', 1)
-						that.is_bind = uni.getStorageSync("is_miniBind")
+						setTimeout(function() {
+							uni.clearStorage({
+								success: function(reg) {
+									uni.navigateTo({
+										url: '/pages/account/login'
+									});
+								}
+							})
+						}, 1000);
+						// uni.setStorageSync('is_miniBind', 1)
+						// that.is_bind = uni.getStorageSync("is_miniBind")
 					} else {
 						rs.Toast(res.data.msg)
 					}
@@ -628,7 +657,7 @@
 		width: 32rpx;
 	}
 
-	.user .middle .modify_address icon {
+	.user .middle .modify_address .icon_border {
 		border: 0.5px solid black;
 		height: 25rpx;
 	}
@@ -646,9 +675,13 @@
 	}
 
 	.user button {
-		position: static;
+        line-height: 80rpx;
 		padding: 0;
 		background: none;
 		font-size: 28rpx;
+	}
+
+	.user button::after {
+		border: none;
 	}
 </style>

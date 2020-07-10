@@ -9,7 +9,7 @@
 				</view>
 				<view>
 					<text>联系人</text>
-					<input name="contact" type="number" :value="childInfo.contact" placeholder="请输入联系人" placeholder-class="place_style" />
+					<input name="contact" type="text" :value="childInfo.contact" placeholder="请输入联系人" placeholder-class="place_style" />
 				</view>
 				<view>
 					<text>手机号</text>
@@ -17,7 +17,7 @@
 				</view>
 				<view>
 					<text>密码</text>
-					<input name="password" type="number" v-model="password" placeholder="请输入六位及以上的号码" placeholder-class="place_style" />
+					<input name="password" type="password" v-model="password" placeholder="请输入六位及以上的号码" placeholder-class="place_style" />
 				</view>
 				<view class="flex_left_right">
 					<view style="color:#1EA55A;">账号启用和禁用</view>
@@ -26,7 +26,7 @@
 				<view @click="mapPage">
 					<text>收货地址</text>
 					<view class="flex_left_right" style="width: 83%;">
-						<text>{{ childInfo.address }}</text>
+						<text class="hidden2">{{ childInfo.address }}</text>
 						<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
 					</view>
 				</view>

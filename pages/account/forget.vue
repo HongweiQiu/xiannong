@@ -20,7 +20,7 @@
 			<view class="flex">
 				<text>验证码</text>
 				<view class="flex_left_right" style="width:79%;">
-					<input type="number" v-model="verify_code"  placeholder-class="place_style" @focus="back=false" />
+					<input type="number" v-model="verify_code"  placeholder="请输入验证码" placeholder-class="place_style" @focus="back=false" />
 					<my-identifyingcode @getCode="getCode" ref="code"></my-identifyingcode>
 				</view>
 			</view>

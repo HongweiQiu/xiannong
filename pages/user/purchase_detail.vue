@@ -1,5 +1,5 @@
 <template>
-	<view class="">
+	<view class="purchase_detail">
 		<uni-nav-bar left-icon="back" left-text="" title="详细记录" status-bar="true" fixed="true" @clickLeft="urlPage"></uni-nav-bar>
 		<view class="bill_record">
 			<view class="record_box">
@@ -16,14 +16,18 @@
 								{{detailItem.describe}}                         
 							</view>
 							<view class="txt" v-if="detailItem.attr_title">
-								({{detailItem.attr_title}})            
+								【{{detailItem.attr_title}}】
 							</view>
 						</view>
 						
 					</view>
-					<view class="bottom">
-		                    合计：<text>¥{{detail.total}}</text>
+					<view class="flex_left_right">
+						<view>总量:{{count}}</view>
+						<view class="bottom">
+						        合计：<text>¥{{detail.total}}</text>
+						</view>
 					</view>
+					
 				</view>
 			</view>
 		</view>
@@ -64,7 +68,8 @@
 				imgUrl: app.imgUrl,
 				data:'',
 				detail:'',
-				detailItem:''
+				detailItem:'',
+				count:''
 			};
 		},
 		methods: {
@@ -72,6 +77,7 @@
 				uni.navigateBack({
 					delta: 1
 				});
+				
 			},
 			/**
 			 * 购买记录
@@ -79,7 +85,7 @@
 			recordDetail() {
 				var that = this;
 				var data = that.data;
-				console.log(data)
+				// console.log(data)
 				var timeStamp = Math.round(new Date().getTime() / 1000);
 				var obj = {
 					appid: appid,
@@ -99,6 +105,11 @@
 					if (res.data.code == 200) {
 						that.detail = res.data.data;
 						that.detailItem = res.data.data.item;
+						let sum=0;
+						for(let i of res.data.data.list){
+							sum+=parseFloat(i.nums);
+						}
+						this.count=sum;
 					} else {
 						rs.Toast(res.data.msg)
 					}
@@ -111,6 +122,7 @@
 		 */
 		onShow() {
 			var that = this;
+			getApp().globalData.isReload=false;
 			that.recordDetail()
 		},
 		onLoad(options) {
@@ -130,7 +142,7 @@
 		background: #FFFFFF !important;
 	}
 
-
+.purchase_detail .record_detail{width:100%;}
 	.uni-searchbar__box {
 		border-style: none !important;
 	}
@@ -189,9 +201,9 @@
 		color: #808080;
 	}
 	.bill_record .record_box .record_detail .bottom{
-		margin-top: 10px;
+	/* 	margin-top: 10px;
 		text-align: end;
-		font-size: 14px;
+		font-size: 14px; */
 	}
 	.bill_record .record_box .record_detail .bottom text{
 		color: #FF3E1E;

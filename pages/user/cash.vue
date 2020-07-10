@@ -2,9 +2,19 @@
 	<view class="cash">
 		<uni-nav-bar left-icon="arrowleft" title="现金劵" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
 		<view style="position: fixed;width:100%;background:#f8f6f9;">
+			
+			<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN -->
 			<my-s-tabs slot-title :nav-per-view="5" @change="changeFirst" v-model="activeTab" class="custom-tabs">
 				<my-s-tab v-for="(item, index) in cashList" :key="index">{{ item.name }}</my-s-tab>
 			</my-s-tabs>
+			<!-- #endif -->
+			
+			<!-- #ifdef MP-ALIPAY -->
+			<my-o-tabs :tabList="cashList" :isShow="activeTab" @tab="tabClick"></my-o-tabs>
+			<!-- #endif -->
+			
+			
+			
 		</view>
 
 		<view class="" style="height:80rpx;"></view>
@@ -40,7 +50,7 @@
 
 				</view>
 			</view>
-			<my-loading :loading="loading" v-if="loading != '空'"></my-loading>
+			<my-loading :loading="loading" v-if="list.length"></my-loading>
 		</view>
 		<view class="bitmap" v-if="bitmap">
 			<image src="../../static/img/no_record.png" mode="aspectFit"></image>
@@ -84,11 +94,23 @@
 				num: 10,
 				bitmap: false,
 				loading: false,
+				// #ifdef MP-ALIPAY
+				activeTab: -1,
+				// #endif
 				activeTab: 0,
 				orderType: 2,
 			};
 		},
 		methods: {
+			// #ifdef MP-ALIPAY
+			tabClick(data){
+				this.activeTab = data;
+				this.orderType = this.cashList[data].id;
+				this.list = [];
+				this.page = 1;
+				this.myCash();
+			},
+			// #endif
 			leftClick() {
 				uni.navigateBack({
 					delta: 1
@@ -138,8 +160,10 @@
 							this.loading = '空';
 						} else {
 							this.bitmap = false;
-							if (list.length == 10) {
-								this.loading = true;
+							if (list.length <10) {
+								this.loading = false;
+							}else{
+								this.loading=true;
 							}
 						}
 					}

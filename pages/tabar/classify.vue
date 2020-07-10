@@ -332,7 +332,7 @@
 
 <style>
 	page {
-		background: #F7F7F7;
+		background: white;
 	}
 
 	.classify .second_name {
@@ -365,6 +365,7 @@
 		width: 25%;
 		position: fixed;
 		overflow-x: scroll;
+		background: #f7f7f7;
 		height: calc(100vh - 104rpx - 50px);
 	}
 
@@ -422,7 +423,7 @@
 
 	/* #endif */
 	/* #ifdef MP-WEIXIN   */
-	.classify .right_area .single_good:nth-last-child(n+3) .my_profile {
+	.classify .right_area .single_good .my_profile {
 		border-bottom: 1px solid #eaeaea;
 	}
 
@@ -507,12 +508,12 @@
 	}
 
 
-	.my_loading {
+	.classify .my_loading {
 		color: #808080;
 		font-size: 24rpx !important;
 		text-align: center;
 		height: 80rpx;
 		line-height: 80rpx;
-		background: #F8F6F9;
+		background: white;
 	}
 </style>

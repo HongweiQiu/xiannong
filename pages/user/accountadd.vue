@@ -22,7 +22,7 @@
 			<view @click="mapPage">
 				<text>收货地址</text>
 				<view class="flex_left_right" style="width: 83%;">
-					<text>{{address}}</text>
+					<text class="hidden2">{{address}}</text>
 					<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
 				</view>
 			</view>
@@ -185,7 +185,7 @@
 			var data = uni.getStorageSync('append');
 			console.log(uni.getStorageSync('append'))
 			if(data){
-				this.nickname = data.nickname;
+				this.nickname = data.childInfo;
 				this.contact = data.contact;
 				this.mobile = data.mobile;
 				this.password = data.password;

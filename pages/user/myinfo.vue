@@ -35,7 +35,7 @@
 				</view>
 			</block>
 		</view>
-		<view class="submit_button button_style">保存</view>
+		<view class="submit_button button_style" @click="formSubmit">保存</view>
 		<image-cropper :src="tempFilePath" @confirm="confirm" @cancel="cancel"></image-cropper>
 	</view>
 </template>
@@ -179,6 +179,51 @@
 							title: "更换头像成功",
 							icon: 'none'
 						})
+					}
+				})
+			},
+			formSubmit() {
+				var that = this;
+				if(that.memberInfoData.is_password==0){
+					if(!that.password){
+					  rs.Toast('密码不能为空');
+					  return;
+					}
+					if(!that.confirmPwd){
+					  rs.Toast('确认密码不能为空');
+					  return;
+					}
+					if(that.password!=this.confirmPwd){
+					  rs.Toast('密码和确认密码不一致');
+					  return;
+					}
+				}
+				var nickname = that.nickname.replace(/\s+/g, "");
+				var timeStamp = Math.round(new Date().getTime() / 1000);
+				var obj = {
+					appid: appid,
+					timeStamp: timeStamp,
+				}
+				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				var data = {
+					appid: appid,
+					nickname: nickname,
+					password:that.password,
+					confirm_pwd:that.confirmPwd,
+					timeStamp: timeStamp,
+					sign: sign,
+				}
+				rs.postRequests("saveMemberInfo", data, (res) => {
+					if (res.data.code == 200) {
+						rs.Toast("修改成功")
+						setTimeout(function() {
+							uni.navigateBack({
+								delta:1
+							})
+						}, 1000);
+			
+					} else {
+						rs.Toast(res.data.msg)
 					}
 				})
 			},

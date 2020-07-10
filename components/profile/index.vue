@@ -41,12 +41,14 @@
 						</block>
 					</block>
 					<block v-else>
-						<view v-if="ware.attr.length">
+						<view v-if="ware.attr.length" class="hidden">
 							<text class="red_font">￥{{ware.area_price}}/{{ware.unit}}</text>
 							<text class="gray_font">(多规格)</text>
 						</view>
 						<view v-else class="red_font">
-							￥{{ware.price}}/{{ware.unit}}
+							<block v-if="ware.market_price==1">时价</block>
+							<block v-else>￥{{ware.price}}/{{ware.unit}}</block>
+							
 						</view>
 					</block>
 				</view>

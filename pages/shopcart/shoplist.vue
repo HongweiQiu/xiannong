@@ -32,12 +32,20 @@
 											<block v-if="config.is_look==1">
 												<view v-if="list.attr.length!=0">
 													<text class="red_font" v-if="list.attr.activity_num>=list.cart_num&&list.attr.is_activity==1">￥{{list.attr.activity_price}}/{{list.attr.unit}}</text>
-													<text class="red_font" v-else>￥{{list.attr.attr_price}}/{{list.attr.unit}}</text>
+													<text class="red_font" v-else>
+														<block v-if="list.attr.market_price==1">时价</block>
+														<block v-else>	￥{{list.attr.attr_price}}/{{list.attr.unit}}</block>
+													
+														
+														</text>
 													<text class="gray_font">已选({{list.attr.attr_title}})</text>
 												</view>
 												<view v-else> 
 												<text class="red_font" v-if="list.activity_num>=list.cart_num&&list.is_activity==1">￥{{list.activity_price}}/{{list.unit}}</text>
-												<text class="red_font" v-else>￥{{list.price}}/{{list.unit}}</text>
+												<text class="red_font" v-else>
+													<block v-if="list.market_price==1">时价</block>
+													<block v-else>	￥{{list.price}}/{{list.unit}}</block>
+											</text>
 												</view>
 											</block>
 											<view v-else class="red_font">

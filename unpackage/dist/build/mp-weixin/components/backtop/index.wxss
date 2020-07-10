@@ -1,1 +1,1 @@
-.back_top .icon-huidaodingbu{background:#c6c6c6;color:#fff;border-radius:50%;padding:10rpx;position:fixed;right:20rpx}
+.back_top .icon-huidaodingbu{background:#c6c6c6;color:#fff;border-radius:50%;width:50rpx;height:50rpx;line-height:50rpx;text-align:center;position:fixed;right:20rpx}

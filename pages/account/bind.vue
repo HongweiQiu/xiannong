@@ -1,7 +1,7 @@
 <template>
 	<view class="register">
 		<uni-nav-bar left-icon="arrowleft" title="更换手机" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
-
+       <view class="caution">绑定后可提高账号安全性</view>
 		<view class="get_info">
 			<view>
 				<text>手机号</text>
@@ -13,7 +13,7 @@
 			<view class="flex">
 				<text>验证码</text>
 				<view class="flex_left_right" style="width:79%;">
-					<input type="number" v-model="verify_code" placeholder-class="place_style" @focus="back=false" />
+					<input type="number" v-model="verify_code"  placeholder="请输入验证码" placeholder-class="place_style" @focus="back=false" />
 					<my-identifyingcode @getCode="getCode" ref="code"></my-identifyingcode>
 				</view>
 			</view>
@@ -274,4 +274,10 @@
 		font-size: 24rpx;
 		color: #418d5f;
 	}
+	.register .caution{color: red;
+    background: #f9d1cb;
+    font-size: 12px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;}
 </style>

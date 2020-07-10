@@ -10,8 +10,9 @@
 						<text v-else>即将开始</text>
 					</view>
 					<view v-if="item.status == 1">
-						<uni-countdown :hour="item.timeRemain / 3600" :minute="minute" :second="second" :show-day="false"
-						 background-color="none" splitor-color="white"></uni-countdown>
+							<my-countdown :time="item.timeRemain" lineC="white" bgC="none" style="line-height: 21px;"></my-countdown>
+						<!-- <uni-countdown :hour="item.timeRemain / 3600" :minute="minute" :second="second" :show-day="false" 
+						 background-color="none" splitor-color="white"></uni-countdown>-->
 					</view>
 					<view v-else class="ten" style="hieght:42rpx;line-height: 42rpx;">{{item.day+' '+item.hour}}</view>
 				</view>
@@ -29,7 +30,7 @@
 				<view class="photo" @click="detailPage(item.item_id)">
 
 					<image :src="config.logo" mode="aspectFit" class="shuiyin" v-if="config.logo&&config.shuiyin==1"></image>
-					<view style="width: 100%;height: 100%;display: flex;align-items: center;justify-content: center;">
+					<view style="width: 100%;display: flex;align-items: center;justify-content: center;">
 						<view class="show_text" v-if="item.activity_num <= item.cart_num">抢光了</view>
 						<image class="good_img" :src="item.img==''?imgRemote+config.item_default:item.img" mode="aspectFit"></image>
 					</view>
@@ -40,8 +41,8 @@
 					<view>{{item.item_title}}</view>
 					<view class="gray_font twelve">{{item.attr_title}}</view>
 					<view>
-						<view class="align_center">
-							<text class="red_tag">爆品</text>
+						<view class="align_center" style="flex-wrap: wrap;">
+							<text class="red_tag" v-for="(label,index) in item.label">{{label}}</text>
 							<view class="distance align_center">
 								<text class="red_tag">省</text>
 								<text class="red_font">{{item.difference}}元</text>
@@ -307,6 +308,7 @@
 		flex: 1;
 		color: #fff;
 		padding: 2% 0;
+		
 	}
 
 	.flash_sale .all_things {

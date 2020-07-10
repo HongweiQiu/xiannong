@@ -94,25 +94,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 476))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 478))
   },
   "uni-icons": function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 447))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 449))
   },
   "my-s-tabs": function() {
-    return __webpack_require__.e(/*! import() | components/s-tabs/index */ "components/s-tabs/index").then(__webpack_require__.bind(null, /*! @/components/s-tabs/index.vue */ 433))
+    return __webpack_require__.e(/*! import() | components/s-tabs/index */ "components/s-tabs/index").then(__webpack_require__.bind(null, /*! @/components/s-tabs/index.vue */ 435))
   },
   "my-s-tab": function() {
-    return __webpack_require__.e(/*! import() | components/s-tab/index */ "components/s-tab/index").then(__webpack_require__.bind(null, /*! @/components/s-tab/index.vue */ 440))
+    return __webpack_require__.e(/*! import() | components/s-tab/index */ "components/s-tab/index").then(__webpack_require__.bind(null, /*! @/components/s-tab/index.vue */ 442))
   },
   "my-loading": function() {
-    return __webpack_require__.e(/*! import() | components/loading/index */ "components/loading/index").then(__webpack_require__.bind(null, /*! @/components/loading/index.vue */ 396))
+    return __webpack_require__.e(/*! import() | components/loading/index */ "components/loading/index").then(__webpack_require__.bind(null, /*! @/components/loading/index.vue */ 398))
   },
   "w-picker": function() {
-    return __webpack_require__.e(/*! import() | components/w-picker/w-picker */ "components/w-picker/w-picker").then(__webpack_require__.bind(null, /*! @/components/w-picker/w-picker.vue */ 483))
+    return __webpack_require__.e(/*! import() | components/w-picker/w-picker */ "components/w-picker/w-picker").then(__webpack_require__.bind(null, /*! @/components/w-picker/w-picker.vue */ 485))
   },
   "my-tabar": function() {
-    return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 426))
+    return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 428))
   }
 }
 var render = function() {
@@ -158,6 +158,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
 
 
 
@@ -400,14 +407,25 @@ var _uniNoticeBar = _interopRequireDefault(__webpack_require__(/*! @/components/
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 483));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { wPicker: wPicker }, data: function data() {return { is_child: '', is_miniBind: '', imgRemote: imgRemote, load: true, navBar: navBar, tabList: [{ name: '待审核' }, { name: '备货中' }, { name: '配送中' }, { name: '已收货' }, { name: '已取消' }], activeTab: 1, lineShow: false, showOrderType: false, childListProps: { "label": "nickname", "value": "zid" }, childList: [{ "zid": "", "nickname": "当前账号" }], childzid: '', childtxt: '当前账号', isActive: '全部', orderTitle: '全部订单', type: 1, search_default: false, is_look: '', orderList: [], orderInfo: '', page: 1, map: false };}, methods: { /**
+//
+//
+//
+//
+//
+//
+//
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 485));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { wPicker: wPicker }, data: function data() {return { is_child: '', is_miniBind: '', imgRemote: imgRemote, load: true, navBar: navBar, tabList: [{ name: '待审核' }, { name: '备货中' }, { name: '配送中' }, { name: '已收货' }, { name: '已取消' }], activeTab: 1, lineShow: false, showOrderType: false, childListProps: { "label": "nickname", "value": "zid" }, childList: [{ "zid": "", "nickname": "当前账号" }], childzid: '', childtxt: '当前账号', isActive: '全部', orderTitle: '全部订单', type: 1, search_default: false, is_look: '', orderList: [], orderInfo: '', page: 1, map: false };}, methods: { /**
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        * 确认收货
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */receiveOrder: function receiveOrder(data, index) {var that = this;var dataId = data;var dataIndex = index;uni.showModal({ title: '提示', content: '是否确认收货？', success: function success(res) {if (res.confirm) {// console.log('用户点击确定');
             var id = dataId;var orderindex = dataIndex;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, id: id, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, timeStamp: timeStamp, id: id, sign: sign };_request.default.getRequests("receiveOrder", data, function (res) {if (res.data.code == 200) {uni.showToast({ title: "确认收货成功", icon: 'none' });that.orderList.splice(index, 1);if (that.orderList.length <= 0) {that.orderLista();}} else {uni.showToast({ title: res.data.msg, icon: 'none' });}});} else if (res.cancel) {// console.log('用户点击取消');
           }} });}, /**
                     * 页面跳转
                     */ //支付
-    play: function play(data) {var oid = data;uni.navigateTo({ url: '/pages/order/pay?oid=' + oid });}, orderDetailPage: function orderDetailPage(url, item) {if (url == 'orderDetail') {uni.navigateTo({ url: '/pages/order/orderdetail?orderItem=' + item.id });} else if (url == 'user') {uni.showToast({ title: "还未绑定微信,请去我的页面绑定微信", duration: 2000, icon: 'none' });
+    play: function play(data) {var oid = data;uni.navigateTo({ url: '/pages/order/pay?oid=' + oid });}, orderDetailPage: function orderDetailPage(url, item) {if (url == 'orderDetail') {uni.navigateTo({ url: '/pages/order/orderdetail?orderItem=' + item.id });} else if (url == 'user') {
+        uni.showToast({
+          title: "还未绑定微信,请去我的页面绑定微信",
+          duration: 2000,
+          icon: 'none' });
 
         uni.navigateTo({
           url: '/pages/tabar/user' });
@@ -594,8 +612,11 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
                   duration: 2000,
                   icon: 'none' });
 
-                uni.switchTab({
-                  url: '/pages/tabar/shopcart' });
+                setTimeout(function () {
+                  uni.switchTab({
+                    url: '/pages/tabar/shopcart' });
+
+                }, 1000);
 
               } else if (res.data.code == 102) {
                 uni.showToast({
@@ -603,9 +624,11 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
                   duration: 2000,
                   icon: 'none' });
 
-                uni.switchTab({
-                  url: '/pages/tabar/shopcat' });
+                setTimeout(function () {
+                  uni.switchTab({
+                    url: '/pages/tabar/shopcart' });
 
+                }, 1000);
               } else {
                 uni.showToast({
                   title: res.data.msg,
@@ -768,7 +791,8 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       } else if (data == "全部订单") {
         this.type = 1;
       }
-      this.page = 1;
+      this.page = 1;this.lineShow = false;
+      this.activeTab = 6;
       this.orderLista();
     },
     changeFirst: function changeFirst(index) {
@@ -968,7 +992,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-icons": function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 447))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 449))
   }
 }
 var render = function() {
@@ -1008,7 +1032,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniIcons = function uniIcons() {Promise.all(/*! require.ensure | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then((function () {return resolve(__webpack_require__(/*! ../uni-icons/uni-icons.vue */ 447));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniIcons = function uniIcons() {Promise.all(/*! require.ensure | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then((function () {return resolve(__webpack_require__(/*! ../uni-icons/uni-icons.vue */ 449));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 
 

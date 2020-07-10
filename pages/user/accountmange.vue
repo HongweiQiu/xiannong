@@ -7,7 +7,7 @@
 			<view class="flex_left_right single" v-for="(item,index) in childInfo" :key="index" @click="editPage(item)">
 				<view class="account_info">
 					<view>账号名称 : {{item.nickname}}</view>
-					<view class="hidden">收货地址 : {{item.mobile}} {{item.address}}</view>
+					<view class="hidden">收货地址 : {{item.address}}</view>
 				</view>
 				<view>
 					<image src="../../static/img/edit.png"></image>

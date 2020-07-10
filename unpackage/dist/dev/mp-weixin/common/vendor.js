@@ -8220,6 +8220,7 @@ function objKeySort(obj) {//排序的函数
   return sz.substr(1); //返回排好序的新对象
 }
 
+
 function Toast(message) {
   uni.showToast({
     title: message,
@@ -8227,18 +8228,37 @@ function Toast(message) {
     duration: 1000 });
 
 }
+function getLastDay() {
+  var current = new Date();
+  var currentMonth = current.getMonth();
+  var nextMonth = ++currentMonth;
 
+  var nextMonthDayOne = new Date(current.getFullYear(), nextMonth, 1);
+
+  var minusDate = 1000 * 60 * 60 * 24;
+
+  return new Date(nextMonthDayOne.getTime() - minusDate);
+}
 function thedefaulttime() {//购买记录默认时间
   var date = new Date();
   var year = date.getFullYear().toString();
   var time = (date.getMonth() + 1).toString();
+
+
   var month = '';
   if (time < 10) {
     month = "0" + time;
   } else {
     month = time;
   }
-  var day = date.getDate().toString();
+  var num = date.getDate().toString();
+  var day = getLastDay().getDate();
+
+  // if (num < 10) {
+  // 	day = "0" + num;
+  // } else {
+  // 	day = num;
+  // }
   var start = year + '-' + month + '-01';
   var end = year + '-' + month + '-' + day;
   var dateArr = [start, end];
@@ -8681,7 +8701,7 @@ parseHtml;exports.default = _default;
 
 /***/ }),
 
-/***/ 415:
+/***/ 417:
 /*!***********************************************!*\
   !*** E:/uniapp/components/uni-popup/popup.js ***!
   \***********************************************/
@@ -8689,7 +8709,7 @@ parseHtml;exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 416));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 418));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 // 定义 type 类型:弹出类型：top/bottom/center
 var config = {
   // 顶部弹出
@@ -8716,7 +8736,7 @@ var config = {
 
 /***/ }),
 
-/***/ 416:
+/***/ 418:
 /*!*************************************************!*\
   !*** E:/uniapp/components/uni-popup/message.js ***!
   \*************************************************/
@@ -8754,7 +8774,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 452:
+/***/ 454:
 /*!***********************************************!*\
   !*** E:/uniapp/components/uni-icons/icons.js ***!
   \***********************************************/
@@ -9747,7 +9767,7 @@ main();
 
 /***/ }),
 
-/***/ 523:
+/***/ 525:
 /*!*************************************************!*\
   !*** E:/uniapp/components/uni-calendar/util.js ***!
   \*************************************************/
@@ -9755,7 +9775,7 @@ main();
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 524));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 526));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
 
 Calendar = /*#__PURE__*/function () {
   function Calendar()
@@ -10110,7 +10130,7 @@ Calendar;exports.default = _default;
 
 /***/ }),
 
-/***/ 524:
+/***/ 526:
 /*!*****************************************************!*\
   !*** E:/uniapp/components/uni-calendar/calendar.js ***!
   \*****************************************************/

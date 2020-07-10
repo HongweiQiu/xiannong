@@ -233,6 +233,9 @@ page {
 	        justify-content: space-between;
 	padding: 0 20rpx;
 }
+.body .myc_recomend:nth-child(n+3) {
+	margin-top: 40rpx;
+}
 .body .recomend_single:nth-child(n+3) {
 	margin-top: 40rpx;
 }

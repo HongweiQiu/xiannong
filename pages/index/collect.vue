@@ -4,7 +4,7 @@
 		 @clickRight="rightClick"></uni-nav-bar>
 		<view class="all_collect" v-if="list.length!=0">
 			<my-profile class="single_collect" v-for="(item, index) in list" :wares="item" :config="config" :key="index" url="collect"
-			 @showCart="openCart(item)" @showKey="showKey" @cancelCollect="cancelCollect(item,index)"></my-profile>
+			 @showCart="openCart(item)" @showKey="showKey(item,index)" @cancelCollect="cancelCollect(item,index)"></my-profile>
 			<my-loading></my-loading>
 		</view>
 		<view v-else class="bitmap">
@@ -14,7 +14,7 @@
 			<my-addcart :config="config" :cartware="cartware" @onClose="onClose"></my-addcart>
 		</uni-popup>
 		<uni-popup ref="popup" type="bottom">
-			<my-keyboard @cancelKey="$refs.popup.close()"></my-keyboard>
+			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent"></my-keyboard>
 		</uni-popup>
 	</view>
 </template>
@@ -41,7 +41,9 @@
 				list: [],
 				page: 1,
 				num: 10,
-				cartware: []
+				arrObj:{},
+				cartware: [],
+				count:1,
 			};
 		},
 		methods: {
@@ -90,6 +92,8 @@
 				}
 			},
 			cancelCollect(item,index){
+				this.count++;
+				if(this.count!=2){return}
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					item_id: item.id,
@@ -105,7 +109,9 @@
 				);
 				rs.getRequests('changeCollect', params, res => {
 					let data = res.data;
+						this.count=1;
 					if (data.code == 200) {
+					
 						this.list.splice(index,1)
 						rs.Toast('取消收藏');
 					} else {
@@ -165,9 +171,41 @@
 				this.$refs.cart.close();
 			},
 			// 显示键盘
-			showKey() {
+			showKey(item, index) {
+				console.log(45)
+				this.arrObj = item;
+				this.index = index;
 				this.$refs.popup.open();
 			},
+			toParent(e) {
+				let item = e.arrObj;
+				let timeStamp = Math.round(new Date().getTime() / 1000);
+				let obj = {
+					appid: appid,
+					timeStamp: timeStamp,
+					item_id: item.id,
+					attr_id: 0,
+					item_num: e.val
+				};
+				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				let params = Object.assign({
+						sign: sign
+					},
+					obj
+				);
+				rs.postRequests('changeNum', params, res => {
+					let data = res.data;
+					if (data.code == 200) {
+						rs.Toast('加入购物车成功')
+						this.list[this.index].cart_num = e.val;
+					} else if (data.code == 407 || data.code == 406) {
+						rs.Toast("购买数量不能超过活动数量")
+					} else {
+						rs.Toast(res.data.msg)
+					}
+				});
+				this.$refs.popup.close();
+			}
 		},
 		onHide(){
 			uni.setStorageSync('collect',this.list);

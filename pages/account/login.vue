@@ -73,7 +73,8 @@
 				navBar: navBar,
 				logo: '',
 				mobile: '',
-				password: ''
+				password: '',
+				scrollHeight:''
 			};
 		},
 		methods: {
@@ -177,9 +178,11 @@
 										uni.setStorageSync("is_child", data.data.is_child);
 										uni.setStorageSync("is_miniBind", data.data.is_appBind);
 										console.log(data)
-										uni.switchTab({
-											url: '../tabar/index'
-										})
+										setTimeout(function() {
+											uni.switchTab({
+												url: '../tabar/index'
+											})
+										}, 1000);
 									} else if (data.code == 201) {
 										uni.navigateTo({
 											url: 'selectway?identifying=' + data.data.identifying
@@ -272,9 +275,11 @@
 										wx.setStorageSync("cdj_token", data.data.token);
 										wx.setStorageSync("is_child", data.data.is_child);
 										wx.setStorageSync("is_miniBind", data.data.is_miniBind);
-										wx.switchTab({
-											url: '../tabar/index'
-										})
+										setTimeout(function() {
+											uni.switchTab({
+												url: '../tabar/index'
+											})
+										}, 1000);
 									} else if (data.code == 201) {
 										wx.navigateTo({
 											url: 'selectway?identifying=' + data.data.identifying
@@ -355,17 +360,20 @@
 		},
 		onReady() {
 			// #ifdef H5
+			this.scrollHeight=document.body.clientHeight
 			window.onresize = () => {
-				this.display = !this.display;
+			// 解决刷新底部会隐藏的问题
+				let newHeight=document.body.clientHeight;
+				if(this.scrollHeight==newHeight){
+					this.display=true;
+				}else{
+					this.display=false;
+				}
+				
 			}
 			// #endif
 		},
-		onHide() {
-			// #ifdef H5
-			//
-			// #endif
-
-		}
+		
 	};
 </script>
 

@@ -559,9 +559,12 @@
 						rs.Toast(res.data.msg)
 					} else {
 						rs.Toast('合拼订单成功');
-						uni.switchTab({
-							url: '/pages/tabar/order',
-						})
+						setTimeout(()=>{
+							uni.switchTab({
+								url: '/pages/tabar/order',
+							})
+						},1000)
+						
 					}
 				})
 			},
@@ -619,9 +622,12 @@
 							return;
 						}
 						rs.Toast('下单成功');
+						setTimeout(()=>{
 						uni.switchTab({
 							url: '/pages/tabar/order',
-						})
+						})	
+						},1000)
+						
 					} else if (data.code == 500) {
 						rs.Toast('服务器内部错误,请稍候再试')
 					} else if(data.code==407){

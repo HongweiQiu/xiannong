@@ -27,13 +27,15 @@
         "register",
         "service",
         "treaty",
-        "bind"
+        "bind",
+        "404"
       ]
     },
     {
       "root": "pages/order",
       "pages": [
         "orderdetail",
+        "address",
         "pay"
       ]
     },

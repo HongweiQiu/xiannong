@@ -18,8 +18,9 @@
 				<image class="good_img" :src="ware.img==''?imgRemote+ware.item_default:ware.img" mode="aspectFit"></image>
 				<view class="active_time" v-if="ware.is_activity==1||attrspec.is_activity == 1">
 					正在抢购
-					<uni-countdown :hour="hours" :minute="minu" :second="second" :show-day="false" background-color="#f7c0b7" color="white"
-					 splitor-color="white"></uni-countdown>
+					<!-- <uni-countdown :hour="hours" :minute="minu" :second="second" :show-day="false" background-color="#f7c0b7" color="white"
+					 splitor-color="white"></uni-countdown> -->
+					 	<my-countdown :time="hours" lineC="white" bgC="none" style="line-height: 21px;"></my-countdown>
 					结束
 					<view class="remain_num">
 						<block v-if="spec">
@@ -66,7 +67,9 @@
 								</block>
 								<block v-else>
 									<view class="red_font">
-										￥{{attrspec.attr_price}}/{{attrspec.unit}}
+									<text v-if="attrspec.market_price==1">时价</text>
+									<text v-else>￥{{attrspec.attr_price}}/{{attrspec.unit}}</text>
+									
 									</view>
 								</block>
 							</block>
@@ -82,7 +85,9 @@
 								</block>
 								<block v-else>
 									<view class="red_font">
-										￥{{ware.price}}/{{ware.unit}}
+										<text v-if="ware.market_price==1">时价</text>
+										<text v-else>	￥{{ware.price}}/{{ware.unit}}</text>
+																
 									</view>
 								</block>
 							</block>
@@ -95,10 +100,14 @@
 					</block>
 					<block v-else>
 						<view class="red_font" v-if="spec">
-							￥{{attrspec.attr_price}}/{{attrspec.unit}}
+							<text v-if="attrspec.market_price==1">时价</text>
+							<text v-else>￥{{attrspec.attr_price}}/{{attrspec.unit}}</text>
+							
 						</view>
 						<view class="red_font" v-else>
-							￥{{ware.price}}/{{ware.unit}}
+							<text v-if="ware.market_price==1">时价</text>
+							<text v-else>	￥{{ware.price}}/{{ware.unit}}</text>
+						
 						</view>
 					</block>
 				</view>
@@ -139,12 +148,16 @@
 							<view class="red_font">
 								<block v-if="token">
 									<block v-if="recommend.is_look==1">
-										￥{{item.price}}/{{item.unit}}
+										<text v-if="item.market_price==1">时价	</text>
+										<text v-else>	￥{{item.price}}/{{item.unit}}	</text>
+									
 									</block>
 									<block v-else>￥***</block>
 								</block>
 								<block v-else>
-									￥{{item.price}}/{{item.unit}}
+									<text v-if="item.market_price==1">时价	</text>
+									<text v-else>	￥{{item.price}}/{{item.unit}}	</text>
+																		
 								</block>
 
 							</view>
@@ -299,7 +312,7 @@
 							this.spec = false;
 						}
 
-						this.hours = data.data.panicActivity.timeRemain / 3600;
+						this.hours = data.data.panicActivity.timeRemain ;
 						// 推荐列表
 						rs.getRequests('itemRecommend', params, res => {
 							let data = res.data;
