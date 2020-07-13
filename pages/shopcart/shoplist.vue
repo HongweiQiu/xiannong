@@ -70,7 +70,7 @@
 						</view>
 						<view class="align_center">
 							<text>备注:</text>
-							<view @click="getFocus(list,index,second)"> <text v-if="list.remark">{{list.remark}}</text>
+							<view @click="getFocus(list,index,second)" style="width: 89%;"> <text v-if="list.remark">{{list.remark}}</text>
 								<text v-else class="gray_font">请告诉我们需要注意的地方</text></view>
 						</view>
 					</view>
