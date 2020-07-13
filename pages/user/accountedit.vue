@@ -77,9 +77,13 @@
 					url: "accountmange"
 				})
 				// #endif
+				
+				// #ifndef H5
 				uni.navigateBack({
 					delta:1
 				})
+				// #endif
+				
 			},
 			urlPage() {
 				if (this.save == false) {
@@ -173,13 +177,8 @@
 								if (res.data.code == 200) {
 									rs.Toast('删除成功')
 									setTimeout(function() {
-										// #ifdef H5
 										uni.navigateTo({
 											url: "accountmange"
-										})
-										// #endif
-										uni.navigateBack({
-											delta:1
 										})
 									}, 1000);
 								}
@@ -284,13 +283,8 @@
 						rs.Toast('修改成功')
 						that.save = true;
 						setTimeout(function() {
-							// #ifdef H5
 							uni.navigateTo({
 								url: "accountmange"
-							})
-							// #endif
-							uni.navigateBack({
-								delta:1
 							})
 						}, 1000);
 					}

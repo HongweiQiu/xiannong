@@ -27,9 +27,10 @@
 				},
 					
 		},	
+	
 		data(){
 			return {
-				
+				totaltime:this.time,
 				hour:'00',
 				minus:'00',
 				second:'00'
@@ -38,19 +39,31 @@
 		methods:{
 			start(){
 				setInterval(()=>{
-					 this.time--;
+					 this.totaltime--;
+					if(this.totaltime<=0){
+						// #ifdef H5
+						window.location.reload();
+						return;
+						// #endif
+							let pages = getCurrentPages();
+							uni.reLaunch({
+								url:'/'+pages[0].route
+							})
+							
+					}else{
+					this.countDown();	
+					}
 					
-					this.countDown();
 				},1000)
 			},
 			countDown(){
 				
 				
-				this.hour=Math.floor(this.time/3600);
-				this.minus=Math.floor(this.time/60%60);
-				this.second=Math.floor(this.time%60);
+				this.hour=Math.floor(this.totaltime/3600);
+				this.minus=Math.floor(this.totaltime/60%60);
+				this.second=Math.floor(this.totaltime%60);
 				
-				console.log(this.time%60)
+			
 				if(this.hour<10){
 					this.hour='0'+this.hour;
 				}

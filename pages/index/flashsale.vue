@@ -10,7 +10,7 @@
 						<text v-else>即将开始</text>
 					</view>
 					<view v-if="item.status == 1">
-							<my-countdown :time="item.timeRemain" lineC="white" bgC="none" style="line-height: 21px;"></my-countdown>
+						<my-countdown :time="item.timeRemain" lineC="white" bgC="none" style="line-height: 21px;"></my-countdown>
 						<!-- <uni-countdown :hour="item.timeRemain / 3600" :minute="minute" :second="second" :show-day="false" 
 						 background-color="none" splitor-color="white"></uni-countdown>-->
 					</view>
@@ -31,7 +31,10 @@
 
 					<image :src="config.logo" mode="aspectFit" class="shuiyin" v-if="config.logo&&config.shuiyin==1"></image>
 					<view style="width: 100%;display: flex;align-items: center;justify-content: center;">
-						<view class="show_text" v-if="item.activity_num <= item.cart_num">抢光了</view>
+						<block v-if="item.num_limit>0"><view class="show_text" v-if="item.activity_inventory <= item.cart_num">抢光了</view></block>
+						<block v-else><view class="show_text" v-if="item.activity_num <= item.cart_num">抢光了</view></block>
+					
+						
 						<image class="good_img" :src="item.img==''?imgRemote+config.item_default:item.img" mode="aspectFit"></image>
 					</view>
 
@@ -50,9 +53,15 @@
 							<text class="gray_font" v-if="item.activity_num <= item.cart_num">剩余:0个</text>
 							<text class="gray_font" v-if="item.activity_num > item.cart_num">剩余:{{ item.activity_num - item.cart_num }}个</text>
 						</view>
-						<view>
-							<text class="red_font">¥{{item.activity_price}}/{{item.unit}}</text>
-							<text class="line_through ten">￥{{item.price}}</text>
+						<view v-if="token">
+							<view v-if="config.is_look==1">
+								<text class="red_font">¥{{item.activity_price}}/{{item.unit}}</text>
+								<text class="line_through ten">￥{{item.price}}</text>
+							</view>
+							<view v-else class="red_font">￥*** </view>
+						</view>
+						<view v-else>
+							<text class="red_font">￥{{item.price}}/{{item.unit}}</text>
 						</view>
 					</view>
 					<view class="num_limit" v-if="item.num_limit!=0&&item.activity_num<=item.cart_num">
@@ -60,15 +69,30 @@
 				</view>
 				<view class="good_num">
 					<block v-if="activeList[kind].status==1">
-						<view class="buy_num" v-if="item.activity_num > item.cart_num">
-							<image v-if="item.cart_num == 0" src="../../static/img/plus.png" class="plus" @click="plusSing(item,index)"></image>
-							<block v-else>
-								<my-stepper @showKey="showKey(item,index)" :val="item.cart_num" @plus="plus(item,item.cart_num+1,index)" @minus="minus(item,item.cart_num-1,index)">
-								</my-stepper>
-							</block>
-						</view>
+						<block v-if="item.num_limit>0">
+							<view class="buy_num" v-if="item.activity_inventory> item.cart_num">
+								<image v-if="item.cart_num == 0" src="../../static/img/plus.png" class="plus" @click="plusSing(item,index)"></image>
+								<block v-else>
+									<my-stepper @showKey="showKey(item,index)" :val="item.cart_num" @plus="plus(item,item.cart_num+1,index)"
+									 @minus="minus(item,item.cart_num-1,index)">
+									</my-stepper>
+								</block>
+							</view>
 
-						<view class="no_num" v-else><text>已抢完</text></view>
+							<view class="no_num" v-else><text>已抢完</text></view>
+						</block>
+						<block v-else>
+							<view class="buy_num" v-if="item.activity_num > item.cart_num">
+								<image v-if="item.cart_num == 0" src="../../static/img/plus.png" class="plus" @click="plusSing(item,index)"></image>
+								<block v-else>
+									<my-stepper @showKey="showKey(item,index)" :val="item.cart_num" @plus="plus(item,item.cart_num+1,index)"
+									 @minus="minus(item,item.cart_num-1,index)">
+									</my-stepper>
+								</block>
+							</view>
+
+							<view class="no_num" v-else><text>已抢完</text></view>
+						</block>
 					</block>
 					<block v-else>
 						<view class="no_num"><text>即将开始</text></view>
@@ -99,6 +123,7 @@
 	export default {
 		data() {
 			return {
+				token: uni.getStorageSync('cdj_token'),
 				imgRemote: imgRemote,
 				showTop: false,
 				kind: 0,
@@ -237,7 +262,7 @@
 		width: 30%;
 	}
 
-	.flash_sale .all_things .photo .show_text{
+	.flash_sale .all_things .photo .show_text {
 		position: absolute;
 		z-index: 2;
 		width: 140rpx;
@@ -308,7 +333,7 @@
 		flex: 1;
 		color: #fff;
 		padding: 2% 0;
-		
+
 	}
 
 	.flash_sale .all_things {

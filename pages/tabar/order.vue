@@ -634,6 +634,7 @@
 				}
 				this.page = 1;this.lineShow = false;
 						this.activeTab = 6;
+						this.isActive = "全部";
 				this.orderLista();
 			},
 			changeFirst(index) {

@@ -2,7 +2,7 @@
 .flash_sale .all_things .photo {
 	width: 30%;
 }
-.flash_sale .all_things .photo .show_text{
+.flash_sale .all_things .photo .show_text {
 	position: absolute;
 	z-index: 2;
 	width: 140rpx;

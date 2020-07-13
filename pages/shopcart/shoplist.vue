@@ -34,18 +34,18 @@
 													<text class="red_font" v-if="list.attr.activity_num>=list.cart_num&&list.attr.is_activity==1">￥{{list.attr.activity_price}}/{{list.attr.unit}}</text>
 													<text class="red_font" v-else>
 														<block v-if="list.attr.market_price==1">时价</block>
-														<block v-else>	￥{{list.attr.attr_price}}/{{list.attr.unit}}</block>
-													
-														
-														</text>
+														<block v-else> ￥{{list.attr.attr_price}}/{{list.attr.unit}}</block>
+
+
+													</text>
 													<text class="gray_font">已选({{list.attr.attr_title}})</text>
 												</view>
-												<view v-else> 
-												<text class="red_font" v-if="list.activity_num>=list.cart_num&&list.is_activity==1">￥{{list.activity_price}}/{{list.unit}}</text>
-												<text class="red_font" v-else>
-													<block v-if="list.market_price==1">时价</block>
-													<block v-else>	￥{{list.price}}/{{list.unit}}</block>
-											</text>
+												<view v-else>
+													<text class="red_font" v-if="list.activity_num>=list.cart_num&&list.is_activity==1">￥{{list.activity_price}}/{{list.unit}}</text>
+													<text class="red_font" v-else>
+														<block v-if="list.market_price==1">时价</block>
+														<block v-else> ￥{{list.price}}/{{list.unit}}</block>
+													</text>
 												</view>
 											</block>
 											<view v-else class="red_font">
@@ -82,13 +82,14 @@
 				<text class="class_tag">赠品</text>
 				<text> 赠品(1)</text>
 			</view>
-			<view class="single_good" >
+			<view class="single_good">
 				<view class="flex">
 					<view class="good_img">
 						<image :src="config.logo" mode="aspectFit" class="shuiyin" v-if="config.logo&&config.shuiyin==1"></image>
-						<image class="have_img" :src="giftInfo[ruleKind].item[0].img==''?imgRemote+config.item_default:giftInfo[ruleKind].item[0].img" mode="aspectFit"></image>
+						<image class="have_img" :src="giftInfo[ruleKind].item[0].img==''?imgRemote+config.item_default:giftInfo[ruleKind].item[0].img"
+						 mode="aspectFit"></image>
 					</view>
-					<view class="align_center flex_left_right" style="width: 100%;" >
+					<view class="align_center flex_left_right" style="width: 100%;">
 
 						<text>{{giftInfo[ruleKind].item[0].title}}</text>
 						<text>X{{giftInfo[ruleKind].item[0].num}}</text>
@@ -99,13 +100,14 @@
 			</view>
 		</view>
 
-		<view class="mask" v-if="showRemark">
+		<view class="mask" v-show="showRemark">
 			<view class="mask_overly"></view>
 			<view class="remark_dialog">
 
 				<view class="title">确定要修改备注吗</view>
 				<view class="textarea">
-					<textarea v-model="remark" focus="true" placeholder="请输入你想说的" placeholder-class="place_style" :show-confirm-bar="confirmBar" />
+					<textarea v-model="remark" focus='ture' ref="remarkTxt" placeholder="请输入你想说的" placeholder-class="place_style"
+					 :show-confirm-bar="confirmBar" />
 					</view>
 					  <view class="buttons">
 						  <view class="cancel" @click="showRemark=false">取消</view>
@@ -148,7 +150,6 @@
 				secondIndex:'',
 				ruleKind:-1,
 				giftInfo:[]
-			
 			}
 		},
 		methods: {
@@ -266,9 +267,9 @@
 				})
 			},
 			getFocus(item,index,second){
-				this.$nextTick(() =>{
-				    this.$refs.remarkTxt.focus()
-				})
+				// this.$nextTick(() =>{
+				//     this.$refs.remarkTxt.focus();
+				// })
 				this.showRemark=true;
 				this.remark=item.remark;
 				this.shopItem=item;

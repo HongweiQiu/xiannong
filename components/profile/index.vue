@@ -191,6 +191,7 @@
 	}
 
 	.my_profile .operate {
+		height:100%;
 		justify-content: space-between;
 	}
 

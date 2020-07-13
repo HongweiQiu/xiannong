@@ -298,7 +298,19 @@
 			// #endif
 		},
 		onShow() {
-
+       // #ifdef H5
+			this.scrollHeight=document.body.clientHeight
+			window.onresize = () => {
+			// 解决刷新底部会隐藏的问题
+				let newHeight=document.body.clientHeight;
+				if(this.scrollHeight==newHeight){
+					this.display=true;
+				}else{
+					this.display=false;
+				}
+				
+			}
+			// #endif
 			let timeStamp = Math.round(new Date().getTime() / 1000);
 			let obj = {
 				appid: appid,
@@ -359,19 +371,7 @@
 			// #endif
 		},
 		onReady() {
-			// #ifdef H5
-			this.scrollHeight=document.body.clientHeight
-			window.onresize = () => {
-			// 解决刷新底部会隐藏的问题
-				let newHeight=document.body.clientHeight;
-				if(this.scrollHeight==newHeight){
-					this.display=true;
-				}else{
-					this.display=false;
-				}
-				
-			}
-			// #endif
+			
 		},
 		
 	};

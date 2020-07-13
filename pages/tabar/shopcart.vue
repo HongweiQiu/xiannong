@@ -598,12 +598,13 @@
 					way: way
 				};
 				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				console.log(this.cashId)
 				let params = Object.assign({
 					delivery_time_id: timeId,
 					delivery_time_info: timeInfo,
 					sign: sign,
 					remark: remark,
-					coupons_member_id: this.cartInfo.on_delivery == 0 ? this.cashId : 0,
+					coupons_member_id: this.cartInfo.on_delivery == 0 ? this.couponsId : 0,
 					select_zid: select_zid
 				}, obj);
 

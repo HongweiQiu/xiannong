@@ -160,6 +160,7 @@
 						that.record = res.data.data;
 						if (res.data.data.list != '') {
 							that.bitmap = true;
+							this.loading = false;
 								that.list.push(...res.data.data.list);
 						} else {
 							this.loading = '空';
