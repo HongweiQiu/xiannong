@@ -66,8 +66,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 .s-tabs .s-tab-nav.is-disabled {
   color: #c8c9cc !important;
@@ -90,7 +89,6 @@
   width: 100%;
   -webkit-flex-shrink: 0;
           flex-shrink: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 

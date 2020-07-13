@@ -67,7 +67,7 @@
 			<view v-if="is_child != 1">
 				<button open-type="share" class="flex_left_right">
 					<view class="">
-						<text class="'iconfont icon-fenxiang" style="color: #26DD5B;"></text>
+						<text class="iconfont icon-fenxiang" style="color: #26DD5B;"></text>
 						<text class="name">分享小程序</text>
 					</view>
 					<view>
@@ -75,6 +75,23 @@
 					</view>
 				</button>
 			</view>
+
+			<!-- #endif -->
+
+			<!-- #ifdef H5 -->
+			
+			<view class="flex_left_right" v-if="is_child != 1" @click="hShare = true">
+				<view class="">
+					<text class="iconfont  icon-fenxiang" style="color:#26DD5B"></text>
+					<text class="name">分享公众号</text>
+				</view>
+				<view>
+					<uni-icons type="arrowright" size="18" color="black"></uni-icons>
+				</view>
+			</view>
+			
+			
+			
 
 			<!-- #endif -->
 
@@ -89,6 +106,11 @@
 			</view>
 		</view>
 		<my-tabar tabarIndex=4></my-tabar>
+		<view class="share_box" v-if="hShare" @click="hShare = false">
+			<view>
+				<image src="../../static/img/share.png" mode=""></image>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -112,6 +134,7 @@
 		},
 		data() {
 			return {
+				hShare:false,
 				userList: [{
 						icon: 'icon-08_zizhanghaoguanli',
 						name: '账号管理',
@@ -589,6 +612,7 @@
 <style>
 	page {
 		background: white;
+		height: 100%;
 	}
 
 	.user .author image {
@@ -675,7 +699,7 @@
 	}
 
 	.user button {
-        line-height: 80rpx;
+		line-height: 80rpx;
 		padding: 0;
 		background: none;
 		font-size: 28rpx;
@@ -684,4 +708,20 @@
 	.user button::after {
 		border: none;
 	}
+	.share_box{
+		background: rgba(0,0,0,0.5);
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		z-index: 999;
+	}
+	.share_box image{
+		width: 70%;
+		height: 310rpx;
+		margin-left: 20%;
+		margin-top: 80rpx;
+	}
 </style>
+
