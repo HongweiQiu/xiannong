@@ -1,7 +1,7 @@
 {
   "usingComponents": {
     "uni-icons": "/components/uni-icons/uni-icons",
-    "uni-countdown": "/components/uni-countdown/uni-countdown",
+    "my-countdown": "/components/countdown/index",
     "my-stepper": "/components/stepper/index",
     "uni-popup": "/components/uni-popup/uni-popup",
     "my-keyboard": "/components/keyboard/index"

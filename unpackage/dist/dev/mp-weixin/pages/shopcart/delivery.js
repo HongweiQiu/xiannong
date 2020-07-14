@@ -243,13 +243,16 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
     },
     submit: function submit() {var _this2 = this;
       var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
+      if (!this.contact) {
+        _request.default.Toast('联系人不能为空');
+        return;
+      }
       if (!this.mobile) {
         _request.default.Toast('手机号不能为空');
         return;
       }
-
-      if (!reg.test(this.contact) || !reg.test(this.details)) {
-        _request.default.Toast('不能输入特殊字符和空格');
+      if (!reg.test(this.contact)) {
+        _request.default.Toast('输入的信息不能含有特殊字符和空格');
         return;
       }
       var timeStamp = Math.round(new Date().getTime() / 1000);

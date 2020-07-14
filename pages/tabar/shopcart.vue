@@ -733,6 +733,7 @@
 			// #ifdef H5
 			
 			window.onresize = () => {
+				
 			// 解决刷新底部会隐藏的问题
 				let newHeight=document.body.clientHeight;
 				if(this.scrollHeight==newHeight){

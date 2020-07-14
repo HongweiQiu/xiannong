@@ -106,7 +106,7 @@
 
 				<view class="title">确定要修改备注吗</view>
 				<view class="textarea">
-					<textarea v-model="remark" focus='ture' ref="remarkTxt" placeholder="请输入你想说的" placeholder-class="place_style"
+					<textarea v-model="remark" :focus="showRemark" ref="text_id" placeholder="请输入你想说的" placeholder-class="place_style"
 					 :show-confirm-bar="confirmBar" />
 					</view>
 					  <view class="buttons">
@@ -270,6 +270,7 @@
 				// this.$nextTick(() =>{
 				//     this.$refs.remarkTxt.focus();
 				// })
+		
 				this.showRemark=true;
 				this.remark=item.remark;
 				this.shopItem=item;

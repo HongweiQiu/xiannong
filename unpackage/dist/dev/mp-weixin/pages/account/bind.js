@@ -194,6 +194,7 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
   },
   methods: {
     leftClick: function leftClick() {
+
       uni.navigateBack({
         delta: 1 });
 

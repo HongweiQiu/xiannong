@@ -57,6 +57,9 @@ function getRequest(url, datas, success) {
 					}
 					if (res.data.code == 404) {
 						setTimeout(() => {
+							// uni.navigateBack({
+							// 	delta:1
+							// })
 							uni.navigateTo({
 								url: '/pages/account/404'
 							});
@@ -111,6 +114,7 @@ function getRequests(url, datas, success) {
 					uni.navigateTo({
 						url: '/pages/account/404'
 					});
+					
 				}, 1000)
 			}
 			if (res.data.code == 408) {

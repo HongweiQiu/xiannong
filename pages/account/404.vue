@@ -25,9 +25,9 @@
 		},
 		methods: {
 			toPage() {
-				uni.reLaunch({
-					url: '/pages/account/login'
-				});
+				uni.navigateBack({
+					delta:1
+				})
 			},
 			
 		},

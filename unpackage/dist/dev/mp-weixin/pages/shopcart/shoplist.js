@@ -424,6 +424,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
       // this.$nextTick(() =>{
       //     this.$refs.remarkTxt.focus();
       // })
+
       this.showRemark = true;
       this.remark = item.remark;
       this.shopItem = item;

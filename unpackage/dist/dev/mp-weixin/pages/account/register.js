@@ -203,16 +203,19 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
       verify_code: '',
       showcode: false,
       back: true,
-      display: true,
+      display1: true,
       identifying: '',
+      scrollHeight: '',
       resultData: {} };
 
   },
   methods: {
     leftClick: function leftClick() {
-      uni.navigateBack({
-        delta: 1 });
 
+      uni.navigateTo({
+        url: 'login' });
+
+      setTimeout(function () {window.location.reload();}, 100);
     },
     pageUrl: function pageUrl(data) {
       uni.navigateTo({
@@ -382,16 +385,24 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
 
     } },
 
-  onReady: function onReady() {
 
-
-
-
-
-  },
   onLoad: function onLoad(options) {
     var that = this;
     that.identifying = options.identifying;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

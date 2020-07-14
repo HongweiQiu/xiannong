@@ -20,7 +20,7 @@
 			<view class="flex">
 				<text>验证码</text>
 				<view class="flex_left_right" style="width:79%;">
-					<input type="number" v-model="verify_code"  placeholder="请输入验证码" placeholder-class="place_style" @focus="back=false" />
+					<input type="number" v-model="verify_code" placeholder="请输入验证码" placeholder-class="place_style" @focus="back=false" />
 					<my-identifyingcode @getCode="getCode" ref="code"></my-identifyingcode>
 				</view>
 			</view>
@@ -58,9 +58,9 @@
 		},
 		methods: {
 			leftClick() {
-				uni.navigateBack({
-					delta: 1
-				});
+			uni.navigateTo({
+				url:'login'
+			})
 			},
 			verifyResult(res) {
 				this.resultData = res;
@@ -75,7 +75,7 @@
 				/* 删除当前页面的数据 */
 				this.resultData = {};
 			},
-			
+
 			captcha() {
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
@@ -139,7 +139,7 @@
 						if (res.data.code == 200) {
 							that.secret_str = res.data.data.random_str;
 							rs.Toast('验证码已发送到你手机中，请注意查收');
-								that.$refs.code.sendCode();
+							that.$refs.code.sendCode();
 						} else {
 							that.verifyReset()
 							rs.Toast(res.data.msg);
@@ -148,73 +148,73 @@
 				})
 			},
 			//提交
-						forget() {
-							var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
-							if (!this.mobile) {
-								rs.Toast('手机号不能为空');
-								return;
-							}
-							if (!this.password) {
-								rs.Toast( '密码不能为空');
-								return;
-							}
-							console.log(this.password.length)
-							if (this.password.length <6) {
-								rs.Toast( '请设置六位及以上的密码');
-								return;
-							}
-							if (this.password != this.confirm_pwd) {
-								rs.Toast( '请确保密码一致');
-								return;
-							}
-							
-							if (!reg.test(this.mobile) || !reg.test(this.password) || !reg.test(this.confirm_pwd)) {
-								rs.Toast('不能输入特殊字符和空格');
-								return;
-							}
-							if (!this.verify_code) {
-								rs.Toast( '请输入验证码');
-								return;
-							}
-							
-							let timeStamp = Math.round(new Date().getTime() / 1000);
-							let obj = {
-								appid: appid,
-								timeStamp: timeStamp,
-								mobile: this.mobile,
-								password: this.password,
-								confirm_pwd: this.confirm_pwd,
-								verify_code: this.verify_code,
-							};
-							let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-							let params = Object.assign({
-								sign: sign,
-							}, obj)
-							var that = this;
-							uni.request({
-								url: app.rootUrl + "/mobileOrder/forgetPassword",
-								method: 'POST',
-								data: params,
-								header: {
-									'content-type': 'application/json', // 默认值
-									'cookie': uni.getStorageSync("laravel_session")
-								},
-								success: function(res) {
-									if (res.data.code == 200) {
-										rs.Toast('修改成功,去登陆');
-										setTimeout(()=>{
-											uni.navigateTo({
-												url: './login',
-											})
-										}, 1000);
-			
-									} else {
-										that.verifyReset()
-										rs.Toast( res.data.msg);
-									}
-								}
-							})
-						},
+			forget() {
+				var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
+				if (!this.mobile) {
+					rs.Toast('手机号不能为空');
+					return;
+				}
+				if (!this.password) {
+					rs.Toast('密码不能为空');
+					return;
+				}
+				console.log(this.password.length)
+				if (this.password.length < 6) {
+					rs.Toast('请设置六位及以上的密码');
+					return;
+				}
+				if (this.password != this.confirm_pwd) {
+					rs.Toast('请确保密码一致');
+					return;
+				}
+
+				if (!reg.test(this.mobile) || !reg.test(this.password) || !reg.test(this.confirm_pwd)) {
+					rs.Toast('不能输入特殊字符和空格');
+					return;
+				}
+				if (!this.verify_code) {
+					rs.Toast('请输入验证码');
+					return;
+				}
+
+				let timeStamp = Math.round(new Date().getTime() / 1000);
+				let obj = {
+					appid: appid,
+					timeStamp: timeStamp,
+					mobile: this.mobile,
+					password: this.password,
+					confirm_pwd: this.confirm_pwd,
+					verify_code: this.verify_code,
+				};
+				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				let params = Object.assign({
+					sign: sign,
+				}, obj)
+				var that = this;
+				uni.request({
+					url: app.rootUrl + "/mobileOrder/forgetPassword",
+					method: 'POST',
+					data: params,
+					header: {
+						'content-type': 'application/json', // 默认值
+						'cookie': uni.getStorageSync("laravel_session")
+					},
+					success: function(res) {
+						if (res.data.code == 200) {
+							rs.Toast('修改成功,去登陆');
+							setTimeout(() => {
+								uni.navigateTo({
+									url: './login',
+								})
+							}, 1000);
+
+						} else {
+							that.verifyReset()
+							rs.Toast(res.data.msg);
+						}
+					}
+				})
+			},
 		}
 	};
 </script>
