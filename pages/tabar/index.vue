@@ -57,10 +57,16 @@
 						<view class="price">
 
 							<block v-if="token">
-								<view style="width:66%;">
-									<view class="red_font hidden">¥{{item.activity_price}}/{{item.unit}}</view>
-									<view class="line_through hidden">¥{{item.price}}</view>
-								</view>
+								<block v-if="config.is_look==1">
+									<view style="width:66%;">
+										<view class="red_font hidden">¥{{item.activity_price}}/{{item.unit}}</view>
+										<view class="line_through hidden">¥{{item.price}}</view>
+									</view>
+								</block>
+								<block v-else>
+									<view class="red_font ">¥***</view>
+								</block>
+
 							</block>
 							<block v-else>
 								<view class="red_font">￥{{item.price+'/'+item.unit}}</view>
@@ -116,8 +122,8 @@
 		},
 		data() {
 			return {
-				showActive:false,
-				support:false,
+				showActive: false,
+				support: false,
 				showTop: false,
 				token: '',
 				load: true,
@@ -264,9 +270,9 @@
 						this.config = data.data;
 						if (data.data.total <= 10) {
 							this.loading = false;
-							this.support=true;
+							this.support = true;
 						} else {
-							this.support=false;
+							this.support = false;
 							this.loading = true;
 						}
 					}
@@ -292,11 +298,11 @@
 							itemList,
 							timeRemain
 						} = data.data;
-						
-						if(data.data.length!=0){
-							this.showActive=true;
-						}else{
-								this.showActive=false;
+
+						if (data.data.length != 0) {
+							this.showActive = true;
+						} else {
+							this.showActive = false;
 						}
 						this.hours = Math.abs(timeRemain);
 						this.activeConf = data.data;
@@ -354,7 +360,7 @@
 						this.page += 1;
 						this.loading = true;
 					} else {
-						this.support=true;
+						this.support = true;
 						this.loading = false;
 					}
 				}
@@ -512,6 +518,9 @@
 		margin-right: 20rpx;
 		width: 33%;
 	}
-	.home .shuiyin1{width: 60rpx;
-    height: 20rpx;}
+
+	.home .shuiyin1 {
+		width: 60rpx;
+		height: 20rpx;
+	}
 </style>

@@ -157,8 +157,8 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default = { data: function data() {return {};},
   methods: {
     toPage: function toPage() {
-      uni.reLaunch({
-        url: '/pages/account/login' });
+      uni.navigateBack({
+        delta: 1 });
 
     } },
 

@@ -30,7 +30,7 @@
 		</view>
 		<view class="submit_button button_style" @click="register" :class="{'gray_b':back}">提交</view>
 		<view class="now_login" @click="pageUrl('login')">已有账户？现在登录>></view>
-		<view class="agree" @click="pageUrl('treaty')" v-if="display">注册协议</view>
+		<view class="agree" @click="pageUrl('treaty')" v-if="display1">注册协议</view>
 	</view>
 </template>
 
@@ -59,16 +59,19 @@
 				verify_code: '',
 				showcode: false,
 				back: true,
-				display:true,
+				display1:true,
 				identifying:'',
+				scrollHeight:'',
 				resultData: {}
 			};
 		},
 		methods: {
 			leftClick() {
-				uni.navigateBack({
-					delta: 1
-				});
+				
+				uni.navigateTo({
+					url:'login'
+				})
+				setTimeout(()=>{window.location.reload();},100)
 			},
 			pageUrl(data){
 				uni.navigateTo({
@@ -238,16 +241,24 @@
 				})
 			}
 		},
-		onReady() {
-			// #ifdef H5
-			window.onresize = () => {
-				this.display = !this.display;
-			}
-			// #endif
-		},
+	
 		onLoad(options) {
 					var that = this;
-					that.identifying = options.identifying
+					that.identifying = options.identifying;
+					// #ifdef H5
+					this.scrollHeight = document.body.clientHeight;
+					
+					window.onresize = () => {
+					
+						newHeight = document.body.clientHeight;
+						if (this.scrollHeight == newHeight) {
+							this.display1 = true;
+						} else {
+							this.display1= false;
+						}
+					
+					}
+					// #endif
 				}
 	};
 </script>

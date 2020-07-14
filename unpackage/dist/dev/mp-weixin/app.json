@@ -108,5 +108,9 @@
     "enable": true
   },
   "usingComponents": {},
+<<<<<<< HEAD
   "sitemapLocation": "sitemap63.json"
+=======
+  "sitemapLocation": "sitemap10.json"
+>>>>>>> 52ce95943799934903c136bad487798e2f5bc802
 }

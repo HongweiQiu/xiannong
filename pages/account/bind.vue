@@ -50,6 +50,7 @@
 		},
 		methods: {
 			leftClick() {
+				
 				uni.navigateBack({
 					delta: 1
 				});

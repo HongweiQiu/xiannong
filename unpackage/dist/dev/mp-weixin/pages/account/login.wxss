@@ -2,8 +2,11 @@
 page {
 	background: #fff;
 }
-
-/* .login{position: fixed;width:100%;height:100%;} */
+.login {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+}
 .logo_width {
 	text-align: center;
 	margin: 60rpx 0 80rpx;
@@ -133,6 +136,11 @@ page {
 	font-size: 28rpx;
 	color: #c2c2c2;
 }
-.login button{background: none;line-height: initial;}
-.login button::after{border: none;}
+.login button {
+	background: none;
+	line-height: initial;
+}
+.login button::after {
+	border: none;
+}
 

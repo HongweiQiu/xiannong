@@ -99,7 +99,7 @@
 					</block>
 				</view>
 			</view>
-			<my-loading></my-loading>
+			<my-loading v-if="activeList.length"></my-loading>
 
 		</view>
 		<my-backtop bottom="10" :showTop="showTop"></my-backtop>

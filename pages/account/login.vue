@@ -8,6 +8,7 @@
 			</view>
 		</view>
 		<view class="login_method">
+			{{scrollHeight}}/{{newHeight}}/{{display}}
 			<!-- 手机登录 -->
 			<view class="mobilelogin">
 				<view class="phone align_center">
@@ -28,30 +29,30 @@
 			<!-- 微信登录 -->
 			<!-- #ifndef MP-ALIPAY -->
 			<view class="wechat_login" v-if="display">
-					<view class="">
-						<view class="divider gray_font">其他登录</view>
-						<view class="weixin_button" @click="wechatLogin">
-							<!-- #ifdef APP-PLUS |H5 -->
+				<view class="">
+					<view class="divider gray_font">其他登录</view>
+					<view class="weixin_button" @click="wechatLogin">
+						<!-- #ifdef APP-PLUS |H5 -->
+						<image class="weixin_img" src="../../static/img/wechat.png" mode=""></image>
+						<!-- #endif -->
+
+						<!-- #ifdef MP-WEIXIN -->
+						<button open-type="getUserInfo">
 							<image class="weixin_img" src="../../static/img/wechat.png" mode=""></image>
-							<!-- #endif -->
-			
-							<!-- #ifdef MP-WEIXIN -->
-							<button open-type="getUserInfo">
-								<image class="weixin_img" src="../../static/img/wechat.png" mode=""></image>
-							</button>
-							<!-- #endif -->
-			
-							<text>微信登录</text>
-						</view>
-						<view class="read_treaty" @click="pageUrl('treaty')">
-							已阅读并同意
-							<text>注册协议</text>
-						</view>
+						</button>
+						<!-- #endif -->
+
+						<text>微信登录</text>
+					</view>
+					<view class="read_treaty" @click="pageUrl('treaty')">
+						已阅读并同意
+						<text>注册协议</text>
 					</view>
 				</view>
-			
-			<!-- #endif -->
 			</view>
+
+			<!-- #endif -->
+		</view>
 	</view>
 </template>
 
@@ -71,22 +72,27 @@
 			return {
 				display: true,
 				navBar: navBar,
+				showWechat: false,
 				logo: '',
 				mobile: '',
 				password: '',
-				scrollHeight:''
+				scrollHeight: '',
+				newHeight:''
 			};
 		},
 		methods: {
+
 			clickLeft() {
 				uni.switchTab({
 					url: '/pages/tabar/index'
 				});
 			},
 			pageUrl(data) {
-				uni.navigateTo({
-					url: data
-				});
+					
+					uni.navigateTo({
+						url: data
+					});
+				
 			},
 			// 手机登录
 			mobileLogin() {
@@ -125,7 +131,7 @@
 						rs.Toast('登录成功，将跳转到首页');
 						uni.setStorageSync('cdj_token', data.data.token);
 						uni.setStorageSync('is_child', data.data.is_child);
-                          console.log(data)
+						console.log(data)
 						// #ifdef APP-PLUS
 						uni.setStorageSync('is_miniBind', data.data.is_appBind);
 						// #endif
@@ -297,18 +303,25 @@
 
 			// #endif
 		},
+		onReady() {
+
+			
+		},
 		onShow() {
-       // #ifdef H5
-			this.scrollHeight=document.body.clientHeight
-			window.onresize = () => {
-			// 解决刷新底部会隐藏的问题
-				let newHeight=document.body.clientHeight;
-				if(this.scrollHeight==newHeight){
-					this.display=true;
-				}else{
-					this.display=false;
-				}
+			
+			// #ifdef H5
+				this.scrollHeight = document.body.clientHeight;
 				
+			window.onresize = () => {
+				// 解决刷新底部会隐藏的问题
+				
+				this.newHeight = document.body.clientHeight;
+				if (this.scrollHeight == this.newHeight) {
+					this.display = true;
+				} else {
+					this.display = false;
+				}
+			
 			}
 			// #endif
 			let timeStamp = Math.round(new Date().getTime() / 1000);
@@ -331,6 +344,9 @@
 
 			//H5微信登录
 			// #ifdef H5
+			this.display = true;
+			this.scrollHeight = document.body.clientHeight
+
 			let code = location.search;
 			let getCode = code.substring(code.indexOf('=') + 1, code.lastIndexOf('&'));
 			let isWeixin = uni.getStorageSync('isWeixin');
@@ -369,11 +385,7 @@
 				})
 			}
 			// #endif
-		},
-		onReady() {
-			
-		},
-		
+		}
 	};
 </script>
 
@@ -382,7 +394,12 @@
 		background: #fff;
 	}
 
-	/* .login{position: fixed;width:100%;height:100%;} */
+	.login {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+	}
+
 	.logo_width {
 		text-align: center;
 		margin: 60rpx 0 80rpx;
@@ -507,6 +524,13 @@
 		font-size: 28rpx;
 		color: #c2c2c2;
 	}
-	.login button{background: none;line-height: initial;}
-	.login button::after{border: none;}
+
+	.login button {
+		background: none;
+		line-height: initial;
+	}
+
+	.login button::after {
+		border: none;
+	}
 </style>

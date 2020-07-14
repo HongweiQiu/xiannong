@@ -104,13 +104,16 @@
 			},
 			submit() {
 				var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
+				if (!this.contact) {
+					rs.Toast('联系人不能为空');
+					return;
+				}
 				if (!this.mobile) {
 					rs.Toast('手机号不能为空');
 					return;
 				}
-				
-				if (!reg.test(this.contact)||!reg.test(this.details)) {
-					rs.Toast('不能输入特殊字符和空格');
+				if (!reg.test(this.contact)) {
+					rs.Toast('输入的信息不能含有特殊字符和空格');
 					return;
 				}
 				let timeStamp = Math.round(new Date().getTime() / 1000);
