@@ -49,21 +49,16 @@ function getRequest(url, datas, success) {
 						})
 					}
 					if (res.data.code == 401) {
-						setTimeout(() => {
 							uni.navigateTo({
 								url: '/pages/account/login'
 							});
-						}, 2000)
 					}
 					if (res.data.code == 404) {
-						setTimeout(() => {
-							// uni.navigateBack({
-							// 	delta:1
-							// })
+					
 							uni.navigateTo({
 								url: '/pages/account/404'
 							});
-						}, 1000)
+						
 					}
 
 					uni.hideLoading();
@@ -101,21 +96,16 @@ function getRequests(url, datas, success) {
 			if (res.header.Authorization != undefined) {
 				uni.setStorageSync("cdj_token", res.header.Authorization)
 			}
-
 			if (res.data.code == 401) {
-				setTimeout(() => {
-					uni.navigateTo({
-						url: '/pages/account/login'
-					});
-				}, 1000)
+				uni.navigateTo({
+					url: '/pages/account/login'
+				});
 			}
 			if (res.data.code == 404) {
-				setTimeout(() => {
 					uni.navigateTo({
 						url: '/pages/account/404'
 					});
-					
-				}, 1000)
+
 			}
 			if (res.data.code == 408) {
 				uni.navigateTo({
@@ -172,11 +162,11 @@ function postRequest(url, datas, success) {
 						})
 					}
 					if (res.data.code == 401) {
-						setTimeout(() => {
+						
 							uni.navigateTo({
 								url: '/pages/account/login'
 							});
-						}, 1000)
+					
 					}
 					if (res.data.code == 403) {
 						uni.showToast({
@@ -191,11 +181,11 @@ function postRequest(url, datas, success) {
 						})
 					}
 					if (res.data.code == 404) {
-						setTimeout(() => {
+					
 							uni.navigateTo({
 								url: '/pages/account/404'
 							});
-						}, 1000)
+					
 					}
 					if (res.data.code == 408) {
 						uni.showToast({
@@ -238,11 +228,11 @@ function postRequests(url, datas, success) {
 				uni.setStorageSync("cdj_token", res.header.Authorization)
 			}
 			if (res.data.code == 401) {
-				setTimeout(() => {
+				
 					uni.navigateTo({
 						url: '/pages/account/login'
 					});
-				}, 1000)
+			
 			}
 		},
 		fail: res => {

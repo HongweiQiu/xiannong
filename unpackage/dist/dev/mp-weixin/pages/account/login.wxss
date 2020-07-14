@@ -63,7 +63,7 @@ page {
 	font-size: 35rpx;
 }
 .wechat_login {
-	position: fixed !important;
+	position: absolute;
 	z-index: 0;
 	bottom: 20rpx;
 	width: 100%;

@@ -124,7 +124,8 @@
 					method: 'POST',
 					header: {
 						'content-type': 'application/json', // 默认值
-						'cookie': uni.getStorageSync("laravel_session")
+						'cookie': uni.getStorageSync("laravel_session"),
+						'Authorization': uni.getStorageSync("cdj_token"),
 					},
 					data: params,
 					success: function(res) {
@@ -180,7 +181,8 @@
 					data: params,
 					header: {
 						'content-type': 'application/json', // 默认值
-						'cookie': uni.getStorageSync("laravel_session")
+						'cookie': uni.getStorageSync("laravel_session"),
+						'Authorization': uni.getStorageSync("cdj_token"),
 					},
 					success: function(res) {
 						if (res.data.code == 200) {

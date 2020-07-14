@@ -202,8 +202,8 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
   },
   methods: {
     leftClick: function leftClick() {
-      uni.navigateTo({
-        url: 'login' });
+      uni.navigateBack({
+        delta: 1 });
 
     },
     verifyResult: function verifyResult(res) {

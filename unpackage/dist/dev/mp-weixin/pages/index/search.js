@@ -283,7 +283,7 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
 
       obj);
 
-      _request.default.getRequest('getSearchItem', params, function (res) {
+      _request.default.getRequests('getSearchItem', params, function (res) {
         var data = res.data;
         if (data.code == 200) {
           _this3.keyword = key;

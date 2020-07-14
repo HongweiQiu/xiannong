@@ -3,9 +3,9 @@
 		<view class="order_top">
 			<uni-nav-bar right-icon="more-filled" right-text="菜单" :title="orderTitle" :status-bar="navBar" fixed="true"
 			 @clickRight="rightClick"></uni-nav-bar>
-			<view class="account_info" v-if="is_child != 1">
+			<view class="account_info">
 				<!-- 选择账号 -->
-				<view class="select_account" @click="selectAccount">
+				<view class="select_account" @click="selectAccount" v-if="is_child != 1">
 					<view>选择子账号: </view>
 					<view>
 						 <text>{{childtxt}}</text>
@@ -32,7 +32,8 @@
 					<view @click="titleTab('未支付')">未支付</view>
 				</view>
 			</view>
-			<view style="height:156rpx;"></view>
+			<view style="height:156rpx;" v-if="is_child != 1"></view>
+			<view style="height:90rpx;" v-if="is_child == 1"></view>
 		</view>
 		<view class="order_info">
 			<view class="content">
