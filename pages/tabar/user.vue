@@ -107,8 +107,11 @@
 		</view>
 		<my-tabar tabarIndex=4></my-tabar>
 		<view class="share_box" v-if="hShare" @click="share()">
-			<view>
-				<image src="../../static/img/share.png" mode=""></image>
+			<view class="item">
+				<image class="share_msg" src="../../static/img/share.png" mode=""></image>
+			</view>
+			<view class="item">
+				<image class="share_x" src="../../static/img/x.png" mode=""></image>
 			</view>
 		</view>
 	</view>
@@ -753,11 +756,20 @@
 		width: 100%;
 		z-index: 999;
 	}
+	.share_box .item{
+		display: flex;
+		justify-content: center;
+	}
 
-	.share_box image {
+	.share_box .share_msg {
 		width: 70%;
 		height: 310rpx;
-		margin-left: 20%;
+		margin-left: 19%;
 		margin-top: 80rpx;
+	}
+	.share_box .share_x{
+		width: 50rpx;
+		height: 50rpx;
+		margin-top: 500rpx;
 	}
 </style>

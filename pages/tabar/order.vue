@@ -33,7 +33,7 @@
 				</view>
 			</view>
 			<view style="height:156rpx;" v-if="is_child != 1"></view>
-			<view style="height:100rpx;" v-if="is_child == 1"></view>
+			<view style="height:90rpx;" v-if="is_child == 1"></view>
 		</view>
 		<view class="order_info">
 			<view class="content">
