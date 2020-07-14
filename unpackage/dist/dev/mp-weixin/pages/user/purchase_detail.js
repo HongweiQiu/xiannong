@@ -201,6 +201,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
 {
   data: function data() {
     return {
+      navBar: navBar,
       imgUrl: app.imgUrl,
       data: '',
       detail: '',

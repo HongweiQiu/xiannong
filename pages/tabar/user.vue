@@ -216,7 +216,6 @@
 							sign: sign,
 						}
 						rs.getRequests("shareConfig", data, (res) => {
-							console.log(res.data.data)
 							if (res.data.code == 200) {
 								var data = res.data.data;
 								WeixinJSBridge.on('menu:share:appmessage', function(argv) {
@@ -229,8 +228,8 @@
 										"desc": data.share_describe, //分享内容介绍
 										"title": data.share_title
 									}, function(res) { /*** 回调函数，最好设置为空 ***/
+										this.hShare = false
 										console.log(res)
-										console.log(1)
 									});
 
 								});

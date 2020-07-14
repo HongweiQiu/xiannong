@@ -49,7 +49,7 @@
 				navBar: navBar,
 				list: [],
 				page: 1,
-				loading:false
+				loading:true
 			};
 		},
 		methods: {
@@ -103,7 +103,7 @@
 					num: 20,
 				}
 				that.list = [];
-				rs.getRequest("moneyListPaginate", data, (res) => {
+				rs.getRequests("moneyListPaginate", data, (res) => {
 					if (res.data.code == 200) {
 						if (res.data.data.list != '') {
 							that.bitmap = true;

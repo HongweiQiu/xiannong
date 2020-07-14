@@ -84,7 +84,7 @@
 				bitmap: true,
 				record:'',
 				list: [],
-				loading: false,
+				loading: true,
 			};
 		},
 		methods: {
@@ -155,7 +155,7 @@
 					end:end,
 				}
 				that.list = [];
-				rs.getRequest("buyRecord", data, (res) => {
+				rs.getRequests("buyRecord", data, (res) => {
 					if (res.data.code == 200) {
 						that.record = res.data.data;
 						if (res.data.data.list != '') {

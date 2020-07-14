@@ -134,23 +134,68 @@ imgPath = '../../static/img/';var _default =
   props: ['tabarIndex'],
   data: function data() {
     return {
-      tabList: [
-      { title: '首页', inImg: imgPath + 'index_gray.png', img: imgPath + 'index_green.png', url: path + 'index' },
-      { title: '分类', inImg: imgPath + 'classify_gray.png', img: imgPath + 'classify_green.png', url: path + 'classify' },
-      { title: '购物车', inImg: imgPath + 'shopcart_gray.png', img: imgPath + 'shopcart_green.png', url: path + 'shopcart' },
-      { title: '订单', inImg: imgPath + 'order_gray.png', img: imgPath + 'order_green.png', url: path + 'order' },
-      { title: '我的', inImg: imgPath + 'user_gray.png', img: imgPath + 'user_green.png', url: path + 'user' }] };
+      tabList: [{
+        title: '首页',
+        inImg: imgPath + 'index_gray.png',
+        img: imgPath + 'index_green.png',
+        url: path + 'index' },
+
+      {
+        title: '分类',
+        inImg: imgPath + 'classify_gray.png',
+        img: imgPath + 'classify_green.png',
+        url: path + 'classify' },
+
+      {
+        title: '购物车',
+        inImg: imgPath + 'shopcart_gray.png',
+        img: imgPath + 'shopcart_green.png',
+        url: path + 'shopcart' },
+
+      {
+        title: '订单',
+        inImg: imgPath + 'order_gray.png',
+        img: imgPath + 'order_green.png',
+        url: path + 'order' },
+
+      {
+        title: '我的',
+        inImg: imgPath + 'user_gray.png',
+        img: imgPath + 'user_green.png',
+        url: path + 'user' }] };
+
 
 
   },
   methods: {
     pageUrl: function pageUrl(data) {
-      getApp().globalData.isReload = true;
-      if (this.tabarIndex != 1) {
-        getApp().globalData.classId = '';
+      if (!uni.getStorageSync("cdj_token")) {
+        if (data.title == "购物车") {
+          uni.navigateTo({
+            url: '/pages/account/login' });
+
+        } else if (data.title == "订单") {
+          uni.navigateTo({
+            url: '/pages/account/login' });
+
+        } else {
+          getApp().globalData.isReload = true;
+          if (this.tabarIndex != 1) {
+            getApp().globalData.classId = '';
+          }
+          uni.switchTab({
+            url: data.url });
+
+        }
+      } else {
+        getApp().globalData.isReload = true;
+        if (this.tabarIndex != 1) {
+          getApp().globalData.classId = '';
+        }
+        uni.switchTab({
+          url: data.url });
+
       }
-      uni.switchTab({
-        url: data.url });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

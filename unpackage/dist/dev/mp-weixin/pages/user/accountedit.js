@@ -226,8 +226,7 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, checked: false, status: '', childInfo: '', select_zid: '', longitude: '', latitude: '', save: true, password: '', count: '', hide: '' };}, methods: { leftClick: function leftClick() {this.hide = true;uni.navigateBack({ delta: 1 });},
-    urlPage: function urlPage() {
+var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, checked: false, status: '', childInfo: '', select_zid: '', longitude: '', latitude: '', save: true, password: '', count: '', hide: '' };}, methods: { leftClick: function leftClick() {this.hide = true;uni.navigateBack({ delta: 1 });}, urlPage: function urlPage() {
       if (this.save == false) {
         uni.showModal({
           title: '放弃编辑',

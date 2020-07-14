@@ -35,7 +35,7 @@
 			<view style="height:156rpx;"></view>
 		</view>
 		<view class="order_info">
-			<view class="content" v-if="orderList.length">
+			<view class="content">
 				<view v-for="(item, index) in orderList" :key="index">
 					<view class="top">
 						<view>订单编号：{{item.order_sn}}</view>
@@ -110,7 +110,7 @@
 						<text class="confirm_good" v-if="item.order_status==2" @click="receiveOrder(item.id,index)">确认收货</text>
 					</view>
 				</view>
-				<my-loading :loading="load" ></my-loading>
+				<my-loading :loading="load"></my-loading>
 			</view>
 
 			<view class="bitmap" v-if="search_default">
@@ -546,7 +546,7 @@
 					type: type,
 					status: status,
 				}
-				rs.getRequest("orderList", data, (res) => {
+				rs.getRequests("orderList", data, (res) => {
 					if (res.data.code == 200) {
 						if (res.data.data.list.length > 0) {
 							if (res.data.data.list.length <= 9) {
@@ -597,7 +597,7 @@
 					select_zid: select_zid,
 					status: status,
 				}
-				rs.getRequest("orderList", data, (res) => {
+				rs.getRequests("orderList", data, (res) => {
 					if (res.data.code == 200) {
 						if (res.data.data.list.length > 0) {
 							if (res.data.data.list.length <= 9) {
@@ -638,6 +638,7 @@
 				this.orderLista();
 			},
 			changeFirst(index) {
+				this.load = true;
 				this.isActive = index;
 				this.lineShow = true;
 				this.page = 1;
@@ -734,7 +735,7 @@
 			if (uni.getStorageSync("is_child") == 0) {
 				data.select_zid = that.childzid;
 			}
-			rs.getRequest("orderList", data, (res) => {
+			rs.getRequests("orderList", data, (res) => {
 				if (res.data.code == 200) {
 					if (res.data.data.list != '') {
 						for (var i = 0; i < res.data.data.list.length; i++) {

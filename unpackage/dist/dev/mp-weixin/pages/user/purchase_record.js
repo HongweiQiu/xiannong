@@ -226,7 +226,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
       bitmap: true,
       record: '',
       list: [],
-      loading: false };
+      loading: true };
 
   },
   methods: {
@@ -297,7 +297,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
         end: end };
 
       that.list = [];
-      _request.default.getRequest("buyRecord", data, function (res) {
+      _request.default.getRequests("buyRecord", data, function (res) {
         if (res.data.code == 200) {
           that.record = res.data.data;
           if (res.data.data.list != '') {var _that$list;

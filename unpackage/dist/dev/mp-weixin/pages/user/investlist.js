@@ -196,7 +196,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       var obj = { appid: appid, timeStamp: timeStamp };
       var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
       var data = { appid: appid, timeStamp: timeStamp, sign: sign, page: 1, num: 15 };
-      _request.default.getRequest("rechargeList", data, function (res) {
+      _request.default.getRequests("rechargeList", data, function (res) {
         if (res.data.code == 200) {
           if (res.data.data != '') {
             that.rechargeList = res.data.data;
@@ -228,7 +228,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
     var obj = { appid: appid, timeStamp: timeStamp };
     var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
     var data = { appid: appid, timeStamp: timeStamp, sign: sign, page: page + 1, num: 15 };
-    _request.default.getRequest("rechargeList", data, function (res) {
+    _request.default.getRequests("rechargeList", data, function (res) {
       if (res.data.code == 200) {
         if (res.data.data != '') {
           for (var i = 0; i < res.data.data.length; i++) {

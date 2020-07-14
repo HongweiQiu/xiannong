@@ -206,7 +206,7 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { date: '请选择日期', dateArr: '', bitmap: true, navBar: navBar, list: [], page: 1, loading: false };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, detailPage: function detailPage(id) {uni.navigateTo({ url: 'billdetail?id=' + id });}, openCalendar: function openCalendar() {this.$refs.calendar.open();
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { date: '请选择日期', dateArr: '', bitmap: true, navBar: navBar, list: [], page: 1, loading: true };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, detailPage: function detailPage(id) {uni.navigateTo({ url: 'billdetail?id=' + id });}, openCalendar: function openCalendar() {this.$refs.calendar.open();
     },
     confirm: function confirm(e) {
       if (!e.range.before || !e.range.after) {
@@ -245,7 +245,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         num: 20 };
 
       that.list = [];
-      _request.default.getRequest("moneyListPaginate", data, function (res) {
+      _request.default.getRequests("moneyListPaginate", data, function (res) {
         if (res.data.code == 200) {
           if (res.data.data.list != '') {
             that.bitmap = true;

@@ -104,11 +104,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      _vm.hShare = false
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -376,43 +371,77 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var uniIcons = function uniIcons() {Promise.all(/*! require.ensure | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then((function () {return resolve(__webpack_require__(/*! ../../components/uni-icons/uni-icons.vue */ 449));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { uniIcons: uniIcons }, data: function data() {return { hShare: false, userList: [{ icon: 'icon-08_zizhanghaoguanli', name: '账号管理', color: '#3DABFF', url: 'accountmange' }, { icon: 'icon-fapiao', name: '开具发票', color: '#FF9C00', url: 'receipt' }, { icon: 'icon-tianchongxing--', name: '账单记录', color: '#FFF000', url: 'bill' }, { color: '#ffab9a', icon: 'icon-buy-fill', name: '购买记录', url: 'purchase_record' }, { icon: 'icon-qianbao', name: '充值', color: '#2DC4B4', url: 'invest' }, { icon: 'icon-juan', name: '现金劵', color: '#F8632F', url: 'cash' }, { icon: 'icon-weixin', name: '绑定微信', color: '#26DD5B', url: 'bindWeChat' }], is_bind: '', is_child: '', token: '', imgRemote: imgRemote, memberInfoData: '', member_default: '', code: '' };}, methods: { memberInfo: function memberInfo() {var _this = this;var that = this;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, timeStamp: timeStamp, sign: sign };_request.default.getRequests("memberInfo", data, function (res) {// console.log(res)
-        if (res.data.code == 200) {_this.memberInfoData = res.data.data.info;_this.member_default = res.data.data.member_default;}});}, myinfoPage: function myinfoPage() {if (!this.token) {uni.navigateTo({ url: '/pages/account/login' });} else {uni.navigateTo({ url: "/pages/user/myinfo" });}}, pageUrl: function pageUrl(item) {if (item.url == 'bindWeChat') {
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var uniIcons = function uniIcons() {Promise.all(/*! require.ensure | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then((function () {return resolve(__webpack_require__(/*! ../../components/uni-icons/uni-icons.vue */ 449));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { uniIcons: uniIcons }, data: function data() {return { hShare: false, userList: [{ icon: 'icon-08_zizhanghaoguanli', name: '账号管理', color: '#3DABFF', url: 'accountmange' }, { icon: 'icon-fapiao', name: '开具发票', color: '#FF9C00', url: 'receipt' }, { icon: 'icon-tianchongxing--', name: '账单记录', color: '#FFF000', url: 'bill' }, { color: '#ffab9a', icon: 'icon-buy-fill', name: '购买记录', url: 'purchase_record' }, { icon: 'icon-qianbao', name: '充值', color: '#2DC4B4', url: 'invest' }, { icon: 'icon-juan', name: '现金劵', color: '#F8632F', url: 'cash' }, { icon: 'icon-weixin', name: '绑定微信', color: '#26DD5B', url: 'bindWeChat' }], is_bind: '', is_child: '', token: '', imgRemote: imgRemote, memberInfoData: '', member_default: '', code: '' };}, methods: { share: function share() {if (!this.token) {uni.navigateTo({ url: '/pages/account/login' });} else {if (this.hShare == false) {var that = this;that.hShare = true;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, timeStamp: timeStamp, sign: sign };_request.default.getRequests("shareConfig", data, function (res) {if (res.data.code == 200) {var data = res.data.data;WeixinJSBridge.on('menu:share:appmessage', function (argv) {WeixinJSBridge.invoke('sendAppMessage', { "appid": that.userinfo.appId, //appid 设置空就好了。
+                  "img_url": data.share_img, //分享时所带的图片路径
+                  "img_width": "120", //图片宽度
+                  "img_height": "120", //图片高度
+                  "link": data.share_href, //分享附带链接地址
+                  "desc": data.share_describe, //分享内容介绍
+                  "title": data.share_title }, function (res) {/*** 回调函数，最好设置为空 ***/this.hShare = false;console.log(res);});});} else {_request.default.Toast(res.data.msg);}});} else {this.hShare = false;
+        }
 
+      }
+    },
+    memberInfo: function memberInfo() {var _this = this;
+      var that = this;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp };
 
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var data = {
+        appid: appid,
+        timeStamp: timeStamp,
+        sign: sign };
 
-
-
-
-        this.wxbindWeChat();
-
-
-      } else if (item.url == 'share') {
-        var that = this;
-        WeixinJSBridge.on('menu:share:appmessage', function (argv) {
-
-          WeixinJSBridge.invoke('sendAppMessage', {
-
-            "appid": that.userinfo.appId, //appid 设置空就好了。
-            "img_url": 'https://caidj-image.oss-cn-beijing.aliyuncs.com/uploads/gallery/1/空心菜.jpg', //分享时所带的图片路径
-            "img_width": "120", //图片宽度
-            "img_height": "120", //图片高度
-            "link": app.rootUrl, //分享附带链接地址
-            "desc": "我是一个介绍", //分享内容介绍
-            "title": "标题，再简单不过了。" },
-          function (res) {/*** 回调函数，最好设置为空 ***/
-            console.log(res);
-            console.log(1);
-          });
-
-        });
-      } else {
-        getApp().globalData.isReload = true;
+      _request.default.getRequests("memberInfo", data, function (res) {
+        // console.log(res)
+        if (res.data.code == 200) {
+          _this.memberInfoData = res.data.data.info;
+          _this.member_default = res.data.data.member_default;
+        }
+      });
+    },
+    myinfoPage: function myinfoPage() {
+      if (!this.token) {
         uni.navigateTo({
-          url: "/pages/user/".concat(item.url) });
+          url: '/pages/account/login' });
+
+      } else {
+        uni.navigateTo({
+          url: "/pages/user/myinfo" });
 
       }
 
+    },
+    pageUrl: function pageUrl(item) {
+      if (this.token) {
+        if (item.url == 'bindWeChat') {
+
+
+
+
+
+
+
+
+
+
+          this.wxbindWeChat();
+
+
+        } else {
+          getApp().globalData.isReload = true;
+          uni.navigateTo({
+            url: "/pages/user/".concat(item.url) });
+
+        }
+      } else {
+        uni.reLaunch({
+          url: '/pages/account/login' });
+
+      }
     },
 
     //小程序绑定

@@ -54,12 +54,13 @@
         "uniStatistics" : {
             "enable" : true
         },
-        "domain" : "test",
+        "domain" : "three",
         "optimization" : {
             "treeShaking" : {
                 "enable" : true
             }
-        }
+        },
+        "title" : "test"
     },
     /* 5+App特有相关 */
     "app-plus" : {

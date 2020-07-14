@@ -468,10 +468,10 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
 
 
         data.data,userInfo = _data$data.userInfo,activity_rule = _data$data.activity_rule,totalPrice = _data$data.totalPrice,activity_type = _data$data.activity_type;
-
         _this2.contact = userInfo.contact;
-        _this2.mobile = userInfo.phone;
+        _this2.mobile = userInfo.mobile;
         _this2.address = userInfo.address;
+
         // 判断购物车是否有数量
         if (data.data.countNum == 0 && _this2.page == 1) {
           _this2.indexItem();

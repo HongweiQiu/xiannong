@@ -192,6 +192,7 @@ app.navBar,imgRemote = app.imgRemote,appid = app.appid,appsecret = app.appsecret
     return {
       navBar: navBar,
       imgRemote: imgRemote,
+      loading: false,
       config: [],
       list: [],
       page: 1,

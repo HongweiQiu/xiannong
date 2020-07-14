@@ -213,7 +213,14 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, nickname: '', contact: '', mobile: '', password: '', address: '', details: '', longitude: '', latitude: '', hide: true };}, methods: { leftClick: function leftClick() {this.hide = true;uni.navigateTo({ url: "accountmange" });}, mapPage: function mapPage() {
+var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, nickname: '', contact: '', mobile: '', password: '', address: '', details: '', longitude: '', latitude: '', hide: true };}, methods: { leftClick: function leftClick() {this.hide = true;uni.navigateBack({ delta: 1 });
+
+    },
+
+    mapPage: function mapPage() {
+
+
+
 
 
 

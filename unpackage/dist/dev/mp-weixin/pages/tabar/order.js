@@ -705,7 +705,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         type: type,
         status: status };
 
-      _request.default.getRequest("orderList", data, function (res) {
+      _request.default.getRequests("orderList", data, function (res) {
         if (res.data.code == 200) {
           if (res.data.data.list.length > 0) {
             if (res.data.data.list.length <= 9) {
@@ -756,7 +756,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         select_zid: select_zid,
         status: status };
 
-      _request.default.getRequest("orderList", data, function (res) {
+      _request.default.getRequests("orderList", data, function (res) {
         if (res.data.code == 200) {
           if (res.data.data.list.length > 0) {
             if (res.data.data.list.length <= 9) {
@@ -797,6 +797,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       this.orderLista();
     },
     changeFirst: function changeFirst(index) {
+      this.load = true;
       this.isActive = index;
       this.lineShow = true;
       this.page = 1;
@@ -893,7 +894,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
     if (uni.getStorageSync("is_child") == 0) {
       data.select_zid = that.childzid;
     }
-    _request.default.getRequest("orderList", data, function (res) {
+    _request.default.getRequests("orderList", data, function (res) {
       if (res.data.code == 200) {
         if (res.data.data.list != '') {
           for (var i = 0; i < res.data.data.list.length; i++) {

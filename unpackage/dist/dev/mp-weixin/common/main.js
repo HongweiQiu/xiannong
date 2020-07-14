@@ -105,8 +105,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     active: '2',
     appsecret: 'StJfzJcXmya6k6Ar',
 
-    rootUrl: 'https://rgyy.caidj.cn', //主接口地址
-    imgRemote: 'https://rgyy.caidj.cn',
+    rootUrl: 'https://test.caidj.cn', //主接口地址
+    imgRemote: 'https://test.caidj.cn',
 
 
 
