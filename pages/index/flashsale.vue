@@ -173,7 +173,7 @@
 					},
 					obj
 				);
-				rs.getRequest('panicBuyList', params, res => {
+				rs.getRequests('panicBuyList', params, res => {
 					let {
 						data
 					} = res;

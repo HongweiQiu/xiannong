@@ -141,10 +141,7 @@
 				this.$refs.popup.close();
 			},
 			mpItem() {
-				uni.pageScrollTo({
-					scrollTop: 0,
-					duration: 300
-				});
+				this.list=[];
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -167,7 +164,7 @@
 					},
 					obj
 				);
-				rs.getRequest('mpItemList', params, res => {
+				rs.getRequests('mpItemList', params, res => {
 					let data = res.data;
 					if (data.code == 200) {
 						if (!firstId) {
@@ -216,10 +213,7 @@
 				if (this.textInfo != '没有更多呢') {
 					this.secondId = this.secondCate[this.kind + 1].id;
 					this.kind += 1;
-					uni.pageScrollTo({
-						scrollTop: 0,
-						duration: 300
-					});
+					
 					this.mpItem();
 				}
 			},

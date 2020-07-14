@@ -205,7 +205,7 @@
 					},
 					obj
 				);
-				rs.getRequest('getSearchItem', params, res => {
+				rs.getRequests('getSearchItem', params, res => {
 					let data = res.data;
 					if (data.code == 200) {
 						this.keyword = key;

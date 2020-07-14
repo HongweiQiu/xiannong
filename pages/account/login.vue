@@ -8,7 +8,7 @@
 			</view>
 		</view>
 		<view class="login_method">
-			{{scrollHeight}}/{{newHeight}}/{{display}}
+			<!-- {{scrollHeight}}/{{newHeight}}/{{display}} -->
 			<!-- 手机登录 -->
 			<view class="mobilelogin">
 				<view class="phone align_center">
@@ -76,8 +76,8 @@
 				logo: '',
 				mobile: '',
 				password: '',
-				scrollHeight: '',
-				newHeight:''
+				scrollHeight:'',
+				newHeight: ''
 			};
 		},
 		methods: {
@@ -88,11 +88,9 @@
 				});
 			},
 			pageUrl(data) {
-					
-					uni.navigateTo({
-						url: data
-					});
-				
+				uni.navigateTo({
+					url: data
+				})
 			},
 			// 手机登录
 			mobileLogin() {
@@ -151,6 +149,9 @@
 						rs.Toast(data.msg);
 					}
 				});
+			},
+			keyHeight(e){
+				alert(e)
 			},
 			// app端微信登录
 			// #ifdef APP-PLUS
@@ -303,26 +304,26 @@
 
 			// #endif
 		},
-		onReady() {
-
-			
+		onHide() {
+			// window.location.reload();
 		},
 		onShow() {
 			
 			// #ifdef H5
-				this.scrollHeight = document.body.clientHeight;
-				
-			window.onresize = () => {
-				// 解决刷新底部会隐藏的问题
-				
-				this.newHeight = document.body.clientHeight;
-				if (this.scrollHeight == this.newHeight) {
-					this.display = true;
-				} else {
-					this.display = false;
-				}
-			
-			}
+			this.scrollHeight=document.documentElement.clientHeight;
+			 window.onresize = ()=>{
+				 
+			      this.newHeight = document.body.clientHeight;
+				  if(this.newHeight&&this.newHeight>this.scrollHeight){
+				  	window.location.reload();
+				  }
+			    if(this.scrollHeight>this.newHeight){
+			    	this.display=false;
+			    }else{
+			    
+			    	this.display=true;
+			    }
+			  }
 			// #endif
 			let timeStamp = Math.round(new Date().getTime() / 1000);
 			let obj = {
@@ -456,7 +457,7 @@
 	}
 
 	.wechat_login {
-		position: fixed !important;
+		position: absolute;
 		z-index: 0;
 		bottom: 20rpx;
 		width: 100%;

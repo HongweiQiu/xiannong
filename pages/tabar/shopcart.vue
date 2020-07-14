@@ -11,8 +11,8 @@
 				<!-- 送货地址 -->
 				<view class="deliver_address" @click="deliveryPage">
 					<view>
-						<text class="weight nickname">{{contact}}</text>
-						<text>{{mobile}}</text>
+						<text class="weight nickname" v-if="contact">{{contact}}</text>
+						<text v-if="mobile">{{mobile}}</text>
 					</view>
 					<view class="detail_address">
 						<view class="align_center dizhi">
@@ -20,7 +20,7 @@
 								<image src="../../static/img/dizhi.png" mode="aspectFit"></image>
 							</view>
 
-							<view>{{address}}</view>
+							<view v-if="address">{{address}}</view>
 						</view>
 						<view>
 							<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
@@ -223,7 +223,9 @@
 				juanPrice: 0,
 				sendDate: '',
 				startyear: '',
-				cartInfo: {},
+				cartInfo: {
+					countNum:0
+				},
 				reduce: '',
 				page: 1,
 				num: 10,
@@ -696,9 +698,16 @@
 				this.sendDate = `${year}-${month}-${day}`;	
 		},
 		onShow() {
+			if (!uni.getStorageSync("cdj_token")) {
+				uni.navigateTo({
+					url: '/pages/account/login'
+				});
+				return;
+			} 
 			if (uni.getStorageSync("is_child") != 1) {
 				this.childInfo();
 			}
+			
             this.getSendTime();
 			this.addInfo();
 			// #ifdef H5

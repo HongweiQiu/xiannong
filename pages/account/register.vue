@@ -67,11 +67,9 @@
 		},
 		methods: {
 			leftClick() {
-				
-				uni.navigateTo({
-					url:'login'
+				uni.navigateBack({
+					delta:1
 				})
-				setTimeout(()=>{window.location.reload();},100)
 			},
 			pageUrl(data){
 				uni.navigateTo({
@@ -250,7 +248,7 @@
 					
 					window.onresize = () => {
 					
-						newHeight = document.body.clientHeight;
+						let newHeight = document.body.clientHeight;
 						if (this.scrollHeight == newHeight) {
 							this.display1 = true;
 						} else {

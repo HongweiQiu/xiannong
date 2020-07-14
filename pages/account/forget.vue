@@ -58,9 +58,9 @@
 		},
 		methods: {
 			leftClick() {
-			uni.navigateTo({
-				url:'login'
-			})
+				uni.navigateBack({
+					delta:1
+				})
 			},
 			verifyResult(res) {
 				this.resultData = res;
