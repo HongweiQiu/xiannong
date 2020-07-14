@@ -1,5 +1,5 @@
 {
-    "name" : "enterprise",
+    "name" : "叶城果有缘",
     "appid" : "__UNI__5EBDEB4",
     "description" : "",
     "versionName" : "1.0.0",
@@ -7,7 +7,7 @@
     "transformPx" : false,
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "wx4f24afa0c5d9be68",
+        "appid" : "wxaa1160b46149bd84",
         "setting" : {
             "urlCheck" : false,
             "es6" : true,
@@ -28,7 +28,7 @@
         "devServer" : {
             "port" : 8000, //端口号
             "disableHostCheck" : true,
-            "host" : "192.168.0.126",
+            "host" : "192.168.0.183",
             "proxy" : {
                 "/api" : {
                     "target" : "http://three.caidj.cn", //目标接口域名

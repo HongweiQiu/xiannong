@@ -79,7 +79,7 @@
 			<!-- #endif -->
 
 			<!-- #ifdef H5 -->
-			
+
 			<view class="flex_left_right" v-if="is_child != 1" @click="hShare = true">
 				<view class="">
 					<text class="iconfont  icon-fenxiang" style="color:#26DD5B"></text>
@@ -89,9 +89,9 @@
 					<uni-icons type="arrowright" size="18" color="black"></uni-icons>
 				</view>
 			</view>
-			
-			
-			
+
+
+
 
 			<!-- #endif -->
 
@@ -134,7 +134,7 @@
 		},
 		data() {
 			return {
-				hShare:false,
+				hShare: false,
 				userList: [{
 						icon: 'icon-08_zizhanghaoguanli',
 						name: '账号管理',
@@ -229,46 +229,51 @@
 
 			},
 			pageUrl(item) {
-				if (item.url == 'bindWeChat') {
+				if (this.token) {
+					if (item.url == 'bindWeChat') {
 
-					// #ifdef H5
-					this.adminisus_weixin()
-					// #endif
+						// #ifdef H5
+						this.adminisus_weixin()
+						// #endif
 
-					// #ifdef APP-PLUS
-					this.bindWeChat()
-					// #endif
+						// #ifdef APP-PLUS
+						this.bindWeChat()
+						// #endif
 
-					// #ifdef MP-WEIXIN
-					this.wxbindWeChat()
-					// #endif
+						// #ifdef MP-WEIXIN
+						this.wxbindWeChat()
+						// #endif
 
-				} else if (item.url == 'share') {
-					let that = this;
-					WeixinJSBridge.on('menu:share:appmessage', function(argv) {
+					} else if (item.url == 'share') {
+						let that = this;
+						WeixinJSBridge.on('menu:share:appmessage', function(argv) {
 
-						WeixinJSBridge.invoke('sendAppMessage', {
+							WeixinJSBridge.invoke('sendAppMessage', {
 
-							"appid": that.userinfo.appId, //appid 设置空就好了。
-							"img_url": 'https://caidj-image.oss-cn-beijing.aliyuncs.com/uploads/gallery/1/空心菜.jpg', //分享时所带的图片路径
-							"img_width": "120", //图片宽度
-							"img_height": "120", //图片高度
-							"link": app.rootUrl, //分享附带链接地址
-							"desc": "我是一个介绍", //分享内容介绍
-							"title": "标题，再简单不过了。"
-						}, function(res) { /*** 回调函数，最好设置为空 ***/
-							console.log(res)
-							console.log(1)
+								"appid": that.userinfo.appId, //appid 设置空就好了。
+								"img_url": 'https://caidj-image.oss-cn-beijing.aliyuncs.com/uploads/gallery/1/空心菜.jpg', //分享时所带的图片路径
+								"img_width": "120", //图片宽度
+								"img_height": "120", //图片高度
+								"link": app.rootUrl, //分享附带链接地址
+								"desc": "我是一个介绍", //分享内容介绍
+								"title": "标题，再简单不过了。"
+							}, function(res) { /*** 回调函数，最好设置为空 ***/
+								console.log(res)
+								console.log(1)
+							});
+
 						});
-
-					});
+					} else {
+						getApp().globalData.isReload = true;
+						uni.navigateTo({
+							url: `/pages/user/${item.url}`
+						});
+					}
 				} else {
-					getApp().globalData.isReload = true;
-					uni.navigateTo({
-						url: `/pages/user/${item.url}`
+					uni.reLaunch({
+						url: '/pages/account/login'
 					});
 				}
-
 			},
 
 			//小程序绑定
@@ -708,8 +713,9 @@
 	.user button::after {
 		border: none;
 	}
-	.share_box{
-		background: rgba(0,0,0,0.5);
+
+	.share_box {
+		background: rgba(0, 0, 0, 0.5);
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -717,11 +723,11 @@
 		width: 100%;
 		z-index: 999;
 	}
-	.share_box image{
+
+	.share_box image {
 		width: 70%;
 		height: 310rpx;
 		margin-left: 20%;
 		margin-top: 80rpx;
 	}
 </style>
-
