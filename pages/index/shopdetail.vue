@@ -148,15 +148,25 @@
 							<view class="red_font">
 								<block v-if="token">
 									<block v-if="recommend.is_look==1">
-										<text v-if="item.market_price==1">时价	</text>
-										<text v-else>	￥{{item.price}}/{{item.unit}}	</text>
+										<block v-if="item.attr.length">
+											<text>￥{{item.area_price}}/{{item.unit}}</text>
+										</block>
+										<block v-else>
+											<text v-if="item.market_price==1">时价</text>
+											<text v-else>￥{{item.price}}/{{item.unit}}	</text>
+										</block>
 									
 									</block>
 									<block v-else>￥***</block>
 								</block>
 								<block v-else>
-									<text v-if="item.market_price==1">时价	</text>
-									<text v-else>	￥{{item.price}}/{{item.unit}}	</text>
+									<block v-if="item.attr.length">
+										<text>￥{{item.area_price}}/{{item.unit}}</text>
+									</block>
+									<block v-else>
+										<text v-if="item.market_price==1">时价	</text>
+										<text v-else>	￥{{item.price}}/{{item.unit}}	</text>
+									</block>
 																		
 								</block>
 
