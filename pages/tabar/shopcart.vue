@@ -300,7 +300,7 @@
 						activity_type
 					} = data.data;
 					this.contact = userInfo.contact;
-					this.mobile = userInfo.mobile;
+					this.mobile = userInfo.phone;
 					this.address = userInfo.address;
 					
 					// 判断购物车是否有数量
