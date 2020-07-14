@@ -4,7 +4,7 @@
 		<view class="all_collect" v-if="list.length!=0">
 			<my-profile class="single_collect" v-for="(item, index) in list" :wares="item" :config="config" :key="index"
 			 @showCart="openCart(item)" @showKey="showKey(item, index)"></my-profile>
-			<my-loading></my-loading>
+			<my-loading :loading="loading"></my-loading>
 		</view>
 		<view v-else class="bitmap">
 			<image src="../../static/img/no_content.png" mode="aspectFit"></image>
@@ -36,6 +36,7 @@
 			return {
 				navBar: navBar,
 				imgRemote: imgRemote,
+				loading:false,
 				config: [],
 				list: [],
 				page: 1,

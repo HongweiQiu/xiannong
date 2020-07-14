@@ -66,9 +66,16 @@
 		methods: {
 			leftClick() {
 				this.hide = true;
+				// #ifdef H5
 				uni.navigateTo({
 					url: "accountmange"
 				})
+				// #endif
+				// #ifdef APP-PLUS |MP-WEIXIN |MP-ALIPAY
+				uni.navigateBack({
+					delta:1
+				})
+				// #endif
 			},
 
 			mapPage() {

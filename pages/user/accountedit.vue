@@ -77,8 +77,7 @@
 					url: "accountmange"
 				})
 				// #endif
-				
-				// #ifndef H5
+				// #ifdef APP-PLUS |MP-WEIXIN |MP-ALIPAY
 				uni.navigateBack({
 					delta:1
 				})

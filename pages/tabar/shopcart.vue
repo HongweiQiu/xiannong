@@ -11,16 +11,15 @@
 				<!-- 送货地址 -->
 				<view class="deliver_address" @click="deliveryPage">
 					<view>
-						<text class="weight nickname" v-if="contact">{{contact}}</text>
-						<text v-if="mobile">{{mobile}}</text>
+						<text class="weight nickname">{{contact?contact:'请输入地址'}}</text>
+						<text>{{mobile?mobile:''}}</text>
 					</view>
 					<view class="detail_address">
 						<view class="align_center dizhi">
 							<view>
 								<image src="../../static/img/dizhi.png" mode="aspectFit"></image>
 							</view>
-
-							<view v-if="address">{{address}}</view>
+							<view>{{address?address:''}}</view>
 						</view>
 						<view>
 							<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
@@ -300,10 +299,10 @@
 						totalPrice,
 						activity_type
 					} = data.data;
-
 					this.contact = userInfo.contact;
-					this.mobile = userInfo.phone;
+					this.mobile = userInfo.mobile;
 					this.address = userInfo.address;
+					
 					// 判断购物车是否有数量
 					if (data.data.countNum == 0 && this.page == 1) {
 						this.indexItem()

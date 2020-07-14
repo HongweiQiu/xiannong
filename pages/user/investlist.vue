@@ -57,7 +57,7 @@
 			  var obj = { appid: appid, timeStamp: timeStamp, }
 			  var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
 			  var data = { appid: appid, timeStamp: timeStamp, sign: sign, page: 1, num: 15 }
-			  rs.getRequest("rechargeList", data, (res) => {
+			  rs.getRequests("rechargeList", data, (res) => {
 			    if (res.data.code == 200) {
 					if(res.data.data != ''){
 						that.rechargeList = res.data.data;
@@ -89,7 +89,7 @@
 		  var obj = { appid: appid, timeStamp: timeStamp, }
 		  var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
 		  var data = { appid: appid, timeStamp: timeStamp, sign: sign, page:page+ 1, num: 15 }
-		  rs.getRequest("rechargeList", data, (res) => {
+		  rs.getRequests("rechargeList", data, (res) => {
 		    if (res.data.code == 200) {
 				if(res.data.data != ''){
 					for(var i=0;i<res.data.data.length;i++){
