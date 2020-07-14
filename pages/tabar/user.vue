@@ -80,7 +80,7 @@
 
 			<!-- #ifdef H5 -->
 
-			<view class="flex_left_right" v-if="is_child != 1" @click="hShare = true">
+			<view class="flex_left_right" v-if="is_child != 1" @click="share()">
 				<view class="">
 					<text class="iconfont  icon-fenxiang" style="color:#26DD5B"></text>
 					<text class="name">分享公众号</text>
@@ -106,7 +106,7 @@
 			</view>
 		</view>
 		<my-tabar tabarIndex=4></my-tabar>
-		<view class="share_box" v-if="hShare" @click="hShare = false">
+		<view class="share_box" v-if="hShare" @click="share()">
 			<view>
 				<image src="../../static/img/share.png" mode=""></image>
 			</view>
@@ -195,6 +195,55 @@
 			};
 		},
 		methods: {
+			share() {
+				if (!this.token) {
+					uni.navigateTo({
+						url: '/pages/account/login'
+					})
+				} else {
+					if (this.hShare == false) {
+						let that = this;
+						that.hShare = true;
+						var timeStamp = Math.round(new Date().getTime() / 1000);
+						var obj = {
+							appid: appid,
+							timeStamp: timeStamp,
+						}
+						var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+						var data = {
+							appid: appid,
+							timeStamp: timeStamp,
+							sign: sign,
+						}
+						rs.getRequests("shareConfig", data, (res) => {
+							console.log(res.data.data)
+							if (res.data.code == 200) {
+								var data = res.data.data;
+								WeixinJSBridge.on('menu:share:appmessage', function(argv) {
+									WeixinJSBridge.invoke('sendAppMessage', {
+										"appid": that.userinfo.appId, //appid 设置空就好了。
+										"img_url": data.share_img, //分享时所带的图片路径
+										"img_width": "120", //图片宽度
+										"img_height": "120", //图片高度
+										"link": data.share_href, //分享附带链接地址
+										"desc": data.share_describe, //分享内容介绍
+										"title": data.share_title
+									}, function(res) { /*** 回调函数，最好设置为空 ***/
+										console.log(res)
+										console.log(1)
+									});
+
+								});
+							} else {
+								rs.Toast(res.data.msg)
+							}
+						})
+					} else {
+						this.hShare = false
+					}
+
+				}
+			},
 			memberInfo() {
 				var that = this
 				var timeStamp = Math.round(new Date().getTime() / 1000);
@@ -244,25 +293,6 @@
 						this.wxbindWeChat()
 						// #endif
 
-					} else if (item.url == 'share') {
-						let that = this;
-						WeixinJSBridge.on('menu:share:appmessage', function(argv) {
-
-							WeixinJSBridge.invoke('sendAppMessage', {
-
-								"appid": that.userinfo.appId, //appid 设置空就好了。
-								"img_url": 'https://caidj-image.oss-cn-beijing.aliyuncs.com/uploads/gallery/1/空心菜.jpg', //分享时所带的图片路径
-								"img_width": "120", //图片宽度
-								"img_height": "120", //图片高度
-								"link": app.rootUrl, //分享附带链接地址
-								"desc": "我是一个介绍", //分享内容介绍
-								"title": "标题，再简单不过了。"
-							}, function(res) { /*** 回调函数，最好设置为空 ***/
-								console.log(res)
-								console.log(1)
-							});
-
-						});
 					} else {
 						getApp().globalData.isReload = true;
 						uni.navigateTo({
