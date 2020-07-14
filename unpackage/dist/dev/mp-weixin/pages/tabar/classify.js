@@ -309,10 +309,7 @@ console,log = _console.log;var _default =
       this.$refs.popup.close();
     },
     mpItem: function mpItem() {var _this2 = this;
-      uni.pageScrollTo({
-        scrollTop: 0,
-        duration: 300 });
-
+      this.list = [];
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         appid: appid,
@@ -335,7 +332,7 @@ console,log = _console.log;var _default =
 
       obj);
 
-      _request.default.getRequest('mpItemList', params, function (res) {
+      _request.default.getRequests('mpItemList', params, function (res) {
         var data = res.data;
         if (data.code == 200) {
           if (!firstId) {
@@ -384,9 +381,6 @@ console,log = _console.log;var _default =
       if (this.textInfo != '没有更多呢') {
         this.secondId = this.secondCate[this.kind + 1].id;
         this.kind += 1;
-        uni.pageScrollTo({
-          scrollTop: 0,
-          duration: 300 });
 
         this.mpItem();
       }

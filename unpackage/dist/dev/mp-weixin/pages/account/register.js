@@ -211,11 +211,9 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
   },
   methods: {
     leftClick: function leftClick() {
+      uni.navigateBack({
+        delta: 1 });
 
-      uni.navigateTo({
-        url: 'login' });
-
-      setTimeout(function () {window.location.reload();}, 100);
     },
     pageUrl: function pageUrl(data) {
       uni.navigateTo({

@@ -593,6 +593,7 @@
 			that.memberInfo();
 			that.is_bind = uni.getStorageSync('is_miniBind');
 			that.is_child = uni.getStorageSync("is_child");
+			
 			that.token = uni.getStorageSync("cdj_token");
 			// console.log(that.is_bind)
 			//H5
