@@ -28,7 +28,7 @@
         "devServer" : {
             "port" : 8000, //端口号
             "disableHostCheck" : true,
-            "host" : "192.168.0.183",
+            "host" : "192.168.0.126",
             "proxy" : {
                 "/api" : {
                     "target" : "http://test.caidj.cn", //目标接口域名
