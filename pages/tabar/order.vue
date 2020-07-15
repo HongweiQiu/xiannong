@@ -111,7 +111,7 @@
 						<text class="confirm_good" v-if="item.order_status==2" @click="receiveOrder(item.id,index)">确认收货</text>
 					</view>
 				</view>
-				<my-loading :loading="load"></my-loading>
+				<my-loading :loading="load" v-if="orderList.length"></my-loading>
 			</view>
 
 			<view class="bitmap" v-if="search_default">

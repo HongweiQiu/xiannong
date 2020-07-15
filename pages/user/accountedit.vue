@@ -306,7 +306,6 @@
 			this.longitude = options.lng;
 			this.count = options.count || 1;
 			if (this.count == 1) {
-				if (this)
 					this.memberAddressInfo()
 			}
 		},

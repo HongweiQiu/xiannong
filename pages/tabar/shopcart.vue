@@ -710,7 +710,7 @@
             this.getSendTime();
 			this.addInfo();
 			// #ifdef H5
-			this.scrollHeight=document.body.clientHeight
+			this.scrollHeight=document.body.clientHeight;
 			// #endif
 			
 		},

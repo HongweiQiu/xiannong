@@ -239,24 +239,26 @@
 				})
 			}
 		},
-	
+	   onReady() {
+	   	// #ifdef H5
+	   	this.scrollHeight = uni.getStorageSync('scrollHeight');
+	   	
+	   	window.onresize = () => {
+	   	
+	   		let newHeight = document.body.clientHeight;
+	   		if (this.scrollHeight == newHeight) {
+	   			this.display1 = true;
+	   		} else {
+	   			this.display1= false;
+	   		}
+	   	
+	   	}
+	   	// #endif
+	   },
 		onLoad(options) {
 					var that = this;
 					that.identifying = options.identifying;
-					// #ifdef H5
-					this.scrollHeight = document.body.clientHeight;
 					
-					window.onresize = () => {
-					
-						let newHeight = document.body.clientHeight;
-						if (this.scrollHeight == newHeight) {
-							this.display1 = true;
-						} else {
-							this.display1= false;
-						}
-					
-					}
-					// #endif
 				}
 	};
 </script>

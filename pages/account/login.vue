@@ -150,9 +150,7 @@
 					}
 				});
 			},
-			keyHeight(e){
-				alert(e)
-			},
+			
 			// app端微信登录
 			// #ifdef APP-PLUS
 			wechatLogin() {
@@ -304,19 +302,21 @@
 
 			// #endif
 		},
-		onHide() {
-			// window.location.reload();
+		
+		onReady() {
+			this.scrollHeight=document.body.clientHeight;
+			uni.setStorageSync('scrollHeight',this.scrollHeight);
 		},
 		onShow() {
-			
+			this.display=true;
 			// #ifdef H5
-			this.scrollHeight=document.documentElement.clientHeight;
+			
 			 window.onresize = ()=>{
 				 
-			      this.newHeight = document.body.clientHeight;
-				  if(this.newHeight&&this.newHeight>this.scrollHeight){
-				  	window.location.reload();
-				  }
+			     this.newHeight=document.body.clientHeight;
+				  // if(this.newHeight&&this.newHeight>this.scrollHeight){
+				  // 	window.location.reload();
+				  // }
 			    if(this.scrollHeight>this.newHeight){
 			    	this.display=false;
 			    }else{
@@ -345,9 +345,7 @@
 
 			//H5微信登录
 			// #ifdef H5
-			this.display = true;
-			this.scrollHeight = document.body.clientHeight
-
+			
 			let code = location.search;
 			let getCode = code.substring(code.indexOf('=') + 1, code.lastIndexOf('&'));
 			let isWeixin = uni.getStorageSync('isWeixin');
@@ -396,9 +394,9 @@
 	}
 
 	.login {
-		position: fixed;
-		width: 100%;
-		height: 100%;
+	
+		width: 100vw;
+		height: 100vh;
 	}
 
 	.logo_width {

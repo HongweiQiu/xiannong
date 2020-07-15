@@ -17,8 +17,8 @@
 			// #endif
 			// #ifdef H5
 			isWeixin: false,
-			rootUrl: '/api', //主接口地址
-			// rootUrl: window.location.protocol + "//" + window.location.hostname, //线上地址
+			// rootUrl: '/api', //主接口地址
+			rootUrl: window.location.protocol + "//" + window.location.hostname, //线上地址
 			imgRemote: 'http://test.caidj.cn',
 			// #endif
 			classId: '',
