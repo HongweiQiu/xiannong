@@ -206,8 +206,9 @@
 				</view>
 			</view>
 		</view>
-		<uni-popup ref="popup" type="bottom">
-			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="ware" @toParent="toParent"></my-keyboard>
+		
+		<uni-popup ref="popup" type="bottom" @maskInfo="closeKey">
+			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="ware" @toParent="toParent" ref="keyboard"></my-keyboard>
 		</uni-popup>
 	</view>
 </template>
@@ -230,7 +231,7 @@
 				token: uni.getStorageSync('cdj_token'),
 				kind: 0,
 				arrowDirect: false,
-				ware: [],
+				ware: {},
 				recommend: [],
 				recommendLength: '',
 				value: 1,
@@ -241,16 +242,22 @@
 				attrspec: '',
 				spec: '',
 				nav: false,
+				count:0,
 				imgRemote: imgRemote
 			};
 		},
 		methods: {
+			closeKey(){
+				this.$refs.keyboard.cancel();
+			},
 			leftClick() {
 				uni.navigateBack({
 					delta: 1
 				})
 			},
 			collecting() {
+				this.count++;
+				if(this.count!=1){return;}
 				let statu = this.ware.collect_status,
 					status;
 				if (statu == 2) {
@@ -274,6 +281,7 @@
 				rs.getRequests('changeCollect', params, res => {
 					let data = res.data;
 					if (data.code == 200) {
+						this.count=0;
 						this.ware.collect_status = status;
 						statu = status;
 						if (statu == 1) {
@@ -387,6 +395,10 @@
 						return;
 					}
 				}
+				if(cartUrl==true){
+					this.count++;
+					if(this.count!=1){return;}
+				}
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let {
 					ware,
@@ -415,9 +427,11 @@
 					},
 					obj
 				);
+				
 				rs.postRequests('firstChangeNum', params, res => {
 					let data = res.data;
 					if (data.code == 200) {
+					
 						rs.Toast('加入购物车成功');
 						// 分类
 						let classify = uni.getStorageSync('classify');
@@ -469,12 +483,11 @@
 						}
 						setTimeout(() => {
 							if (cartUrl == true) {
-
 								uni.switchTab({
 									url: '/pages/tabar/shopcart'
 								});
 							}
-						}, 500);
+						}, 300);
 					} else if (data.code == 406 || data.code == 407) {
 						rs.Toast('超出活动购买数量');
 					} else {

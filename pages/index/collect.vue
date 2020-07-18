@@ -2,19 +2,21 @@
 	<view class="collect">
 		<uni-nav-bar left-icon="arrowleft" right-text="清空" title="收藏列表" :status-bar="navBar" fixed="true" @clickLeft="leftClick"
 		 @clickRight="rightClick"></uni-nav-bar>
-		<view class="all_collect" v-if="list.length!=0">
+		<view class="all_collect" v-if="bitmap">
 			<my-profile class="single_collect" v-for="(item, index) in list" :wares="item" :config="config" :key="index" url="collect"
 			 @showCart="openCart(item)" @showKey="showKey(item,index)" @cancelCollect="cancelCollect(item,index)"></my-profile>
-			<my-loading></my-loading>
+			<my-loading :loading="loading"></my-loading>
 		</view>
 		<view v-else class="bitmap">
 			<image src="../../static/img/no_content.png" mode="aspectFit"></image>
 		</view>
-		<uni-popup ref="cart" type="bottom">
-			<my-addcart :config="config" :cartware="cartware" @onClose="onClose"></my-addcart>
+		
+	
+		<uni-popup ref="popup" type="bottom" @maskInfo="closeKey">
+			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent" ref="keyboard"></my-keyboard>
 		</uni-popup>
-		<uni-popup ref="popup" type="bottom">
-			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent"></my-keyboard>
+		<uni-popup ref="cart" type="bottom" @maskInfo="closeCart">
+			<my-addcart @onClose="onClose" :cartware="cartware" :config="config" ref="addcart"></my-addcart>
 		</uni-popup>
 	</view>
 </template>
@@ -44,9 +46,17 @@
 				arrObj:{},
 				cartware: [],
 				count:1,
+				bitmap:true,
+				loading:true
 			};
 		},
 		methods: {
+			closeCart(){
+				this.$refs.addcart.onClose();
+			},
+			closeKey(){
+				this.$refs.keyboard.cancel();
+			},
 			leftClick() {
 				uni.navigateBack({
 					delta: 1
@@ -151,7 +161,7 @@
 
 						if (data.data.list.length == 0) {
 							this.list = [];
-							this.bitmap = true;
+							this.bitmap = false;
 						} else {
 							this.list = data.data.list;
 							if (data.data.list.length < 10) {

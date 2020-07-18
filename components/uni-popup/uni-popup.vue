@@ -128,9 +128,11 @@
 						}, 50);
 					}).then(res => {
 						// 自定义打开事件
-						clearTimeout(this.msgtimer)
+						clearTimeout(this.msgtimer);
+						
 						this.msgtimer = setTimeout(() => {
-							this.customOpen && this.customOpen()
+							this.customOpen && this.customOpen();
+							
 						}, 100)
 						this.$emit('change', {
 							show: true,
@@ -140,7 +142,8 @@
 				})
 			},
 			close(type) {
-				this.showTrans = false
+				this.showTrans = false;
+				
 				this.$nextTick(() => {
 					this.$emit('change', {
 						show: false,
@@ -156,7 +159,9 @@
 			},
 			onTap() {
 				if (!this.mkclick) return
-				this.close()
+					this.$emit('maskInfo');
+				this.close();
+			
 			},
 			/**
 			 * 顶部弹出样式处理

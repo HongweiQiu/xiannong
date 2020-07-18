@@ -19,7 +19,7 @@
 					<uni-icons type="more-filled" size="18" color="#009a44" @click="showDraw"></uni-icons>
 				</view>
 				<view style="height: 99rpx;"></view>
-				<view v-if="list.length">
+				<view v-if="bitmap">
 					<my-profile v-for="(item,index) in list" :key="index" :wares="item" :config="config" class="single_good" @showCart="openCart(item)"
 					 @showKey="showKey(item,index)"></my-profile>
 
@@ -39,11 +39,11 @@
 				</view>
 			</view>
 		</view>
-		<uni-popup ref="cart" type="bottom">
-			<my-addcart :config="config" :cartware="cartware" @onClose="onClose"></my-addcart>
+		<uni-popup ref="popup" type="bottom" @maskInfo="closeKey">
+			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent" ref="keyboard"></my-keyboard>
 		</uni-popup>
-		<uni-popup ref="popup" type="bottom">
-			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent"></my-keyboard>
+		<uni-popup ref="cart" type="bottom" @maskInfo="closeCart">
+			<my-addcart @onClose="onClose" :cartware="cartware" :config="config" ref="addcart"></my-addcart>
 		</uni-popup>
 		<uni-drawer ref="drawer" mode="right">
 			<!-- #ifdef APP-PLUS |H5 -->
@@ -87,7 +87,7 @@
 		},
 		data() {
 			return {
-
+               
 				kind: 0,
 				active: -1,
 				activeTab: 0,
@@ -98,6 +98,7 @@
 				num: 10,
 				firstCate: [],
 				secondCate: [],
+				bitmap:true,
 				list: [],
 				config: [],
 				cartware: [],
@@ -107,6 +108,12 @@
 			};
 		},
 		methods: {
+			closeCart(){
+				this.$refs.addcart.onClose();
+			},
+			closeKey(){
+				this.$refs.keyboard.cancel();
+			},
 			toParent(e) {
 				let item = e.arrObj;
 				let timeStamp = Math.round(new Date().getTime() / 1000);
@@ -126,11 +133,7 @@
 				rs.postRequests('changeNum', params, res => {
 					let data = res.data;
 					if (data.code == 200) {
-						uni.showToast({
-							title: '加入购物车成功',
-							icon: 'none',
-							duration: 2000
-						})
+						rs.Toast('加入购物车成功');
 						this.list[this.index].cart_num = e.val;
 					} else if (data.code == 407 || data.code == 406) {
 						rs.Toast("购买数量不能超过活动数量")
@@ -142,6 +145,8 @@
 			},
 			mpItem() {
 				this.list=[];
+				this.bitmap=true;
+				this.loading = true;
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -181,8 +186,9 @@
 						this.firstCate = data.data.firstCate;
 						this.secondCate = data.data.secondCate;
 						this.list = data.data.list;
-						if (data.data.list.length < 10) {
+						if (data.data.list.length) {
 							this.loading = false;
+							this.bitmap=true;
 							if (this.kind == this.secondCate.length - 1) {
 								this.textInfo = parseHtml('没有更多呢');
 							} else {
@@ -190,7 +196,8 @@
 							}
 
 						} else {
-							this.loading = true;
+							this.bitmap=false;
+							this.loading = false;
 						}
 					}
 				});
@@ -205,6 +212,7 @@
 			},
 			// 切换二级分类
 			changeSecond(index) {
+			
 				this.secondId = this.secondCate[index].id;
 				this.kind = index;
 				this.mpItem();
@@ -213,7 +221,6 @@
 				if (this.textInfo != '没有更多呢') {
 					this.secondId = this.secondCate[this.kind + 1].id;
 					this.kind += 1;
-					
 					this.mpItem();
 				}
 			},
@@ -300,6 +307,7 @@
 				timeStamp: timeStamp,
 				sign: sign
 			};
+			this.loading = true;
 			rs.getRequests('mpItemList', data, res => {
 				if (res.data.code == 200) {
 					if (res.data.data.list.length != 0) {

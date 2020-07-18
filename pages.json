@@ -11,7 +11,7 @@
 		}, {
 			"path": "pages/tabar/user"
 		}
-	],
+    ],
 	"subPackages": [{
 		"root": "pages/index",
 		"pages": [{
@@ -62,6 +62,8 @@
 			"path": "address"
 		}, {
 			"path": "pay"
+		}, {
+			"path": "fenjian"
 		}]
 	}, {
 		"root": "pages/shopcart",
@@ -77,7 +79,25 @@
 				"path": "shoplist"
 			}
 		]
-	}, {
+	},
+	// #ifdef H5
+	{
+		"root": "pages/suyuan",
+		"pages": [{
+				"path": "index"
+			},
+			{
+				"path": "product"
+			}, {
+				"path": "journey"
+			},
+			{
+				"path": "quantity"
+			}
+		]
+	},
+	// #endif
+	{
 		"root": "pages/user",
 		"pages": [{
 				"path": "accountmange"

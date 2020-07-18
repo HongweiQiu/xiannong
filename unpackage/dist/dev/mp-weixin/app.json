@@ -36,7 +36,8 @@
       "pages": [
         "orderdetail",
         "address",
-        "pay"
+        "pay",
+        "fenjian"
       ]
     },
     {
@@ -108,5 +109,5 @@
     "enable": true
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap95.json"
+  "sitemapLocation": "sitemap36.json"
 }

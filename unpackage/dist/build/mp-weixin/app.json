@@ -36,7 +36,8 @@
       "pages": [
         "orderdetail",
         "address",
-        "pay"
+        "pay",
+        "fenjian"
       ]
     },
     {

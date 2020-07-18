@@ -1,5 +1,5 @@
 {
-    "name" : "",
+    "name" : "test",
     "appid" : "__UNI__5EBDEB4",
     "description" : "",
     "versionName" : "1.0.0",
@@ -7,7 +7,7 @@
     "transformPx" : false,
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "wxaa1160b46149bd84",
+        "appid" : "wx4f24afa0c5d9be68",
         "setting" : {
             "urlCheck" : false,
             "es6" : true,

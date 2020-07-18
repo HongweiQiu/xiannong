@@ -36,7 +36,7 @@
 			<view style="height:90rpx;" v-if="is_child == 1"></view>
 		</view>
 		<view class="order_info">
-			<view class="content">
+			<view class="content" v-if="search_default">
 				<view v-for="(item, index) in orderList" :key="index">
 					<view class="top">
 						<view>订单编号：{{item.order_sn}}</view>
@@ -51,7 +51,7 @@
 						<view style="width: 100%;">
 							<view class="">
 								<text>{{item.item_title}}</text>
-								<text class="gray_font">(等{{item.item_count}}件商品)</text>
+								<text class="gray_font">(等{{item.item_count}}件商品￥{{item.xd_price}})</text>
 							</view>
 							<view class="">配送日期 ： {{item.send_time}}</view>
 							<view class="flex" v-if="item.is_cash_delivery==0">
@@ -111,10 +111,10 @@
 						<text class="confirm_good" v-if="item.order_status==2" @click="receiveOrder(item.id,index)">确认收货</text>
 					</view>
 				</view>
-				<my-loading :loading="load" v-if="orderList.length"></my-loading>
+				<my-loading :loading="load" ></my-loading>
 			</view>
 
-			<view class="bitmap" v-if="search_default">
+			<view class="bitmap" v-else>
 				<image src="../../static/img/no_content.png" mode="aspectFit"></image>
 			</view>
 		</view>
@@ -179,8 +179,9 @@
 				isActive: '全部',
 				orderTitle: '全部订单',
 				type: 1,
-				search_default: false,
+				search_default: true,
 				is_look: '',
+				count:0,
 				orderList: [],
 				orderInfo: '',
 				page: 1,
@@ -264,11 +265,7 @@
 						url: '/pages/order/orderdetail?orderItem=' + item.id
 					})
 				} else if (url == 'user') {
-					uni.showToast({
-						title: "还未绑定微信,请去我的页面绑定微信",
-						duration: 2000,
-						icon: 'none'
-					})
+					rs.Toast( "还未绑定微信,请去我的页面绑定微信")
 					uni.navigateTo({
 						url: '/pages/tabar/user'
 					});
@@ -336,14 +333,16 @@
 			 * 查看物流
 			 */
 			ckwl(data) {
-				var that = this
+				
+				var that = this;
+				that.count++;
+				console.log(that.count)
+				if(that.count!=1){
+					return;
+				}
 				var id = data;
 				if (id <= 0) {
-					uni.showToast({
-						title: "无物流信息",
-						duration: 2000,
-						icon: 'none'
-					})
+					rs.Toast("无物流信息")
 					return;
 				}
 				var timeStamp = Math.round(new Date().getTime() / 1000);
@@ -360,16 +359,13 @@
 					sign: sign,
 				}
 				rs.postRequests("carPosition", data, (res) => {
+					setTimeout(()=>{that.count=0;},1000)
 					if (res.data.code == 200) {
 						if (res.data.data != '') {
-							var latitude = parseInt(res.data.data.latitude)
-							var longitude = parseInt(res.data.data.longitude)
+							var latitude = parseFloat(res.data.data.latitude);
+							var longitude = parseFloat(res.data.data.longitude);
 							if (res.data.data.latitude == '' || res.data.data.longitude == '') {
-								uni.showToast({
-									title: "无物流信息",
-									duration: 2000,
-									icon: 'none'
-								})
+								rs.Toast("无物流信息")
 							} else {
 								// #ifdef H5
 								uni.navigateTo({
@@ -391,18 +387,10 @@
 								})
 							}
 						} else {
-							uni.showToast({
-								title: "无物流信息",
-								duration: 2000,
-								icon: 'none'
-							})
+							rs.Toast("无物流信息")
 						}
 					} else {
-						uni.showToast({
-							title: res.data.msg,
-							duration: 2000,
-							icon: 'none'
-						})
+						rs.Toast( res.data.msg)
 					}
 				})
 			},
@@ -520,7 +508,7 @@
 			orderListb() {
 				var that = this;
 				that.orderList = [];
-				that.search_default = false;
+				that.search_default = true;
 				
 				var page = that.page;
 				var type = that.type;
@@ -555,12 +543,15 @@
 							} else {
 								that.load = true;
 							}
+							
+							that.search_default = true;
 							that.is_look = res.data.data.is_look;
 							that.orderInfo = res.data.data;
 							that.orderList = res.data.data.list;
 							// console.log(res.data.orderInfo)
 						} else {
-							that.search_default = true;
+							
+							that.search_default = false;
 							that.load = '空';
 						}
 					}
@@ -569,7 +560,8 @@
 			orderLista() {
 				var that = this;
 				that.orderList = [];
-				that.search_default = false;
+				that.search_default = true;
+				that.load=true;
 				var select_zid = that.childzid;
 				if (that.isActive != "全部") {
 					var status = that.isActive + 1;
@@ -606,12 +598,13 @@
 							} else {
 								that.load = true;
 							}
+							that.search_default=true;
 							that.is_look = res.data.data.is_look;
 							that.orderInfo = res.data.data;
 							that.orderList = res.data.data.list;
 						} else {
-							that.search_default = true;
-							that.load = '空';
+							that.search_default =false;
+							that.load = true;
 						}
 					}
 				})

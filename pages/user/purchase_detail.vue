@@ -102,7 +102,7 @@
 					start: data.date[0],
 					end: data.date[1],
 				}
-				rs.getRequest("buyRecordDetail", data, (res) => {
+				rs.getRequests("buyRecordDetail", data, (res) => {
 					if (res.data.code == 200) {
 						that.detail = res.data.data;
 						that.detailItem = res.data.data.item;

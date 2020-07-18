@@ -32,7 +32,8 @@ page {
 	line-height: 160rpx;
 	border-radius: 6px;
 	height: 160rpx;
-	box-shadow: 1px 1px 4px #e0e0e0;
+	-webkit-box-shadow: 1px 1px 4px #e0e0e0;
+	        box-shadow: 1px 1px 4px #e0e0e0;
 	background: #fff;
 }
 .user .middle image {
@@ -108,10 +109,23 @@ page {
 	width: 100%;
 	z-index: 999;
 }
-.share_box image {
+.share_box .item {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.share_box .share_msg {
 	width: 70%;
 	height: 310rpx;
-	margin-left: 20%;
+	margin-left: 19%;
 	margin-top: 80rpx;
+}
+.share_box .share_x {
+	width: 50rpx;
+	height: 50rpx;
+	margin-top: 500rpx;
 }
 

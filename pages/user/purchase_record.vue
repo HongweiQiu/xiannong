@@ -52,14 +52,13 @@
 					</view>
 				</view>
 			</view>
-			<my-loading :loading="loading" v-if="list.length"></my-loading>
+			<my-loading :loading="loading" ></my-loading>
 	
 		</view>
 		<view v-else class="bitmap">
 			<image src="../../static/img/no_record.png" mode="aspectFit"></image>
 		</view>
 		<uni-calendar :insert="false" :lunar="true" ref="calendar" :range="true" @confirm="confirm" />
-		<!-- <van-toast id="van-toast" /> -->
 	</view>
 </template>
 
