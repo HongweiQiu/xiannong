@@ -17,11 +17,6 @@
 			<view style="display: flex;flex-direction: column;">
 				<image class="good_img" :src="ware.img==''?imgRemote+ware.item_default:ware.img" mode="aspectFit"></image>
 				<view class="active_time" v-if="ware.is_activity==1||attrspec.is_activity == 1">
-					正在抢购
-					<!-- <uni-countdown :hour="hours" :minute="minu" :second="second" :show-day="false" background-color="#f7c0b7" color="white"
-					 splitor-color="white"></uni-countdown> -->
-					 	<my-countdown :time="hours" lineC="white" bgC="none" style="line-height: 21px;"></my-countdown>
-					结束
 					<view class="remain_num">
 						<block v-if="spec">
 							<text v-if="attrspec.activity_num > attrspec.cart_num">剩余:{{ attrspec.activity_num - attrspec.cart_num }}件</text>
@@ -32,6 +27,12 @@
 							<text v-else>剩余:0件</text>
 						</block>
 					</view>
+					正在抢购
+					<!-- <uni-countdown :hour="hours" :minute="minu" :second="second" :show-day="false" background-color="#f7c0b7" color="white"
+					 splitor-color="white"></uni-countdown> -->
+					 	<my-countdown :time="hours" lineC="white" bgC="none" style="line-height: 21px;"></my-countdown>
+					结束
+					
 				</view>
 			</view>
 			<view class="info">

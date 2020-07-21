@@ -14,7 +14,7 @@
 			// #ifdef APP-PLUS |MP-WEIXIN |MP-ALIPAY
 			rootUrl: 'https://test.caidj.cn', //主接口地址
 			imgRemote: 'https://test.caidj.cn',
-			// #endif
+			// #endif 
 			// #ifdef H5
 			isWeixin: false,
 			rootUrl: '/api', //主接口地址

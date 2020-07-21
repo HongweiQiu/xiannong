@@ -1,6 +1,6 @@
 {
     "name" : "菜东家",
-    "appid" : "__UNI__5EBDEB4",
+    "appid" : "__UNI__8D62637",
     "description" : "",
     "versionName" : "1.0.0",
     "versionCode" : "100",
@@ -133,10 +133,7 @@
                         "UniversalLinks" : ""
                     }
                 },
-                "ad" : {
-                    "360" : {},
-                    "csj" : {}
-                },
+                "ad" : {},
                 "share" : {}
             }
         },
