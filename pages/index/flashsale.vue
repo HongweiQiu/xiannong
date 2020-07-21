@@ -253,6 +253,7 @@
 			}
 		},
 		onShow() {
+			this.loading=true;
 			this.panicBuylist();
 		},
 		onPageScroll(e) {

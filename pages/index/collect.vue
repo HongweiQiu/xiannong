@@ -104,6 +104,7 @@
 			cancelCollect(item,index){
 				this.count++;
 				if(this.count!=2){return}
+				setTimeout(()=>{this.count=1},500)
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					item_id: item.id,
@@ -119,10 +120,14 @@
 				);
 				rs.getRequests('changeCollect', params, res => {
 					let data = res.data;
-						this.count=1;
+					
 					if (data.code == 200) {
 					
 						this.list.splice(index,1)
+						console.log(this.list.length);
+						if(this.list.length==0){
+							this.bitmap=false;
+						}
 						rs.Toast('取消收藏');
 					} else {
 						rs.Toast(data.msg);
