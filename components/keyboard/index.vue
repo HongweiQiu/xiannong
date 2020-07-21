@@ -1,7 +1,9 @@
 <template>
 
 	<view class="my_keyboard">
-		<view class="inputval">
+	
+		<view class="inputval">	
+		<view v-if="invest" style="padding-top:20rpx;">充值金额 (元)</view>
 			<input type="text" class="getval" v-model="val" disabled="true" placeholder="请输入..." placeholder-style="font-size:28rpx;" /></view>
 		<view class="keyboard">
 			<view class="left">
@@ -35,6 +37,10 @@
 			arrObj: {
 				type: Object,
 				value: false
+			},
+			invest:{
+				type:Boolean,
+				value:false
 			}
 		},
 		data() {
@@ -122,8 +128,8 @@
 		border-radius: 10rpx 10rpx 0 0;
 
 		.getval {
-			height: 120rpx;
-			line-height: 120rpx;
+			height: 90rpx;
+			line-height: 90rpx;
 		}
 	}
 

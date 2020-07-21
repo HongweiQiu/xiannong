@@ -12,7 +12,7 @@
 		</view>
 		<view class="invest_button" @click="$refs.popup.open()">充值</view>
 		<uni-popup ref="popup" type="bottom">
-			<my-keyboard @keyBoard="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent"></my-keyboard>
+			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent" :invest="invest"></my-keyboard>
 		</uni-popup>
 
 	</view>
@@ -37,7 +37,8 @@
 				},
 				is_miniBind: '',
 				memberInfoData: '',
-				code: ''
+				code: '',
+				invest:true
 			};
 		},
 		methods: {

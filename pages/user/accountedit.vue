@@ -17,7 +17,7 @@
 				</view>
 				<view>
 					<text>密码</text>
-					<input name="password" type="password" v-model="password" placeholder="请输入六位及以上的号码" placeholder-class="place_style" />
+					<input name="password" type="password" v-model="password" placeholder="请输入六位及以上的密码" placeholder-class="place_style" />
 				</view>
 				<view class="flex_left_right">
 					<view style="color:#1EA55A;">账号启用和禁用</view>
@@ -306,7 +306,6 @@
 			this.longitude = options.lng;
 			this.count = options.count || 1;
 			if (this.count == 1) {
-				if (this)
 					this.memberAddressInfo()
 			}
 		},

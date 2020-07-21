@@ -54,8 +54,8 @@
   border-radius: 10rpx 10rpx 0 0;
 }
 .inputval .getval {
-  height: 120rpx;
-  line-height: 120rpx;
+  height: 90rpx;
+  line-height: 90rpx;
 }
 .my_keyboard {
   font-size: 32rpx;

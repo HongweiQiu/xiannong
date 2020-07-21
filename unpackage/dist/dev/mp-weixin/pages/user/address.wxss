@@ -6,7 +6,8 @@
 .test image {
 	display: block;
 	border-radius: 50%;
-	box-shadow: 0 0 2px gray;
+	-webkit-box-shadow: 0 0 2px gray;
+	        box-shadow: 0 0 2px gray;
 	width: 35px;
 	position: absolute;
 	top: calc(45% + 44px);

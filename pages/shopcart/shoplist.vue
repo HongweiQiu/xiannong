@@ -115,8 +115,9 @@
 					  </view>
 			</view>
 		</view>
-		<uni-popup ref="popup" type="bottom">
-			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="shopItem" @toParent="toParent"></my-keyboard>
+		
+		<uni-popup ref="popup" type="bottom" @maskInfo="closeKey">
+			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="shopItem" @toParent="toParent" ref="keyboard"></my-keyboard>
 		</uni-popup>
 	</view>
 </template>
@@ -153,6 +154,9 @@
 			}
 		},
 		methods: {
+			closeKey(){
+				this.$refs.keyboard.cancel();
+			},
 			leftClick() {
 				uni.navigateBack({
 					delta: 1

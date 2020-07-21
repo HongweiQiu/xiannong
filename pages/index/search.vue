@@ -72,12 +72,13 @@
 				</view>
 			</view>
 		</uni-popup>
-		<uni-popup ref="cart" type="bottom">
-			<my-addcart :config="config" :cartware="cartware" @onClose="onClose"></my-addcart>
+	
+		
+		<uni-popup ref="popup" type="bottom" @maskInfo="closeKey">
+			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent" ref="keyboard"></my-keyboard>
 		</uni-popup>
-
-		<uni-popup ref="popup" type="bottom">
-			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent"></my-keyboard>
+		<uni-popup ref="cart" type="bottom" @maskInfo="closeCart">
+			<my-addcart @onClose="onClose" :cartware="cartware" :config="config" ref="addcart"></my-addcart>
 		</uni-popup>
 	</view>
 </template>
@@ -114,6 +115,12 @@
 			}
 		},
 		methods: {
+			closeCart(){
+				this.$refs.addcart.onClose();
+			},
+			closeKey(){
+				this.$refs.keyboard.cancel();
+			},
 			back() {
 				uni.navigateBack({
 					delta: 1

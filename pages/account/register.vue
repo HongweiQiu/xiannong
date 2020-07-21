@@ -59,22 +59,31 @@
 				verify_code: '',
 				showcode: false,
 				back: true,
-				display1:true,
-				identifying:'',
-				scrollHeight:'',
+				display1: true,
+				identifying: '',
+				scrollHeight: '',
 				resultData: {}
 			};
 		},
 		methods: {
 			leftClick() {
-				uni.navigateBack({
-					delta:1
-				})
+
+				uni.hideKeyboard();
+				setTimeout(() => {
+					uni.navigateBack({
+						delta: 1
+					})
+				}, 300)
+
 			},
-			pageUrl(data){
-				uni.navigateTo({
-					url:data
-				})
+			pageUrl(data) {
+				uni.hideKeyboard();
+				setTimeout(() => {
+					uni.navigateTo({
+						url: data
+					})
+				}, 300)
+
 			},
 			// 滑动验证
 			verifyResult(res) {
@@ -121,11 +130,7 @@
 
 				var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
 				if (!reg.test(this.mobile)) {
-					uni.showToast({
-						title: '不能输入特殊字符和空格',
-						duration: 2000,
-						icon: "none"
-					});
+					rs.Toast('不能输入特殊字符和空格',);
 					return;
 				}
 
@@ -171,7 +176,7 @@
 				this.resultData = {};
 			},
 			register() {
-				
+
 				if (!this.nickname) {
 					rs.Toast('单位名称不能为空');
 					return;
@@ -189,7 +194,7 @@
 					rs.Toast('不能输入特殊字符和空格');
 					return;
 				}
-				if (this.password.length <6) {
+				if (this.password.length < 6) {
 					rs.Toast('请设置六位及以上的密码');
 					return;
 				}
@@ -239,25 +244,27 @@
 				})
 			}
 		},
-	
-		onLoad(options) {
-					var that = this;
-					that.identifying = options.identifying;
-					// #ifdef H5
-					this.scrollHeight = document.body.clientHeight;
-					
-					window.onresize = () => {
-					
-						let newHeight = document.body.clientHeight;
-						if (this.scrollHeight == newHeight) {
-							this.display1 = true;
-						} else {
-							this.display1= false;
-						}
-					
-					}
-					// #endif
+		onReady() {
+			// #ifdef H5
+			this.scrollHeight = uni.getStorageSync('scrollHeight');
+
+			window.onresize = () => {
+
+				let newHeight = document.body.clientHeight;
+				if (this.scrollHeight == newHeight) {
+					this.display1 = true;
+				} else {
+					this.display1 = false;
 				}
+
+			}
+			// #endif
+		},
+		onLoad(options) {
+			var that = this;
+			that.identifying = options.identifying;
+
+		}
 	};
 </script>
 
@@ -295,7 +302,7 @@
 		color: #a1a1a1;
 		text-align: center;
 		font-size: 24rpx;
-		height: 500rpx;
+
 	}
 
 	.register .agree {

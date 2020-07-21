@@ -1,6 +1,6 @@
 <template>
 	<view class="purchase_detail">
-		<uni-nav-bar left-icon="back" left-text=" " title="详细记录" :status-bar="navbar" fixed="true" @clickLeft="urlPage"></uni-nav-bar>
+		<uni-nav-bar left-icon="back" left-text=" " title="详细记录" :status-bar="navBar" fixed="true" @clickLeft="urlPage"></uni-nav-bar>
 		<view class="bill_record">
 			<view class="record_box">
 				<view class="img">
@@ -102,7 +102,7 @@
 					start: data.date[0],
 					end: data.date[1],
 				}
-				rs.getRequest("buyRecordDetail", data, (res) => {
+				rs.getRequests("buyRecordDetail", data, (res) => {
 					if (res.data.code == 200) {
 						that.detail = res.data.data;
 						that.detailItem = res.data.data.item;

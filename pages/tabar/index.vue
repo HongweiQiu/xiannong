@@ -92,14 +92,18 @@
 			</view>
 			<my-loading :loading="loading"></my-loading>
 		</view>
-		<view class="support" v-if="support">
-			由
-			<text>菜东家</text>
-			提供技术支持
+		<view class="support" v-if="support&&adList.copyright.is_copyright==0">
+			<!-- #ifndef H5 -->
+			由<text>菜东家</text>提供技术支持
+			<!-- #endif -->
+		
+			<!-- #ifdef H5 -->
+			<a :href="adList.copyright.caidj_url">由<text>菜东家</text>提供技术支持</a>
+			<!-- #endif -->
 		</view>
 		<my-backtop bottom="60" :showTop="showTop"></my-backtop>
-		<uni-popup ref="popup" type="bottom">
-			<my-addcart @onClose="onClose" :cartware="cartware" :config="config"></my-addcart>
+		<uni-popup ref="popup" type="bottom" @maskInfo="closeCart">
+			<my-addcart @onClose="onClose" :cartware="cartware" :config="config" ref="addcart"></my-addcart>
 		</uni-popup>
 		<my-tabar tabarIndex=0></my-tabar>
 	</view>
@@ -140,10 +144,13 @@
 				activeConf: {},
 				cartware: {},
 				config: {},
-				itemList: {}
+				itemList: []
 			};
 		},
 		methods: {
+			closeCart(){
+				this.$refs.addcart.onClose();
+			},
 			navUrl(e) {
 				let {
 					id,
@@ -243,6 +250,7 @@
 				});
 			},
 			indexItem() {
+					this.itemList = [];
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -317,11 +325,11 @@
 			this.indexAd();
 			if (app.isReload == true) {
 				this.page = 1;
-				this.itemList = [];
-				this.indexItem();
 				uni.pageScrollTo({
-					scrollTop: 0
-				})
+					scrollTop: 0,
+					duration: 0
+				});
+				this.indexItem();	
 			}
 			this.limitList();
 		},
@@ -368,7 +376,7 @@
 		},
 		onPageScroll(e) {
 			if (e.scrollTop == 0) {
-
+            
 				this.showTop = false;
 			} else {
 				this.showTop = true;
@@ -523,4 +531,7 @@
 		width: 60rpx;
 		height: 20rpx;
 	}
+	/* #ifdef H5 */
+	a{text-decoration: none;color:gray;}
+	/* #endif */
 </style>

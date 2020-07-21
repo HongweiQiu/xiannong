@@ -18,8 +18,12 @@
 					<view>{{detail.create_time}}</view>
 				</view>
 				<view>
+					<view>配送日期</view>
+					<view>{{detail.send_time}}</view>
+				</view>
+				<view>
 					<view>配送时间</view>
-					<view>{{detail.delivery_time_info}}</view>
+					<view>{{detail.delivery_time_info?detail.delivery_time_info:'不限'}}</view>
 				</view>
 				<view>
 					<view>订单编号</view>
@@ -35,7 +39,7 @@
 				</view>
 				<view>
 					<view>备注</view>
-					<view>{{detail.remark?detail.remark:''}}</view>
+					<view>{{detail.remark?detail.remark:'/'}}</view>
 				</view>
 			</view>
 			<!-- 金额信息 -->
@@ -57,7 +61,7 @@
 				<view>
 					<view>运费</view>
 					<view class="red_font" v-if="orderDetail.is_look==0">¥ ***</view>
-					<view class="red_font" v-if="orderDetail.is_look==1">¥{{detail.delivery_fee}}</view>
+					<view class="gray_font" v-if="orderDetail.is_look==1">¥{{detail.delivery_fee}}</view>
 				</view>
 				<view>
 					<view>应付金额</view>

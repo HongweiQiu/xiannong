@@ -1,6 +1,6 @@
 <template>
 	<view class="">
-		<uni-nav-bar left-icon="back" left-text=" " title="购买记录" :status-bar="navbar" fixed="true" @clickLeft="urlPage"></uni-nav-bar>
+		<uni-nav-bar left-icon="back" left-text=" " title="购买记录" :status-bar="navBar" fixed="true" @clickLeft="urlPage"></uni-nav-bar>
 		<!-- <uni-search-bar :radius="100" @="search" cancelButton="none" placeholder="请选择日期"></uni-search-bar> -->
 		<view class="bill_search" @click="open">
 			<view class="search_date">
@@ -52,14 +52,13 @@
 					</view>
 				</view>
 			</view>
-			<my-loading :loading="loading" v-if="list.length"></my-loading>
+			<my-loading :loading="loading" ></my-loading>
 	
 		</view>
 		<view v-else class="bitmap">
 			<image src="../../static/img/no_record.png" mode="aspectFit"></image>
 		</view>
 		<uni-calendar :insert="false" :lunar="true" ref="calendar" :range="true" @confirm="confirm" />
-		<!-- <van-toast id="van-toast" /> -->
 	</view>
 </template>
 

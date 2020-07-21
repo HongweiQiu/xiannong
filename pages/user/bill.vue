@@ -20,7 +20,7 @@
 				</view>
 				<view class="red_font">¥{{item.receivable}}</view>
 			</view>
-			<my-loading :loading="loading" v-if="list.length"></my-loading>
+			<my-loading :loading="loading" ></my-loading>
 		</view>
 		<!-- 占位图 -->
 		<view v-else class="bitmap">

@@ -49,9 +49,11 @@
 		},
 		methods: {
 			leftClick() {
-				uni.navigateBack({
+				uni.hideKeyboard()
+				setTimeout(()=>{uni.navigateBack({
 					delta: 1
-				});
+				});},300)
+				
 			},
 			deletePhoto(e) {
 

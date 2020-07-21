@@ -64,8 +64,8 @@
 			</view>
 			<!-- #ifdef MP-WEIXIN -->
 
-			<view v-if="is_child != 1">
-				<button open-type="share" class="flex_left_right">
+			<view v-if="is_child != 1&&token">
+				<button open-type="share" class="flex_left_right" v-if="token">
 					<view class="">
 						<text class="iconfont icon-fenxiang" style="color: #26DD5B;"></text>
 						<text class="name">分享小程序</text>
@@ -74,8 +74,17 @@
 						<uni-icons type="arrowright" size="18" color="black"></uni-icons>
 					</view>
 				</button>
-			</view>
 
+			</view>
+			<view v-if="is_child != 1&&!token" class="flex_left_right" @click="exit">
+				<view class="">
+					<text class="iconfont icon-fenxiang" style="color: #26DD5B;"></text>
+					<text class="name">分享小程序</text>
+				</view>
+				<view>
+					<uni-icons type="arrowright" size="18" color="black"></uni-icons>
+				</view>
+			</view>
 			<!-- #endif -->
 
 			<!-- #ifdef H5 -->
@@ -89,10 +98,6 @@
 					<uni-icons type="arrowright" size="18" color="black"></uni-icons>
 				</view>
 			</view>
-
-
-
-
 			<!-- #endif -->
 
 			<view class="flex_left_right" @click="exit">
@@ -177,7 +182,7 @@
 					// #ifndef MP-ALIPAY
 					{
 						icon: 'icon-weixin',
-						name: '绑定微信',
+						name: uni.getStorageSync('is_miniBind') == 0 ? '绑定微信' : '改绑微信',
 						color: '#26DD5B',
 						url: 'bindWeChat'
 					}
@@ -192,6 +197,7 @@
 				memberInfoData: '',
 				member_default: '',
 				code: '',
+				shareInfo:[],
 				// #ifdef H5
 				userinfo: '',
 				// #endif
@@ -312,24 +318,38 @@
 			wxbindWeChat(e) {
 				console.log("小程序绑定")
 				var that = this;
-				uni.getUserInfo({
-					provider: 'weixin',
-					success(infoRes) {
-						let {
-							encryptedData,
-							iv
-						} = infoRes;
-						console.log(infoRes);
-						uni.login({
-							provider: 'weixin',
-							success(res) {
-								console.log(res.code)
-								that.wxbindWeChata(res.code)
-							}
+				uni.showModal({
+					content: this.is_bind == 1 ? '是否微信改绑' : '是否绑定微信',
+					cancelText: "我再想想",
+					cancelColor: "#999",
+					confirmText: "确认",
+					confirmColor: "#009a44",
+					success: function(res) {
+						if (res.confirm) {
+							uni.getUserInfo({
+								provider: 'weixin',
+								success(infoRes) {
+									let {
+										encryptedData,
+										iv
+									} = infoRes;
+									console.log(infoRes);
+									uni.login({
+										provider: 'weixin',
+										success(res) {
+											console.log(res.code)
+											that.wxbindWeChata(res.code)
+										}
 
-						})
+									})
+								}
+							})
+						} else if (res.cancel) {
+							// console.log('用户点击取消');
+						}
 					}
-				})
+				});
+
 			},
 			wxbindWeChata(code) {
 				var that = this;
@@ -349,7 +369,8 @@
 				}
 				rs.postRequests("bindWeChat", data, (res) => {
 					if (res.data.code == 200) {
-						rs.Toast('绑定微信成功')
+						rs.Toast('绑定微信成功');
+
 						setTimeout(function() {
 							uni.clearStorage({
 								success: function(reg) {
@@ -507,6 +528,12 @@
 				}
 			},
 			exit() {
+				if (!this.token) {
+					uni.navigateTo({
+						url: '/pages/account/login'
+					});
+					return;
+				}
 				uni.showModal({
 					title: '提示',
 					content: '是否退出登录？',
@@ -596,9 +623,26 @@
 			that.memberInfo();
 			that.is_bind = uni.getStorageSync('is_miniBind');
 			that.is_child = uni.getStorageSync("is_child");
-			
+
 			that.token = uni.getStorageSync("cdj_token");
-			// console.log(that.is_bind)
+			var timeStamp = Math.round(new Date().getTime() / 1000);
+			var obj = {
+				appid: appid,
+				timeStamp: timeStamp,
+			}
+			var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+			var data = {
+				appid: appid,
+				timeStamp: timeStamp,
+				sign: sign,
+			}
+			rs.getRequests("shareConfig", data, (res) => {
+				if(res.data.code==200){
+					that.shareInfo=res.data.data;
+				
+				}
+			})
+			
 			//H5
 			// #ifdef H5
 			that.wxConfig();
@@ -644,6 +688,16 @@
 			}
 			// #endif
 		},
+		// 分享
+		onShareAppMessage() {
+					let path=this.shareInfo.share_href;	
+			return {
+				"imageUrl": this.shareInfo.share_img, //分享时所带的图片路径
+				"path": path.substring(path.indexOf('#')+1), //分享附带链接地址
+				"desc": this.shareInfo.share_describe, //分享内容介绍
+				"title": this.shareInfo.share_title
+			}
+		}
 	};
 </script>
 
@@ -756,7 +810,8 @@
 		width: 100%;
 		z-index: 999;
 	}
-	.share_box .item{
+
+	.share_box .item {
 		display: flex;
 		justify-content: center;
 	}
@@ -767,7 +822,8 @@
 		margin-left: 19%;
 		margin-top: 80rpx;
 	}
-	.share_box .share_x{
+
+	.share_box .share_x {
 		width: 50rpx;
 		height: 50rpx;
 		margin-top: 500rpx;

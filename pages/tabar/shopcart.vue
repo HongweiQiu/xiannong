@@ -154,8 +154,9 @@
 				<my-loading :loading="loading"></my-loading>
 			</view>
 			<my-backtop bottom="60" :showTop="showTop"></my-backtop>
-			<uni-popup ref="popup" type="bottom">
-				<my-addcart @onClose="onClose" :cartware="cartware" :config="config"></my-addcart>
+		
+			<uni-popup ref="popup" type="bottom" @maskInfo="closeCart">
+				<my-addcart @onClose="onClose" :cartware="cartware" :config="config" ref="addcart"></my-addcart>
 			</uni-popup>
 		</view>
 		<my-tabar tabarIndex=2  v-if="display"></my-tabar>
@@ -234,10 +235,14 @@
 				cartware: [],
 				itemList: [],
 				remark:'',
-				gift:0
+				gift:0,
+				count:0,
 			};
 		},
 		methods: {
+			closeCart(){
+				this.$refs.addcart.onClose();
+			},
 			shoplist() {
 				uni.navigateTo({
 					url: "/pages/shopcart/shoplist"
@@ -304,7 +309,7 @@
 					this.address = userInfo.address;
 					
 					// 判断购物车是否有数量
-					if (data.data.countNum == 0 && this.page == 1) {
+					if (data.data.countNum == 0 && app.isReload == true) {
 						this.indexItem()
 					}
 					// 配送时间
@@ -425,6 +430,12 @@
 					},1000)
 					return;
 				}
+				this.count++;
+				log(this.count)
+				if(this.count!=1)return;
+				setTimeout(()=>{
+					this.count=0;
+				},500)
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -640,6 +651,9 @@
 				})
 			},
 			indexItem() {
+				this.itemList=[];
+				this.page=1;
+					this.loading = true;
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -654,7 +668,6 @@
 				let params = Object.assign({
 						page: 1,
 						sign: sign,
-						page: page,
 						num: num
 					},
 					obj
@@ -710,7 +723,7 @@
             this.getSendTime();
 			this.addInfo();
 			// #ifdef H5
-			this.scrollHeight=document.body.clientHeight
+			this.scrollHeight=document.body.clientHeight;
 			// #endif
 			
 		},

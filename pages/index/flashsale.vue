@@ -19,7 +19,7 @@
 			</view>
 			<view class="square">
 
-				<view class="" v-for="(item,index) in activeList">
+				<view class="" v-for="(item,index) in activeList" :key="item.id">
 					<view :class="index==kind?'show_square':''"></view>
 				</view>
 			</view>
@@ -45,7 +45,7 @@
 					<view class="gray_font twelve">{{item.attr_title}}</view>
 					<view>
 						<view class="align_center" style="flex-wrap: wrap;">
-							<text class="red_tag" v-for="(label,index) in item.label">{{label}}</text>
+							<text class="red_tag" v-for="(label,index) in item.label" :key="label">{{label}}</text>
 							<view class="distance align_center">
 								<text class="red_tag">省</text>
 								<text class="red_font">{{item.difference}}元</text>
@@ -99,12 +99,13 @@
 					</block>
 				</view>
 			</view>
-			<my-loading v-if="activeList.length"></my-loading>
+			<my-loading :loading="loading"></my-loading>
 
 		</view>
 		<my-backtop bottom="10" :showTop="showTop"></my-backtop>
-		<uni-popup ref="popup" type="bottom">
-			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent"></my-keyboard>
+	
+		<uni-popup ref="popup" type="bottom" @maskInfo="closeKey">
+			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent" ref="keyboard"></my-keyboard>
 		</uni-popup>
 	</view>
 </template>
@@ -128,6 +129,7 @@
 				showTop: false,
 				kind: 0,
 				navBar: navBar,
+				loading:true,
 				pbId: '',
 				list: [],
 				activeList: [],
@@ -140,6 +142,9 @@
 			};
 		},
 		methods: {
+			closeKey(){
+				this.$refs.keyboard.cancel();
+			},
 			leftClick() {
 				uni.navigateBack({
 					delta: 1
@@ -155,9 +160,11 @@
 			selectStage(index) {
 				this.kind = index;
 				this.pbId = this.activeList[index].id;
+				this.loading=true;
 				this.panicBuylist();
 			},
 			panicBuylist() {
+				this.list=[];
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -181,6 +188,7 @@
 						this.config = data.data;
 						this.activeList = data.data.activeList;
 						this.list = data.data.goodsList;
+						this.loading=false;
 					}
 				});
 			},
@@ -245,6 +253,7 @@
 			}
 		},
 		onShow() {
+			this.loading=true;
 			this.panicBuylist();
 		},
 		onPageScroll(e) {

@@ -118,12 +118,13 @@
 			},
 			onClose() {
 				this.kind=0;
+				this.value=1;
+				this.isTop=false;
 				this.$emit('onClose')
 			},
 			showKey() {
 				this.isTop = true;
 				this.arrObj = this.cartware;
-				console.log(this.arrObj)
 			},
 			plus() {
 				this.value++;
@@ -135,8 +136,6 @@
 				}
 			},
 			toParent(e) {	
-				console.log(this.cartware);
-				// return;
 				if(this.cartware.attr.length){
 					if (this.cartware.attr[this.kind].is_float == 1 && !Number.isInteger(Number(e.val))) {
 						rs.Toast( '购买数量不能为小数');

@@ -18,6 +18,7 @@
 		props: ['tabarIndex'],
 		data() {
 			return {
+				count:0,
 				tabList: [{
 						title: '首页',
 						inImg: imgPath + 'index_gray.png',
@@ -53,6 +54,16 @@
 		},
 		methods: {
 			pageUrl(data) {
+				this.count++;
+				console.log(this.count);
+				if(this.count!=1)return;
+				setTimeout(()=>{
+					this.count=0;
+				},1000)
+				getApp().globalData.isReload = true;
+				if (this.tabarIndex != 1) {
+					getApp().globalData.classId = '';
+				}
 				if (!uni.getStorageSync("cdj_token")) {
 					if (data.title == "购物车") {
 						uni.navigateTo({
@@ -63,19 +74,11 @@
 							url: '/pages/account/login'
 						})
 					} else {
-						getApp().globalData.isReload = true;
-						if (this.tabarIndex != 1) {
-							getApp().globalData.classId = '';
-						}
 						uni.switchTab({
 							url: data.url
 						});
 					}
 				} else {
-					getApp().globalData.isReload = true;
-					if (this.tabarIndex != 1) {
-						getApp().globalData.classId = '';
-					}
 					uni.switchTab({
 						url: data.url
 					});

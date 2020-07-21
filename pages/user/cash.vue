@@ -18,7 +18,7 @@
 		</view>
 
 		<view class="" style="height:80rpx;"></view>
-		<view>
+		<view v-if="bitmap">
 			<view class="flex single_cash" v-for="(item, index) in list" :key="index" @click="detailPage(item.id)" :class="{cash2:item.coupons_status==2,cash1:item.coupons_status==1,cash3:item.coupons_status==3,cash4:item.coupons_status==4}">
 				<view class="price_cash">
 					<view class="color">余额</view>
@@ -50,9 +50,9 @@
 
 				</view>
 			</view>
-			<my-loading :loading="loading" v-if="list.length"></my-loading>
+			<my-loading :loading="loading" ></my-loading>
 		</view>
-		<view class="bitmap" v-if="bitmap">
+		<view class="bitmap" v-else>
 			<image src="../../static/img/no_record.png" mode="aspectFit"></image>
 		</view>
 	</view>
@@ -92,8 +92,8 @@
 				list: [],
 				page: 1,
 				num: 10,
-				bitmap: false,
-				loading: false,
+				bitmap: true,
+				loading: true,
 				// #ifdef MP-ALIPAY
 				activeTab: -1,
 				// #endif
@@ -125,9 +125,12 @@
 			},
 			myCash() {
 				var that = this;
+				
 				if (that.page != 1) {
 					return;
 				}
+				that.loading=true;
+				that.bitmap=true;
 				var timeStamp = Math.round(new Date().getTime() / 1000);
 				var {
 					num,
@@ -156,10 +159,10 @@
 						let list = data.data.list;
 						this.list = list;
 						if (list.length == 0) {
-							this.bitmap = true;
+							this.bitmap = false;
 							this.loading = '空';
 						} else {
-							this.bitmap = false;
+							this.bitmap = true;
 							if (list.length <10) {
 								this.loading = false;
 							}else{

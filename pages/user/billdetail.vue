@@ -6,8 +6,8 @@
 			<view style="color:#009a44;" v-if="moneyListInfo.pay_type==1">余额</view>
 			<view style="color:#52ca28;" v-if="moneyListInfo.pay_type==2">现金</view>
 			<view style="color:#02B1E4;" v-if="moneyListInfo.pay_type==3">转账</view>
-			<view class="ten gray_font">账单编号 : {{moneyListInfo.moneySn}}</view>
-			<view class="ten gray_font">账单创建时间 : {{moneyListInfo.date}}</view>
+			<view class="twelve gray_font">账单编号 : {{moneyListInfo.moneySn}}</view>
+			<view class="twelve gray_font">账单创建时间 : {{moneyListInfo.date}}</view>
 		</view>
 		<!-- 订单数量 -->
 		<view class="order_num">

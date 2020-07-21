@@ -4,7 +4,7 @@
     "my-profile": "/components/profile/index",
     "my-loading": "/components/loading/index",
     "uni-popup": "/components/uni-popup/uni-popup",
-    "my-addcart": "/components/addcart/index",
-    "my-keyboard": "/components/keyboard/index"
+    "my-keyboard": "/components/keyboard/index",
+    "my-addcart": "/components/addcart/index"
   }
 }

@@ -58,9 +58,13 @@
 		},
 		methods: {
 			leftClick() {
-				uni.navigateBack({
-					delta:1
-				})
+				
+				uni.hideKeyboard();
+				setTimeout(() => {
+					uni.navigateBack({
+						delta: 1
+					})
+				}, 300)
 			},
 			verifyResult(res) {
 				this.resultData = res;
