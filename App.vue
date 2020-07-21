@@ -146,7 +146,7 @@
 		width: 32rpx;
 		height: 32rpx;
 	}
-
+    .white_b{background: white;}
 	.status_bar {
 		/* background: white; */
 

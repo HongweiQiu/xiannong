@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- #ifdef APP-PLUS -->
-		<view class="status_bar white_b" >
+		<view class="status_bar white_b">
 			<!-- 这里是状态栏 -->
 		</view>
 		<!-- #endif -->

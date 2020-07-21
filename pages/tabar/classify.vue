@@ -186,6 +186,7 @@
 						this.firstCate = data.data.firstCate;
 						this.secondCate = data.data.secondCate;
 						this.list = data.data.list;
+					
 						if (data.data.list.length) {
 							this.loading = false;
 							this.bitmap=true;

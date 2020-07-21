@@ -149,7 +149,7 @@
 						// #ifdef MP-WEIXIN
 						uni.setStorageSync('is_miniBind', data.data.is_miniBind);
 						// #endif
-
+                        
 						uni.switchTab({
 							url: '/pages/tabar/index'
 						});

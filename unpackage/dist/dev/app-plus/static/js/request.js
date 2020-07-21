@@ -42,25 +42,23 @@ function getRequest(url, datas, success) {
 						uni.showToast({
 							title: res.data.msg,
 							icon: 'none',
-							duration: 2000,
+							duration: 1000,
 							success: function() {
 
 							}
 						})
 					}
 					if (res.data.code == 401) {
-						setTimeout(() => {
 							uni.navigateTo({
 								url: '/pages/account/login'
 							});
-						}, 2000)
 					}
 					if (res.data.code == 404) {
-						setTimeout(() => {
+					
 							uni.navigateTo({
 								url: '/pages/account/404'
 							});
-						}, 2000)
+						
 					}
 
 					uni.hideLoading();
@@ -98,20 +96,16 @@ function getRequests(url, datas, success) {
 			if (res.header.Authorization != undefined) {
 				uni.setStorageSync("cdj_token", res.header.Authorization)
 			}
-
 			if (res.data.code == 401) {
-				setTimeout(() => {
-					uni.navigateTo({
-						url: '/pages/account/login'
-					});
-				}, 2000)
+				uni.navigateTo({
+					url: '/pages/account/login'
+				});
 			}
 			if (res.data.code == 404) {
-				setTimeout(() => {
 					uni.navigateTo({
 						url: '/pages/account/404'
 					});
-				}, 2000)
+
 			}
 			if (res.data.code == 408) {
 				uni.navigateTo({
@@ -161,24 +155,24 @@ function postRequest(url, datas, success) {
 						uni.showToast({
 							title: res.data.msg,
 							icon: 'none',
-							duration: 2000,
+							duration: 1000,
 							success: function() {
 
 							}
 						})
 					}
 					if (res.data.code == 401) {
-						setTimeout(() => {
+						
 							uni.navigateTo({
 								url: '/pages/account/login'
 							});
-						}, 2000)
+					
 					}
 					if (res.data.code == 403) {
 						uni.showToast({
 							title: '账号已禁用',
 							icon: 'none',
-							duration: 2000,
+							duration: 1000,
 							success: function() {
 								uni.navigateTo({
 									url: '/pages/account/login'
@@ -187,11 +181,11 @@ function postRequest(url, datas, success) {
 						})
 					}
 					if (res.data.code == 404) {
-						setTimeout(() => {
+					
 							uni.navigateTo({
 								url: '/pages/account/404'
 							});
-						}, 2000)
+					
 					}
 					if (res.data.code == 408) {
 						uni.showToast({
@@ -234,11 +228,11 @@ function postRequests(url, datas, success) {
 				uni.setStorageSync("cdj_token", res.header.Authorization)
 			}
 			if (res.data.code == 401) {
-				setTimeout(() => {
+				
 					uni.navigateTo({
 						url: '/pages/account/login'
 					});
-				}, 2000)
+			
 			}
 		},
 		fail: res => {
@@ -266,6 +260,7 @@ function objKeySort(obj) { //排序的函数
 	return sz.substr(1); //返回排好序的新对象
 }
 
+
 function Toast(message) {
 	uni.showToast({
 		title: message,
@@ -273,11 +268,23 @@ function Toast(message) {
 		duration: 1000
 	})
 }
+function getLastDay(){
+    var current=new Date();
+    var currentMonth=current.getMonth();
+    var nextMonth=++currentMonth;
 
+    var nextMonthDayOne =new Date(current.getFullYear(),nextMonth,1);
+
+    var minusDate=1000*60*60*24;
+
+    return new Date(nextMonthDayOne.getTime()-minusDate);
+  }
 function thedefaulttime() { //购买记录默认时间
 	var date = new Date();
 	var year = date.getFullYear().toString();
 	var time = (date.getMonth() + 1).toString();
+	
+	
 	var month = '';
 	if (time < 10) {
 		month = "0" + time;
@@ -285,12 +292,13 @@ function thedefaulttime() { //购买记录默认时间
 		month = time;
 	}
 	var num = date.getDate().toString();
-	var day = '';
-	if (num < 10) {
-		day = "0" + num;
-	} else {
-		day = num;
-	}
+	var day =getLastDay().getDate();
+	
+	// if (num < 10) {
+	// 	day = "0" + num;
+	// } else {
+	// 	day = num;
+	// }
 	var start = year + '-' + month + '-01';
 	var end = year + '-' + month + '-' + day;
 	var dateArr = [start, end];

@@ -11,7 +11,7 @@
 		</view>
 		<!-- 订单数量 -->
 		<view class="order_num">
-			<view>订单数量 ({{moneyListInfo.list.length}})</view>
+			<view>订单数量 ({{num}})</view>
 			<view v-for="(item, index) in moneyListInfo.list" :key="index" class="twelve flex_left_right">
 				<text>订单编号 : {{item.order_sn}}</text>
 				<text class="red_font">¥{{item.totalPrice}}</text>
@@ -50,7 +50,8 @@
 		data() {
 			return {
 				navBar: navBar,
-				moneyListInfo: ''
+				moneyListInfo: '',
+				num:''
 			};
 		},
 		methods: {
@@ -77,7 +78,8 @@
 				}
 				rs.getRequests("moneyListInfo", data, (res) => {
 					if (res.data.code == 200) {
-						that.moneyListInfo = res.data.data
+						that.moneyListInfo = res.data.data;
+						that.num=res.data.data.list.length;
 					}
 				})
 			}
@@ -90,8 +92,8 @@
 		 */
 		onShow() {
 			getApp().globalData.isReload=false;
-			var that = this
-			that.moneyListInfoa()
+			var that = this;
+			that.moneyListInfoa();
 		},
 	};
 </script>

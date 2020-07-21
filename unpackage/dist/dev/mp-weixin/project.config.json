@@ -13,11 +13,7 @@
 		"coverView": true,
 		"autoAudits": false,
 		"showShadowRootInWxmlPanel": true,
-<<<<<<< HEAD
 		"scopeDataCheck": false,
-=======
-		"scopeDataCheck": true,
->>>>>>> 1d97a316a389e3eeb966a649a417e073488f46eb
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
@@ -26,17 +22,13 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-<<<<<<< HEAD
-		"useCompilerModule": false,
-=======
 		"useCompilerModule": true,
->>>>>>> 1d97a316a389e3eeb966a649a417e073488f46eb
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.9.2",
-	"appid": "wx4f24afa0c5d9be68",
-	"projectname": "test",
+	"appid": "wxaa1160b46149bd84",
+	"projectname": "菜东家",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {

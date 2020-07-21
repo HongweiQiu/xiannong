@@ -1,7 +1,7 @@
 <template>
 	<view class="user">
 		<!-- #ifdef APP-PLUS -->
-		<uni-status-bar></uni-status-bar>
+		<uni-status-bar style="background:#094 ;"></uni-status-bar>
 		<!-- #endif -->
 
 		<view class="flex_left_right author" v-if="is_child != 1" @click="myinfoPage">
@@ -554,10 +554,8 @@
 							}
 							rs.getRequests("logout", data, (res) => {
 								if (res.data.code == 200) {
-									uni.showToast({
-										title: "退出成功",
-										icon: 'none'
-									})
+									rs.Toast( "退出成功");
+									
 									setTimeout(function() {
 										uni.clearStorage({
 											success: function(reg) {
@@ -828,4 +826,5 @@
 		height: 50rpx;
 		margin-top: 500rpx;
 	}
+
 </style>
