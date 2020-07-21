@@ -1,5 +1,5 @@
 {
-    "name" : "",
+    "name" : "菜东家",
     "appid" : "__UNI__5EBDEB4",
     "description" : "",
     "versionName" : "1.0.0",
@@ -117,7 +117,7 @@
                 "maps" : {
                     "amap" : {
                         "appkey_ios" : "",
-                        "appkey_android" : "232673c057978f1b96c810895b44f465"
+                        "appkey_android" : "29cd2207d6c55840f9daaaa58c92997f"
                     }
                 },
                 "oauth" : {
@@ -133,7 +133,9 @@
                         "UniversalLinks" : ""
                     }
                 },
-                "ad" : {},
+                "ad" : {
+                    "360" : {}
+                },
                 "share" : {}
             }
         },
