@@ -335,6 +335,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
 var _parseHtml = _interopRequireDefault(__webpack_require__(/*! ../../static/js/parseHtml.js */ 31));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _createForOfIteratorHelper(o) {if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) {var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var it,normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 493));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _console =
@@ -356,6 +358,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
     return {
       display: true,
       scrollHeight: '',
+      newHeight: '',
       title: '',
       contact: '',
       mobile: '',
@@ -410,6 +413,16 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
 
   },
   methods: {
+    onFocus: function onFocus() {
+      if (uni.getSystemInfoSync().platform == 'ios') {
+        this.display = false;
+      }
+    },
+    onBlur: function onBlur() {
+      if (uni.getSystemInfoSync().platform == 'ios') {
+        this.display = true;
+      }
+    },
     closeCart: function closeCart() {
       this.$refs.addcart.onClose();
     },
@@ -505,11 +518,15 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
         var length = activity_rule.length - 1;
         if (activity_type == 1) {
           if (activity_rule[length].price <= totalPrice) {
-            _this2.reduce = (0, _parseHtml.default)("\u5DF2\u4EAB\u53D7\u6EE1<span style='color: #FF3E1E;'>".concat(activity_rule[length].price, "\u5143</span>\u51CF<span style='color: #FF3E1E;'>").concat(activity_rule[length].reduce, "\u5143<span>"));
+            _this2.reduce = (0, _parseHtml.default)("\u5DF2\u4EAB\u53D7\u6EE1<span style='color: #FF3E1E;'>".concat(
+            activity_rule[length].price, "\u5143</span>\u51CF<span style='color: #FF3E1E;'>").concat(activity_rule[length].reduce, "\u5143<span>"));
+
           } else {var _iterator = _createForOfIteratorHelper(
             activity_rule),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var _i = _step.value;
                 if (totalPrice < _i.price) {
-                  _this2.reduce = (0, _parseHtml.default)("\u518D\u6EE1<span style='color: #FF3E1E;'>".concat(_i.price - totalPrice, "\u5143</span>\u51CF<span style='color: #FF3E1E;'>").concat(_i.reduce, "\u5143</span>"));
+                  _this2.reduce = (0, _parseHtml.default)("\u518D\u6EE1<span style='color: #FF3E1E;'>".concat(
+                  _i.price - totalPrice, "\u5143</span>\u51CF<span style='color: #FF3E1E;'>").concat(_i.reduce, "\u5143</span>"));
+
                   return;
                 }
               }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
@@ -921,6 +938,24 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
     },
     onLoad: function onLoad() {
       uni.hideTabBar();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

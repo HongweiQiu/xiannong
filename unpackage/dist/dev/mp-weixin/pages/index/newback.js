@@ -201,7 +201,7 @@ app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.rootUrl,im
     uploadImg: function uploadImg() {
       var that = this;
       uni.chooseImage({
-        count: 3, // 默认9
+        count: 1, // 默认9
         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
         success: function success(res) {
@@ -237,6 +237,14 @@ app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.rootUrl,im
                 var img = JSON.parse(res.data);
                 if (img.code == 200) {
                   that.img.push(img.data);
+                } else if (img.code == 401) {
+                  _request.default.Toast('请先登录');
+                  setTimeout(function () {
+                    uni.navigateTo({
+                      url: '/pages/account/login' });
+
+                  }, 1000);
+
                 } else {
                   _request.default.Toast(img.msg);
                 }

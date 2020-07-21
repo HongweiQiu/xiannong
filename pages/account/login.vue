@@ -78,17 +78,25 @@
 				password: '',
 				scrollHeight: '',
 				newHeight: '',
-				count:0
+				count: 0
 			};
 		},
 		methods: {
+			showTabbar() {
+				this.tabbar = true;
+			},
+			hideTabbar() {
+				this.tabbar = false;
+			},
 
 			clickLeft() {
 				uni.hideKeyboard();
-				setTimeout(()=>{uni.switchTab({
-					url: '/pages/tabar/index'
-				});},300)
-				
+				setTimeout(() => {
+					uni.switchTab({
+						url: '/pages/tabar/index'
+					});
+				}, 300)
+
 			},
 			pageUrl(data) {
 				uni.hideKeyboard()
@@ -130,7 +138,7 @@
 					},
 					obj
 				);
-				
+
 				rs.postRequests('login', params, res => {
 					let data = res.data;
 					if (data.code == 200) {
@@ -149,10 +157,10 @@
 						// #ifdef MP-WEIXIN
 						uni.setStorageSync('is_miniBind', data.data.is_miniBind);
 						// #endif
-                        
-						uni.switchTab({
+                        setTimeout(()=>{	uni.switchTab({
 							url: '/pages/tabar/index'
-						});
+						});},1000)
+					
 					} else {
 						rs.Toast(data.msg);
 					}
@@ -218,9 +226,13 @@
 			// H5端微信登录
 			// #ifdef H5
 			wechatLogin() {
-               this.count++;
-			   if(this.count!=1){return}
-			   setTimeout(()=>{	this.count=0;},1000);
+				this.count++;
+				if (this.count != 1) {
+					return
+				}
+				setTimeout(() => {
+					this.count = 0;
+				}, 1000);
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -235,7 +247,7 @@
 					let {
 						data
 					} = res;
-				
+
 					if (data.code == 200) {
 
 						uni.setStorageSync('isWeixin', true)
@@ -316,23 +328,24 @@
 		onShow() {
 			this.display = true;
 			// #ifdef H5
-			this.scrollHeight = document.body.clientHeight;
-			uni.setStorageSync('scrollHeight', this.scrollHeight);
-			window.onresize = () => {
+			if (uni.getSystemInfoSync().platform === 'android') {
+				this.scrollHeight = document.body.clientHeight;
+				uni.setStorageSync('scrollHeight', this.scrollHeight);
+				window.onresize = () => {
 
-				if (this.scrollHeight < this.newHeight) {
-					window.location.reload();
-				}
-				this.newHeight = document.body.clientHeight;
-				if (this.newHeight && this.newHeight > this.scrollHeight) {
-					window.location.reload();
-				}
-				if (this.scrollHeight > this.newHeight) {
-					this.display = false;
-				} else {
-					this.display = true;
+					if (this.scrollHeight < this.newHeight) {
+						window.location.reload();
+					}
+					this.newHeight = document.body.clientHeight;
+					// window.location.reload();
+					if (this.scrollHeight > this.newHeight) {
+						this.display = false;
+					} else {
+						this.display = true;
+					}
 				}
 			}
+
 			// #endif
 			let timeStamp = Math.round(new Date().getTime() / 1000);
 			let obj = {

@@ -9694,6 +9694,14 @@ var render = function() {
                           "show-confirm-bar": "false",
                           _i: 49
                         },
+                        on: {
+                          focus: function($event) {
+                            return _vm.$handleViewEvent($event)
+                          },
+                          blur: function($event) {
+                            return _vm.$handleViewEvent($event)
+                          }
+                        },
                         model: {
                           value: _vm._$g(49, "v-model"),
                           callback: function($$v) {
@@ -10113,7 +10121,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.shopcart .cart_buy>uni-view {\n\t\tbackground: white;\n}\n.shopcart .cart_buy>uni-view:nth-child(n + 3) {\n\t\tmargin-top: 5px;\n}\n.shopcart .cart_buy .gray_font {\n\t\tdisplay: -webkit-box;\n\t\tdisplay: -webkit-flex;\n\t\tdisplay: flex;\n}\n.deliver_address {\n\t\tpadding: 10rpx 5rpx 10rpx 20rpx;\n}\n.deliver_address .nickname {\n\t\tfont-size: 40rpx;\n\t\tmargin-right: 10rpx;\n}\n.deliver_address .icon-jiantou {\n\t\tfont-size: 30rpx !important;\n\t\tcolor: #808080;\n}\n.deliver_address uni-image {\n\t\twidth: 38rpx;\n\t\theight: 38rpx;\n\t\tmargin-right: 10rpx;\n}\n.deliver_address .detail_address {\n\t\tdisplay: -webkit-box;\n\t\tdisplay: -webkit-flex;\n\t\tdisplay: flex;\n\t\t-webkit-box-pack: justify;\n\t\t-webkit-justify-content: space-between;\n\t\t        justify-content: space-between;\n\t\t-webkit-box-align: center;\n\t\t-webkit-align-items: center;\n\t\t        align-items: center;\n\t\tpadding: 5rpx 0;\n}\n.deliver_address .dizhi {\n\t\tdisplay: -webkit-box;\n\t\tdisplay: -webkit-flex;\n\t\tdisplay: flex;\n\t\t-webkit-box-align: center;\n\t\t-webkit-align-items: center;\n\t\t        align-items: center;\n}\n.deliver_address .dizhi uni-image {\n\t\twidth: 40rpx;\n\t\theight: 40rpx;\n}\n.order_time {\n\t\tpadding: 0 !important;\n\t\tbackground: #f8f6f9 !important;\n\t\theight: 60rpx;\n}\n.order_time uni-image {\n\t\twidth: 60rpx;\n\t\theight: 40rpx;\n}\n.select_info>uni-view,\n\t.price_info>uni-view {\n\t\tpadding: 0rpx 5rpx 0 20rpx;\n\t\tdisplay: -webkit-box;\n\t\tdisplay: -webkit-flex;\n\t\tdisplay: flex;\n\t\t-webkit-box-pack: justify;\n\t\t-webkit-justify-content: space-between;\n\t\t        justify-content: space-between;\n\t\theight: 68rpx;\n\t\tline-height: 58rpx;\n}\n.shopcart .remark {\n\t\tdisplay: -webkit-box;\n\t\tdisplay: -webkit-flex;\n\t\tdisplay: flex;\n\t\tpadding: 15rpx 20rpx !important;\n\t\theight: 100rpx;\n}\n.shopcart .remark .weight {\n\t\twidth: 70rpx;\n}\n.shopcart .remark .remark_note {\n\t\tmargin-right: 20rpx;\n\t\twidth: 100%;\n}\n.order_method .active_info {\n\t\t/* padding: 5rpx 20rpx; */\n\t\tpadding: 0 0 0 20rpx;\n\t\theight: 50rpx;\n\t\tbackground: rgba(173, 219, 140, 0.2);\n}\n.order_method .price_order {\n\t\theight: 90rpx;\n}\n.order_method .total_price {\n\t\tpadding-left: 20rpx;\n\t\twidth: 70%;\n}\n.order_method .total_price .count {\n\t\tdisplay: -webkit-box;\n\t\tdisplay: -webkit-flex;\n\t\tdisplay: flex;\n\t\t-webkit-box-orient: vertical;\n\t\t-webkit-box-direction: normal;\n\t\t-webkit-flex-direction: column;\n\t\t        flex-direction: column;\n\t\t-webkit-box-pack: center;\n\t\t-webkit-justify-content: center;\n\t\t        justify-content: center;\n}\n.order_method .determine {\n\t\theight: 100%;\n\t\tline-height: 90rpx;\n\t\tbackground: red;\n\t\tcolor: white;\n\t\twidth: 30%;\n\t\ttext-align: center;\n\t\tfont-size: 32rpx;\n}\n.order_method .gift_num {\n\t\tcolor: #009a44;\n\t\tfont-size: 20rpx;\n}\n.order_method .cart_num {\n\t\tmargin-right: 20rpx;\n}\n.order_method .real_price {\n\t\tcolor: #808080;\n\t\ttext-decoration: line-through;\n\t\tfont-size: 20rpx;\n\t\ttext-indent: 80rpx;\n}\n.order_method {\n\t\tposition: fixed;\n\t\tbottom: 50px;\n\t\twidth: 100%;\n}\n.null_cart .null_img {\n\t\tbackground: white;\n\t\ttext-align: center;\n\t\tpadding: 20% 0;\n}\n.null_cart .null_img uni-image {\n\t\twidth: 37%;\n\t\theight: 260rpx;\n}\n.margin_right {\n\t\tmargin-right: 10rpx;\n}\n\n\t/* .showNav .order_method{display: none;}\n\t.showNav .my_tabar{display: none;} */\n", ""]);
+exports.push([module.i, "\n.shopcart .cart_buy>uni-view {\n\tbackground: white;\n}\n.shopcart .cart_buy>uni-view:nth-child(n + 3) {\n\tmargin-top: 5px;\n}\n.shopcart .cart_buy .gray_font {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n}\n.deliver_address {\n\tpadding: 10rpx 5rpx 10rpx 20rpx;\n}\n.deliver_address .nickname {\n\tfont-size: 40rpx;\n\tmargin-right: 10rpx;\n}\n.deliver_address .icon-jiantou {\n\tfont-size: 30rpx !important;\n\tcolor: #808080;\n}\n.deliver_address uni-image {\n\twidth: 38rpx;\n\theight: 38rpx;\n\tmargin-right: 10rpx;\n}\n.deliver_address .detail_address {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t-webkit-justify-content: space-between;\n\t        justify-content: space-between;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\tpadding: 5rpx 0;\n}\n.deliver_address .dizhi {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n}\n.deliver_address .dizhi uni-image {\n\twidth: 40rpx;\n\theight: 40rpx;\n}\n.order_time {\n\tpadding: 0 !important;\n\tbackground: #f8f6f9 !important;\n\theight: 60rpx;\n}\n.order_time uni-image {\n\twidth: 60rpx;\n\theight: 40rpx;\n}\n.select_info>uni-view,\n.price_info>uni-view {\n\tpadding: 0rpx 5rpx 0 20rpx;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t-webkit-justify-content: space-between;\n\t        justify-content: space-between;\n\theight: 68rpx;\n\tline-height: 58rpx;\n}\n.shopcart .remark {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\tpadding: 15rpx 20rpx !important;\n\theight: 100rpx;\n}\n.shopcart .remark .weight {\n\twidth: 70rpx;\n}\n.shopcart .remark .remark_note {\n\tmargin-right: 20rpx;\n\twidth: 100%;\n}\n.order_method .active_info {\n\t/* padding: 5rpx 20rpx; */\n\tpadding: 0 0 0 20rpx;\n\theight: 50rpx;\n\tbackground: rgba(173, 219, 140, 0.2);\n}\n.order_method .price_order {\n\theight: 90rpx;\n}\n.order_method .total_price {\n\tpadding-left: 20rpx;\n\twidth: 70%;\n}\n.order_method .total_price .count {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: column;\n\t        flex-direction: column;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n}\n.order_method .determine {\n\theight: 100%;\n\tline-height: 90rpx;\n\tbackground: red;\n\tcolor: white;\n\twidth: 30%;\n\ttext-align: center;\n\tfont-size: 32rpx;\n}\n.order_method .gift_num {\n\tcolor: #009a44;\n\tfont-size: 20rpx;\n}\n.order_method .cart_num {\n\tmargin-right: 20rpx;\n}\n.order_method .real_price {\n\tcolor: #808080;\n\ttext-decoration: line-through;\n\tfont-size: 20rpx;\n\ttext-indent: 80rpx;\n}\n.order_method {\n\tposition: fixed;\n\tbottom: 50px;\n\twidth: 100%;\n}\n.null_cart .null_img {\n\tbackground: white;\n\ttext-align: center;\n\tpadding: 20% 0;\n}\n.null_cart .null_img uni-image {\n\twidth: 37%;\n\theight: 260rpx;\n}\n.margin_right {\n\tmargin-right: 10rpx;\n}\n\n/* .showNav .order_method{display: none;}\n.showNav .my_tabar{display: none;} */\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -10793,42 +10801,42 @@ var render = function() {
                     "v-uni-view",
                     { staticClass: _vm._$g(8, "sc"), attrs: { _i: 8 } },
                     [
-                      _vm._v("正在抢购"),
-                      _c("my-countdown", {
-                        staticStyle: { "line-height": "21px" },
-                        attrs: { _i: 9 }
-                      }),
-                      _vm._v("结束"),
                       _c(
                         "v-uni-view",
-                        { staticClass: _vm._$g(10, "sc"), attrs: { _i: 10 } },
+                        { staticClass: _vm._$g(9, "sc"), attrs: { _i: 9 } },
                         [
-                          _vm._$g(11, "i")
+                          _vm._$g(10, "i")
                             ? [
-                                _vm._$g(12, "i")
-                                  ? _c("v-uni-text", { attrs: { _i: 12 } }, [
+                                _vm._$g(11, "i")
+                                  ? _c("v-uni-text", { attrs: { _i: 11 } }, [
                                       _vm._v(
-                                        "剩余:" + _vm._$g(12, "t0-0") + "件"
+                                        "剩余:" + _vm._$g(11, "t0-0") + "件"
                                       )
                                     ])
-                                  : _c("v-uni-text", { attrs: { _i: 13 } }, [
+                                  : _c("v-uni-text", { attrs: { _i: 12 } }, [
                                       _vm._v("剩余:0件")
                                     ])
                               ]
                             : [
-                                _vm._$g(15, "i")
-                                  ? _c("v-uni-text", { attrs: { _i: 15 } }, [
+                                _vm._$g(14, "i")
+                                  ? _c("v-uni-text", { attrs: { _i: 14 } }, [
                                       _vm._v(
-                                        "剩余:" + _vm._$g(15, "t0-0") + "件"
+                                        "剩余:" + _vm._$g(14, "t0-0") + "件"
                                       )
                                     ])
-                                  : _c("v-uni-text", { attrs: { _i: 16 } }, [
+                                  : _c("v-uni-text", { attrs: { _i: 15 } }, [
                                       _vm._v("剩余:0件")
                                     ])
                               ]
                         ],
                         2
-                      )
+                      ),
+                      _vm._v("正在抢购"),
+                      _c("my-countdown", {
+                        staticStyle: { "line-height": "21px" },
+                        attrs: { _i: 16 }
+                      }),
+                      _vm._v("结束")
                     ],
                     1
                   )

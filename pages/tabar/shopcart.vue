@@ -83,13 +83,15 @@
 				<!-- 备注 -->
 				<view class="remark">
 					<text class="weight">备注</text>
-					<input placeholder="请告诉我们需要注意的地方"  v-model="remark"
-					 placeholder-style="font-size:28rpx;" class="twelve remark_note" show-confirm-bar=false />
+					<input placeholder="请告诉我们需要注意的地方" @focus="onFocus()" @blur="onBlur()" v-model="remark" placeholder-style="font-size:28rpx;" class="twelve remark_note"
+					 show-confirm-bar=false />
 				</view>
 				<!-- 下单 -->
 				<view class="order_method" v-if="display">
 					<view class="flex_left_right active_info" v-if="cartInfo.activity_type==1" @click="collectBill">
-						<view > <rich-text :nodes="reduce"></rich-text></view>
+						<view>
+							<rich-text :nodes="reduce"></rich-text>
+						</view>
 						<view class="red_font">
 							去凑单
 							<uni-icons type="arrowright" size="18" color="red"></uni-icons>
@@ -154,12 +156,12 @@
 				<my-loading :loading="loading"></my-loading>
 			</view>
 			<my-backtop bottom="60" :showTop="showTop"></my-backtop>
-		
+
 			<uni-popup ref="popup" type="bottom" @maskInfo="closeCart">
 				<my-addcart @onClose="onClose" :cartware="cartware" :config="config" ref="addcart"></my-addcart>
 			</uni-popup>
 		</view>
-		<my-tabar tabarIndex=2  v-if="display"></my-tabar>
+		<my-tabar tabarIndex=2 v-if="display"></my-tabar>
 	</view>
 </template>
 
@@ -185,7 +187,8 @@
 		data() {
 			return {
 				display: true,
-				scrollHeight:'',
+				scrollHeight: '',
+				newHeight: '',
 				title: '',
 				contact: '',
 				mobile: '',
@@ -224,7 +227,7 @@
 				sendDate: '',
 				startyear: '',
 				cartInfo: {
-					countNum:0
+					countNum: 0
 				},
 				reduce: '',
 				page: 1,
@@ -234,13 +237,23 @@
 				config: [],
 				cartware: [],
 				itemList: [],
-				remark:'',
-				gift:0,
-				count:0,
+				remark: '',
+				gift: 0,
+				count: 0,
 			};
 		},
 		methods: {
-			closeCart(){
+			onFocus(){
+				if(uni.getSystemInfoSync().platform == 'ios'){
+					this.display=false;
+				}
+			},
+			onBlur(){
+				if(uni.getSystemInfoSync().platform == 'ios'){
+					this.display=true;
+				}
+			},
+			closeCart() {
 				this.$refs.addcart.onClose();
 			},
 			shoplist() {
@@ -250,7 +263,7 @@
 			},
 			deliveryPage() {
 				uni.navigateTo({
-					url: '/pages/shopcart/delivery?childzid='+this.childzid
+					url: '/pages/shopcart/delivery?childzid=' + this.childzid
 				});
 			},
 			collectBill() {
@@ -307,7 +320,7 @@
 					this.contact = userInfo.contact;
 					this.mobile = userInfo.phone;
 					this.address = userInfo.address;
-					
+
 					// 判断购物车是否有数量
 					if (data.data.countNum == 0 && app.isReload == true) {
 						this.indexItem()
@@ -324,22 +337,26 @@
 						this.couponsList.push(...nrr);
 					}
 					// 满赠
-					if(activity_type==2){
-						if(data.data.fullPrice>=activity_rule[0].price){
-							this.gift=1
-						}else{
-							this.gift=0;
+					if (activity_type == 2) {
+						if (data.data.fullPrice >= activity_rule[0].price) {
+							this.gift = 1
+						} else {
+							this.gift = 0;
 						}
 					}
 					// 满减
 					let length = activity_rule.length - 1;
 					if (activity_type == 1) {
 						if (activity_rule[length].price <= totalPrice) {
-							this.reduce =parseHtml(`已享受满<span style='color: #FF3E1E;'>${activity_rule[length].price}元</span>减<span style='color: #FF3E1E;'>${activity_rule[length].reduce}元<span>`);
-								} else {
+							this.reduce = parseHtml(
+								`已享受满<span style='color: #FF3E1E;'>${activity_rule[length].price}元</span>减<span style='color: #FF3E1E;'>${activity_rule[length].reduce}元<span>`
+							);
+						} else {
 							for (let i of activity_rule) {
 								if (totalPrice < i.price) {
-									this.reduce =parseHtml(`再满<span style='color: #FF3E1E;'>${i.price - totalPrice}元</span>减<span style='color: #FF3E1E;'>${i.reduce}元</span>`);
+									this.reduce = parseHtml(
+										`再满<span style='color: #FF3E1E;'>${i.price - totalPrice}元</span>减<span style='color: #FF3E1E;'>${i.reduce}元</span>`
+									);
 									return;
 								}
 							}
@@ -421,21 +438,21 @@
 			},
 			//确认下单
 			confirmOrder() {
-				if(!this.contact||!this.mobile||!this.address){
+				if (!this.contact || !this.mobile || !this.address) {
 					rs.Toast('请先填写收货信息');
-					setTimeout(()=>{
+					setTimeout(() => {
 						uni.navigateTo({
-							url:'../shopcart/delivery'
+							url: '../shopcart/delivery'
 						})
-					},1000)
+					}, 1000)
 					return;
 				}
 				this.count++;
 				log(this.count)
-				if(this.count!=1)return;
-				setTimeout(()=>{
-					this.count=0;
-				},500)
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0;
+				}, 500)
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -548,13 +565,13 @@
 				var date = this.sendDate;
 				// way 1公众号 2App 3小程序 下单方式
 				// #ifdef H5
-				     let way=1;
+				let way = 1;
 				// #endif
 				// #ifdef APP-PLUS
-				     let way=2;
+				let way = 2;
 				// #endif
 				// #ifdef MP-WEIXIN
-				     let way=3;
+				let way = 3;
 				// #endif
 				let obj = {
 					appid: appid,
@@ -571,12 +588,12 @@
 						rs.Toast(res.data.msg)
 					} else {
 						rs.Toast('合拼订单成功');
-						setTimeout(()=>{
+						setTimeout(() => {
 							uni.switchTab({
 								url: '/pages/tabar/order',
 							})
-						},1000)
-						
+						}, 1000)
+
 					}
 				})
 			},
@@ -587,7 +604,7 @@
 				var select_zid = this.childzid;
 				var timearea = this.deliveryTime;
 				var timeId = this.deliveryId;
-				var remark = this.remark.replace(/\s/g,'');
+				var remark = this.remark.replace(/\s/g, '');
 				let timeInfo = '';
 				if (timearea == "不限") {
 					timeInfo = '';
@@ -595,13 +612,13 @@
 					timeInfo = timearea;
 				}
 				// #ifdef H5
-				     let way=1;
+				let way = 1;
 				// #endif
 				// #ifdef APP-PLUS
-				     let way=2;
+				let way = 2;
 				// #endif
 				// #ifdef MP-WEIXIN
-				     let way=3;
+				let way = 3;
 				// #endif
 				let obj = {
 					appid: appid,
@@ -635,25 +652,25 @@
 							return;
 						}
 						rs.Toast('下单成功');
-						setTimeout(()=>{
-						uni.switchTab({
-							url: '/pages/tabar/order',
-						})	
-						},1000)
-						
+						setTimeout(() => {
+							uni.switchTab({
+								url: '/pages/tabar/order',
+							})
+						}, 1000)
+
 					} else if (data.code == 500) {
 						rs.Toast('服务器内部错误,请稍候再试')
-					} else if(data.code==407){
+					} else if (data.code == 407) {
 						rs.Toast('超出活动限制,请删除部分商品');
-					}else{
+					} else {
 						rs.Toast(data.msg)
 					}
 				})
 			},
 			indexItem() {
-				this.itemList=[];
-				this.page=1;
-					this.loading = true;
+				this.itemList = [];
+				this.page = 1;
+				this.loading = true;
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -693,7 +710,7 @@
 			onClose() {
 				this.$refs.popup.close();
 			},
-			getSendTime(){
+			getSendTime() {
 				var date = new Date();
 				let n = date.getTime() + 24 * 3600000;
 				date.setTime(n);
@@ -707,67 +724,85 @@
 				if (day < 10) {
 					day = '0' + day;
 				}
-				this.sendDate = `${year}-${month}-${day}`;	
-		},
-		onShow() {
-			if (!uni.getStorageSync("cdj_token")) {
-				uni.navigateTo({
-					url: '/pages/account/login'
-				});
-				return;
-			} 
-			if (uni.getStorageSync("is_child") != 1) {
-				this.childInfo();
-			}
-			
-            this.getSendTime();
-			this.addInfo();
-			// #ifdef H5
-			this.scrollHeight=document.body.clientHeight;
-			// #endif
-			
-		},
-		onHide() {
-			this.childzid = '';
-			this.childList = [{
-				zid: '',
-				nickname: '当前账号'
-			}];
-			this.deliveryList = [{
-				delivery_time_id: '',
-				delivery_time_info: '不限'
-			}];
-			this.couponsList = [{
-				id: '',
-				txt: '不使用'
-			}];
-			this.deliveryId = '';
-			this.deliveryTime = '不限';
-			this.account = '当前账号';
-			this.cash = '不使用';
-			this.couponsId = '';
-			this.juanPrice = 0;
-			this.remark='';
-		},
-		onLoad() {
-			uni.hideTabBar();
-			// #ifdef H5
-			
-			window.onresize = () => {
-				
-			// 解决刷新底部会隐藏的问题
-				let newHeight=document.body.clientHeight;
-				if(this.scrollHeight==newHeight){
-					this.display=true;
-				}else{
-					this.display=false;
+				this.sendDate = `${year}-${month}-${day}`;
+			},
+			onShow() {
+				if (!uni.getStorageSync("cdj_token")) {
+					uni.navigateTo({
+						url: '/pages/account/login'
+					});
+					return;
 				}
-				
+				if (uni.getStorageSync("is_child") != 1) {
+					this.childInfo();
+				}
+
+				this.getSendTime();
+				this.addInfo();
+				// #ifdef H5
+				this.scrollHeight = document.body.clientHeight;
+				// #endif
+
+			},
+			onHide() {
+				this.childzid = '';
+				this.childList = [{
+					zid: '',
+					nickname: '当前账号'
+				}];
+				this.deliveryList = [{
+					delivery_time_id: '',
+					delivery_time_info: '不限'
+				}];
+				this.couponsList = [{
+					id: '',
+					txt: '不使用'
+				}];
+				this.deliveryId = '';
+				this.deliveryTime = '不限';
+				this.account = '当前账号';
+				this.cash = '不使用';
+				this.couponsId = '';
+				this.juanPrice = 0;
+				this.remark = '';
+			},
+			onLoad() {
+				uni.hideTabBar();
+				// #ifdef H5				
+				if (uni.getSystemInfoSync().platform === 'android') {
+					window.onresize = () => {
+						// 解决刷新底部会隐藏的问题
+						let newHeight = document.body.clientHeight;
+						if (this.scrollHeight == newHeight) {
+							this.display = true;
+						} else {
+							this.display = false;
+						}
+
+					}
+				}
+				// else if(uni.getSystemInfoSync().platform == 'ios'){
+					
+				// 	 uni.getSystemInfo({
+				// 	        success: (res)=> {
+				// 	            this.scrollHeight = res.windowHeight;
+				// 	        }
+				// 	    });
+				// 	    uni.onWindowResize((res) => {
+				// 	        if(res.size.windowHeight < this.scrollHeight){
+				// 	            this.display = false
+				// 	        }else{
+								
+				// 	            this.display = true
+				// 	        }
+				// 	    })
+				// }
+
+
+				// #endif
 			}
-			// #endif
-		}
 		},
-		
+
 		onReachBottom() {
 			//页面上拉触底事件的处理函数
 			var that = this;
@@ -899,19 +934,21 @@
 	.shopcart .remark .weight {
 		width: 70rpx;
 	}
+
 	.shopcart .remark .remark_note {
 		margin-right: 20rpx;
 		width: 100%;
-	
+
 	}
-/* #ifdef MP-ALIPAY */
+
+	/* #ifdef MP-ALIPAY */
 	.shopcart .remark .remark_note {
 		margin-right: 20rpx;
 		width: 100%;
 		height: 28rpx;
 	}
 
-/* #endif */
+	/* #endif */
 
 	.order_method .active_info {
 		/* padding: 5rpx 20rpx; */
