@@ -134,7 +134,13 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni, wx) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
 
 
 
@@ -252,14 +258,14 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecret = app.appsecret,isWeixin = app.isWeixin;var _default = { data: function data() {return { display: true, navBar: navBar, showWechat: false, logo: '', mobile: '', password: '', scrollHeight: '', newHeight: '', count: 0 };}, methods: { showTabbar: function showTabbar() {this.tabbar = true;}, hideTabbar: function hideTabbar() {this.tabbar = false;}, clickLeft: function clickLeft() {uni.hideKeyboard();setTimeout(function () {uni.switchTab({ url: '/pages/tabar/index' });}, 300);}, pageUrl: function pageUrl(data) {uni.hideKeyboard();setTimeout(function () {uni.navigateTo({ url: data });}, 300);}, // 手机登录
-    mobileLogin: function mobileLogin() {var mobile = this.mobile,password = this.password;var timeStamp = Math.round(new Date().getTime() / 1000);if (!mobile) {_request.default.Toast('手机号码不能为空，请输入手机号');return;}
-      if (!password) {
-        _request.default.Toast('密码不能为空，请输入密码');
-        return;
-      }
-      if (password.length < 6) {
-        _request.default.Toast('密码不能少于六位');
+    mobileLogin: function mobileLogin() {var mobile = this.mobile,password = this.password;var timeStamp = Math.round(new Date().getTime() / 1000);if (!mobile) {_request.default.Toast('手机号码不能为空，请输入手机号');return;}if (!password) {_request.default.Toast('密码不能为空，请输入密码');return;}if (password.length < 6) {_request.default.Toast('密码不能少于六位');
         return;
       }
       var obj = {
@@ -281,7 +287,7 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
           _request.default.Toast('登录成功，将跳转到首页');
           uni.setStorageSync('cdj_token', data.data.token);
           uni.setStorageSync('is_child', data.data.is_child);
-          console.log(data);
+          // console.log(data)
 
 
 
@@ -293,15 +299,21 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
 
 
 
-          setTimeout(function () {uni.switchTab({
+
+
+          uni.setStorageSync('is_miniBind', data.data.alipayBind);
+
+          setTimeout(function () {
+            uni.switchTab({
               url: '/pages/tabar/index' });
+
           }, 1000);
 
         } else {
           _request.default.Toast(data.msg);
         }
       });
-    }
+    },
 
     // app端微信登录
 
@@ -404,7 +416,6 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
 
 
     // 微信端微信登录
-  },
 
 
 
@@ -458,6 +469,80 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
 
 
 
+
+
+
+
+    // 支付宝
+
+    wechatLogin: function wechatLogin() {
+      console.log('alipay');
+      // my.getAuthCode({
+      //   scopes: 'auth_user', // 主动授权：auth_user，静默授权：auth_base。或者其它scope
+      //   success: (res) => {
+      // 	  console.log(res);
+      // 	  let timeStamp = Math.round(new Date().getTime() / 1000);
+      // 	  let obj = {
+      // 	  	appid: appid,
+      // 	  	timeStamp: timeStamp,
+      // 	  	code: res.authCode
+      // 	  };
+      // 	  let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+      // 	  let params = Object.assign({
+      // 	  	type: 'mini',
+      // 	  	sign: sign,
+      // 	  	code: res.authCode,
+      // 	  	loginType: 'alipay',
+      // 	  	// encryptedData: encryptedData,
+      // 	  	// iv: iv
+      // 	  }, obj);
+      // 	  rs.postRequests('wxLogin', params, (result) => {})
+      //   }})
+      //   return;
+      uni.login({
+        provider: 'alipay',
+        success: function success(res) {
+          console.log(res);
+          var timeStamp = Math.round(new Date().getTime() / 1000);
+          var obj = {
+            appid: appid,
+            timeStamp: timeStamp,
+            code: res.code };
+
+          var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+          var params = Object.assign({
+            type: 'mini',
+            sign: sign,
+            code: res.code,
+            loginType: 'alipay'
+            // encryptedData: encryptedData,
+            // iv: iv
+          }, obj);
+          _request.default.postRequests('wxLogin', params, function (result) {
+            var data = result.data;
+            if (data.code == 200) {
+              _request.default.Toast('登录成功，将跳转到首页');
+              wx.setStorageSync("cdj_token", data.data.token);
+              wx.setStorageSync("is_child", data.data.is_child);
+              wx.setStorageSync("is_miniBind", data.data.is_miniBind);
+              setTimeout(function () {
+                uni.switchTab({
+                  url: '../tabar/index' });
+
+              }, 1000);
+            } else if (data.code == 201) {
+              wx.navigateTo({
+                url: 'selectway?identifying=' + data.data.identifying });
+
+            } else {
+              _request.default.Toast(data.msg);
+            }
+          });
+        } });
+
+
+
+    } },
 
 
 
@@ -543,7 +628,7 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
 
 
   } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

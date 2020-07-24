@@ -323,6 +323,7 @@
 		onShow() {
 			this.token = uni.getStorageSync('cdj_token');
 			this.indexAd();
+			this.limitList();
 			if (app.isReload == true) {
 				this.page = 1;
 				uni.pageScrollTo({
@@ -331,7 +332,7 @@
 				});
 				this.indexItem();	
 			}
-			this.limitList();
+			
 		},
 		onLoad() {
 			uni.hideTabBar();

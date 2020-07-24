@@ -143,7 +143,6 @@ var _default =
 
 
 
-
   data: function data() {
     return {
       totaltime: this.time,

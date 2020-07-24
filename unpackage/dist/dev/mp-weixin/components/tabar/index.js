@@ -127,6 +127,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 var path = '/pages/tabar/',
 imgPath = '../../static/img/';var _default =
@@ -135,6 +136,7 @@ imgPath = '../../static/img/';var _default =
   data: function data() {
     return {
       count: 0,
+      masktabar: false,
       tabList: [{
         title: '首页',
         inImg: imgPath + 'index_gray.png',
@@ -170,12 +172,14 @@ imgPath = '../../static/img/';var _default =
   },
   methods: {
     pageUrl: function pageUrl(data) {var _this = this;
-      this.count++;
-      console.log(this.count);
-      if (this.count != 1) return;
-      setTimeout(function () {
-        _this.count = 0;
-      }, 1000);
+      // this.count++;
+      // console.log(this.count);
+      // if(this.count!=1)return;
+      // setTimeout(()=>{
+      // 	this.count=0;
+      // },500)
+      this.masktabar = true;
+      setTimeout(function () {_this.masktabar = false;}, 1000);
       getApp().globalData.isReload = true;
       if (this.tabarIndex != 1) {
         getApp().globalData.classId = '';

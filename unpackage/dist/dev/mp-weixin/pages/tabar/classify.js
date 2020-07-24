@@ -496,7 +496,7 @@ console,log = _console.log;var _default =
     });
   },
   onLoad: function onLoad(e) {
-    uni.hideTabBar();
+    // uni.hideTabBar();
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

@@ -193,6 +193,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
@@ -252,14 +258,14 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecret = app.appsecret,isWeixin = app.isWeixin;var _default = { data: function data() {return { display: true, navBar: navBar, showWechat: false, logo: '', mobile: '', password: '', scrollHeight: '', newHeight: '', count: 0 };}, methods: { showTabbar: function showTabbar() {this.tabbar = true;}, hideTabbar: function hideTabbar() {this.tabbar = false;}, clickLeft: function clickLeft() {uni.hideKeyboard();setTimeout(function () {uni.switchTab({ url: '/pages/tabar/index' });}, 300);}, pageUrl: function pageUrl(data) {uni.hideKeyboard();setTimeout(function () {uni.navigateTo({ url: data });}, 300);}, // 手机登录
-    mobileLogin: function mobileLogin() {var mobile = this.mobile,password = this.password;var timeStamp = Math.round(new Date().getTime() / 1000);if (!mobile) {_request.default.Toast('手机号码不能为空，请输入手机号');return;}
-      if (!password) {
-        _request.default.Toast('密码不能为空，请输入密码');
-        return;
-      }
-      if (password.length < 6) {
-        _request.default.Toast('密码不能少于六位');
+    mobileLogin: function mobileLogin() {var mobile = this.mobile,password = this.password;var timeStamp = Math.round(new Date().getTime() / 1000);if (!mobile) {_request.default.Toast('手机号码不能为空，请输入手机号');return;}if (!password) {_request.default.Toast('密码不能为空，请输入密码');return;}if (password.length < 6) {_request.default.Toast('密码不能少于六位');
         return;
       }
       var obj = {
@@ -281,7 +287,7 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
           _request.default.Toast('登录成功，将跳转到首页');
           uni.setStorageSync('cdj_token', data.data.token);
           uni.setStorageSync('is_child', data.data.is_child);
-          console.log(data);
+          // console.log(data)
 
 
 
@@ -293,8 +299,14 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
 
           uni.setStorageSync('is_miniBind', data.data.is_miniBind);
 
-          setTimeout(function () {uni.switchTab({
+
+
+
+
+          setTimeout(function () {
+            uni.switchTab({
               url: '/pages/tabar/index' });
+
           }, 1000);
 
         } else {
@@ -457,7 +469,80 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
 
         } });
 
-    } },
+    }
+
+
+
+    // 支付宝
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

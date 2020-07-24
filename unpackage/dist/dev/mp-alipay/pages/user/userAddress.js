@@ -310,7 +310,6 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
     this.lng = option.lng;
     var count = option.count || 1;
     if (count == 1) {
-      if (this)
       this.memberAddressInfo();
     }
   },

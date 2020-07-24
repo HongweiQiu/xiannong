@@ -413,16 +413,19 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
 
   },
   methods: {
-    onFocus: function onFocus() {
-      if (uni.getSystemInfoSync().platform == 'ios') {
-        this.display = false;
-      }
-    },
-    onBlur: function onBlur() {
-      if (uni.getSystemInfoSync().platform == 'ios') {
-        this.display = true;
-      }
-    },
+
+
+
+
+
+
+
+
+
+
+
+
+
     closeCart: function closeCart() {
       this.$refs.addcart.onClose();
     },
@@ -618,7 +621,6 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
         return;
       }
       this.count++;
-      log(this.count);
       if (this.count != 1) return;
       setTimeout(function () {
         _this4.count = 0;
@@ -797,7 +799,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
         way: way };
 
       var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-      console.log(this.cashId);
+      // console.log(this.cashId)
       var params = Object.assign({
         delivery_time_id: timeId,
         delivery_time_info: timeInfo,

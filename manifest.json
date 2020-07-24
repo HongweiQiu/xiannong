@@ -7,7 +7,7 @@
     "transformPx" : false,
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "wxaa1160b46149bd84",
+        "appid" : "wx4f24afa0c5d9be68",
         "setting" : {
             "urlCheck" : false,
             "es6" : true,
@@ -77,7 +77,8 @@
         "modules" : {
             "Maps" : {},
             "OAuth" : {},
-            "Payment" : {}
+            "Payment" : {},
+            "LivePusher" : {}
         },
         /* 应用发布信息 */
         "distribute" : {
@@ -144,7 +145,8 @@
     /* 快应用特有相关 */
     "quickapp" : {},
     "mp-alipay" : {
-        "usingComponents" : true
+        "usingComponents" : true,
+        "appid" : "2021001181695242"
     },
     "mp-baidu" : {
         "usingComponents" : true

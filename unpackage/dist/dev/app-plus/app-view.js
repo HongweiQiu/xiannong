@@ -4722,17 +4722,35 @@ var render = function() {
     "v-uni-view",
     { attrs: { _i: 0 } },
     [
-      _c("v-uni-view", { staticStyle: { height: "50px" }, attrs: { _i: 1 } }),
+      _c("v-uni-view", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm._$g(1, "v-show"),
+            expression: "_$g(1,'v-show')"
+          }
+        ],
+        staticStyle: {
+          position: "fixed",
+          width: "100vw",
+          height: "60px",
+          "z-index": "9999",
+          bottom: "0"
+        },
+        attrs: { _i: 1 }
+      }),
+      _c("v-uni-view", { staticStyle: { height: "60px" }, attrs: { _i: 2 } }),
       _c(
         "v-uni-view",
-        { staticClass: _vm._$g(2, "sc"), attrs: { _i: 2 } },
-        _vm._l(_vm._$g(3, "f"), function(item, index, $20, $30) {
+        { staticClass: _vm._$g(3, "sc"), attrs: { _i: 3 } },
+        _vm._l(_vm._$g(4, "f"), function(item, index, $20, $30) {
           return _c(
             "v-uni-view",
             {
               key: item,
-              staticClass: _vm._$g("3-" + $30, "sc"),
-              attrs: { _i: "3-" + $30 },
+              staticClass: _vm._$g("4-" + $30, "sc"),
+              attrs: { _i: "4-" + $30 },
               on: {
                 click: function($event) {
                   return _vm.$handleViewEvent($event)
@@ -4740,27 +4758,27 @@ var render = function() {
               }
             },
             [
-              _vm._$g("4-" + $30, "i")
+              _vm._$g("5-" + $30, "i")
                 ? _c("v-uni-image", {
-                    staticClass: _vm._$g("4-" + $30, "sc"),
-                    attrs: {
-                      src: _vm._$g("4-" + $30, "a-src"),
-                      mode: "aspectFit",
-                      _i: "4-" + $30
-                    }
-                  })
-                : _c("v-uni-image", {
                     staticClass: _vm._$g("5-" + $30, "sc"),
                     attrs: {
                       src: _vm._$g("5-" + $30, "a-src"),
                       mode: "aspectFit",
                       _i: "5-" + $30
                     }
+                  })
+                : _c("v-uni-image", {
+                    staticClass: _vm._$g("6-" + $30, "sc"),
+                    attrs: {
+                      src: _vm._$g("6-" + $30, "a-src"),
+                      mode: "aspectFit",
+                      _i: "6-" + $30
+                    }
                   }),
               _c(
                 "v-uni-text",
-                { class: _vm._$g("6-" + $30, "c"), attrs: { _i: "6-" + $30 } },
-                [_vm._v(_vm._$g("6-" + $30, "t0-0"))]
+                { class: _vm._$g("7-" + $30, "c"), attrs: { _i: "7-" + $30 } },
+                [_vm._v(_vm._$g("7-" + $30, "t0-0"))]
               )
             ],
             1
@@ -23083,8 +23101,9 @@ var render = function() {
               }
             },
             [
-              _c("v-uni-icon", {
-                attrs: { type: "search", size: "26rpx", _i: 4 }
+              _c("v-uni-text", {
+                staticClass: _vm._$g(4, "sc"),
+                attrs: { _i: 4 }
               }),
               _c("v-uni-text", { style: _vm._$g(5, "s"), attrs: { _i: 5 } }, [
                 _vm._v(_vm._$g(5, "t0-0"))
@@ -26662,7 +26681,7 @@ var render = function() {
               _c("v-uni-text", { attrs: { _i: 15 } }, [_vm._v("门牌号")]),
               _c("v-uni-input", {
                 attrs: {
-                  type: "number",
+                  type: "text",
                   placeholder: "例如：5号509室",
                   "placeholder-class": "place_style",
                   _i: 16

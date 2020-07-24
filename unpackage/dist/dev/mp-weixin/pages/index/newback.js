@@ -262,6 +262,7 @@ app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.rootUrl,im
       img),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var i = _step.value;
           path.push(i.path);
         }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
+      console.log(path);
       var contents = that.contents;
       var timeStamp = Math.round(new Date().getTime() / 1000);
 

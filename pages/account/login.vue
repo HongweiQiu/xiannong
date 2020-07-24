@@ -27,7 +27,7 @@
 				</view>
 			</view>
 			<!-- 微信登录 -->
-			<!-- #ifndef MP-ALIPAY -->
+
 			<view class="wechat_login" v-if="display">
 				<view class="">
 					<view class="divider gray_font">其他登录</view>
@@ -41,8 +41,14 @@
 							<image class="weixin_img" src="../../static/img/wechat.png" mode=""></image>
 						</button>
 						<!-- #endif -->
-
+						<!-- #ifdef MP-ALIPAY -->
+						<image class="weixin_img" src="../../static/img/alipay.png" mode="aspectFit"></image>
+						<text>支付宝登录</text>
+						<!-- #endif -->
+						<!-- #ifndef MP-ALIPAY -->
 						<text>微信登录</text>
+						<!-- #endif -->
+
 					</view>
 					<view class="read_treaty" @click="pageUrl('treaty')">
 						已阅读并同意
@@ -51,7 +57,7 @@
 				</view>
 			</view>
 
-			<!-- #endif -->
+
 		</view>
 	</view>
 </template>
@@ -157,10 +163,16 @@
 						// #ifdef MP-WEIXIN
 						uni.setStorageSync('is_miniBind', data.data.is_miniBind);
 						// #endif
-                        setTimeout(()=>{	uni.switchTab({
-							url: '/pages/tabar/index'
-						});},1000)
-					
+
+						// #ifdef MP-ALIPAY
+						uni.setStorageSync('is_miniBind', data.data.alipayBind);
+						// #endif
+						setTimeout(() => {
+							uni.switchTab({
+								url: '/pages/tabar/index'
+							});
+						}, 1000)
+
 					} else {
 						rs.Toast(data.msg);
 					}
@@ -321,6 +333,79 @@
 						})
 					}
 				})
+			}
+
+			// #endif
+
+			// 支付宝
+			// #ifdef MP-ALIPAY
+			wechatLogin() {
+				console.log('alipay');
+		// my.getAuthCode({
+		//   scopes: 'auth_user', // 主动授权：auth_user，静默授权：auth_base。或者其它scope
+		//   success: (res) => {
+		// 	  console.log(res);
+		// 	  let timeStamp = Math.round(new Date().getTime() / 1000);
+		// 	  let obj = {
+		// 	  	appid: appid,
+		// 	  	timeStamp: timeStamp,
+		// 	  	code: res.authCode
+		// 	  };
+		// 	  let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+		// 	  let params = Object.assign({
+		// 	  	type: 'mini',
+		// 	  	sign: sign,
+		// 	  	code: res.authCode,
+		// 	  	loginType: 'alipay',
+		// 	  	// encryptedData: encryptedData,
+		// 	  	// iv: iv
+		// 	  }, obj);
+		// 	  rs.postRequests('wxLogin', params, (result) => {})
+		//   }})
+		//   return;
+				uni.login({
+					provider: 'alipay',
+					success(res) {
+						console.log(res)
+						let timeStamp = Math.round(new Date().getTime() / 1000);
+						let obj = {
+							appid: appid,
+							timeStamp: timeStamp,
+							code: res.code
+						};
+						let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+						let params = Object.assign({
+							type: 'mini',
+							sign: sign,
+							code: res.code,
+							loginType: 'alipay',
+							// encryptedData: encryptedData,
+							// iv: iv
+						}, obj);
+						rs.postRequests('wxLogin', params, (result) => {
+							let data = result.data;
+							if (data.code == 200) {
+								rs.Toast('登录成功，将跳转到首页');
+								wx.setStorageSync("cdj_token", data.data.token);
+								wx.setStorageSync("is_child", data.data.is_child);
+								wx.setStorageSync("is_miniBind", data.data.is_miniBind);
+								setTimeout(function() {
+									uni.switchTab({
+										url: '../tabar/index'
+									})
+								}, 1000);
+							} else if (data.code == 201) {
+								wx.navigateTo({
+									url: 'selectway?identifying=' + data.data.identifying
+								})
+							} else {
+								rs.Toast(data.msg);
+							}
+						})
+					}
+
+				})
+
 			}
 
 			// #endif

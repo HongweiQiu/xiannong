@@ -117,9 +117,11 @@
 				if (!e.range.before || !e.range.after) {
 					rs.Toast("请选择正确的日期区间")
 				}else{
+					
 					let startDate=e.range.data[0];
 					let endDate=e.range.data[e.range.data.length-1];
 					this.date = startDate + ',' + endDate;
+					this.loading=true;
 					this.dateArr =  [startDate,endDate];
 					this.list = [];
 					this.moneyList()

@@ -214,6 +214,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       } else {
         this.date = e.range.before + ',' + e.range.after;
         this.dateArr = e.range.before + ',' + e.range.after;
+        this.loading = true;
         this.list = [];
         this.moneyList();
       }

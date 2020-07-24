@@ -20,7 +20,7 @@
 			</view>
 			<view>
 				<text>门牌号</text>
-				<input type="number" v-model="details" placeholder="例如：5号509室" placeholder-class="place_style" />
+				<input type="text" v-model="details" placeholder="例如：5号509室" placeholder-class="place_style" />
 			</view>
 		</view>
 		<view class="submit_button button_style" @click="submit">保存</view>
@@ -171,7 +171,6 @@
 			this.lng = option.lng;
 			let count = option.count || 1;
 			if (count == 1) {
-				if (this)
 					this.memberAddressInfo()
 			}
 		},

@@ -259,9 +259,11 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
       if (!e.range.before || !e.range.after) {
         _request.default.Toast("请选择正确的日期区间");
       } else {
+
         var startDate = e.range.data[0];
         var endDate = e.range.data[e.range.data.length - 1];
         this.date = startDate + ',' + endDate;
+        this.loading = true;
         this.dateArr = [startDate, endDate];
         this.list = [];
         this.moneyList();

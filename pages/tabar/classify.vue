@@ -328,7 +328,7 @@
 			})
 		},
 		onLoad(e) {
-			uni.hideTabBar();
+			// uni.hideTabBar();
 		}
 	};
 </script>

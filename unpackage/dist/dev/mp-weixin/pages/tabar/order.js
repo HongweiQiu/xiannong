@@ -518,7 +518,9 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         sign: sign };
 
       _request.default.postRequests("carPosition", data, function (res) {
-        setTimeout(function () {that.count = 0;}, 1000);
+        setTimeout(function () {
+          that.count = 0;
+        }, 1000);
         if (res.data.code == 200) {
           if (res.data.data != '') {
             var latitude = parseFloat(res.data.data.latitude);
@@ -537,11 +539,15 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
                 type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
                 success: function success(res) {
                   that.map = true;
+
                   var mapObj = that.bd_decrypt(longitude, latitude);
+
                   uni.openLocation({
                     latitude: mapObj.lat, // 纬度，范围为-90~90，负数表示南纬
-                    longitude: mapObj.lng // 经度，范围为-180~180，负数表示西经
-                  });
+                    longitude: mapObj.lng, // 经度，范围为-180~180，负数表示西经										
+                    name: ' ',
+                    address: '' });
+
                 } });
 
             }
@@ -785,7 +791,8 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       } else if (data == "全部订单") {
         this.type = 1;
       }
-      this.page = 1;this.lineShow = false;
+      this.page = 1;
+      this.lineShow = false;
       this.activeTab = 6;
       this.isActive = "全部";
       this.orderLista();

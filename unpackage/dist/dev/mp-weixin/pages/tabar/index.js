@@ -492,6 +492,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
   onShow: function onShow() {
     this.token = uni.getStorageSync('cdj_token');
     this.indexAd();
+    this.limitList();
     if (app.isReload == true) {
       this.page = 1;
       uni.pageScrollTo({
@@ -500,7 +501,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
 
       this.indexItem();
     }
-    this.limitList();
+
   },
   onLoad: function onLoad() {
     uni.hideTabBar();

@@ -1,6 +1,7 @@
 <template>
 	<view>
-		<view style="height:50px;"></view>
+		<view style="position: fixed;width:100vw;height:60px;z-index:9999;bottom: 0;" v-show="masktabar"></view>
+		<view style="height:60px;"></view>
 		<view class="my_tabar">
 			<view v-for="(item, index) in tabList" :key="index" class="single_tabar" @click="pageUrl(item)">
 				<image class="image" v-if="tabarIndex == index" :src="item.img" mode="aspectFit"></image>
@@ -18,7 +19,8 @@
 		props: ['tabarIndex'],
 		data() {
 			return {
-				count:0,
+				count: 0,
+				masktabar:false,
 				tabList: [{
 						title: '首页',
 						inImg: imgPath + 'index_gray.png',
@@ -54,12 +56,14 @@
 		},
 		methods: {
 			pageUrl(data) {
-				this.count++;
+				// this.count++;
 				// console.log(this.count);
-				if(this.count!=1)return;
-				setTimeout(()=>{
-					this.count=0;
-				},1000)
+				// if(this.count!=1)return;
+				// setTimeout(()=>{
+				// 	this.count=0;
+				// },500)
+				this.masktabar=true;
+				setTimeout(()=>{this.masktabar=false},1000)
 				getApp().globalData.isReload = true;
 				if (this.tabarIndex != 1) {
 					getApp().globalData.classId = '';

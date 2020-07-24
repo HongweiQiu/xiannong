@@ -173,7 +173,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 17));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
@@ -207,8 +206,8 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-//
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { date: '请选择日期', dateArr: '', bitmap: true, navBar: navBar, list: [], page: 1, loading: true };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, detailPage: function detailPage(id) {uni.navigateTo({ url: 'billdetail?id=' + id });}, openCalendar: function openCalendar() {this.$refs.calendar.open();},
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { date: '请选择日期', dateArr: '', bitmap: true, navBar: navBar, list: [], page: 1, loading: true };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, detailPage: function detailPage(id) {uni.navigateTo({ url: 'billdetail?id=' + id });}, openCalendar: function openCalendar() {this.$refs.calendar.open();
+    },
     confirm: function confirm(e) {
       if (!e.range.before || !e.range.after) {
         _request.default.Toast("请选择正确的日期区间");
