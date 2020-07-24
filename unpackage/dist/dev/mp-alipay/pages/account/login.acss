@@ -2,8 +2,11 @@
 page {
 	background: #fff;
 }
+.login {
 
-/* .login{position: fixed;width:100%;height:100%;} */
+	width: 100vw;
+	height: 100vh;
+}
 .logo_width {
 	text-align: center;
 	margin: 60rpx 0 80rpx;
@@ -60,7 +63,7 @@ page {
 	font-size: 35rpx;
 }
 .wechat_login {
-	position: fixed !important;
+	position: absolute;
 	z-index: 0;
 	bottom: 20rpx;
 	width: 100%;
@@ -135,6 +138,11 @@ page {
 	font-size: 28rpx;
 	color: #c2c2c2;
 }
-.login button{background: none;line-height: initial;}
-.login button::after{border: none;}
+.login button {
+	background: none;
+	line-height: initial;
+}
+.login button::after {
+	border: none;
+}
 

@@ -2407,9 +2407,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 17:
-/*!**********************************!*\
-  !*** E:/uniapp/static/js/md5.js ***!
-  \**********************************/
+/*!******************************************!*\
+  !*** E:/desktop/uniapp/static/js/md5.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -2633,9 +2633,9 @@ module.exports = {
 /***/ }),
 
 /***/ 18:
-/*!**************************************!*\
-  !*** E:/uniapp/static/js/request.js ***!
-  \**************************************/
+/*!**********************************************!*\
+  !*** E:/desktop/uniapp/static/js/request.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2690,18 +2690,16 @@ function getRequest(url, datas, _success) {
 
           }
           if (res.data.code == 401) {
-            setTimeout(function () {
-              uni.navigateTo({
-                url: '/pages/account/login' });
+            uni.navigateTo({
+              url: '/pages/account/login' });
 
-            }, 2000);
           }
           if (res.data.code == 404) {
-            setTimeout(function () {
-              uni.navigateTo({
-                url: '/pages/account/404' });
 
-            }, 1000);
+            uni.navigateTo({
+              url: '/pages/account/404' });
+
+
           }
 
           uni.hideLoading();
@@ -2739,20 +2737,16 @@ function getRequests(url, datas, _success2) {
       if (res.header.Authorization != undefined) {
         uni.setStorageSync("cdj_token", res.header.Authorization);
       }
-
       if (res.data.code == 401) {
-        setTimeout(function () {
-          uni.navigateTo({
-            url: '/pages/account/login' });
+        uni.navigateTo({
+          url: '/pages/account/login' });
 
-        }, 1000);
       }
       if (res.data.code == 404) {
-        setTimeout(function () {
-          uni.navigateTo({
-            url: '/pages/account/404' });
+        uni.navigateTo({
+          url: '/pages/account/404' });
 
-        }, 1000);
+
       }
       if (res.data.code == 408) {
         uni.navigateTo({
@@ -2809,11 +2803,11 @@ function postRequest(url, datas, _success3) {
 
           }
           if (res.data.code == 401) {
-            setTimeout(function () {
-              uni.navigateTo({
-                url: '/pages/account/login' });
 
-            }, 1000);
+            uni.navigateTo({
+              url: '/pages/account/login' });
+
+
           }
           if (res.data.code == 403) {
             uni.showToast({
@@ -2828,11 +2822,11 @@ function postRequest(url, datas, _success3) {
 
           }
           if (res.data.code == 404) {
-            setTimeout(function () {
-              uni.navigateTo({
-                url: '/pages/account/404' });
 
-            }, 1000);
+            uni.navigateTo({
+              url: '/pages/account/404' });
+
+
           }
           if (res.data.code == 408) {
             uni.showToast({
@@ -2875,11 +2869,11 @@ function postRequests(url, datas, _success4) {
         uni.setStorageSync("cdj_token", res.header.Authorization);
       }
       if (res.data.code == 401) {
-        setTimeout(function () {
-          uni.navigateTo({
-            url: '/pages/account/login' });
 
-        }, 1000);
+        uni.navigateTo({
+          url: '/pages/account/login' });
+
+
       }
     },
     fail: function fail(res) {
@@ -9014,9 +9008,9 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 27:
-/*!****************************************!*\
-  !*** E:/uniapp/static/js/parseHtml.js ***!
-  \****************************************/
+/*!************************************************!*\
+  !*** E:/desktop/uniapp/static/js/parseHtml.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9408,9 +9402,9 @@ module.exports = g;
 /***/ }),
 
 /***/ 4:
-/*!****************************!*\
-  !*** E:/uniapp/pages.json ***!
-  \****************************/
+/*!************************************!*\
+  !*** E:/desktop/uniapp/pages.json ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9418,15 +9412,15 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 413:
-/*!***********************************************!*\
-  !*** E:/uniapp/components/uni-popup/popup.js ***!
-  \***********************************************/
+/***/ 421:
+/*!*******************************************************!*\
+  !*** E:/desktop/uniapp/components/uni-popup/popup.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 414));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 422));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 // 定义 type 类型:弹出类型：top/bottom/center
 var config = {
   // 顶部弹出
@@ -9453,10 +9447,10 @@ var config = {
 
 /***/ }),
 
-/***/ 414:
-/*!*************************************************!*\
-  !*** E:/uniapp/components/uni-popup/message.js ***!
-  \*************************************************/
+/***/ 422:
+/*!*********************************************************!*\
+  !*** E:/desktop/uniapp/components/uni-popup/message.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9491,10 +9485,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 450:
-/*!***********************************************!*\
-  !*** E:/uniapp/components/uni-icons/icons.js ***!
-  \***********************************************/
+/***/ 458:
+/*!*******************************************************!*\
+  !*** E:/desktop/uniapp/components/uni-icons/icons.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9597,15 +9591,15 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 528:
-/*!*************************************************!*\
-  !*** E:/uniapp/components/uni-calendar/util.js ***!
-  \*************************************************/
+/***/ 536:
+/*!*********************************************************!*\
+  !*** E:/desktop/uniapp/components/uni-calendar/util.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 529));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 537));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
 
 Calendar = /*#__PURE__*/function () {
   function Calendar()
@@ -9960,10 +9954,10 @@ Calendar;exports.default = _default;
 
 /***/ }),
 
-/***/ 529:
-/*!*****************************************************!*\
-  !*** E:/uniapp/components/uni-calendar/calendar.js ***!
-  \*****************************************************/
+/***/ 537:
+/*!*************************************************************!*\
+  !*** E:/desktop/uniapp/components/uni-calendar/calendar.js ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

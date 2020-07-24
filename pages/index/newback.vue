@@ -126,6 +126,7 @@
 				for (let i of img) {
 					path.push(i.path)
 				}
+				console.log(path)
 				var contents = that.contents;
 				var timeStamp = Math.round(new Date().getTime() / 1000);
 

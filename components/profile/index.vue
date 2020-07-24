@@ -126,7 +126,7 @@
 						if (num <= 0) {
 							this.ware.cart_num = 0;
 						} else {
-							console.log(this.ware)
+							// console.log(this.ware)
 							this.ware.cart_num =num;
 						}
 					} else if (data.code == 407 || data.code == 406) {
@@ -144,7 +144,7 @@
 				}
 			},
 			plus(e) {
-				console.log(e)
+				// console.log(e)
 				this.addcart('changeNum', e);
 			},
 			plusCart() {

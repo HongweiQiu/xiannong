@@ -243,6 +243,7 @@
 			};
 		},
 		methods: {
+			// #ifdef H5
 			onFocus(){
 				if(uni.getSystemInfoSync().platform == 'ios'){
 					this.display=false;
@@ -253,6 +254,8 @@
 					this.display=true;
 				}
 			},
+			// #endif
+		
 			closeCart() {
 				this.$refs.addcart.onClose();
 			},
@@ -448,7 +451,6 @@
 					return;
 				}
 				this.count++;
-				log(this.count)
 				if (this.count != 1) return;
 				setTimeout(() => {
 					this.count = 0;
@@ -627,7 +629,7 @@
 					way: way
 				};
 				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				console.log(this.cashId)
+				// console.log(this.cashId)
 				let params = Object.assign({
 					delivery_time_id: timeId,
 					delivery_time_info: timeInfo,

@@ -8,7 +8,7 @@
 				<view class="select_account" @click="selectAccount" v-if="is_child != 1">
 					<view>选择子账号: </view>
 					<view>
-						 <text>{{childtxt}}</text>
+						<text>{{childtxt}}</text>
 						<uni-icons type="arrowright" size="18"></uni-icons>
 					</view>
 				</view>
@@ -18,11 +18,11 @@
 						<my-s-tab v-for="(item, index) of tabList" :key="index">{{ item.name }}</my-s-tab>
 					</my-s-tabs>
 					<!-- #endif -->
-					
+
 					<!-- #ifdef MP-ALIPAY -->
 					<my-o-tabs :tabList="tabList" :isShow="activeTab" @tab="tabClick"></my-o-tabs>
 					<!-- #endif -->
-					
+
 				</view>
 			</view>
 			<view class="order_statu" v-if="showOrderType">
@@ -111,7 +111,7 @@
 						<text class="confirm_good" v-if="item.order_status==2" @click="receiveOrder(item.id,index)">确认收货</text>
 					</view>
 				</view>
-				<my-loading :loading="load" ></my-loading>
+				<my-loading :loading="load"></my-loading>
 			</view>
 
 			<view class="bitmap" v-else>
@@ -130,7 +130,7 @@
 	import md5 from '../../static/js/md5.js';
 	import rs from '../../static/js/request.js';
 	import uniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar.vue';
-	const app = getApp().globalData; 
+	const app = getApp().globalData;
 	const {
 		appid,
 		appsecret,
@@ -164,7 +164,7 @@
 				activeTab: -1,
 				// #endif
 				activeTab: 1,
-				lineShow:false,
+				lineShow: false,
 				showOrderType: false,
 				childListProps: {
 					"label": "nickname",
@@ -181,7 +181,7 @@
 				type: 1,
 				search_default: true,
 				is_look: '',
-				count:0,
+				count: 0,
 				orderList: [],
 				orderInfo: '',
 				page: 1,
@@ -190,7 +190,7 @@
 		},
 		methods: {
 			// #ifdef MP-ALIPAY
-			tabClick(data){
+			tabClick(data) {
 				this.activeTab = data;
 				this.isActive = data;
 				this.page = 1;
@@ -235,7 +235,7 @@
 									if (that.orderList.length <= 0) {
 										that.orderLista()
 									}
-								}else{
+								} else {
 									uni.showToast({
 										title: res.data.msg,
 										icon: 'none'
@@ -247,17 +247,17 @@
 						}
 					}
 				});
-			
+
 			},
 			/**
 			 * 页面跳转
 			 */
 			//支付
 			play(data) {
-			  var oid = data;
-			  uni.navigateTo({
-			    url: '/pages/order/pay?oid=' + oid,
-			  })
+				var oid = data;
+				uni.navigateTo({
+					url: '/pages/order/pay?oid=' + oid,
+				})
 			},
 			orderDetailPage(url, item) {
 				if (url == 'orderDetail') {
@@ -265,12 +265,12 @@
 						url: '/pages/order/orderdetail?orderItem=' + item.id
 					})
 				} else if (url == 'user') {
-					rs.Toast( "还未绑定微信,请去我的页面绑定微信")
+					rs.Toast("还未绑定微信,请去我的页面绑定微信")
 					uni.navigateTo({
 						url: '/pages/tabar/user'
 					});
 				}
-			
+
 			},
 			/**
 			 * 取消订单
@@ -333,11 +333,11 @@
 			 * 查看物流
 			 */
 			ckwl(data) {
-				
+
 				var that = this;
 				that.count++;
 				console.log(that.count)
-				if(that.count!=1){
+				if (that.count != 1) {
 					return;
 				}
 				var id = data;
@@ -359,7 +359,9 @@
 					sign: sign,
 				}
 				rs.postRequests("carPosition", data, (res) => {
-					setTimeout(()=>{that.count=0;},1000)
+					setTimeout(() => {
+						that.count = 0;
+					}, 1000)
 					if (res.data.code == 200) {
 						if (res.data.data != '') {
 							var latitude = parseFloat(res.data.data.latitude);
@@ -369,19 +371,23 @@
 							} else {
 								// #ifdef H5
 								uni.navigateTo({
-									url: '/pages/order/address?data='+JSON.stringify(res.data.data)
+									url: '/pages/order/address?data=' + JSON.stringify(res.data.data)
 								});
+								return;
 								// #endif
-								
-								
+
 								uni.getLocation({
 									type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
 									success: function(res) {
 										that.map = true;
+
 										let mapObj = that.bd_decrypt(longitude, latitude);
+
 										uni.openLocation({
 											latitude: mapObj.lat, // 纬度，范围为-90~90，负数表示南纬
-											longitude: mapObj.lng, // 经度，范围为-180~180，负数表示西经
+											longitude: mapObj.lng, // 经度，范围为-180~180，负数表示西经										
+											name: ' ',
+											address: ''
 										})
 									}
 								})
@@ -390,7 +396,7 @@
 							rs.Toast("无物流信息")
 						}
 					} else {
-						rs.Toast( res.data.msg)
+						rs.Toast(res.data.msg)
 					}
 				})
 			},
@@ -406,7 +412,7 @@
 				return {
 					lng: gg_lng,
 					lat: gg_lat
-				} 
+				}
 			},
 			/**
 			 * 再来一单
@@ -447,7 +453,7 @@
 											url: '/pages/tabar/shopcart'
 										})
 									}, 1000);
-									
+
 								} else if (res.data.code == 102) {
 									uni.showToast({
 										title: "有下架商品",
@@ -509,7 +515,7 @@
 				var that = this;
 				that.orderList = [];
 				that.search_default = true;
-				
+
 				var page = that.page;
 				var type = that.type;
 				if (that.isActive != "全部") {
@@ -543,14 +549,14 @@
 							} else {
 								that.load = true;
 							}
-							
+
 							that.search_default = true;
 							that.is_look = res.data.data.is_look;
 							that.orderInfo = res.data.data;
 							that.orderList = res.data.data.list;
 							// console.log(res.data.orderInfo)
 						} else {
-							
+
 							that.search_default = false;
 							that.load = '空';
 						}
@@ -561,14 +567,14 @@
 				var that = this;
 				that.orderList = [];
 				that.search_default = true;
-				that.load=true;
+				that.load = true;
 				var select_zid = that.childzid;
 				if (that.isActive != "全部") {
 					var status = that.isActive + 1;
 				} else {
 					var status = '';
 				}
-				
+
 				var page = 1;
 				var type = that.type;
 				var num = 10
@@ -598,12 +604,12 @@
 							} else {
 								that.load = true;
 							}
-							that.search_default=true;
+							that.search_default = true;
 							that.is_look = res.data.data.is_look;
 							that.orderInfo = res.data.data;
 							that.orderList = res.data.data.list;
 						} else {
-							that.search_default =false;
+							that.search_default = false;
 							that.load = true;
 						}
 					}
@@ -626,9 +632,10 @@
 				} else if (data == "全部订单") {
 					this.type = 1;
 				}
-				this.page = 1;this.lineShow = false;
-						this.activeTab = 6;
-						this.isActive = "全部";
+				this.page = 1;
+				this.lineShow = false;
+				this.activeTab = 6;
+				this.isActive = "全部";
 				this.orderLista();
 			},
 			changeFirst(index) {
@@ -759,14 +766,17 @@
 		height: 65rpx;
 		padding-right: 18rpx;
 	}
-	.order .select_account text{
-		 color: grey;
-		 display: inline-block;
-		 margin-left:10rpx;
+
+	.order .select_account text {
+		color: grey;
+		display: inline-block;
+		margin-left: 10rpx;
 	}
-	.order .select_account .uni-icons{
-		 color: grey!important;
+
+	.order .select_account .uni-icons {
+		color: grey !important;
 	}
+
 	.order .account_info {
 		border-top: 10rpx solid #efefef;
 		background: white;
@@ -774,52 +784,63 @@
 		width: 100%;
 		z-index: 2;
 	}
+
 	.order .s-tabs-nav-wrap .s-tab-nav-view {
 		height: 100%;
 		display: flex;
 		justify-content: space-around;
 	}
+
 	.order .order_option {
 		border-top: 1px solid #efefef;
 		height: 60rpx;
 		line-height: 60rpx;
 		text-align: right;
 	}
+
 	.order .order_option text {
 		border-radius: 20rpx;
 		padding: 0 12rpx;
 		margin-left: 20rpx;
 		font-size: 24rpx;
 	}
+
 	.order .another_order {
 		background: rgb(173, 219, 140);
 		color: white;
 	}
+
 	.order .look_logist {
 		background: rgb(2, 177, 228);
 		color: white;
 	}
+
 	.order .cancel_order {
 		background: white;
 		color: rgb(128, 128, 128);
 		border: 1px solid rgb(128, 128, 128);
 	}
+
 	.confirm_good {
 		background: red;
 		color: white;
 		border: 1px solid red;
 	}
+
 	.order .order_top {}
+
 	.order .order_img {
 		width: 200rpx;
 		height: 160rpx;
 		margin-right: 20rpx;
 	}
+
 	.order .order_info .content>view:nth-last-child(n + 2) {
 		background: white;
 		margin-bottom: 10rpx;
 		padding: 0 20rpx;
 	}
+
 	.order .order_info .content .top {
 		display: flex;
 		justify-content: space-between;
@@ -827,10 +848,12 @@
 		padding-top: 5px;
 		padding-bottom: 5px;
 	}
+
 	.order .order_info .content .detail {
 		padding: 20rpx 0 20rpx 20rpx;
 		border-top: 1px solid #efefef;
 	}
+
 	.order .order_statu .mask {
 		position: fixed;
 		top: 0;
@@ -840,6 +863,7 @@
 		height: 100%;
 		background-color: rgba(0, 0, 0, .5);
 	}
+
 	.order .order_statu .operate {
 		margin-top: 10rpx;
 		padding: 2px 0 0;
@@ -851,23 +875,28 @@
 		background: #fff;
 		width: 25%;
 	}
+
 	.order .order_statu .operate>view {
 		height: 64rpx;
 		line-height: 64rpx;
 		text-align: center;
 	}
+
 	.order .order_statu .operate .all_order {
 		border-bottom: 1px solid #efefef;
 	}
+
 	.order .custom-tabs {
 		/deep/.s-tab-nav-view {
 			display: flex;
 			justify-content: space-between;
 		}
 	}
+
 	.order .bitmap {
 		text-align: center;
 	}
+
 	.order .bitmap image {
 		width: 400rpx;
 		height: 360rpx;

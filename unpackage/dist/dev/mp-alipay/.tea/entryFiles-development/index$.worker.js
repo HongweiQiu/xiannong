@@ -1,6 +1,6 @@
 if(!self.__appxInited) {
 self.__appxInited = 1;
-
+require('@alipay/appx-compiler/lib/sjsEnvInit');
 
 require('./config$');
 
@@ -25,14 +25,14 @@ if(AFAppX.registerApp) {
   });
 }
 
-
+if(AFAppX.compilerConfig){ AFAppX.compilerConfig.component2 = true; }
 
 function success() {
 require('../../app');
 require('../../components/search/index?hash=ec7c5687c7f2ffa836caf3a93e877914426baff6');
 require('../../components/uni-icons/uni-icons?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
 require('../../components/uni-notice-bar/uni-notice-bar?hash=993ca45dec9dcdb8f19451ba17e5ec831eb613a0');
-require('../../components/uni-countdown/uni-countdown?hash=ec7c5687c7f2ffa836caf3a93e877914426baff6');
+require('../../components/countdown/index?hash=ec7c5687c7f2ffa836caf3a93e877914426baff6');
 require('../../components/recomend/index?hash=ec7c5687c7f2ffa836caf3a93e877914426baff6');
 require('../../components/loading/index?hash=ec7c5687c7f2ffa836caf3a93e877914426baff6');
 require('../../components/backtop/index?hash=ec7c5687c7f2ffa836caf3a93e877914426baff6');
@@ -58,17 +58,17 @@ require('../../components/evan-switch/evan-switch?hash=ec7c5687c7f2ffa836caf3a93
 require('../../components/uni-calendar/uni-calendar-item?hash=ec7c5687c7f2ffa836caf3a93e877914426baff6');
 require('../../components/uni-calendar/uni-calendar?hash=39d75801fe65ecc7ad5149459f3065de50abed34');
 require('../../components/ling-imgcropper/ling-imgcropper?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
-require('../../pages/tabar/index?hash=0abcb2172516446e5a7319e19bf9b8980c2879f5');
-require('../../pages/tabar/classify?hash=519285a2f8c4635aaa6403b97a3012f667f94c16');
+require('../../pages/tabar/index?hash=9d83cc76fe675b276ef94da83281c54b524411ea');
+require('../../pages/tabar/classify?hash=e0d79acd02069d295fb22d94d4f5e0738675dcf6');
 require('../../pages/tabar/order?hash=bd9b3da773c286f71b376b0aa94694e07e98b04a');
 require('../../pages/tabar/shopcart?hash=6eca2f9916315b3ef9ce773baa4864d583787df5');
 require('../../pages/tabar/user?hash=a2403adf0f7c6b7b26a7e3f10e6c00f0d1d85d43');
-require('../../pages/index/shopdetail?hash=6e8212408bb33c91e16df49f34317ea69fa73d06');
-require('../../pages/index/collect?hash=d7e36fb516d517abe3d6d259b70597e44b703b60');
-require('../../pages/index/recommed?hash=d7e36fb516d517abe3d6d259b70597e44b703b60');
+require('../../pages/index/shopdetail?hash=267e48987bcc151c596a8c4192925cb8f734f127');
+require('../../pages/index/collect?hash=663e009ca7fc3ea6ba4a4d3a7de259929734ff70');
+require('../../pages/index/recommed?hash=663e009ca7fc3ea6ba4a4d3a7de259929734ff70');
 require('../../pages/index/newback?hash=57f163bfc0512e187bc203ae92656c7a1ba9e313');
-require('../../pages/index/search?hash=4d7a0f2ca25fb9a85c00767f231cc6a8ea9907c0');
-require('../../pages/index/flashsale?hash=c0921d817c1e48a85040c96831e28a0388d7206f');
+require('../../pages/index/search?hash=b13632eb1c655fa31d52083d9697951bda7e9260');
+require('../../pages/index/flashsale?hash=8bde98e999f6337f073f23a086a07d8741711372');
 require('../../pages/account/login?hash=57f163bfc0512e187bc203ae92656c7a1ba9e313');
 require('../../pages/account/selectway?hash=57f163bfc0512e187bc203ae92656c7a1ba9e313');
 require('../../pages/account/forget?hash=0cce962104fde57ac47ff85077293c14c4b7f935');
@@ -80,6 +80,7 @@ require('../../pages/account/404?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68')
 require('../../pages/order/orderdetail?hash=57f163bfc0512e187bc203ae92656c7a1ba9e313');
 require('../../pages/order/address?hash=57f163bfc0512e187bc203ae92656c7a1ba9e313');
 require('../../pages/order/pay?hash=57f163bfc0512e187bc203ae92656c7a1ba9e313');
+require('../../pages/order/fenjian?hash=57f163bfc0512e187bc203ae92656c7a1ba9e313');
 require('../../pages/shopcart/delivery?hash=f0d7a58cb04cc482c81bea1feee610d1e562034d');
 require('../../pages/shopcart/pay?hash=57f163bfc0512e187bc203ae92656c7a1ba9e313');
 require('../../pages/shopcart/address?hash=57f163bfc0512e187bc203ae92656c7a1ba9e313');

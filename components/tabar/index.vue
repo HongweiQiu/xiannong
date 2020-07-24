@@ -55,7 +55,7 @@
 		methods: {
 			pageUrl(data) {
 				this.count++;
-				console.log(this.count);
+				// console.log(this.count);
 				if(this.count!=1)return;
 				setTimeout(()=>{
 					this.count=0;

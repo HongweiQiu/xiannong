@@ -145,7 +145,7 @@
 						rs.Toast('登录成功，将跳转到首页');
 						uni.setStorageSync('cdj_token', data.data.token);
 						uni.setStorageSync('is_child', data.data.is_child);
-						console.log(data)
+						// console.log(data)
 						// #ifdef APP-PLUS
 						uni.setStorageSync('is_miniBind', data.data.is_appBind);
 						// #endif
@@ -198,7 +198,7 @@
 										uni.setStorageSync("cdj_token", data.data.token);
 										uni.setStorageSync("is_child", data.data.is_child);
 										uni.setStorageSync("is_miniBind", data.data.is_appBind);
-										console.log(data)
+										// console.log(data)
 										setTimeout(function() {
 											uni.switchTab({
 												url: '../tabar/index'

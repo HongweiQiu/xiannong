@@ -3,7 +3,8 @@
 		<uni-nav-bar left-icon="arrowleft" title="账单记录" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
 		<view class="search_style">
 			<view class="my_search_content" @click="openCalendar">
-				<icon type="search" size="26rpx" />
+				<!-- <icon type="search" size="26rpx" /> -->
+				<text class="iconfont icon-sousuo"></text>
 				<text :style="{'color':(date!='请选择日期'?'black':'#d6cdd2')}">{{date}}</text>
 			</view>
 		</view>
@@ -72,6 +73,7 @@
 				}else{
 					this.date = e.range.before + ',' + e.range.after;
 					this.dateArr = e.range.before + ',' + e.range.after;
+					this.loading=true;
 					this.list = [];
 					this.moneyList()
 				}

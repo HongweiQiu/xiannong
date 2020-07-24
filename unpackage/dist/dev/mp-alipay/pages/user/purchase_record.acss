@@ -23,8 +23,8 @@ page {
 }
 .bill .bill_record {
 		background: #FFFFFF;
-		padding: 10px 15px;
-		margin: 10px 0;
+		padding: 8rpx 20rpx;
+		margin: 10rpx 0;
 }
 .bill .bill_record .record_box {
 		display: -webkit-box;
