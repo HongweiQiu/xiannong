@@ -1,9 +1,10 @@
 <template>
 	<view>
 		<!-- #ifdef APP-PLUS -->
-		<view class="status_bar white_b">
+		<view class="status_bar white_b" style="position: fixed;z-index: 9999;">
 			<!-- 这里是状态栏 -->
 		</view>
+		<view class="status_bar white_b"></view>
 		<!-- #endif -->
 		<view class="shopcart" v-if="cartInfo.countNum!=0">
 			<view class="cart_buy">

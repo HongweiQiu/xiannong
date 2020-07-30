@@ -1,31 +1,31 @@
 <template>
 	<view class="invest_record">
-		<uni-nav-bar left-icon="arrowleft" title="充值信息" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
+		<uni-nav-bar left-icon="arrowleft" title="支付信息" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
 		<view class="tip">如出现下单端账号与支付账号不一样，请到个人中心更改绑定微信</view>
 		<view class="info">
 			<view>
 				<text>订单编号</text>
-				<text class="gray_font">{{payOrder.order_sn}}</text>
+				<text >{{payOrder.order_sn}}</text>
 			</view>
 			<view>
 				<text>配送时间</text>
-				<text class="gray_font">{{payOrder.send_time}}</text>
+				<text >{{payOrder.send_time}}</text>
 			</view>
 			<view>
 				<text>订单金额</text>
-				<text class="gray_font">{{payOrder.total_fee}}</text>
+				<text>￥{{payOrder.total_fee}}</text>
 			</view>
 			<view>
 				<text>我的余额</text>
-				<text class="gray_font">{{payOrder.myBalance}}</text>
+				<text class="red_font">￥{{payOrder.myBalance}}</text>
 			</view>
 			<view>
 				<text>余额支付</text>
-				<text class="gray_font">{{payOrder.payBalance}}</text>
+				<text class="red_font">￥{{payOrder.payBalance}}</text>
 			</view>
 			<view>
 				<text>微信支付</text>
-				<text class="gray_font">{{payOrder.payWx}}</text>
+				<text class="red_font">￥{{payOrder.payWx}}</text>
 			</view>
 		</view>
 		<view class="notice">

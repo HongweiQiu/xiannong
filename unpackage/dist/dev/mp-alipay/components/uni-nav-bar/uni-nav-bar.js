@@ -225,8 +225,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    onClickLeft: function onClickLeft() {
-      this.$emit("clickLeft");
+    onClickLeft: function onClickLeft() {var _this = this;
+      setTimeout(function () {_this.$emit("clickLeft");}, 300);
+
     },
     onClickRight: function onClickRight() {
       this.$emit("clickRight");

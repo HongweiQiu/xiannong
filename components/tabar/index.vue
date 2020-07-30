@@ -56,14 +56,11 @@
 		},
 		methods: {
 			pageUrl(data) {
-				// this.count++;
-				// console.log(this.count);
-				// if(this.count!=1)return;
-				// setTimeout(()=>{
-				// 	this.count=0;
-				// },500)
+				
+				// #ifdef MP-WEIXIN
 				this.masktabar=true;
-				setTimeout(()=>{this.masktabar=false},1000)
+				setTimeout(()=>{this.masktabar=false},2000)
+				// #endif
 				getApp().globalData.isReload = true;
 				if (this.tabarIndex != 1) {
 					getApp().globalData.classId = '';
@@ -78,14 +75,20 @@
 							url: '/pages/account/login'
 						})
 					} else {
+						
+						
 						uni.switchTab({
 							url: data.url
 						});
+						
 					}
 				} else {
+					
+					
 					uni.switchTab({
 						url: data.url
 					});
+					
 				}
 
 			}

@@ -405,7 +405,8 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       spec: '',
       nav: false,
       count: 0,
-      imgRemote: imgRemote };
+      imgRemote: imgRemote,
+      backClick: false };
 
   },
   methods: {
@@ -413,13 +414,19 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       this.$refs.keyboard.cancel();
     },
     leftClick: function leftClick() {
-      uni.navigateBack({
-        delta: 1 });
+      if (this.backClick) {
+        uni.navigateBack({
+          delta: 1 });
+
+      }
 
     },
     collecting: function collecting() {var _this = this;
       this.count++;
-      if (this.count != 1) {return;}
+      if (this.count != 1) return;
+      setTimeout(function () {
+        _this.count = 0;
+      }, 1000);
       var statu = this.ware.collect_status,
       status;
       if (statu == 2) {
@@ -443,7 +450,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       _request.default.getRequests('changeCollect', params, function (res) {
         var data = res.data;
         if (data.code == 200) {
-          _this.count = 0;
+          // this.count=0;
           _this.ware.collect_status = status;
           statu = status;
           if (statu == 1) {
@@ -509,7 +516,12 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       });
 
     },
-    detailPage: function detailPage(id) {
+    detailPage: function detailPage(id) {var _this3 = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {
+        _this3.count = 0;
+      }, 1000);
       uni.navigateTo({
         url: 'shopdetail?id=' + id });
 
@@ -545,7 +557,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       }
       this.value++;
     },
-    addCart: function addCart(cartUrl) {var _this3 = this;
+    addCart: function addCart(cartUrl) {var _this4 = this;
       if (this.spec) {
         if (this.attrspec.is_float == 1 && !Number.isInteger(Number(this.value))) {
           _request.default.Toast('购买数量不能为小数');
@@ -559,7 +571,9 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       }
       if (cartUrl == true) {
         this.count++;
-        if (this.count != 1) {return;}
+        if (this.count != 1) {
+          return;
+        }
       }
       var timeStamp = Math.round(new Date().getTime() / 1000);var
 
@@ -638,10 +652,10 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
             }} catch (err) {_iterator4.e(err);} finally {_iterator4.f();}
           uni.setStorageSync('search', newsearch);
 
-          if (_this3.spec) {
-            _this3.attrspec.cart_num = data.data.new_num;
+          if (_this4.spec) {
+            _this4.attrspec.cart_num = data.data.new_num;
           } else {
-            _this3.ware.cart_num = data.data.new_num;
+            _this4.ware.cart_num = data.data.new_num;
           }
           setTimeout(function () {
             if (cartUrl == true) {
@@ -672,7 +686,10 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
     //option为object类型，会序列化上个页面传递的参数
     this.id = option.id;
   },
-  onShow: function onShow() {
+  onShow: function onShow() {var _this5 = this;
+    setTimeout(function () {
+      _this5.backClick = true;
+    }, 500);
     this.getItem();
     getApp().globalData.isReload = false;
   },

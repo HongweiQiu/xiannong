@@ -8222,6 +8222,8 @@ function Toast(message) {
     duration: 1000 });
 
 }
+
+
 function getLastDay() {
   var current = new Date();
   var currentMonth = current.getMonth();
@@ -8233,6 +8235,7 @@ function getLastDay() {
 
   return new Date(nextMonthDayOne.getTime() - minusDate);
 }
+
 function thedefaulttime() {//购买记录默认时间
   var date = new Date();
   var year = date.getFullYear().toString();
@@ -10700,7 +10703,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": {}, "pages/tabar/classify": {}, "pages/tabar/order": {}, "pages/tabar/shopcart": {}, "pages/tabar/user": {}, "pages/index/shopdetail": {}, "pages/index/collect": {}, "pages/index/recommed": {}, "pages/index/newback": {}, "pages/index/search": {}, "pages/index/flashsale": {}, "pages/account/login": {}, "pages/account/selectway": {}, "pages/account/forget": {}, "pages/account/register": {}, "pages/account/service": {}, "pages/account/treaty": {}, "pages/account/bind": {}, "pages/account/404": {}, "pages/order/orderdetail": {}, "pages/order/address": {}, "pages/order/pay": {}, "pages/order/fenjian": {}, "pages/shopcart/delivery": {}, "pages/shopcart/pay": {}, "pages/shopcart/address": {}, "pages/shopcart/shoplist": {}, "pages/user/accountmange": {}, "pages/user/accountadd": {}, "pages/user/accountedit": {}, "pages/user/modifypwd": {}, "pages/user/receipt": {}, "pages/user/invest": {}, "pages/user/investlist": {}, "pages/user/investrecord": {}, "pages/user/bill": {}, "pages/user/billdetail": {}, "pages/user/cash": {}, "pages/user/cashdetail": {}, "pages/user/myinfo": {}, "pages/user/bindphone": {}, "pages/user/userAddress": {}, "pages/user/address": {}, "pages/user/purchase_detail": {}, "pages/user/purchase_record": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": {}, "pages/tabar/classify": {}, "pages/tabar/order": {}, "pages/tabar/shopcart": {}, "pages/tabar/user": {}, "pages/index/shopdetail": {}, "pages/index/collect": {}, "pages/index/recommed": {}, "pages/index/newback": {}, "pages/index/search": {}, "pages/index/flashsale": {}, "pages/account/login": {}, "pages/account/selectway": {}, "pages/account/forget": {}, "pages/account/register": {}, "pages/account/service": {}, "pages/account/treaty": {}, "pages/account/bind": {}, "pages/account/404": {}, "pages/order/orderdetail": {}, "pages/order/address": {}, "pages/order/pay": {}, "pages/order/fenjian": {}, "pages/shopcart/delivery": {}, "pages/shopcart/pay": {}, "pages/shopcart/address": {}, "pages/shopcart/shoplist": {}, "pages/user/accountmange": {}, "pages/user/accountadd": {}, "pages/user/accountedit": {}, "pages/user/modifypwd": {}, "pages/user/receipt": {}, "pages/user/invest": {}, "pages/user/investlist": {}, "pages/user/investrecord": {}, "pages/user/bill": {}, "pages/user/billdetail": {}, "pages/user/cash": {}, "pages/user/cashdetail": {}, "pages/user/myinfo": {}, "pages/user/bindphone": {}, "pages/user/userAddress": {}, "pages/user/address": {}, "pages/user/purchase_detail": {}, "pages/user/purchase_record": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "", "navigationBarBackgroundColor": "#F0F0F0", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 

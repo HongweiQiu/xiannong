@@ -5,8 +5,18 @@
 		<view class="all_account" v-if="!bitmap">
 			<view class="flex_left_right single" v-for="(item,index) in rechargeList" :key="index">
 				<view class="account_info">
-					<view>订单消费 : {{item.order_sn}}</view>
-					<view class="gray_font">消费时间 : {{item.date}}</view>
+
+					<view>
+						<text v-if="item.consume == 1&&item.type==1">订单消费：{{item.order_sn}}</text>
+						<text class="bottom " v-if="item.consume == 1&&item.type==3">后台提现：{{item.order_sn}}</text>
+						<text class="bottom " v-if="item.consume == 0&&item.type==1">前台充值：{{item.order_sn}}</text>
+						<text class="bottom " v-if="item.consume == 0&&item.type==2">后台充值：{{item.order_sn}}</text>
+					</view>
+					<view class="gray_font">
+						<text v-if="item.consume == 1&&item.type==1"> 消费时间：{{item.date}}</text>
+						<text class="gray" v-if="item.consume==0">充值时间：{{item.date}}</text>
+						<text class="gray" v-if="item.consume == 1&&item.type==3">提现时间：{{item.date}}</text>
+					</view>
 				</view>
 				<view v-if="item.consume == 1">-{{item.price}}</view>
 				<view v-if="item.consume == 0" class="red_font">+{{item.price}}</view>
@@ -16,7 +26,7 @@
 		<view v-else class="bitmap">
 			<image src="../../static/img/no_record.png" mode="aspectFit"></image>
 		</view>
-		
+
 	</view>
 </template>
 
@@ -35,9 +45,9 @@
 			return {
 				navBar: navBar,
 				bitmap: true,
-				page:1,
-				loading:true,
-				rechargeList:[],
+				page: 1,
+				loading: true,
+				rechargeList: [],
 			}
 		},
 		methods: {
@@ -50,28 +60,37 @@
 			 * 账单列表
 			 */
 			rechargeLista() {
-			  var that = this;
-			  var page = 1; 
-			  var num = 15;
-			  var timeStamp = Math.round(new Date().getTime() / 1000);
-			  var obj = { appid: appid, timeStamp: timeStamp, }
-			  var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-			  var data = { appid: appid, timeStamp: timeStamp, sign: sign, page: 1, num: 15 }
-			  rs.getRequests("rechargeList", data, (res) => {
-			    if (res.data.code == 200) {
-					if(res.data.data != ''){
-						that.rechargeList = res.data.data;
-						that.bitmap = false;
-						if(res.data.data.length<=10){
-							that.loading = false;
+				var that = this;
+				var page = 1;
+				var num = 15;
+				var timeStamp = Math.round(new Date().getTime() / 1000);
+				var obj = {
+					appid: appid,
+					timeStamp: timeStamp,
+				}
+				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				var data = {
+					appid: appid,
+					timeStamp: timeStamp,
+					sign: sign,
+					page: 1,
+					num: 15
+				}
+				rs.getRequests("rechargeList", data, (res) => {
+					if (res.data.code == 200) {
+						if (res.data.data != '') {
+							that.rechargeList = res.data.data;
+							that.bitmap = false;
+							if (res.data.data.length <= 10) {
+								that.loading = false;
+							}
+
+						} else {
+							that.loading = '空';
+							that.bitmap = true;
 						}
-						
-					}else{
-						that.loading = '空';
-						that.bitmap = true;
 					}
-			    }
-			  })
+				})
 			},
 		},
 		onShow() {
@@ -81,29 +100,38 @@
 		/**
 		 * 页面上拉触底事件的处理函数
 		 */
-		onReachBottom: function () {
-		  var that = this;
-		  var page = that.page;
-		  var num = 15;
-		  var timeStamp = Math.round(new Date().getTime() / 1000);
-		  var obj = { appid: appid, timeStamp: timeStamp, }
-		  var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-		  var data = { appid: appid, timeStamp: timeStamp, sign: sign, page:page+ 1, num: 15 }
-		  rs.getRequests("rechargeList", data, (res) => {
-		    if (res.data.code == 200) {
-				if(res.data.data != ''){
-					for(var i=0;i<res.data.data.length;i++){
-						that.rechargeList.push(res.data.data[i]);
+		onReachBottom: function() {
+			var that = this;
+			var page = that.page;
+			var num = 15;
+			var timeStamp = Math.round(new Date().getTime() / 1000);
+			var obj = {
+				appid: appid,
+				timeStamp: timeStamp,
+			}
+			var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+			var data = {
+				appid: appid,
+				timeStamp: timeStamp,
+				sign: sign,
+				page: page + 1,
+				num: 15
+			}
+			rs.getRequests("rechargeList", data, (res) => {
+				if (res.data.code == 200) {
+					if (res.data.data != '') {
+						for (var i = 0; i < res.data.data.length; i++) {
+							that.rechargeList.push(res.data.data[i]);
+						}
+						that.loading = true;
+						that.bitmap = false;
+						that.page = page + 1;
+					} else {
+						that.loading = false;
 					}
-					that.loading = true;
-					that.bitmap = false;
-					that.page = page+1;
-				}else{
-					that.loading = false;
 				}
-		    }
-		  })
-		
+			})
+
 		},
 	}
 </script>
@@ -133,11 +161,12 @@
 		height: 40rpx;
 		line-height: 40rpx;
 	}
+
 	.bitmap {
 		text-align: center;
 		margin-top: 20%;
 	}
-	
+
 	.bitmap image {
 		width: 50%;
 	}

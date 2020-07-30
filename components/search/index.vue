@@ -21,10 +21,17 @@
 <script>
 export default {
 	data() {
-		return {};
+		return {
+			count:0
+		};
 	},
 	methods:{
 		searchPage(){
+			this.count++;
+			if (this.count != 1) return;
+			setTimeout(() => {
+				this.count = 0
+			}, 1000)
 			uni.navigateTo({
 				url:"/pages/index/search"
 			})

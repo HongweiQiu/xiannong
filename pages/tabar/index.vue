@@ -34,8 +34,8 @@
 				<view class="title">
 					<view class="line_border"></view>
 					<text class="name">限时抢购</text>
+					<text v-if="activeConf.activity_status==0" style="margin-right: 10rpx;">距离开始</text>
 					<my-countdown :time="hours"></my-countdown>
-					<!-- <uni-countdown :hour="hours" :minute="minu" :second="second" :show-day="false" background-color="black"></uni-countdown> -->
 				</view>
 				<view class="align_center more">
 					更多
@@ -96,7 +96,7 @@
 			<!-- #ifndef H5 -->
 			由<text>菜东家</text>提供技术支持
 			<!-- #endif -->
-		
+
 			<!-- #ifdef H5 -->
 			<a :href="adList.copyright.caidj_url">由<text>菜东家</text>提供技术支持</a>
 			<!-- #endif -->
@@ -130,28 +130,32 @@
 				support: false,
 				showTop: false,
 				token: '',
-				load: true,
 				imgRemote: imgRemote,
 				speed: 30,
 				loading: true,
 				page: 1,
 				num: 10,
-				hours: 0,
-				minu: 0,
-				second: 0,
+				hours:1000,
 				adList: {},
 				activeList: {},
 				activeConf: {},
 				cartware: {},
 				config: {},
-				itemList: []
+				itemList: [],
+				count: 0
 			};
 		},
 		methods: {
-			closeCart(){
+			closeCart() {
 				this.$refs.addcart.onClose();
 			},
+			//导航页面
 			navUrl(e) {
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 1000)
 				let {
 					id,
 					cate_id,
@@ -219,6 +223,11 @@
 				this.$refs.popup.close();
 			},
 			newPage(url, id) {
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 1000)
 				if (id) {
 					uni.navigateTo({
 						url: `/pages/index/${url}?id=${id}`
@@ -250,7 +259,7 @@
 				});
 			},
 			indexItem() {
-					this.itemList = [];
+				this.itemList = [];
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -288,6 +297,7 @@
 			},
 			//限时抢购
 			limitList() {
+				this.hours=1000;
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -306,7 +316,6 @@
 							itemList,
 							timeRemain
 						} = data.data;
-
 						if (data.data.length != 0) {
 							this.showActive = true;
 						} else {
@@ -330,9 +339,9 @@
 					scrollTop: 0,
 					duration: 0
 				});
-				this.indexItem();	
+				this.indexItem();
 			}
-			
+
 		},
 		onLoad() {
 			uni.hideTabBar();
@@ -377,7 +386,7 @@
 		},
 		onPageScroll(e) {
 			if (e.scrollTop == 0) {
-            
+
 				this.showTop = false;
 			} else {
 				this.showTop = true;
@@ -532,7 +541,12 @@
 		width: 60rpx;
 		height: 20rpx;
 	}
+
 	/* #ifdef H5 */
-	a{text-decoration: none;color:gray;}
+	a {
+		text-decoration: none;
+		color: gray;
+	}
+
 	/* #endif */
 </style>

@@ -62,7 +62,8 @@
 				display1: true,
 				identifying: '',
 				scrollHeight: '',
-				resultData: {}
+				resultData: {},
+				count: 0
 			};
 		},
 		methods: {
@@ -77,6 +78,11 @@
 
 			},
 			pageUrl(data) {
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0;
+				}, 1000)
 				uni.hideKeyboard();
 				setTimeout(() => {
 					uni.navigateTo({
@@ -130,7 +136,7 @@
 
 				var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
 				if (!reg.test(this.mobile)) {
-					rs.Toast('不能输入特殊字符和空格',);
+					rs.Toast('不能输入特殊字符和空格', );
 					return;
 				}
 
@@ -176,7 +182,11 @@
 				this.resultData = {};
 			},
 			register() {
-
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0;
+				}, 1000)
 				if (!this.nickname) {
 					rs.Toast('单位名称不能为空');
 					return;
@@ -202,6 +212,7 @@
 					rs.Toast('请确保密码一致');
 					return;
 				}
+
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,

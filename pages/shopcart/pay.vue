@@ -64,7 +64,8 @@
 				id: '',
 				is_miniBind: uni.getStorageSync('is_miniBind'),
 				list: [],
-				isDisable: true
+				isDisable: true,
+				count: 0
 			};
 		},
 		methods: {
@@ -79,6 +80,11 @@
 				})
 			},
 			bindWechat() {
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 1000)
 				rs.Toast('该账号未绑定微信，请先绑定再来支付');
 				setTimeout(() => {
 					uni.switchTab({
@@ -177,7 +183,11 @@
 			// #endif
 			// #ifdef APP-PLUS
 			payOrder() {
-
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 1000)
 				let {
 					id
 				} = this;
@@ -198,7 +208,7 @@
 					} = res;
 
 					if (data.code == 200) {
-					
+
 						if (data.data.payType == 1) {
 							rs.Toast('支付成功');
 							uni.switchTab({
@@ -210,7 +220,7 @@
 							let {
 								wxParams
 							} = res.data.data;
-							log( res.data)
+							log(res.data)
 							uni.requestPayment({
 								provider: 'wxpay',
 								orderInfo: wxParams, //微信、支付宝订单数据
@@ -258,10 +268,12 @@
 					if (data.code == 200) {
 						if (data.data.payType == 1) {
 							rs.Toast('支付成功');
-							setTimeout(()=>{uni.switchTab({
-								url: '/pages/tabar/order',
-							})},1000)
-							
+							setTimeout(() => {
+								uni.switchTab({
+									url: '/pages/tabar/order',
+								})
+							}, 1000)
+
 						}
 						log(res.data.data.wxParams);
 						if (res.data.data.payType == 2) {
@@ -280,9 +292,11 @@
 								success: function(res) {
 									console.log('success:' + JSON.stringify(res));
 									rs.Toast('支付成功');
-									setTimeout(()=>{uni.switchTab({
-										url: '/pages/tabar/order',
-									})},1000)
+									setTimeout(() => {
+										uni.switchTab({
+											url: '/pages/tabar/order',
+										})
+									}, 1000)
 								},
 								fail: function(err) {
 									console.log(err)
@@ -316,11 +330,7 @@
 					if (data.code == 200) {
 						this.list = data.data
 					} else {
-						uni.showToast({
-							title: data.msg,
-							duration: 2000,
-							icon: "none"
-						});
+						rs.Toast(data.msg);
 					}
 
 				})

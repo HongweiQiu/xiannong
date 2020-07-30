@@ -69,7 +69,8 @@
 				nickname: '',
 				password:'',
 				confirmPwd:'',
-				imgPath:''
+				imgPath:'',
+				count:0
 			};
 		},
 		methods: {
@@ -104,6 +105,9 @@
 				});
 			},
 			bindPhonePage() {
+				this.count++;
+				if(this.count!=1)return;
+				setTimeout(()=>{this.count=0},1000)
 				uni.navigateTo({
 					url: 'bindphone'
 				})
@@ -183,6 +187,9 @@
 				})
 			},
 			formSubmit() {
+				this.count++;
+				if(this.count!=1)return;
+				setTimeout(()=>{this.count=0},1000)
 				var that = this;
 				if(that.memberInfoData.is_password==0){
 					if(!that.password){
@@ -198,6 +205,7 @@
 					  return;
 					}
 				}
+				
 				var nickname = that.nickname.replace(/\s+/g, "");
 				var timeStamp = Math.round(new Date().getTime() / 1000);
 				var obj = {

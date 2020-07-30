@@ -183,6 +183,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
@@ -226,7 +227,8 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, checked: false, status: '', childInfo: '', select_zid: '', longitude: '', latitude: '', save: true, password: '', count: '', hide: '' };}, methods: { leftClick: function leftClick() {this.hide = true;uni.navigateBack({ delta: 1 });}, urlPage: function urlPage() {
+//
+var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, checked: false, status: '', childInfo: '', select_zid: '', longitude: '', latitude: '', save: true, password: '', count: '', hide: '', clickcount: 0 };}, methods: { leftClick: function leftClick() {this.hide = true;uni.navigateBack({ delta: 1 });}, urlPage: function urlPage() {
       if (this.save == false) {
         uni.showModal({
           title: '放弃编辑',
@@ -362,7 +364,10 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
         }
       });
     },
-    formSubmit: function formSubmit(e) {
+    formSubmit: function formSubmit(e) {var _this = this;
+      this.clickcount++;
+      if (this.clickcount != 1) return;
+      setTimeout(function () {_this.clickcount = 0;}, 500);
       var that = this;
       var zid = that.select_zid;
       if (that.checked == false) {
@@ -453,7 +458,9 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
   },
   onHide: function onHide() {
     if (this.hide == true) {
-      uni.removeStorage({ key: 'amend' });
+      uni.removeStorage({
+        key: 'amend' });
+
     }
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

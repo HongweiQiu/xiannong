@@ -60,7 +60,8 @@
 				details: '',
 				longitude:'',
 				latitude:'',
-				hide:true
+				hide:true,
+				count:0
 			};
 		},
 		methods: {
@@ -124,7 +125,12 @@
 				}
 			},
 			formSubmit() {
-				var that = this
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 1000)
+				var that = this;
 				var nickname = that.nickname;
 				var contact = that.contact;
 				var mobile = that.mobile;

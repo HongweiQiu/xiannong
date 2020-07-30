@@ -51,6 +51,7 @@
 				number:'',
 				content:'',
 				price:'',
+				count:0
 			};
 		},
 		methods: {
@@ -60,6 +61,9 @@
 				});
 			},
 			formSubmit() {
+				this.count++;
+				if(this.count!=1)return;
+				setTimeout(()=>{this.count=0},1000)
 				var that = this;
 				var header = that.header;
 				var number = that.number;

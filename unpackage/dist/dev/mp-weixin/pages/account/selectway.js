@@ -164,13 +164,19 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecret = app.appsecret;var _default = { data: function data() {return { navBar: navBar, identifying: '' };}, methods: {
+var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecret = app.appsecret;var _default = { data: function data() {return { navBar: navBar, identifying: '', count: 0 };},
+  methods: {
     leftClick: function leftClick() {
       uni.navigateBack({
         delta: 1 });
 
     },
-    pageUrl: function pageUrl(url) {
+    pageUrl: function pageUrl(url) {var _this = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {
+        _this.count = 0;
+      }, 1000);
       var that = this;
       var data = that.identifying;
       uni.navigateTo({

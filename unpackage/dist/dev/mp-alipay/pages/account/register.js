@@ -206,7 +206,8 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
       display1: true,
       identifying: '',
       scrollHeight: '',
-      resultData: {} };
+      resultData: {},
+      count: 0 };
 
   },
   methods: {
@@ -319,7 +320,7 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
       /* 删除当前页面的数据 */
       this.resultData = {};
     },
-    register: function register() {
+    register: function register() {var _this2 = this;
 
       if (!this.nickname) {
         _request.default.Toast('单位名称不能为空');
@@ -346,6 +347,11 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
         _request.default.Toast('请确保密码一致');
         return;
       }
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {
+        _this2.count = 0;
+      }, 500);
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         appid: appid,

@@ -423,7 +423,17 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
           }} });}, /**
                     * 页面跳转
                     */ //支付
-    play: function play(data) {var oid = data;uni.navigateTo({ url: '/pages/order/pay?oid=' + oid });}, orderDetailPage: function orderDetailPage(url, item) {if (url == 'orderDetail') {uni.navigateTo({ url: '/pages/order/orderdetail?orderItem=' + item.id });} else if (url == 'user') {
+    play: function play(data) {var _this = this;this.count++;if (this.count != 1) return;setTimeout(function () {_this.count = 0;}, 1000);var oid = data;uni.navigateTo({ url: '/pages/order/pay?oid=' + oid });}, orderDetailPage: function orderDetailPage(url, item) {var _this2 = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {
+        _this2.count = 0;
+      }, 1000);
+      if (url == 'orderDetail') {
+        uni.navigateTo({
+          url: '/pages/order/orderdetail?orderItem=' + item.id });
+
+      } else if (url == 'user') {
         _request.default.Toast("还未绑定微信,请去我的页面绑定微信");
         uni.navigateTo({
           url: '/pages/tabar/user' });
@@ -492,14 +502,9 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         * 查看物流
         */
     ckwl: function ckwl(data) {
-
       var that = this;
-      that.count++;
-      console.log(that.count);
-      if (that.count != 1) {
-        return;
-      }
       var id = data;
+
       if (id <= 0) {
         _request.default.Toast("无物流信息");
         return;
@@ -518,9 +523,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         sign: sign };
 
       _request.default.postRequests("carPosition", data, function (res) {
-        setTimeout(function () {
-          that.count = 0;
-        }, 1000);
+
         if (res.data.code == 200) {
           if (res.data.data != '') {
             var latitude = parseFloat(res.data.data.latitude);
@@ -544,9 +547,12 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
 
                   uni.openLocation({
                     latitude: mapObj.lat, // 纬度，范围为-90~90，负数表示南纬
-                    longitude: mapObj.lng, // 经度，范围为-180~180，负数表示西经										
-                    name: ' ',
-                    address: '' });
+                    longitude: mapObj.lng // 经度，范围为-180~180，负数表示西经										
+                  });
+
+
+
+
 
                 } });
 
@@ -831,7 +837,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
 
     } else {
       var aShow = app.aData.show;
-      console.log(aShow);
+      // console.log(aShow)
       if (aShow == false) {
         that.orderList = [];
         that.childtxt = '当前账号';
@@ -839,6 +845,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         that.page = 1;
         that.type = 1;
         that.activeTab = 6;
+        this.load = true;
         this.lineShow = false;
         that.orderTitle = '全部订单';
         that.isActive = '全部';

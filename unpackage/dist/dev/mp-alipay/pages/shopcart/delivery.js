@@ -199,7 +199,8 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { address: '', contact: '', details: '', mobile: '', childzid: '', navBar: navBar, lat: '', lng: '' };}, methods: { leftClick: function leftClick() {uni.switchTab({ url: '../tabar/shopcart' });}, mapPage: function mapPage() {
+var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { address: '', contact: '', details: '', mobile: '', childzid: '', navBar: navBar, lat: '', lng: '', count: 0 };}, methods: { leftClick: function leftClick() {uni.switchTab({ url: '../tabar/shopcart' });},
+    mapPage: function mapPage() {
       var that = this;
 
 
@@ -255,6 +256,9 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
         _request.default.Toast('输入的信息不能含有特殊字符和空格');
         return;
       }
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {_this2.count = 0;}, 500);
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         appid: appid,
@@ -293,7 +297,7 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
     var count = option.count || 1;
     // console.log(option.count)
     if (count == 1) {
-      if (this)
+
       this.memberAddressInfo();
     }
   } };exports.default = _default;

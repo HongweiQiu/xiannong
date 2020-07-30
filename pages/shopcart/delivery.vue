@@ -51,7 +51,8 @@
 				childzid: '',
 				navBar: navBar,
 				lat: '',
-				lng: ''
+				lng: '',
+				count:0
 			};
 		},
 		methods: {
@@ -116,6 +117,9 @@
 					rs.Toast('输入的信息不能含有特殊字符和空格');
 					return;
 				}
+				this.count++;
+				if(this.count!=1)return;
+				setTimeout(()=>{this.count=0},500)
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -154,7 +158,7 @@
 			let count = option.count || 1;
 			// console.log(option.count)
 			if (count == 1) {
-				if (this)
+				
 					this.memberAddressInfo()
 			}
 		},

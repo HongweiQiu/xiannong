@@ -53,7 +53,8 @@
 				verify_code: '',
 				secret_str: '',
 				navBar: navBar,
-				back: true
+				back: true,
+				count:0
 			};
 		},
 		methods: {
@@ -153,6 +154,11 @@
 			},
 			//提交
 			forget() {
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 1000)
 				var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
 				if (!this.mobile) {
 					rs.Toast('手机号不能为空');

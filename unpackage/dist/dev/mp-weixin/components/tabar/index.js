@@ -172,14 +172,11 @@ imgPath = '../../static/img/';var _default =
   },
   methods: {
     pageUrl: function pageUrl(data) {var _this = this;
-      // this.count++;
-      // console.log(this.count);
-      // if(this.count!=1)return;
-      // setTimeout(()=>{
-      // 	this.count=0;
-      // },500)
+
+
       this.masktabar = true;
-      setTimeout(function () {_this.masktabar = false;}, 1000);
+      setTimeout(function () {_this.masktabar = false;}, 2000);
+
       getApp().globalData.isReload = true;
       if (this.tabarIndex != 1) {
         getApp().globalData.classId = '';
@@ -194,13 +191,19 @@ imgPath = '../../static/img/';var _default =
             url: '/pages/account/login' });
 
         } else {
+
+
           uni.switchTab({
             url: data.url });
 
+
         }
       } else {
+
+
         uni.switchTab({
           url: data.url });
+
 
       }
 

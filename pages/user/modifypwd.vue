@@ -36,7 +36,8 @@
 				old_pwd:'',  //旧密码
 				password:'',  //旧密码
 				password_confirmation:'',  //旧密码
-				navBar: navBar
+				navBar: navBar,
+				count:0
 			};
 		},
 		methods: {
@@ -65,6 +66,9 @@
 				  rs.Toast("密码不一致")
 				  return false;
 				}
+				this.count++;
+				if(this.count!=1)return;
+				setTimeout(()=>{this.count=0},500)
 				var data = { appid: appid, old_pwd: old_pwd, password: password, password_confirmation: password_confirmation, timeStamp: timeStamp, sign: sign, }
 				rs.postRequests("modifyPassword", data, (res) => {
 				  if (res.data.code == 200) {

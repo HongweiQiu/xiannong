@@ -254,12 +254,22 @@
 			 */
 			//支付
 			play(data) {
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 1000)
 				var oid = data;
 				uni.navigateTo({
 					url: '/pages/order/pay?oid=' + oid,
 				})
 			},
 			orderDetailPage(url, item) {
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 1000)
 				if (url == 'orderDetail') {
 					uni.navigateTo({
 						url: '/pages/order/orderdetail?orderItem=' + item.id
@@ -333,14 +343,9 @@
 			 * 查看物流
 			 */
 			ckwl(data) {
-
 				var that = this;
-				that.count++;
-				console.log(that.count)
-				if (that.count != 1) {
-					return;
-				}
 				var id = data;
+
 				if (id <= 0) {
 					rs.Toast("无物流信息")
 					return;
@@ -359,9 +364,7 @@
 					sign: sign,
 				}
 				rs.postRequests("carPosition", data, (res) => {
-					setTimeout(() => {
-						that.count = 0;
-					}, 1000)
+
 					if (res.data.code == 200) {
 						if (res.data.data != '') {
 							var latitude = parseFloat(res.data.data.latitude);
@@ -386,8 +389,11 @@
 										uni.openLocation({
 											latitude: mapObj.lat, // 纬度，范围为-90~90，负数表示南纬
 											longitude: mapObj.lng, // 经度，范围为-180~180，负数表示西经										
+											// #ifdef MP-ALIPAY
 											name: ' ',
 											address: ''
+											// #endif
+
 										})
 									}
 								})
@@ -512,7 +518,7 @@
 			},
 			//初始订单请求
 			orderListb() {
-				var that = this;
+				let that = this;
 				that.orderList = [];
 				that.search_default = true;
 
@@ -672,7 +678,7 @@
 				});
 			} else {
 				let aShow = app.aData.show;
-				console.log(aShow)
+				// console.log(aShow)
 				if (aShow == false) {
 					that.orderList = [];
 					that.childtxt = '当前账号';
@@ -680,6 +686,7 @@
 					that.page = 1;
 					that.type = 1;
 					that.activeTab = 6;
+					this.load = true;
 					this.lineShow = false;
 					that.orderTitle = '全部订单';
 					that.isActive = '全部';

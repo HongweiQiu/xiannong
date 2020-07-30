@@ -84,6 +84,7 @@
 				record:'',
 				list: [],
 				loading: true,
+				count:0
 			};
 		},
 		methods: {
@@ -93,6 +94,9 @@
 				});
 			},
 			billdetail(item_id,attr_id) {
+				this.count++;
+				if(this.count!=1)return;
+				setTimeout(()=>{this.count=0},1000)
 				var timeArr = rs.thedefaulttime();
 				var time = this.dateArr;
 				if (time == "") {

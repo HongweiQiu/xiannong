@@ -62,7 +62,7 @@
 					<uni-icons type="arrowright" size="18" color="black"></uni-icons>
 				</view>
 			</view>
-			<!-- #ifdef MP-WEIXIN -->
+			<!-- #ifdef MP-WEIXIN | MP-ALIPAY -->
 
 			<view v-if="is_child != 1&&token">
 				<button open-type="share" class="flex_left_right" v-if="token">
@@ -187,9 +187,18 @@
 						url: 'bindWeChat'
 					}
 					// #endif
+					// #ifdef MP-ALIPAY
+					{
+						icon: 'icon-zhifubaorenzheng',
+						name: uni.getStorageSync('is_miniBind') == 0 ? '绑定支付宝' : '改绑支付宝',
+						color: '#1296db',
+						url: 'bindWeChat'
+					}
+					// #endif
 
 
 				],
+				count: 0,
 				is_bind: '',
 				is_child: '',
 				token: '',
@@ -197,7 +206,7 @@
 				memberInfoData: '',
 				member_default: '',
 				code: '',
-				shareInfo:[],
+				shareInfo: [],
 				// #ifdef H5
 				userinfo: '',
 				// #endif
@@ -274,6 +283,11 @@
 				})
 			},
 			myinfoPage() {
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 500)
 				if (!this.token) {
 					uni.navigateTo({
 						url: '/pages/account/login'
@@ -286,6 +300,11 @@
 
 			},
 			pageUrl(item) {
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 500)
 				if (this.token) {
 					if (item.url == 'bindWeChat') {
 
@@ -299,6 +318,10 @@
 
 						// #ifdef MP-WEIXIN
 						this.wxbindWeChat()
+						// #endif
+
+						// #ifdef MP-ALIPAY
+						this.alipayBind()
 						// #endif
 
 					} else {
@@ -380,8 +403,7 @@
 								}
 							})
 						}, 1000);
-						// uni.setStorageSync('is_miniBind', 1)
-						// that.is_bind = uni.getStorageSync("is_miniBind")
+
 					} else {
 						rs.Toast(res.data.msg)
 					}
@@ -416,6 +438,74 @@
 					}
 				});
 			},
+			//支付宝
+			alipayBind(e) {
+				console.log("小程序绑定")
+				var that = this;
+				uni.showModal({
+					content: this.is_bind == 1 ? '是否改绑支付宝' : '是否绑定支付宝',
+					cancelText: "我再想想",
+					cancelColor: "#999",
+					confirmText: "确认",
+					confirmColor: "#009a44",
+					success: function(res) {
+						if (res.confirm) {
+							uni.getUserInfo({
+								provider: 'alipay',
+								success(infoRes) {
+									console.log(infoRes);
+									uni.login({
+										provider: 'alipay',
+										success(res) {
+											console.log(res.code)
+											that.alipayBinda(res.code, infoRes.avatar)
+										}
+
+									})
+								}
+							})
+						} else if (res.cancel) {
+							// console.log('用户点击取消');
+						}
+					}
+				});
+
+			},
+			alipayBinda(code, img) {
+				var that = this;
+				var timeStamp = Math.round(new Date().getTime() / 1000);
+				var obj = {
+					appid: appid,
+					code: code,
+					timeStamp: timeStamp,
+					headimgurl: img
+				}
+				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				var data = Object.assign({
+					loginType: "alipay",
+					type: "mini",
+					sign: sign
+				}, obj)
+
+				rs.postRequests("bindWeChat", data, (res) => {
+					if (res.data.code == 200) {
+						rs.Toast('绑定支付宝成功');
+						setTimeout(function() {
+							uni.clearStorage({
+								success: function(reg) {
+									uni.navigateTo({
+										url: '/pages/account/login'
+									});
+								}
+							})
+						}, 1000);
+
+					} else {
+						rs.Toast(res.data.msg)
+					}
+				})
+			},
+
 			//APP绑定
 			bindWeChat() {
 				console.log("APP绑定")
@@ -480,7 +570,7 @@
 							rs.postRequests("saveMemberInfo", data, (res) => {
 								// console.log(res)
 								if (res.data.code == 200) {
-									rs.Toast('绑定微信成功,')
+									rs.Toast('绑定微信成功')
 									setTimeout(function() {
 										uni.clearStorage({
 											success: function(reg) {
@@ -503,6 +593,11 @@
 				});
 			},
 			threePage(data) {
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 500)
 				if (this.token) {
 					switch (data) {
 						case 'recomend':
@@ -554,8 +649,8 @@
 							}
 							rs.getRequests("logout", data, (res) => {
 								if (res.data.code == 200) {
-									rs.Toast( "退出成功");
-									
+									rs.Toast("退出成功");
+
 									setTimeout(function() {
 										uni.clearStorage({
 											success: function(reg) {
@@ -635,12 +730,12 @@
 				sign: sign,
 			}
 			rs.getRequests("shareConfig", data, (res) => {
-				if(res.data.code==200){
-					that.shareInfo=res.data.data;
-				
+				if (res.data.code == 200) {
+					that.shareInfo = res.data.data;
+
 				}
 			})
-			
+
 			//H5
 			// #ifdef H5
 			that.wxConfig();
@@ -688,10 +783,10 @@
 		},
 		// 分享
 		onShareAppMessage() {
-					let path=this.shareInfo.share_href;	
+			let path = this.shareInfo.share_href;
 			return {
 				"imageUrl": this.shareInfo.share_img, //分享时所带的图片路径
-				"path": path.substring(path.indexOf('#')+1), //分享附带链接地址
+				"path": path.substring(path.indexOf('#') + 1), //分享附带链接地址
 				"desc": this.shareInfo.share_describe, //分享内容介绍
 				"title": this.shareInfo.share_title
 			}
@@ -793,6 +888,7 @@
 		padding: 0;
 		background: none;
 		font-size: 28rpx;
+		border: none;
 	}
 
 	.user button::after {
@@ -826,5 +922,4 @@
 		height: 50rpx;
 		margin-top: 500rpx;
 	}
-
 </style>

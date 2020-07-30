@@ -103,7 +103,8 @@
         },
 		methods: {
 			onClickLeft() {
-				this.$emit("clickLeft");
+				setTimeout(()=>{this.$emit("clickLeft");},300)
+				
 			},
 			onClickRight() {
 				this.$emit("clickRight");

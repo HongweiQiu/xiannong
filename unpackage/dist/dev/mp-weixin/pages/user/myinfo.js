@@ -223,7 +223,8 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var ImageCropper = function ImageCropper() {__webpack_require__.e(/*! require.ensure | components/ling-imgcropper/ling-imgcropper */ "components/ling-imgcropper/ling-imgcropper").then((function () {return resolve(__webpack_require__(/*! @/components/ling-imgcropper/ling-imgcropper.vue */ 537));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { ImageCropper: ImageCropper }, data: function data() {return { tempFilePath: '', cropFilePath: '', showtitle: true, navBar: navBar, imgUrl: app.imgUrl, imgRemote: imgRemote, phone: '', memberInfoData: '', member_default: '', nickname: '', password: '', confirmPwd: '', imgPath: '' };}, methods: { memberInfo: function memberInfo() {var that = this;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, timeStamp: timeStamp, sign: sign };
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var ImageCropper = function ImageCropper() {__webpack_require__.e(/*! require.ensure | components/ling-imgcropper/ling-imgcropper */ "components/ling-imgcropper/ling-imgcropper").then((function () {return resolve(__webpack_require__(/*! @/components/ling-imgcropper/ling-imgcropper.vue */ 537));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { ImageCropper: ImageCropper }, data: function data() {return { tempFilePath: '', cropFilePath: '', showtitle: true, navBar: navBar, imgUrl: app.imgUrl, imgRemote: imgRemote, phone: '', memberInfoData: '', member_default: '', nickname: '', password: '', confirmPwd: '', imgPath: '', count: 0 };}, methods: { memberInfo: function memberInfo() {var that = this;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, timeStamp: timeStamp,
+        sign: sign };
 
       _request.default.getRequests("memberInfo", data, function (res) {
         if (res.data.code == 200) {
@@ -242,18 +243,21 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         delta: 1 });
 
     },
-    bindPhonePage: function bindPhonePage() {
+    bindPhonePage: function bindPhonePage() {var _this = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {_this.count = 0;}, 1000);
       uni.navigateTo({
         url: 'bindphone' });
 
     },
-    upload: function upload() {var _this = this;
+    upload: function upload() {var _this2 = this;
       uni.chooseImage({
         count: 1, //默认9
         sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
         success: function success(res) {
-          _this.showtitle = false;
-          _this.tempFilePath = res.tempFilePaths.shift();
+          _this2.showtitle = false;
+          _this2.tempFilePath = res.tempFilePaths.shift();
         } });
 
     },
@@ -321,7 +325,10 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         }
       });
     },
-    formSubmit: function formSubmit() {
+    formSubmit: function formSubmit() {var _this3 = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {_this3.count = 0;}, 1000);
       var that = this;
       if (that.memberInfoData.is_password == 0) {
         if (!that.password) {
@@ -337,6 +344,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
           return;
         }
       }
+
       var nickname = that.nickname.replace(/\s+/g, "");
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {

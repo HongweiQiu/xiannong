@@ -76,7 +76,7 @@
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "",
-    "navigationBarBackgroundColor": "#F8F8F8",
+    "navigationBarBackgroundColor": "#F0F0F0",
     "backgroundColor": "#F8F8F8"
   },
   "tabBar": {
@@ -108,5 +108,6 @@
   "uniStatistics": {
     "enable": true
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap37.json"
 }

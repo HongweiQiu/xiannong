@@ -49,7 +49,8 @@
 				navBar: navBar,
 				list: [],
 				page: 1,
-				loading:true
+				loading:true,
+				count:0
 			};
 		},
 		methods: {
@@ -59,6 +60,9 @@
 				});
 			},
 			detailPage(id) {
+				this.count++;
+				if(this.count!=1)return;
+				setTimeout(()=>{this.count=0},1000)
 				uni.navigateTo({
 					url: 'billdetail?id='+id
 				});

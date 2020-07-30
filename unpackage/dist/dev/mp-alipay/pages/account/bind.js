@@ -189,7 +189,8 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
       secret_str: '',
       identifying: '',
       navBar: navBar,
-      back: true };
+      back: true,
+      count: 0 };
 
   },
   methods: {
@@ -285,7 +286,7 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
 
     },
     //提交
-    forget: function forget() {
+    forget: function forget() {var _this2 = this;
       var that = this;
 
       var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
@@ -302,7 +303,11 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
         _request.default.Toast('请输入验证码');
         return;
       }
-
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {
+        _this2.count = 0;
+      }, 500);
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         appid: appid,
@@ -346,6 +351,10 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
 
 
 
+
+
+
+            uni.setStorageSync('is_miniBind', data.data.is_alipayBind);
 
             setTimeout(function () {
               uni.switchTab({

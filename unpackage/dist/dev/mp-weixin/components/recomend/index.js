@@ -189,14 +189,20 @@ app.imgRemote;var _default =
   data: function data() {
     return {
       imgRemote: imgRemote,
-      token: uni.getStorageSync('cdj_token') };
+      token: uni.getStorageSync('cdj_token'),
+      count: 0 };
 
   },
   methods: {
     showCart: function showCart() {
       this.$emit('showCart');
     },
-    detail: function detail() {
+    detail: function detail() {var _this = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {
+        _this.count = 0;
+      }, 1000);
       if (this.config.is_detail == 1) {
         uni.navigateTo({
           url: "/pages/index/shopdetail?id=".concat(this.ware.id) });

@@ -40,6 +40,7 @@
 				is_bind: '',
 				orderId: '',
 				placeRecharge: '',
+				count:0
 			};
 		},
 		methods: {
@@ -133,6 +134,9 @@
 			// #endif
 			// #ifdef APP-PLUS
 			querenchongzhi() {
+				this.count++;
+				if(this.count!=1)return;
+				setTimeout(()=>{this.count=0},1000)
 				var that = this;
 				uni.getProvider({
 					service: 'payment',

@@ -225,7 +225,8 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
       bitmap: true,
       record: '',
       list: [],
-      loading: true };
+      loading: true,
+      count: 0 };
 
   },
   methods: {
@@ -234,7 +235,10 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
         delta: 1 });
 
     },
-    billdetail: function billdetail(item_id, attr_id) {
+    billdetail: function billdetail(item_id, attr_id) {var _this = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {_this.count = 0;}, 1000);
       var timeArr = _request.default.thedefaulttime();
       var time = this.dateArr;
       if (time == "") {
@@ -273,7 +277,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
     /**
         * 账单列表
         */
-    moneyList: function moneyList() {var _this = this;
+    moneyList: function moneyList() {var _this2 = this;
       var that = this;
       var timeArr = _request.default.thedefaulttime();
       var time = that.dateArr;
@@ -303,14 +307,14 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
           that.record = res.data.data;
           if (res.data.data.list != '') {var _that$list;
             that.bitmap = true;
-            _this.loading = false;
+            _this2.loading = false;
             (_that$list = that.list).push.apply(_that$list, _toConsumableArray(res.data.data.list));
           } else {
-            _this.loading = '空';
+            _this2.loading = '空';
             that.bitmap = false;
           }
         } else {
-          _this.loading = '空';
+          _this2.loading = '空';
           _request.default.Toast(res.data.msg);
         }
       });

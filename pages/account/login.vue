@@ -42,11 +42,15 @@
 						</button>
 						<!-- #endif -->
 						<!-- #ifdef MP-ALIPAY -->
-						<image class="weixin_img" src="../../static/img/alipay.png" mode="aspectFit"></image>
-						<text>支付宝登录</text>
+						<button open-type="getAuthorize" scope="userInfo">
+							<image class="weixin_img" src="../../static/img/alipay.png" mode="aspectFit"></image>
+						</button>
 						<!-- #endif -->
 						<!-- #ifndef MP-ALIPAY -->
 						<text>微信登录</text>
+						<!-- #endif -->
+						<!-- #ifdef MP-ALIPAY -->
+						<text>支付宝登录</text>
 						<!-- #endif -->
 
 					</view>
@@ -105,13 +109,18 @@
 
 			},
 			pageUrl(data) {
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 1000)
 				uni.hideKeyboard()
 				setTimeout(() => {
 					uni.navigateTo({
 						url: data
 					})
 				}, 300)
-
+				
 			},
 			// 手机登录
 			mobileLogin() {
@@ -119,6 +128,11 @@
 					mobile,
 					password
 				} = this;
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 1000)
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				if (!mobile) {
 					rs.Toast('手机号码不能为空，请输入手机号');
@@ -132,6 +146,7 @@
 					rs.Toast('密码不能少于六位');
 					return;
 				}
+
 				let obj = {
 					mobile: mobile,
 					password: password,
@@ -182,7 +197,11 @@
 			// app端微信登录
 			// #ifdef APP-PLUS
 			wechatLogin() {
-				console.log('app')
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 500)
 				uni.login({
 					provider: 'weixin',
 					success(res) {
@@ -239,12 +258,10 @@
 			// #ifdef H5
 			wechatLogin() {
 				this.count++;
-				if (this.count != 1) {
-					return
-				}
+				if (this.count != 1) return;
 				setTimeout(() => {
-					this.count = 0;
-				}, 1000);
+					this.count = 0
+				}, 500)
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -282,7 +299,11 @@
 			// 微信端微信登录
 			// #ifdef MP-WEIXIN
 			wechatLogin() {
-				console.log('weixin');
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 500)
 				uni.getUserInfo({
 					provider: 'weixin',
 					success(infoRes) {
@@ -310,6 +331,7 @@
 								}, obj);
 								rs.postRequests('wxLogin', params, (result) => {
 									let data = result.data;
+
 									if (data.code == 200) {
 										rs.Toast('登录成功，将跳转到首页');
 										wx.setStorageSync("cdj_token", data.data.token);
@@ -340,70 +362,59 @@
 			// 支付宝
 			// #ifdef MP-ALIPAY
 			wechatLogin() {
-				console.log('alipay');
-		// my.getAuthCode({
-		//   scopes: 'auth_user', // 主动授权：auth_user，静默授权：auth_base。或者其它scope
-		//   success: (res) => {
-		// 	  console.log(res);
-		// 	  let timeStamp = Math.round(new Date().getTime() / 1000);
-		// 	  let obj = {
-		// 	  	appid: appid,
-		// 	  	timeStamp: timeStamp,
-		// 	  	code: res.authCode
-		// 	  };
-		// 	  let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-		// 	  let params = Object.assign({
-		// 	  	type: 'mini',
-		// 	  	sign: sign,
-		// 	  	code: res.authCode,
-		// 	  	loginType: 'alipay',
-		// 	  	// encryptedData: encryptedData,
-		// 	  	// iv: iv
-		// 	  }, obj);
-		// 	  rs.postRequests('wxLogin', params, (result) => {})
-		//   }})
-		//   return;
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 500)
 				uni.login({
 					provider: 'alipay',
+					scopes: 'auth_user',
 					success(res) {
 						console.log(res)
-						let timeStamp = Math.round(new Date().getTime() / 1000);
-						let obj = {
-							appid: appid,
-							timeStamp: timeStamp,
-							code: res.code
-						};
-						let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-						let params = Object.assign({
-							type: 'mini',
-							sign: sign,
-							code: res.code,
-							loginType: 'alipay',
-							// encryptedData: encryptedData,
-							// iv: iv
-						}, obj);
-						rs.postRequests('wxLogin', params, (result) => {
-							let data = result.data;
-							if (data.code == 200) {
-								rs.Toast('登录成功，将跳转到首页');
-								wx.setStorageSync("cdj_token", data.data.token);
-								wx.setStorageSync("is_child", data.data.is_child);
-								wx.setStorageSync("is_miniBind", data.data.is_miniBind);
-								setTimeout(function() {
-									uni.switchTab({
-										url: '../tabar/index'
-									})
-								}, 1000);
-							} else if (data.code == 201) {
-								wx.navigateTo({
-									url: 'selectway?identifying=' + data.data.identifying
+						uni.getUserInfo({
+							success(infos) {
+								console.log(infos);
+								let timeStamp = Math.round(new Date().getTime() / 1000);
+								let obj = {
+									appid: appid,
+									timeStamp: timeStamp,
+									code: res.code
+								};
+								let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+								let params = Object.assign({
+									type: 'mini',
+									sign: sign,
+									code: res.code,
+									loginType: 'alipay',
+									headimgurl: infos.avatar
+
+								}, obj);
+								rs.postRequests('wxLogin', params, (result) => {
+									let data = result.data;
+
+									if (data.code == 200) {
+										rs.Toast('登录成功，将跳转到首页');
+										wx.setStorageSync("cdj_token", data.data.token);
+										wx.setStorageSync("is_child", data.data.is_child);
+										wx.setStorageSync("is_miniBind", data.data.is_alipayBind);
+										setTimeout(function() {
+											uni.switchTab({
+												url: '../tabar/index'
+											})
+										}, 1000);
+									} else if (data.code == 201) {
+										wx.navigateTo({
+											url: 'selectway?identifying=' + data.data.identifying
+										})
+									} else {
+										rs.Toast(data.msg);
+									}
 								})
-							} else {
-								rs.Toast(data.msg);
+
 							}
 						})
 					}
-
 				})
 
 			}
@@ -632,6 +643,7 @@
 	}
 
 	.login button {
+		border: none;
 		background: none;
 		line-height: initial;
 	}

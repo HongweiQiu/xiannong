@@ -96,6 +96,7 @@ page {
 	padding: 0;
 	background: none;
 	font-size: 28rpx;
+	border: none;
 }
 .user button::after {
 	border: none;
@@ -128,5 +129,4 @@ page {
 	height: 50rpx;
 	margin-top: 500rpx;
 }
-
 

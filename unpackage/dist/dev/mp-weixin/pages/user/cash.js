@@ -264,7 +264,8 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
 
 
       activeTab: 0,
-      orderType: 2 };
+      orderType: 2,
+      count: 0 };
 
   },
   methods: {
@@ -338,7 +339,10 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
         }
       });
     },
-    detailPage: function detailPage(id) {
+    detailPage: function detailPage(id) {var _this2 = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {_this2.count = 0;}, 1000);
       uni.navigateTo({
         url: 'cashdetail?id=' + id });
 

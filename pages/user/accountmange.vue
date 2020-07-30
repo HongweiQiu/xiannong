@@ -37,7 +37,8 @@
 			return {
 				navBar: navBar,
 				show: false,
-				childInfo: ''
+				childInfo: '',
+				count:0
 			}
 		},
 		methods: {
@@ -47,11 +48,21 @@
 				})
 			},
 			rightClick() {
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 1000)
 				uni.navigateTo({
 					url: "/pages/user/accountadd"
 				})
 			},
 			editPage(data) {
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 1000)
 				uni.navigateTo({ 
 					url: "/pages/user/accountedit?select_zid=" + data.zid
 				})

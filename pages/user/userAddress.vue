@@ -50,7 +50,8 @@
 				mobile: '',
 				navBar: navBar,
 				lat:'',
-				lng:''
+				lng:'',
+				count:0
 			};
 		},
 		methods: {
@@ -128,6 +129,9 @@
 				})
 			},
 			submit() {
+				this.count++;
+				if(this.count!=1)return;
+				setTimeout(()=>{this.count=0},500)
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,

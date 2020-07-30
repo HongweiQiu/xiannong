@@ -199,7 +199,8 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { address: '', contact: '', details: '', mobile: '', navBar: navBar, lat: '', lng: '' };}, methods: { leftClick: function leftClick() {this.hide = true;uni.switchTab({ url: "/pages/tabar/user" });}, mapPage: function mapPage() {
+var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { address: '', contact: '', details: '', mobile: '', navBar: navBar, lat: '', lng: '', count: 0 };}, methods: { leftClick: function leftClick() {this.hide = true;uni.switchTab({ url: "/pages/tabar/user" });},
+    mapPage: function mapPage() {
 
 
 
@@ -266,7 +267,10 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
         }
       });
     },
-    submit: function submit() {
+    submit: function submit() {var _this2 = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {_this2.count = 0;}, 500);
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         appid: appid,

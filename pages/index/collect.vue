@@ -10,8 +10,8 @@
 		<view v-else class="bitmap">
 			<image src="../../static/img/no_content.png" mode="aspectFit"></image>
 		</view>
-		
-	
+
+
 		<uni-popup ref="popup" type="bottom" @maskInfo="closeKey">
 			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent" ref="keyboard"></my-keyboard>
 		</uni-popup>
@@ -43,68 +43,75 @@
 				list: [],
 				page: 1,
 				num: 10,
-				arrObj:{},
+				arrObj: {},
 				cartware: [],
-				count:1,
-				bitmap:true,
-				loading:true
+				count: 1,
+				bitmap: true,
+				loading: true,
+				backpage: false
 			};
 		},
 		methods: {
-			closeCart(){
+			closeCart() {
 				this.$refs.addcart.onClose();
 			},
-			closeKey(){
+			closeKey() {
 				this.$refs.keyboard.cancel();
 			},
 			leftClick() {
-				uni.navigateBack({
-					delta: 1
-				});
+				
+				// if (this.backpage) {
+					uni.navigateBack({
+						delta: 1
+					});
+				// }
 			},
-			rightClick(){
-			
-				if(this.list.length){
+			rightClick() {
+
+				if (this.list.length) {
 					uni.showModal({
-									content: '确定将收藏商品全部清空吗？',
-									success: function(res) {
-										if (res.confirm) {
-											let timeStamp = Math.round(new Date().getTime() / 1000);
-											let obj = {
-												appid: appid,
-												timeStamp: timeStamp
-											};
-											let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-											let params = Object.assign(
-												{
-													sign: sign
-												},
-												obj
-											);
-											rs.getRequests('deleteCollect', params, res => {
-												let data = res.data;
-												if (data.code == 200) {
-													rs.Toast('成功清空收藏列表');
-													setTimeout(() => {
-														uni.navigateBack({
-															delta: 1
-														});
-													}, 1000);
-												} else {
-													rs.Toast(res.data.msg);
-												}
+						content: '确定将收藏商品全部清空吗？',
+						success: function(res) {
+							if (res.confirm) {
+								let timeStamp = Math.round(new Date().getTime() / 1000);
+								let obj = {
+									appid: appid,
+									timeStamp: timeStamp
+								};
+								let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+								let params = Object.assign({
+										sign: sign
+									},
+									obj
+								);
+								rs.getRequests('deleteCollect', params, res => {
+									let data = res.data;
+									if (data.code == 200) {
+										rs.Toast('成功清空收藏列表');
+										setTimeout(() => {
+											uni.navigateBack({
+												delta: 1
 											});
-										}
+										}, 1000);
+									} else {
+										rs.Toast(res.data.msg);
 									}
 								});
-				}else{
+							}
+						}
+					});
+				} else {
 					rs.Toast('没有可以清空的商品')
 				}
 			},
-			cancelCollect(item,index){
+			cancelCollect(item, index) {
 				this.count++;
-				if(this.count!=2){return}
-				setTimeout(()=>{this.count=1},500)
+				if (this.count != 2) {
+					return
+				}
+				setTimeout(() => {
+					this.count = 1
+				}, 500)
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					item_id: item.id,
@@ -120,13 +127,13 @@
 				);
 				rs.getRequests('changeCollect', params, res => {
 					let data = res.data;
-					
+
 					if (data.code == 200) {
-					
-						this.list.splice(index,1)
+
+						this.list.splice(index, 1)
 						console.log(this.list.length);
-						if(this.list.length==0){
-							this.bitmap=false;
+						if (this.list.length == 0) {
+							this.bitmap = false;
 						}
 						rs.Toast('取消收藏');
 					} else {
@@ -222,16 +229,19 @@
 				this.$refs.popup.close();
 			}
 		},
-		onHide(){
-			uni.setStorageSync('collect',this.list);
+		onHide() {
+			uni.setStorageSync('collect', this.list);
 		},
 		onShow() {
-                  if(this.page==1){
-						this.getIndexSelect();  
-				  }else{
-					  this.list=uni.getStorageSync('collect');
-				  }
-		
+			// setTimeout(() => {
+			// 	this.backpage = true;
+			// }, 1000);
+			if (this.page == 1) {
+				this.getIndexSelect();
+			} else {
+				this.list = uni.getStorageSync('collect');
+			}
+
 		},
 		onReachBottom() {
 			let {

@@ -202,7 +202,11 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, isactive: true, types: 1, header: '', number: '', content: '', price: '' };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, formSubmit: function formSubmit() {var that = this;var header = that.header;var number = that.number;var content = that.content;var price = that.price;var type = that.types;var timeStamp = Math.round(new Date().getTime() / 1000);
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, isactive: true, types: 1, header: '', number: '', content: '', price: '', count: 0 };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, formSubmit: function formSubmit() {var _this = this;this.count++;if (this.count != 1) return;setTimeout(function () {_this.count = 0;}, 1000);var that = this;var header = that.header;var number = that.number;
+      var content = that.content;
+      var price = that.price;
+      var type = that.types;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = { appid: appid, content: content, header: header, number: number, price: price, timeStamp: timeStamp, type: type };
       var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
       var data = { appid: appid, content: content, header: header, number: number, price: price, timeStamp: timeStamp, sign: sign, type: type };

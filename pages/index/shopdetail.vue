@@ -30,9 +30,9 @@
 					正在抢购
 					<!-- <uni-countdown :hour="hours" :minute="minu" :second="second" :show-day="false" background-color="#f7c0b7" color="white"
 					 splitor-color="white"></uni-countdown> -->
-					 	<my-countdown :time="hours" lineC="white" bgC="none" style="line-height: 21px;"></my-countdown>
+					<my-countdown :time="hours" lineC="white" bgC="none" style="line-height: 21px;"></my-countdown>
 					结束
-					
+
 				</view>
 			</view>
 			<view class="info">
@@ -68,9 +68,9 @@
 								</block>
 								<block v-else>
 									<view class="red_font">
-									<text v-if="attrspec.market_price==1">时价</text>
-									<text v-else>￥{{attrspec.attr_price}}/{{attrspec.unit}}</text>
-									
+										<text v-if="attrspec.market_price==1">时价</text>
+										<text v-else>￥{{attrspec.attr_price}}/{{attrspec.unit}}</text>
+
 									</view>
 								</block>
 							</block>
@@ -87,8 +87,8 @@
 								<block v-else>
 									<view class="red_font">
 										<text v-if="ware.market_price==1">时价</text>
-										<text v-else>	￥{{ware.price}}/{{ware.unit}}</text>
-																
+										<text v-else> ￥{{ware.price}}/{{ware.unit}}</text>
+
 									</view>
 								</block>
 							</block>
@@ -103,12 +103,12 @@
 						<view class="red_font" v-if="spec">
 							<text v-if="attrspec.market_price==1">时价</text>
 							<text v-else>￥{{attrspec.attr_price}}/{{attrspec.unit}}</text>
-							
+
 						</view>
 						<view class="red_font" v-else>
 							<text v-if="ware.market_price==1">时价</text>
-							<text v-else>	￥{{ware.price}}/{{ware.unit}}</text>
-						
+							<text v-else> ￥{{ware.price}}/{{ware.unit}}</text>
+
 						</view>
 					</block>
 				</view>
@@ -154,9 +154,9 @@
 										</block>
 										<block v-else>
 											<text v-if="item.market_price==1">时价</text>
-											<text v-else>￥{{item.price}}/{{item.unit}}	</text>
+											<text v-else>￥{{item.price}}/{{item.unit}} </text>
 										</block>
-									
+
 									</block>
 									<block v-else>￥***</block>
 								</block>
@@ -165,10 +165,10 @@
 										<text>￥{{item.area_price}}/{{item.unit}}</text>
 									</block>
 									<block v-else>
-										<text v-if="item.market_price==1">时价	</text>
-										<text v-else>	￥{{item.price}}/{{item.unit}}	</text>
+										<text v-if="item.market_price==1">时价 </text>
+										<text v-else> ￥{{item.price}}/{{item.unit}} </text>
 									</block>
-																		
+
 								</block>
 
 							</view>
@@ -207,7 +207,7 @@
 				</view>
 			</view>
 		</view>
-		
+
 		<uni-popup ref="popup" type="bottom" @maskInfo="closeKey">
 			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="ware" @toParent="toParent" ref="keyboard"></my-keyboard>
 		</uni-popup>
@@ -243,22 +243,29 @@
 				attrspec: '',
 				spec: '',
 				nav: false,
-				count:0,
-				imgRemote: imgRemote
+				count: 0,
+				imgRemote: imgRemote,
+				backClick: false
 			};
 		},
 		methods: {
-			closeKey(){
+			closeKey() {
 				this.$refs.keyboard.cancel();
 			},
 			leftClick() {
-				uni.navigateBack({
-					delta: 1
-				})
+				if (this.backClick) {
+					uni.navigateBack({
+						delta: 1
+					})
+				}
+
 			},
 			collecting() {
 				this.count++;
-				if(this.count!=1){return;}
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 1000)
 				let statu = this.ware.collect_status,
 					status;
 				if (statu == 2) {
@@ -282,7 +289,7 @@
 				rs.getRequests('changeCollect', params, res => {
 					let data = res.data;
 					if (data.code == 200) {
-						this.count=0;
+						// this.count=0;
 						this.ware.collect_status = status;
 						statu = status;
 						if (statu == 1) {
@@ -331,7 +338,7 @@
 							this.spec = false;
 						}
 
-						this.hours = data.data.panicActivity.timeRemain ;
+						this.hours = data.data.panicActivity.timeRemain;
 						// 推荐列表
 						rs.getRequests('itemRecommend', params, res => {
 							let data = res.data;
@@ -342,13 +349,18 @@
 								}
 							}
 						});
-					}else{
+					} else {
 						rs.Toast(data.msg)
 					}
 				});
 
 			},
 			detailPage(id) {
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 1000)
 				uni.navigateTo({
 					url: 'shopdetail?id=' + id
 				});
@@ -396,9 +408,11 @@
 						return;
 					}
 				}
-				if(cartUrl==true){
+				if (cartUrl == true) {
 					this.count++;
-					if(this.count!=1){return;}
+					if (this.count != 1) {
+						return;
+					}
 				}
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let {
@@ -428,11 +442,11 @@
 					},
 					obj
 				);
-				
+
 				rs.postRequests('firstChangeNum', params, res => {
 					let data = res.data;
 					if (data.code == 200) {
-					
+
 						rs.Toast('加入购物车成功');
 						// 分类
 						let classify = uni.getStorageSync('classify');
@@ -512,6 +526,9 @@
 			this.id = option.id;
 		},
 		onShow() {
+			setTimeout(() => {
+				this.backClick = true
+			}, 500)
 			this.getItem();
 			getApp().globalData.isReload = false;
 		},

@@ -206,7 +206,8 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
       display1: true,
       identifying: '',
       scrollHeight: '',
-      resultData: {} };
+      resultData: {},
+      count: 0 };
 
   },
   methods: {
@@ -220,7 +221,12 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
       }, 300);
 
     },
-    pageUrl: function pageUrl(data) {
+    pageUrl: function pageUrl(data) {var _this = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {
+        _this.count = 0;
+      }, 1000);
       uni.hideKeyboard();
       setTimeout(function () {
         uni.navigateTo({
@@ -238,7 +244,7 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
         return;
       }
     },
-    captcha: function captcha() {var _this = this;
+    captcha: function captcha() {var _this2 = this;
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         appid: appid,
@@ -253,7 +259,7 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
       _request.default.getRequests('random', params, function (res) {
         var data = res.data;
         if (data.code == 200) {
-          _this.number_code = data.data.number;
+          _this2.number_code = data.data.number;
           uni.setStorageSync("laravel_session", res.header["Set-Cookie"]);
         } else {
           _request.default.Toast(data.msg);
@@ -319,8 +325,12 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
       /* 删除当前页面的数据 */
       this.resultData = {};
     },
-    register: function register() {
-
+    register: function register() {var _this3 = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {
+        _this3.count = 0;
+      }, 1000);
       if (!this.nickname) {
         _request.default.Toast('单位名称不能为空');
         return;
@@ -346,6 +356,7 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
         _request.default.Toast('请确保密码一致');
         return;
       }
+
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         appid: appid,

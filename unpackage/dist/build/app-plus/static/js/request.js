@@ -49,16 +49,16 @@ function getRequest(url, datas, success) {
 						})
 					}
 					if (res.data.code == 401) {
-							uni.navigateTo({
-								url: '/pages/account/login'
-							});
+						uni.navigateTo({
+							url: '/pages/account/login'
+						});
 					}
 					if (res.data.code == 404) {
-					
-							uni.navigateTo({
-								url: '/pages/account/404'
-							});
-						
+
+						uni.navigateTo({
+							url: '/pages/account/404'
+						});
+
 					}
 
 					uni.hideLoading();
@@ -102,9 +102,9 @@ function getRequests(url, datas, success) {
 				});
 			}
 			if (res.data.code == 404) {
-					uni.navigateTo({
-						url: '/pages/account/404'
-					});
+				uni.navigateTo({
+					url: '/pages/account/404'
+				});
 
 			}
 			if (res.data.code == 408) {
@@ -162,11 +162,11 @@ function postRequest(url, datas, success) {
 						})
 					}
 					if (res.data.code == 401) {
-						
-							uni.navigateTo({
-								url: '/pages/account/login'
-							});
-					
+
+						uni.navigateTo({
+							url: '/pages/account/login'
+						});
+
 					}
 					if (res.data.code == 403) {
 						uni.showToast({
@@ -181,11 +181,11 @@ function postRequest(url, datas, success) {
 						})
 					}
 					if (res.data.code == 404) {
-					
-							uni.navigateTo({
-								url: '/pages/account/404'
-							});
-					
+
+						uni.navigateTo({
+							url: '/pages/account/404'
+						});
+
 					}
 					if (res.data.code == 408) {
 						uni.showToast({
@@ -228,11 +228,11 @@ function postRequests(url, datas, success) {
 				uni.setStorageSync("cdj_token", res.header.Authorization)
 			}
 			if (res.data.code == 401) {
-				
-					uni.navigateTo({
-						url: '/pages/account/login'
-					});
-			
+
+				uni.navigateTo({
+					url: '/pages/account/login'
+				});
+
 			}
 		},
 		fail: res => {
@@ -268,23 +268,26 @@ function Toast(message) {
 		duration: 1000
 	})
 }
-function getLastDay(){
-    var current=new Date();
-    var currentMonth=current.getMonth();
-    var nextMonth=++currentMonth;
 
-    var nextMonthDayOne =new Date(current.getFullYear(),nextMonth,1);
 
-    var minusDate=1000*60*60*24;
+function getLastDay() {
+	var current = new Date();
+	var currentMonth = current.getMonth();
+	var nextMonth = ++currentMonth;
 
-    return new Date(nextMonthDayOne.getTime()-minusDate);
-  }
+	var nextMonthDayOne = new Date(current.getFullYear(), nextMonth, 1);
+
+	var minusDate = 1000 * 60 * 60 * 24;
+
+	return new Date(nextMonthDayOne.getTime() - minusDate);
+}
+
 function thedefaulttime() { //购买记录默认时间
 	var date = new Date();
 	var year = date.getFullYear().toString();
 	var time = (date.getMonth() + 1).toString();
-	
-	
+
+
 	var month = '';
 	if (time < 10) {
 		month = "0" + time;
@@ -292,8 +295,8 @@ function thedefaulttime() { //购买记录默认时间
 		month = time;
 	}
 	var num = date.getDate().toString();
-	var day =getLastDay().getDate();
-	
+	var day = getLastDay().getDate();
+
 	// if (num < 10) {
 	// 	day = "0" + num;
 	// } else {
@@ -307,16 +310,16 @@ function thedefaulttime() { //购买记录默认时间
 
 // 百度地图
 function MP(ak) {
-  return new Promise(function (resolve, reject) {
-    window.init = function () {
-      resolve(BMap)
-    }
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = "http://api.map.baidu.com/api?v=2.0&ak=" + ak + "&callback=init";
-    script.onerror = reject;
-    document.head.appendChild(script);
-  })
+	return new Promise(function(resolve, reject) {
+		window.init = function() {
+			resolve(BMap)
+		}
+		var script = document.createElement("script");
+		script.type = "text/javascript";
+		script.src = "http://api.map.baidu.com/api?v=2.0&ak=" + ak + "&callback=init";
+		script.onerror = reject;
+		document.head.appendChild(script);
+	})
 
 }
 
@@ -330,6 +333,6 @@ module.exports = {
 	Toast: Toast,
 	header: header, //请求头部
 	objKeySort: objKeySort, //加密排序
-	thedefaulttime: thedefaulttime ,//加密排序
-	MP:MP
+	thedefaulttime: thedefaulttime, //加密排序
+	MP: MP
 }

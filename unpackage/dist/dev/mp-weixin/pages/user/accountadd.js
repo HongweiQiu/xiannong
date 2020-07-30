@@ -213,7 +213,8 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, nickname: '', contact: '', mobile: '', password: '', address: '', details: '', longitude: '', latitude: '', hide: true };}, methods: { leftClick: function leftClick() {this.hide = true;uni.navigateBack({ delta: 1 });
+var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, nickname: '', contact: '', mobile: '', password: '', address: '', details: '', longitude: '', latitude: '', hide: true, count: 0 };}, methods: { leftClick: function leftClick() {this.hide = true;uni.navigateBack({ delta: 1 });
+
 
     },
 
@@ -262,7 +263,12 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
         lat: lats };
 
     },
-    formSubmit: function formSubmit() {
+    formSubmit: function formSubmit() {var _this = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {
+        _this.count = 0;
+      }, 1000);
       var that = this;
       var nickname = that.nickname;
       var contact = that.contact;

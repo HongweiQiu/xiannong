@@ -203,7 +203,8 @@ app.navBar,imgRemote = app.imgRemote,appid = app.appid,appsecret = app.appsecret
       cartware: [],
       count: 1,
       bitmap: true,
-      loading: true };
+      loading: true,
+      backpage: false };
 
   },
   methods: {
@@ -214,9 +215,12 @@ app.navBar,imgRemote = app.imgRemote,appid = app.appid,appsecret = app.appsecret
       this.$refs.keyboard.cancel();
     },
     leftClick: function leftClick() {
+
+      // if (this.backpage) {
       uni.navigateBack({
         delta: 1 });
 
+      // }
     },
     rightClick: function rightClick() {
 
@@ -231,8 +235,7 @@ app.navBar,imgRemote = app.imgRemote,appid = app.appid,appsecret = app.appsecret
                 timeStamp: timeStamp };
 
               var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-              var params = Object.assign(
-              {
+              var params = Object.assign({
                 sign: sign },
 
               obj);
@@ -259,8 +262,12 @@ app.navBar,imgRemote = app.imgRemote,appid = app.appid,appsecret = app.appsecret
     },
     cancelCollect: function cancelCollect(item, index) {var _this = this;
       this.count++;
-      if (this.count != 2) {return;}
-      setTimeout(function () {_this.count = 1;}, 500);
+      if (this.count != 2) {
+        return;
+      }
+      setTimeout(function () {
+        _this.count = 1;
+      }, 500);
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         item_id: item.id,
@@ -382,6 +389,9 @@ app.navBar,imgRemote = app.imgRemote,appid = app.appid,appsecret = app.appsecret
     uni.setStorageSync('collect', this.list);
   },
   onShow: function onShow() {
+    // setTimeout(() => {
+    // 	this.backpage = true;
+    // }, 1000);
     if (this.page == 1) {
       this.getIndexSelect();
     } else {

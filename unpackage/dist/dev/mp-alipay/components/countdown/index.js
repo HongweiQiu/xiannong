@@ -153,32 +153,30 @@ var _default =
   },
   methods: {
     start: function start() {var _this = this;
+
       setInterval(function () {
+
         _this.totaltime--;
         if (_this.totaltime <= 0) {
 
 
 
 
-          var pages = getCurrentPages();
-          uni.reLaunch({
-            url: '/' + pages[0].route });
+          setTimeout(function () {
+            var pages = getCurrentPages();
+            uni.reLaunch({
+              url: '/' + pages[0].route });
 
-
+          }, _this.totaltime * 1000);
         } else {
           _this.countDown();
         }
-
       }, 1000);
     },
     countDown: function countDown() {
-
-
       this.hour = Math.floor(this.totaltime / 3600);
       this.minus = Math.floor(this.totaltime / 60 % 60);
       this.second = Math.floor(this.totaltime % 60);
-
-
       if (this.hour < 10) {
         this.hour = '0' + this.hour;
       }

@@ -238,8 +238,6 @@ __webpack_require__.r(__webpack_exports__);
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 17));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 18));
 var _parseHtml = _interopRequireDefault(__webpack_require__(/*! ../../static/js/parseHtml.js */ 27));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}var uniDrawer = function uniDrawer() {__webpack_require__.e(/*! require.ensure | components/uni-drawer/uni-drawer */ "components/uni-drawer/uni-drawer").then((function () {return resolve(__webpack_require__(/*! @/components/uni-drawer/uni-drawer.vue */ 475));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
-
-
 var app = getApp().globalData;var
 
 appid =
@@ -315,6 +313,7 @@ console,log = _console.log;var _default =
       this.list = [];
       this.bitmap = true;
       this.loading = true;
+      this.page = 1;
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         appid: appid,
@@ -342,6 +341,7 @@ console,log = _console.log;var _default =
         if (data.code == 200) {
           if (!firstId) {
             firstId = data.data.firstCate[0].id;
+
           }
           if (firstId) {
             data.data.firstCate.map(function (e, index) {

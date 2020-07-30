@@ -44,7 +44,8 @@
 				imgUrl: app.imgUrl,
 				img: [],
 				contents: '',
-				navBar: navBar
+				navBar: navBar,
+				count:0,
 			};
 		},
 		methods: {
@@ -120,6 +121,9 @@
 				});
 			},
 			feedBack() {
+				this.count++;
+				if(this.count!=1)return;
+				setTimeout(()=>{this.count=0},1000)
 				var that = this
 				var img = that.img;
 				let path = [];

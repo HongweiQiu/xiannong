@@ -25,7 +25,8 @@
 		data() {
 			return {
 				navBar: navBar,
-				identifying: ''
+				identifying: '',
+				count:0
 			}
 		},
 		methods: {
@@ -35,6 +36,11 @@
 				})
 			},
 			pageUrl(url) {
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0;
+				}, 1000)
 				var that = this;
 				var data = that.identifying;
 				uni.navigateTo({

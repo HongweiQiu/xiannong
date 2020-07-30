@@ -6,13 +6,13 @@
 			<view>账户余额(元)</view>
 			<view class="money">{{memberInfoData.balance}}</view>
 			<view class="record" @click="recordPage">
-				充值记录
-				<uni-icons type="arrowright" size="18" color="#9e9e9e"></uni-icons>
+				<text >充值记录</text>
+				<uni-icons type="arrowright" size="18" color="#9e9e9e" ></uni-icons>
 			</view>
 		</view>
 		<view class="invest_button" @click="$refs.popup.open()">充值</view>
 		<uni-popup ref="popup" type="bottom">
-			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent" :invest="invest"></my-keyboard>
+			<my-keyboard @cancelKey="close" :arrObj="arrObj" @toParent="toParent" :invest="invest"></my-keyboard>
 		</uni-popup>
 
 	</view>
@@ -38,7 +38,8 @@
 				is_miniBind: '',
 				memberInfoData: '',
 				code: '',
-				invest:true
+				invest:true,
+				count:0
 			};
 		},
 		methods: {
@@ -48,6 +49,9 @@
 				})
 			},
 			recordPage() {
+				this.count++;
+				if(this.count!=1)return;
+				setTimeout(()=>{this.count=0},1000)
 				uni.navigateTo({
 					url: './investlist'
 				})
@@ -72,7 +76,13 @@
 				})
 			},
 			//充值
+			close(){
+				this.$refs.popup.close();
+			},
 			toParent(e) {
+				this.count++;
+				if(this.count!=1)return;
+				setTimeout(()=>{this.count=0},1000)
 				if(this.is_miniBind == 0){
 					rs.Toast('请先绑定微信')
 					setTimeout(function() {
@@ -119,6 +129,7 @@
 					}else{
 						rs.Toast(res.data.msg)
 					}
+					this.close();
 				})
 			},
 			
@@ -151,6 +162,7 @@
 
 	.invest .self_money .record {
 		color: #9e9e9e;
+		display: inline-block;
 	}
 
 	.invest .invest_button {

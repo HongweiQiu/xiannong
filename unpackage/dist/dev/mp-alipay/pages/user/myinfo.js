@@ -223,7 +223,8 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var ImageCropper = function ImageCropper() {__webpack_require__.e(/*! require.ensure | components/ling-imgcropper/ling-imgcropper */ "components/ling-imgcropper/ling-imgcropper").then((function () {return resolve(__webpack_require__(/*! @/components/ling-imgcropper/ling-imgcropper.vue */ 540));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { ImageCropper: ImageCropper }, data: function data() {return { tempFilePath: '', cropFilePath: '', showtitle: true, navBar: navBar, imgUrl: app.imgUrl, imgRemote: imgRemote, phone: '', memberInfoData: '', member_default: '', nickname: '', password: '', confirmPwd: '', imgPath: '' };}, methods: { memberInfo: function memberInfo() {var that = this;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, timeStamp: timeStamp, sign: sign };
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var ImageCropper = function ImageCropper() {__webpack_require__.e(/*! require.ensure | components/ling-imgcropper/ling-imgcropper */ "components/ling-imgcropper/ling-imgcropper").then((function () {return resolve(__webpack_require__(/*! @/components/ling-imgcropper/ling-imgcropper.vue */ 540));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { ImageCropper: ImageCropper }, data: function data() {return { tempFilePath: '', cropFilePath: '', showtitle: true, navBar: navBar, imgUrl: app.imgUrl, imgRemote: imgRemote, phone: '', memberInfoData: '', member_default: '', nickname: '', password: '', confirmPwd: '', imgPath: '', count: 0 };}, methods: { memberInfo: function memberInfo() {var that = this;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, timeStamp: timeStamp,
+        sign: sign };
 
       _request.default.getRequests("memberInfo", data, function (res) {
         if (res.data.code == 200) {
@@ -321,7 +322,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         }
       });
     },
-    formSubmit: function formSubmit() {
+    formSubmit: function formSubmit() {var _this2 = this;
       var that = this;
       if (that.memberInfoData.is_password == 0) {
         if (!that.password) {
@@ -337,6 +338,9 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
           return;
         }
       }
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {_this2.count = 0;}, 500);
       var nickname = that.nickname.replace(/\s+/g, "");
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {

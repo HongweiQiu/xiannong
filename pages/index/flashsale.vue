@@ -137,8 +137,8 @@
 				second: 0,
 				config: [],
 				goodIndex: '',
-				arrObj: {}
-
+				arrObj: {},
+				count:0
 			};
 		},
 		methods: {
@@ -151,6 +151,11 @@
 				});
 			},
 			detailPage(id) {
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 1000)
 				if (this.config.is_detail == 1) {
 					uni.navigateTo({
 						url: `shopdetail?id=${id}`

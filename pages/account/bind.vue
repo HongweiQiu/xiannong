@@ -1,7 +1,7 @@
 <template>
 	<view class="register">
 		<uni-nav-bar left-icon="arrowleft" title="更换手机" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
-       <view class="caution">绑定后可提高账号安全性</view>
+		<view class="caution">绑定后可提高账号安全性</view>
 		<view class="get_info">
 			<view>
 				<text>手机号</text>
@@ -13,7 +13,7 @@
 			<view class="flex">
 				<text>验证码</text>
 				<view class="flex_left_right" style="width:79%;">
-					<input type="number" v-model="verify_code"  placeholder="请输入验证码" placeholder-class="place_style" @focus="back=false" />
+					<input type="number" v-model="verify_code" placeholder="请输入验证码" placeholder-class="place_style" @focus="back=false" />
 					<my-identifyingcode @getCode="getCode" ref="code"></my-identifyingcode>
 				</view>
 			</view>
@@ -45,12 +45,13 @@
 				secret_str: '',
 				identifying: '',
 				navBar: navBar,
-				back: true
+				back: true,
+				count: 0
 			};
 		},
 		methods: {
 			leftClick() {
-				
+
 				uni.navigateBack({
 					delta: 1
 				});
@@ -143,7 +144,7 @@
 			//提交
 			forget() {
 				var that = this;
-				
+
 				var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
 				if (!this.mobile) {
 					rs.Toast('手机号不能为空');
@@ -158,21 +159,25 @@
 					rs.Toast('请输入验证码');
 					return;
 				}
-
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 500)
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
 					timeStamp: timeStamp
-				
+
 				};
-			
+
 				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
 				let params = Object.assign({
 					sign: sign,
 					mobile: this.mobile,
 					code: this.verify_code,
 					identifying: that.identifying
-					
+
 				}, obj)
 
 				uni.request({
@@ -202,6 +207,10 @@
 
 							// #ifdef MP-WEIXIN
 							uni.setStorageSync('is_miniBind', data.data.is_miniBind);
+							// #endif
+							
+							// #ifdef MP-ALIPAY
+							uni.setStorageSync('is_miniBind', data.data.is_alipayBind);
 							// #endif
 							setTimeout(() => {
 								uni.switchTab({
@@ -275,10 +284,13 @@
 		font-size: 24rpx;
 		color: #418d5f;
 	}
-	.register .caution{color: red;
-    background: #f9d1cb;
-    font-size: 12px;
-    height: 25px;
-    text-align: center;
-    line-height: 25px;}
+
+	.register .caution {
+		color: red;
+		background: #f9d1cb;
+		font-size: 12px;
+		height: 25px;
+		text-align: center;
+		line-height: 25px;
+	}
 </style>

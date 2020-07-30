@@ -491,12 +491,16 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
     ckwl: function ckwl(data) {
 
       var that = this;
-      that.count++;
-      console.log(that.count);
-      if (that.count != 1) {
-        return;
-      }
+
+      // that.count++;
+      // console.log(that.count)
+      // if (that.count != 1) return;
+      // setTimeout(() => {
+      // 	that.count = 0;
+      // }, 1000)
+      // rs.Toast("无物流信息")
       var id = data;
+
       if (id <= 0) {
         _request.default.Toast("无物流信息");
         return;
@@ -515,9 +519,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
         sign: sign };
 
       _request.default.postRequests("carPosition", data, function (res) {
-        setTimeout(function () {
-          that.count = 0;
-        }, 1000);
+
         if (res.data.code == 200) {
           if (res.data.data != '') {
             var latitude = parseFloat(res.data.data.latitude);
@@ -542,8 +544,11 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
                   uni.openLocation({
                     latitude: mapObj.lat, // 纬度，范围为-90~90，负数表示南纬
                     longitude: mapObj.lng, // 经度，范围为-180~180，负数表示西经										
+
                     name: ' ',
                     address: '' });
+
+
 
                 } });
 
@@ -828,7 +833,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
 
     } else {
       var aShow = app.aData.show;
-      console.log(aShow);
+      // console.log(aShow)
       if (aShow == false) {
         that.orderList = [];
         that.childtxt = '当前账号';
@@ -836,6 +841,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
         that.page = 1;
         that.type = 1;
         that.activeTab = 6;
+        this.load = true;
         this.lineShow = false;
         that.orderTitle = '全部订单';
         that.isActive = '全部';

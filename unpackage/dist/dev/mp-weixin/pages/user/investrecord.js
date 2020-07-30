@@ -186,10 +186,11 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, is_bind: '', orderId: '', placeRecharge: '' };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, order: function order() {this.leftClick();},
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, is_bind: '', orderId: '', placeRecharge: '', count: 0 };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, order: function order() {this.leftClick();
+    },
     /**
-                                                                                                                                                                                                                                                                                                                                                                          * 充值信息
-                                                                                                                                                                                                                                                                                                                                                                          */
+        * 充值信息
+        */
     placeRechargea: function placeRechargea() {
       var that = this;
       var id = that.orderId;
@@ -227,6 +228,9 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         }
       });
     },
+
+
+
 
 
 

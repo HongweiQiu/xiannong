@@ -137,10 +137,17 @@ __webpack_require__.r(__webpack_exports__);
 var _default =
 {
   data: function data() {
-    return {};
+    return {
+      count: 0 };
+
   },
   methods: {
-    searchPage: function searchPage() {
+    searchPage: function searchPage() {var _this = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {
+        _this.count = 0;
+      }, 1000);
       uni.navigateTo({
         url: "/pages/index/search" });
 

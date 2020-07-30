@@ -180,7 +180,8 @@ app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.rootUrl,im
       imgUrl: app.imgUrl,
       img: [],
       contents: '',
-      navBar: navBar };
+      navBar: navBar,
+      count: 0 };
 
   },
   methods: {
@@ -255,7 +256,10 @@ app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.rootUrl,im
         } });
 
     },
-    feedBack: function feedBack() {
+    feedBack: function feedBack() {var _this = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {_this.count = 0;}, 1000);
       var that = this;
       var img = that.img;
       var path = [];var _iterator = _createForOfIteratorHelper(

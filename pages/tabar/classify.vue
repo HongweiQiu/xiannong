@@ -66,12 +66,10 @@
 </template>
 
 <script>
-	import uniDrawer from "@/components/uni-drawer/uni-drawer.vue"
+	import uniDrawer from "@/components/uni-drawer/uni-drawer.vue";
 	import md5 from '../../static/js/md5.js';
 	import rs from '../../static/js/request.js';
 	import parseHtml from '../../static/js/parseHtml.js';
-
-
 	const app = getApp().globalData;
 	const {
 		appid,
@@ -147,6 +145,7 @@
 				this.list=[];
 				this.bitmap=true;
 				this.loading = true;
+				this.page=1;
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -174,6 +173,7 @@
 					if (data.code == 200) {
 						if (!firstId) {
 							firstId = data.data.firstCate[0].id;
+							
 						}
 						if (firstId) {
 							data.data.firstCate.map((e, index) => {
@@ -328,7 +328,7 @@
 			})
 		},
 		onLoad(e) {
-			// uni.hideTabBar();
+			uni.hideTabBar();
 		}
 	};
 </script>

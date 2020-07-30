@@ -299,28 +299,32 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       support: false,
       showTop: false,
       token: '',
-      load: true,
       imgRemote: imgRemote,
       speed: 30,
       loading: true,
       page: 1,
       num: 10,
-      hours: 0,
-      minu: 0,
-      second: 0,
+      hours: 1000,
       adList: {},
       activeList: {},
       activeConf: {},
       cartware: {},
       config: {},
-      itemList: [] };
+      itemList: [],
+      count: 0 };
 
   },
   methods: {
     closeCart: function closeCart() {
       this.$refs.addcart.onClose();
     },
-    navUrl: function navUrl(e) {var
+    //导航页面
+    navUrl: function navUrl(e) {var _this = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {
+        _this.count = 0;
+      }, 1000);var
 
       id =
 
@@ -387,7 +391,12 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
     onClose: function onClose() {
       this.$refs.popup.close();
     },
-    newPage: function newPage(url, id) {
+    newPage: function newPage(url, id) {var _this2 = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {
+        _this2.count = 0;
+      }, 1000);
       if (id) {
         uni.navigateTo({
           url: "/pages/index/".concat(url, "?id=").concat(id) });
@@ -399,7 +408,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       }
 
     },
-    indexAd: function indexAd() {var _this = this;
+    indexAd: function indexAd() {var _this3 = this;
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         appid: appid,
@@ -414,11 +423,11 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       _request.default.getRequests('indexAd', params, function (res) {
         var data = res.data;
         if (data.code == 200) {
-          _this.adList = data.data;
+          _this3.adList = data.data;
         }
       });
     },
-    indexItem: function indexItem() {var _Object$assign,_this2 = this;
+    indexItem: function indexItem() {var _Object$assign,_this4 = this;
       this.itemList = [];
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
@@ -443,20 +452,21 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       _request.default.getRequests('indexItem', params, function (res) {
         var data = res.data;
         if (data.code == 200) {
-          _this2.itemList = data.data.list;
-          _this2.config = data.data;
+          _this4.itemList = data.data.list;
+          _this4.config = data.data;
           if (data.data.total <= 10) {
-            _this2.loading = false;
-            _this2.support = true;
+            _this4.loading = false;
+            _this4.support = true;
           } else {
-            _this2.support = false;
-            _this2.loading = true;
+            _this4.support = false;
+            _this4.loading = true;
           }
         }
       });
     },
     //限时抢购
-    limitList: function limitList() {var _this3 = this;
+    limitList: function limitList() {var _this5 = this;
+      this.hours = 1000;
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         appid: appid,
@@ -475,15 +485,14 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
 
 
           data.data,itemList = _data$data.itemList,timeRemain = _data$data.timeRemain;
-
           if (data.data.length != 0) {
-            _this3.showActive = true;
+            _this5.showActive = true;
           } else {
-            _this3.showActive = false;
+            _this5.showActive = false;
           }
-          _this3.hours = Math.abs(timeRemain);
-          _this3.activeConf = data.data;
-          _this3.activeList = itemList;
+          _this5.hours = Math.abs(timeRemain);
+          _this5.activeConf = data.data;
+          _this5.activeList = itemList;
         }
       });
     } },
@@ -506,7 +515,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
   onLoad: function onLoad() {
     uni.hideTabBar();
   },
-  onReachBottom: function onReachBottom() {var _this4 = this;
+  onReachBottom: function onReachBottom() {var _this6 = this;
     //页面上拉触底事件的处理函数
     var that = this;
 
@@ -533,13 +542,13 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       data =
       res.data;
       if (data.code = 200) {
-        if (data.data != '') {var _this4$itemList;
-          (_this4$itemList = _this4.itemList).push.apply(_this4$itemList, _toConsumableArray(data.data.list));
-          _this4.page += 1;
-          _this4.loading = true;
+        if (data.data != '') {var _this6$itemList;
+          (_this6$itemList = _this6.itemList).push.apply(_this6$itemList, _toConsumableArray(data.data.list));
+          _this6.page += 1;
+          _this6.loading = true;
         } else {
-          _this4.support = true;
-          _this4.loading = false;
+          _this6.support = true;
+          _this6.loading = false;
         }
       }
     });

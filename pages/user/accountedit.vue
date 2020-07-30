@@ -1,6 +1,7 @@
 <template>
 	<view class="accountedit">
-		<uni-nav-bar left-icon="arrowleft" title="账号编辑" :status-bar="navBar" fixed="true" @clickLeft="leftClick" right-text="删除" @clickRight="deleteAccount"></uni-nav-bar>
+		<uni-nav-bar left-icon="arrowleft" title="账号编辑" :status-bar="navBar" fixed="true" @clickLeft="leftClick" right-text="删除"
+		 @clickRight="deleteAccount"></uni-nav-bar>
 		<form @submit="formSubmit">
 			<view class="get_info">
 				<view>
@@ -65,8 +66,9 @@
 				latitude: '',
 				save: true,
 				password: '',
-				count:'',
-				hide:''
+				count: '',
+				hide: '',
+				clickcount: 0
 			};
 		},
 		methods: {
@@ -79,10 +81,10 @@
 				// #endif
 				// #ifdef APP-PLUS |MP-WEIXIN |MP-ALIPAY
 				uni.navigateBack({
-					delta:1
+					delta: 1
 				})
 				// #endif
-				
+
 			},
 			urlPage() {
 				if (this.save == false) {
@@ -108,9 +110,9 @@
 				// #ifdef H5
 				this.hide = false;
 				var data = {
-					childInfo:this.childInfo,
-					password:this.password,
-					select_zid:this.select_zid
+					childInfo: this.childInfo,
+					password: this.password,
+					select_zid: this.select_zid
 				}
 				var url = 'accountedit';
 				uni.setStorageSync('amend', data);
@@ -221,7 +223,10 @@
 				})
 			},
 			formSubmit(e) {
-				var that = this
+				this.clickcount++;
+				if(this.clickcount!=1)return;
+				setTimeout(()=>{this.clickcount=0},500)
+				var that = this;
 				var zid = that.select_zid;
 				if (that.checked == false) {
 					var status = 0;
@@ -261,7 +266,7 @@
 					rs.Toast("手机号不能为空")
 					return false;
 				}
-
+				
 				var data = {
 					address: address,
 					appid: appid,
@@ -295,23 +300,25 @@
 		},
 		onLoad(options) {
 			var data = uni.getStorageSync('amend');
-			if(data){
+			if (data) {
 				this.childInfo = data.childInfo;
 				this.password = data.password;
 				this.select_zid = data.select_zid;
-			}else{
+			} else {
 				this.select_zid = options.select_zid;
 			}
 			this.latitude = options.lat;
 			this.longitude = options.lng;
 			this.count = options.count || 1;
 			if (this.count == 1) {
-					this.memberAddressInfo()
+				this.memberAddressInfo()
 			}
 		},
-		onHide(){
-			if(this.hide == true){
-				uni.removeStorage({key: 'amend'})
+		onHide() {
+			if (this.hide == true) {
+				uni.removeStorage({
+					key: 'amend'
+				})
 			}
 		}
 	};

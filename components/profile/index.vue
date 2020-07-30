@@ -92,7 +92,8 @@
 			return {
 				ware:this.wares,
 				imgRemote: imgRemote,
-				token: uni.getStorageSync('cdj_token')
+				token: uni.getStorageSync('cdj_token'),
+				count:0
 			}
 		},
 		methods: {
@@ -154,6 +155,11 @@
 				this.$emit('showKey')
 			},
 			detail() {
+				this.count++;
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 1000)
 				if(this.config.is_detail==1){
 					uni.navigateTo({
 						url: `/pages/index/shopdetail?id=${this.ware.id}`

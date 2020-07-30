@@ -125,7 +125,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 var _default =
 {
   props: {
@@ -153,9 +152,10 @@ var _default =
   },
   methods: {
     start: function start() {var _this = this;
+
       setInterval(function () {
         _this.totaltime--;
-        if (_this.totaltime <= 0) {
+        if (_this.totaltime == 0) {
 
 
 
@@ -164,21 +164,15 @@ var _default =
           uni.reLaunch({
             url: '/' + pages[0].route });
 
-
         } else {
           _this.countDown();
         }
-
       }, 1000);
     },
     countDown: function countDown() {
-
-
       this.hour = Math.floor(this.totaltime / 3600);
       this.minus = Math.floor(this.totaltime / 60 % 60);
       this.second = Math.floor(this.totaltime % 60);
-
-
       if (this.hour < 10) {
         this.hour = '0' + this.hour;
       }
@@ -190,7 +184,9 @@ var _default =
       }
     } },
 
-  created: function created() {this.start();} };exports.default = _default;
+  created: function created() {
+    this.start();
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

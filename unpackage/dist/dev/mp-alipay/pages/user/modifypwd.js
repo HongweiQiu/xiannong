@@ -183,7 +183,8 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { old_pwd: '', //旧密码
       password: '', //旧密码
       password_confirmation: '', //旧密码
-      navBar: navBar };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, formSubmit: function formSubmit() {var old_pwd = this.old_pwd;
+      navBar: navBar, count: 0 };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, formSubmit: function formSubmit() {var _this = this;
+      var old_pwd = this.old_pwd;
       var password = this.password;
       var password_confirmation = this.password_confirmation;
       var timeStamp = Math.round(new Date().getTime() / 1000);
@@ -201,6 +202,9 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         _request.default.Toast("密码不一致");
         return false;
       }
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {_this.count = 0;}, 500);
       var data = { appid: appid, old_pwd: old_pwd, password: password, password_confirmation: password_confirmation, timeStamp: timeStamp, sign: sign };
       _request.default.postRequests("modifyPassword", data, function (res) {
         if (res.data.code == 200) {
