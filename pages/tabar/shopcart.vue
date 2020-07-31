@@ -573,7 +573,7 @@
 				// #ifdef APP-PLUS
 				let way = 2;
 				// #endif
-				// #ifdef MP-WEIXIN
+				// #ifdef MP-WEIXIN | MP-ALIPAY
 				let way = 3;
 				// #endif
 				let obj = {
@@ -620,7 +620,7 @@
 				// #ifdef APP-PLUS
 				let way = 2;
 				// #endif
-				// #ifdef MP-WEIXIN
+				// #ifdef MP-WEIXIN | MP-ALIPAY
 				let way = 3;
 				// #endif
 				let obj = {

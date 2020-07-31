@@ -186,10 +186,11 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, is_bind: '', orderId: '', placeRecharge: '' };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, order: function order() {this.leftClick();},
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, is_bind: '', orderId: '', placeRecharge: '', count: 0 };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, order: function order() {this.leftClick();
+    },
     /**
-                                                                                                                                                                                                                                                                                                                                                                          * 充值信息
-                                                                                                                                                                                                                                                                                                                                                                          */
+        * 充值信息
+        */
     placeRechargea: function placeRechargea() {
       var that = this;
       var id = that.orderId;
@@ -200,7 +201,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
 
 
 
-
+      var type = 'mini';
 
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
@@ -214,6 +215,9 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         appid: appid,
         id: id,
         type: type,
+
+        pay: 'alipay',
+
         timeStamp: timeStamp,
         sign: sign };
 
@@ -226,107 +230,135 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
           _request.default.Toast(res.data.msg);
         }
       });
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    querenchongzhi: function querenchongzhi() {
+      console.log('支付宝支付');
+      var that = this;
+      uni.requestPayment({
+        provider: 'alipay',
+        orderInfo: that.placeRecharge.alipayParams.trade_no, //微信、支付宝订单数据
+
+        success: function success(res) {
+          _request.default.Toast('充值成功');
+          setTimeout(function () {
+            uni.switchTab({
+              url: "/pages/tabar/user" });
+
+          }, 1000);
+        },
+        fail: function fail(err) {
+          console.log(err);
+          _request.default.Toast("充值失败");
+        } });
+
+
     } },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

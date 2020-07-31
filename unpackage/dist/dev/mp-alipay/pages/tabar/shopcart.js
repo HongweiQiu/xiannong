@@ -744,7 +744,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
 
 
 
-
+      var way = 3;
 
       var obj = {
         appid: appid,
@@ -791,7 +791,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
 
 
 
-
+      var way = 3;
 
       var obj = {
         appid: appid,

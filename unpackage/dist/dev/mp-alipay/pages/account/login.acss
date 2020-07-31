@@ -139,7 +139,7 @@ page {
 	color: #c2c2c2;
 }
 .login button {
-	border:none;
+	border: none;
 	background: none;
 	line-height: initial;
 }

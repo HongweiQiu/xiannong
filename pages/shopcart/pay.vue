@@ -28,7 +28,13 @@
 				<text class="red_font">￥{{list.payBalance}}</text>
 			</view>
 			<view>
+				<!-- #ifdef MP-ALIPAY -->
+					<text>支付宝支付</text>
+				<!-- #endif -->
+				<!-- #ifndef MP-ALIPAY -->
 				<text>微信支付</text>
+				<!-- #endif -->
+				
 				<text class="red_font">￥{{list.payWx}}</text>
 			</view>
 		</view>
@@ -310,6 +316,70 @@
 					}
 				})
 			},
+			// #endif
+			// #ifdef MP-ALIPAY
+			payOrder() {
+				console.log(132)
+				let {
+					id
+				} = this;
+				let timeStamp = Math.round(new Date().getTime() / 1000);
+				let obj = {
+					appid: appid,
+					timeStamp: timeStamp,
+					oid: id,
+					type: 'mini'
+				};
+				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				let params = Object.assign({
+					sign: sign,
+					pay: 'alipay',
+				}, obj)
+				rs.postRequests("payTemOrder", params, (res) => {
+					let {
+						data
+					} = res;
+			
+					if (data.code == 200) {
+						if (data.data.payType == 1) {
+							rs.Toast('支付成功');
+							setTimeout(() => {
+								uni.switchTab({
+									url: '/pages/tabar/order',
+								})
+							}, 1000)
+			
+						}
+						log(res.data.data.wxParams);
+						if (res.data.data.payType == 2) {
+							let {
+								alipayParams
+							} = res.data.data;
+							uni.requestPayment({
+								provider: 'alipay',
+								orderInfo: alipayParams.trade_no, //微信、支付宝订单数据
+								success: function(res) {
+									console.log('success:' + JSON.stringify(res));
+									rs.Toast('支付成功');
+									setTimeout(() => {
+										uni.switchTab({
+											url: '/pages/tabar/order',
+										})
+									}, 1000)
+								},
+								fail: function(err) {
+									console.log(err)
+									rs.Toast("充值失败");
+								}
+							});
+			
+						}
+					} else {
+						rs.Toast(data.msg)
+					}
+				})
+			},
+			
 			// #endif
 			// 临时订单信息
 			temOrder() {

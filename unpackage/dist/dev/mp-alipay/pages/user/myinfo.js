@@ -243,18 +243,21 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         delta: 1 });
 
     },
-    bindPhonePage: function bindPhonePage() {
+    bindPhonePage: function bindPhonePage() {var _this = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {_this.count = 0;}, 1000);
       uni.navigateTo({
         url: 'bindphone' });
 
     },
-    upload: function upload() {var _this = this;
+    upload: function upload() {var _this2 = this;
       uni.chooseImage({
         count: 1, //默认9
         sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
         success: function success(res) {
-          _this.showtitle = false;
-          _this.tempFilePath = res.tempFilePaths.shift();
+          _this2.showtitle = false;
+          _this2.tempFilePath = res.tempFilePaths.shift();
         } });
 
     },
@@ -322,7 +325,10 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         }
       });
     },
-    formSubmit: function formSubmit() {var _this2 = this;
+    formSubmit: function formSubmit() {var _this3 = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {_this3.count = 0;}, 1000);
       var that = this;
       if (that.memberInfoData.is_password == 0) {
         if (!that.password) {
@@ -338,9 +344,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
           return;
         }
       }
-      this.count++;
-      if (this.count != 1) return;
-      setTimeout(function () {_this2.count = 0;}, 500);
+
       var nickname = that.nickname.replace(/\s+/g, "");
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {

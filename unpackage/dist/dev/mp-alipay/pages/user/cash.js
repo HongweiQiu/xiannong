@@ -261,7 +261,8 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
       activeTab: -1 }, _defineProperty(_ref, "activeTab",
 
     0), _defineProperty(_ref, "orderType",
-    2), _ref;
+    2), _defineProperty(_ref, "count",
+    0), _ref;
 
   },
   methods: {
@@ -335,7 +336,10 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
         }
       });
     },
-    detailPage: function detailPage(id) {
+    detailPage: function detailPage(id) {var _this2 = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {_this2.count = 0;}, 1000);
       uni.navigateTo({
         url: 'cashdetail?id=' + id });
 

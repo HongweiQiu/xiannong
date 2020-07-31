@@ -181,6 +181,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 17));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
@@ -228,7 +234,13 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, id: '', is_miniBind: uni.getStorageSync('is_miniBind'), list: [], isDisable: true };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, cancelPay: function cancelPay() {uni.switchTab({ url: '/pages/tabar/shopcart' });}, bindWechat: function bindWechat() {_request.default.Toast('该账号未绑定微信，请先绑定再来支付');setTimeout(function () {uni.switchTab({ url: '/pages/tabar/user' });}, 1000);},
+//
+//
+//
+//
+//
+//
+var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, id: '', is_miniBind: uni.getStorageSync('is_miniBind'), list: [], isDisable: true, count: 0 };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, cancelPay: function cancelPay() {uni.switchTab({ url: '/pages/tabar/shopcart' });}, bindWechat: function bindWechat() {var _this = this;this.count++;if (this.count != 1) return;setTimeout(function () {_this.count = 0;}, 1000);_request.default.Toast('该账号未绑定微信，请先绑定再来支付');setTimeout(function () {uni.switchTab({ url: '/pages/tabar/user' });}, 1000);},
 
 
 
@@ -431,10 +443,82 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+    payOrder: function payOrder() {
+      console.log(132);var
+
+      id =
+      this.id;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp,
+        oid: id,
+        type: 'mini' };
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var params = Object.assign({
+        sign: sign,
+        pay: 'alipay' },
+      obj);
+      _request.default.postRequests("payTemOrder", params, function (res) {var
+
+        data =
+        res.data;
+
+        if (data.code == 200) {
+          if (data.data.payType == 1) {
+            _request.default.Toast('支付成功');
+            setTimeout(function () {
+              uni.switchTab({
+                url: '/pages/tabar/order' });
+
+            }, 1000);
+
+          }
+          log(res.data.data.wxParams);
+          if (res.data.data.payType == 2) {var
+
+            alipayParams =
+            res.data.data.alipayParams;
+            uni.requestPayment({
+              provider: 'alipay',
+              orderInfo: alipayParams.trade_no, //微信、支付宝订单数据
+              success: function success(res) {
+                console.log('success:' + JSON.stringify(res));
+                _request.default.Toast('支付成功');
+                setTimeout(function () {
+                  uni.switchTab({
+                    url: '/pages/tabar/order' });
+
+                }, 1000);
+              },
+              fail: function fail(err) {
+                console.log(err);
+                _request.default.Toast("充值失败");
+              } });
+
+
+          }
+        } else {
+          _request.default.Toast(data.msg);
+        }
+      });
+    },
 
 
     // 临时订单信息
-    temOrder: function temOrder() {var _this = this;
+    temOrder: function temOrder() {var _this2 = this;
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         appid: appid,
@@ -450,13 +534,9 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
         data =
         res.data;
         if (data.code == 200) {
-          _this.list = data.data;
+          _this2.list = data.data;
         } else {
-          uni.showToast({
-            title: data.msg,
-            duration: 2000,
-            icon: "none" });
-
+          _request.default.Toast(data.msg);
         }
 
       });

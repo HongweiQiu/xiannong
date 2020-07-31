@@ -272,9 +272,17 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecret = app.appsecret,isWeixin = app.isWeixin;var _default = { data: function data() {return { display: true, navBar: navBar, showWechat: false, logo: '', mobile: '', password: '', scrollHeight: '', newHeight: '', count: 0 };}, methods: { showTabbar: function showTabbar() {this.tabbar = true;}, hideTabbar: function hideTabbar() {this.tabbar = false;}, clickLeft: function clickLeft() {uni.hideKeyboard();setTimeout(function () {uni.switchTab({ url: '/pages/tabar/index' });}, 300);}, pageUrl: function pageUrl(data) {uni.hideKeyboard();setTimeout(function () {uni.navigateTo({ url: data });}, 300);}, // 手机登录
-    mobileLogin: function mobileLogin() {var _this = this;var mobile = this.mobile,password = this.password;var timeStamp = Math.round(new Date().getTime() / 1000);if (!mobile) {_request.default.Toast('手机号码不能为空，请输入手机号');return;}if (!password) {_request.default.Toast('密码不能为空，请输入密码');return;}if (password.length < 6) {_request.default.Toast('密码不能少于六位');return;}this.count++;if (this.count != 1) return;
-      setTimeout(function () {_this.count = 0;}, 1000);
+var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecret = app.appsecret,isWeixin = app.isWeixin;var _default = { data: function data() {return { display: true, navBar: navBar, showWechat: false, logo: '', mobile: '', password: '', scrollHeight: '', newHeight: '', count: 0 };}, methods: { showTabbar: function showTabbar() {this.tabbar = true;}, hideTabbar: function hideTabbar() {this.tabbar = false;}, clickLeft: function clickLeft() {uni.hideKeyboard();setTimeout(function () {uni.switchTab({ url: '/pages/tabar/index' });}, 300);}, pageUrl: function pageUrl(data) {var _this = this;this.count++;if (this.count != 1) return;setTimeout(function () {_this.count = 0;}, 1000);uni.hideKeyboard();setTimeout(function () {uni.navigateTo({ url: data });}, 300);}, // 手机登录
+    mobileLogin: function mobileLogin() {var _this2 = this;var mobile = this.mobile,password = this.password;this.count++;if (this.count != 1) return;setTimeout(function () {_this2.count = 0;}, 1000);var timeStamp = Math.round(new Date().getTime() / 1000);if (!mobile) {_request.default.Toast('手机号码不能为空，请输入手机号');return;}
+      if (!password) {
+        _request.default.Toast('密码不能为空，请输入密码');
+        return;
+      }
+      if (password.length < 6) {
+        _request.default.Toast('密码不能少于六位');
+        return;
+      }
+
       var obj = {
         mobile: mobile,
         password: password,
@@ -381,9 +389,8 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
 
 
 
+
     // H5端微信登录
-
-
 
 
 
@@ -485,12 +492,17 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
 
 
 
+
+
+
     // 支付宝
 
-    wechatLogin: function wechatLogin() {var _this2 = this;
+    wechatLogin: function wechatLogin() {var _this3 = this;
       this.count++;
       if (this.count != 1) return;
-      setTimeout(function () {_this2.count = 0;}, 1000);
+      setTimeout(function () {
+        _this3.count = 0;
+      }, 500);
       uni.login({
         provider: 'alipay',
         scopes: 'auth_user',
@@ -516,6 +528,7 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
               obj);
               _request.default.postRequests('wxLogin', params, function (result) {
                 var data = result.data;
+
                 if (data.code == 200) {
                   _request.default.Toast('登录成功，将跳转到首页');
                   wx.setStorageSync("cdj_token", data.data.token);
@@ -544,7 +557,7 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
 
 
 
-  onShow: function onShow() {var _this3 = this;
+  onShow: function onShow() {var _this4 = this;
     this.display = true;
 
 
@@ -580,7 +593,7 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
     _request.default.getRequests('indexAd', params, function (res) {
       var data = res.data;
       if (data.code == 200) {
-        _this3.logo = data.data.logo;
+        _this4.logo = data.data.logo;
       }
     });
 

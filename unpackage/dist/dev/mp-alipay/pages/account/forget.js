@@ -197,7 +197,8 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
       verify_code: '',
       secret_str: '',
       navBar: navBar,
-      back: true };
+      back: true,
+      count: 0 };
 
   },
   methods: {
@@ -296,7 +297,12 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
 
     },
     //提交
-    forget: function forget() {
+    forget: function forget() {var _this2 = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {
+        _this2.count = 0;
+      }, 1000);
       var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
       if (!this.mobile) {
         _request.default.Toast('手机号不能为空');

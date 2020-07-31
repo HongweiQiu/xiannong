@@ -177,6 +177,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 17));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
@@ -220,14 +227,19 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, oid: '', payOrder: '', is_miniBind: uni.getStorageSync('is_miniBind') };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, /**
                                                                                                                                                                                                                                                                                                                                                        * 支付信息
-                                                                                                                                                                                                                                                                                                                                                       */payOrdera: function payOrdera() {var that = this;var oid = that.oid;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, oid: oid, type: type, timeStamp: timeStamp };
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-      var data = {
-        appid: appid,
-        oid: oid,
-        type: type,
+                                                                                                                                                                                                                                                                                                                                                       */payOrdera: function payOrdera() {var that = this;var oid = that.oid;var type = 'mini';var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, oid: oid, type: type, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, oid: oid, type: type,
+        pay: 'alipay',
+
+
         timeStamp: timeStamp,
         sign: sign };
 
@@ -235,15 +247,15 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         if (res.data.code == 200) {
           that.payOrder = res.data.data;
         } else if (res.data.code == 406) {
-          uni.showToast({
-            title: "请先绑定微信",
-            icon: 'none' });
+
+
+          _request.default.Toast("请先绑定支付宝");
+
+
+
 
         } else {
-          uni.showToast({
-            title: res.data.msg,
-            icon: 'none' });
-
+          _request.default.Toast(res.data.msg);
         }
       });
     },
@@ -350,6 +362,30 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
 
 
 
+    querenchongzhi: function querenchongzhi() {
+      console.log('支付宝支付');
+      var that = this;
+      uni.requestPayment({
+        provider: 'alipay',
+        orderInfo: that.payOrder.aliParams.trade_no, //微信、支付宝订单数据
+        success: function success(res) {
+          _request.default.Toast('充值成功');
+          setTimeout(function () {
+            uni.switchTab({
+              url: "/pages/tabar/order" });
+
+          }, 1000);
+        },
+        fail: function fail(err) {
+          console.log(err);
+          _request.default.Toast("充值失败");
+        } });
+
+
+    },
+
+
+
     goPay: function goPay() {
       var that = this;
       var oid = that.oid;
@@ -380,18 +416,10 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
           }, 1000);
         }
         if (res.data.code == 400) {
-          uni.showToast({
-            title: res.data.msg,
-            duration: 2000,
-            icon: "none" });
-
+          _request.default.Toast(res.data.msg);
         }
         if (res.data.code == 500) {
-          uni.showToast({
-            title: '网络错误',
-            duration: 2000,
-            icon: "none" });
-
+          _request.default.Toast('网络错误');
         }
       });
     } },

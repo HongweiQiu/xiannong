@@ -12,6 +12,7 @@ page {
 }
 .invest .self_money .record {
 	color: #9e9e9e;
+	display: inline-block;
 }
 .invest .invest_button {
 	background-color: #009a44;

@@ -64,7 +64,7 @@
 				// #ifdef APP-PLUS
 				var type = 'app';
 				// #endif
-				// #ifdef MP-WEIXIN
+				// #ifdef MP-WEIXIN |MP-ALIPAY
 				var type = 'mini';
 				// #endif
 				var timeStamp = Math.round(new Date().getTime() / 1000);
@@ -79,6 +79,9 @@
 					appid: appid,
 					id: id,
 					type: type,
+					// #ifdef MP-ALIPAY
+					pay:'alipay',
+					// #endif
 					timeStamp: timeStamp,
 					sign: sign,
 				}
@@ -197,13 +200,38 @@
 				})
 			},
 			// #endif
+			// #ifdef MP-ALIPAY
+			querenchongzhi() {
+				console.log('支付宝支付')
+				var that = this;
+				uni.requestPayment({
+					provider: 'alipay',
+					orderInfo: that.placeRecharge.alipayParams.trade_no, //微信、支付宝订单数据
+					
+					success: function(res) {
+						rs.Toast('充值成功')
+						setTimeout(function() {
+							uni.switchTab({
+								url: "/pages/tabar/user"
+							})
+						}, 1000);
+					},
+					fail: function(err) {
+						console.log(err)
+						rs.Toast("充值失败");
+					}
+			
+				})
+			},
+			
+			// #endif
 		},
 		onLoad(options) {
 			this.orderId = options.orderId
 		},
 		onShow() {
 			var that = this;
-			that.placeRechargea()
+			that.placeRechargea();
 		}
 	};
 </script>

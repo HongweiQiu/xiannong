@@ -163,7 +163,7 @@
 				if (this.count != 1) return;
 				setTimeout(() => {
 					this.count = 0
-				}, 500)
+				}, 1000)
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,

@@ -409,13 +409,23 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
         * 页面跳转
         */
     //支付
-    play: function play(data) {
+    play: function play(data) {var _this = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {
+        _this.count = 0;
+      }, 1000);
       var oid = data;
       uni.navigateTo({
         url: '/pages/order/pay?oid=' + oid });
 
     },
-    orderDetailPage: function orderDetailPage(url, item) {
+    orderDetailPage: function orderDetailPage(url, item) {var _this2 = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {
+        _this2.count = 0;
+      }, 1000);
       if (url == 'orderDetail') {
         uni.navigateTo({
           url: '/pages/order/orderdetail?orderItem=' + item.id });
@@ -489,16 +499,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
         * 查看物流
         */
     ckwl: function ckwl(data) {
-
       var that = this;
-
-      // that.count++;
-      // console.log(that.count)
-      // if (that.count != 1) return;
-      // setTimeout(() => {
-      // 	that.count = 0;
-      // }, 1000)
-      // rs.Toast("无物流信息")
       var id = data;
 
       if (id <= 0) {

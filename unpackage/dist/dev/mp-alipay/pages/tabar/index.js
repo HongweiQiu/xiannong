@@ -275,7 +275,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 17));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniNoticeBar = function uniNoticeBar() {__webpack_require__.e(/*! require.ensure | components/uni-notice-bar/uni-notice-bar */ "components/uni-notice-bar/uni-notice-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-notice-bar/uni-notice-bar.vue */ 36));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
@@ -301,9 +300,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       loading: true,
       page: 1,
       num: 10,
-      hours: 0,
-      minu: 0,
-      second: 0,
+      hours: 1000,
       adList: {},
       activeList: {},
       activeConf: {},
@@ -317,6 +314,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
     closeCart: function closeCart() {
       this.$refs.addcart.onClose();
     },
+    //导航页面
     navUrl: function navUrl(e) {var _this = this;
       this.count++;
       if (this.count != 1) return;
@@ -389,7 +387,12 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
     onClose: function onClose() {
       this.$refs.popup.close();
     },
-    newPage: function newPage(url, id) {
+    newPage: function newPage(url, id) {var _this2 = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {
+        _this2.count = 0;
+      }, 1000);
       if (id) {
         uni.navigateTo({
           url: "/pages/index/".concat(url, "?id=").concat(id) });
@@ -401,7 +404,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       }
 
     },
-    indexAd: function indexAd() {var _this2 = this;
+    indexAd: function indexAd() {var _this3 = this;
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         appid: appid,
@@ -416,11 +419,11 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       _request.default.getRequests('indexAd', params, function (res) {
         var data = res.data;
         if (data.code == 200) {
-          _this2.adList = data.data;
+          _this3.adList = data.data;
         }
       });
     },
-    indexItem: function indexItem() {var _Object$assign,_this3 = this;
+    indexItem: function indexItem() {var _Object$assign,_this4 = this;
       this.itemList = [];
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
@@ -445,20 +448,21 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       _request.default.getRequests('indexItem', params, function (res) {
         var data = res.data;
         if (data.code == 200) {
-          _this3.itemList = data.data.list;
-          _this3.config = data.data;
+          _this4.itemList = data.data.list;
+          _this4.config = data.data;
           if (data.data.total <= 10) {
-            _this3.loading = false;
-            _this3.support = true;
+            _this4.loading = false;
+            _this4.support = true;
           } else {
-            _this3.support = false;
-            _this3.loading = true;
+            _this4.support = false;
+            _this4.loading = true;
           }
         }
       });
     },
     //限时抢购
-    limitList: function limitList() {var _this4 = this;
+    limitList: function limitList() {var _this5 = this;
+
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         appid: appid,
@@ -478,13 +482,13 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
 
           data.data,itemList = _data$data.itemList,timeRemain = _data$data.timeRemain;
           if (data.data.length != 0) {
-            _this4.showActive = true;
+            _this5.showActive = true;
           } else {
-            _this4.showActive = false;
+            _this5.showActive = false;
           }
-          _this4.hours = Math.abs(timeRemain);
-          _this4.activeConf = data.data;
-          _this4.activeList = itemList;
+          _this5.hours = Math.abs(timeRemain);
+          _this5.activeConf = data.data;
+          _this5.activeList = itemList;
         }
       });
     } },
@@ -507,7 +511,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
   onLoad: function onLoad() {
     uni.hideTabBar();
   },
-  onReachBottom: function onReachBottom() {var _this5 = this;
+  onReachBottom: function onReachBottom() {var _this6 = this;
     //页面上拉触底事件的处理函数
     var that = this;
 
@@ -534,13 +538,13 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       data =
       res.data;
       if (data.code = 200) {
-        if (data.data != '') {var _this5$itemList;
-          (_this5$itemList = _this5.itemList).push.apply(_this5$itemList, _toConsumableArray(data.data.list));
-          _this5.page += 1;
-          _this5.loading = true;
+        if (data.data != '') {var _this6$itemList;
+          (_this6$itemList = _this6.itemList).push.apply(_this6$itemList, _toConsumableArray(data.data.list));
+          _this6.page += 1;
+          _this6.loading = true;
         } else {
-          _this5.support = true;
-          _this5.loading = false;
+          _this6.support = true;
+          _this6.loading = false;
         }
       }
     });

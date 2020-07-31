@@ -206,7 +206,11 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { date: '请选择日期', dateArr: '', bitmap: true, navBar: navBar, list: [], page: 1, loading: true };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, detailPage: function detailPage(id) {uni.navigateTo({ url: 'billdetail?id=' + id });}, openCalendar: function openCalendar() {this.$refs.calendar.open();
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { date: '请选择日期', dateArr: '', bitmap: true, navBar: navBar, list: [], page: 1, loading: true, count: 0 };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, detailPage: function detailPage(id) {var _this = this;this.count++;if (this.count != 1) return;setTimeout(function () {_this.count = 0;}, 1000);uni.navigateTo({ url: 'billdetail?id=' + id });
+
+    },
+    openCalendar: function openCalendar() {
+      this.$refs.calendar.open();
     },
     confirm: function confirm(e) {
       if (!e.range.before || !e.range.after) {
@@ -222,7 +226,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
     /**
         * 账单列表
         */
-    moneyList: function moneyList() {var _this = this;
+    moneyList: function moneyList() {var _this2 = this;
       var that = this;
       var time = JSON.stringify(that.dateArr);
       if (time == "") {
@@ -254,16 +258,16 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
               that.list.push(res.data.data.list[i]);
             }
             if (that.list.length < 20) {
-              _this.loading = false;
+              _this2.loading = false;
             } else {
-              _this.loading = true;
+              _this2.loading = true;
             }
           } else {
-            _this.loading = '空';
+            _this2.loading = '空';
             that.bitmap = false;
           }
         } else {
-          _this.loading = '空';
+          _this2.loading = '空';
           _request.default.Toast(res.data.msg);
         }
       });
@@ -277,7 +281,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
   /**
       * 页面上拉触底事件的处理函数
       */
-  onReachBottom: function onReachBottom() {var _this2 = this;
+  onReachBottom: function onReachBottom() {var _this3 = this;
     var that = this;
     var time = that.dateArr;
     if (time == "请选择日期") {
@@ -306,12 +310,12 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       if (res.data.code == 200) {
         if (res.data.data.moneyList != '') {
           for (var i = 0; i < res.data.data.moneyList.length; i++) {
-            _this2.list.push(res.data.data.moneyList[i]);
+            _this3.list.push(res.data.data.moneyList[i]);
           }
-          _this2.page = page + 1;
-          _this2.loading = true;
+          _this3.page = page + 1;
+          _this3.loading = true;
         } else {
-          _this2.loading = false;
+          _this3.loading = false;
         }
       }
     });

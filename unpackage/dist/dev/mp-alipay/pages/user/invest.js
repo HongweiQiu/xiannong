@@ -114,10 +114,6 @@ var render = function() {
     _vm.e0 = function($event) {
       return _vm.$refs.popup.open()
     }
-
-    _vm.e1 = function($event) {
-      return _vm.$refs.popup.close()
-    }
   }
 }
 var recyclableRender = false
@@ -173,6 +169,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 17));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
@@ -194,16 +191,34 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, arrObj: { is_float: 0 }, is_miniBind: '', memberInfoData: '', code: '', invest: true };},
+//
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, arrObj: { is_float: 0 }, is_miniBind: '', memberInfoData: '', code: '', invest: true, count: 0 };},
   methods: {
     leftClick: function leftClick() {
       uni.navigateBack({
         delta: 1 });
 
     },
-    recordPage: function recordPage() {
+    recordPage: function recordPage() {var _this = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {_this.count = 0;}, 1000);
       uni.navigateTo({
         url: './investlist' });
+
+    },
+    userPage: function userPage() {
+
+      _request.default.Toast('请先绑定支付宝');
+
+
+
+
+      setTimeout(function () {
+        uni.switchTab({
+          url: "../tabar/user" });
+
+      }, 1000);
 
     },
     memberInfo: function memberInfo() {
@@ -226,7 +241,13 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       });
     },
     //充值
-    toParent: function toParent(e) {
+    close: function close() {
+      this.$refs.popup.close();
+    },
+    toParent: function toParent(e) {var _this2 = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {_this2.count = 0;}, 1000);
       if (this.is_miniBind == 0) {
         _request.default.Toast('请先绑定微信');
         setTimeout(function () {
@@ -251,7 +272,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
 
 
 
-
+      var type = 'mini';
 
       var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
       var data = {
@@ -273,6 +294,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         } else {
           _request.default.Toast(res.data.msg);
         }
+        _this2.close();
       });
     } },
 

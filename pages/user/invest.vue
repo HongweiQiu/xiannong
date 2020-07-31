@@ -10,7 +10,8 @@
 				<uni-icons type="arrowright" size="18" color="#9e9e9e" ></uni-icons>
 			</view>
 		</view>
-		<view class="invest_button" @click="$refs.popup.open()">充值</view>
+		<view class="invest_button" @click="$refs.popup.open()" v-if="is_miniBind==1">充值</view>
+		<view class="invest_button"  v-else @click="userPage">充值</view>
 		<uni-popup ref="popup" type="bottom">
 			<my-keyboard @cancelKey="close" :arrObj="arrObj" @toParent="toParent" :invest="invest"></my-keyboard>
 		</uni-popup>
@@ -55,6 +56,20 @@
 				uni.navigateTo({
 					url: './investlist'
 				})
+			},
+			userPage(){
+				// #ifdef MP-ALIPAY
+				rs.Toast('请先绑定支付宝')
+				// #endif
+				// #ifndef MP-ALIPAY
+				rs.Toast('请先绑定微信')
+				// #endif
+				setTimeout(()=>{
+					uni.switchTab({
+						url:"../tabar/user"
+					})
+				},1000)
+				
 			},
 			memberInfo() {
 				var that = this
@@ -106,7 +121,7 @@
 				// #ifdef APP-PLUS
 				     let type="mp";
 				// #endif
-				// #ifdef MP-WEIXIN
+				// #ifdef MP-WEIXIN |MP-ALIPAY
 				     let type='mini';
 				// #endif
 				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);

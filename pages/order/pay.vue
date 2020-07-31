@@ -24,8 +24,15 @@
 				<text class="red_font">￥{{payOrder.payBalance}}</text>
 			</view>
 			<view>
+				<!-- #ifdef MP-ALIPAY -->
+				<text>支付宝支付</text>
+				<text class="red_font">￥{{payOrder.alipay}}</text>
+				<!-- #endif -->
+				<!-- #ifndef MP-ALIPAY -->
 				<text>微信支付</text>
 				<text class="red_font">￥{{payOrder.payWx}}</text>
+				<!-- #endif -->
+				
 			</view>
 		</view>
 		<view class="notice">
@@ -77,7 +84,7 @@
 				// #ifdef APP-PLUS
 				var type = 'app';
 				// #endif
-				// #ifdef MP-WEIXIN
+				// #ifdef MP-WEIXIN |MP-ALIPAY
 				var type = 'mini';
 				// #endif
 				var timeStamp = Math.round(new Date().getTime() / 1000);
@@ -92,6 +99,11 @@
 					appid: appid,
 					oid: oid,
 					type: type,
+					
+					// #ifdef MP-ALIPAY
+					pay:'alipay',
+					// #endif
+					
 					timeStamp: timeStamp,
 					sign: sign,
 				}
@@ -99,15 +111,15 @@
 					if (res.data.code == 200) {
 						that.payOrder = res.data.data;
 					} else if (res.data.code == 406) {
-						uni.showToast({
-							title: "请先绑定微信",
-							icon: 'none'
-						})
+					
+						// #ifdef MP-ALIPAY
+							rs.Toast( "请先绑定支付宝");
+						// #endif
+						// #ifndef MP-ALIPAY
+							rs.Toast( "请先绑定微信");
+						// #endif
 					} else {
-						uni.showToast({
-							title: res.data.msg,
-							icon: 'none'
-						})
+						rs.Toast(res.data.msg)
 					}
 				})
 			},
@@ -118,7 +130,7 @@
 				uni.getProvider({
 					service: 'payment',
 					success: function(res) {
-						if (~res.provider.indexOf('wxpay')) {
+						if (res.provider.indexOf('wxpay')) {
 							uni.requestPayment({
 								provider: 'wxpay',
 								orderInfo: that.payOrder.wxParams, //微信、支付宝订单数据
@@ -213,6 +225,30 @@
 				})
 			},
 			// #endif
+			// #ifdef MP-ALIPAY
+			querenchongzhi() {
+				console.log('支付宝支付')
+				var that = this
+				uni.requestPayment({
+					provider: 'alipay',
+					orderInfo: that.payOrder.aliParams.trade_no, //微信、支付宝订单数据
+					success: function(res) {
+						rs.Toast('充值成功')
+						setTimeout(function() {
+							uni.switchTab({
+								url: "/pages/tabar/order"
+							})
+						}, 1000);
+					},
+					fail: function(err) {
+						console.log(err)
+						rs.Toast("充值失败");
+					}
+			
+				})
+			},
+			
+			// #endif
 			
 			goPay() {
 				var that = this
@@ -244,18 +280,10 @@
 						}, 1000)
 					}
 					if (res.data.code == 400) {
-						uni.showToast({
-							title: res.data.msg,
-							duration: 2000,
-							icon: "none"
-						});
+						rs.Toast(res.data.msg);
 					}
 					if (res.data.code == 500) {
-						uni.showToast({
-							title: '网络错误',
-							duration: 2000,
-							icon: "none"
-						});
+						rs.Toast('网络错误');
 					}
 				})
 			},

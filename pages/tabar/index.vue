@@ -297,7 +297,7 @@
 			},
 			//限时抢购
 			limitList() {
-				this.hours=1000;
+			
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
