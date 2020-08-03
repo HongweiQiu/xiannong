@@ -50,7 +50,7 @@
 						<text>微信登录</text>
 						<!-- #endif -->
 						<!-- #ifdef MP-ALIPAY -->
-						<text>支付宝登录</text>
+						<text style="padding-top:4rpx;">支付宝登录</text>
 						<!-- #endif -->
 
 					</view>

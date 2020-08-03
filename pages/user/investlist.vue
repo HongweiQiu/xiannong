@@ -2,15 +2,15 @@
 	<view class="invest_list">
 		<uni-nav-bar left-icon="arrowleft" title="充值记录" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
 		<!-- 账号信息 -->
-		<view class="all_account" v-if="!bitmap">
+		<view class="all_account" v-if="bitmap">
 			<view class="flex_left_right single" v-for="(item,index) in rechargeList" :key="index">
 				<view class="account_info">
 
 					<view>
 						<text v-if="item.consume == 1&&item.type==1">订单消费：{{item.order_sn}}</text>
 						<text class="bottom " v-if="item.consume == 1&&item.type==3">后台提现：{{item.order_sn}}</text>
-						<text class="bottom " v-if="item.consume == 0&&item.type==1">前台充值：{{item.order_sn}}</text>
-						<text class="bottom " v-if="item.consume == 0&&item.type==2">后台充值：{{item.order_sn}}</text>
+						<text class="bottom " v-if="item.consume == 0&&item.type==2">前台充值：{{item.order_sn}}</text>
+						<text class="bottom " v-if="item.consume == 0&&item.type==1">后台充值：{{item.order_sn}}</text>
 					</view>
 					<view class="gray_font">
 						<text v-if="item.consume == 1&&item.type==1"> 消费时间：{{item.date}}</text>
@@ -80,14 +80,13 @@
 					if (res.data.code == 200) {
 						if (res.data.data != '') {
 							that.rechargeList = res.data.data;
-							that.bitmap = false;
+							that.bitmap = true;
 							if (res.data.data.length <= 10) {
 								that.loading = false;
 							}
-
 						} else {
-							that.loading = '空';
-							that.bitmap = true;
+							that.loading = true;
+							that.bitmap = false;
 						}
 					}
 				})
@@ -120,11 +119,9 @@
 			rs.getRequests("rechargeList", data, (res) => {
 				if (res.data.code == 200) {
 					if (res.data.data != '') {
-						for (var i = 0; i < res.data.data.length; i++) {
-							that.rechargeList.push(res.data.data[i]);
-						}
+						that.rechargeList.push(...res.data.data);
 						that.loading = true;
-						that.bitmap = false;
+						that.bitmap =true;
 						that.page = page + 1;
 					} else {
 						that.loading = false;

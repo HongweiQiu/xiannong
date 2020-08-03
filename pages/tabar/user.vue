@@ -795,11 +795,11 @@
 </script>
 
 <style>
-	page {
+	page,.user {
 		background: white;
-		height: 100%;
+		/* height: 100%; */
 	}
-
+ 
 	.user .author image {
 		width: 140rpx;
 		height: 140rpx;
@@ -849,6 +849,9 @@
 
 	.user .middle>view text {
 		margin-left: 10rpx;
+		/* #ifdef MP-ALIPAY */
+		padding-top: 6rpx;
+		/* #endif */;
 	}
 
 	.user .middle .modify_address {

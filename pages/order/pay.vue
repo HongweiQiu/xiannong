@@ -1,15 +1,23 @@
 <template>
 	<view class="invest_record">
 		<uni-nav-bar left-icon="arrowleft" title="支付信息" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
-		<view class="tip">如出现下单端账号与支付账号不一样，请到个人中心更改绑定微信</view>
+		
+			<!-- #ifdef MP-ALIPAY -->
+			<view class="tip">如出现下单端账号与支付账号不一样，请到个人中心更改绑定支付宝</view>
+			<!-- #endif -->
+
+			<!-- #ifndef MP-ALIPAY -->
+			<view class="tip">如出现下单端账号与支付账号不一样，请到个人中心更改绑定微信</view>
+			<!-- #endif -->
+		
 		<view class="info">
 			<view>
 				<text>订单编号</text>
-				<text >{{payOrder.order_sn}}</text>
+				<text>{{payOrder.order_sn}}</text>
 			</view>
 			<view>
 				<text>配送时间</text>
-				<text >{{payOrder.send_time}}</text>
+				<text>{{payOrder.send_time}}</text>
 			</view>
 			<view>
 				<text>订单金额</text>
@@ -32,7 +40,7 @@
 				<text>微信支付</text>
 				<text class="red_font">￥{{payOrder.payWx}}</text>
 				<!-- #endif -->
-				
+
 			</view>
 		</view>
 		<view class="notice">
@@ -99,11 +107,11 @@
 					appid: appid,
 					oid: oid,
 					type: type,
-					
+
 					// #ifdef MP-ALIPAY
-					pay:'alipay',
+					pay: 'alipay',
 					// #endif
-					
+
 					timeStamp: timeStamp,
 					sign: sign,
 				}
@@ -111,19 +119,19 @@
 					if (res.data.code == 200) {
 						that.payOrder = res.data.data;
 					} else if (res.data.code == 406) {
-					
+
 						// #ifdef MP-ALIPAY
-							rs.Toast( "请先绑定支付宝");
+						rs.Toast("请先绑定支付宝");
 						// #endif
 						// #ifndef MP-ALIPAY
-							rs.Toast( "请先绑定微信");
+						rs.Toast("请先绑定微信");
 						// #endif
 					} else {
 						rs.Toast(res.data.msg)
 					}
 				})
 			},
-			
+
 			// #ifdef APP-PLUS
 			querenchongzhi() {
 				var that = this
@@ -149,11 +157,11 @@
 								}
 							});
 						}
-				
-				
+
+
 					}
-				});	
-				
+				});
+
 			},
 			// #endif
 			// #ifdef H5
@@ -169,7 +177,7 @@
 				} else {
 					this.jsApiCall();
 				}
-			
+
 			},
 			jsApiCall() {
 				var thta = this;
@@ -193,10 +201,10 @@
 						}
 					}
 				);
-			
+
 			},
 			// #endif
-			
+
 			// #ifdef MP-WEIXIN
 			querenchongzhi() {
 				console.log('微信支付')
@@ -221,7 +229,7 @@
 						console.log(err)
 						rs.Toast("充值失败");
 					}
-			
+
 				})
 			},
 			// #endif
@@ -233,23 +241,25 @@
 					provider: 'alipay',
 					orderInfo: that.payOrder.aliParams.trade_no, //微信、支付宝订单数据
 					success: function(res) {
-						rs.Toast('充值成功')
-						setTimeout(function() {
-							uni.switchTab({
+						if (res.resultCode == 9000) {
+							rs.Toast('充值成功');
+							setTimeout(function() {
+								uni.switchTab({
 								url: "/pages/tabar/order"
-							})
-						}, 1000);
+								})
+							}, 1000);
+						}
 					},
 					fail: function(err) {
 						console.log(err)
 						rs.Toast("充值失败");
 					}
-			
+
 				})
 			},
-			
+
 			// #endif
-			
+
 			goPay() {
 				var that = this
 				var oid = that.oid;
@@ -312,19 +322,15 @@
 	}
 
 	.invest_record .info>view {
-		height: 60rpx;
+		height: 80rpx;
 		background: white;
-		font-size: 24rpx;
-		line-height: 60rpx;
+		font-size: 26rpx;
+		line-height: 80rpx;
 		padding: 0 20rpx;
-
+border-bottom: 1px solid #efefef;
 		display: flex;
 		justify-content: space-between;
 	}
-
-	/* 	.invest_record .info>view:first-child {
-		border-bottom: 1px solid #efefef;
-	} */
 
 	.invest_record .notice {
 		font-size: 20rpx;

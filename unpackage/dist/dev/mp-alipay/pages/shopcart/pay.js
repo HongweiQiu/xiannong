@@ -187,8 +187,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 17));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -448,12 +462,6 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
 
 
 
-
-
-
-
-
-
     payOrder: function payOrder() {
       console.log(132);var
 
@@ -495,13 +503,14 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
               provider: 'alipay',
               orderInfo: alipayParams.trade_no, //微信、支付宝订单数据
               success: function success(res) {
-                console.log('success:' + JSON.stringify(res));
-                _request.default.Toast('支付成功');
-                setTimeout(function () {
-                  uni.switchTab({
-                    url: '/pages/tabar/order' });
+                if (res.resultCode == 9000) {
+                  _request.default.Toast('充值成功');
+                  setTimeout(function () {
+                    uni.switchTab({
+                      url: "/pages/tabar/order" });
 
-                }, 1000);
+                  }, 1000);
+                }
               },
               fail: function fail(err) {
                 console.log(err);

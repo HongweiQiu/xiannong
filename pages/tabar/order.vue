@@ -48,7 +48,7 @@
 					</view>
 					<view class="flex detail" @click="orderDetailPage('orderDetail',item)">
 						<image class="order_img" :src="item.item_img==''?imgRemote+orderInfo.item_default:item.item_img" mode="aspectFit"></image>
-						<view style="width: 100%;">
+						<view class="order_oneline">
 							<view class="">
 								<text>{{item.item_title}}</text>
 								<text class="gray_font">(等{{item.item_count}}件商品￥{{item.xd_price}})</text>
@@ -367,8 +367,8 @@
 
 					if (res.data.code == 200) {
 						if (res.data.data != '') {
-							var latitude = parseFloat(res.data.data.latitude);
-							var longitude = parseFloat(res.data.data.longitude);
+							var latitude = res.data.data.latitude;
+							var longitude =res.data.data.longitude;
 							if (res.data.data.latitude == '' || res.data.data.longitude == '') {
 								rs.Toast("无物流信息")
 							} else {
@@ -376,27 +376,25 @@
 								uni.navigateTo({
 									url: '/pages/order/address?data=' + JSON.stringify(res.data.data)
 								});
-								return;
+							
 								// #endif
-
+								
+							
+								// #ifdef MP-WEIXIN | APP-PLUS | MP-ALIPAY
 								uni.getLocation({
 									type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
 									success: function(res) {
 										that.map = true;
-
 										let mapObj = that.bd_decrypt(longitude, latitude);
-
 										uni.openLocation({
 											latitude: mapObj.lat, // 纬度，范围为-90~90，负数表示南纬
-											longitude: mapObj.lng, // 经度，范围为-180~180，负数表示西经										
-											// #ifdef MP-ALIPAY
+											longitude: mapObj.lng, // 经度，范围为-180~180，负数表示西经
 											name: ' ',
-											address: ''
-											// #endif
-
+											address: ' ',
 										})
 									}
 								})
+								// #endif
 							}
 						} else {
 							rs.Toast("无物流信息")
@@ -810,6 +808,9 @@
 		padding: 0 12rpx;
 		margin-left: 20rpx;
 		font-size: 24rpx;
+		/* #ifdef MP-ALIPAY */
+		padding: 5rpx 12rpx 0;
+		/* #endif */
 	}
 
 	.order .another_order {
@@ -831,10 +832,8 @@
 	.confirm_good {
 		background: red;
 		color: white;
-		border: 1px solid red;
+		// border: 1px solid red;
 	}
-
-	.order .order_top {}
 
 	.order .order_img {
 		width: 200rpx;
@@ -908,5 +907,12 @@
 		width: 400rpx;
 		height: 360rpx;
 		margin-top: 150rpx;
+	}
+
+	.order .order_oneline {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 	}
 </style>

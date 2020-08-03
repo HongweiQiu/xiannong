@@ -40,4 +40,8 @@
 .my_tabar .single_tabar .incolor {
 	color: #808080;
 }
+.my_tabar .title{padding-top:2px;}
+
+
+
 

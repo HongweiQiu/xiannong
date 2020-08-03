@@ -174,8 +174,9 @@ imgPath = '../../static/img/';var _default =
     pageUrl: function pageUrl(data) {var _this = this;
 
 
-      this.masktabar = true;
-      setTimeout(function () {_this.masktabar = false;}, 2000);
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {_this.count = 0;}, 2000);
 
       getApp().globalData.isReload = true;
       if (this.tabarIndex != 1) {

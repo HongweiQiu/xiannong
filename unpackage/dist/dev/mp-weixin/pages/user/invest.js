@@ -169,6 +169,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
@@ -190,8 +191,8 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, arrObj: { is_float: 0 }, is_miniBind: '', memberInfoData: '', code: '', invest: true, count: 0 };
-  },
+//
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, arrObj: { is_float: 0 }, is_miniBind: '', memberInfoData: '', code: '', invest: true, count: 0 };},
   methods: {
     leftClick: function leftClick() {
       uni.navigateBack({
@@ -204,6 +205,20 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       setTimeout(function () {_this.count = 0;}, 1000);
       uni.navigateTo({
         url: './investlist' });
+
+    },
+    userPage: function userPage() {
+
+
+
+
+      _request.default.Toast('请先绑定微信');
+
+      setTimeout(function () {
+        uni.switchTab({
+          url: "../tabar/user" });
+
+      }, 1000);
 
     },
     memberInfo: function memberInfo() {

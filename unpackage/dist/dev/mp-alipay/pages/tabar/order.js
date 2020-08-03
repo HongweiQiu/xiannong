@@ -523,11 +523,13 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
 
         if (res.data.code == 200) {
           if (res.data.data != '') {
-            var latitude = parseFloat(res.data.data.latitude);
-            var longitude = parseFloat(res.data.data.longitude);
+            var latitude = res.data.data.latitude;
+            var longitude = res.data.data.longitude;
             if (res.data.data.latitude == '' || res.data.data.longitude == '') {
               _request.default.Toast("无物流信息");
             } else {
+
+
 
 
 
@@ -539,19 +541,15 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
                 type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
                 success: function success(res) {
                   that.map = true;
-
                   var mapObj = that.bd_decrypt(longitude, latitude);
-
                   uni.openLocation({
                     latitude: mapObj.lat, // 纬度，范围为-90~90，负数表示南纬
-                    longitude: mapObj.lng, // 经度，范围为-180~180，负数表示西经										
-
+                    longitude: mapObj.lng, // 经度，范围为-180~180，负数表示西经
                     name: ' ',
-                    address: '' });
-
-
+                    address: ' ' });
 
                 } });
+
 
             }
           } else {

@@ -1,7 +1,14 @@
 <template>
 	<view class="invest_record">
 		<uni-nav-bar left-icon="arrowleft" title="充值信息" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
+		
+		<!-- #ifdef MP-ALIPAY -->
+		<view class="tip">如出现下单端账号与支付账号不一样，请到个人中心更改绑定支付宝</view>
+		<!-- #endif -->
+		
+		<!-- #ifndef MP-ALIPAY -->
 		<view class="tip">如出现下单端账号与支付账号不一样，请到个人中心更改绑定微信</view>
+		<!-- #endif -->
 		<view class="info">
 			<view>
 				<text>充值编号</text>
@@ -40,7 +47,7 @@
 				is_bind: '',
 				orderId: '',
 				placeRecharge: '',
-				count:0
+				count: 0
 			};
 		},
 		methods: {
@@ -80,7 +87,7 @@
 					id: id,
 					type: type,
 					// #ifdef MP-ALIPAY
-					pay:'alipay',
+					pay: 'alipay',
 					// #endif
 					timeStamp: timeStamp,
 					sign: sign,
@@ -138,8 +145,10 @@
 			// #ifdef APP-PLUS
 			querenchongzhi() {
 				this.count++;
-				if(this.count!=1)return;
-				setTimeout(()=>{this.count=0},1000)
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 1000)
 				var that = this;
 				uni.getProvider({
 					service: 'payment',
@@ -206,24 +215,28 @@
 				var that = this;
 				uni.requestPayment({
 					provider: 'alipay',
-					orderInfo: that.placeRecharge.alipayParams.trade_no, //微信、支付宝订单数据
-					
+					orderInfo: that.placeRecharge.alipayParams.trade_no, //微信、支付宝订单数据	
 					success: function(res) {
-						rs.Toast('充值成功')
-						setTimeout(function() {
-							uni.switchTab({
-								url: "/pages/tabar/user"
-							})
-						}, 1000);
+						console.log(res)
+
+						if (res.resultCode == 9000) {
+							rs.Toast('充值成功');
+							setTimeout(function() {
+								uni.switchTab({
+									url: "/pages/tabar/user"
+								})
+							}, 1000);
+						}
+
 					},
 					fail: function(err) {
 						console.log(err)
 						rs.Toast("充值失败");
 					}
-			
+
 				})
 			},
-			
+
 			// #endif
 		},
 		onLoad(options) {
@@ -253,7 +266,7 @@
 	.invest_record .info>view {
 		height: 80rpx;
 		background: white;
-		font-size: 24rpx;
+		font-size: 26rpx;
 		line-height: 80rpx;
 		padding: 0 20rpx;
 

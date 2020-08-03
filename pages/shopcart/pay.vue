@@ -1,7 +1,14 @@
 <template>
 	<view class="invest_record">
 		<uni-nav-bar left-icon="arrowleft" title="马上支付" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
+		
+		<!-- #ifdef MP-ALIPAY -->
+		<view class="tip">如出现下单端账号与支付账号不一样，请到个人中心更改绑定支付宝</view>
+		<!-- #endif -->
+		
+		<!-- #ifndef MP-ALIPAY -->
 		<view class="tip">如出现下单端账号与支付账号不一样，请到个人中心更改绑定微信</view>
+		<!-- #endif -->
 		<view class="info">
 			<view>
 				<text>订单编号</text>
@@ -13,11 +20,11 @@
 			</view>
 			<view>
 				<text>订单金额</text>
-				<text>{{list.total_fee}}</text>
+				<text>￥{{list.total_fee}}</text>
 			</view>
 			<view>
 				<text>现金券抵扣</text>
-				<text>{{list.coupons_price}}</text>
+				<text>￥{{list.coupons_price}}</text>
 			</view>
 			<view>
 				<text>我的余额</text>
@@ -231,8 +238,9 @@
 								provider: 'wxpay',
 								orderInfo: wxParams, //微信、支付宝订单数据
 								success: function(res) {
-									console.log('success:' + JSON.stringify(res));
+									let resJSON=JSON.stringify(res);
 									rs.Toast('支付成功');
+									
 									uni.switchTab({
 										url: '/pages/tabbar/order',
 									})
@@ -359,13 +367,14 @@
 								provider: 'alipay',
 								orderInfo: alipayParams.trade_no, //微信、支付宝订单数据
 								success: function(res) {
-									console.log('success:' + JSON.stringify(res));
-									rs.Toast('支付成功');
-									setTimeout(() => {
-										uni.switchTab({
-											url: '/pages/tabar/order',
-										})
-									}, 1000)
+									if (res.resultCode == 9000) {
+										rs.Toast('充值成功');
+										setTimeout(function() {
+											uni.switchTab({
+											url: "/pages/tabar/order"
+											})
+										}, 1000);
+									}
 								},
 								fail: function(err) {
 									console.log(err)

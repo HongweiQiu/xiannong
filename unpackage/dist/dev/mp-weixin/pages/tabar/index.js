@@ -466,7 +466,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
     },
     //限时抢购
     limitList: function limitList() {var _this5 = this;
-      this.hours = 1000;
+
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         appid: appid,

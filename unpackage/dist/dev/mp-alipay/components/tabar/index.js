@@ -177,6 +177,7 @@ imgPath = '../../static/img/';var _default =
 
 
 
+
       getApp().globalData.isReload = true;
       if (this.tabarIndex != 1) {
         getApp().globalData.classId = '';

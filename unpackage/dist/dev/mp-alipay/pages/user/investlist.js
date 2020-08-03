@@ -171,41 +171,41 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 17));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, bitmap: true, page: 1, loading: true, rechargeList: [] };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, /**
-                                                                                                                                                                                                                                                                                                                                        * 账单列表
-                                                                                                                                                                                                                                                                                                                                        */rechargeLista: function rechargeLista() {var that = this;var page = 1;var num = 15;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}
+var app = getApp().globalData;var
+
+appid =
+
+
+
+app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default =
+{
+  data: function data() {
+    return {
+      navBar: navBar,
+      bitmap: true,
+      page: 1,
+      loading: true,
+      rechargeList: [] };
+
+  },
+  methods: {
+    leftClick: function leftClick() {
+      uni.navigateBack({
+        delta: 1 });
+
+    },
+    /**
+        * 账单列表
+        */
+    rechargeLista: function rechargeLista() {
+      var that = this;
+      var page = 1;
+      var num = 15;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp };
 
       var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
       var data = {
@@ -219,14 +219,13 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         if (res.data.code == 200) {
           if (res.data.data != '') {
             that.rechargeList = res.data.data;
-            that.bitmap = false;
+            that.bitmap = true;
             if (res.data.data.length <= 10) {
               that.loading = false;
             }
-
           } else {
-            that.loading = '空';
-            that.bitmap = true;
+            that.loading = true;
+            that.bitmap = false;
           }
         }
       });
@@ -258,12 +257,10 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
 
     _request.default.getRequests("rechargeList", data, function (res) {
       if (res.data.code == 200) {
-        if (res.data.data != '') {
-          for (var i = 0; i < res.data.data.length; i++) {
-            that.rechargeList.push(res.data.data[i]);
-          }
+        if (res.data.data != '') {var _that$rechargeList;
+          (_that$rechargeList = that.rechargeList).push.apply(_that$rechargeList, _toConsumableArray(res.data.data));
           that.loading = true;
-          that.bitmap = false;
+          that.bitmap = true;
           that.page = page + 1;
         } else {
           that.loading = false;

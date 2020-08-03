@@ -1,12 +1,12 @@
 <template>
 	<view>
-		<view style="position: fixed;width:100vw;height:60px;z-index:9999;bottom: 0;" v-show="masktabar"></view>
-		<view style="height:60px;"></view>
+		<!-- <view style="position: fixed;width:100vw;height:60px;z-index:9999;bottom: 0;" v-show="masktabar"></view> -->
+		<view style="height:50px;"></view>
 		<view class="my_tabar">
 			<view v-for="(item, index) in tabList" :key="index" class="single_tabar" @click="pageUrl(item)">
 				<image class="image" v-if="tabarIndex == index" :src="item.img" mode="aspectFit"></image>
 				<image class="image" v-else :src="item.inImg" mode="aspectFit"></image>
-				<text :class="tabarIndex==index?'color':'incolor'">{{ item.title }}</text>
+				<text :class="tabarIndex==index?'color':'incolor'" class="title">{{ item.title }}</text>
 			</view>
 		</view>
 	</view>
@@ -58,8 +58,9 @@
 			pageUrl(data) {
 				
 				// #ifdef MP-WEIXIN
-				this.masktabar=true;
-				setTimeout(()=>{this.masktabar=false},2000)
+				this.count++;
+				if(this.count!=1)return;
+				setTimeout(()=>{this.count=0},2000)
 				// #endif
 				getApp().globalData.isReload = true;
 				if (this.tabarIndex != 1) {
@@ -131,4 +132,8 @@
 	.my_tabar .single_tabar .incolor {
 		color: #808080;
 	}
+	/* #ifdef MP-ALIPAY */
+	.my_tabar .title{padding-top:2px;}
+	/* #endif */
+	
 </style>

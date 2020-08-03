@@ -307,7 +307,7 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
       if (this.count != 1) return;
       setTimeout(function () {
         _this2.count = 0;
-      }, 500);
+      }, 1000);
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         appid: appid,
