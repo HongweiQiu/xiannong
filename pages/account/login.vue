@@ -101,11 +101,11 @@
 
 			clickLeft() {
 				uni.hideKeyboard();
-				setTimeout(() => {
+				// setTimeout(() => {
 					uni.switchTab({
 						url: '/pages/tabar/index'
 					});
-				}, 300)
+				// }, 300)
 
 			},
 			pageUrl(data) {

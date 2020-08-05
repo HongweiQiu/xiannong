@@ -4732,35 +4732,17 @@ var render = function() {
     "v-uni-view",
     { attrs: { _i: 0 } },
     [
-      _c("v-uni-view", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm._$g(1, "v-show"),
-            expression: "_$g(1,'v-show')"
-          }
-        ],
-        staticStyle: {
-          position: "fixed",
-          width: "100vw",
-          height: "60px",
-          "z-index": "9999",
-          bottom: "0"
-        },
-        attrs: { _i: 1 }
-      }),
-      _c("v-uni-view", { staticStyle: { height: "60px" }, attrs: { _i: 2 } }),
+      _c("v-uni-view", { staticStyle: { height: "50px" }, attrs: { _i: 1 } }),
       _c(
         "v-uni-view",
-        { staticClass: _vm._$g(3, "sc"), attrs: { _i: 3 } },
-        _vm._l(_vm._$g(4, "f"), function(item, index, $20, $30) {
+        { staticClass: _vm._$g(2, "sc"), attrs: { _i: 2 } },
+        _vm._l(_vm._$g(3, "f"), function(item, index, $20, $30) {
           return _c(
             "v-uni-view",
             {
               key: item,
-              staticClass: _vm._$g("4-" + $30, "sc"),
-              attrs: { _i: "4-" + $30 },
+              staticClass: _vm._$g("3-" + $30, "sc"),
+              attrs: { _i: "3-" + $30 },
               on: {
                 click: function($event) {
                   return _vm.$handleViewEvent($event)
@@ -4768,27 +4750,31 @@ var render = function() {
               }
             },
             [
-              _vm._$g("5-" + $30, "i")
+              _vm._$g("4-" + $30, "i")
                 ? _c("v-uni-image", {
+                    staticClass: _vm._$g("4-" + $30, "sc"),
+                    attrs: {
+                      src: _vm._$g("4-" + $30, "a-src"),
+                      mode: "aspectFit",
+                      _i: "4-" + $30
+                    }
+                  })
+                : _c("v-uni-image", {
                     staticClass: _vm._$g("5-" + $30, "sc"),
                     attrs: {
                       src: _vm._$g("5-" + $30, "a-src"),
                       mode: "aspectFit",
                       _i: "5-" + $30
                     }
-                  })
-                : _c("v-uni-image", {
-                    staticClass: _vm._$g("6-" + $30, "sc"),
-                    attrs: {
-                      src: _vm._$g("6-" + $30, "a-src"),
-                      mode: "aspectFit",
-                      _i: "6-" + $30
-                    }
                   }),
               _c(
                 "v-uni-text",
-                { class: _vm._$g("7-" + $30, "c"), attrs: { _i: "7-" + $30 } },
-                [_vm._v(_vm._$g("7-" + $30, "t0-0"))]
+                {
+                  staticClass: _vm._$g("6-" + $30, "sc"),
+                  class: _vm._$g("6-" + $30, "c"),
+                  attrs: { _i: "6-" + $30 }
+                },
+                [_vm._v(_vm._$g("6-" + $30, "t0-0"))]
               )
             ],
             1
@@ -4888,7 +4874,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.my_tabar[data-v-2e350f8f] {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-justify-content: space-around;\n\t        justify-content: space-around;\n\theight: 50px;\n\tbackground: white;\n\tposition: fixed;\n\twidth: 100%;\n\tz-index: 2;\n\tbottom: 0;\n\tborder-top: 1px solid #efefef;\n}\n.my_tabar .single_tabar .image[data-v-2e350f8f] {\n\twidth: 25px;\n\theight: 25px;\n}\n.my_tabar .single_tabar[data-v-2e350f8f] {\n\twidth: 25%;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: column;\n\t        flex-direction: column;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\tfont-size: 10px;\n}\n.my_tabar .single_tabar .color[data-v-2e350f8f] {\n\tcolor: #009A44;\n}\n.my_tabar .single_tabar .incolor[data-v-2e350f8f] {\n\tcolor: #808080;\n}\n", ""]);
+exports.push([module.i, "\n.my_tabar[data-v-2e350f8f] {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-justify-content: space-around;\n\t        justify-content: space-around;\n\theight: 50px;\n\tbackground: white;\n\tposition: fixed;\n\twidth: 100%;\n\tz-index: 2;\n\tbottom: 0;\n\tborder-top: 1px solid #efefef;\n}\n.my_tabar .single_tabar .image[data-v-2e350f8f] {\n\twidth: 25px;\n\theight: 25px;\n}\n.my_tabar .single_tabar[data-v-2e350f8f] {\n\twidth: 25%;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: column;\n\t        flex-direction: column;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\tfont-size: 10px;\n}\n.my_tabar .single_tabar .color[data-v-2e350f8f] {\n\tcolor: #009A44;\n}\n.my_tabar .single_tabar .incolor[data-v-2e350f8f] {\n\tcolor: #808080;\n}\n\n\n\n\n\n\n\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -6997,7 +6983,7 @@ var render = function() {
                             _c(
                               "v-uni-view",
                               {
-                                staticStyle: { width: "100%" },
+                                staticClass: _vm._$g("31-" + $31, "sc"),
                                 attrs: { _i: "31-" + $31 }
                               },
                               [
@@ -9280,7 +9266,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "@charset \"UTF-8\";\r\n/**\r\n * 这里是uni-app内置的常用样式变量\r\n *\r\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\r\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\r\n *\r\n */\r\n/**\r\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\r\n *\r\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\r\n */\r\n/* 颜色变量 */\r\n/* 行为相关颜色 */\r\n/* 文字基本颜色 */\r\n/* 背景颜色 */\r\n/* 边框颜色 */\r\n/* 尺寸变量 */\r\n/* 文字尺寸 */\r\n/* 图片尺寸 */\r\n/* Border Radius */\r\n/* 水平间距 */\r\n/* 垂直间距 */\r\n/* 透明度 */\r\n/* 文章场景相关 */\n.order .select_account {\r\n  border-bottom: 1px solid #efefef;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: end;\r\n  -webkit-justify-content: flex-end;\r\n          justify-content: flex-end;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  height: 65rpx;\r\n  padding-right: 18rpx;\n}\n.order .select_account uni-text {\r\n  color: grey;\r\n  display: inline-block;\r\n  margin-left: 10rpx;\n}\n.order .select_account .uni-icons {\r\n  color: grey !important;\n}\n.order .account_info {\r\n  border-top: 10rpx solid #efefef;\r\n  background: white;\r\n  position: fixed;\r\n  width: 100%;\r\n  z-index: 2;\n}\n.order .s-tabs-nav-wrap .s-tab-nav-view {\r\n  height: 100%;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-justify-content: space-around;\r\n          justify-content: space-around;\n}\n.order .order_option {\r\n  border-top: 1px solid #efefef;\r\n  height: 60rpx;\r\n  line-height: 60rpx;\r\n  text-align: right;\n}\n.order .order_option uni-text {\r\n  border-radius: 20rpx;\r\n  padding: 0 12rpx;\r\n  margin-left: 20rpx;\r\n  font-size: 24rpx;\n}\n.order .another_order {\r\n  background: #addb8c;\r\n  color: white;\n}\n.order .look_logist {\r\n  background: #02b1e4;\r\n  color: white;\n}\n.order .cancel_order {\r\n  background: white;\r\n  color: gray;\r\n  border: 1px solid gray;\n}\n.confirm_good {\r\n  background: red;\r\n  color: white;\r\n  border: 1px solid red;\n}\n.order .order_img {\r\n  width: 200rpx;\r\n  height: 160rpx;\r\n  margin-right: 20rpx;\n}\n.order .order_info .content > uni-view:nth-last-child(n + 2) {\r\n  background: white;\r\n  margin-bottom: 10rpx;\r\n  padding: 0 20rpx;\n}\n.order .order_info .content .top {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: justify;\r\n  -webkit-justify-content: space-between;\r\n          justify-content: space-between;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  padding-top: 5px;\r\n  padding-bottom: 5px;\n}\n.order .order_info .content .detail {\r\n  padding: 20rpx 0 20rpx 20rpx;\r\n  border-top: 1px solid #efefef;\n}\n.order .order_statu .mask {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  z-index: 999;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: rgba(0, 0, 0, 0.5);\n}\n.order .order_statu .operate {\r\n  margin-top: 10rpx;\r\n  padding: 2px 0 0;\r\n  z-index: 9999;\r\n  border-radius: 2px;\r\n  position: fixed;\r\n  right: 20rpx;\r\n  color: #1ea55a;\r\n  background: #fff;\r\n  width: 25%;\n}\n.order .order_statu .operate > uni-view {\r\n  height: 64rpx;\r\n  line-height: 64rpx;\r\n  text-align: center;\n}\n.order .order_statu .operate .all_order {\r\n  border-bottom: 1px solid #efefef;\n}\n.order .custom-tabs .s-tab-nav-view {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: justify;\r\n  -webkit-justify-content: space-between;\r\n          justify-content: space-between;\n}\n.order .bitmap {\r\n  text-align: center;\n}\n.order .bitmap uni-image {\r\n  width: 400rpx;\r\n  height: 360rpx;\r\n  margin-top: 150rpx;\n}\r\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\r\n/**\r\n * 这里是uni-app内置的常用样式变量\r\n *\r\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\r\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\r\n *\r\n */\r\n/**\r\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\r\n *\r\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\r\n */\r\n/* 颜色变量 */\r\n/* 行为相关颜色 */\r\n/* 文字基本颜色 */\r\n/* 背景颜色 */\r\n/* 边框颜色 */\r\n/* 尺寸变量 */\r\n/* 文字尺寸 */\r\n/* 图片尺寸 */\r\n/* Border Radius */\r\n/* 水平间距 */\r\n/* 垂直间距 */\r\n/* 透明度 */\r\n/* 文章场景相关 */\n.order .select_account {\r\n  border-bottom: 1px solid #efefef;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: end;\r\n  -webkit-justify-content: flex-end;\r\n          justify-content: flex-end;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  height: 65rpx;\r\n  padding-right: 18rpx;\n}\n.order .select_account uni-text {\r\n  color: grey;\r\n  display: inline-block;\r\n  margin-left: 10rpx;\n}\n.order .select_account .uni-icons {\r\n  color: grey !important;\n}\n.order .account_info {\r\n  border-top: 10rpx solid #efefef;\r\n  background: white;\r\n  position: fixed;\r\n  width: 100%;\r\n  z-index: 2;\n}\n.order .s-tabs-nav-wrap .s-tab-nav-view {\r\n  height: 100%;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-justify-content: space-around;\r\n          justify-content: space-around;\n}\n.order .order_option {\r\n  border-top: 1px solid #efefef;\r\n  height: 60rpx;\r\n  line-height: 60rpx;\r\n  text-align: right;\n}\n.order .order_option uni-text {\r\n  border-radius: 20rpx;\r\n  padding: 0 12rpx;\r\n  margin-left: 20rpx;\r\n  font-size: 24rpx;\n}\n.order .another_order {\r\n  background: #addb8c;\r\n  color: white;\n}\n.order .look_logist {\r\n  background: #02b1e4;\r\n  color: white;\n}\n.order .cancel_order {\r\n  background: white;\r\n  color: gray;\r\n  border: 1px solid gray;\n}\n.confirm_good {\r\n  background: red;\r\n  color: white;\n}\n.order .order_img {\r\n  width: 200rpx;\r\n  height: 160rpx;\r\n  margin-right: 20rpx;\n}\n.order .order_info .content > uni-view:nth-last-child(n + 2) {\r\n  background: white;\r\n  margin-bottom: 10rpx;\r\n  padding: 0 20rpx;\n}\n.order .order_info .content .top {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: justify;\r\n  -webkit-justify-content: space-between;\r\n          justify-content: space-between;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  padding-top: 5px;\r\n  padding-bottom: 5px;\n}\n.order .order_info .content .detail {\r\n  padding: 20rpx 0 20rpx 20rpx;\r\n  border-top: 1px solid #efefef;\n}\n.order .order_statu .mask {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  z-index: 999;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: rgba(0, 0, 0, 0.5);\n}\n.order .order_statu .operate {\r\n  margin-top: 10rpx;\r\n  padding: 2px 0 0;\r\n  z-index: 9999;\r\n  border-radius: 2px;\r\n  position: fixed;\r\n  right: 20rpx;\r\n  color: #1ea55a;\r\n  background: #fff;\r\n  width: 25%;\n}\n.order .order_statu .operate > uni-view {\r\n  height: 64rpx;\r\n  line-height: 64rpx;\r\n  text-align: center;\n}\n.order .order_statu .operate .all_order {\r\n  border-bottom: 1px solid #efefef;\n}\n.order .custom-tabs .s-tab-nav-view {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: justify;\r\n  -webkit-justify-content: space-between;\r\n          justify-content: space-between;\n}\n.order .bitmap {\r\n  text-align: center;\n}\n.order .bitmap uni-image {\r\n  width: 400rpx;\r\n  height: 360rpx;\r\n  margin-top: 150rpx;\n}\n.order .order_oneline {\r\n  width: 100%;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: column;\r\n          flex-direction: column;\r\n  -webkit-box-pack: justify;\r\n  -webkit-justify-content: space-between;\r\n          justify-content: space-between;\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -10691,7 +10677,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\nbody {\n\tbackground: white;\n\theight: 100%;\n}\n.user .author uni-image {\n\twidth: 140rpx;\n\theight: 140rpx;\n\tmargin-right: 20rpx;\n\tborder-radius: 50%;\n}\n.user .author {\n\tbackground: #094;\n\theight: 230rpx;\n\tcolor: white;\n\tpadding: 0 20rpx;\n}\n.user .back_green {\n\tbackground: #094;\n\theight: 80rpx;\n\twidth: 100%;\n}\n.user .middle {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\tmargin: 0 20rpx;\n\tposition: relative;\n\tmargin-top: -80rpx;\n\t-webkit-justify-content: space-around;\n\t        justify-content: space-around;\n\tline-height: 160rpx;\n\tborder-radius: 6px;\n\theight: 160rpx;\n\t-webkit-box-shadow: 1px 1px 4px #e0e0e0;\n\t        box-shadow: 1px 1px 4px #e0e0e0;\n\tbackground: #fff;\n}\n.user .middle uni-image {\n\twidth: 40rpx;\n\theight: 40rpx;\n\tmargin-left: 10rpx;\n}\n.user .middle>uni-view {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\twidth: 33%;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n}\n.user .middle>uni-view uni-text {\n\tmargin-left: 10rpx;\n}\n.user .middle .modify_address {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t-webkit-justify-content: space-between;\n\t        justify-content: space-between;\n}\n.user .middle .modify_address .address {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t-webkit-justify-content: space-between;\n\t        justify-content: space-between;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n}\n.user .middle .modify_address .address uni-image {\n\twidth: 32rpx;\n}\n.user .middle .modify_address .icon_border {\n\tborder: 0.5px solid black;\n\theight: 25rpx;\n}\n.user .select_operate {\n\tpadding: 0 20rpx;\n}\n.user .select_operate>uni-view {\n\theight: 80rpx;\n}\n.user .select_operate>uni-view .name {\n\tmargin-left: 10rpx;\n}\n.user uni-button {\n\tline-height: 80rpx;\n\tpadding: 0;\n\tbackground: none;\n\tfont-size: 28rpx;\n\tborder: none;\n}\n.user uni-button::after {\n\tborder: none;\n}\n.share_box {\n\tbackground: rgba(0, 0, 0, 0.5);\n\tposition: fixed;\n\ttop: 0;\n\tleft: 0;\n\theight: 100%;\n\twidth: 100%;\n\tz-index: 999;\n}\n.share_box .item {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n}\n.share_box .share_msg {\n\twidth: 70%;\n\theight: 310rpx;\n\tmargin-left: 19%;\n\tmargin-top: 80rpx;\n}\n.share_box .share_x {\n\twidth: 50rpx;\n\theight: 50rpx;\n\tmargin-top: 500rpx;\n}\n", ""]);
+exports.push([module.i, "\nbody,.user {\n\tbackground: white;\n\t/* height: 100%; */\n}\n.user .author uni-image {\n\twidth: 140rpx;\n\theight: 140rpx;\n\tmargin-right: 20rpx;\n\tborder-radius: 50%;\n}\n.user .author {\n\tbackground: #094;\n\theight: 230rpx;\n\tcolor: white;\n\tpadding: 0 20rpx;\n}\n.user .back_green {\n\tbackground: #094;\n\theight: 80rpx;\n\twidth: 100%;\n}\n.user .middle {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\tmargin: 0 20rpx;\n\tposition: relative;\n\tmargin-top: -80rpx;\n\t-webkit-justify-content: space-around;\n\t        justify-content: space-around;\n\tline-height: 160rpx;\n\tborder-radius: 6px;\n\theight: 160rpx;\n\t-webkit-box-shadow: 1px 1px 4px #e0e0e0;\n\t        box-shadow: 1px 1px 4px #e0e0e0;\n\tbackground: #fff;\n}\n.user .middle uni-image {\n\twidth: 40rpx;\n\theight: 40rpx;\n\tmargin-left: 10rpx;\n}\n.user .middle>uni-view {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\twidth: 33%;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n}\n.user .middle>uni-view uni-text {\n\tmargin-left: 10rpx;\n}\n.user .middle .modify_address {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t-webkit-justify-content: space-between;\n\t        justify-content: space-between;\n}\n.user .middle .modify_address .address {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t-webkit-justify-content: space-between;\n\t        justify-content: space-between;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n}\n.user .middle .modify_address .address uni-image {\n\twidth: 32rpx;\n}\n.user .middle .modify_address .icon_border {\n\tborder: 0.5px solid black;\n\theight: 25rpx;\n}\n.user .select_operate {\n\tpadding: 0 20rpx;\n}\n.user .select_operate>uni-view {\n\theight: 80rpx;\n}\n.user .select_operate>uni-view .name {\n\tmargin-left: 10rpx;\n}\n.user uni-button {\n\tline-height: 80rpx;\n\tpadding: 0;\n\tbackground: none;\n\tfont-size: 28rpx;\n\tborder: none;\n}\n.user uni-button::after {\n\tborder: none;\n}\n.share_box {\n\tbackground: rgba(0, 0, 0, 0.5);\n\tposition: fixed;\n\ttop: 0;\n\tleft: 0;\n\theight: 100%;\n\twidth: 100%;\n\tz-index: 999;\n}\n.share_box .item {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n}\n.share_box .share_msg {\n\twidth: 70%;\n\theight: 310rpx;\n\tmargin-left: 19%;\n\tmargin-top: 80rpx;\n}\n.share_box .share_x {\n\twidth: 50rpx;\n\theight: 50rpx;\n\tmargin-top: 500rpx;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -17902,7 +17888,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.invest_record .tip {\n\tcolor: red;\n\tbackground: #f9d1cb;\n\tfont-size: 24rpx;\n\theight: 40rpx;\n\ttext-align: center;\n\tline-height: 40rpx;\n}\n.invest_record .info>uni-view {\n\theight: 60rpx;\n\tbackground: white;\n\tfont-size: 24rpx;\n\tline-height: 60rpx;\n\tpadding: 0 20rpx;\n\n\tdisplay: -webkit-box;\n\n\tdisplay: -webkit-flex;\n\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t-webkit-justify-content: space-between;\n\t        justify-content: space-between;\n}\n\n/* \t.invest_record .info>view:first-child {\n\tborder-bottom: 1px solid #efefef;\n} */\n.invest_record .notice {\n\tfont-size: 20rpx;\n\tcolor: #808080;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\tpadding: 20rpx 20rpx 80rpx;\n}\n.invest_record .select>uni-view {\n\twidth: 329rpx;\n\theight: 64rpx;\n\tcolor: white;\n\tmargin: 0 auto;\n\tborder-radius: 12rpx;\n\ttext-align: center;\n\tline-height: 64rpx;\n\tmargin-top: 20rpx;\n}\n.invest_record .select .determine {\n\tbackground: #009a44;\n}\n.invest_record .select .cancel {\n\tbackground: #808080;\n}\n", ""]);
+exports.push([module.i, "\n.invest_record .tip {\n\t\tcolor: red;\n\t\tbackground: #f9d1cb;\n\t\tfont-size: 24rpx;\n\t\theight: 40rpx;\n\t\ttext-align: center;\n\t\tline-height: 40rpx;\n}\n.invest_record .info>uni-view {\n\t\theight: 80rpx;\n\t\tbackground: white;\n\t\tfont-size: 26rpx;\n\t\tline-height: 80rpx;\n\t\tpadding: 0 20rpx;\nborder-bottom: 1px solid #efefef;\n\t\tdisplay: -webkit-box;\n\t\tdisplay: -webkit-flex;\n\t\tdisplay: flex;\n\t\t-webkit-box-pack: justify;\n\t\t-webkit-justify-content: space-between;\n\t\t        justify-content: space-between;\n}\n.invest_record .notice {\n\t\tfont-size: 20rpx;\n\t\tcolor: #808080;\n\t\tdisplay: -webkit-box;\n\t\tdisplay: -webkit-flex;\n\t\tdisplay: flex;\n\t\tpadding: 20rpx 20rpx 80rpx;\n}\n.invest_record .select>uni-view {\n\t\twidth: 329rpx;\n\t\theight: 64rpx;\n\t\tcolor: white;\n\t\tmargin: 0 auto;\n\t\tborder-radius: 12rpx;\n\t\ttext-align: center;\n\t\tline-height: 64rpx;\n\t\tmargin-top: 20rpx;\n}\n.invest_record .select .determine {\n\t\tbackground: #009a44;\n}\n.invest_record .select .cancel {\n\t\tbackground: #808080;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -18748,7 +18734,7 @@ var render = function() {
             [
               _c("v-uni-text", { attrs: { _i: 11 } }, [_vm._v("订单金额")]),
               _c("v-uni-text", { attrs: { _i: 12 } }, [
-                _vm._v(_vm._$g(12, "t0-0"))
+                _vm._v("￥" + _vm._$g(12, "t0-0"))
               ])
             ],
             1
@@ -18759,7 +18745,7 @@ var render = function() {
             [
               _c("v-uni-text", { attrs: { _i: 14 } }, [_vm._v("现金券抵扣")]),
               _c("v-uni-text", { attrs: { _i: 15 } }, [
-                _vm._v(_vm._$g(15, "t0-0"))
+                _vm._v("￥" + _vm._$g(15, "t0-0"))
               ])
             ],
             1
@@ -22343,25 +22329,39 @@ var render = function() {
         ],
         1
       ),
-      _c(
-        "v-uni-view",
-        {
-          staticClass: _vm._$g(9, "sc"),
-          attrs: { _i: 9 },
-          on: {
-            click: function($event) {
-              return _vm.$handleViewEvent($event)
-            }
-          }
-        },
-        [_vm._v("充值")]
-      ),
+      _vm._$g(9, "i")
+        ? _c(
+            "v-uni-view",
+            {
+              staticClass: _vm._$g(9, "sc"),
+              attrs: { _i: 9 },
+              on: {
+                click: function($event) {
+                  return _vm.$handleViewEvent($event)
+                }
+              }
+            },
+            [_vm._v("充值")]
+          )
+        : _c(
+            "v-uni-view",
+            {
+              staticClass: _vm._$g(10, "sc"),
+              attrs: { _i: 10 },
+              on: {
+                click: function($event) {
+                  return _vm.$handleViewEvent($event)
+                }
+              }
+            },
+            [_vm._v("充值")]
+          ),
       _c(
         "uni-popup",
-        { ref: "popup", attrs: { _i: 10 } },
+        { ref: "popup", attrs: { _i: 11 } },
         [
           _c("my-keyboard", {
-            attrs: { _i: 11 },
+            attrs: { _i: 12 },
             on: {
               cancelKey: function($event) {
                 return _vm.$handleViewEvent($event)
@@ -23100,7 +23100,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\nbody {\n\tbackground: #f8f6f9;\n}\n.invest_record .tip {\n\tcolor: red;\n\tbackground: #f9d1cb;\n\tfont-size: 24rpx;\n\theight: 50rpx;\n\ttext-align: center;\n\tline-height: 50rpx;\n}\n.invest_record .info>uni-view {\n\theight: 80rpx;\n\tbackground: white;\n\tfont-size: 24rpx;\n\tline-height: 80rpx;\n\tpadding: 0 20rpx;\n\n\tdisplay: -webkit-box;\n\n\tdisplay: -webkit-flex;\n\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t-webkit-justify-content: space-between;\n\t        justify-content: space-between;\n}\n.invest_record .info>uni-view:first-child {\n\tborder-bottom: 1px solid #efefef;\n}\n.invest_record .notice {\n\tfont-size: 20rpx;\n\tcolor: #808080;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\tpadding: 20rpx 20rpx 80rpx;\n}\n.invest_record .select>uni-view {\n\twidth: 329rpx;\n\theight: 64rpx;\n\tcolor: white;\n\tmargin: 0 auto;\n\tborder-radius: 12rpx;\n\ttext-align: center;\n\tline-height: 64rpx;\n\tmargin-top: 20rpx;\n}\n.invest_record .select .determine {\n\tbackground: #009a44;\n}\n.invest_record .select .cancel {\n\tbackground: #808080;\n}\n", ""]);
+exports.push([module.i, "\nbody {\n\tbackground: #f8f6f9;\n}\n.invest_record .tip {\n\tcolor: red;\n\tbackground: #f9d1cb;\n\tfont-size: 24rpx;\n\theight: 50rpx;\n\ttext-align: center;\n\tline-height: 50rpx;\n}\n.invest_record .info>uni-view {\n\theight: 80rpx;\n\tbackground: white;\n\tfont-size: 26rpx;\n\tline-height: 80rpx;\n\tpadding: 0 20rpx;\n\n\tdisplay: -webkit-box;\n\n\tdisplay: -webkit-flex;\n\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t-webkit-justify-content: space-between;\n\t        justify-content: space-between;\n}\n.invest_record .info>uni-view:first-child {\n\tborder-bottom: 1px solid #efefef;\n}\n.invest_record .notice {\n\tfont-size: 20rpx;\n\tcolor: #808080;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\tpadding: 20rpx 20rpx 80rpx;\n}\n.invest_record .select>uni-view {\n\twidth: 329rpx;\n\theight: 64rpx;\n\tcolor: white;\n\tmargin: 0 auto;\n\tborder-radius: 12rpx;\n\ttext-align: center;\n\tline-height: 64rpx;\n\tmargin-top: 20rpx;\n}\n.invest_record .select .determine {\n\tbackground: #009a44;\n}\n.invest_record .select .cancel {\n\tbackground: #808080;\n}\n", ""]);
 // Exports
 module.exports = exports;
 

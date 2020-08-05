@@ -29,8 +29,10 @@
 			</view>
 		</view>
 		<view class="submit_button button_style" @click="register" :class="{'gray_b':back}">提交</view>
-		<view class="now_login" @click="pageUrl('login')">已有账户？现在登录>></view>
-		<view class="agree" @click="pageUrl('treaty')" v-if="display1">注册协议</view>
+		<view class="now_login" >
+			<text @click="pageUrl('login')">已有账户？现在登录>></text></view>
+		<view class="agree"  v-if="display1">
+			<text @click="pageUrl('treaty')">注册协议</text></view>
 	</view>
 </template>
 

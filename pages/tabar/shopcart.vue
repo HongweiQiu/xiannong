@@ -124,10 +124,11 @@
 				子账号
 			</w-picker>
 			<!-- 配送日期 -->
-			<w-picker mode="date" :value="sendDate" fields="day" @confirm="onConfirmDate($event, 'date')" :startYear="startyear"
-			 endYear="2029" :disabled-after="false" ref="date">
+			<w-picker mode="date" :value="sendDate" fields="day"   @confirm="onConfirmDate($event, 'date')" :startYear="startyear"
+			 endYear="2029" :disabled-before="true" ref="date">
 				配送日期
 			</w-picker>
+		
 			<!-- 配送时间-->
 			<w-picker mode="selector" default-type="title" :default-props="deliveryListProps" :options="deliveryList" @confirm="onConfirmDelivery($event, 'selector')"
 			 ref="delivery">
@@ -171,6 +172,7 @@
 	import md5 from '../../static/js/md5.js';
 	import parseHtml from '../../static/js/parseHtml.js';
 	import rs from '../../static/js/request.js';
+	import ruiDatePicker from '@/components/rattenking-dtpicker/rattenking-dtpicker.vue';
 	let {
 		log
 	} = console;
@@ -183,7 +185,7 @@
 
 	export default {
 		components: {
-			wPicker
+			wPicker,ruiDatePicker
 		},
 		data() {
 			return {
@@ -373,7 +375,7 @@
 				this.$refs.account.show();
 			},
 			onConfirmAccount(e) {
-				log(e);
+			
 				if (!e.value) {
 					let {
 						userInfo
@@ -392,6 +394,7 @@
 			// 显示配送日期
 			selectDate() {
 				this.$refs.date.show();
+				
 			},
 			onConfirmDate(e) {
 				let {
@@ -399,6 +402,7 @@
 					month,
 					day
 				} = e.obj;
+			
 				this.sendDate = `${year}-${month}-${day}`;
 			},
 			// 显示配送时间

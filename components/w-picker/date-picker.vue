@@ -10,6 +10,7 @@
 				<view class="w-picker-item" v-for="(item,index) in range.years" :key="index">{{item}}年</view>
 			</picker-view-column>
 			<picker-view-column>
+				
 				<view class="w-picker-item" v-for="(item,index) in range.months" :key="index">{{item}}月</view>
 			</picker-view-column>
 		</picker-view>
@@ -111,7 +112,9 @@
 					minutes:[],
 					seconds:[]
 				},
-				checkObj:{}
+				checkObj:{},
+				year:'',
+				month:''
 			};
 		},
 		props:{
@@ -146,9 +149,11 @@
 		},
 		watch:{
 			fields(val){
+			
 				this.initData();
 			},
 			value(val){
+				
 				this.initData();
 			}
 		},
@@ -212,7 +217,14 @@
 				for(let month=1;month<=monthsLen;month++){
 					months.push(this.formatNum(month));
 				};
-				for(let day=1;day<=daysLen;day++){
+				// console.log(months)
+				
+				let startDay=1;
+				if(month==curMonth&&year==curYear){
+					startDay=curDay;
+				}
+				
+				for(let day=startDay;day<=daysLen;day++){
 					days.push(this.formatNum(day));
 				}
 				for(let hour=0;hour<hoursLen;hour++){
@@ -401,6 +413,7 @@
 				let defaultDate=this.getDefaultDate();
 				let defaultYear=defaultDate.defaultYear;
 				let defaultMonth=defaultDate.defaultMonth;
+			
 				let defaultDay=defaultDate.defaultDay;
 				let defaultDays=defaultDate.defaultDays;
 				let curFlag=this.current;
@@ -426,8 +439,13 @@
 				endDay=endDate.getDate();
 				dateData=this.getData(dVal);
 				years=dateData.years;
+				// console.log(years)
 				months=dateData.months;
+				if(dVal[0]==curYear){		months.splice(0,curMonth-1);}
+	
 				days=dateData.days;
+								if(dVal[0]==curYear&&dVal[1]==curMonth){days.splice(0,curDay-1)}
+	
 				hours=dateData.hours;
 				minutes=dateData.minutes;
 				seconds=dateData.seconds;
@@ -481,16 +499,23 @@
 							dVal[1]&&months.indexOf(dVal[1])!=-1?months.indexOf(dVal[1]):0,
 							dVal[2]&&days.indexOf(dVal[2])!=-1?days.indexOf(dVal[2]):0
 						]);
+						// console.log(curFlag)
 						range={years,months,days};
+							
 						year=dVal[0]?dVal[0]:years[0];
+						// console.log(pickVal)
 						month=dVal[1]?dVal[1]:months[0];
+						
+					
 						day=dVal[2]?dVal[2]:days[0];
 						result=full=`${year+'-'+month+'-'+day}`;
+						// console.log(result)
 						obj={
 							year,
 							month,
 							day
 						}
+						
 						break;
 					case "hour":
 						pickVal=disabledAfter?[
@@ -585,6 +610,7 @@
 						range={years,months,days,hours,minutes,seconds};
 						year=dVal[0]?dVal[0]:years[0];
 						month=dVal[1]?dVal[1]:months[0];
+						
 						day=dVal[2]?dVal[2]:days[0];
 						hour=dVal[3]?dVal[3]:hours[0];
 						minute=dVal[4]?dVal[4]:minutes[0];
@@ -604,6 +630,7 @@
 						break;
 				}
 				this.range=range;
+			
 				this.checkObj=obj;
 				this.$emit("change",{
 					result:result,
@@ -622,12 +649,29 @@
 				let months=null,days=null,hours=null,minutes=null,seconds=null;
 				let disabledAfter=this.disabledAfter;
 				year=(arr[0]||arr[0]==0)?data.years[arr[0]]||data.years[data.years.length-1]:"";
-				month=(arr[1]||arr[1]==0)?data.months[arr[1]]||data.months[data.months.length-1]:"";
-				day=(arr[2]||arr[2]==0)?data.days[arr[2]]||data.days[data.days.length-1]:"";
+			// 	month=(arr[1]||arr[1]==0)?data.months[arr[1]]||data.months[data.months.length-1]:"";
+			
+				// day=(arr[2]||arr[2]==0)?data.days[arr[2]]||data.days[data.days.length-1]:"";
+			let newMonth=this.resetData(year,month,day,hour,minute).months;
+			let currentYear=new Date().getFullYear();
+			let currentMonth=new Date().getMonth()+1;
+			let currentDay=new Date().getDay();
+			
+			if(year!=currentYear){
+				month=newMonth[arr[1]];
+				}else{
+					newMonth.splice(0,7);
+					month=newMonth[arr[1]];		
+			}
+				let newDay=data.days;
+			days=this.resetData(year,month,day,hour,minute).days;
+				day= days[arr[2]];
+			
+
 				hour=(arr[3]||arr[3]==0)?data.hours[arr[3]]||data.hours[data.hours.length-1]:"";
 				minute=(arr[4]||arr[4]==0)?data.minutes[arr[4]]||data.minutes[data.minutes.length-1]:"";
 				second=(arr[5]||arr[5]==0)?data.seconds[arr[5]]||data.seconds[data.seconds.length-1]:"";
-				
+			
 				switch(this.fields){
 					case "year":
 						result=full=`${year}`;
@@ -645,22 +689,36 @@
 						}
 						break;
 					case "day":
+					
 						result=full=`${year+'-'+month+'-'+day}`;
+						
 						if(this.disabledAfter){
 							months=this.resetData(year,month,day,hour,minute).months;
+						
 							days=this.resetData(year,month,day,hour,minute).days;
 						}else{
 							if(year%4==0||(month!=this.checkObj.month)){
 								days=this.resetData(year,month,day,hour,minute).days;
 							}
 						}
+					let newMonth=this.resetData(year,month,day,hour,minute).months;
+						if(year!=currentYear){
+							this.range.months=newMonth}else{
+							newMonth.splice(0,7);
+							this.range.months=newMonth
+							this.range.days=days
+						}
+						
 						if(months)this.range.months=months;
+							
 						if(days)this.range.days=days;
+							
 						obj={
 							year,
 							month,
 							day
 						}
+						
 						break;
 					case "hour":
 						result=`${year+'-'+month+'-'+day+' '+hour}`;
@@ -738,6 +796,7 @@
 						}
 						break;
 				}
+				// this.initData();
 				this.checkObj=obj;
 				this.$emit("change",{
 					result:result,

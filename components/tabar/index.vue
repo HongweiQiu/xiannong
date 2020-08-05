@@ -58,9 +58,9 @@
 			pageUrl(data) {
 				
 				// #ifdef MP-WEIXIN
-				this.count++;
-				if(this.count!=1)return;
-				setTimeout(()=>{this.count=0},2000)
+				// this.count++;
+				// if(this.count!=1)return;
+				// setTimeout(()=>{this.count=0},1000)
 				// #endif
 				getApp().globalData.isReload = true;
 				if (this.tabarIndex != 1) {

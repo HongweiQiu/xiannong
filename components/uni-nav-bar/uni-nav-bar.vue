@@ -103,8 +103,16 @@
         },
 		methods: {
 			onClickLeft() {
-				setTimeout(()=>{this.$emit("clickLeft");},300)
+				// #ifdef APP-PLUS
+				setTimeout(()=>{
+					this.$emit("clickLeft");
+					},300)
 				
+				// #endif
+				// #ifndef APP-PLUS
+				this.$emit("clickLeft");
+				// console.log(0)
+				// #endif
 			},
 			onClickRight() {
 				this.$emit("clickRight");
