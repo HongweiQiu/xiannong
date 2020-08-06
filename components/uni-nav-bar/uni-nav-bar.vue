@@ -104,10 +104,14 @@
 		methods: {
 			onClickLeft() {
 				// #ifdef APP-PLUS
-				setTimeout(()=>{
-					this.$emit("clickLeft");
-					},300)
-				
+			 // if (getApp().globalData.backFast) { //is_flag开始等于 true
+			 //            getApp().globalData.backFast = false;
+			           	this.$emit("clickLeft");
+			 //            setTimeout(() => {
+			 //                getApp().globalData.is_flag = true;
+			              
+			 //            }, 1000)
+			 //        } 
 				// #endif
 				// #ifndef APP-PLUS
 				this.$emit("clickLeft");

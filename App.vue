@@ -4,6 +4,7 @@
 		globalData: {
 			// #ifdef APP-PLUS
 			navBar: true,
+			backFast:true,
 			// #endif
 			// #ifdef MP-WEIXIN |H5
 			navBar: false,
