@@ -253,12 +253,17 @@
 				this.$refs.keyboard.cancel();
 			},
 			leftClick() {
+			
+	          // #ifdef H5
+				window.history.back(-1);
+				// #endif 
+				// #ifndef H5
 				if (this.backClick) {
 					uni.navigateBack({
 						delta: 1
 					})
 				}
-
+				// #endif	
 			},
 			collecting() {
 				this.count++;

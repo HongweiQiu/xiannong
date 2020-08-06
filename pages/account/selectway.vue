@@ -31,9 +31,14 @@
 		},
 		methods: {
 			leftClick() {
+				// #ifdef H5
+				window.history.back(-1);
+				// #endif 
+				// #ifndef H5
 				uni.navigateBack({
 					delta: 1
-				})
+				});
+				// #endif	
 			},
 			pageUrl(url) {
 				this.count++;

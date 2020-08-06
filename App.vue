@@ -4,13 +4,13 @@
 		globalData: {
 			// #ifdef APP-PLUS
 			navBar: true,
-			backFast:true,
+			backFast: true,
 			// #endif
 			// #ifdef MP-WEIXIN |H5
 			navBar: false,
 			// #endif
 			appid: '1',
-			active: '2', 
+			active: '2',
 			appsecret: 'StJfzJcXmya6k6Ar',
 			// #ifdef APP-PLUS |MP-WEIXIN |MP-ALIPAY
 			rootUrl: 'https://test.caidj.cn', //主接口地址
@@ -33,6 +33,10 @@
 
 		},
 		onShow: function() {
+			getApp().globalData.backFast = false;
+			setTimeout(() => {
+				getApp().globalData.backFast = true
+			}, 300)
 		},
 		onHide: function() {}
 	};
@@ -40,103 +44,105 @@
 
 <style>
 	/*每个页面公共css */
-@font-face {
-  font-family: 'iconfont';  /* project id 1843139 */
-  src: url('https://at.alicdn.com/t/font_1843139_qglkn6qh8t.eot');
-  src: url('https://at.alicdn.com/t/font_1843139_qglkn6qh8t.eot?#iefix') format('embedded-opentype'),
-  url('https://at.alicdn.com/t/font_1843139_qglkn6qh8t.woff2') format('woff2'),
-  url('https://at.alicdn.com/t/font_1843139_qglkn6qh8t.woff') format('woff'),
-  url('https://at.alicdn.com/t/font_1843139_qglkn6qh8t.ttf') format('truetype'),
-  url('https://at.alicdn.com/t/font_1843139_qglkn6qh8t.svg#iconfont') format('svg');
-}
+	@font-face {
+		font-family: 'iconfont';
+		/* project id 1843139 */
+		src: url('https://at.alicdn.com/t/font_1843139_qglkn6qh8t.eot');
+		src: url('https://at.alicdn.com/t/font_1843139_qglkn6qh8t.eot?#iefix') format('embedded-opentype'),
+			url('https://at.alicdn.com/t/font_1843139_qglkn6qh8t.woff2') format('woff2'),
+			url('https://at.alicdn.com/t/font_1843139_qglkn6qh8t.woff') format('woff'),
+			url('https://at.alicdn.com/t/font_1843139_qglkn6qh8t.ttf') format('truetype'),
+			url('https://at.alicdn.com/t/font_1843139_qglkn6qh8t.svg#iconfont') format('svg');
+	}
+
 	.iconfont {
-	  font-family: "iconfont" !important;
-	  font-size: 16px;
-	  font-style: normal;
-	  -webkit-font-smoothing: antialiased;
-	  -moz-osx-font-smoothing: grayscale;
+		font-family: "iconfont" !important;
+		font-size: 16px;
+		font-style: normal;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
 	}
-	
+
 	.icon-zhifubaorenzheng:before {
-	  content: "\e625";
+		content: "\e625";
 	}
-	
+
 	.icon-sousuo:before {
-	  content: "\e60f";
+		content: "\e60f";
 	}
-	
+
 	.icon-fenxiang:before {
-	  content: "\e623";
+		content: "\e623";
 	}
-	
+
 	.icon-buy-fill:before {
-	  content: "\e64c";
+		content: "\e64c";
 	}
-	
+
 	.icon-huidaodingbu:before {
-	  content: "\e6c0";
+		content: "\e6c0";
 	}
-	
+
 	.icon-alreadystar:before {
-	  content: "\e624";
+		content: "\e624";
 	}
-	
+
 	.icon-xing:before {
-	  content: "\e600";
+		content: "\e600";
 	}
-	
+
 	.icon-tianchongxing--:before {
-	  content: "\e614";
+		content: "\e614";
 	}
-	
+
 	.icon-mima:before {
-	  content: "\e645";
+		content: "\e645";
 	}
-	
+
 	.icon-yuyin:before {
-	  content: "\e631";
+		content: "\e631";
 	}
-	
+
 	.icon-08_zizhanghaoguanli:before {
-	  content: "\e630";
+		content: "\e630";
 	}
-	
+
 	.icon-shanchu:before {
-	  content: "\e663";
+		content: "\e663";
 	}
-	
+
 	.icon-qianbao:before {
-	  content: "\e604";
+		content: "\e604";
 	}
-	
+
 	.icon-juan:before {
-	  content: "\e64b";
+		content: "\e64b";
 	}
-	
+
 	.icon-huabanfuben:before {
-	  content: "\e65d";
+		content: "\e65d";
 	}
-	
+
 	.icon-X:before {
-	  content: "\e674";
+		content: "\e674";
 	}
-	
+
 	.icon-weixin:before {
-	  content: "\e637";
+		content: "\e637";
 	}
-	
+
 	.icon-yonghu:before {
-	  content: "\e603";
+		content: "\e603";
 	}
-	
+
 	.icon-fapiao:before {
-	  content: "\e720";
+		content: "\e720";
 	}
-	
+
 	.icon-tuichu:before {
-	  content: "\e69e";
+		content: "\e69e";
 	}
-	
+
 
 
 
@@ -151,7 +157,11 @@
 		width: 32rpx;
 		height: 32rpx;
 	}
-    .white_b{background: white;}
+
+	.white_b {
+		background: white;
+	}
+
 	.status_bar {
 		/* background: white; */
 
@@ -262,10 +272,12 @@
 	.body .myc_recomend:nth-child(n+3) {
 		margin-top: 40rpx;
 	}
+
 	/* #ifdef MP-ALIPAY */
 	.body .recomend_single:nth-child(n+3) {
 		margin-top: 40rpx;
 	}
+
 	/* #endif */
 
 	.order .uni-icons {
@@ -341,7 +353,8 @@
 	.icon-sousuo {
 		color: #d6cdd2;
 	}
-	text-no-space{
-	white-space:nowrap
+
+	text-no-space {
+		white-space: nowrap
 	}
 </style>

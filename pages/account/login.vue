@@ -100,13 +100,12 @@
 			},
 
 			clickLeft() {
-				uni.hideKeyboard();
-				// setTimeout(() => {
-					uni.switchTab({
-						url: '/pages/tabar/index'
-					});
-				// }, 300)
-
+				// #ifdef H5
+					uni.hideKeyboard();
+				// #endif
+				uni.switchTab({
+					url: '/pages/tabar/index'
+				});
 			},
 			pageUrl(data) {
 				this.count++;
@@ -114,13 +113,15 @@
 				setTimeout(() => {
 					this.count = 0
 				}, 1000)
-				uni.hideKeyboard()
-				setTimeout(() => {
+				// #ifdef H5
+					uni.hideKeyboard()
+				// #endif
+				setTimeout(()=>{
 					uni.navigateTo({
 						url: data
-					})
-				}, 300)
-				
+					}),300
+				})
+					
 			},
 			// 手机登录
 			mobileLogin() {

@@ -89,9 +89,14 @@
 		},
 		methods: {
 			urlPage() {
+				// #ifdef H5
+				window.history.back(-1);
+				// #endif 
+				// #ifndef H5
 				uni.navigateBack({
 					delta: 1
 				});
+				// #endif	
 			},
 			billdetail(item_id,attr_id) {
 				this.count++;

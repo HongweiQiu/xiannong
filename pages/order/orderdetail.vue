@@ -68,7 +68,7 @@
 					<view class="red_font" v-if="orderDetail.is_look==0">¥ ***</view>
 					<view class="red_font" v-if="orderDetail.is_look==1">¥{{detail.yf_price}}</view>
 				</view>
-			
+
 				<view v-if="detail.is_cash_delivery == 1">
 					<view>实付金额</view>
 					<view v-if="orderDetail.is_look==0" class="red_font">¥ ***</view>
@@ -134,9 +134,17 @@
 				})
 			},
 			LeftClick() {
+
+				// #ifdef H5
+				window.history.back(-1);
+				// #endif 
+				// #ifndef H5
+
 				uni.navigateBack({
 					delta: 1
-				});
+				})
+
+				// #endif	
 			},
 			/**
 			 * 订单详情

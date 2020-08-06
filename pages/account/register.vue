@@ -29,9 +29,9 @@
 			</view>
 		</view>
 		<view class="submit_button button_style" @click="register" :class="{'gray_b':back}">提交</view>
-		<view class="now_login" >
+		<view class="now_login">
 			<text @click="pageUrl('login')">已有账户？现在登录>></text></view>
-		<view class="agree"  v-if="display1">
+		<view class="agree" v-if="display1">
 			<text @click="pageUrl('treaty')">注册协议</text></view>
 	</view>
 </template>
@@ -70,14 +70,16 @@
 		},
 		methods: {
 			leftClick() {
-
+				// #ifdef H5
 				uni.hideKeyboard();
-				setTimeout(() => {
-					uni.navigateBack({
-						delta: 1
-					})
-				}, 300)
-
+				setTimeout(()=>{window.history.back(-1);},100)
+				
+				// #endif 
+				// #ifndef H5
+				uni.navigateBack({
+					delta: 1
+				});
+				// #endif	
 			},
 			pageUrl(data) {
 				this.count++;
