@@ -31,32 +31,32 @@
 			<view class="wechat_login" v-if="display">
 				<view class="">
 					<view class="divider gray_font">其他登录</view>
-					<view class="weixin_button" @click="wechatLogin">
+					<view class="weixin_button" >
 						<!-- #ifdef APP-PLUS |H5 -->
-						<image class="weixin_img" src="../../static/img/wechat.png" mode=""></image>
+						<image class="weixin_img" src="../../static/img/wechat.png" mode="" @click="wechatLogin"></image>
 						<!-- #endif -->
 
 						<!-- #ifdef MP-WEIXIN -->
 						<button open-type="getUserInfo">
-							<image class="weixin_img" src="../../static/img/wechat.png" mode=""></image>
+							<image class="weixin_img" src="../../static/img/wechat.png" mode="" @click="wechatLogin"></image>
 						</button>
 						<!-- #endif -->
 						<!-- #ifdef MP-ALIPAY -->
-						<button open-type="getAuthorize" scope="userInfo">
+						<button open-type="getAuthorize" scope="userInfo" @click="wechatLogin">
 							<image class="weixin_img" src="../../static/img/alipay.png" mode="aspectFit"></image>
 						</button>
 						<!-- #endif -->
 						<!-- #ifndef MP-ALIPAY -->
-						<text>微信登录</text>
+						<text @click="wechatLogin">微信登录</text>
 						<!-- #endif -->
 						<!-- #ifdef MP-ALIPAY -->
-						<text style="padding-top:4rpx;">支付宝登录</text>
+						<text style="padding-top:4rpx;" @click="wechatLogin">支付宝登录</text>
 						<!-- #endif -->
 
 					</view>
-					<view class="read_treaty" @click="pageUrl('treaty')">
-						已阅读并同意
-						<text>注册协议</text>
+					<view class="read_treaty">
+						 <text style="color: #000;" @click="pageUrl('treaty')">已阅读并同意</text>
+						<text @click="pageUrl('treaty')">注册协议</text>
 					</view>
 				</view>
 			</view>
@@ -285,7 +285,8 @@
 						let redirect_uri = encodeURIComponent(url);
 						let a = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
 							"appid=" + data.data.appId + "&redirect_uri=" + redirect_uri +
-							"&response_type=code&scope=snsapi_userinfo#wechat_redirect"
+							"&response_type=code&scope=snsapi_userinfo#wechat_redirect";
+							
 						window.location.href = a;
 
 					} else if (data.code == 500) {
@@ -423,6 +424,7 @@
 			// #endif
 		},
 		onShow() {
+			
 			this.display = true;
 			// #ifdef H5
 			if (uni.getSystemInfoSync().platform === 'android') {
@@ -459,6 +461,10 @@
 				let data = res.data;
 				if (data.code == 200) {
 					this.logo = data.data.logo;
+			     	uni.setStorageSync('titleKey',data.data.title);
+					uni.setNavigationBarTitle({
+					    title: uni.getStorageSync('titleKey')
+					});
 				}
 			});
 
@@ -483,12 +489,16 @@
 					let {
 						data
 					} = res;
-					uni.clearStorageSync('isWeixin')
+					uni.clearStorageSync('isWeixin');
+					
 					if (data.code == 200) {
 						uni.setStorageSync('cdj_token', data.data.token);
 						uni.setStorageSync('is_miniBind', data.data.is_bind);
 						uni.setStorageSync('is_child', data.data.is_child);
-						window.location.href = app.rootUrl;
+						// window.location.href = app.rootUrl;
+							uni.switchTab({
+								url:'/pages/tabar/index'
+							})
 					} else if (data.code == 201) {
 						wx.navigateTo({
 							url: 'selectway?identifying=' + data.data.identifying

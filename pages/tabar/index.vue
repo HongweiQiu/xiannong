@@ -135,7 +135,7 @@
 				loading: true,
 				page: 1,
 				num: 10,
-				hours:1000,
+				hours: 1000,
 				adList: {},
 				activeList: {},
 				activeConf: {},
@@ -255,6 +255,12 @@
 					let data = res.data;
 					if (data.code == 200) {
 						this.adList = data.data;
+						// #ifdef H5
+						uni.setStorageSync('titleKey', data.data.title);
+						uni.setNavigationBarTitle({
+							title: uni.getStorageSync('titleKey')
+						});
+						// #endif
 					}
 				});
 			},
@@ -297,7 +303,7 @@
 			},
 			//限时抢购
 			limitList() {
-			
+
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -330,6 +336,7 @@
 
 		},
 		onShow() {
+
 			this.token = uni.getStorageSync('cdj_token');
 			this.indexAd();
 			this.limitList();
@@ -344,6 +351,7 @@
 
 		},
 		onLoad() {
+			app.isReload = true;
 			uni.hideTabBar();
 		},
 		onReachBottom() {

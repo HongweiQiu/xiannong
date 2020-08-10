@@ -59,6 +59,9 @@
 			})
 		},
 		onShow() {
+			uni.setNavigationBarTitle({
+				    title: uni.getStorageSync('titleKey')
+				});
 			app.aData.show = true;
 			var that = this
 			that.orderInfo()

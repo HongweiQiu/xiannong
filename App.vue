@@ -1,4 +1,5 @@
 <script>
+
 	export default {
 		//全局共享数据
 		globalData: {
@@ -33,12 +34,11 @@
 
 		},
 		onShow: function() {
-			getApp().globalData.backFast = false;
-			setTimeout(() => {
-				getApp().globalData.backFast = true
-			}, 300)
+		
 		},
-		onHide: function() {}
+		onHide: function() {
+			
+		}
 	};
 </script>
 

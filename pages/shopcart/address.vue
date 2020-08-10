@@ -107,6 +107,9 @@
 		},
 		onShow() {
 			this.wxConfig();
+			uni.setNavigationBarTitle({
+				    title: uni.getStorageSync('titleKey')
+				});
 		},
 		onLoad(option) {
 			let that = this;

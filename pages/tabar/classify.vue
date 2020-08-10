@@ -328,6 +328,7 @@
 			})
 		},
 		onLoad(e) {
+			app.isReload = true;
 			uni.hideTabBar();
 		}
 	};

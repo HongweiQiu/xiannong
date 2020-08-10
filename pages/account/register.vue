@@ -260,6 +260,7 @@
 			}
 		},
 		onReady() {
+			
 			// #ifdef H5
 			this.scrollHeight = uni.getStorageSync('scrollHeight');
 
@@ -279,6 +280,11 @@
 			var that = this;
 			that.identifying = options.identifying;
 
+		},
+		onShow() {
+			uni.setNavigationBarTitle({
+				    title: uni.getStorageSync('titleKey')
+				});
 		}
 	};
 </script>

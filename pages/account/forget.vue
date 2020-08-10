@@ -58,6 +58,11 @@
 			};
 		},
 		methods: {
+			onShow(){
+				
+				uni.setNavigationBarTitle({
+					    title: uni.getStorageSync('titleKey')
+					});},
 			leftClick() {
 				// #ifdef H5
 				uni.hideKeyboard();

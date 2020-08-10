@@ -138,10 +138,13 @@
 		},
 		onShow() {
 			var that = this;
-			if(app.isReload){that.moneyList()}
-			
+			if(app.isReload){that.moneyList()}	
+		},
+		onLoad() {
+			app.isReload = true;
 		},
 		/**
+		 * 
 		 * 页面上拉触底事件的处理函数
 		 */
 		onReachBottom: function() {

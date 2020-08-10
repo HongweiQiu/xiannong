@@ -239,7 +239,11 @@
 		},
 		onLoad(options) {
 			this.identifying = options.identifying;
-
+		},
+		onShow() {
+			uni.setNavigationBarTitle({
+				    title: uni.getStorageSync('titleKey')
+				});
 		}
 	};
 </script>

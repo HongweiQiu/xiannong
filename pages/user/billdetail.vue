@@ -97,8 +97,9 @@
 		 */
 		onShow() {
 			getApp().globalData.isReload=false;
-			var that = this;
+		    var that = this;
 			that.moneyListInfoa();
+			
 		},
 	};
 </script>

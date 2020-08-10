@@ -51,6 +51,11 @@
 				});
 				// #endif	
 			}
+		},
+		onShow() {
+			uni.setNavigationBarTitle({
+				    title: uni.getStorageSync('titleKey')
+				});
 		}
 	}
 </script>

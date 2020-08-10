@@ -182,6 +182,11 @@
 			if(this.hide == true){
 				uni.removeStorage({ key: 'userAddress'})
 			}
+		},
+		onShow() {
+			uni.setNavigationBarTitle({
+				    title: uni.getStorageSync('titleKey')
+				});
 		}
 
 
