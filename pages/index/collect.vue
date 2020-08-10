@@ -59,12 +59,14 @@
 				this.$refs.keyboard.cancel();
 			},
 			leftClick() {
-				
-				// if (this.backpage) {
-					uni.navigateBack({
-						delta: 1
-					});
-				// }
+				// #ifdef H5
+				 window.history.back(-1);
+				// #endif 
+				// #ifndef H5
+				uni.navigateBack({
+					delta: 1
+				});
+				// #endif	
 			},
 			rightClick() {
 

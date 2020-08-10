@@ -9,7 +9,7 @@
 		<view v-else class="bitmap">
 			<image src="../../static/img/no_content.png" mode="aspectFit"></image>
 		</view>
-	
+
 		<uni-popup ref="popup" type="bottom" @maskInfo="closeKey">
 			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent" ref="keyboard"></my-keyboard>
 		</uni-popup>
@@ -37,28 +37,33 @@
 			return {
 				navBar: navBar,
 				imgRemote: imgRemote,
-				loading:true,
+				loading: true,
 				config: [],
 				list: [],
 				page: 1,
 				num: 10,
 				arrObj: [],
 				index: '',
-				bitmap:true,
+				bitmap: true,
 				cartware: []
 			};
 		},
 		methods: {
-			closeCart(){
+			closeCart() {
 				this.$refs.addcart.onClose();
 			},
-			closeKey(){
+			closeKey() {
 				this.$refs.keyboard.cancel();
 			},
 			leftClick(e) {
+				// #ifdef H5
+				window.history.back(-1);
+				// #endif 
+				// #ifndef H5
 				uni.navigateBack({
 					delta: 1
 				});
+				// #endif	
 			},
 			toParent(e) {
 				let item = e.arrObj;
@@ -145,18 +150,18 @@
 				this.$refs.popup.open();
 			}
 		},
-		onHide(){
+		onHide() {
 			// uni.setStorageSync('recommed',);
-			uni.setStorageSync('recommed',this.list);
+			uni.setStorageSync('recommed', this.list);
 			console.log(this.list)
 		},
 		onShow() {
 			console.log(this.page)
-			if (this.page==1) {
+			if (this.page == 1) {
 				this.getIndexSelect();
-			}else{
-				
-				this.list=uni.getStorageSync('recommed');
+			} else {
+
+				this.list = uni.getStorageSync('recommed');
 				// console.log(this.list);
 			}
 

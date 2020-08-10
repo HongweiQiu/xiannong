@@ -195,6 +195,9 @@
 			}
 		},
 		onLoad(options) {
+			uni.setNavigationBarTitle({
+				    title: uni.getStorageSync('titleKey')
+				});
 			var data = uni.getStorageSync('append');
 			console.log(uni.getStorageSync('append'))
 			if(data){

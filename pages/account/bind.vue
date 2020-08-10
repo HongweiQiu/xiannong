@@ -51,10 +51,14 @@
 		},
 		methods: {
 			leftClick() {
-
+				// #ifdef H5
+				window.history.back(-1);
+				// #endif 
+				// #ifndef H5
 				uni.navigateBack({
 					delta: 1
 				});
+				// #endif	
 			},
 			verifyResult(res) {
 				this.resultData = res;
@@ -208,7 +212,7 @@
 							// #ifdef MP-WEIXIN
 							uni.setStorageSync('is_miniBind', data.data.is_miniBind);
 							// #endif
-							
+
 							// #ifdef MP-ALIPAY
 							uni.setStorageSync('is_miniBind', data.data.is_alipayBind);
 							// #endif
@@ -235,7 +239,11 @@
 		},
 		onLoad(options) {
 			this.identifying = options.identifying;
-
+		},
+		onShow() {
+			uni.setNavigationBarTitle({
+				    title: uni.getStorageSync('titleKey')
+				});
 		}
 	};
 </script>

@@ -29,10 +29,6 @@
 				<view class="record_box">
 					<view class="img">
 						<image :src="item.item_url" alt=""></image>
-						<!-- <van-image use-error-slot :src="item.item_img==''?imgRemote+orderInfo.item_default:item.item_img" width="100px"
-						 height="80px" fit="contain">
-							<van-image width="100px" height="80px" fit="contain" slot="error" :src="imgRemote+orderInfo.item_default"></van-image>
-						</van-image> -->
 					</view>
 					<view class="record_detail">
 						<view class="top">
@@ -89,9 +85,14 @@
 		},
 		methods: {
 			urlPage() {
+				// #ifdef H5
+				window.history.back(-1);
+				// #endif 
+				// #ifndef H5
 				uni.navigateBack({
 					delta: 1
 				});
+				// #endif	
 			},
 			billdetail(item_id,attr_id) {
 				this.count++;
@@ -183,6 +184,7 @@
 		 */
 		onShow() {
 			var that = this;
+			console.log(app.isReload);
 			if(app.isReload){
 				var timeArr = rs.thedefaulttime();
 				that.date = timeArr[0] + ',' + timeArr[1];
@@ -190,6 +192,9 @@
 			}
 			
 		},
+		onLoad() {
+			app.isReload = true;
+		}
 	};
 </script>
 

@@ -50,7 +50,7 @@
 			<view>平台不会以订单异常，系统升级等理由要求您点击任何链接进行退款操作，请提高警惕谨防受骗！</view>
 		</view>
 		<view class="select">
-			<view class="determine" @click="payOrder" v-if="is_miniBind==1">确认支付</view>
+			<view class="determine" @click="payOrder" v-if="is_miniBind==1" id="determinePay">确认支付</view>
 			<view class="determine" @click="bindWechat" v-else>确认支付</view>
 			<view class="cancel" @click="cancelPay">取消支付</view>
 		</view>
@@ -83,9 +83,14 @@
 		},
 		methods: {
 			leftClick() {
+				// #ifdef H5
+				window.history.back(-1);
+				// #endif 
+				// #ifndef H5
 				uni.navigateBack({
 					delta: 1
 				});
+				// #endif	
 			},
 			cancelPay() {
 				uni.switchTab({

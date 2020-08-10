@@ -153,8 +153,10 @@
 			this.id = options.id
 		},
 		onShow() {
-
-			var that = this
+uni.setNavigationBarTitle({
+				    title: uni.getStorageSync('titleKey')
+				});
+			var that = this;
 			that.orderInfo()
 		},
 	};

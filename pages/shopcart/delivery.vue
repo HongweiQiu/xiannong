@@ -162,7 +162,11 @@
 					this.memberAddressInfo()
 			}
 		},
-
+onShow() {
+	uni.setNavigationBarTitle({
+		    title: uni.getStorageSync('titleKey')
+		});
+}
 
 
 	};

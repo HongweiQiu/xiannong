@@ -96,26 +96,28 @@
 				default: true
 			}
 		},
-        mounted() {
-          if(uni.report && this.title !== '') {
-              uni.report('title', this.title)
-          }
-        },
+		mounted() {
+			if (uni.report && this.title !== '') {
+				uni.report('title', this.title)
+			}
+		},
 		methods: {
 			onClickLeft() {
+			
 				// #ifdef APP-PLUS
-			 // if (getApp().globalData.backFast) { //is_flag开始等于 true
-			 //            getApp().globalData.backFast = false;
-			           	this.$emit("clickLeft");
-			 //            setTimeout(() => {
-			 //                getApp().globalData.is_flag = true;
-			              
-			 //            }, 1000)
-			 //        } 
+					console.log(getApp().globalData.backFast);
+				if (getApp().globalData.backFast) { //is_flag开始等于 true
+					getApp().globalData.backFast = false;
+					this.$emit("clickLeft");
+					setTimeout(() => {
+						getApp().globalData.backFast = true;
+
+					}, 1000)
+				}
 				// #endif
+				
 				// #ifndef APP-PLUS
 				this.$emit("clickLeft");
-				// console.log(0)
 				// #endif
 			},
 			onClickRight() {
@@ -127,6 +129,7 @@
 
 <style lang="scss" scoped>
 	$nav-height: 44px;
+
 	.uni-nav-bar-text {
 		/* #ifdef APP-PLUS */
 		font-size: 34rpx;
@@ -135,6 +138,7 @@
 		font-size: $uni-font-size-lg;
 		/* #endif */
 	}
+
 	.uni-nav-bar-right-text {
 		font-size: $uni-font-size-base;
 	}

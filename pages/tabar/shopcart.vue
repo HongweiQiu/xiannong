@@ -774,6 +774,7 @@
 				this.remark = '';
 			},
 			onLoad() {
+					app.isReload = true;
 				uni.hideTabBar();
 				// #ifdef H5				
 				if (uni.getSystemInfoSync().platform === 'android') {
@@ -788,24 +789,6 @@
 
 					}
 				}
-				// else if(uni.getSystemInfoSync().platform == 'ios'){
-					
-				// 	 uni.getSystemInfo({
-				// 	        success: (res)=> {
-				// 	            this.scrollHeight = res.windowHeight;
-				// 	        }
-				// 	    });
-				// 	    uni.onWindowResize((res) => {
-				// 	        if(res.size.windowHeight < this.scrollHeight){
-				// 	            this.display = false
-				// 	        }else{
-								
-				// 	            this.display = true
-				// 	        }
-				// 	    })
-				// }
-
-
 				// #endif
 			}
 		},

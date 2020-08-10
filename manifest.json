@@ -60,7 +60,7 @@
                 "enable" : true
             }
         },
-        "title" : "test"
+        "title" : " "
     },
     /* 5+App特有相关 */
     "app-plus" : {

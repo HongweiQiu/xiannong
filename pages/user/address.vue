@@ -133,6 +133,9 @@
 			}
 		},
 		onShow() {
+			uni.setNavigationBarTitle({
+				    title: uni.getStorageSync('titleKey')
+				});
 			this.wxConfig();
 
 		},

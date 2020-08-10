@@ -41,10 +41,21 @@
 		},
 		methods: {
 			leftClick() {
+				// #ifdef H5
+				uni.hideKeyboard();
+				window.history.back(-1);
+				// #endif 
+				// #ifndef H5
 				uni.navigateBack({
 					delta: 1
-				})
+				});
+				// #endif	
 			}
+		},
+		onShow() {
+			uni.setNavigationBarTitle({
+				    title: uni.getStorageSync('titleKey')
+				});
 		}
 	}
 </script>
