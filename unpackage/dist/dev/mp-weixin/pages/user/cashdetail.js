@@ -261,7 +261,12 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, id: '', exist: false, detailList: [] };}, filters: { // 根据后台的coupons_status字段来判断样式,以下是模拟,
-    coupons_status: function coupons_status(val) {switch (val) {case 1:return 'cash_se1';case 2:return 'cash_se2';case 3:return 'cash_se3';default:return 'cash_se4';}} }, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, list: function list() {var _this = this;var timeStamp = Math.round(new Date().getTime() / 1000);var id = this.id;var obj = { appid: appid, id: id, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var params = Object.assign({ sign: sign }, obj);_request.default.getRequests('couponsDetails', params, function (res) {if (res.data.code == 200) {_this.detailList = res.data.data;var length = res.data.data.details.length;if (!length) {_this.exist = true;}}});
+    coupons_status: function coupons_status(val) {switch (val) {case 1:return 'cash_se1';case 2:return 'cash_se2';case 3:return 'cash_se3';default:return 'cash_se4';}} }, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, list: function list() {var _this = this;var timeStamp = Math.round(new Date().getTime() / 1000);var id = this.id;var obj = { appid: appid, id: id, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var params = Object.assign({ sign: sign }, obj);_request.default.getRequests('couponsDetails', params, function (res) {if (res.data.code == 200) {_this.detailList = res.data.data;var length = res.data.data.details.length;
+          if (!length) {
+            _this.exist = true;
+          }
+        }
+      });
     } },
 
   onLoad: function onLoad(options) {var

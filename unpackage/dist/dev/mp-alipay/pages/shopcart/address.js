@@ -243,6 +243,9 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
 
   onShow: function onShow() {
     this.wxConfig();
+    uni.setNavigationBarTitle({
+      title: uni.getStorageSync('titleKey') });
+
   },
   onLoad: function onLoad(option) {
     var that = this;

@@ -160,8 +160,16 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
   },
   methods: {
     LeftClick: function LeftClick() {
+
+
+
+
+
+
       uni.navigateBack({
         delta: 1 });
+
+
 
     },
     loadmap: function loadmap() {
@@ -187,6 +195,9 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
     });
   },
   onShow: function onShow() {
+    uni.setNavigationBarTitle({
+      title: uni.getStorageSync('titleKey') });
+
     app.aData.show = true;
     var that = this;
     that.orderInfo();

@@ -164,6 +164,7 @@
 			</uni-popup>
 		</view>
 		<my-tabar tabarIndex=2 v-if="display"></my-tabar>
+		<my-mask :masktabar="masktabar"></my-mask>
 	</view>
 </template>
 
@@ -189,6 +190,7 @@
 		},
 		data() {
 			return {
+					masktabar:false,
 				display: true,
 				scrollHeight: '',
 				newHeight: '',
@@ -303,6 +305,7 @@
 				});
 			},
 			addInfo() {
+			
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -368,7 +371,8 @@
 							}
 						}
 					}
-				})
+				});
+				
 			},
 			// 显示子账号
 			selectAccount() {

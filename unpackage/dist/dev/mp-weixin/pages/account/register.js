@@ -97,7 +97,7 @@ var components = {
     return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 486))
   },
   "my-identifyingcode": function() {
-    return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 507))
+    return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 515))
   }
 }
 var render = function() {
@@ -180,8 +180,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var moveVerify = function moveVerify() {__webpack_require__.e(/*! require.ensure | components/helang-moveVerify/helang-moveVerify */ "components/helang-moveVerify/helang-moveVerify").then((function () {return resolve(__webpack_require__(/*! @/components/helang-moveVerify/helang-moveVerify.vue */ 514));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var moveVerify = function moveVerify() {__webpack_require__.e(/*! require.ensure | components/helang-moveVerify/helang-moveVerify */ "components/helang-moveVerify/helang-moveVerify").then((function () {return resolve(__webpack_require__(/*! @/components/helang-moveVerify/helang-moveVerify.vue */ 522));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 var app = getApp().globalData;var
 
 navBar =
@@ -205,6 +207,7 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
       back: true,
       display1: true,
       identifying: '',
+      sale: '',
       scrollHeight: '',
       resultData: {},
       count: 0 };
@@ -213,12 +216,16 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
   methods: {
     leftClick: function leftClick() {
 
-      uni.hideKeyboard();
-      setTimeout(function () {
-        uni.navigateBack({
-          delta: 1 });
 
-      }, 300);
+
+
+
+
+
+
+      uni.navigateBack({
+        delta: 1 });
+
 
     },
     pageUrl: function pageUrl(data) {var _this = this;
@@ -371,6 +378,9 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
       if (this.identifying) {
         obj.openid = this.identifying;
       }
+      if (this.sale) {
+        obj.sale = this.sale;
+      }
       var params = Object.assign({
         sign: sign },
       obj);
@@ -387,6 +397,12 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
           if (res.data.code == 200) {
             _request.default.Toast('注册成功');
             setTimeout(function () {
+
+
+
+
+
+
               uni.navigateTo({
                 url: './login' });
 
@@ -414,10 +430,17 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
 
 
 
+
   },
   onLoad: function onLoad(options) {
     var that = this;
+    that.sale = options.sale;
     that.identifying = options.identifying;
+
+  },
+  onShow: function onShow() {
+    uni.setNavigationBarTitle({
+      title: uni.getStorageSync('titleKey') });
 
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

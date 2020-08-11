@@ -106,6 +106,7 @@
 			<my-addcart @onClose="onClose" :cartware="cartware" :config="config" ref="addcart"></my-addcart>
 		</uni-popup>
 		<my-tabar tabarIndex=0></my-tabar>
+		<my-mask :masktabar="masktabar"></my-mask>
 	</view>
 </template>
 
@@ -126,6 +127,7 @@
 		},
 		data() {
 			return {
+				masktabar: false,
 				showActive: false,
 				support: false,
 				showTop: false,
@@ -207,7 +209,6 @@
 						});
 						break;
 					default:
-						console.log(cate_id)
 						getApp().globalData.classId = cate_id;
 						wx.switchTab({
 							url: '/pages/tabar/classify'
@@ -265,6 +266,7 @@
 				});
 			},
 			indexItem() {
+				
 				this.itemList = [];
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
@@ -300,6 +302,7 @@
 						}
 					}
 				});
+				
 			},
 			//限时抢购
 			limitList() {
@@ -336,7 +339,10 @@
 
 		},
 		onShow() {
-
+		// #ifdef MP-WEIXIN
+		this.masktabar = true;
+		setTimeout(()=>{this.masktabar=false;},1000)
+		// #endif
 			this.token = uni.getStorageSync('cdj_token');
 			this.indexAd();
 			this.limitList();
@@ -348,7 +354,7 @@
 				});
 				this.indexItem();
 			}
-
+			
 		},
 		onLoad() {
 			app.isReload = true;

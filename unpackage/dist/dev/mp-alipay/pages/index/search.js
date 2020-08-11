@@ -341,8 +341,13 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default = { data: function data() {return { keyList: [], list: [], keyword: '', showSearch: true, startSpeech: true, config: [], bitmap: false, arrObj: {}, index: '', cartware: {} };}, methods: { closeCart: function closeCart() {this.$refs.addcart.onClose();}, closeKey: function closeKey() {this.$refs.keyboard.cancel();}, back: function back() {uni.navigateBack({ delta: 1 });}, toParent: function toParent(e) {var _this = this;var item = e.arrObj;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp, item_id: item.id, attr_id: 0, item_num: e.val };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var params = Object.assign({ sign: sign }, obj);_request.default.postRequests('changeNum', params, function (res) {var data = res.data;if (data.code == 200) {_request.default.Toast('加入购物车成功');_this.list[_this.index].cart_num = e.val;} else if (data.code == 407 || data.code == 406) {_request.default.Toast("购买数量不能超过活动数量");} else {_request.default.Toast(res.data.msg);}});this.$refs.popup.close();}, openCart: function openCart(item) {this.cartware = item;this.$refs.cart.open();}, onClose: function onClose() {this.$refs.cart.close();}, // 显示键盘
-    showKey: function showKey(item, index) {this.arrObj = item;this.index = index;this.$refs.popup.open();}, // 热门搜索
-    getSearchData: function getSearchData() {var _this2 = this;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid,
+    showKey: function showKey(item, index) {this.arrObj = item;this.index = index;this.$refs.popup.open();
+    },
+    // 热门搜索
+    getSearchData: function getSearchData() {var _this2 = this;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
         timeStamp: timeStamp };
 
       var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);

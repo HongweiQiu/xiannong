@@ -496,6 +496,7 @@ console,log = _console.log;var _default =
     });
   },
   onLoad: function onLoad(e) {
+    app.isReload = true;
     uni.hideTabBar();
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"]))

@@ -186,10 +186,14 @@ app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.rootUrl,im
   },
   methods: {
     leftClick: function leftClick() {
-      uni.hideKeyboard();
-      setTimeout(function () {uni.navigateBack({
-          delta: 1 });
-      }, 300);
+
+
+
+
+
+      uni.navigateBack({
+        delta: 1 });
+
 
     },
     deletePhoto: function deletePhoto(e) {var
@@ -295,7 +299,13 @@ app.appid,navBar = app.navBar,appsecret = app.appsecret,rootUrl = app.rootUrl,im
           _request.default.Toast(res.data.msg);
         }
       });
-    } } };exports.default = _default;
+    } },
+
+  onShow: function onShow() {
+    uni.setNavigationBarTitle({
+      title: uni.getStorageSync('titleKey') });
+
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

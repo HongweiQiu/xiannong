@@ -2,6 +2,5 @@
   "appid": "2021001181695242",
   "component2": true,
   "axmlStrictCheck": true,
-  "enableParallelLoader": true,
-  "enableDistFileMinify": true
+  "enableParallelLoader": true
 }

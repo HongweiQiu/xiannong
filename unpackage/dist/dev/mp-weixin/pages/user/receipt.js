@@ -202,7 +202,12 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, isactive: true, types: 1, header: '', number: '', content: '', price: '', count: 0 };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, formSubmit: function formSubmit() {var _this = this;this.count++;if (this.count != 1) return;setTimeout(function () {_this.count = 0;}, 1000);var that = this;var header = that.header;var number = that.number;
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, isactive: true, types: 1, header: '', number: '', content: '', price: '', count: 0 };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, formSubmit: function formSubmit() {var _this = this;this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {_this.count = 0;}, 1000);
+      var that = this;
+      var header = that.header;
+      var number = that.number;
       var content = that.content;
       var price = that.price;
       var type = that.types;
@@ -214,7 +219,9 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         if (res.data.code == 200) {
           _request.default.Toast('提交成功');
           setTimeout(function () {
-            uni.navigateBack({});
+            uni.switchTab({
+              url: '/pages/tabar/user' });
+
           }, 1000);
         } else {
           _request.default.Toast(res.data.msg);
@@ -252,9 +259,10 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
           that.content = res.data.data.content;
           that.price = res.data.data.price;
           that.types = res.data.data.type;
-          if (that.billInfo.type == 1) {
+          console.log(that.types);
+          if (that.types == 1) {
             that.isactive = true;
-          } else if (that.billInfo.type == 2) {
+          } else if (that.types == 2) {
             that.isactive = false;
           }
         }
@@ -264,7 +272,11 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
 
   onShow: function onShow() {
     var that = this;
+    console.log(that.isactive);
     that.billInfoa();
+  },
+  onHide: function onHide() {
+    that.isactive = false;
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

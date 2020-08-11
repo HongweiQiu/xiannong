@@ -1,12 +1,12 @@
 <template>
 	<view class="my_loading">
-		
+	
 		<view class="loading" v-if="loading">
 			
 			<image class="load_img" src="../../static/img/loading.gif" mode="aspectFit"></image>
 			<text>正在加载中...</text>
 		</view>
-	
+	     
 		<view v-else>已经到底呢!</view>
 	</view>
 </template>

@@ -6,6 +6,7 @@
     "my-s-tab": "/components/s-tab/index",
     "my-loading": "/components/loading/index",
     "w-picker": "/components/w-picker/w-picker",
-    "my-tabar": "/components/tabar/index"
+    "my-tabar": "/components/tabar/index",
+    "my-mask": "/components/mask/index"
   }
 }

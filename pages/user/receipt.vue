@@ -83,7 +83,9 @@
 					if (res.data.code == 200) {
 						rs.Toast('提交成功');
 						setTimeout(function() {
-							uni.navigateBack({});
+						uni.switchTab({
+							url:'/pages/tabar/user'
+						})
 						}, 1000);
 					} else {
 						rs.Toast(res.data.msg);
@@ -121,9 +123,10 @@
 						that.content = res.data.data.content;
 						that.price = res.data.data.price;
 						that.types = res.data.data.type;
-						if (that.billInfo.type == 1) {
+						console.log(that.types)
+						if (that.types== 1) {
 							that.isactive = true;
-						} else if (that.billInfo.type == 2) {
+						} else if (that.types == 2) {
 							that.isactive = false;
 						}
 					}
@@ -133,7 +136,11 @@
 		},
 		onShow: function() {
 			var that = this;
+			console.log(that.isactive)
 			that.billInfoa();
+		},
+		onHide() {
+			that.isactive=false;
 		}
 	};
 </script>

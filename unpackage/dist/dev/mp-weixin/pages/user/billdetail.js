@@ -212,7 +212,12 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, moneyListInfo: '', num: '' };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, moneyListInfoa: function moneyListInfoa() {var that = this;var id = that.id;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, id: id, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, id: id, timeStamp: timeStamp, sign: sign };_request.default.getRequests("moneyListInfo", data, function (res) {
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, moneyListInfo: '', num: '' };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, moneyListInfoa: function moneyListInfoa() {var that = this;var id = that.id;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, id: id, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid,
+        id: id,
+        timeStamp: timeStamp,
+        sign: sign };
+
+      _request.default.getRequests("moneyListInfo", data, function (res) {
         if (res.data.code == 200) {
           that.moneyListInfo = res.data.data;
           that.num = res.data.data.list.length;
@@ -230,6 +235,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
     getApp().globalData.isReload = false;
     var that = this;
     that.moneyListInfoa();
+
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

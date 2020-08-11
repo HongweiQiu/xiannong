@@ -420,6 +420,12 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
         var data = res.data;
         if (data.code == 200) {
           _this3.adList = data.data;
+
+
+
+
+
+
         }
       });
     },
@@ -495,6 +501,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
 
 
   onShow: function onShow() {
+
     this.token = uni.getStorageSync('cdj_token');
     this.indexAd();
     this.limitList();
@@ -509,6 +516,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
 
   },
   onLoad: function onLoad() {
+    app.isReload = true;
     uni.hideTabBar();
   },
   onReachBottom: function onReachBottom() {var _this6 = this;

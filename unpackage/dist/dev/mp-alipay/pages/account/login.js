@@ -272,8 +272,10 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecret = app.appsecret,isWeixin = app.isWeixin;var _default = { data: function data() {return { display: true, navBar: navBar, showWechat: false, logo: '', mobile: '', password: '', scrollHeight: '', newHeight: '', count: 0 };}, methods: { showTabbar: function showTabbar() {this.tabbar = true;}, hideTabbar: function hideTabbar() {this.tabbar = false;}, clickLeft: function clickLeft() {uni.hideKeyboard();setTimeout(function () {uni.switchTab({ url: '/pages/tabar/index' });}, 300);}, pageUrl: function pageUrl(data) {var _this = this;this.count++;if (this.count != 1) return;setTimeout(function () {_this.count = 0;}, 1000);uni.hideKeyboard();setTimeout(function () {uni.navigateTo({ url: data });}, 300);}, // 手机登录
-    mobileLogin: function mobileLogin() {var _this2 = this;var mobile = this.mobile,password = this.password;this.count++;if (this.count != 1) return;setTimeout(function () {_this2.count = 0;}, 1000);var timeStamp = Math.round(new Date().getTime() / 1000);if (!mobile) {_request.default.Toast('手机号码不能为空，请输入手机号');return;}
+var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecret = app.appsecret,isWeixin = app.isWeixin;var _default = { data: function data() {return { display: true, navBar: navBar, showWechat: false, logo: '', mobile: '', password: '', scrollHeight: '', newHeight: '', count: 0, logoHeight: '' };}, methods: { showTabbar: function showTabbar() {this.tabbar = true;}, hideTabbar: function hideTabbar() {this.tabbar = false;}, clickLeft: function clickLeft() {uni.switchTab({ url: '/pages/tabar/index' });}, pageUrl: function pageUrl(data) {var _this = this;this.count++;if (this.count != 1) return;setTimeout(function () {_this.count = 0;}, 1000);setTimeout(function () {uni.navigateTo({ url: data }), 300;});}, // 手机登录
+    mobileLogin: function mobileLogin() {var _this2 = this;var mobile = this.mobile,password = this.password;this.count++;if (this.count != 1) return;setTimeout(function () {_this2.count = 0;}, 1000);var timeStamp = Math.round(new Date().getTime() / 1000);if (!mobile) {_request.default.Toast('手机号码不能为空，请输入手机号');
+        return;
+      }
       if (!password) {
         _request.default.Toast('密码不能为空，请输入密码');
         return;
@@ -391,6 +393,7 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
 
 
     // H5端微信登录
+
 
 
 
@@ -558,7 +561,10 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
 
 
   onShow: function onShow() {var _this4 = this;
+
     this.display = true;
+
+
 
 
 
@@ -594,6 +600,13 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
       var data = res.data;
       if (data.code == 200) {
         _this4.logo = data.data.logo;
+
+
+
+
+
+
+
       }
     });
 
@@ -637,6 +650,25 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
 
 
 
+
+
+
+  },
+  mounted: function mounted() {
+    var that = this;
+    var bodyHeight, titleHeight, imgHeight;
+    uni.getSystemInfo({
+      success: function success(res) {// res - 各种参数
+        // that.logoHeight=res.windowHeight; // 屏幕的宽度 
+
+        var info = uni.createSelectorQuery().select('.logo_width');
+        info.boundingClientRect(function (data) {//data - 各种参数
+          imgHeight = data.height; // 获取元素宽度
+          console.log(data);
+          that.logoHeight = res.windowHeight - 44 - imgHeight;
+        }).exec();
+
+      } });
 
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"]))

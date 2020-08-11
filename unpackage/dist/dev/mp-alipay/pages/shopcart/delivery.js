@@ -300,6 +300,11 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
 
       this.memberAddressInfo();
     }
+  },
+  onShow: function onShow() {
+    uni.setNavigationBarTitle({
+      title: uni.getStorageSync('titleKey') });
+
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"]))
 

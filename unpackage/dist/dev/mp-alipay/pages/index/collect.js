@@ -216,11 +216,13 @@ app.navBar,imgRemote = app.imgRemote,appid = app.appid,appsecret = app.appsecret
     },
     leftClick: function leftClick() {
 
-      // if (this.backpage) {
+
+
+
       uni.navigateBack({
         delta: 1 });
 
-      // }
+
     },
     rightClick: function rightClick() {
 

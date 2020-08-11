@@ -1,5 +1,6 @@
 
-page,.user {
+page,
+.user {
 	background: white;
 	/* height: 100%; */
 }

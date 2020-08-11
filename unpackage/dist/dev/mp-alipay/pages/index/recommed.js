@@ -212,8 +212,13 @@ app.navBar,imgRemote = app.imgRemote,appid = app.appid,appsecret = app.appsecret
       this.$refs.keyboard.cancel();
     },
     leftClick: function leftClick(e) {
+
+
+
+
       uni.navigateBack({
         delta: 1 });
+
 
     },
     toParent: function toParent(e) {var _this = this;

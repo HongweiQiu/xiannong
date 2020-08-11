@@ -167,8 +167,13 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecret = app.appsecret;var _default = { data: function data() {return { navBar: navBar, identifying: '', count: 0 };},
   methods: {
     leftClick: function leftClick() {
+
+
+
+
       uni.navigateBack({
         delta: 1 });
+
 
     },
     pageUrl: function pageUrl(url) {var _this = this;
@@ -186,7 +191,9 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
 
   onLoad: function onLoad(options) {
     var that = this;
-    that.identifying = options.identifying;
+    that.identifying = options.identifying;uni.setNavigationBarTitle({
+      title: uni.getStorageSync('titleKey') });
+
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"]))
 

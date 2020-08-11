@@ -100,7 +100,7 @@ var components = {
     return __webpack_require__.e(/*! import() | components/countdown/index */ "components/countdown/index").then(__webpack_require__.bind(null, /*! @/components/countdown/index.vue */ 388))
   },
   "my-stepper": function() {
-    return __webpack_require__.e(/*! import() | components/stepper/index */ "components/stepper/index").then(__webpack_require__.bind(null, /*! @/components/stepper/index.vue */ 503))
+    return __webpack_require__.e(/*! import() | components/stepper/index */ "components/stepper/index").then(__webpack_require__.bind(null, /*! @/components/stepper/index.vue */ 511))
   },
   "uni-popup": function() {
     return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 416))
@@ -414,6 +414,11 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       this.$refs.keyboard.cancel();
     },
     leftClick: function leftClick() {
+
+
+
+
+
       if (this.backClick) {
         uni.navigateBack({
           delta: 1 });

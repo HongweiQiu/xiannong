@@ -276,8 +276,13 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
     },
 
     leftClick: function leftClick() {
+
+
+
+
       uni.navigateBack({
         delta: 1 });
+
 
     },
     changeFirst: function changeFirst(index) {

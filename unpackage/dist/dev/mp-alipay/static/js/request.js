@@ -35,8 +35,8 @@ function getRequest(url, datas, success) {
 				data: Object.assign(datas, active),
 				success: res => {
 					success(res)
-					if (res.header.Authorization != undefined) {
-						uni.setStorageSync("cdj_token", res.header.Authorization)
+					if (res.header.authorization != undefined) {
+						uni.setStorageSync("cdj_token", res.header.authorization)
 					}
 					if (res.data.code == 400) {
 						uni.showToast({
@@ -82,6 +82,13 @@ function getRequest(url, datas, success) {
 
 //get请求
 function getRequests(url, datas, success) {
+                    // #ifdef H5
+                    uni.setNavigationBarTitle({
+                        title: uni.getStorageSync('titleKey')
+                    });
+                    // #endif
+							
+						
 	uni.request({
 		url: rootDocment + url,
 		method: 'GET',
@@ -93,9 +100,15 @@ function getRequests(url, datas, success) {
 		data: Object.assign(datas, active),
 		success: res => {
 			success(res)
-			if (res.header.Authorization != undefined) {
-				uni.setStorageSync("cdj_token", res.header.Authorization)
+			// console.log(res.header);
+			// console.log(res.header.Authorization);
+			// console.log((res.header.Authorization != undefined));
+			if (res.header.authorization != undefined) {
+				uni.setStorageSync("cdj_token", res.header.authorization);
+				// console.log('success')
 			}
+				
+				
 			if (res.data.code == 401) {
 				uni.navigateTo({
 					url: '/pages/account/login'
@@ -148,8 +161,8 @@ function postRequest(url, datas, success) {
 				data: Object.assign(datas, active),
 				success: res => {
 					success(res)
-					if (res.header.Authorization != undefined) {
-						uni.setStorageSync("cdj_token", res.header.Authorization)
+					if (res.header.authorization != undefined) {
+						uni.setStorageSync("cdj_token", res.header.authorization)
 					}
 					if (res.data.code == 400) {
 						uni.showToast({
@@ -224,8 +237,9 @@ function postRequests(url, datas, success) {
 		data: Object.assign(datas, active),
 		success: res => {
 			success(res)
-			if (res.header.Authorization != undefined) {
-				uni.setStorageSync("cdj_token", res.header.Authorization)
+			console.log(res.header.Authorization)
+			if (res.header.authorization != undefined) {
+				uni.setStorageSync("cdj_token", res.header.authorization)
 			}
 			if (res.data.code == 401) {
 

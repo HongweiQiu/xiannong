@@ -195,8 +195,13 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, arrObj: { is_float: 0 }, is_miniBind: '', memberInfoData: '', code: '', invest: true, count: 0 };},
   methods: {
     leftClick: function leftClick() {
+
+
+
+
       uni.navigateBack({
         delta: 1 });
+
 
     },
     recordPage: function recordPage() {var _this = this;

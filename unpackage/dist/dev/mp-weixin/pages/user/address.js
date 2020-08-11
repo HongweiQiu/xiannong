@@ -269,6 +269,9 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
     } },
 
   onShow: function onShow() {
+    uni.setNavigationBarTitle({
+      title: uni.getStorageSync('titleKey') });
+
     this.wxConfig();
 
   },

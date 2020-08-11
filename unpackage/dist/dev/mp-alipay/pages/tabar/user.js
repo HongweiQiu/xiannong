@@ -561,16 +561,16 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         success: function success(res) {
           if (res.confirm) {
             uni.setStorageSync('isWeixin', true);
-            var code = location.search;
-            var getCode = code.substring(code.indexOf('=') + 1, code.lastIndexOf('&'));
-            if (!getCode) {
-              var url = window.location.href;
-              var redirect_uri = encodeURIComponent(url);
-              var a = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
-              "appid=" + that.userinfo.appId + "&redirect_uri=" + redirect_uri +
-              "&response_type=code&scope=snsapi_userinfo#wechat_redirect";
-              window.location.href = a;
-            }
+            // let code = location.search;
+            // let getCode = code.substring(code.indexOf('=') + 1, code.lastIndexOf('&'));
+            // if (!getCode) {
+            var url = window.location.href;
+            var redirect_uri = encodeURIComponent(url);
+            var a = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
+            "appid=" + that.userinfo.appId + "&redirect_uri=" + redirect_uri +
+            "&response_type=code&scope=snsapi_userinfo#wechat_redirect";
+            window.location.href = a;
+            // }
           } else if (res.cancel) {
             // console.log('用户点击取消');
           }
@@ -876,6 +876,9 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
     });
 
     //H5
+
+
+
 
 
 

@@ -171,12 +171,14 @@ imgPath = '../../static/img/';var _default =
 
   },
   methods: {
-    pageUrl: function pageUrl(data) {var _this = this;
+    pageUrl: function pageUrl(data) {
 
 
-      this.count++;
-      if (this.count != 1) return;
-      setTimeout(function () {_this.count = 0;}, 2000);
+      // uni.setStorageSync('masktabar',true);
+      // this.masktabar=uni.getStorageSync('masktabar');
+      // setTimeout(() => {
+      // 				uni.clearStorageSync('masktabar');
+      // 				}, 2000)
 
       getApp().globalData.isReload = true;
       if (this.tabarIndex != 1) {

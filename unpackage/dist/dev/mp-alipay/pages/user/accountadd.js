@@ -334,6 +334,9 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
     } },
 
   onLoad: function onLoad(options) {
+    uni.setNavigationBarTitle({
+      title: uni.getStorageSync('titleKey') });
+
     var data = uni.getStorageSync('append');
     console.log(uni.getStorageSync('append'));
     if (data) {

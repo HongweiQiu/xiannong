@@ -7989,8 +7989,8 @@ function getRequest(url, datas, _success) {
         data: Object.assign(datas, active),
         success: function success(res) {
           _success(res);
-          if (res.header.Authorization != undefined) {
-            uni.setStorageSync("cdj_token", res.header.Authorization);
+          if (res.header.authorization != undefined) {
+            uni.setStorageSync("cdj_token", res.header.authorization);
           }
           if (res.data.code == 400) {
             uni.showToast({
@@ -8036,6 +8036,12 @@ function getRequest(url, datas, _success) {
 
 //get请求
 function getRequests(url, datas, _success2) {
+
+
+
+
+
+
   uni.request({
     url: rootDocment + url,
     method: 'GET',
@@ -8047,9 +8053,11 @@ function getRequests(url, datas, _success2) {
     data: Object.assign(datas, active),
     success: function success(res) {
       _success2(res);
-      if (res.header.Authorization != undefined) {
-        uni.setStorageSync("cdj_token", res.header.Authorization);
+      if (res.header.authorization != undefined) {
+        uni.setStorageSync("cdj_token", res.header.authorization);
+
       }
+
       if (res.data.code == 401) {
         uni.navigateTo({
           url: '/pages/account/login' });
@@ -8074,6 +8082,7 @@ function getRequests(url, datas, _success2) {
         showCancel: false });
 
     } });
+
 
 
 }
@@ -8102,8 +8111,8 @@ function postRequest(url, datas, _success3) {
         data: Object.assign(datas, active),
         success: function success(res) {
           _success3(res);
-          if (res.header.Authorization != undefined) {
-            uni.setStorageSync("cdj_token", res.header.Authorization);
+          if (res.header.authorization != undefined) {
+            uni.setStorageSync("cdj_token", res.header.authorization);
           }
           if (res.data.code == 400) {
             uni.showToast({
@@ -8178,8 +8187,9 @@ function postRequests(url, datas, _success4) {
     data: Object.assign(datas, active),
     success: function success(res) {
       _success4(res);
-      if (res.header.Authorization != undefined) {
-        uni.setStorageSync("cdj_token", res.header.Authorization);
+      console.log(res.header.Authorization);
+      if (res.header.authorization != undefined) {
+        uni.setStorageSync("cdj_token", res.header.authorization);
       }
       if (res.data.code == 401) {
 
@@ -9764,7 +9774,184 @@ main();
 
 /***/ }),
 
-/***/ 533:
+/***/ 505:
+/*!*******************************************************************!*\
+  !*** E:/desktop/uniapp/components/rattenking-dtpicker/GetDate.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}var GetDate = {
+  withData: function withData(num) {
+    var param = parseInt(num);
+    return param < 10 ? '0' + param : '' + param;
+  },
+  getTimes: function getTimes(str) {
+    return new Date(str.replace(/-/g, '/')).getTime();
+  },
+  getCurrentTimes: function getCurrentTimes() {
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+    var second = date.getSeconds();
+    return {
+      detail: {
+        year: year,
+        month: month,
+        day: day,
+        hour: hour,
+        minute: minute,
+        second: second } };
+
+
+  },
+  format: function format(arr) {
+    var curarr = [];
+    var curarr0 = [];
+    var str = '';
+    arr.forEach(function (cur, index) {
+      var o = GetDate.withData(cur);
+      if (index > 2) {
+        curarr.push(o);
+      } else {
+        curarr0.push(o);
+      }
+    });
+    if (arr.length < 4) {
+      str = curarr0.join('-');
+    } else {
+      str = curarr0.join('-') + ' ' + curarr.join(':');
+    }
+    return str;
+  },
+  getCurrentStringValue: function getCurrentStringValue(str) {
+    var newstr = str.split(' ');
+    if (newstr && newstr[1]) {
+      var arr = [].concat(_toConsumableArray(newstr[0].split('-')), _toConsumableArray(newstr[1].split(':')));
+      return arr;
+    }
+    return newstr[0].split('-');
+  },
+  getCompare: function getCompare(curp, startp, endp, timesp) {
+    var cur = GetDate.getTimes(curp);
+    var start = GetDate.getTimes(startp);
+    var end = GetDate.getTimes(endp);
+    if (cur < start) {
+      return GetDate.getTimeIndex(timesp, GetDate.getCurrentStringValue(startp));
+    } else if (cur > end) {
+      return GetDate.getTimeIndex(timesp, GetDate.getCurrentStringValue(endp));
+    } else {
+      return GetDate.getTimeIndex(timesp, GetDate.getCurrentStringValue(curp));
+    }
+  },
+  getChooseArr: function getChooseArr(times, indexs) {
+    var arr = [];
+    times.forEach(function (cur, index) {return arr.push(cur[indexs[index]]);});
+    return arr;
+  },
+  getNewArray: function getNewArray(arr) {
+    var newarr = [];
+    arr.forEach(function (cur) {return newarr.push(cur);});
+    return newarr;
+  },
+  getLoopArray: function getLoopArray(start, end) {
+    var start = start || 0;
+    var end = end || 1;
+    var array = [];
+    for (var i = start; i <= end; i++) {
+      array.push(GetDate.withData(i));
+    }
+    return array;
+  },
+  getMonthDay: function getMonthDay(year, month) {
+    var flag = year % 400 == 0 || year % 4 == 0 && year % 100 != 0,array = null;
+
+    switch (month) {
+      case '01':
+      case '03':
+      case '05':
+      case '07':
+      case '08':
+      case '10':
+      case '12':
+        array = GetDate.getLoopArray(1, 31);
+        break;
+      case '04':
+      case '06':
+      case '09':
+      case '11':
+        array = GetDate.getLoopArray(1, 30);
+        break;
+      case '02':
+        array = flag ? GetDate.getLoopArray(1, 29) : GetDate.getLoopArray(1, 28);
+        break;
+      default:
+        array = '月份格式不正确，请重新输入！';}
+
+    return array;
+  },
+  getDateTimes: function getDateTimes(opts) {
+    var years = GetDate.getLoopArray(opts.start, opts.end);
+    var months = GetDate.getLoopArray(1, 12);
+    var days = GetDate.getMonthDay(opts.curyear, opts.curmonth);
+    var hours = GetDate.getLoopArray(0, 23);
+    var minutes = GetDate.getLoopArray(0, 59);
+    var seconds = GetDate.getLoopArray(0, 59);
+    var times = null;
+
+    switch (opts.fields) {
+      case 'year':
+        times = [years];
+        break;
+      case 'month':
+        times = [years, months];
+        break;
+      case 'day':
+        times = [years, months, days];
+        break;
+      case 'hour':
+        times = [years, months, days, hours];
+        break;
+      case 'minute':
+        times = [years, months, days, hours, minutes];
+        break;
+      case 'second':
+        times = [years, months, days, hours, minutes, seconds];
+        break;
+      default:
+        times = [years, months, days, hours, minutes, seconds];}
+
+    return times;
+  },
+  getIndex: function getIndex(arr, target) {
+    var len = arr.length;
+    for (var i = 0; i < len; i++) {
+      if (arr[i] == target) {
+        return i;
+      }
+    }
+  },
+  getTimeIndex: function getTimeIndex(arrs, targets) {
+    var len = arrs.length;
+    var arr = [];
+    for (var i = 0; i < len; i++) {
+      arr.push(GetDate.getIndex(arrs[i], targets[i]));
+    }
+    return arr;
+  },
+  error: function error(str) {
+    console.error(str);
+  } };
+
+
+module.exports = GetDate;
+
+/***/ }),
+
+/***/ 541:
 /*!*********************************************************!*\
   !*** E:/desktop/uniapp/components/uni-calendar/util.js ***!
   \*********************************************************/
@@ -9772,7 +9959,7 @@ main();
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 534));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 542));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
 
 Calendar = /*#__PURE__*/function () {
   function Calendar()
@@ -10127,7 +10314,7 @@ Calendar;exports.default = _default;
 
 /***/ }),
 
-/***/ 534:
+/***/ 542:
 /*!*************************************************************!*\
   !*** E:/desktop/uniapp/components/uni-calendar/calendar.js ***!
   \*************************************************************/
@@ -10703,7 +10890,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": {}, "pages/tabar/classify": {}, "pages/tabar/order": {}, "pages/tabar/shopcart": {}, "pages/tabar/user": {}, "pages/index/shopdetail": {}, "pages/index/collect": {}, "pages/index/recommed": {}, "pages/index/newback": {}, "pages/index/search": {}, "pages/index/flashsale": {}, "pages/account/login": {}, "pages/account/selectway": {}, "pages/account/forget": {}, "pages/account/register": {}, "pages/account/service": {}, "pages/account/treaty": {}, "pages/account/bind": {}, "pages/account/404": {}, "pages/order/orderdetail": {}, "pages/order/address": {}, "pages/order/pay": {}, "pages/order/fenjian": {}, "pages/shopcart/delivery": {}, "pages/shopcart/pay": {}, "pages/shopcart/address": {}, "pages/shopcart/shoplist": {}, "pages/user/accountmange": {}, "pages/user/accountadd": {}, "pages/user/accountedit": {}, "pages/user/modifypwd": {}, "pages/user/receipt": {}, "pages/user/invest": {}, "pages/user/investlist": {}, "pages/user/investrecord": {}, "pages/user/bill": {}, "pages/user/billdetail": {}, "pages/user/cash": {}, "pages/user/cashdetail": {}, "pages/user/myinfo": {}, "pages/user/bindphone": {}, "pages/user/userAddress": {}, "pages/user/address": {}, "pages/user/purchase_detail": {}, "pages/user/purchase_record": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "", "navigationBarBackgroundColor": "#F0F0F0", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": {}, "pages/tabar/classify": {}, "pages/tabar/order": {}, "pages/tabar/shopcart": {}, "pages/tabar/user": {}, "pages/index/shopdetail": {}, "pages/index/collect": {}, "pages/index/recommed": {}, "pages/index/newback": {}, "pages/index/search": {}, "pages/index/flashsale": {}, "pages/account/login": {}, "pages/account/selectway": {}, "pages/account/forget": {}, "pages/account/register": {}, "pages/account/service": {}, "pages/account/treaty": {}, "pages/account/bind": {}, "pages/account/404": {}, "pages/order/orderdetail": {}, "pages/order/address": {}, "pages/order/pay": {}, "pages/order/fenjian": {}, "pages/shopcart/delivery": {}, "pages/shopcart/pay": {}, "pages/shopcart/address": {}, "pages/shopcart/shoplist": {}, "pages/user/accountmange": {}, "pages/user/accountadd": {}, "pages/user/accountedit": {}, "pages/user/modifypwd": {}, "pages/user/receipt": {}, "pages/user/invest": {}, "pages/user/investlist": {}, "pages/user/investrecord": {}, "pages/user/bill": {}, "pages/user/billdetail": {}, "pages/user/cash": {}, "pages/user/cashdetail": {}, "pages/user/myinfo": {}, "pages/user/bindphone": {}, "pages/user/userAddress": {}, "pages/user/address": {}, "pages/user/purchase_detail": {}, "pages/user/purchase_record": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "鼎好鲜生", "navigationBarBackgroundColor": "#F0F0F0", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 

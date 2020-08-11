@@ -183,7 +183,12 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { old_pwd: '', //旧密码
       password: '', //旧密码
       password_confirmation: '', //旧密码
-      navBar: navBar, count: 0 };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, formSubmit: function formSubmit() {var _this = this;
+      navBar: navBar, count: 0 };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });
+
+
+    },
+
+    formSubmit: function formSubmit() {var _this = this;
       var old_pwd = this.old_pwd;
       var password = this.password;
       var password_confirmation = this.password_confirmation;
@@ -219,7 +224,13 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
           _request.default.Toast(res.data.msg);
         }
       });
-    } } };exports.default = _default;
+    } },
+
+  onShow: function onShow() {
+    uni.setNavigationBarTitle({
+      title: uni.getStorageSync('titleKey') });
+
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"]))
 
 /***/ }),

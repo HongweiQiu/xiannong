@@ -97,7 +97,7 @@ var components = {
     return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 482))
   },
   "my-identifyingcode": function() {
-    return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 510))
+    return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 518))
   }
 }
 var render = function() {
@@ -170,7 +170,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 17));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var moveVerify = function moveVerify() {__webpack_require__.e(/*! require.ensure | components/helang-moveVerify/helang-moveVerify */ "components/helang-moveVerify/helang-moveVerify").then((function () {return resolve(__webpack_require__(/*! @/components/helang-moveVerify/helang-moveVerify.vue */ 517));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var moveVerify = function moveVerify() {__webpack_require__.e(/*! require.ensure | components/helang-moveVerify/helang-moveVerify */ "components/helang-moveVerify/helang-moveVerify").then((function () {return resolve(__webpack_require__(/*! @/components/helang-moveVerify/helang-moveVerify.vue */ 525));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 var app = getApp().globalData;var
 
 navBar =
@@ -196,8 +196,12 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
   methods: {
     leftClick: function leftClick() {
 
+
+
+
       uni.navigateBack({
         delta: 1 });
+
 
     },
     verifyResult: function verifyResult(res) {
@@ -379,6 +383,10 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
 
   onLoad: function onLoad(options) {
     this.identifying = options.identifying;
+  },
+  onShow: function onShow() {
+    uni.setNavigationBarTitle({
+      title: uni.getStorageSync('titleKey') });
 
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"]))

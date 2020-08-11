@@ -100,7 +100,7 @@ var components = {
     return __webpack_require__.e(/*! import() | components/loading/index */ "components/loading/index").then(__webpack_require__.bind(null, /*! @/components/loading/index.vue */ 406))
   },
   "uni-calendar": function() {
-    return Promise.all(/*! import() | components/uni-calendar/uni-calendar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-calendar/uni-calendar")]).then(__webpack_require__.bind(null, /*! @/components/uni-calendar/uni-calendar.vue */ 528))
+    return Promise.all(/*! import() | components/uni-calendar/uni-calendar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-calendar/uni-calendar")]).then(__webpack_require__.bind(null, /*! @/components/uni-calendar/uni-calendar.vue */ 536))
   }
 }
 var render = function() {
@@ -206,7 +206,12 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { date: '请选择日期', dateArr: '', bitmap: true, navBar: navBar, list: [], page: 1, loading: true, count: 0 };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, detailPage: function detailPage(id) {var _this = this;this.count++;if (this.count != 1) return;setTimeout(function () {_this.count = 0;}, 1000);uni.navigateTo({ url: 'billdetail?id=' + id });
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { date: '请选择日期', dateArr: '', bitmap: true, navBar: navBar, list: [], page: 1, loading: true, count: 0 };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, detailPage: function detailPage(id) {var _this = this;
+      this.count++;
+      if (this.count != 1) return;
+      setTimeout(function () {_this.count = 0;}, 1000);
+      uni.navigateTo({
+        url: 'billdetail?id=' + id });
 
     },
     openCalendar: function openCalendar() {
@@ -276,9 +281,12 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
   onShow: function onShow() {
     var that = this;
     if (app.isReload) {that.moneyList();}
-
+  },
+  onLoad: function onLoad() {
+    app.isReload = true;
   },
   /**
+      * 
       * 页面上拉触底事件的处理函数
       */
   onReachBottom: function onReachBottom() {var _this3 = this;

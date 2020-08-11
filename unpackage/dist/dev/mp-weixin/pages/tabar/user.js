@@ -98,6 +98,9 @@ var components = {
   },
   "my-tabar": function() {
     return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 436))
+  },
+  "my-mask": function() {
+    return __webpack_require__.e(/*! import() | components/mask/index */ "components/mask/index").then(__webpack_require__.bind(null, /*! @/components/mask/index.vue */ 662))
   }
 }
 var render = function() {
@@ -138,6 +141,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
 
 
 
@@ -387,7 +391,8 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var uniIcons = function uniIcons() {Promise.all(/*! require.ensure | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then((function () {return resolve(__webpack_require__(/*! ../../components/uni-icons/uni-icons.vue */ 457));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { uniIcons: uniIcons }, data: function data() {return { hShare: false, userList: [{ icon: 'icon-08_zizhanghaoguanli', name: '账号管理', color: '#3DABFF', url: 'accountmange' }, { icon: 'icon-fapiao', name: '开具发票', color: '#FF9C00', url: 'receipt' }, { icon: 'icon-tianchongxing--', name: '账单记录', color: '#FFF000', url: 'bill' }, { color: '#ffab9a', icon: 'icon-buy-fill', name: '购买记录', url: 'purchase_record' }, { icon: 'icon-qianbao', name: '充值', color: '#2DC4B4', url: 'invest' }, { icon: 'icon-juan', name: '现金劵', color: '#F8632F', url: 'cash' }, { icon: 'icon-weixin', name: uni.getStorageSync('is_miniBind') == 0 ? '绑定微信' : '改绑微信', color: '#26DD5B', url: 'bindWeChat' }], count: 0, is_bind: '', is_child: '', token: '', imgRemote: imgRemote, memberInfoData: '', member_default: '', code: '', shareInfo: [] };}, methods: { share: function share() {if (!this.token) {uni.navigateTo({ url: '/pages/account/login' });} else {if (this.hShare == false) {var that = this;that.hShare = true;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, timeStamp: timeStamp, sign: sign };_request.default.getRequests("shareConfig", data, function (res) {if (res.data.code == 200) {var data = res.data.data;WeixinJSBridge.on('menu:share:appmessage', function (argv) {WeixinJSBridge.invoke('sendAppMessage', { "appid": that.userinfo.appId, //appid 设置空就好了。
+//
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var uniIcons = function uniIcons() {Promise.all(/*! require.ensure | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then((function () {return resolve(__webpack_require__(/*! ../../components/uni-icons/uni-icons.vue */ 457));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { uniIcons: uniIcons }, data: function data() {return { masktabar: false, hShare: false, userList: [{ icon: 'icon-08_zizhanghaoguanli', name: '账号管理', color: '#3DABFF', url: 'accountmange' }, { icon: 'icon-fapiao', name: '开具发票', color: '#FF9C00', url: 'receipt' }, { icon: 'icon-tianchongxing--', name: '账单记录', color: '#FFF000', url: 'bill' }, { color: '#ffab9a', icon: 'icon-buy-fill', name: '购买记录', url: 'purchase_record' }, { icon: 'icon-qianbao', name: '充值', color: '#2DC4B4', url: 'invest' }, { icon: 'icon-juan', name: '现金劵', color: '#F8632F', url: 'cash' }, { icon: 'icon-weixin', name: uni.getStorageSync('is_miniBind') == 0 ? '绑定微信' : '改绑微信', color: '#26DD5B', url: 'bindWeChat' }], count: 0, is_bind: '', is_child: '', token: '', imgRemote: imgRemote, memberInfoData: '', member_default: '', code: '', shareInfo: [] };}, methods: { share: function share() {if (!this.token) {uni.navigateTo({ url: '/pages/account/login' });} else {if (this.hShare == false) {var that = this;that.hShare = true;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, timeStamp: timeStamp, sign: sign };_request.default.getRequests("shareConfig", data, function (res) {if (res.data.code == 200) {var data = res.data.data;WeixinJSBridge.on('menu:share:appmessage', function (argv) {WeixinJSBridge.invoke('sendAppMessage', { "appid": that.userinfo.appId, //appid 设置空就好了。
                   "img_url": data.share_img, //分享时所带的图片路径
                   "img_width": "120", //图片宽度
                   "img_height": "120", //图片高度
@@ -401,6 +406,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       }
     },
     memberInfo: function memberInfo() {var _this = this;
+
       var that = this;
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
@@ -420,6 +426,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
           _this.member_default = res.data.data.member_default;
         }
       });
+
     },
     myinfoPage: function myinfoPage() {var _this2 = this;
       this.count++;
@@ -561,16 +568,16 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         success: function success(res) {
           if (res.confirm) {
             uni.setStorageSync('isWeixin', true);
-            var code = location.search;
-            var getCode = code.substring(code.indexOf('=') + 1, code.lastIndexOf('&'));
-            if (!getCode) {
-              var url = window.location.href;
-              var redirect_uri = encodeURIComponent(url);
-              var a = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
-              "appid=" + that.userinfo.appId + "&redirect_uri=" + redirect_uri +
-              "&response_type=code&scope=snsapi_userinfo#wechat_redirect";
-              window.location.href = a;
-            }
+            // let code = location.search;
+            // let getCode = code.substring(code.indexOf('=') + 1, code.lastIndexOf('&'));
+            // if (!getCode) {
+            var url = window.location.href;
+            var redirect_uri = encodeURIComponent(url);
+            var a = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
+            "appid=" + that.userinfo.appId + "&redirect_uri=" + redirect_uri +
+            "&response_type=code&scope=snsapi_userinfo#wechat_redirect";
+            window.location.href = a;
+            // }
           } else if (res.cancel) {
             // console.log('用户点击取消');
           }
@@ -876,6 +883,9 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
     });
 
     //H5
+
+
+
 
 
 

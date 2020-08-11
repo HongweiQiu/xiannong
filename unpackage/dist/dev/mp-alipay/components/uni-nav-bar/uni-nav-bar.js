@@ -78,7 +78,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-status-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-status-bar/uni-status-bar */ "components/uni-status-bar/uni-status-bar").then(__webpack_require__.bind(null, /*! @/components/uni-status-bar/uni-status-bar.vue */ 554))
+    return __webpack_require__.e(/*! import() | components/uni-status-bar/uni-status-bar */ "components/uni-status-bar/uni-status-bar").then(__webpack_require__.bind(null, /*! @/components/uni-status-bar/uni-status-bar.vue */ 562))
   },
   "uni-icons": function() {
     return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 453))
@@ -121,7 +121,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniStatusBar = function uniStatusBar() {__webpack_require__.e(/*! require.ensure | components/uni-status-bar/uni-status-bar */ "components/uni-status-bar/uni-status-bar").then((function () {return resolve(__webpack_require__(/*! ../uni-status-bar/uni-status-bar.vue */ 554));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniIcons = function uniIcons() {Promise.all(/*! require.ensure | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then((function () {return resolve(__webpack_require__(/*! ../uni-icons/uni-icons.vue */ 453));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniStatusBar = function uniStatusBar() {__webpack_require__.e(/*! require.ensure | components/uni-status-bar/uni-status-bar */ "components/uni-status-bar/uni-status-bar").then((function () {return resolve(__webpack_require__(/*! ../uni-status-bar/uni-status-bar.vue */ 562));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniIcons = function uniIcons() {Promise.all(/*! require.ensure | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then((function () {return resolve(__webpack_require__(/*! ../uni-icons/uni-icons.vue */ 453));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -225,8 +225,22 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    onClickLeft: function onClickLeft() {var _this = this;
-      setTimeout(function () {_this.$emit("clickLeft");}, 300);
+    onClickLeft: function onClickLeft() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      this.$emit("clickLeft");
 
     },
     onClickRight: function onClickRight() {

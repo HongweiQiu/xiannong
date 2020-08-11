@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<!-- <view style="position: fixed;width:100vw;height:60px;z-index:9999;bottom: 0;" v-show="masktabar"></view> -->
+		<!-- <view style="position: fixed;width:100vw;height:60px;z-index:9999;bottom: 0;background: red;" v-show="masktabar"></view> -->
 		<view style="height:50px;"></view>
 		<view class="my_tabar">
 			<view v-for="(item, index) in tabList" :key="index" class="single_tabar" @click="pageUrl(item)">
@@ -20,7 +20,7 @@
 		data() {
 			return {
 				count: 0,
-				masktabar:false,
+				masktabar: false,
 				tabList: [{
 						title: '首页',
 						inImg: imgPath + 'index_gray.png',
@@ -56,11 +56,13 @@
 		},
 		methods: {
 			pageUrl(data) {
-				
+
 				// #ifdef MP-WEIXIN
-				// this.count++;
-				// if(this.count!=1)return;
-				// setTimeout(()=>{this.count=0},1000)
+				// uni.setStorageSync('masktabar',true);
+				// this.masktabar=uni.getStorageSync('masktabar');
+				// setTimeout(() => {
+				// 				uni.clearStorageSync('masktabar');
+				// 				}, 2000)
 				// #endif
 				getApp().globalData.isReload = true;
 				if (this.tabarIndex != 1) {
@@ -76,20 +78,20 @@
 							url: '/pages/account/login'
 						})
 					} else {
-						
-						
+
+
 						uni.switchTab({
 							url: data.url
 						});
-						
+
 					}
 				} else {
-					
-					
+
+
 					uni.switchTab({
 						url: data.url
 					});
-					
+
 				}
 
 			}
@@ -132,8 +134,11 @@
 	.my_tabar .single_tabar .incolor {
 		color: #808080;
 	}
+
 	/* #ifdef MP-ALIPAY */
-	.my_tabar .title{padding-top:2px;}
+	.my_tabar .title {
+		padding-top: 2px;
+	}
+
 	/* #endif */
-	
 </style>

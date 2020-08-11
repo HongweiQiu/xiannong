@@ -122,6 +122,9 @@ var components = {
   },
   "my-tabar": function() {
     return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 436))
+  },
+  "my-mask": function() {
+    return __webpack_require__.e(/*! import() | components/mask/index */ "components/mask/index").then(__webpack_require__.bind(null, /*! @/components/mask/index.vue */ 662))
   }
 }
 var render = function() {
@@ -235,6 +238,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));
 var _parseHtml = _interopRequireDefault(__webpack_require__(/*! ../../static/js/parseHtml.js */ 31));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}var uniDrawer = function uniDrawer() {__webpack_require__.e(/*! require.ensure | components/uni-drawer/uni-drawer */ "components/uni-drawer/uni-drawer").then((function () {return resolve(__webpack_require__(/*! @/components/uni-drawer/uni-drawer.vue */ 479));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
@@ -253,7 +257,7 @@ console,log = _console.log;var _default =
 
   data: function data() {
     return {
-
+      masktabar: false,
       kind: 0,
       active: -1,
       activeTab: 0,
@@ -312,6 +316,7 @@ console,log = _console.log;var _default =
     mpItem: function mpItem() {var _this2 = this;
       this.list = [];
       this.bitmap = true;
+
       this.loading = true;
       this.page = 1;
       var timeStamp = Math.round(new Date().getTime() / 1000);
@@ -369,6 +374,7 @@ console,log = _console.log;var _default =
             _this2.loading = false;
           }
         }
+
       });
     },
     // 切换一级分类
@@ -430,7 +436,9 @@ console,log = _console.log;var _default =
       this.cancelSort();
     } },
 
-  onShow: function onShow() {
+  onShow: function onShow() {var _this3 = this;
+    this.masktabar = true;
+    setTimeout(function () {_this3.masktabar = false;}, 1000);
     var classId = getApp().globalData.classId;
     if (app.isReload == true) {
       this.kind = 0;
@@ -452,7 +460,7 @@ console,log = _console.log;var _default =
   onHide: function onHide() {
     uni.setStorageSync('classify', this.list);
   },
-  onReachBottom: function onReachBottom() {var _this3 = this;
+  onReachBottom: function onReachBottom() {var _this4 = this;
     var that = this;
     var timeStamp = Math.round(new Date().getTime() / 1000);var
 
@@ -479,16 +487,16 @@ console,log = _console.log;var _default =
     this.loading = true;
     _request.default.getRequests('mpItemList', data, function (res) {
       if (res.data.code == 200) {
-        if (res.data.data.list.length != 0) {var _this3$list;
-          (_this3$list = _this3.list).push.apply(_this3$list, _toConsumableArray(res.data.data.list));
-          _this3.page += 1;
-          _this3.loading = true;
+        if (res.data.data.list.length != 0) {var _this4$list;
+          (_this4$list = _this4.list).push.apply(_this4$list, _toConsumableArray(res.data.data.list));
+          _this4.page += 1;
+          _this4.loading = true;
         } else {
-          _this3.loading = false;
-          if (_this3.kind == _this3.secondCate.length - 1) {
-            _this3.textInfo = (0, _parseHtml.default)("没有更多呢");
+          _this4.loading = false;
+          if (_this4.kind == _this4.secondCate.length - 1) {
+            _this4.textInfo = (0, _parseHtml.default)("没有更多呢");
           } else {
-            _this3.textInfo = (0, _parseHtml.default)("上滑或点击<span class='red_font'>" + _this3.secondCate[_this3.kind + 1].name +
+            _this4.textInfo = (0, _parseHtml.default)("上滑或点击<span class='red_font'>" + _this4.secondCate[_this4.kind + 1].name +
             '</span>进入下一分类');
           }
         }
@@ -496,6 +504,7 @@ console,log = _console.log;var _default =
     });
   },
   onLoad: function onLoad(e) {
+    app.isReload = true;
     uni.hideTabBar();
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

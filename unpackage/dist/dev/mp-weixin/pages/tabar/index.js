@@ -130,6 +130,9 @@ var components = {
   },
   "my-tabar": function() {
     return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 436))
+  },
+  "my-mask": function() {
+    return __webpack_require__.e(/*! import() | components/mask/index */ "components/mask/index").then(__webpack_require__.bind(null, /*! @/components/mask/index.vue */ 662))
   }
 }
 var render = function() {
@@ -279,6 +282,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniNoticeBar = function uniNoticeBar() {__webpack_require__.e(/*! require.ensure | components/uni-notice-bar/uni-notice-bar */ "components/uni-notice-bar/uni-notice-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-notice-bar/uni-notice-bar.vue */ 40));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
@@ -295,6 +299,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
 
   data: function data() {
     return {
+      masktabar: false,
       showActive: false,
       support: false,
       showTop: false,
@@ -376,7 +381,6 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
 
           break;
         default:
-          console.log(cate_id);
           getApp().globalData.classId = cate_id;
           wx.switchTab({
             url: '/pages/tabar/classify' });
@@ -424,10 +428,17 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
         var data = res.data;
         if (data.code == 200) {
           _this3.adList = data.data;
+
+
+
+
+
+
         }
       });
     },
     indexItem: function indexItem() {var _Object$assign,_this4 = this;
+
       this.itemList = [];
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
@@ -463,6 +474,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
           }
         }
       });
+
     },
     //限时抢购
     limitList: function limitList() {var _this5 = this;
@@ -498,7 +510,11 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
     } },
 
 
-  onShow: function onShow() {
+  onShow: function onShow() {var _this6 = this;
+
+    this.masktabar = true;
+    setTimeout(function () {_this6.masktabar = false;}, 1000);
+
     this.token = uni.getStorageSync('cdj_token');
     this.indexAd();
     this.limitList();
@@ -513,9 +529,10 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
 
   },
   onLoad: function onLoad() {
+    app.isReload = true;
     uni.hideTabBar();
   },
-  onReachBottom: function onReachBottom() {var _this6 = this;
+  onReachBottom: function onReachBottom() {var _this7 = this;
     //页面上拉触底事件的处理函数
     var that = this;
 
@@ -542,13 +559,13 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       data =
       res.data;
       if (data.code = 200) {
-        if (data.data != '') {var _this6$itemList;
-          (_this6$itemList = _this6.itemList).push.apply(_this6$itemList, _toConsumableArray(data.data.list));
-          _this6.page += 1;
-          _this6.loading = true;
+        if (data.data != '') {var _this7$itemList;
+          (_this7$itemList = _this7.itemList).push.apply(_this7$itemList, _toConsumableArray(data.data.list));
+          _this7.page += 1;
+          _this7.loading = true;
         } else {
-          _this6.support = true;
-          _this6.loading = false;
+          _this7.support = true;
+          _this7.loading = false;
         }
       }
     });

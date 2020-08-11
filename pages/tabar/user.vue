@@ -111,6 +111,7 @@
 			</view>
 		</view>
 		<my-tabar tabarIndex=4></my-tabar>
+		<my-mask :masktabar="masktabar"></my-mask>
 		<view class="share_box" v-if="hShare" @click="share()">
 			<view class="item">
 				<image class="share_msg" src="../../static/img/share.png" mode=""></image>
@@ -142,6 +143,7 @@
 		},
 		data() {
 			return {
+					masktabar:false,
 				hShare: false,
 				userList: [{
 						icon: 'icon-08_zizhanghaoguanli',
@@ -262,7 +264,8 @@
 				}
 			},
 			memberInfo() {
-				var that = this
+			
+				var that = this;
 				var timeStamp = Math.round(new Date().getTime() / 1000);
 				var obj = {
 					appid: appid,
@@ -280,7 +283,8 @@
 						this.memberInfoData = res.data.data.info;
 						this.member_default = res.data.data.member_default;
 					}
-				})
+				});
+				
 			},
 			myinfoPage() {
 				this.count++;
@@ -422,16 +426,16 @@
 					success: function(res) {
 						if (res.confirm) {
 							uni.setStorageSync('isWeixin', true)
-							let code = location.search;
-							let getCode = code.substring(code.indexOf('=') + 1, code.lastIndexOf('&'));
-							if (!getCode) {
-								let url = window.location.href;
-								let redirect_uri = encodeURIComponent(url);
-								let a = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
-									"appid=" + that.userinfo.appId + "&redirect_uri=" + redirect_uri +
-									"&response_type=code&scope=snsapi_userinfo#wechat_redirect"
-								window.location.href = a;
-							}
+							// let code = location.search;
+							// let getCode = code.substring(code.indexOf('=') + 1, code.lastIndexOf('&'));
+							// if (!getCode) {
+							let url = window.location.href;
+							let redirect_uri = encodeURIComponent(url);
+							let a = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
+								"appid=" + that.userinfo.appId + "&redirect_uri=" + redirect_uri +
+								"&response_type=code&scope=snsapi_userinfo#wechat_redirect"
+							window.location.href = a;
+							// }
 						} else if (res.cancel) {
 							// console.log('用户点击取消');
 						}
@@ -774,7 +778,10 @@
 						// uni.setStorageSync('is_miniBind', 1)
 						// that.is_bind = uni.getStorageSync("is_miniBind")
 					} else {
-						rs.Toast(res.data.msg)
+						rs.Toast(res.data.msg);
+						setTimeout(() => {
+							window.location.href = app.rootUrl + "/#/pages/tabar/user";
+						}, 1000)
 					}
 				})
 
@@ -795,11 +802,12 @@
 </script>
 
 <style>
-	page,.user {
+	page,
+	.user {
 		background: white;
 		/* height: 100%; */
 	}
- 
+
 	.user .author image {
 		width: 140rpx;
 		height: 140rpx;
@@ -851,7 +859,8 @@
 		margin-left: 10rpx;
 		/* #ifdef MP-ALIPAY */
 		padding-top: 6rpx;
-		/* #endif */;
+		/* #endif */
+		;
 	}
 
 	.user .middle .modify_address {

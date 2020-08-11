@@ -63,6 +63,7 @@
 				back: true,
 				display1: true,
 				identifying: '',
+				sale: '',
 				scrollHeight: '',
 				resultData: {},
 				count: 0
@@ -72,8 +73,10 @@
 			leftClick() {
 				// #ifdef H5
 				uni.hideKeyboard();
-				setTimeout(()=>{window.history.back(-1);},100)
-				
+				setTimeout(() => {
+					window.history.back(-1);
+				}, 100)
+
 				// #endif 
 				// #ifndef H5
 				uni.navigateBack({
@@ -231,6 +234,9 @@
 				if (this.identifying) {
 					obj.openid = this.identifying
 				}
+				if (this.sale) {
+					obj.sale = this.sale;
+				}
 				let params = Object.assign({
 					sign: sign,
 				}, obj)
@@ -247,6 +253,12 @@
 						if (res.data.code == 200) {
 							rs.Toast('注册成功');
 							setTimeout(() => {
+								// #ifdef H5
+								setTimeout(() => {
+									window.location.href = app.rootUrl + "/#/pages/account/login";
+								}, 1000)
+								return;
+								// #endif
 								uni.navigateTo({
 									url: './login',
 								})
@@ -260,7 +272,7 @@
 			}
 		},
 		onReady() {
-			
+
 			// #ifdef H5
 			this.scrollHeight = uni.getStorageSync('scrollHeight');
 
@@ -278,13 +290,14 @@
 		},
 		onLoad(options) {
 			var that = this;
+			that.sale = options.sale;
 			that.identifying = options.identifying;
 
 		},
 		onShow() {
 			uni.setNavigationBarTitle({
-				    title: uni.getStorageSync('titleKey')
-				});
+				title: uni.getStorageSync('titleKey')
+			});
 		}
 	};
 </script>

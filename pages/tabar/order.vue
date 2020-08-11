@@ -123,6 +123,7 @@
 			子账号
 		</w-picker>
 		<my-tabar tabarIndex=3></my-tabar>
+		<my-mask :masktabar="masktabar"></my-mask>
 	</view>
 </template>
 
@@ -144,6 +145,7 @@
 		},
 		data() {
 			return {
+				masktabar:false,
 				is_child: '',
 				is_miniBind: '',
 				imgRemote: imgRemote,
@@ -663,6 +665,10 @@
 		 * 生命周期函数--监听页面显示
 		 */
 		onShow() {
+			// #ifdef MP-WEIXIN
+			this.masktabar = true;
+			setTimeout(()=>{this.masktabar=false;},1000)
+			// #endif
 			var that = this;
 			that.is_child = uni.getStorageSync("is_child");
 			that.is_miniBind = uni.getStorageSync("is_miniBind");
@@ -696,6 +702,8 @@
 					//用户信息
 				}
 			}
+		
+			
 		},
 		/**
 		 * 生命周期函数--监听页面隐藏

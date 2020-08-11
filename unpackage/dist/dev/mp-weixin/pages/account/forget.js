@@ -97,7 +97,7 @@ var components = {
     return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 486))
   },
   "my-identifyingcode": function() {
-    return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 507))
+    return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 515))
   }
 }
 var render = function() {
@@ -177,7 +177,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var moveVerify = function moveVerify() {__webpack_require__.e(/*! require.ensure | components/helang-moveVerify/helang-moveVerify */ "components/helang-moveVerify/helang-moveVerify").then((function () {return resolve(__webpack_require__(/*! @/components/helang-moveVerify/helang-moveVerify.vue */ 514));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var moveVerify = function moveVerify() {__webpack_require__.e(/*! require.ensure | components/helang-moveVerify/helang-moveVerify */ "components/helang-moveVerify/helang-moveVerify").then((function () {return resolve(__webpack_require__(/*! @/components/helang-moveVerify/helang-moveVerify.vue */ 522));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 var app = getApp().globalData;var
 
 navBar =
@@ -202,14 +202,22 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
 
   },
   methods: {
+    onShow: function onShow() {
+
+      uni.setNavigationBarTitle({
+        title: uni.getStorageSync('titleKey') });
+    },
     leftClick: function leftClick() {
 
-      uni.hideKeyboard();
-      setTimeout(function () {
-        uni.navigateBack({
-          delta: 1 });
 
-      }, 300);
+
+
+
+      uni.navigateBack({
+        delta: 1 });
+
+
+
     },
     verifyResult: function verifyResult(res) {
       this.resultData = res;

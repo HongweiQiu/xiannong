@@ -7,7 +7,7 @@
 				<image class="login_logo" :src="logo" mode="aspectFit"></image>
 			</view>
 		</view>
-		<view class="login_method">
+		<view class="login_method" :style="{height:logoHeight+'px'}">
 			<!-- {{scrollHeight}}/{{newHeight}}/{{display}} -->
 			<!-- 手机登录 -->
 			<view class="mobilelogin">
@@ -31,14 +31,14 @@
 			<view class="wechat_login" v-if="display">
 				<view class="">
 					<view class="divider gray_font">其他登录</view>
-					<view class="weixin_button" >
+					<view class="weixin_button">
 						<!-- #ifdef APP-PLUS |H5 -->
 						<image class="weixin_img" src="../../static/img/wechat.png" mode="" @click="wechatLogin"></image>
 						<!-- #endif -->
 
 						<!-- #ifdef MP-WEIXIN -->
-						<button open-type="getUserInfo">
-							<image class="weixin_img" src="../../static/img/wechat.png" mode="" @click="wechatLogin"></image>
+						<button open-type="getUserInfo" @click="wechatLogin">
+							<image class="weixin_img" src="../../static/img/wechat.png" mode="" ></image>
 						</button>
 						<!-- #endif -->
 						<!-- #ifdef MP-ALIPAY -->
@@ -55,7 +55,7 @@
 
 					</view>
 					<view class="read_treaty">
-						 <text style="color: #000;" @click="pageUrl('treaty')">已阅读并同意</text>
+						<text style="color: #000;" @click="pageUrl('treaty')">已阅读并同意</text>
 						<text @click="pageUrl('treaty')">注册协议</text>
 					</view>
 				</view>
@@ -88,7 +88,8 @@
 				password: '',
 				scrollHeight: '',
 				newHeight: '',
-				count: 0
+				count: 0,
+				logoHeight:''
 			};
 		},
 		methods: {
@@ -101,7 +102,7 @@
 
 			clickLeft() {
 				// #ifdef H5
-					uni.hideKeyboard();
+				uni.hideKeyboard();
 				// #endif
 				uni.switchTab({
 					url: '/pages/tabar/index'
@@ -114,14 +115,14 @@
 					this.count = 0
 				}, 1000)
 				// #ifdef H5
-					uni.hideKeyboard()
+				uni.hideKeyboard()
 				// #endif
-				setTimeout(()=>{
+				setTimeout(() => {
 					uni.navigateTo({
 						url: data
-					}),300
+					}), 300
 				})
-					
+
 			},
 			// 手机登录
 			mobileLogin() {
@@ -286,7 +287,7 @@
 						let a = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
 							"appid=" + data.data.appId + "&redirect_uri=" + redirect_uri +
 							"&response_type=code&scope=snsapi_userinfo#wechat_redirect";
-							
+
 						window.location.href = a;
 
 					} else if (data.code == 500) {
@@ -301,6 +302,7 @@
 			// 微信端微信登录
 			// #ifdef MP-WEIXIN
 			wechatLogin() {
+				console.log('weixin')
 				this.count++;
 				if (this.count != 1) return;
 				setTimeout(() => {
@@ -424,26 +426,28 @@
 			// #endif
 		},
 		onShow() {
-			
-			this.display = true;
-			// #ifdef H5
-			if (uni.getSystemInfoSync().platform === 'android') {
-				this.scrollHeight = document.body.clientHeight;
-				uni.setStorageSync('scrollHeight', this.scrollHeight);
-				window.onresize = () => {
 
-					if (this.scrollHeight < this.newHeight) {
-						window.location.reload();
-					}
-					this.newHeight = document.body.clientHeight;
-					// window.location.reload();
-					if (this.scrollHeight > this.newHeight) {
-						this.display = false;
-					} else {
-						this.display = true;
-					}
-				}
-			}
+			this.display = true;
+			// #ifdef H5 
+
+			// if (uni.getSystemInfoSync().platform === 'android') {
+			// 	this.scrollHeight = document.body.clientHeight;
+			// 	console.log(this.scrollHeight)
+			// 	uni.setStorageSync('scrollHeight', this.scrollHeight);
+			// 	window.onresize = () => {
+
+			// 		if (this.scrollHeight < this.newHeight) {
+			// 			window.location.reload();
+			// 		}
+			// 		this.newHeight = document.body.clientHeight;
+			// 		// window.location.reload();
+			// 		if (this.scrollHeight > this.newHeight) {
+			// 			this.display = false;
+			// 		} else {
+			// 			this.display = true;
+			// 		}
+			// 	}
+			// }
 
 			// #endif
 			let timeStamp = Math.round(new Date().getTime() / 1000);
@@ -461,10 +465,13 @@
 				let data = res.data;
 				if (data.code == 200) {
 					this.logo = data.data.logo;
-			     	uni.setStorageSync('titleKey',data.data.title);
+					// #ifdef H5
+					uni.setStorageSync('titleKey', data.data.title);
 					uni.setNavigationBarTitle({
-					    title: uni.getStorageSync('titleKey')
+						title: uni.getStorageSync('titleKey')
 					});
+					// #endif
+
 				}
 			});
 
@@ -490,15 +497,13 @@
 						data
 					} = res;
 					uni.clearStorageSync('isWeixin');
-					
+
 					if (data.code == 200) {
 						uni.setStorageSync('cdj_token', data.data.token);
 						uni.setStorageSync('is_miniBind', data.data.is_bind);
 						uni.setStorageSync('is_child', data.data.is_child);
-						// window.location.href = app.rootUrl;
-							uni.switchTab({
-								url:'/pages/tabar/index'
-							})
+						window.location.href = app.rootUrl;
+
 					} else if (data.code == 201) {
 						wx.navigateTo({
 							url: 'selectway?identifying=' + data.data.identifying
@@ -513,7 +518,24 @@
 				})
 			}
 			// #endif
-		}
+		},
+		mounted() {
+			let that=this;
+		let bodyHeight,titleHeight,imgHeight;
+			uni.getSystemInfo({
+				success: function(res) { // res - 各种参数
+					// that.logoHeight=res.windowHeight; // 屏幕的宽度 
+					
+					let info = uni.createSelectorQuery().select('.logo_width');
+					info.boundingClientRect(function(data) { //data - 各种参数
+					imgHeight=data.height; // 获取元素宽度
+					// console.log(data)
+				that.logoHeight=res.windowHeight-44-imgHeight;
+					}).exec();
+					
+				}
+			});
+		},
 	};
 </script>
 
@@ -522,15 +544,18 @@
 		background: #fff;
 	}
 
-	.login {
+/* 	.login {
 
 		width: 100vw;
 		height: 100vh;
-	}
+	} */
 
 	.logo_width {
 		text-align: center;
-		margin: 60rpx 0 80rpx;
+		/* margin: 60rpx 0 80rpx; */
+		height: 300rpx;
+		display: flex;
+		align-items: center;
 	}
 
 	.login .login_logo {
@@ -540,6 +565,7 @@
 
 	.login .login_method {
 		display: flex;
+		/* height: 72%; */
 		flex-direction: column;
 		justify-content: space-between;
 	}
@@ -552,9 +578,10 @@
 	.login .mobilelogin {
 		width: 580rpx;
 		height: 600rpx;
+
 		margin: 0 auto;
 	}
-
+.login .mobilelogin input{width:100%;}
 	.login .determine_mobile {
 		background: #009a44;
 		height: 80rpx;
@@ -584,9 +611,10 @@
 	}
 
 	.wechat_login {
-		position: absolute;
+		/* position: absolute; */
 		z-index: 0;
-		bottom: 20rpx;
+		/* bottom: 20rpx; */
+		padding-bottom:20rpx;
 		width: 100%;
 		text-align: center;
 		font-size: 24rpx;

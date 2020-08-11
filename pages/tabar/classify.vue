@@ -62,6 +62,7 @@
 			</view>
 		</uni-drawer>
 		<my-tabar tabarIndex=1></my-tabar>
+		<my-mask :masktabar="masktabar"></my-mask>
 	</view>
 </template>
 
@@ -85,7 +86,7 @@
 		},
 		data() {
 			return {
-               
+               masktabar:false,
 				kind: 0,
 				active: -1,
 				activeTab: 0,
@@ -144,6 +145,7 @@
 			mpItem() {
 				this.list=[];
 				this.bitmap=true;
+				
 				this.loading = true;
 				this.page=1;
 				let timeStamp = Math.round(new Date().getTime() / 1000);
@@ -201,6 +203,7 @@
 							this.loading = false;
 						}
 					}
+					
 				});
 			},
 			// 切换一级分类
@@ -263,6 +266,8 @@
 			}
 		},
 		onShow() {
+			this.masktabar = true;
+			setTimeout(()=>{this.masktabar=false;},1000)
 			let classId = getApp().globalData.classId;
 			if (app.isReload == true) {
 				this.kind = 0;

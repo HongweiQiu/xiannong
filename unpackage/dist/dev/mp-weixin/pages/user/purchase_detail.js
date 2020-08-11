@@ -211,6 +211,10 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
   },
   methods: {
     urlPage: function urlPage() {
+
+
+
+
       uni.navigateBack({
         delta: 1 });
 

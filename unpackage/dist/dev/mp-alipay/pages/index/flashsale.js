@@ -100,7 +100,7 @@ var components = {
     return __webpack_require__.e(/*! import() | components/countdown/index */ "components/countdown/index").then(__webpack_require__.bind(null, /*! @/components/countdown/index.vue */ 388))
   },
   "my-stepper": function() {
-    return __webpack_require__.e(/*! import() | components/stepper/index */ "components/stepper/index").then(__webpack_require__.bind(null, /*! @/components/stepper/index.vue */ 503))
+    return __webpack_require__.e(/*! import() | components/stepper/index */ "components/stepper/index").then(__webpack_require__.bind(null, /*! @/components/stepper/index.vue */ 511))
   },
   "my-loading": function() {
     return __webpack_require__.e(/*! import() | components/loading/index */ "components/loading/index").then(__webpack_require__.bind(null, /*! @/components/loading/index.vue */ 402))
@@ -384,7 +384,12 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { token: uni.getStorageSync('cdj_token'), imgRemote: imgRemote, showTop: false, kind: 0, navBar: navBar, loading: true, pbId: '', list: [], activeList: [], minute: 0, second: 0, config: [], goodIndex: '', arrObj: {}, count: 0 };}, methods: { closeKey: function closeKey() {this.$refs.keyboard.cancel();}, leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, detailPage: function detailPage(id) {var _this = this;this.count++;if (this.count != 1) return;setTimeout(function () {_this.count = 0;}, 1000);if (this.config.is_detail == 1) {uni.navigateTo({ url: "shopdetail?id=".concat(id) });}}, selectStage: function selectStage(index) {this.kind = index;this.pbId = this.activeList[index].id;this.loading = true;this.panicBuylist();}, panicBuylist: function panicBuylist() {var _this2 = this;this.list = [];var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var pbId = this.pbId;var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var params = Object.assign({ sign: sign, pbId: pbId }, obj);_request.default.getRequests('panicBuyList', params, function (res) {var data = res.data;if (data.code == 200) {_this2.config = data.data;_this2.activeList = data.data.activeList;_this2.list = data.data.goodsList;_this2.loading = false;}});}, // 显示键盘
-    showKey: function showKey(item, index) {this.$refs.popup.open();this.arrObj = item;this.goodIndex = index;}, toParent: function toParent(e) {this.addCart(this.arrObj, 'changeNum', e.val, '成功加入购物车', this.goodIndex);this.$refs.popup.close();}, addCart: function addCart(item, url, num, message, index) {var _this3 = this;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp, item_id: item.item_id, attr_id: item.attr_id, item_num: num };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var params = Object.assign({ sign: sign }, obj);_request.default.postRequests(url, params, function (res) {var data = res.data;if (data.code == 200) {
+    showKey: function showKey(item, index) {this.$refs.popup.open();this.arrObj = item;this.goodIndex = index;}, toParent: function toParent(e) {this.addCart(this.arrObj, 'changeNum', e.val, '成功加入购物车', this.goodIndex);this.$refs.popup.close();}, addCart: function addCart(item, url, num, message, index) {var _this3 = this;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp, item_id: item.item_id, attr_id: item.attr_id, item_num: num };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var params = Object.assign({ sign: sign },
+      obj);
+
+      _request.default.postRequests(url, params, function (res) {
+        var data = res.data;
+        if (data.code == 200) {
           _request.default.Toast(message);
           _this3.list[index].cart_num = num;
         } else if (data.code == 407 || data.code == 406) {
