@@ -233,7 +233,7 @@ function postRequests(url, datas, success) {
 		data: Object.assign(datas, active),
 		success: res => {
 			success(res)
-			console.log(res.header.Authorization)
+		
 			if (res.header.authorization != undefined) {
 				uni.setStorageSync("cdj_token", res.header.authorization)
 			}
