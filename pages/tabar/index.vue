@@ -339,10 +339,10 @@
 
 		},
 		onShow() {
-		// #ifdef MP-WEIXIN
-		this.masktabar = true;
-		setTimeout(()=>{this.masktabar=false;},1000)
-		// #endif
+		// // #ifdef MP-WEIXIN
+		// this.masktabar = true;
+		// setTimeout(()=>{this.masktabar=false;},1000)
+		// // #endif
 			this.token = uni.getStorageSync('cdj_token');
 			this.indexAd();
 			this.limitList();

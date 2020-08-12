@@ -665,10 +665,10 @@
 		 * 生命周期函数--监听页面显示
 		 */
 		onShow() {
-			// #ifdef MP-WEIXIN
-			this.masktabar = true;
-			setTimeout(()=>{this.masktabar=false;},1000)
-			// #endif
+			// // #ifdef MP-WEIXIN
+			// this.masktabar = true;
+			// setTimeout(()=>{this.masktabar=false;},1000)
+			// // #endif
 			var that = this;
 			that.is_child = uni.getStorageSync("is_child");
 			that.is_miniBind = uni.getStorageSync("is_miniBind");

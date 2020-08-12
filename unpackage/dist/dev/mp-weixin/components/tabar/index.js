@@ -194,16 +194,11 @@ imgPath = '../../static/img/';var _default =
             url: '/pages/account/login' });
 
         } else {
-
-
           uni.switchTab({
             url: data.url });
 
-
         }
       } else {
-
-
         uni.switchTab({
           url: data.url });
 

@@ -132,7 +132,7 @@ var components = {
     return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 436))
   },
   "my-mask": function() {
-    return __webpack_require__.e(/*! import() | components/mask/index */ "components/mask/index").then(__webpack_require__.bind(null, /*! @/components/mask/index.vue */ 662))
+    return __webpack_require__.e(/*! import() | components/mask/index */ "components/mask/index").then(__webpack_require__.bind(null, /*! @/components/mask/index.vue */ 443))
   }
 }
 var render = function() {
@@ -510,11 +510,11 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
     } },
 
 
-  onShow: function onShow() {var _this6 = this;
-
-    this.masktabar = true;
-    setTimeout(function () {_this6.masktabar = false;}, 1000);
-
+  onShow: function onShow() {
+    //
+    // this.masktabar = true;
+    // setTimeout(()=>{this.masktabar=false;},1000)
+    //
     this.token = uni.getStorageSync('cdj_token');
     this.indexAd();
     this.limitList();
@@ -532,7 +532,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
     app.isReload = true;
     uni.hideTabBar();
   },
-  onReachBottom: function onReachBottom() {var _this7 = this;
+  onReachBottom: function onReachBottom() {var _this6 = this;
     //页面上拉触底事件的处理函数
     var that = this;
 
@@ -559,13 +559,13 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       data =
       res.data;
       if (data.code = 200) {
-        if (data.data != '') {var _this7$itemList;
-          (_this7$itemList = _this7.itemList).push.apply(_this7$itemList, _toConsumableArray(data.data.list));
-          _this7.page += 1;
-          _this7.loading = true;
+        if (data.data != '') {var _this6$itemList;
+          (_this6$itemList = _this6.itemList).push.apply(_this6$itemList, _toConsumableArray(data.data.list));
+          _this6.page += 1;
+          _this6.loading = true;
         } else {
-          _this7.support = true;
-          _this7.loading = false;
+          _this6.support = true;
+          _this6.loading = false;
         }
       }
     });

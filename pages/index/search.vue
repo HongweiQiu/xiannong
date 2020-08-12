@@ -375,7 +375,7 @@
 				rs.getRequests("wxConfig", params, (response) => {
 
 					if (response.data.code == 200) {
-						console.log(response.data)
+						// console.log(response.data)
 						wx.config({
 							debug: false, // 开启调试模式
 							appId: response.data.data.appId, // 必填，公众号的唯一标识

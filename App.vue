@@ -14,8 +14,8 @@
 			active: '2',
 			appsecret: 'StJfzJcXmya6k6Ar',
 			// #ifdef APP-PLUS |MP-WEIXIN |MP-ALIPAY
-			rootUrl: 'https://bcny.caidj.cn', //主接口地址
-			imgRemote: 'https://bcny.caidj.cn',
+			rootUrl: 'https://test.caidj.cn', //主接口地址
+			imgRemote: 'https://test.caidj.cn',
 			// #endif 
 			// #ifdef H5
 			isWeixin: false,

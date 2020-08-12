@@ -159,6 +159,7 @@
 		"selectedColor": "#009A44",
 		"list": [{
 			"pagePath": "pages/tabar/index"
+			
 
 		}, {
 			"pagePath": "pages/tabar/classify"

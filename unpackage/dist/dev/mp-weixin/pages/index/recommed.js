@@ -94,10 +94,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 486))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 491))
   },
   "my-profile": function() {
-    return __webpack_require__.e(/*! import() | components/profile/index */ "components/profile/index").then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 465))
+    return __webpack_require__.e(/*! import() | components/profile/index */ "components/profile/index").then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 470))
   },
   "my-loading": function() {
     return __webpack_require__.e(/*! import() | components/loading/index */ "components/loading/index").then(__webpack_require__.bind(null, /*! @/components/loading/index.vue */ 406))
@@ -106,7 +106,7 @@ var components = {
     return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 420))
   },
   "my-keyboard": function() {
-    return __webpack_require__.e(/*! import() | components/keyboard/index */ "components/keyboard/index").then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 472))
+    return __webpack_require__.e(/*! import() | components/keyboard/index */ "components/keyboard/index").then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 477))
   },
   "my-addcart": function() {
     return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 429))

@@ -15,16 +15,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-icons": function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 457))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 462))
   },
   "my-profile": function() {
-    return __webpack_require__.e(/*! import() | components/profile/index */ "components/profile/index").then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 465))
+    return __webpack_require__.e(/*! import() | components/profile/index */ "components/profile/index").then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 470))
   },
   "uni-popup": function() {
     return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 420))
   },
   "my-keyboard": function() {
-    return __webpack_require__.e(/*! import() | components/keyboard/index */ "components/keyboard/index").then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 472))
+    return __webpack_require__.e(/*! import() | components/keyboard/index */ "components/keyboard/index").then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 477))
   },
   "my-addcart": function() {
     return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 429))
@@ -453,7 +453,7 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
       _request.default.getRequests("wxConfig", params, function (response) {
 
         if (response.data.code == 200) {
-          console.log(response.data);
+          // console.log(response.data)
           wx.config({
             debug: false, // 开启调试模式
             appId: response.data.data.appId, // 必填，公众号的唯一标识

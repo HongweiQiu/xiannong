@@ -266,10 +266,10 @@
 			}
 		},
 		onShow() {
-			// #ifdef MP-WEIXIN
-			this.masktabar = true;
-			setTimeout(()=>{this.masktabar=false;},1000)
-			// #endif
+			// // #ifdef MP-WEIXIN
+			// this.masktabar = true;
+			// setTimeout(()=>{this.masktabar=false;},1000)
+			// // #endif
 			
 			let classId = getApp().globalData.classId;
 			if (app.isReload == true) {

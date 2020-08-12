@@ -78,16 +78,11 @@
 							url: '/pages/account/login'
 						})
 					} else {
-
-
 						uni.switchTab({
 							url: data.url
 						});
-
 					}
 				} else {
-
-
 					uni.switchTab({
 						url: data.url
 					});
