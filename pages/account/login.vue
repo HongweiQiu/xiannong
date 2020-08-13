@@ -42,9 +42,9 @@
 						</button>
 						<!-- #endif -->
 						<!-- #ifdef MP-ALIPAY -->
-						<button open-type="getAuthorize" scope="userInfo" @click="wechatLogin">
-							<image class="weixin_img" src="../../static/img/alipay.png" mode="aspectFit"></image>
-						</button>
+						<!-- <button open-type="getAuthorize" scope="userInfo" > -->
+							<image  @click="wechatLogin" class="weixin_img" src="../../static/img/alipay.png" mode="aspectFit"></image>
+						<!-- </button> -->
 						<!-- #endif -->
 						<!-- #ifndef MP-ALIPAY -->
 						<text @click="wechatLogin">微信登录</text>
@@ -104,7 +104,7 @@
 				// #ifdef H5
 				uni.hideKeyboard();
 				// #endif
-				uni.switchTab({
+				uni.reLaunch({
 					url: '/pages/tabar/index'
 				});
 			},
@@ -529,7 +529,7 @@
 					let info = uni.createSelectorQuery().select('.logo_width');
 					info.boundingClientRect(function(data) { //data - 各种参数
 					imgHeight=data.height; // 获取元素宽度
-					// console.log(data)
+					
 				that.logoHeight=res.windowHeight-44-imgHeight;
 					}).exec();
 					

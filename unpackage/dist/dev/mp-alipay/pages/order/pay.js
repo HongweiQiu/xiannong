@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 482))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 487))
   }
 }
 var render = function() {
@@ -135,6 +135,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
 
 
 
@@ -250,13 +253,15 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, oid: '', payOrder: '', is_miniBind: uni.getStorageSync('is_miniBind') };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, /**
-                                                                                                                                                                                                                                                                                                                                                       * 支付信息
-                                                                                                                                                                                                                                                                                                                                                       */payOrdera: function payOrdera() {var that = this;var oid = that.oid;var type = 'mini';var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, oid: oid, type: type, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, oid: oid, type: type, pay: 'alipay',
-        timeStamp: timeStamp,
-        sign: sign };
+//
+//
+//
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, oid: '', payOrder: '', waitLoad: false, is_miniBind: uni.getStorageSync('is_miniBind') };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, /**
+                                                                                                                                                                                                                                                                                                                                                                        * 支付信息
+                                                                                                                                                                                                                                                                                                                                                                        */payOrdera: function payOrdera() {var _this = this;var that = this;var oid = that.oid;var type = 'mini';var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, oid: oid, type: type, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, oid: oid, type: type, pay: 'alipay', timeStamp: timeStamp, sign: sign };
 
       _request.default.postRequests("payOrder", data, function (res) {
+        _this.waitLoad = true;
         if (res.data.code == 200) {
           that.payOrder = res.data.data;
         } else if (res.data.code == 406) {
@@ -272,6 +277,8 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         }
       });
     },
+
+
 
 
 
@@ -447,7 +454,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
   },
   onShow: function onShow() {
     this.payOrdera();
-    app.aData.show = false;
+    app.aData.show = true;
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"]))
 

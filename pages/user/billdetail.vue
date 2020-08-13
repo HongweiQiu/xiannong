@@ -1,7 +1,7 @@
 <template>
 	<view class="bill_detail">
 		<uni-nav-bar left-icon="arrowleft" title="账单详情" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
-		<!-- 转账方式 -->
+		<view v-if="waitLoad">	<!-- 转账方式 -->
 		<view class="method_way">
 			<view style="color:#009a44;" v-if="moneyListInfo.pay_type==1">余额</view>
 			<view style="color:#52ca28;" v-if="moneyListInfo.pay_type==2">现金</view>
@@ -34,6 +34,7 @@
 			</view>
 		</view>
 	</view>
+	</view>
 </template>
 
 <script>
@@ -51,7 +52,8 @@
 			return {
 				navBar: navBar,
 				moneyListInfo: '',
-				num:''
+				num:'',
+				waitLoad:false
 			};
 		},
 		methods: {
@@ -82,6 +84,7 @@
 					sign: sign,
 				}
 				rs.getRequests("moneyListInfo", data, (res) => {
+					this.waitLoad=true;
 					if (res.data.code == 200) {
 						that.moneyListInfo = res.data.data;
 						that.num=res.data.data.list.length;

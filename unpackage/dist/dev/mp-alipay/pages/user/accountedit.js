@@ -94,13 +94,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 482))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 487))
   },
   "evan-switch": function() {
-    return __webpack_require__.e(/*! import() | components/evan-switch/evan-switch */ "components/evan-switch/evan-switch").then(__webpack_require__.bind(null, /*! @/components/evan-switch/evan-switch.vue */ 532))
+    return __webpack_require__.e(/*! import() | components/evan-switch/evan-switch */ "components/evan-switch/evan-switch").then(__webpack_require__.bind(null, /*! @/components/evan-switch/evan-switch.vue */ 537))
   },
   "uni-icons": function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 453))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 458))
   }
 }
 var render = function() {
@@ -367,7 +367,7 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
     formSubmit: function formSubmit(e) {var _this = this;
       this.clickcount++;
       if (this.clickcount != 1) return;
-      setTimeout(function () {_this.clickcount = 0;}, 500);
+      setTimeout(function () {_this.clickcount = 0;}, 1500);
       var that = this;
       var zid = that.select_zid;
       if (that.checked == false) {
@@ -429,8 +429,15 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
           _request.default.Toast('修改成功');
           that.save = true;
           setTimeout(function () {
-            uni.navigateTo({
-              url: "accountmange" });
+
+
+
+
+
+
+            uni.navigateBack({
+              delta: 1 });
+
 
           }, 1000);
         }

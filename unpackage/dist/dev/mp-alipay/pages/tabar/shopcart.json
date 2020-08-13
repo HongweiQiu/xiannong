@@ -8,6 +8,7 @@
     "uni-popup": "/components/uni-popup/uni-popup",
     "my-addcart": "/components/addcart/index",
     "my-tabar": "/components/tabar/index",
+    "my-mask": "/components/mask/index",
     "rui-date-picker": "/components/rattenking-dtpicker/rattenking-dtpicker"
   }
 }

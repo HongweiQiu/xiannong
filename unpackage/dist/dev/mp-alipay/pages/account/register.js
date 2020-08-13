@@ -94,10 +94,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 482))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 487))
   },
   "my-identifyingcode": function() {
-    return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 518))
+    return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 523))
   }
 }
 var render = function() {
@@ -182,8 +182,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 17));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var moveVerify = function moveVerify() {__webpack_require__.e(/*! require.ensure | components/helang-moveVerify/helang-moveVerify */ "components/helang-moveVerify/helang-moveVerify").then((function () {return resolve(__webpack_require__(/*! @/components/helang-moveVerify/helang-moveVerify.vue */ 525));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var moveVerify = function moveVerify() {__webpack_require__.e(/*! require.ensure | components/helang-moveVerify/helang-moveVerify */ "components/helang-moveVerify/helang-moveVerify").then((function () {return resolve(__webpack_require__(/*! @/components/helang-moveVerify/helang-moveVerify.vue */ 530));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 var app = getApp().globalData;var
 
 navBar =
@@ -210,7 +211,8 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
       sale: '',
       scrollHeight: '',
       resultData: {},
-      count: 0 };
+      count: 0,
+      height: '' };
 
   },
   methods: {
@@ -441,6 +443,20 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
   onShow: function onShow() {
     uni.setNavigationBarTitle({
       title: uni.getStorageSync('titleKey') });
+
+  },
+  mounted: function mounted() {
+    var that = this;
+    var bodyHeight, titleHeight, imgHeight;
+    uni.getSystemInfo({
+      success: function success(res) {// res - 各种参数
+        // that.logoHeight=res.windowHeight; // 屏幕的宽度 
+
+
+        that.height = res.windowHeight;
+
+
+      } });
 
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"]))

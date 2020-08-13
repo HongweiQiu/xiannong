@@ -94,33 +94,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 482))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 487))
   },
   "uni-icons": function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 453))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 458))
   },
   "my-o-tabs": function() {
-    return __webpack_require__.e(/*! import() | components/o-tabs/index */ "components/o-tabs/index").then(__webpack_require__.bind(null, /*! @/components/o-tabs/index.vue */ 489))
+    return __webpack_require__.e(/*! import() | components/o-tabs/index */ "components/o-tabs/index").then(__webpack_require__.bind(null, /*! @/components/o-tabs/index.vue */ 494))
   },
   "my-loading": function() {
     return __webpack_require__.e(/*! import() | components/loading/index */ "components/loading/index").then(__webpack_require__.bind(null, /*! @/components/loading/index.vue */ 402))
   },
   "w-picker": function() {
-    return __webpack_require__.e(/*! import() | components/w-picker/w-picker */ "components/w-picker/w-picker").then(__webpack_require__.bind(null, /*! @/components/w-picker/w-picker.vue */ 496))
+    return __webpack_require__.e(/*! import() | components/w-picker/w-picker */ "components/w-picker/w-picker").then(__webpack_require__.bind(null, /*! @/components/w-picker/w-picker.vue */ 501))
   },
   "my-tabar": function() {
     return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 432))
+  },
+  "my-mask": function() {
+    return __webpack_require__.e(/*! import() | components/mask/index */ "components/mask/index").then(__webpack_require__.bind(null, /*! @/components/mask/index.vue */ 439))
   }
 }
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      _vm.showOrderType = false
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -283,6 +281,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 17));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 18));
 var _uniNoticeBar = _interopRequireDefault(__webpack_require__(/*! @/components/uni-notice-bar/uni-notice-bar.vue */ 36));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
@@ -292,7 +291,7 @@ appid =
 
 
 
-app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 496));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 501));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 {
   components: {
@@ -300,6 +299,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
 
   data: function data() {var _ref;
     return _ref = {
+      masktabar: false,
       is_child: '',
       is_miniBind: '',
       imgRemote: imgRemote,
@@ -353,6 +353,13 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
       this.orderLista();
     },
 
+    closemask: function closemask() {
+      this.showOrderType = false;
+
+
+
+
+    },
     /**
         * 确认收货
         */
@@ -603,11 +610,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
             _request.default.getRequests("oneMoreTime", data, function (res) {
               console.log(res);
               if (res.data.code == 200) {
-                uni.showToast({
-                  title: "再来一单成功",
-                  duration: 2000,
-                  icon: 'none' });
-
+                _request.default.Toast("再来一单成功");
                 setTimeout(function () {
                   uni.switchTab({
                     url: '/pages/tabar/shopcart' });
@@ -615,22 +618,14 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
                 }, 1000);
 
               } else if (res.data.code == 102) {
-                uni.showToast({
-                  title: "有下架商品",
-                  duration: 2000,
-                  icon: 'none' });
-
+                _request.default.Toast("有下架商品");
                 setTimeout(function () {
                   uni.switchTab({
                     url: '/pages/tabar/shopcart' });
 
                 }, 1000);
               } else {
-                uni.showToast({
-                  title: res.data.msg,
-                  duration: 2000,
-                  icon: 'none' });
-
+                _request.default.Toast(res.data.msg);
               }
             });
           } else if (res.cancel) {
@@ -785,6 +780,9 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
       this.$refs.account.show();
     },
     titleTab: function titleTab(data) {
+
+
+
       this.orderTitle = data;
       this.showOrderType = false;
       if (data == "未支付") {
@@ -806,6 +804,9 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
       this.orderLista();
     },
     rightClick: function rightClick() {
+
+
+
       this.showOrderType = true;
     },
     // //回到顶部
@@ -819,6 +820,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
           * 生命周期函数--监听页面显示
           */
   onShow: function onShow() {
+
     var that = this;
     that.is_child = uni.getStorageSync("is_child");
     that.is_miniBind = uni.getStorageSync("is_miniBind");
@@ -852,6 +854,8 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
         //用户信息
       }
     }
+
+
   },
   /**
       * 生命周期函数--监听页面隐藏
@@ -913,6 +917,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
   },
   onLoad: function onLoad() {
     app.aData.show = false;
+
     uni.hideTabBar();
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"]))
@@ -997,7 +1002,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-icons": function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 453))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 458))
   }
 }
 var render = function() {
@@ -1037,7 +1042,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniIcons = function uniIcons() {Promise.all(/*! require.ensure | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then((function () {return resolve(__webpack_require__(/*! ../uni-icons/uni-icons.vue */ 453));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniIcons = function uniIcons() {Promise.all(/*! require.ensure | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then((function () {return resolve(__webpack_require__(/*! ../uni-icons/uni-icons.vue */ 458));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 
 

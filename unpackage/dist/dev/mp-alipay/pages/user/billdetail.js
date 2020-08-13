@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 482))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 487))
   }
 }
 var render = function() {
@@ -173,6 +173,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 17));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
@@ -212,12 +213,14 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, moneyListInfo: '', num: '' };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, moneyListInfoa: function moneyListInfoa() {var that = this;var id = that.id;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, id: id, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid,
+//
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, moneyListInfo: '', num: '', waitLoad: false };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, moneyListInfoa: function moneyListInfoa() {var _this = this;var that = this;var id = that.id;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, id: id, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid,
         id: id,
         timeStamp: timeStamp,
         sign: sign };
 
       _request.default.getRequests("moneyListInfo", data, function (res) {
+        _this.waitLoad = true;
         if (res.data.code == 200) {
           that.moneyListInfo = res.data.data;
           that.num = res.data.data.list.length;

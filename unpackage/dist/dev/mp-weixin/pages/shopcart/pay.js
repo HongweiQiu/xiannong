@@ -399,8 +399,7 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
 
 
 
-    payOrder: function payOrder() {
-      console.log(132);var
+    payOrder: function payOrder() {var
 
       id =
       this.id;
@@ -465,7 +464,6 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
         }
       });
     },
-
 
 
 

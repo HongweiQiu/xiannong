@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 482))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 487))
   }
 }
 var render = function() {
@@ -167,6 +167,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 17));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
@@ -200,10 +202,11 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, is_bind: '', orderId: '', placeRecharge: '', count: 0 };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, order: function order() {this.leftClick();}, /**
-                                                                                                                                                                                                                                                                                                                                                                                    * 充值信息
-                                                                                                                                                                                                                                                                                                                                                                                    */
-    placeRechargea: function placeRechargea() {
+//
+//
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, is_bind: '', orderId: '', placeRecharge: '', count: 0, waitLoad: false };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, order: function order() {this.leftClick();}, /**
+                                                                                                                                                                                                                                                                                                                                                                                                     * 充值信息
+                                                                                                                                                                                                                                                                                                                                                                                                     */placeRechargea: function placeRechargea() {var _this = this;
       var that = this;
       var id = that.orderId;
 
@@ -234,6 +237,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         sign: sign };
 
       _request.default.postRequests("placeRecharge", data, function (res) {
+        _this.waitLoad = true;
         if (res.data.code == 200) {
           that.placeRecharge = res.data.data;
         } else if (res.data.code == 406) {

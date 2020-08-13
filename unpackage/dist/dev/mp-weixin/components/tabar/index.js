@@ -136,7 +136,7 @@ imgPath = '../../static/img/';var _default =
   data: function data() {
     return {
       count: 0,
-      masktabar: false,
+      masktabar: true,
       tabList: [{
         title: '首页',
         inImg: imgPath + 'index_gray.png',
@@ -172,15 +172,8 @@ imgPath = '../../static/img/';var _default =
   },
   methods: {
     pageUrl: function pageUrl(data) {
-
-
-      // uni.setStorageSync('masktabar',true);
-      // this.masktabar=uni.getStorageSync('masktabar');
-      // setTimeout(() => {
-      // 				uni.clearStorageSync('masktabar');
-      // 				}, 2000)
-
       getApp().globalData.isReload = true;
+      getApp().globalData.aplipay = true;
       if (this.tabarIndex != 1) {
         getApp().globalData.classId = '';
       }
@@ -194,13 +187,27 @@ imgPath = '../../static/img/';var _default =
             url: '/pages/account/login' });
 
         } else {
-          uni.switchTab({
+
+          wx.switchTab({
             url: data.url });
+
+
+
+
+
+
 
         }
       } else {
-        uni.switchTab({
+
+        wx.reLaunch({
           url: data.url });
+
+
+
+
+
+
 
 
       }

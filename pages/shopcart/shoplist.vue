@@ -281,6 +281,7 @@
 				// })
 		
 				this.showRemark=true;
+			
 				this.remark=item.remark;
 				this.shopItem=item;
 				this.firstIndex=index;

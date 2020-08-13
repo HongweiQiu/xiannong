@@ -9,7 +9,20 @@
 				</swiper-item>
 			</swiper>
 		</view>
-
+		
+		<!-- #ifdef MP-ALIPAY -->
+		<!-- <swiper style="height:150px" class="demo-swiper" previousMargin="10px" nextMargin="10px">
+			<block a:for="{{background}}">
+				<swiper-item key="swiper-item-{{index}}">
+					{{item}}
+				</swiper-item>
+			</block>
+		</swiper> -->
+		<!-- <view class="" a:for="{{background}}">
+			{{item}}
+		</view> -->
+		<!-- #endif -->
+		
 		<!-- 公告 -->
 		<view class="" v-if="adList.public_msg">
 			<uni-notice-bar showIcon="true" background-color="white" color="balck" scrollable="true" single="true" :text="adList.public_msg"
@@ -101,7 +114,9 @@
 			<a :href="adList.copyright.caidj_url">由<text>菜东家</text>提供技术支持</a>
 			<!-- #endif -->
 		</view>
+
 		<my-backtop bottom="60" :showTop="showTop"></my-backtop>
+
 		<uni-popup ref="popup" type="bottom" @maskInfo="closeCart">
 			<my-addcart @onClose="onClose" :cartware="cartware" :config="config" ref="addcart"></my-addcart>
 		</uni-popup>
@@ -127,6 +142,12 @@
 		},
 		data() {
 			return {
+				indicatorDots: true,
+				autoplay: false,
+				vertical: false,
+				interval: 1000,
+				circular: false,
+				background: ['blue', 'red', 'yellow'],
 				masktabar: false,
 				showActive: false,
 				support: false,
@@ -266,7 +287,7 @@
 				});
 			},
 			indexItem() {
-				
+
 				this.itemList = [];
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
@@ -302,7 +323,7 @@
 						}
 					}
 				});
-				
+
 			},
 			//限时抢购
 			limitList() {
@@ -339,10 +360,6 @@
 
 		},
 		onShow() {
-		// // #ifdef MP-WEIXIN
-		// this.masktabar = true;
-		// setTimeout(()=>{this.masktabar=false;},1000)
-		// // #endif
 			this.token = uni.getStorageSync('cdj_token');
 			this.indexAd();
 			this.limitList();
@@ -354,7 +371,6 @@
 				});
 				this.indexItem();
 			}
-			
 		},
 		onLoad() {
 			app.isReload = true;

@@ -2,56 +2,59 @@
 	<view class="invest_record">
 		<uni-nav-bar left-icon="arrowleft" title="支付信息" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
 		
+		
+		<view v-if="waitLoad">
 			<!-- #ifdef MP-ALIPAY -->
 			<view class="tip">如出现下单端账号与支付账号不一样，请到个人中心更改绑定支付宝</view>
 			<!-- #endif -->
-
+			
 			<!-- #ifndef MP-ALIPAY -->
 			<view class="tip">如出现下单端账号与支付账号不一样，请到个人中心更改绑定微信</view>
 			<!-- #endif -->
+			<view class="info" >
+				<view>
+					<text>订单编号</text>
+					<text>{{payOrder.order_sn}}</text>
+				</view>
+				<view>
+					<text>配送时间</text>
+					<text>{{payOrder.send_time}}</text>
+				</view>
+				<view>
+					<text>订单金额</text>
+					<text>￥{{payOrder.total_fee}}</text>
+				</view>
+				<view>
+					<text>我的余额</text>
+					<text class="red_font">￥{{payOrder.myBalance}}</text>
+				</view>
+				<view>
+					<text>余额支付</text>
+					<text class="red_font">￥{{payOrder.payBalance}}</text>
+				</view>
+				<view>
+					<!-- #ifdef MP-ALIPAY -->
+					<text>支付宝支付</text>
+					<text class="red_font">￥{{payOrder.alipay}}</text>
+					<!-- #endif -->
+					<!-- #ifndef MP-ALIPAY -->
+					<text>微信支付</text>
+					<text class="red_font">￥{{payOrder.payWx}}</text>
+					<!-- #endif -->
+			
+				</view>
+			</view>
+			<view class="notice" >
+				<view>注：</view>
+				<view>平台不会以订单异常，系统升级等理由要求您点击任何链接进行退款操作，请提高警惕谨防受骗！</view>
+			</view>
+			<view class="select">
+				<view class="determine" v-if="payOrder.payType == 2" @click='querenchongzhi'>确认支付</view>
+				<view class="determine" v-if="payOrder.payType == 1" @click='goPay'>确认支付</view>
+				<view class="cancel" @click="leftClick">返回订单</view>
+			</view>
+		</view>
 		
-		<view class="info">
-			<view>
-				<text>订单编号</text>
-				<text>{{payOrder.order_sn}}</text>
-			</view>
-			<view>
-				<text>配送时间</text>
-				<text>{{payOrder.send_time}}</text>
-			</view>
-			<view>
-				<text>订单金额</text>
-				<text>￥{{payOrder.total_fee}}</text>
-			</view>
-			<view>
-				<text>我的余额</text>
-				<text class="red_font">￥{{payOrder.myBalance}}</text>
-			</view>
-			<view>
-				<text>余额支付</text>
-				<text class="red_font">￥{{payOrder.payBalance}}</text>
-			</view>
-			<view>
-				<!-- #ifdef MP-ALIPAY -->
-				<text>支付宝支付</text>
-				<text class="red_font">￥{{payOrder.alipay}}</text>
-				<!-- #endif -->
-				<!-- #ifndef MP-ALIPAY -->
-				<text>微信支付</text>
-				<text class="red_font">￥{{payOrder.payWx}}</text>
-				<!-- #endif -->
-
-			</view>
-		</view>
-		<view class="notice">
-			<view>注：</view>
-			<view>平台不会以订单异常，系统升级等理由要求您点击任何链接进行退款操作，请提高警惕谨防受骗！</view>
-		</view>
-		<view class="select">
-			<view class="determine" v-if="payOrder.payType == 2" @click='querenchongzhi'>确认支付</view>
-			<view class="determine" v-if="payOrder.payType == 1" @click='goPay'>确认支付</view>
-			<view class="cancel" @click="leftClick">返回订单</view>
-		</view>
 	</view>
 </template>
 
@@ -71,6 +74,7 @@
 				navBar: navBar,
 				oid: '',
 				payOrder: '',
+				waitLoad:false,
 				is_miniBind: uni.getStorageSync('is_miniBind'),
 			};
 		},
@@ -121,6 +125,7 @@
 					sign: sign,
 				}
 				rs.postRequests("payOrder", data, (res) => {
+					this.waitLoad=true;
 					if (res.data.code == 200) {
 						that.payOrder = res.data.data;
 					} else if (res.data.code == 406) {
@@ -139,6 +144,7 @@
 
 			// #ifdef APP-PLUS
 			querenchongzhi() {
+				
 				var that = this
 				uni.getProvider({
 					service: 'payment',
@@ -171,6 +177,7 @@
 			// #endif
 			// #ifdef H5
 			querenchongzhi() {
+				
 				console.log(typeof WeixinJSBridge)
 				if (typeof WeixinJSBridge == "undefined") {
 					if (document.addEventListener) {
@@ -311,7 +318,7 @@
 		},
 		onShow() {
 			this.payOrdera()
-			app.aData.show = false;
+			app.aData.show = true;
 		}
 	};
 </script>

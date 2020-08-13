@@ -218,7 +218,9 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
         timeStamp: timeStamp,
         sign: sign,
         page: 1,
-        num: 15 };
+        num: 15,
+        // loginType: 'alipay'
+        pay: 'alipay' };
 
       _request.default.getRequests("rechargeList", data, function (res) {
         if (res.data.code == 200) {

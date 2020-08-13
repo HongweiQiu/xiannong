@@ -195,6 +195,9 @@ app.imgRemote;var _default =
   },
   methods: {
     showCart: function showCart() {
+
+
+
       this.$emit('showCart');
     },
     detail: function detail() {var _this = this;

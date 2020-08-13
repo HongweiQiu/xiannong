@@ -13,7 +13,7 @@
 
 		</view>
 		<!-- 商品详情 -->
-		<view class="good_info">
+		<view class="good_info" v-if="waitLoad">
 			<view style="display: flex;flex-direction: column;">
 				<image class="good_img" :src="ware.img==''?imgRemote+ware.item_default:ware.img" mode="aspectFit"></image>
 				<view class="active_time" v-if="ware.is_activity==1||attrspec.is_activity == 1">
@@ -178,7 +178,7 @@
 			</view>
 		</view>
 		<!-- 图文详情 -->
-		<view class="picture_text_detail">
+		<view class="picture_text_detail" v-if="waitLoad">
 			<view class="title">
 				<text class="line_border"></text>
 				<text>图文详情</text>
@@ -188,7 +188,10 @@
 					<image src="../../static/img/no_content.png" mode="aspectFit"></image>
 				</view>
 
-				<view v-else v-html="ware.info"></view>
+				<!-- <view v-else v-html="ware.info" class="detail_info"></view> -->
+				<view v-else class="detail_info">
+					<rich-text :nodes="info"></rich-text>
+				</view>
 			</view>
 		</view>
 		<view style="height:50px;"></view>
@@ -217,6 +220,7 @@
 <script>
 	import md5 from '../../static/js/md5.js';
 	import rs from '../../static/js/request.js';
+	import parseHtml from '../../static/js/parseHtml.js';
 	let {
 		log
 	} = console;
@@ -229,6 +233,7 @@
 	export default {
 		data() {
 			return {
+				waitLoad: false,
 				token: uni.getStorageSync('cdj_token'),
 				kind: 0,
 				arrowDirect: false,
@@ -245,7 +250,8 @@
 				nav: false,
 				count: 0,
 				imgRemote: imgRemote,
-				backClick: false
+				backClick: false,
+				info: []
 			};
 		},
 		methods: {
@@ -253,8 +259,8 @@
 				this.$refs.keyboard.cancel();
 			},
 			leftClick() {
-			
-	          // #ifdef H5
+
+				// #ifdef H5
 				window.history.back(-1);
 				// #endif 
 				// #ifndef H5
@@ -333,8 +339,23 @@
 				//单个商品详情
 				rs.getRequests('getItemById', params, res => {
 					let data = res.data;
+					this.waitLoad = true;
 					if (data.code == 200) {
-						this.info = data.data.info;
+						let classify = uni.getStorageSync('classify');
+
+						let newclassify = [];
+						for (let i of classify) {
+							if (i.id == id) {
+								i.cart_num = data.data.cart_num;
+							}
+							newclassify.push(i);
+						}
+
+						uni.setStorageSync('classify', newclassify);
+						// this.info = data.data.info;
+						let infos = data.data.info.replace(/<img([\s\w"-=\/\.:;]+)/ig, '<img style="width: 100%;" $1');
+						console.log(infos)
+						this.info = parseHtml(infos);
 						this.ware = data.data;
 						if (data.data.attr.length > 0) {
 							this.spec = true;
@@ -455,6 +476,7 @@
 						rs.Toast('加入购物车成功');
 						// 分类
 						let classify = uni.getStorageSync('classify');
+
 						let newclassify = [];
 						for (let i of classify) {
 							if (i.id == id) {
@@ -536,6 +558,7 @@
 			}, 500)
 			this.getItem();
 			getApp().globalData.isReload = false;
+
 		},
 		onPageScroll(e) {
 			if (e.scrollTop == 0) {
@@ -773,5 +796,14 @@
 
 	.shop_detail .nab_title2 {
 		background: transparent !important;
+	}
+
+	.detail_info>>>img {
+		width: 100%;
+		object-fit: contain;
+	}
+
+	.pho {
+		width: 100%;
 	}
 </style>

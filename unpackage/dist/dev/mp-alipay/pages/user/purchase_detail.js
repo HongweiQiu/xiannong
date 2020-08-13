@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-nav-bar": function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 482))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 487))
   }
 }
 var render = function() {
@@ -206,7 +206,8 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
       data: '',
       detail: '',
       detailItem: '',
-      count: '' };
+      count: '',
+      bitmap: false };
 
   },
   methods: {
@@ -226,7 +227,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
     recordDetail: function recordDetail() {var _this = this;
       var that = this;
       var data = that.data;
-      // console.log(data)
+
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
         appid: appid,
@@ -243,6 +244,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
         end: data.date[1] };
 
       _request.default.getRequests("buyRecordDetail", data, function (res) {
+        that.bitmap = true;
         if (res.data.code == 200) {
           that.detail = res.data.data;
           that.detailItem = res.data.data.item;

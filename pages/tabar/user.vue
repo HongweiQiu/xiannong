@@ -143,7 +143,7 @@
 		},
 		data() {
 			return {
-					masktabar:false,
+				masktabar: false,
 				hShare: false,
 				userList: [{
 						icon: 'icon-08_zizhanghaoguanli',
@@ -264,7 +264,7 @@
 				}
 			},
 			memberInfo() {
-			
+
 				var that = this;
 				var timeStamp = Math.round(new Date().getTime() / 1000);
 				var obj = {
@@ -284,7 +284,7 @@
 						this.member_default = res.data.data.member_default;
 					}
 				});
-				
+
 			},
 			myinfoPage() {
 				this.count++;

@@ -10,11 +10,11 @@
 
 			<view>
 				<text>密码</text>
-				<input type="password" v-model="password" placeholder="请输入六位及以上的密码" placeholder-class="place_style" />
+				<input password v-model="password" placeholder="请输入六位及以上的密码" placeholder-class="place_style" />
 			</view>
 			<view>
 				<text>确认密码</text>
-				<input type="password" v-model="confirm_pwd" placeholder="请再次确认登录密码" placeholder-class="place_style" />
+				<input password v-model="confirm_pwd" placeholder="请再次确认登录密码" placeholder-class="place_style" />
 			</view>
 			<move-verify @result="verifyResult" ref="verifyElement"></move-verify>
 			<view class="flex">

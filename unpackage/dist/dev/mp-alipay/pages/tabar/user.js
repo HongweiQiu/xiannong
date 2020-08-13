@@ -94,10 +94,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-icons": function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 453))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 458))
   },
   "my-tabar": function() {
     return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 432))
+  },
+  "my-mask": function() {
+    return __webpack_require__.e(/*! import() | components/mask/index */ "components/mask/index").then(__webpack_require__.bind(null, /*! @/components/mask/index.vue */ 439))
   }
 }
 var render = function() {
@@ -138,6 +141,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni, wx) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
 
 
 
@@ -387,7 +391,8 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var uniIcons = function uniIcons() {Promise.all(/*! require.ensure | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then((function () {return resolve(__webpack_require__(/*! ../../components/uni-icons/uni-icons.vue */ 453));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { uniIcons: uniIcons }, data: function data() {return { hShare: false, userList: [{ icon: 'icon-08_zizhanghaoguanli', name: '账号管理', color: '#3DABFF', url: 'accountmange' }, { icon: 'icon-fapiao', name: '开具发票', color: '#FF9C00', url: 'receipt' }, { icon: 'icon-tianchongxing--', name: '账单记录', color: '#FFF000', url: 'bill' }, { color: '#ffab9a', icon: 'icon-buy-fill', name: '购买记录', url: 'purchase_record' }, { icon: 'icon-qianbao', name: '充值', color: '#2DC4B4', url: 'invest' }, { icon: 'icon-juan', name: '现金劵', color: '#F8632F', url: 'cash' }, { icon: 'icon-zhifubaorenzheng', name: uni.getStorageSync('is_miniBind') == 0 ? '绑定支付宝' : '改绑支付宝', color: '#1296db', url: 'bindWeChat' }], count: 0, is_bind: '', is_child: '', token: '', imgRemote: imgRemote, memberInfoData: '', member_default: '', code: '', shareInfo: [] };}, methods: { share: function share() {if (!this.token) {uni.navigateTo({ url: '/pages/account/login' });} else {if (this.hShare == false) {var that = this;that.hShare = true;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, timeStamp: timeStamp, sign: sign };_request.default.getRequests("shareConfig", data, function (res) {if (res.data.code == 200) {var data = res.data.data;WeixinJSBridge.on('menu:share:appmessage', function (argv) {WeixinJSBridge.invoke('sendAppMessage', { "appid": that.userinfo.appId, //appid 设置空就好了。
+//
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var uniIcons = function uniIcons() {Promise.all(/*! require.ensure | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then((function () {return resolve(__webpack_require__(/*! ../../components/uni-icons/uni-icons.vue */ 458));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { uniIcons: uniIcons }, data: function data() {return { masktabar: false, hShare: false, userList: [{ icon: 'icon-08_zizhanghaoguanli', name: '账号管理', color: '#3DABFF', url: 'accountmange' }, { icon: 'icon-fapiao', name: '开具发票', color: '#FF9C00', url: 'receipt' }, { icon: 'icon-tianchongxing--', name: '账单记录', color: '#FFF000', url: 'bill' }, { color: '#ffab9a', icon: 'icon-buy-fill', name: '购买记录', url: 'purchase_record' }, { icon: 'icon-qianbao', name: '充值', color: '#2DC4B4', url: 'invest' }, { icon: 'icon-juan', name: '现金劵', color: '#F8632F', url: 'cash' }, { icon: 'icon-zhifubaorenzheng', name: uni.getStorageSync('is_miniBind') == 0 ? '绑定支付宝' : '改绑支付宝', color: '#1296db', url: 'bindWeChat' }], count: 0, is_bind: '', is_child: '', token: '', imgRemote: imgRemote, memberInfoData: '', member_default: '', code: '', shareInfo: [] };}, methods: { share: function share() {if (!this.token) {uni.navigateTo({ url: '/pages/account/login' });} else {if (this.hShare == false) {var that = this;that.hShare = true;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, timeStamp: timeStamp, sign: sign };_request.default.getRequests("shareConfig", data, function (res) {if (res.data.code == 200) {var data = res.data.data;WeixinJSBridge.on('menu:share:appmessage', function (argv) {WeixinJSBridge.invoke('sendAppMessage', { "appid": that.userinfo.appId, //appid 设置空就好了。
                   "img_url": data.share_img, //分享时所带的图片路径
                   "img_width": "120", //图片宽度
                   "img_height": "120", //图片高度
@@ -401,6 +406,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       }
     },
     memberInfo: function memberInfo() {var _this = this;
+
       var that = this;
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
@@ -420,6 +426,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
           _this.member_default = res.data.data.member_default;
         }
       });
+
     },
     myinfoPage: function myinfoPage() {var _this2 = this;
       this.count++;

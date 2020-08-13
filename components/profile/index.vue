@@ -41,7 +41,7 @@
 						</block>
 					</block>
 					<block v-else>
-						<view v-if="ware.attr.length" class="hidden">
+						<view v-if="wares.attr.length" class="hidden">
 							<text class="red_font">￥{{ware.area_price}}/{{ware.unit}}</text>
 							<text class="gray_font">(多规格)</text>
 						</view>
@@ -66,6 +66,7 @@
 				</view>
 			</view>
 		</view>
+		<view style="position: fixed;top:45%;left:45%;background: rgba(0,0,0,0.7);border-radius: 10rpx;padding:15rpx;color: white;" v-if="apliyShow">{{message}}</view>
 	</view>
 </template>
 
@@ -90,17 +91,24 @@
 		},
 		data() {
 			return {
+				apliyShow:false,
 				ware:this.wares,
 				imgRemote: imgRemote,
 				token: uni.getStorageSync('cdj_token'),
-				count:0
+				count:0,
+				addcount:0,
+				message:''
 			}
 		},
 		methods: {
 			showCart() {
+				// #ifdef MP-WEIXIN
+				uni.hideTabBar();
+				// #endif
 				this.$emit('showCart')
 			},
 			addcart(url, num, message = '成功加入购物车') {
+				getApp().globalData.aplipay=false;
 				let item = this.ware;
 				if 	(item.is_float == 1 && !Number.isInteger(Number(num))) {
 					rs.Toast( '购买数量不能为小数');
@@ -123,12 +131,25 @@
 				rs.postRequests(url, params, res => {
 					let data = res.data;
 					if (data.code == 200) {
-						rs.Toast(message)
+						// #ifndef MP-ALIPAY
+							rs.Toast(message);
+						// #endif
+					
+						// #ifdef MP-ALIPAY
+						this.apliyShow=true;
+						this.message=message;
+						setTimeout(()=>{	
+							this.apliyShow=false;
+						
+						},1000)
+						// rs.Toast('加入购物车成功');
+						// #endif
 						if (num <= 0) {
 							this.ware.cart_num = 0;
 						} else {
-							// console.log(this.ware)
+						
 							this.ware.cart_num =num;
+							
 						}
 					} else if (data.code == 407 || data.code == 406) {
 						rs.Toast("购买数量不能超过活动数量");
@@ -138,6 +159,7 @@
 				});
 			},
 			minus(e) {
+					this.ware.cart_num--;
 				if (e == 0) {
 					this.addcart('deleteCart', e, '成功删除商品');
 				} else {
@@ -145,13 +167,18 @@
 				}
 			},
 			plus(e) {
-				// console.log(e)
+					this.ware.cart_num++;
 				this.addcart('changeNum', e);
+				
 			},
 			plusCart() {
+				this.ware.cart_num=1;
 				this.addcart('changeNum', 1);
 			},
 			showKey() {
+				// #ifdef MP-WEIXIN
+				uni.hideTabBar();
+				// #endif
 				this.$emit('showKey')
 			},
 			detail() {

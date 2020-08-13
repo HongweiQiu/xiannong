@@ -195,6 +195,9 @@ app.imgRemote;var _default =
   },
   methods: {
     showCart: function showCart() {
+
+      // rs.hideTabBar();
+
       this.$emit('showCart');
     },
     detail: function detail() {var _this = this;

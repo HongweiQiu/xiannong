@@ -11,7 +11,7 @@
 			</view>
 			<view class="right_area">
 				<view class="first_name">
-					
+
 					<my-s-tabs effect slot-title @change="changeFirst" class="mp_tab_width" activeColor="#009a44" lineColor="none"
 					 v-model="activeTab">
 						<my-s-tab v-for="(item,index) of firstCate" :key="index">{{item.name}}</my-s-tab>
@@ -40,7 +40,7 @@
 			</view>
 		</view>
 		<uni-popup ref="popup" type="bottom" @maskInfo="closeKey">
-			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent" ref="keyboard"></my-keyboard>
+			<my-keyboard @cancelKey="cancelKey" :arrObj="arrObj" @toParent="toParent" ref="keyboard"></my-keyboard>
 		</uni-popup>
 		<uni-popup ref="cart" type="bottom" @maskInfo="closeCart">
 			<my-addcart @onClose="onClose" :cartware="cartware" :config="config" ref="addcart"></my-addcart>
@@ -86,7 +86,7 @@
 		},
 		data() {
 			return {
-               masktabar:false,
+				masktabar: false,
 				kind: 0,
 				active: -1,
 				activeTab: 0,
@@ -97,7 +97,7 @@
 				num: 10,
 				firstCate: [],
 				secondCate: [],
-				bitmap:true,
+				bitmap: true,
 				list: [],
 				config: [],
 				cartware: [],
@@ -107,13 +107,23 @@
 			};
 		},
 		methods: {
-			closeCart(){
+			closeCart() {
 				this.$refs.addcart.onClose();
 			},
-			closeKey(){
+			closeKey() {
+				rs.showTabBar();
 				this.$refs.keyboard.cancel();
 			},
+			cancelKey(){
+				
+				rs.showTabBar();
+			
+				this.$refs.popup.close();
+			},
 			toParent(e) {
+				
+				rs.showTabBar();
+				
 				let item = e.arrObj;
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
@@ -143,11 +153,11 @@
 				this.$refs.popup.close();
 			},
 			mpItem() {
-				this.list=[];
-				this.bitmap=true;
-				
+				this.list = [];
+				this.bitmap = true;
+
 				this.loading = true;
-				this.page=1;
+				this.page = 1;
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -175,7 +185,7 @@
 					if (data.code == 200) {
 						if (!firstId) {
 							firstId = data.data.firstCate[0].id;
-							
+
 						}
 						if (firstId) {
 							data.data.firstCate.map((e, index) => {
@@ -188,10 +198,10 @@
 						this.firstCate = data.data.firstCate;
 						this.secondCate = data.data.secondCate;
 						this.list = data.data.list;
-					
+
 						if (data.data.list.length) {
 							this.loading = false;
-							this.bitmap=true;
+							this.bitmap = true;
 							if (this.kind == this.secondCate.length - 1) {
 								this.textInfo = parseHtml('没有更多呢');
 							} else {
@@ -199,11 +209,11 @@
 							}
 
 						} else {
-							this.bitmap=false;
+							this.bitmap = false;
 							this.loading = false;
 						}
 					}
-					
+
 				});
 			},
 			// 切换一级分类
@@ -216,7 +226,7 @@
 			},
 			// 切换二级分类
 			changeSecond(index) {
-			
+
 				this.secondId = this.secondCate[index].id;
 				this.kind = index;
 				this.mpItem();
@@ -237,19 +247,21 @@
 			},
 			// 显示键盘
 			showKey(item, index) {
-				console.log(45)
+				
 				this.arrObj = item;
 				this.index = index;
 				this.$refs.popup.open();
 			},
 			showDraw() {
-				this.$refs.drawer.open()
+				this.$refs.drawer.open();
+				rs.hideTabBar()	
 			},
 			selectSort(index) {
 				this.active = index;
 			},
 			cancelSort() {
 				this.active = -1;
+				rs.showTabBar();
 				this.$refs.drawer.close();
 			},
 			deterSort() {
@@ -266,11 +278,6 @@
 			}
 		},
 		onShow() {
-			// // #ifdef MP-WEIXIN
-			// this.masktabar = true;
-			// setTimeout(()=>{this.masktabar=false;},1000)
-			// // #endif
-			
 			let classId = getApp().globalData.classId;
 			if (app.isReload == true) {
 				this.kind = 0;
@@ -285,12 +292,15 @@
 					this.firstId = classId
 				}
 				this.mpItem();
-			} else {
+			}else{
+				
 				this.list = uni.getStorageSync('classify');
+				
 			}
 		},
 		onHide() {
 			uni.setStorageSync('classify', this.list);
+			
 		},
 		onReachBottom() {
 			var that = this;
@@ -337,7 +347,7 @@
 		},
 		onLoad(e) {
 			app.isReload = true;
-			uni.hideTabBar();
+		uni.hideTabBar();
 		}
 	};
 </script>

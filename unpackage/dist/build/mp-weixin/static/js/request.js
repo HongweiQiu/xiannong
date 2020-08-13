@@ -233,7 +233,7 @@ function postRequests(url, datas, success) {
 		data: Object.assign(datas, active),
 		success: res => {
 			success(res)
-			console.log(res.header.Authorization)
+		
 			if (res.header.authorization != undefined) {
 				uni.setStorageSync("cdj_token", res.header.authorization)
 			}
@@ -332,8 +332,12 @@ function MP(ak) {
 	})
 
 }
-
-
+function hideTabBar(){
+	// uni.hideTabBar()
+}
+function showTabBar(){
+	// uni.showTabBar()
+}
 
 module.exports = {
 	getRequest: getRequest,
@@ -341,6 +345,8 @@ module.exports = {
 	postRequest: postRequest,
 	postRequests: postRequests,
 	Toast: Toast,
+	hideTabBar:hideTabBar,
+	showTabBar:showTabBar,
 	header: header, //请求头部
 	objKeySort: objKeySort, //加密排序
 	thedefaulttime: thedefaulttime, //加密排序

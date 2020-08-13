@@ -1,7 +1,7 @@
 <template>
-	<view class="register">
-		<uni-nav-bar left-icon="arrowleft" title="注册" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
-
+	<view class="register" :style="{height:height+'px'}">
+		<view><uni-nav-bar left-icon="arrowleft" title="注册" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
+    
 		<view class="get_info">
 			<view>
 				<text>单位名称</text>
@@ -31,6 +31,7 @@
 		<view class="submit_button button_style" @click="register" :class="{'gray_b':back}">提交</view>
 		<view class="now_login">
 			<text @click="pageUrl('login')">已有账户？现在登录>></text></view>
+			 </view>
 		<view class="agree" v-if="display1">
 			<text @click="pageUrl('treaty')">注册协议</text></view>
 	</view>
@@ -66,7 +67,8 @@
 				sale: '',
 				scrollHeight: '',
 				resultData: {},
-				count: 0
+				count: 0,
+				height:''
 			};
 		},
 		methods: {
@@ -298,7 +300,21 @@
 			uni.setNavigationBarTitle({
 				title: uni.getStorageSync('titleKey')
 			});
-		}
+		},
+		mounted() {
+			let that=this;
+		let bodyHeight,titleHeight,imgHeight;
+			uni.getSystemInfo({
+				success: function(res) { // res - 各种参数
+					// that.logoHeight=res.windowHeight; // 屏幕的宽度 
+				
+					
+				that.height=res.windowHeight;
+					
+					
+				}
+			});
+		},
 	};
 </script>
 
@@ -306,7 +322,7 @@
 	page {
 		background: white;
 	}
-
+.register{display: flex;flex-direction: column;justify-content: space-between;}
 	.register .get_info {
 		background: white;
 		padding: 0 20rpx;
@@ -340,9 +356,10 @@
 	}
 
 	.register .agree {
-		position: fixed;
+		/* position: fixed; */
 		width: 100%;
 		bottom: 20rpx;
+		padding-bottom:20rpx;
 		text-align: center;
 		font-size: 24rpx;
 		color: #418d5f;

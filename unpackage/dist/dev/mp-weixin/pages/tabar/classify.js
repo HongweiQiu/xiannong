@@ -131,11 +131,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$refs.popup.close()
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -282,9 +277,19 @@ console,log = _console.log;var _default =
       this.$refs.addcart.onClose();
     },
     closeKey: function closeKey() {
+      _request.default.showTabBar();
       this.$refs.keyboard.cancel();
     },
+    cancelKey: function cancelKey() {
+
+      _request.default.showTabBar();
+
+      this.$refs.popup.close();
+    },
     toParent: function toParent(e) {var _this = this;
+
+      _request.default.showTabBar();
+
       var item = e.arrObj;
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
@@ -408,19 +413,21 @@ console,log = _console.log;var _default =
     },
     // 显示键盘
     showKey: function showKey(item, index) {
-      console.log(45);
+
       this.arrObj = item;
       this.index = index;
       this.$refs.popup.open();
     },
     showDraw: function showDraw() {
       this.$refs.drawer.open();
+      _request.default.hideTabBar();
     },
     selectSort: function selectSort(index) {
       this.active = index;
     },
     cancelSort: function cancelSort() {
       this.active = -1;
+      _request.default.showTabBar();
       this.$refs.drawer.close();
     },
     deterSort: function deterSort() {
@@ -437,11 +444,6 @@ console,log = _console.log;var _default =
     } },
 
   onShow: function onShow() {
-    //
-    // this.masktabar = true;
-    // setTimeout(()=>{this.masktabar=false;},1000)
-    //
-
     var classId = getApp().globalData.classId;
     if (app.isReload == true) {
       this.kind = 0;
@@ -457,11 +459,14 @@ console,log = _console.log;var _default =
       }
       this.mpItem();
     } else {
+
       this.list = uni.getStorageSync('classify');
+
     }
   },
   onHide: function onHide() {
     uni.setStorageSync('classify', this.list);
+
   },
   onReachBottom: function onReachBottom() {var _this3 = this;
     var that = this;

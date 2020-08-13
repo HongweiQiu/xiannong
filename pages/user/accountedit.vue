@@ -18,7 +18,7 @@
 				</view>
 				<view>
 					<text>密码</text>
-					<input name="password" type="password" v-model="password" placeholder="请输入六位及以上的密码" placeholder-class="place_style" />
+					<input name="password" password v-model="password" placeholder="请输入六位及以上的密码" placeholder-class="place_style" />
 				</view>
 				<view class="flex_left_right">
 					<view style="color:#1EA55A;">账号启用和禁用</view>
@@ -225,7 +225,7 @@
 			formSubmit(e) {
 				this.clickcount++;
 				if(this.clickcount!=1)return;
-				setTimeout(()=>{this.clickcount=0},500)
+				setTimeout(()=>{this.clickcount=0},1500)
 				var that = this;
 				var zid = that.select_zid;
 				if (that.checked == false) {
@@ -287,9 +287,16 @@
 						rs.Toast('修改成功')
 						that.save = true;
 						setTimeout(function() {
+							// #ifdef H5
 							uni.navigateTo({
 								url: "accountmange"
 							})
+							// #endif
+							// #ifdef APP-PLUS |MP-WEIXIN |MP-ALIPAY
+							uni.navigateBack({
+								delta: 1
+							})
+							// #endif
 						}, 1000);
 					}
 					if (res.data.code == 400) {

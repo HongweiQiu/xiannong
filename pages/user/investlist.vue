@@ -79,7 +79,9 @@
 					timeStamp: timeStamp,
 					sign: sign,
 					page: 1,
-					num: 15
+					num: 15,
+					// loginType: 'alipay'
+					// pay: 'alipay'
 				}
 				rs.getRequests("rechargeList", data, (res) => {
 					if (res.data.code == 200) {

@@ -70,6 +70,16 @@
 		methods: {
 			clear(){},
 			close(type) {
+				// #ifdef MP-WEIXIN
+				//隐藏
+				wx.hideTabBar({
+					//这里是为了不那么唐突
+					
+					success() {
+						console.debug('隐藏成功')
+					}
+				})
+				// #endif
 				// fixed by mehaotian 抽屉尚未完全关闭或遮罩禁止点击时不触发以下逻辑
 				if((type === 'mask' && !this.maskClick) || !this.visibleSync) return
 				this._change('showDrawer', 'visibleSync', false)

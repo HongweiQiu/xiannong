@@ -1,5 +1,4 @@
 <script>
-
 	export default {
 		//全局共享数据
 		globalData: {
@@ -20,24 +19,25 @@
 			// #ifdef H5
 			isWeixin: false,
 			rootUrl: '/api', //主接口地址
-			imgRemote: 'http://test.caidj.cn',
+			imgRemote: 'http://test.caidj.cn/',
 			// rootUrl: window.location.protocol + "//" + window.location.hostname, //线上地址
 			// imgRemote: window.location.protocol + "//" + window.location.hostname,
 			// #endif
 			classId: '',
 			isReload: true,
+			aplipay:true,
 			aData: {
 				show: true
 			}
 		},
 		onLaunch: function() {
-
+          
 		},
 		onShow: function() {
-		
+			
 		},
 		onHide: function() {
-			
+
 		}
 	};
 </script>

@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view v-if="masktabar">
 		<!-- <view style="position: fixed;width:100vw;height:60px;z-index:9999;bottom: 0;background: red;" v-show="masktabar"></view> -->
 		<view style="height:50px;"></view>
 		<view class="my_tabar">
@@ -20,7 +20,7 @@
 		data() {
 			return {
 				count: 0,
-				masktabar: false,
+				masktabar: true,
 				tabList: [{
 						title: '首页',
 						inImg: imgPath + 'index_gray.png',
@@ -56,15 +56,8 @@
 		},
 		methods: {
 			pageUrl(data) {
-
-				// #ifdef MP-WEIXIN
-				// uni.setStorageSync('masktabar',true);
-				// this.masktabar=uni.getStorageSync('masktabar');
-				// setTimeout(() => {
-				// 				uni.clearStorageSync('masktabar');
-				// 				}, 2000)
-				// #endif
 				getApp().globalData.isReload = true;
+				getApp().globalData.aplipay=true;
 				if (this.tabarIndex != 1) {
 					getApp().globalData.classId = '';
 				}
@@ -78,14 +71,28 @@
 							url: '/pages/account/login'
 						})
 					} else {
+						// #ifdef MP-WEIXIN
+						wx.switchTab({
+							url: data.url
+						});
+						// #endif
+						// #ifndef MP-WEIXIN
 						uni.switchTab({
 							url: data.url
 						});
+						// #endif
 					}
 				} else {
+					// #ifdef MP-WEIXIN
+					wx.reLaunch({
+						url: data.url
+					});
+					// #endif
+					// #ifndef MP-WEIXIN
 					uni.switchTab({
 						url: data.url
 					});
+					// #endif
 
 				}
 

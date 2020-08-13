@@ -79,6 +79,9 @@
 		},
 		methods: {
 			showCart() {
+				// #ifdef MP-WEIXIN
+				// rs.hideTabBar();
+				// #endif
 				this.$emit('showCart')
 			},
 			detail() {

@@ -435,7 +435,8 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBa
       // })
 
       this.showRemark = true;
-      this.remark = item.remark;
+
+      this.remark = 456;
       this.shopItem = item;
       this.firstIndex = index;
       this.secondIndex = second;

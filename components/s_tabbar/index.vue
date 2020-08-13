@@ -1,14 +1,18 @@
 <template>
-  <div class="suyuan_tabar">
-    <!-- <div style="height:50px;"></div> -->
-    <ul class="suyuan_nav">
-      <li v-for="(item,index) in nav" @click="color(item)">
-        <img v-if="activeIndex==index" :src="imgPath+item.activeimg">
-        <img v-else :src="imgPath+item.img">
-        <span :class="{green:activeIndex==index}"> {{item.title}}</span>
-      </li>
-    </ul>
-  </div>
+	<div>
+		<div style="height:50px;"></div>
+		<div class="suyuan_tabar">
+		  
+		  <ul class="suyuan_nav">
+		    <li v-for="(item,index) in nav" @click="color(item)">
+		      <img v-if="activeIndex==index" :src="imgPath+item.activeimg">
+		      <img v-else :src="imgPath+item.img">
+		      <span :class="{green:activeIndex==index}"> {{item.title}}</span>
+		    </li>
+		  </ul>
+		</div>
+	</div>
+  
 </template>
 <script>
 	let path = '/pages',

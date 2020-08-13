@@ -26,7 +26,7 @@
 				</view>
 			</view>
 			<view class="order_statu" v-if="showOrderType">
-				<view class="mask" @click="showOrderType=false"></view>
+				<view class="mask" @click="closemask"></view>
 				<view class="operate">
 					<view class="all_order" @click="titleTab('全部订单')">全部订单</view>
 					<view @click="titleTab('未支付')">未支付</view>
@@ -199,6 +199,13 @@
 				this.orderLista();
 			},
 			// #endif
+			closemask(){
+				this.showOrderType=false;
+			// #ifdef MP-WEIXIN
+			// uni.showTabBar();
+			// #endif
+				
+			},
 			/**
 			 * 确认收货
 			 */
@@ -449,11 +456,7 @@
 							rs.getRequests("oneMoreTime", data, (res) => {
 								console.log(res)
 								if (res.data.code == 200) {
-									uni.showToast({
-										title: "再来一单成功",
-										duration: 2000,
-										icon: 'none'
-									})
+									rs.Toast( "再来一单成功");
 									setTimeout(function() {
 										uni.switchTab({
 											url: '/pages/tabar/shopcart'
@@ -461,22 +464,14 @@
 									}, 1000);
 
 								} else if (res.data.code == 102) {
-									uni.showToast({
-										title: "有下架商品",
-										duration: 2000,
-										icon: 'none'
-									})
+									rs.Toast("有下架商品")
 									setTimeout(function() {
 										uni.switchTab({
 											url: '/pages/tabar/shopcart'
 										})
 									}, 1000);
 								} else {
-									uni.showToast({
-										title: res.data.msg,
-										duration: 2000,
-										icon: 'none'
-									})
+									rs.Toast( res.data.msg)
 								}
 							})
 						} else if (res.cancel) {
@@ -631,6 +626,9 @@
 				this.$refs.account.show();
 			},
 			titleTab(data) {
+				// #ifdef MP-WEIXIN
+				// uni.showTabBar();
+				// #endif
 				this.orderTitle = data;
 				this.showOrderType = false;
 				if (data == "未支付") {
@@ -652,6 +650,9 @@
 				this.orderLista();
 			},
 			rightClick() {
+				// #ifdef MP-WEIXIN
+				uni.hideTabBar();
+				// #endif
 				this.showOrderType = true;
 			},
 			// //回到顶部
@@ -665,10 +666,7 @@
 		 * 生命周期函数--监听页面显示
 		 */
 		onShow() {
-			// // #ifdef MP-WEIXIN
-			// this.masktabar = true;
-			// setTimeout(()=>{this.masktabar=false;},1000)
-			// // #endif
+			
 			var that = this;
 			that.is_child = uni.getStorageSync("is_child");
 			that.is_miniBind = uni.getStorageSync("is_miniBind");
@@ -765,6 +763,7 @@
 		},
 		onLoad() {
 			app.aData.show = false;
+			
 			uni.hideTabBar();
 		}
 	};

@@ -2,10 +2,7 @@
 	<div :class="{quantity:show}" class="detection">
 
 		<div v-if="show" class="table">
-			<div class="menu">
-				<p>{{observe.info.date}}</p>
-				<p>{{observe.info.title}}</p>
-			</div>
+			
 			<table width="92%">
 				<tr>
 					<th colspan="5">{{observe.info.title}}</th>
@@ -18,15 +15,17 @@
 					<td>{{item.project_name}}</td>
 					<td>{{item.sample_name}}</td>
 					<td>{{item.test_value}}</td>
-					<td>{{item.test_value}}</td>
+					<td>{{item.test_result}}</td>
 				</tr>
 
 			</table>
-			<p>检测单位:菜东家蔬果农残检测中心</p>
+			
 			<div class="audit">
-				<span>检测时间:{{observe.info.date}}</span>
-				<span>主检:　{{observe.info.inspector}}</span>
-				<span>审核:　{{observe.info.inspector}}</span>
+				<div><span>检测时间：{{observe.info.date}}</span>
+				<span>主检：{{observe.info.inspector}}</span>
+				<span>审核：{{observe.info.inspector}}</span></div>
+			
+				<p>检测单位：{{observe.info.check_title}}</p>
 			</div>
 
 		</div>
@@ -34,7 +33,7 @@
 			<img src="../../static/img/detection.png">
 		</div>
 		<address class="center">技术支持:黑蚂蚁科技<br>
-			Coryright &copy;2016-2019
+			Coryright &copy;2016-2020
 
 		</address>
 			<my-s_tabbar activeIndex=3></my-s_tabbar>
@@ -113,11 +112,14 @@
 </script>
 <style>
 	.detection {
-		position: fixed;
+		/* position: fixed;
 		height: 100%;
-		width: 100%;
+		width: 100%; */
+		height:100vh;
 	}
-
+.audit>div{display: flex;
+    justify-content: space-between;}
+	.audit>p{margin-top:10px;}
 	.quantity {
 		background: #C5E3D0;
 		padding: 3% 0 8%;
@@ -129,21 +131,20 @@
 	}
 
 	.quantity .table {
-		width: 93%;
-		background: white;
-		margin: 0 auto;
-		height: 82%;
-		box-shadow: 0px 1px 2px grey;
-		border-radius: 5px;
+		padding-top: 10px;
+		    width: 93%;
+		    background: white;
+		    margin: 0 auto;
+		    height: 82%;
+		    display: flex;
+		    justify-content: space-between;
+		    flex-direction: column;
+		    -webkit-box-shadow: 0px 1px 2px grey;
+		    box-shadow: 0px 1px 2px grey;
+		    border-radius: 5px;
 	}
 
-	.quantity .table .menu {
-		font-size: 8px;
-
-		display: flex;
-		padding: 5px 0;
-	}
-
+	
 	.quantity .table table tr {
 		border: 1px solid black;
 		text-align: center;
@@ -168,9 +169,9 @@
 
 	.quantity .table .audit {
 		display: flex;
-		padding: 0% 4%;
+		padding: 4%;
 		font-size: 12px;
-		position: fixed;
+	flex-direction: column;
 		bottom: 24%;
 		width: 93%;
 		justify-content: space-between;
@@ -189,7 +190,7 @@
 	/*.quantity address{font-size:14px;margin:0 auto;width:100%;text-align: center;}*/
 	.detection .img {
 		display: flex;
-		height: 86%;
+		height: 78%;
 		align-items: center;
 		justify-content: center;
 	}
@@ -200,9 +201,9 @@
 
 	.detection address {
 		font-style: normal;
-		position: fixed;
+		/* position: fixed; */
 		font-size: 10px;
-		margin: 0 auto;
+		margin: 10% auto 0;
 		width: 100%;
 		text-align: center;
 		bottom: 10%;

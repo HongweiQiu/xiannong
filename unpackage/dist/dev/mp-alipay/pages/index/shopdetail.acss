@@ -226,4 +226,11 @@
 .shop_detail .nab_title2 {
 	background: transparent !important;
 }
+.detail_info ._img {
+	width: 100%;
+	object-fit: contain;
+}
+.pho {
+	width: 100%;
+}
 

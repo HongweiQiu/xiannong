@@ -122,11 +122,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      _vm.showOrderType = false
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -421,14 +416,21 @@ var _uniNoticeBar = _interopRequireDefault(__webpack_require__(/*! @/components/
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 498));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { wPicker: wPicker }, data: function data() {return { masktabar: false, is_child: '', is_miniBind: '', imgRemote: imgRemote, load: true, navBar: navBar, tabList: [{ name: '待审核' }, { name: '备货中' }, { name: '配送中' }, { name: '已收货' }, { name: '已取消' }], activeTab: 1, lineShow: false, showOrderType: false, childListProps: { "label": "nickname", "value": "zid" }, childList: [{ "zid": "", "nickname": "当前账号" }], childzid: '', childtxt: '当前账号', isActive: '全部', orderTitle: '全部订单', type: 1, search_default: true, is_look: '', count: 0, orderList: [], orderInfo: '', page: 1, map: false };}, methods: { /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  * 确认收货
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  */receiveOrder: function receiveOrder(data, index) {var that = this;var dataId = data;var dataIndex = index;uni.showModal({ title: '提示', content: '是否确认收货？', success: function success(res) {if (res.confirm) {// console.log('用户点击确定');
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 498));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { wPicker: wPicker }, data: function data() {return { masktabar: false, is_child: '', is_miniBind: '', imgRemote: imgRemote, load: true, navBar: navBar, tabList: [{ name: '待审核' }, { name: '备货中' }, { name: '配送中' }, { name: '已收货' }, { name: '已取消' }], activeTab: 1, lineShow: false, showOrderType: false, childListProps: { "label": "nickname", "value": "zid" }, childList: [{ "zid": "", "nickname": "当前账号" }], childzid: '', childtxt: '当前账号', isActive: '全部', orderTitle: '全部订单', type: 1, search_default: true, is_look: '', count: 0, orderList: [], orderInfo: '', page: 1, map: false };}, methods: { closemask: function closemask() {this.showOrderType = false; // uni.showTabBar();
+    }, /**
+        * 确认收货
+        */receiveOrder: function receiveOrder(data, index) {var that = this;var dataId = data;var dataIndex = index;uni.showModal({ title: '提示', content: '是否确认收货？', success: function success(res) {if (res.confirm) {// console.log('用户点击确定');
             var id = dataId;var orderindex = dataIndex;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, id: id, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var data = { appid: appid, timeStamp: timeStamp, id: id, sign: sign };_request.default.getRequests("receiveOrder", data, function (res) {if (res.data.code == 200) {uni.showToast({ title: "确认收货成功", icon: 'none' });that.orderList.splice(index, 1);if (that.orderList.length <= 0) {that.orderLista();}} else {uni.showToast({ title: res.data.msg, icon: 'none' });}});} else if (res.cancel) {// console.log('用户点击取消');
           }} });}, /**
                     * 页面跳转
                     */ //支付
-    play: function play(data) {var _this = this;this.count++;if (this.count != 1) return;setTimeout(function () {_this.count = 0;}, 1000);var oid = data;uni.navigateTo({ url: '/pages/order/pay?oid=' + oid });}, orderDetailPage: function orderDetailPage(url, item) {var _this2 = this;
+    play: function play(data) {var _this = this;this.count++;if (this.count != 1) return;setTimeout(function () {_this.count = 0;}, 1000);
+      var oid = data;
+      uni.navigateTo({
+        url: '/pages/order/pay?oid=' + oid });
+
+    },
+    orderDetailPage: function orderDetailPage(url, item) {var _this2 = this;
       this.count++;
       if (this.count != 1) return;
       setTimeout(function () {
@@ -611,11 +613,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
             _request.default.getRequests("oneMoreTime", data, function (res) {
               console.log(res);
               if (res.data.code == 200) {
-                uni.showToast({
-                  title: "再来一单成功",
-                  duration: 2000,
-                  icon: 'none' });
-
+                _request.default.Toast("再来一单成功");
                 setTimeout(function () {
                   uni.switchTab({
                     url: '/pages/tabar/shopcart' });
@@ -623,22 +621,14 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
                 }, 1000);
 
               } else if (res.data.code == 102) {
-                uni.showToast({
-                  title: "有下架商品",
-                  duration: 2000,
-                  icon: 'none' });
-
+                _request.default.Toast("有下架商品");
                 setTimeout(function () {
                   uni.switchTab({
                     url: '/pages/tabar/shopcart' });
 
                 }, 1000);
               } else {
-                uni.showToast({
-                  title: res.data.msg,
-                  duration: 2000,
-                  icon: 'none' });
-
+                _request.default.Toast(res.data.msg);
               }
             });
           } else if (res.cancel) {
@@ -793,6 +783,9 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       this.$refs.account.show();
     },
     titleTab: function titleTab(data) {
+
+      // uni.showTabBar();
+
       this.orderTitle = data;
       this.showOrderType = false;
       if (data == "未支付") {
@@ -814,6 +807,9 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       this.orderLista();
     },
     rightClick: function rightClick() {
+
+      uni.hideTabBar();
+
       this.showOrderType = true;
     },
     // //回到顶部
@@ -827,10 +823,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
           * 生命周期函数--监听页面显示
           */
   onShow: function onShow() {
-    //
-    // this.masktabar = true;
-    // setTimeout(()=>{this.masktabar=false;},1000)
-    //
+
     var that = this;
     that.is_child = uni.getStorageSync("is_child");
     that.is_miniBind = uni.getStorageSync("is_miniBind");
@@ -927,6 +920,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
   },
   onLoad: function onLoad() {
     app.aData.show = false;
+
     uni.hideTabBar();
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

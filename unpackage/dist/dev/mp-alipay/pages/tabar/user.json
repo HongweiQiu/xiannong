@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "uni-icons": "/components/uni-icons/uni-icons",
-    "my-tabar": "/components/tabar/index"
+    "my-tabar": "/components/tabar/index",
+    "my-mask": "/components/mask/index"
   }
 }

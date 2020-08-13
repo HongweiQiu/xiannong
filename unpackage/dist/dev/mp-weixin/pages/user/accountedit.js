@@ -367,7 +367,7 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
     formSubmit: function formSubmit(e) {var _this = this;
       this.clickcount++;
       if (this.clickcount != 1) return;
-      setTimeout(function () {_this.clickcount = 0;}, 500);
+      setTimeout(function () {_this.clickcount = 0;}, 1500);
       var that = this;
       var zid = that.select_zid;
       if (that.checked == false) {
@@ -429,8 +429,15 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
           _request.default.Toast('修改成功');
           that.save = true;
           setTimeout(function () {
-            uni.navigateTo({
-              url: "accountmange" });
+
+
+
+
+
+
+            uni.navigateBack({
+              delta: 1 });
+
 
           }, 1000);
         }

@@ -1,4 +1,3 @@
-
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
@@ -12,137 +11,138 @@
 		}, {
 			"path": "pages/tabar/user"
 		}
-    ],
+	],
 	"subPackages": [{
-		"root": "pages/index",
-		"pages": [{
-			"path": "shopdetail"
+			"root": "pages/index",
+			"pages": [{
+				"path": "shopdetail"
+			}, {
+				"path": "collect"
+			}, {
+				"path": "recommed"
+			}, {
+				"path": "newback"
+			}, {
+				"path": "search"
+			}, {
+				"path": "flashsale"
+			}]
 		}, {
-			"path": "collect"
+			"root": "pages/account",
+			"pages": [{
+					"path": "login"
+				},
+				{
+					"path": "selectway"
+				},
+				{
+					"path": "forget"
+				},
+				{
+					"path": "register"
+				},
+				{
+					"path": "service"
+				},
+				{
+					"path": "treaty"
+				},
+				{
+					"path": "bind"
+				},
+				{
+					"path": "404"
+				}
+			]
 		}, {
-			"path": "recommed"
-		}, {
-			"path": "newback"
-		}, {
-			"path": "search"
-		}, {
-			"path": "flashsale"
-		}]
-	}, {
-		"root": "pages/account",
-		"pages": [{
-				"path": "login"
-			},
-			{
-				"path": "selectway"
-			},
-			{
-				"path": "forget"
-			},
-			{
-				"path": "register"
-			},
-			{
-				"path": "service"
-			},
-			{
-				"path": "treaty"
-			},
-			{
-				"path": "bind"
-			},
-			{
-				"path": "404"
-			}
-		]
-	}, {
-		"root": "pages/order",
-		"pages": [{
-			"path": "orderdetail"
-		}, {
-			"path": "address"
-		}, {
-			"path": "pay"
-		}, {
-			"path": "fenjian"
-		}]
-	}, {
-		"root": "pages/shopcart",
-		"pages": [{
-				"path": "delivery"
-			},
-			{
+			"root": "pages/order",
+			"pages": [{
+				"path": "orderdetail"
+			}, {
+				"path": "address"
+			}, {
 				"path": "pay"
 			}, {
-				"path": "address"
-			},
-			{
-				"path": "shoplist"
-			}
-		]
-	},
-	// #ifdef H5
-	{
-		"root": "pages/suyuan",
-		"pages": [{
-				"path": "index"
-			},
-			{
-				"path": "product"
-			}, {
-				"path": "journey"
-			},
-			{
-				"path": "quantity"
-			}
-		]
-	},
-	// #endif
-	{
-		"root": "pages/user",
-		"pages": [{
-				"path": "accountmange"
-			}, {
-				"path": "accountadd"
-			}, {
-				"path": "accountedit"
-			}, {
-				"path": "modifypwd"
-			}, {
-				"path": "receipt"
-			}, {
-				"path": "invest"
-			}, {
-				"path": "investlist"
-			}, {
-				"path": "investrecord"
-			}, {
-				"path": "bill"
-			}, {
-				"path": "billdetail"
-			}, {
-				"path": "cash"
-			}, {
-				"path": "cashdetail"
-			}, {
-				"path": "myinfo"
-			}, {
-				"path": "bindphone"
-			}, {
-				"path": "userAddress"
-			}, {
-				"path": "address"
-			}, {
-				"path": "purchase_detail"
-			}, {
-				"path": "purchase_record"
-			}
+				"path": "fenjian"
+			}]
+		}, {
+			"root": "pages/shopcart",
+			"pages": [{
+					"path": "delivery"
+				},
+				{
+					"path": "pay"
+				}, {
+					"path": "address"
+				},
+				{
+					"path": "shoplist"
+				}
+			]
+		},
+		// #ifdef H5
+		{
+			"root": "pages/suyuan",
+			"pages": [{
+					"path": "index"
+				},
+				{
+					"path": "product"
+				}, {
+					"path": "journey"
+				},
+				{
+					"path": "quantity"
+				}
+			]
+		},
+		// #endif
+		{
+			"root": "pages/user",
+			"pages": [{
+					"path": "accountmange"
+				}, {
+					"path": "accountadd"
+				}, {
+					"path": "accountedit"
+				}, {
+					"path": "modifypwd"
+				}, {
+					"path": "receipt"
+				}, {
+					"path": "invest"
+				}, {
+					"path": "investlist"
+				}, {
+					"path": "investrecord"
+				}, {
+					"path": "bill"
+				}, {
+					"path": "billdetail"
+				}, {
+					"path": "cash"
+				}, {
+					"path": "cashdetail"
+				}, {
+					"path": "myinfo"
+				}, {
+					"path": "bindphone"
+				}, {
+					"path": "userAddress"
+				}, {
+					"path": "address"
+				}, {
+					"path": "purchase_detail"
+				}, {
+					"path": "purchase_record"
+				}
 
-		]
-	}],
+			]
+		}
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "鼎好鲜生",
+		"navigationBarTitleText": " ",
 		"navigationBarBackgroundColor": "#F0F0F0",
 		"backgroundColor": "#F8F8F8",
 
@@ -159,19 +159,27 @@
 		"selectedColor": "#009A44",
 		"list": [{
 			"pagePath": "pages/tabar/index"
-			
+			// "iconPath": "./static/img/index_gray.png.png",
+			// "selectedIconPath": "./static/img/index_green.png.png",
+			// "text": "组件"
 
 		}, {
 			"pagePath": "pages/tabar/classify"
+			// "text": "分类"
 
 		}, {
 			"pagePath": "pages/tabar/shopcart"
+			// "text": "购物车"
+
 
 		}, {
 			"pagePath": "pages/tabar/order"
+			// "text": "订单"
+
 
 		}, {
 			"pagePath": "pages/tabar/user"
+			// "text": "我的"
 
 		}]
 	},

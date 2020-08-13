@@ -264,7 +264,6 @@
 			// #endif
 			// #ifdef MP-WEIXIN
 			payOrder() {
-				console.log(132)
 				let {
 					id
 				} = this;
@@ -332,8 +331,7 @@
 			// #endif
 			// #ifdef MP-ALIPAY
 			payOrder() {
-				console.log(132)
-				let {
+			let {
 					id
 				} = this;
 				let timeStamp = Math.round(new Date().getTime() / 1000);

@@ -1,7 +1,7 @@
 <template>
 	<view class="cash_detail">
 		<uni-nav-bar left-icon="arrowleft" title="现金劵信息" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
-		<view class="information">
+		<view class="information" v-if="waitLoad">
 			<view class="weight fourteen">
 				<text  v-if="detailList.coupons_status == 2">正常</text>
 				<text  v-if="detailList.coupons_status == 1">未开始</text>
@@ -76,6 +76,7 @@
 				navBar: navBar,
 				id: '',
 				exist: false,
+				waitLoad:false,
 				detailList: []
 			};
 		},
@@ -123,6 +124,7 @@
 				);
 			
 				rs.getRequests('couponsDetails', params, res => {
+					this.waitLoad=true;
 					if (res.data.code == 200) {
 						this.detailList = res.data.data;
 						let length = res.data.data.details.length;

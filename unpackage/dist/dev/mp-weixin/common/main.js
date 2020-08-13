@@ -92,7 +92,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
-
 {
   //全局共享数据
   globalData: {
@@ -119,6 +118,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
     classId: '',
     isReload: true,
+    aplipay: true,
     aData: {
       show: true } },
 

@@ -994,7 +994,9 @@
 
 	.order_method {
 		position: fixed;
+	
 		bottom: 50px;
+		
 		width: 100%;
 	}
 

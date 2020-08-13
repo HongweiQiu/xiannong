@@ -1,7 +1,7 @@
 <template>
-	<view class="purchase_detail">
+	<view class="purchase_detail" >
 		<uni-nav-bar left-icon="back" left-text=" " title="详细记录" :status-bar="navBar" fixed="true" @clickLeft="urlPage"></uni-nav-bar>
-		<view class="bill_record">
+		<view class="bill_record" v-if="bitmap">
 			<view class="record_box">
 				<view class="img">
 					<image :src="detailItem.item_url"></image>
@@ -32,8 +32,8 @@
 			</view>
 		</view>
 
-		<view class="pur_list">
-			<view class="item" v-for="item in detail.list">
+		<view class="pur_list" v-if="bitmap">
+			<view class="item" v-for="(item,index) in detail.list" :key="index">
 				<view class="left">
 					<view class="time">
 						{{item.send_time}}
@@ -70,7 +70,8 @@
 				data: '',
 				detail: '',
 				detailItem: '',
-				count: ''
+				count: '',
+				bitmap:false
 			};
 		},
 		methods: {
@@ -90,7 +91,7 @@
 			recordDetail() {
 				var that = this;
 				var data = that.data;
-				// console.log(data)
+				
 				var timeStamp = Math.round(new Date().getTime() / 1000);
 				var obj = {
 					appid: appid,
@@ -107,6 +108,7 @@
 					end: data.date[1],
 				}
 				rs.getRequests("buyRecordDetail", data, (res) => {
+					that.bitmap=true;
 					if (res.data.code == 200) {
 						that.detail = res.data.data;
 						that.detailItem = res.data.data.item;

@@ -82,11 +82,12 @@ function getRequest(url, datas, success) {
 
 //get请求
 function getRequests(url, datas, success) {
-
-							uni.setNavigationBarTitle({
-							    title: uni.getStorageSync('titleKey')
-							});
-						
+                    // #ifdef H5
+                    uni.setNavigationBarTitle({
+                        title: uni.getStorageSync('titleKey')
+                    });
+                    // #endif
+					
 	uni.request({
 		url: rootDocment + url,
 		method: 'GET',
@@ -98,14 +99,10 @@ function getRequests(url, datas, success) {
 		data: Object.assign(datas, active),
 		success: res => {
 			success(res)
-			// console.log(res.header);
-			// console.log(res.header.Authorization);
-			// console.log((res.header.Authorization != undefined));
 			if (res.header.authorization != undefined) {
 				uni.setStorageSync("cdj_token", res.header.authorization);
-				// console.log('success')
-			}
 				
+			}
 				
 			if (res.data.code == 401) {
 				uni.navigateTo({
@@ -133,6 +130,7 @@ function getRequests(url, datas, success) {
 		},
 
 	})
+
 }
 
 /***
@@ -235,7 +233,7 @@ function postRequests(url, datas, success) {
 		data: Object.assign(datas, active),
 		success: res => {
 			success(res)
-			console.log(res.header.Authorization)
+		
 			if (res.header.authorization != undefined) {
 				uni.setStorageSync("cdj_token", res.header.authorization)
 			}
@@ -334,8 +332,12 @@ function MP(ak) {
 	})
 
 }
-
-
+function hideTabBar(){
+	// uni.hideTabBar()
+}
+function showTabBar(){
+	// uni.showTabBar()
+}
 
 module.exports = {
 	getRequest: getRequest,
@@ -343,6 +345,8 @@ module.exports = {
 	postRequest: postRequest,
 	postRequests: postRequests,
 	Toast: Toast,
+	hideTabBar:hideTabBar,
+	showTabBar:showTabBar,
 	header: header, //请求头部
 	objKeySort: objKeySort, //加密排序
 	thedefaulttime: thedefaulttime, //加密排序

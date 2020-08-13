@@ -665,7 +665,7 @@ var app = getApp().globalData;var navBar = app.navBar,appid = app.appid,appsecre
         var info = uni.createSelectorQuery().select('.logo_width');
         info.boundingClientRect(function (data) {//data - 各种参数
           imgHeight = data.height; // 获取元素宽度
-          // console.log(data)
+
           that.logoHeight = res.windowHeight - 44 - imgHeight;
         }).exec();
 

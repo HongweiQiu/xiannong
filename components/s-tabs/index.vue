@@ -152,7 +152,8 @@ export default {
 	  // #ifdef MP-ALIPAY
 	 
 	  if(index>oldindex){
-	  	this.scrollLeft=80*index;
+		  console.log(index)
+	  	this.scrollLeft=80*(index-1);
 	  }else{
 		  	this.scrollLeft=80*index-100;
 	  }

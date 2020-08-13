@@ -1,31 +1,33 @@
 <template>
 	<view class="invest_record">
 		<uni-nav-bar left-icon="arrowleft" title="充值信息" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
-		
-		<!-- #ifdef MP-ALIPAY -->
-		<view class="tip">如出现下单端账号与支付账号不一样，请到个人中心更改绑定支付宝</view>
-		<!-- #endif -->
-		
-		<!-- #ifndef MP-ALIPAY -->
-		<view class="tip">如出现下单端账号与支付账号不一样，请到个人中心更改绑定微信</view>
-		<!-- #endif -->
-		<view class="info">
-			<view>
-				<text>充值编号</text>
-				<text class="gray_font">{{placeRecharge.order_sn}}</text>
-			</view>
-			<view>
-				<text>充值金额</text>
-				<text class="red_font">￥{{placeRecharge.count_price}}</text>
-			</view>
-		</view>
-		<view class="notice">
-			<view>注：</view>
-			<view>平台不会以订单异常，系统升级等理由要求您点击任何链接进行退款操作，请提高警惕谨防受骗！</view>
-		</view>
-		<view class="select">
-			<view class="determine" @click="querenchongzhi">确认充值</view>
-			<view class="cancel" @click='order'>返回首页</view>
+		<view v-if="waitLoad">
+			<!-- #ifdef MP-ALIPAY -->
+				<view class="tip">如出现下单端账号与支付账号不一样，请到个人中心更改绑定支付宝</view>
+				<!-- #endif -->
+				
+				<!-- #ifndef MP-ALIPAY -->
+				<view class="tip">如出现下单端账号与支付账号不一样，请到个人中心更改绑定微信</view>
+				<!-- #endif -->
+				<view class="info">
+					<view>
+						<text>充值编号</text>
+						<text class="gray_font">{{placeRecharge.order_sn}}</text>
+					</view>
+					<view>
+						<text>充值金额</text>
+						<text class="red_font">￥{{placeRecharge.count_price}}</text>
+					</view>
+				</view>
+				<view class="notice">
+					<view>注：</view>
+					<view>平台不会以订单异常，系统升级等理由要求您点击任何链接进行退款操作，请提高警惕谨防受骗！</view>
+				</view>
+				<view class="select">
+					<view class="determine" @click="querenchongzhi">确认充值</view>
+					<view class="cancel" @click='order'>返回首页</view>
+				</view>
+			
 		</view>
 	</view>
 </template>
@@ -47,7 +49,8 @@
 				is_bind: '',
 				orderId: '',
 				placeRecharge: '',
-				count: 0
+				count: 0,
+				waitLoad:false
 			};
 		},
 		methods: {
@@ -98,6 +101,7 @@
 					sign: sign,
 				}
 				rs.postRequests("placeRecharge", data, (res) => {
+					this.waitLoad=true;
 					if (res.data.code == 200) {
 						that.placeRecharge = res.data.data
 					} else if (res.data.code == 406) {

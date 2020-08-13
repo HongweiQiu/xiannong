@@ -66,8 +66,8 @@
 					let data = response.data.data;
 					if (response.data.code == 200) {
 						this.products = data.item;
-
-						if (this.products.info == null) {
+                             
+						if (this.products.info==null) {
 							this.details = true;
 						} else {
 							this.details = false;
@@ -134,7 +134,7 @@
 		font-size: 12px;
 		overflow: hidden;
 		border: 1px dashed #009A44;
-		width: 80%;
+		width: 65%;
 		margin: 0 auto;
 		border-radius: 5px;
 		height: 73px;

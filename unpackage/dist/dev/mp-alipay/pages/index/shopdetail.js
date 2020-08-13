@@ -94,19 +94,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-icons": function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 453))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 458))
   },
   "my-countdown": function() {
     return __webpack_require__.e(/*! import() | components/countdown/index */ "components/countdown/index").then(__webpack_require__.bind(null, /*! @/components/countdown/index.vue */ 388))
   },
   "my-stepper": function() {
-    return __webpack_require__.e(/*! import() | components/stepper/index */ "components/stepper/index").then(__webpack_require__.bind(null, /*! @/components/stepper/index.vue */ 511))
+    return __webpack_require__.e(/*! import() | components/stepper/index */ "components/stepper/index").then(__webpack_require__.bind(null, /*! @/components/stepper/index.vue */ 516))
   },
   "uni-popup": function() {
     return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 416))
   },
   "my-keyboard": function() {
-    return __webpack_require__.e(/*! import() | components/keyboard/index */ "components/keyboard/index").then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 468))
+    return __webpack_require__.e(/*! import() | components/keyboard/index */ "components/keyboard/index").then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 473))
   }
 }
 var render = function() {
@@ -376,8 +376,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 17));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _createForOfIteratorHelper(o) {if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) {var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var it,normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}var _console =
+var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 18));
+var _parseHtml = _interopRequireDefault(__webpack_require__(/*! ../../static/js/parseHtml.js */ 27));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _createForOfIteratorHelper(o) {if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) {var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var it,normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}var _console =
 
 
 console,log = _console.log;
@@ -390,6 +394,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
 {
   data: function data() {
     return {
+      waitLoad: false,
       token: uni.getStorageSync('cdj_token'),
       kind: 0,
       arrowDirect: false,
@@ -406,7 +411,8 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       nav: false,
       count: 0,
       imgRemote: imgRemote,
-      backClick: false };
+      backClick: false,
+      info: [] };
 
   },
   methods: {
@@ -494,8 +500,23 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       //单个商品详情
       _request.default.getRequests('getItemById', params, function (res) {
         var data = res.data;
+        _this2.waitLoad = true;
         if (data.code == 200) {
-          _this2.info = data.data.info;
+          var classify = uni.getStorageSync('classify');
+
+          var newclassify = [];var _iterator = _createForOfIteratorHelper(
+          classify),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var i = _step.value;
+              if (i.id == id) {
+                i.cart_num = data.data.cart_num;
+              }
+              newclassify.push(i);
+            }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
+
+          uni.setStorageSync('classify', newclassify);
+          // this.info = data.data.info;
+          var infos = data.data.info.replace(/<img([\s\w"-=\/\.:;]+)/ig, '<img style="width: 100%;" $1');
+          console.log(infos);
+          _this2.info = (0, _parseHtml.default)(infos);
           _this2.ware = data.data;
           if (data.data.attr.length > 0) {
             _this2.spec = true;
@@ -616,45 +637,46 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
           _request.default.Toast('加入购物车成功');
           // 分类
           var classify = uni.getStorageSync('classify');
-          var newclassify = [];var _iterator = _createForOfIteratorHelper(
-          classify),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var i = _step.value;
+
+          var newclassify = [];var _iterator2 = _createForOfIteratorHelper(
+          classify),_step2;try {for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {var i = _step2.value;
               if (i.id == id) {
                 i.cart_num = data.data.new_num;
               }
               newclassify.push(i);
-            }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
+            }} catch (err) {_iterator2.e(err);} finally {_iterator2.f();}
 
           uni.setStorageSync('classify', newclassify);
           // 推荐
           var recommed = uni.getStorageSync('recommed');
 
-          var newrecommed = [];var _iterator2 = _createForOfIteratorHelper(
-          recommed),_step2;try {for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {var _i = _step2.value;
+          var newrecommed = [];var _iterator3 = _createForOfIteratorHelper(
+          recommed),_step3;try {for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {var _i = _step3.value;
               if (_i.id == id) {
                 _i.cart_num = data.data.new_num;
               }
               newrecommed.push(_i);
-            }} catch (err) {_iterator2.e(err);} finally {_iterator2.f();}
+            }} catch (err) {_iterator3.e(err);} finally {_iterator3.f();}
           uni.setStorageSync('recommed', newrecommed);
           // 收藏
           var collect = uni.getStorageSync('collect');
-          var newcollect = [];var _iterator3 = _createForOfIteratorHelper(
-          collect),_step3;try {for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {var _i2 = _step3.value;
+          var newcollect = [];var _iterator4 = _createForOfIteratorHelper(
+          collect),_step4;try {for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {var _i2 = _step4.value;
               if (_i2.id == id) {
                 _i2.cart_num = data.data.new_num;
               }
               newcollect.push(_i2);
-            }} catch (err) {_iterator3.e(err);} finally {_iterator3.f();}
+            }} catch (err) {_iterator4.e(err);} finally {_iterator4.f();}
           uni.setStorageSync('collect', newcollect);
           // 查找
           var search = uni.getStorageSync('search');
-          var newsearch = [];var _iterator4 = _createForOfIteratorHelper(
-          search),_step4;try {for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {var _i3 = _step4.value;
+          var newsearch = [];var _iterator5 = _createForOfIteratorHelper(
+          search),_step5;try {for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {var _i3 = _step5.value;
               if (_i3.id == id) {
                 _i3.cart_num = data.data.new_num;
               }
               newsearch.push(_i3);
-            }} catch (err) {_iterator4.e(err);} finally {_iterator4.f();}
+            }} catch (err) {_iterator5.e(err);} finally {_iterator5.f();}
           uni.setStorageSync('search', newsearch);
 
           if (_this4.spec) {
@@ -697,6 +719,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
     }, 500);
     this.getItem();
     getApp().globalData.isReload = false;
+
   },
   onPageScroll: function onPageScroll(e) {
     if (e.scrollTop == 0) {

@@ -136,7 +136,7 @@ imgPath = '../../static/img/';var _default =
   data: function data() {
     return {
       count: 0,
-      masktabar: false,
+      masktabar: true,
       tabList: [{
         title: '首页',
         inImg: imgPath + 'index_gray.png',
@@ -172,13 +172,8 @@ imgPath = '../../static/img/';var _default =
   },
   methods: {
     pageUrl: function pageUrl(data) {
-
-
-
-
-
-
       getApp().globalData.isReload = true;
+      getApp().globalData.aplipay = true;
       if (this.tabarIndex != 1) {
         getApp().globalData.classId = '';
       }
@@ -194,6 +189,10 @@ imgPath = '../../static/img/';var _default =
         } else {
 
 
+
+
+
+
           uni.switchTab({
             url: data.url });
 
@@ -202,8 +201,13 @@ imgPath = '../../static/img/';var _default =
       } else {
 
 
+
+
+
+
         uni.switchTab({
           url: data.url });
+
 
 
       }

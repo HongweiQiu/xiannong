@@ -8,11 +8,11 @@
 			</view>
 			<view>
 				<text>新密码</text>
-				<input type="password" v-model="password" placeholder="请填写六位及以上的密码" placeholder-class="place_style" />
+				<input password v-model="password" placeholder="请填写六位及以上的密码" placeholder-class="place_style" />
 			</view>
 			<view>
 				<text>确认密码</text>
-				<input type="password" v-model="password_confirmation" placeholder="请再次确认密码" placeholder-class="place_style" />
+				<input password v-model="password_confirmation" placeholder="请再次确认密码" placeholder-class="place_style" />
 
 			</view>
 		</view>

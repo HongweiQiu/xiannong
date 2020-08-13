@@ -27,11 +27,11 @@
 			<block v-if="memberInfoData.is_password==0">
 				<view>
 					<text>密码</text>
-					<input type="number" v-model="password" placeholder="请输入六位及以上的密码" placeholder-class="place_style" />
+					<input password v-model="password" placeholder="请输入六位及以上的密码" placeholder-class="place_style" />
 				</view>
 				<view>
 					<text>确认密码</text>
-					<input type="number" v-model="confirmPwd" placeholder="请再次确认登录密码" placeholder-class="place_style" />
+					<input password v-model="confirmPwd" placeholder="请再次确认登录密码" placeholder-class="place_style" />
 				</view>
 			</block>
 		</view>

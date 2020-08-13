@@ -120,6 +120,9 @@
 				this.kind=0;
 				this.value=1;
 				this.isTop=false;
+				// #ifdef MP-WEIXIN
+				rs.showTabBar();
+				// #endif
 				this.$emit('onClose')
 			},
 			showKey() {
