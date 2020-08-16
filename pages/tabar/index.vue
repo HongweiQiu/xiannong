@@ -3,25 +3,14 @@
 		<my-search></my-search>
 		<!-- banner图 -->
 		<view class="banner">
-			<swiper class="swiper" indicator-dots="true" autoplay="true" duration="2000" circular="true">
+			<swiper class="swiper" indicator-dots="true" autoplay="true" duration="2000" circular="true" disable-touch="true">
 				<swiper-item v-for="(item, index) in adList.ad" :key="index">
-					<image :src="item.banner"></image>
+						<image :src="item.banner"></image>
 				</swiper-item>
 			</swiper>
+			
+			
 		</view>
-		
-		<!-- #ifdef MP-ALIPAY -->
-		<!-- <swiper style="height:150px" class="demo-swiper" previousMargin="10px" nextMargin="10px">
-			<block a:for="{{background}}">
-				<swiper-item key="swiper-item-{{index}}">
-					{{item}}
-				</swiper-item>
-			</block>
-		</swiper> -->
-		<!-- <view class="" a:for="{{background}}">
-			{{item}}
-		</view> -->
-		<!-- #endif -->
 		
 		<!-- 公告 -->
 		<view class="" v-if="adList.public_msg">
@@ -82,7 +71,7 @@
 
 							</block>
 							<block v-else>
-								<view class="red_font">￥{{item.price+'/'+item.unit}}</view>
+								<view class="red_font">¥{{item.price+'/'+item.unit}}</view>
 							</block>
 
 							<view class="addcart">
@@ -142,12 +131,6 @@
 		},
 		data() {
 			return {
-				indicatorDots: true,
-				autoplay: false,
-				vertical: false,
-				interval: 1000,
-				circular: false,
-				background: ['blue', 'red', 'yellow'],
 				masktabar: false,
 				showActive: false,
 				support: false,
@@ -190,19 +173,39 @@
 				}
 				switch (id) {
 					case 1:
+					if(this.token){
 						uni.navigateTo({
 							url: '/pages/index/collect'
 						});
+						}else{
+							uni.navigateTo({
+								url: '/pages/account/login'
+							});
+						}
 						break;
 					case 2:
+					if(this.token){
 						uni.navigateTo({
 							url: '/pages/index/newback'
 						});
+						}else{
+							uni.navigateTo({
+								url: '/pages/account/login'
+							});
+						}
+						
 						break;
 					case 3:
+					if(this.token){
 						uni.navigateTo({
 							url: '/pages/index/recommed'
 						});
+						}else{
+							uni.navigateTo({
+								url: '/pages/account/login'
+							});
+						}
+					
 						break;
 					case 4:
 						uni.makePhoneCall({
@@ -215,14 +218,28 @@
 						});
 						break;
 					case 6:
+					if(this.token){
 						uni.switchTab({
 							url: '/pages/tabar/shopcart'
 						});
+						}else{
+							uni.navigateTo({
+								url: '/pages/account/login'
+							});
+						}
+						
 						break;
 					case 7:
+					if(this.token){
 						uni.switchTab({
 							url: '/pages/tabar/order'
 						});
+						}else{
+							uni.navigateTo({
+								url: '/pages/account/login'
+							});
+						}
+						
 						break;
 					case 8:
 						uni.switchTab({
@@ -277,12 +294,11 @@
 					let data = res.data;
 					if (data.code == 200) {
 						this.adList = data.data;
-						// #ifdef H5
 						uni.setStorageSync('titleKey', data.data.title);
 						uni.setNavigationBarTitle({
 							title: uni.getStorageSync('titleKey')
 						});
-						// #endif
+						
 					}
 				});
 			},
@@ -571,6 +587,7 @@
 		width: 60rpx;
 		height: 20rpx;
 	}
+
 
 	/* #ifdef H5 */
 	a {

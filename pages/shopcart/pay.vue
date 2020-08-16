@@ -20,19 +20,19 @@
 			</view>
 			<view>
 				<text>订单金额</text>
-				<text>￥{{list.total_fee}}</text>
+				<text>¥{{list.total_fee}}</text>
 			</view>
 			<view>
 				<text>现金券抵扣</text>
-				<text>￥{{list.coupons_price}}</text>
+				<text>¥{{list.coupons_price}}</text>
 			</view>
 			<view>
 				<text>我的余额</text>
-				<text class="red_font">￥{{list.myBalance}}</text>
+				<text class="red_font">¥{{list.myBalance}}</text>
 			</view>
 			<view>
 				<text>余额支付</text>
-				<text class="red_font">￥{{list.payBalance}}</text>
+				<text class="red_font">¥{{list.payBalance}}</text>
 			</view>
 			<view>
 				<!-- #ifdef MP-ALIPAY -->
@@ -42,7 +42,7 @@
 				<text>微信支付</text>
 				<!-- #endif -->
 				
-				<text class="red_font">￥{{list.payWx}}</text>
+				<text class="red_font">¥{{list.payWx}}</text>
 			</view>
 		</view>
 		<view class="notice">

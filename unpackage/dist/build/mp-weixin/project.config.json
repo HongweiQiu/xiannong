@@ -12,6 +12,7 @@
 		"minified": true,
 		"newFeature": true,
 		"coverView": true,
+		"nodeModules": false,
 		"autoAudits": false,
 		"showShadowRootInWxmlPanel": true,
 		"scopeDataCheck": false,
@@ -24,13 +25,13 @@
 			"outputPath": ""
 		},
 		"bundle": true,
-		"useCompilerModule": false,
+		"useCompilerModule": true,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.9.2",
 	"appid": "wx4f24afa0c5d9be68",
-	"projectname": "菜东家",
+	"projectname": " ",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {

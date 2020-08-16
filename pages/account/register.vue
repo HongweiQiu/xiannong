@@ -74,10 +74,10 @@
 		methods: {
 			leftClick() {
 				// #ifdef H5
-				uni.hideKeyboard();
-				setTimeout(() => {
+				// uni.hideKeyboard();
+				// setTimeout(() => {
 					window.history.back(-1);
-				}, 100)
+				// }, 100)
 
 				// #endif 
 				// #ifndef H5
@@ -97,7 +97,7 @@
 					uni.navigateTo({
 						url: data
 					})
-				}, 300)
+				}, 100)
 
 			},
 			// 滑动验证
@@ -276,18 +276,18 @@
 		onReady() {
 
 			// #ifdef H5
-			this.scrollHeight = uni.getStorageSync('scrollHeight');
+			// this.scrollHeight = uni.getStorageSync('scrollHeight');
 
-			window.onresize = () => {
+			// window.onresize = () => {
 
-				let newHeight = document.body.clientHeight;
-				if (this.scrollHeight == newHeight) {
-					this.display1 = true;
-				} else {
-					this.display1 = false;
-				}
+			// 	let newHeight = document.body.clientHeight;
+			// 	if (this.scrollHeight == newHeight) {
+			// 		this.display1 = true;
+			// 	} else {
+			// 		this.display1 = false;
+			// 	}
 
-			}
+			// }
 			// #endif
 		},
 		onLoad(options) {
@@ -303,17 +303,7 @@
 		},
 		mounted() {
 			let that=this;
-		let bodyHeight,titleHeight,imgHeight;
-			uni.getSystemInfo({
-				success: function(res) { // res - 各种参数
-					// that.logoHeight=res.windowHeight; // 屏幕的宽度 
-				
-					
-				that.height=res.windowHeight;
-					
-					
-				}
-			});
+				that.height=uni.getStorageSync('scrollHeight');	
 		},
 	};
 </script>

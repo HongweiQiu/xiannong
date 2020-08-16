@@ -31,33 +31,33 @@
 										<block v-if="token">
 											<block v-if="config.is_look==1">
 												<view v-if="list.attr.length!=0">
-													<text class="red_font" v-if="list.attr.activity_num>=list.cart_num&&list.attr.is_activity==1">￥{{list.attr.activity_price}}/{{list.attr.unit}}</text>
+													<text class="red_font" v-if="list.attr.activity_num>=list.cart_num&&list.attr.is_activity==1">¥{{list.attr.activity_price}}/{{list.attr.unit}}</text>
 													<text class="red_font" v-else>
 														<block v-if="list.attr.market_price==1">时价</block>
-														<block v-else> ￥{{list.attr.attr_price}}/{{list.attr.unit}}</block>
+														<block v-else> ¥{{list.attr.attr_price}}/{{list.attr.unit}}</block>
 
 
 													</text>
 													<text class="gray_font">已选({{list.attr.attr_title}})</text>
 												</view>
 												<view v-else>
-													<text class="red_font" v-if="list.activity_num>=list.cart_num&&list.is_activity==1">￥{{list.activity_price}}/{{list.unit}}</text>
+													<text class="red_font" v-if="list.activity_num>=list.cart_num&&list.is_activity==1">¥{{list.activity_price}}/{{list.unit}}</text>
 													<text class="red_font" v-else>
 														<block v-if="list.market_price==1">时价</block>
-														<block v-else> ￥{{list.price}}/{{list.unit}}</block>
+														<block v-else> ¥{{list.price}}/{{list.unit}}</block>
 													</text>
 												</view>
 											</block>
 											<view v-else class="red_font">
-												￥***
+												¥***
 											</view>
 										</block>
 										<block v-else>
 											<view v-if="list.attr.length">
-												<text class="red_font">￥{{list.attr.attr_price}}/{{list.attr.unit}}</text>
+												<text class="red_font">¥{{list.attr.attr_price}}/{{list.attr.unit}}</text>
 												<text class="gray_font">已选(list.attr.attr_title)</text>
 											</view>
-											<view v-else> <text class="red_font">￥{{list.price}}/{{list.unit}}</text></view>
+											<view v-else> <text class="red_font">¥{{list.price}}/{{list.unit}}</text></view>
 										</block>
 									</view>
 									<view>
@@ -119,6 +119,8 @@
 		<uni-popup ref="popup" type="bottom" @maskInfo="closeKey">
 			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="shopItem" @toParent="toParent" ref="keyboard"></my-keyboard>
 		</uni-popup>
+		<view class="showToast" v-if="alipayShow"><view style="width: 100%;text-align: center;">操作成功</view></view>
+			</view>
 	</view>
 </template>
 
@@ -138,6 +140,7 @@
 	export default {
 		data() {
 			return {
+				alipayShow:false,
 				token: uni.getStorageSync('cdj_token'),
 				imgRemote: imgRemote,
 				navBar: navBar,
@@ -276,13 +279,10 @@
 				})
 			},
 			getFocus(item,index,second){
-				// this.$nextTick(() =>{
-				//     this.$refs.remarkTxt.focus();
-				// })
-		
 				this.showRemark=true;
-			
-				this.remark=item.remark;
+				let goodremark=String(item.remark).replace('null','');
+				this.remark=goodremark;
+				
 				this.shopItem=item;
 				this.firstIndex=index;
 				this.secondIndex=second;
@@ -382,7 +382,16 @@
 							rs.postRequests("changeNum", params, (res) => {
 								let {data}=res;
 								if (res.data.code == 200) {
-									rs.Toast('操作成功');
+									// #ifdef MP-ALIPAY
+									  this.alipayShow=true;
+									  setTimeout(()=>{
+										  this.alipayShow=false;
+									  },1000)
+									// #endif
+									// #ifndef MP-ALIPAY
+										rs.Toast('操作成功');
+									// #endif
+								
 									this.$refs.popup.close();
 									this.shop[one].list[two].cart_num=num;
 									this.getCount();
@@ -513,9 +522,18 @@
    padding:10rpx;
 	margin:0 auto;
     border-radius: 5px;}
-	.shoplist .remark_dialog textarea{width:100%;height:100%;}
+	.shoplist .remark_dialog textarea{width:95%;height:75%;}
 	.shoplist .remark_dialog .buttons{display: flex;height: 60rpx;line-height: 60rpx;   border-top: 1px solid #ccc;margin-top:40rpx;}
 	.shoplist .remark_dialog .buttons>view{width:50%;text-align: center;}
 	.shoplist .remark_dialog .cancel{border-right:1px solid #ccc;}
 	.shoplist .gift {margin-top: 10rpx;background: white;padding:0 20rpx;}
+	.shoplist .showToast{position:fixed;
+		margin:auto;
+		left:0;
+		right:0;
+		top:12px;
+		bottom:0;
+		width:200rpx;
+		height:30rpx;
+		background: rgba(0,0,0,0.7);border-radius: 10rpx;padding:15rpx;color: white;}
 </style>

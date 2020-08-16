@@ -65,7 +65,7 @@
 					});},
 			leftClick() {
 				// #ifdef H5
-				uni.hideKeyboard();
+				// uni.hideKeyboard();
 				 window.history.back(-1);
 				// #endif 
 				// #ifndef H5

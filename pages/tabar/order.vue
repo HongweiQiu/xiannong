@@ -51,38 +51,38 @@
 						<view class="order_oneline">
 							<view class="">
 								<text>{{item.item_title}}</text>
-								<text class="gray_font">(等{{item.item_count}}件商品￥{{item.xd_price}})</text>
+								<text class="gray_font">(等{{item.item_count}}件商品¥{{item.xd_price}})</text>
 							</view>
 							<view class="">配送日期 ： {{item.send_time}}</view>
 							<view class="flex" v-if="item.is_cash_delivery==0">
 								<view>
 									运费：
-									<text class="red_font" v-if="is_look==0">￥***</text>
-									<text class="red_font" v-if="is_look==1">￥{{item.delivery_fee}}</text>
+									<text class="red_font" v-if="is_look==0">¥***</text>
+									<text class="red_font" v-if="is_look==1">¥{{item.delivery_fee}}</text>
 								</view>
 								<view>
 									应付:
-									<text class="red_font" v-if="is_look==0">￥***</text>
-									<text class="red_font" v-if="is_look==1">￥{{item.yf_price}}</text>
+									<text class="red_font" v-if="is_look==0">¥***</text>
+									<text class="red_font" v-if="is_look==1">¥{{item.yf_price}}</text>
 								</view>
 							</view>
 							<view class="flex" v-if="item.is_cash_delivery==1">
 								<view>
 									实付:
-									<text class="red_font" v-if="is_look==0">￥***</text>
-									<text class="red_font" v-if="is_look==1">￥{{item.total_fee}}</text>
+									<text class="red_font" v-if="is_look==0">¥***</text>
+									<text class="red_font" v-if="is_look==1">¥{{item.total_fee}}</text>
 								</view>
 								<view>
 									应付:
-									<text class="red_font" v-if="is_look==0">￥***</text>
-									<text class="red_font" v-if="is_look==1">￥{{item.yf_price}}</text>
+									<text class="red_font" v-if="is_look==0">¥***</text>
+									<text class="red_font" v-if="is_look==1">¥{{item.yf_price}}</text>
 								</view>
 							</view>
 							<view class="flex" v-if="item.coupons_member_id != 0">
 								<view>
 									现金券:
-									<text class="red_font" v-if="is_look==0">￥***</text>
-									<text class="red_font" v-if="is_look==1">￥{{item.coupons_price}}</text>
+									<text class="red_font" v-if="is_look==0">¥***</text>
+									<text class="red_font" v-if="is_look==1">¥{{item.coupons_price}}</text>
 								</view>
 							</view>
 							<view class="time" style="display: flex;justify-content: space-between;">
@@ -201,10 +201,6 @@
 			// #endif
 			closemask(){
 				this.showOrderType=false;
-			// #ifdef MP-WEIXIN
-			// uni.showTabBar();
-			// #endif
-				
 			},
 			/**
 			 * 确认收货

@@ -122,9 +122,6 @@ var components = {
   },
   "my-tabar": function() {
     return __webpack_require__.e(/*! import() | components/tabar/index */ "components/tabar/index").then(__webpack_require__.bind(null, /*! @/components/tabar/index.vue */ 436))
-  },
-  "my-mask": function() {
-    return __webpack_require__.e(/*! import() | components/mask/index */ "components/mask/index").then(__webpack_require__.bind(null, /*! @/components/mask/index.vue */ 443))
   }
 }
 var render = function() {
@@ -234,6 +231,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));
 var _parseHtml = _interopRequireDefault(__webpack_require__(/*! ../../static/js/parseHtml.js */ 31));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}var uniDrawer = function uniDrawer() {__webpack_require__.e(/*! require.ensure | components/uni-drawer/uni-drawer */ "components/uni-drawer/uni-drawer").then((function () {return resolve(__webpack_require__(/*! @/components/uni-drawer/uni-drawer.vue */ 484));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
@@ -252,7 +250,7 @@ console,log = _console.log;var _default =
 
   data: function data() {
     return {
-      masktabar: false,
+      waitLoad: false,
       kind: 0,
       active: -1,
       activeTab: 0,
@@ -264,7 +262,9 @@ console,log = _console.log;var _default =
       firstCate: [],
       secondCate: [],
       bitmap: true,
-      list: [],
+      list: [
+      { price: 1 }],
+
       config: [],
       cartware: [],
       arrObj: {},
@@ -287,9 +287,6 @@ console,log = _console.log;var _default =
       this.$refs.popup.close();
     },
     toParent: function toParent(e) {var _this = this;
-
-      _request.default.showTabBar();
-
       var item = e.arrObj;
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
@@ -321,7 +318,6 @@ console,log = _console.log;var _default =
     mpItem: function mpItem() {var _this2 = this;
       this.list = [];
       this.bitmap = true;
-
       this.loading = true;
       this.page = 1;
       var timeStamp = Math.round(new Date().getTime() / 1000);
@@ -349,6 +345,7 @@ console,log = _console.log;var _default =
       _request.default.getRequests('mpItemList', params, function (res) {
         var data = res.data;
         if (data.code == 200) {
+
           if (!firstId) {
             firstId = data.data.firstCate[0].id;
 
@@ -371,7 +368,9 @@ console,log = _console.log;var _default =
             if (_this2.kind == _this2.secondCate.length - 1) {
               _this2.textInfo = (0, _parseHtml.default)('没有更多呢');
             } else {
-              _this2.textInfo = (0, _parseHtml.default)("上滑或点击<span class='red_font'>" + _this2.secondCate[1].name + '</span>进入下一分类');
+
+              _this2.textInfo = (0, _parseHtml.default)("上滑或点击<span class='red_font'>" + _this2.secondCate[_this2.kind + 1].name + '</span>进入下一分类');
+              console.log(_this2.secondCate);
             }
 
           } else {
@@ -379,7 +378,6 @@ console,log = _console.log;var _default =
             _this2.loading = false;
           }
         }
-
       });
     },
     // 切换一级分类

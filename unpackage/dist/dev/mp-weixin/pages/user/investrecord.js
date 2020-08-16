@@ -167,6 +167,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 21));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
@@ -200,10 +202,11 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, is_bind: '', orderId: '', placeRecharge: '', count: 0 };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, order: function order() {this.leftClick();}, /**
-                                                                                                                                                                                                                                                                                                                                                                                    * 充值信息
-                                                                                                                                                                                                                                                                                                                                                                                    */
-    placeRechargea: function placeRechargea() {
+//
+//
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { navBar: navBar, is_bind: '', orderId: '', placeRecharge: '', count: 0, waitLoad: false };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, order: function order() {this.leftClick();}, /**
+                                                                                                                                                                                                                                                                                                                                                                                                     * 充值信息
+                                                                                                                                                                                                                                                                                                                                                                                                     */placeRechargea: function placeRechargea() {var _this = this;
       var that = this;
       var id = that.orderId;
 
@@ -234,6 +237,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         sign: sign };
 
       _request.default.postRequests("placeRecharge", data, function (res) {
+        _this.waitLoad = true;
         if (res.data.code == 200) {
           that.placeRecharge = res.data.data;
         } else if (res.data.code == 406) {

@@ -24,7 +24,7 @@
 						<!-- #endif -->
 					
 					</view>
-					<view style="color:#009B44;" @click="submit">搜索</view>
+					<view style="color:#009B44;width:20%;text-align: center;" @click="submit">搜索</view>
 				</view>
 			</view>
 		</view>
@@ -415,22 +415,22 @@
 <style>
 	.search_list .input_key {
 		position: fixed;
-		width: 98%;
+		width: 100%;
 		z-index: 9;
 		background: white;
-		height: 68rpx;
+		/* height: 68rpx; */
 		padding: 20rpx 0;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding-right: 20rpx;
+		
 	}
 
 	.search_list .input_key .select_key {
 		padding: 0 10rpx 0 20rpx;
 		border-radius: 40rpx;
 		background: #f7f6f6;
-		width: 84%;
+		width: 80%;
 		height: 68rpx;
 	}
 

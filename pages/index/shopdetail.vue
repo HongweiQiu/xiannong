@@ -59,17 +59,17 @@
 							<block v-if="spec">
 								<block v-if="attrspec.is_activity == 1">
 									<view v-if="attrspec.activity_num >attrspec.cart_num">
-										<text class="red_font">￥{{attrspec.activity_price}}/{{attrspec.unit}}</text>
-										<text class="line_through gray_font add_leftpx">￥{{attrspec.attr_price}}/{{attrspec.unit}}</text>
+										<text class="red_font">¥{{attrspec.activity_price}}/{{attrspec.unit}}</text>
+										<text class="line_through gray_font add_leftpx">¥{{attrspec.attr_price}}/{{attrspec.unit}}</text>
 									</view>
 									<view v-else>
-										<text class="red_font">￥{{attrspec.attr_price}}/{{attrspec.unit}}</text>
+										<text class="red_font">¥{{attrspec.attr_price}}/{{attrspec.unit}}</text>
 									</view>
 								</block>
 								<block v-else>
 									<view class="red_font">
 										<text v-if="attrspec.market_price==1">时价</text>
-										<text v-else>￥{{attrspec.attr_price}}/{{attrspec.unit}}</text>
+										<text v-else>¥{{attrspec.attr_price}}/{{attrspec.unit}}</text>
 
 									</view>
 								</block>
@@ -77,17 +77,17 @@
 							<block v-else>
 								<block v-if="ware.is_activity==1">
 									<view v-if="ware.activity_num>ware.cart_num">
-										<text class="red_font">￥{{ware.activity_price}}/{{ware.unit}}</text>
-										<text class="line_through gray_font add_leftpx twelve">￥{{ware.price}}/{{ware.unit}}</text>
+										<text class="red_font">¥{{ware.activity_price}}/{{ware.unit}}</text>
+										<text class="line_through gray_font add_leftpx twelve">¥{{ware.price}}/{{ware.unit}}</text>
 									</view>
 									<view v-else>
-										<text class="red_font">￥{{ware.price}}/{{ware.unit}}</text>
+										<text class="red_font">¥{{ware.price}}/{{ware.unit}}</text>
 									</view>
 								</block>
 								<block v-else>
 									<view class="red_font">
 										<text v-if="ware.market_price==1">时价</text>
-										<text v-else> ￥{{ware.price}}/{{ware.unit}}</text>
+										<text v-else> ¥{{ware.price}}/{{ware.unit}}</text>
 
 									</view>
 								</block>
@@ -95,19 +95,19 @@
 						</block>
 						<block v-else>
 							<view class="red_font">
-								￥***
+								¥***
 							</view>
 						</block>
 					</block>
 					<block v-else>
 						<view class="red_font" v-if="spec">
 							<text v-if="attrspec.market_price==1">时价</text>
-							<text v-else>￥{{attrspec.attr_price}}/{{attrspec.unit}}</text>
+							<text v-else>¥{{attrspec.attr_price}}/{{attrspec.unit}}</text>
 
 						</view>
 						<view class="red_font" v-else>
 							<text v-if="ware.market_price==1">时价</text>
-							<text v-else> ￥{{ware.price}}/{{ware.unit}}</text>
+							<text v-else> ¥{{ware.price}}/{{ware.unit}}</text>
 
 						</view>
 					</block>
@@ -150,23 +150,23 @@
 								<block v-if="token">
 									<block v-if="recommend.is_look==1">
 										<block v-if="item.attr.length">
-											<text>￥{{item.area_price}}/{{item.unit}}</text>
+											<text>¥{{item.area_price}}/{{item.unit}}</text>
 										</block>
 										<block v-else>
 											<text v-if="item.market_price==1">时价</text>
-											<text v-else>￥{{item.price}}/{{item.unit}} </text>
+											<text v-else>¥{{item.price}}/{{item.unit}} </text>
 										</block>
 
 									</block>
-									<block v-else>￥***</block>
+									<block v-else>¥***</block>
 								</block>
 								<block v-else>
 									<block v-if="item.attr.length">
-										<text>￥{{item.area_price}}/{{item.unit}}</text>
+										<text>¥{{item.area_price}}/{{item.unit}}</text>
 									</block>
 									<block v-else>
 										<text v-if="item.market_price==1">时价 </text>
-										<text v-else> ￥{{item.price}}/{{item.unit}} </text>
+										<text v-else> ¥{{item.price}}/{{item.unit}} </text>
 									</block>
 
 								</block>
@@ -196,7 +196,7 @@
 		</view>
 		<view style="height:50px;"></view>
 		<!-- 加入购物车 -->
-		<view class="is_add_cart">
+		<view class="is_add_cart" v-if="waitLoad">
 			<view class="operateing">
 				<view class="collect" @click="collecting">
 					<text class="iconfont icon-alreadystar center" style="color:orange;" v-if="ware.collect_status == 2"></text>
@@ -339,8 +339,9 @@
 				//单个商品详情
 				rs.getRequests('getItemById', params, res => {
 					let data = res.data;
-					this.waitLoad = true;
+					
 					if (data.code == 200) {
+						this.waitLoad = true;
 						let classify = uni.getStorageSync('classify');
 
 						let newclassify = [];
@@ -354,7 +355,7 @@
 						uni.setStorageSync('classify', newclassify);
 						// this.info = data.data.info;
 						let infos = data.data.info.replace(/<img([\s\w"-=\/\.:;]+)/ig, '<img style="width: 100%;" $1');
-						console.log(infos)
+						// console.log(infos)
 						this.info = parseHtml(infos);
 						this.ware = data.data;
 						if (data.data.attr.length > 0) {

@@ -4,69 +4,79 @@
 			<image :src="config.logo" mode="aspectFit" class="shuiyin" v-if="config.logo&&config.shuiyin==1"></image>
 			<image class="good_img" :src="ware.img==''?imgRemote+config.item_default:ware.img" mode="aspectFit"></image>
 		</view>
-		<view class="info">
-			<view class="operate flex" >
-				<view style="width:86%;" @click="detail">
-					<view>{{ware.title}}</view>
-					<view v-if="ware.describe" class="hidden gray_font twelve">{{ware.describe}}</view>
-				</view>
-				<view v-if="url=='collect'" @click="cancelCollect">
-					<text class="iconfont icon-alreadystar" style="color:orange;"></text>
-					
-				</view>
-			</view>
-			<view class="flex_left_right">
-				<view style="width:82%;" @click="detail">
-					<view><text class="red_tag" v-for="(item,index) in ware.label" :key="index">{{item}}</text></view>
 
-					<block v-if="token">
-						<block v-if="config.is_look==1">
-							<view v-if="ware.attr.length" class="hidden">
-								<text class="red_font">￥{{ware.area_price}}/{{ware.unit}}</text>
+		<block v-if="ware==undefined"></block>
+		<block v-else>
+			<view class="info">
+				<view class="operate flex">
+					<view style="width:86%;" @click="detail">
+						<view>{{ware.title}}</view>
+						<view v-if="ware.describe" class="hidden gray_font twelve">{{ware.describe}}</view>
+					</view>
+					<view v-if="url=='collect'" @click="cancelCollect">
+						<text class="iconfont icon-alreadystar" style="color:orange;"></text>
+
+					</view>
+				</view>
+				<view class="flex_left_right">
+					<view style="width:82%;" @click="detail">
+
+						<view><text class="red_tag" v-for="(item,index) in ware.label" :key="index">{{item}}</text></view>
+
+						<block v-if="token">
+							<block v-if="config.is_look==1">
+								<view v-if="ware.attr.length" class="hidden">
+									<text class="red_font">¥{{ware.area_price}}/{{ware.unit}}</text>
+									<text class="gray_font">(多规格)</text>
+								</view>
+								<view v-else class="red_font">
+									<block v-if="ware.activity_num>=ware.cart_num&&ware.is_activity==1">
+										¥{{ware.activity_price+'/'+ware.unit}}
+									</block>
+									<block v-else>
+										<view v-if="ware.market_price==1">时价</view>
+										<view v-else>¥{{ware.price+'/'+ware.unit}}</view>
+									</block>
+
+								</view>
+							</block>
+							<block v-else>
+								<view class="red_font">¥***</view>
+							</block>
+						</block>
+						<block v-else>
+							<view v-if="wares.attr.length" class="hidden">
+								<text class="red_font">¥{{ware.area_price}}/{{ware.unit}}</text>
 								<text class="gray_font">(多规格)</text>
 							</view>
 							<view v-else class="red_font">
-								<block v-if="ware.activity_num>=ware.cart_num&&ware.is_activity==1">
-									￥{{ware.activity_price+'/'+ware.unit}}
-								</block>
-								<block v-else>	
-								<view v-if="ware.market_price==1">时价</view>
-								<view v-else>￥{{ware.price+'/'+ware.unit}}</view>
-								</block>
-							
+								<block v-if="ware.market_price==1">时价</block>
+								<block v-else>¥{{ware.price}}/{{ware.unit}}</block>
+
 							</view>
 						</block>
-						<block v-else>
-							<view class="red_font">￥***</view>
+
+					</view>
+
+					<view class="align_center">
+						<block v-if="ware.attr.length">
+							<image class="add_cart" src="../../static/img/addcart.png" @click="showCart"></image>
 						</block>
-					</block>
-					<block v-else>
-						<view v-if="wares.attr.length" class="hidden">
-							<text class="red_font">￥{{ware.area_price}}/{{ware.unit}}</text>
-							<text class="gray_font">(多规格)</text>
-						</view>
-						<view v-else class="red_font">
-							<block v-if="ware.market_price==1">时价</block>
-							<block v-else>￥{{ware.price}}/{{ware.unit}}</block>
-							
-						</view>
-					</block>
-				</view>
+						<block v-else>
 
-				<view class="align_center">
-					<block v-if="ware.attr.length">
-						<image class="add_cart" src="../../static/img/addcart.png" @click="showCart"></image>
-					</block>
-					<block v-else>
-
-						<my-stepper @showKey="showKey" :val="ware.cart_num" @minus="minus(ware.cart_num-1)" @plus="plus(ware.cart_num+1)"
-						 v-if="ware.cart_num"></my-stepper>
-						<image v-else class="add_cart" src="../../static/img/plus.png" @click="plusCart"></image>
-					</block>
+							<my-stepper @showKey="showKey" :val="ware.cart_num" @minus="minus(ware.cart_num-1)" @plus="plus(ware.cart_num+1)"
+							 v-if="ware.cart_num"></my-stepper>
+							<image v-else class="add_cart" src="../../static/img/plus.png" @click="plusCart"></image>
+						</block>
+					</view>
 				</view>
 			</view>
-		</view>
-		<view style="position: fixed;top:45%;left:45%;background: rgba(0,0,0,0.7);border-radius: 10rpx;padding:15rpx;color: white;" v-if="apliyShow">{{message}}</view>
+			<view class="showToast" v-if="apliyShow">
+				<view style="width: 100%;text-align: center;">{{message}}</view>
+			</view>
+		</block>
+
+
 	</view>
 </template>
 
@@ -84,20 +94,21 @@
 	} = console;
 	export default {
 		props: ['wares', 'config', 'url'],
-		watch:{
-			wares(newvalue){
-				this.ware=newvalue;
+		watch: {
+			wares(newvalue) {
+				this.ware = newvalue;
+				console.log(newvalue)
 			}
 		},
 		data() {
 			return {
-				apliyShow:false,
-				ware:this.wares,
+				apliyShow: false,
+				ware: this.wares,
 				imgRemote: imgRemote,
 				token: uni.getStorageSync('cdj_token'),
-				count:0,
-				addcount:0,
-				message:''
+				count: 0,
+				addcount: 0,
+				message: ''
 			}
 		},
 		methods: {
@@ -108,10 +119,10 @@
 				this.$emit('showCart')
 			},
 			addcart(url, num, message = '成功加入购物车') {
-				getApp().globalData.aplipay=false;
+				getApp().globalData.aplipay = false;
 				let item = this.ware;
-				if 	(item.is_float == 1 && !Number.isInteger(Number(num))) {
-					rs.Toast( '购买数量不能为小数');
+				if (item.is_float == 1 && !Number.isInteger(Number(num))) {
+					rs.Toast('购买数量不能为小数');
 					return;
 				}
 				let timeStamp = Math.round(new Date().getTime() / 1000);
@@ -132,24 +143,24 @@
 					let data = res.data;
 					if (data.code == 200) {
 						// #ifndef MP-ALIPAY
-							rs.Toast(message);
+						rs.Toast(message);
 						// #endif
-					
+
 						// #ifdef MP-ALIPAY
-						this.apliyShow=true;
-						this.message=message;
-						setTimeout(()=>{	
-							this.apliyShow=false;
-						
-						},1000)
+						this.apliyShow = true;
+						this.message = message;
+						setTimeout(() => {
+							this.apliyShow = false;
+
+						}, 1000)
 						// rs.Toast('加入购物车成功');
 						// #endif
 						if (num <= 0) {
 							this.ware.cart_num = 0;
 						} else {
-						
-							this.ware.cart_num =num;
-							
+
+							this.ware.cart_num = num;
+
 						}
 					} else if (data.code == 407 || data.code == 406) {
 						rs.Toast("购买数量不能超过活动数量");
@@ -159,7 +170,7 @@
 				});
 			},
 			minus(e) {
-					this.ware.cart_num--;
+				this.ware.cart_num--;
 				if (e == 0) {
 					this.addcart('deleteCart', e, '成功删除商品');
 				} else {
@@ -167,12 +178,12 @@
 				}
 			},
 			plus(e) {
-					this.ware.cart_num++;
+				this.ware.cart_num++;
 				this.addcart('changeNum', e);
-				
+
 			},
 			plusCart() {
-				this.ware.cart_num=1;
+				this.ware.cart_num = 1;
 				this.addcart('changeNum', 1);
 			},
 			showKey() {
@@ -187,13 +198,13 @@
 				setTimeout(() => {
 					this.count = 0
 				}, 1000)
-				if(this.config.is_detail==1){
+				if (this.config.is_detail == 1) {
 					uni.navigateTo({
 						url: `/pages/index/shopdetail?id=${this.ware.id}`
 					})
 				}
 			},
-			cancelCollect(){
+			cancelCollect() {
 				this.$emit('cancelCollect')
 			}
 		}
@@ -207,7 +218,7 @@
 	}
 
 	.my_profile .photo {
-		margin-right:20rpx;
+		margin-right: 20rpx;
 		width: 200rpx;
 	}
 
@@ -224,7 +235,7 @@
 	}
 
 	.my_profile .operate {
-		height:100%;
+		height: 100%;
 		justify-content: space-between;
 	}
 
@@ -232,5 +243,19 @@
 		width: 32rpx;
 		height: 32rpx;
 	}
-	
+
+	.my_profile .showToast {
+		position: fixed;
+		margin: auto;
+		left: 0;
+		right: 0;
+		top: 12px;
+		bottom: 0;
+		width: 200rpx;
+		height: 30rpx;
+		background: rgba(0, 0, 0, 0.7);
+		border-radius: 10rpx;
+		padding: 15rpx;
+		color: white;
+	}
 </style>

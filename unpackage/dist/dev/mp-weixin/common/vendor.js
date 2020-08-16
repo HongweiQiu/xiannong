@@ -757,7 +757,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -7221,7 +7221,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7242,14 +7242,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7325,7 +7325,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8037,10 +8037,8 @@ function getRequest(url, datas, _success) {
 //get请求
 function getRequests(url, datas, _success2) {
 
-
-
-
-
+  uni.setNavigationBarTitle({
+    title: uni.getStorageSync('titleKey') });
 
   uni.request({
     url: rootDocment + url,
@@ -8176,6 +8174,9 @@ function postRequest(url, datas, _success3) {
 }
 //POST请求不带加载中
 function postRequests(url, datas, _success4) {
+  uni.setNavigationBarTitle({
+    title: uni.getStorageSync('titleKey') });
+
   uni.request({
     url: rootDocment + url,
     method: 'POST',
@@ -10888,6 +10889,45 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 
 /***/ }),
 
+/***/ 667:
+/*!**************************************************!*\
+  !*** E:/desktop/uniapp/static/js/mixin_share.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  data: function data() {
+    return {
+      //这个share可以在每个页面的data中设置相应的转发内容
+      share: {} };
+
+
+
+
+  },
+  onShareAppMessage: function onShareAppMessage(res) {
+    return {
+
+      success: function success(res) {
+        uni.showToast({
+          title: '分享成功' });
+
+      },
+      fail: function fail(res) {
+        uni.showToast({
+          title: '分享失败',
+          icon: 'none' });
+
+      } };
+
+
+  } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
 /***/ 7:
 /*!*****************************************************!*\
   !*** E:/desktop/uniapp/pages.json?{"type":"style"} ***!
@@ -10896,7 +10936,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": {}, "pages/tabar/classify": {}, "pages/tabar/order": {}, "pages/tabar/shopcart": {}, "pages/tabar/user": {}, "pages/index/shopdetail": {}, "pages/index/collect": {}, "pages/index/recommed": {}, "pages/index/newback": {}, "pages/index/search": {}, "pages/index/flashsale": {}, "pages/account/login": {}, "pages/account/selectway": {}, "pages/account/forget": {}, "pages/account/register": {}, "pages/account/service": {}, "pages/account/treaty": {}, "pages/account/bind": {}, "pages/account/404": {}, "pages/order/orderdetail": {}, "pages/order/address": {}, "pages/order/pay": {}, "pages/order/fenjian": {}, "pages/shopcart/delivery": {}, "pages/shopcart/pay": {}, "pages/shopcart/address": {}, "pages/shopcart/shoplist": {}, "pages/user/accountmange": {}, "pages/user/accountadd": {}, "pages/user/accountedit": {}, "pages/user/modifypwd": {}, "pages/user/receipt": {}, "pages/user/invest": {}, "pages/user/investlist": {}, "pages/user/investrecord": {}, "pages/user/bill": {}, "pages/user/billdetail": {}, "pages/user/cash": {}, "pages/user/cashdetail": {}, "pages/user/myinfo": {}, "pages/user/bindphone": {}, "pages/user/userAddress": {}, "pages/user/address": {}, "pages/user/purchase_detail": {}, "pages/user/purchase_record": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "鼎好鲜生", "navigationBarBackgroundColor": "#F0F0F0", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": {}, "pages/tabar/classify": {}, "pages/tabar/order": {}, "pages/tabar/shopcart": {}, "pages/tabar/user": {}, "pages/index/shopdetail": {}, "pages/index/collect": {}, "pages/index/recommed": {}, "pages/index/newback": {}, "pages/index/search": {}, "pages/index/flashsale": {}, "pages/account/login": {}, "pages/account/selectway": {}, "pages/account/forget": {}, "pages/account/register": {}, "pages/account/service": {}, "pages/account/treaty": {}, "pages/account/bind": {}, "pages/account/404": {}, "pages/order/orderdetail": {}, "pages/order/address": {}, "pages/order/pay": {}, "pages/order/fenjian": {}, "pages/shopcart/delivery": {}, "pages/shopcart/pay": {}, "pages/shopcart/address": {}, "pages/shopcart/shoplist": {}, "pages/user/accountmange": {}, "pages/user/accountadd": {}, "pages/user/accountedit": {}, "pages/user/modifypwd": {}, "pages/user/receipt": {}, "pages/user/invest": {}, "pages/user/investlist": {}, "pages/user/investrecord": {}, "pages/user/bill": {}, "pages/user/billdetail": {}, "pages/user/cash": {}, "pages/user/cashdetail": {}, "pages/user/myinfo": {}, "pages/user/bindphone": {}, "pages/user/userAddress": {}, "pages/user/address": {}, "pages/user/purchase_detail": {}, "pages/user/purchase_record": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": " ", "navigationBarBackgroundColor": "#F0F0F0", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 

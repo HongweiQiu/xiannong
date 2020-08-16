@@ -56,12 +56,12 @@
 						<view v-if="token">
 							<view v-if="config.is_look==1">
 								<text class="red_font">¥{{item.activity_price}}/{{item.unit}}</text>
-								<text class="line_through ten">￥{{item.price}}</text>
+								<text class="line_through ten">¥{{item.price}}</text>
 							</view>
-							<view v-else class="red_font">￥*** </view>
+							<view v-else class="red_font">¥*** </view>
 						</view>
 						<view v-else>
-							<text class="red_font">￥{{item.price}}/{{item.unit}}</text>
+							<text class="red_font">¥{{item.price}}/{{item.unit}}</text>
 						</view>
 					</view>
 					<view class="num_limit" v-if="item.num_limit!=0&&item.activity_num<=item.cart_num">

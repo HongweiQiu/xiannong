@@ -41,6 +41,10 @@ export default {
 .identifying_code {
 	width: 150rpx;
 	height: 38rpx;
+	/* #ifdef MP-ALIPAY */
+	line-height: 40rpx;
+	/* #endif */
+	
 	color: white;
 	border-radius: 6px;
 	text-align: center;

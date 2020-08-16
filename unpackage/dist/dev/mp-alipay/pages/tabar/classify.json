@@ -9,7 +9,6 @@
     "my-keyboard": "/components/keyboard/index",
     "my-addcart": "/components/addcart/index",
     "uni-drawer": "/components/uni-drawer/uni-drawer",
-    "my-tabar": "/components/tabar/index",
-    "my-mask": "/components/mask/index"
+    "my-tabar": "/components/tabar/index"
   }
 }

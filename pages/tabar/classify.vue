@@ -20,8 +20,9 @@
 				</view>
 				<view style="height: 99rpx;"></view>
 				<view v-if="bitmap">
-					<my-profile v-for="(item,index) in list" :key="index" :wares="item" :config="config" class="single_good" @showCart="openCart(item)"
-					 @showKey="showKey(item,index)"></my-profile>
+					<block >	<my-profile v-for="(item,index) in list" :key="index"  :wares="item" :config="config" class="single_good" @showCart="openCart(item)"
+					 @showKey="showKey(item,index)"></my-profile></block>
+				
 
 					<view class="my_loading">
 						<view class="loading" v-if="loading">
@@ -62,7 +63,7 @@
 			</view>
 		</uni-drawer>
 		<my-tabar tabarIndex=1></my-tabar>
-		<my-mask :masktabar="masktabar"></my-mask>
+	
 	</view>
 </template>
 
@@ -86,7 +87,7 @@
 		},
 		data() {
 			return {
-				masktabar: false,
+				waitLoad: false,
 				kind: 0,
 				active: -1,
 				activeTab: 0,
@@ -98,7 +99,9 @@
 				firstCate: [],
 				secondCate: [],
 				bitmap: true,
-				list: [],
+				list: [
+					{price:1}
+				],
 				config: [],
 				cartware: [],
 				arrObj: {},
@@ -121,9 +124,6 @@
 				this.$refs.popup.close();
 			},
 			toParent(e) {
-				
-				rs.showTabBar();
-				
 				let item = e.arrObj;
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
@@ -155,7 +155,6 @@
 			mpItem() {
 				this.list = [];
 				this.bitmap = true;
-
 				this.loading = true;
 				this.page = 1;
 				let timeStamp = Math.round(new Date().getTime() / 1000);
@@ -183,6 +182,7 @@
 				rs.getRequests('mpItemList', params, res => {
 					let data = res.data;
 					if (data.code == 200) {
+						
 						if (!firstId) {
 							firstId = data.data.firstCate[0].id;
 
@@ -205,7 +205,9 @@
 							if (this.kind == this.secondCate.length - 1) {
 								this.textInfo = parseHtml('没有更多呢');
 							} else {
-								this.textInfo = parseHtml("上滑或点击<span class='red_font'>" + this.secondCate[1].name + '</span>进入下一分类');
+								
+								this.textInfo = parseHtml("上滑或点击<span class='red_font'>" + this.secondCate[this.kind+1].name + '</span>进入下一分类');
+								console.log(this.secondCate)
 							}
 
 						} else {
@@ -213,8 +215,7 @@
 							this.loading = false;
 						}
 					}
-
-				});
+                   });
 			},
 			// 切换一级分类
 			changeFirst(index) {

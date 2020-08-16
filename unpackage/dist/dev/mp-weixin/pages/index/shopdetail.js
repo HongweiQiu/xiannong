@@ -500,8 +500,9 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       //单个商品详情
       _request.default.getRequests('getItemById', params, function (res) {
         var data = res.data;
-        _this2.waitLoad = true;
+
         if (data.code == 200) {
+          _this2.waitLoad = true;
           var classify = uni.getStorageSync('classify');
 
           var newclassify = [];var _iterator = _createForOfIteratorHelper(
@@ -515,7 +516,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
           uni.setStorageSync('classify', newclassify);
           // this.info = data.data.info;
           var infos = data.data.info.replace(/<img([\s\w"-=\/\.:;]+)/ig, '<img style="width: 100%;" $1');
-          console.log(infos);
+          // console.log(infos)
           _this2.info = (0, _parseHtml.default)(infos);
           _this2.ware = data.data;
           if (data.data.attr.length > 0) {

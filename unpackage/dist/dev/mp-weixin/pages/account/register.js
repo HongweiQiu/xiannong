@@ -241,7 +241,7 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
         uni.navigateTo({
           url: data });
 
-      }, 300);
+      }, 100);
 
     },
     // 滑动验证
@@ -447,17 +447,7 @@ app.navBar,appid = app.appid,appsecret = app.appsecret;var _default =
   },
   mounted: function mounted() {
     var that = this;
-    var bodyHeight, titleHeight, imgHeight;
-    uni.getSystemInfo({
-      success: function success(res) {// res - 各种参数
-        // that.logoHeight=res.windowHeight; // 屏幕的宽度 
-
-
-        that.height = res.windowHeight;
-
-
-      } });
-
+    that.height = uni.getStorageSync('scrollHeight');
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

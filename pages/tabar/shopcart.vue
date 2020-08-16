@@ -73,11 +73,11 @@
 					</view>
 					<view>
 						<view class="weight">小计</view>
-						<view class="weight margin_right">￥{{cartInfo.countPrice}}</view>
+						<view class="weight margin_right">¥{{cartInfo.countPrice}}</view>
 					</view>
 					<view>
 						<view class="weight">运费</view>
-						<view class="weight margin_right" v-if="cartInfo.fare!=0">￥{{cartInfo.fare}}</view>
+						<view class="weight margin_right" v-if="cartInfo.fare!=0">¥{{cartInfo.fare}}</view>
 						<view v-else class="gray_font margin_right">(免运费)</view>
 					</view>
 				</view>

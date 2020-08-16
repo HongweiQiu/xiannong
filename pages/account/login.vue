@@ -120,8 +120,8 @@
 				setTimeout(() => {
 					uni.navigateTo({
 						url: data
-					}), 300
-				})
+					})
+				, 300})
 
 			},
 			// 手机登录
@@ -370,7 +370,7 @@
 				if (this.count != 1) return;
 				setTimeout(() => {
 					this.count = 0
-				}, 500)
+				}, 1000)
 				uni.login({
 					provider: 'alipay',
 					scopes: 'auth_user',
@@ -464,14 +464,11 @@
 			rs.getRequests('indexAd', params, res => {
 				let data = res.data;
 				if (data.code == 200) {
-					this.logo = data.data.logo;
-					// #ifdef H5
+					this.logo = data.data.logo;	
 					uni.setStorageSync('titleKey', data.data.title);
 					uni.setNavigationBarTitle({
 						title: uni.getStorageSync('titleKey')
 					});
-					// #endif
-
 				}
 			});
 
@@ -525,7 +522,7 @@
 			uni.getSystemInfo({
 				success: function(res) { // res - 各种参数
 					// that.logoHeight=res.windowHeight; // 屏幕的宽度 
-					
+					uni.setStorageSync('scrollHeight',res.windowHeight);
 					let info = uni.createSelectorQuery().select('.logo_width');
 					info.boundingClientRect(function(data) { //data - 各种参数
 					imgHeight=data.height; // 获取元素宽度

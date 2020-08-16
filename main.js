@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import App from './App'
+import share from'./static/js/mixin_share.js';
+Vue.mixin(share)
 
 Vue.config.productionTip = false
 
