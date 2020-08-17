@@ -1,6 +1,6 @@
 <template>
 	<div :class="{quantity:show}" class="detection">
-
+         <div :style="{'height':show?'10px':'0'}"></div>
 		<div v-if="show" class="table">
 			
 			<table width="92%">
@@ -122,7 +122,7 @@
 	.audit>p{margin-top:10px;}
 	.quantity {
 		background: #C5E3D0;
-		padding: 3% 0 8%;
+		/* padding: 3% 0 0%; */
 	}
 
 	.quantity .table table {
@@ -135,7 +135,7 @@
 		    width: 93%;
 		    background: white;
 		    margin: 0 auto;
-		    height: 82%;
+		    height: 80%;
 		    display: flex;
 		    justify-content: space-between;
 		    flex-direction: column;
@@ -199,15 +199,19 @@
 		width: 30%;
 	}
 
+	
+
 	.detection address {
 		font-style: normal;
-		/* position: fixed; */
+
 		font-size: 10px;
-		margin: 10% auto 0;
+		/* margin: 5% auto 0; */
 		width: 100%;
 		text-align: center;
-		bottom: 10%;
+		bottom: 60px;
+		position: fixed;
 	}
+
 
 	body {
 		height: 100% !important;

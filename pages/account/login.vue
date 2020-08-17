@@ -526,8 +526,13 @@
 					let info = uni.createSelectorQuery().select('.logo_width');
 					info.boundingClientRect(function(data) { //data - 各种参数
 					imgHeight=data.height; // 获取元素宽度
-					
-				that.logoHeight=res.windowHeight-44-imgHeight;
+					// #ifdef APP-PLUS
+					let titleHeight=70;
+					// #endif
+					// #ifndef APP-PLUS
+					let titleHeight=44;
+					// #endif
+				that.logoHeight=res.windowHeight-titleHeight-imgHeight;
 					}).exec();
 					
 				}

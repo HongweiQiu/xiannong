@@ -213,7 +213,7 @@
 
 	.order_detail .pay_info>view:nth-child(n + 2)>view:first-child,
 	.order_detail .money_info>view:nth-child(n + 2)>view:first-child {
-		width: 100rpx;
+		width: 120rpx;
 		text-align: right;
 	}
 

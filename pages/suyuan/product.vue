@@ -1,5 +1,6 @@
 <template>
 	<div class="product">
+		<div :style="{'height':details?'10rpx':0}"></div>
 		<h1 v-if="details">商品展示</h1>
 		<!--        有描述时-->
 		<div class="describle" v-if="details">
@@ -91,7 +92,7 @@
 		font-weight: normal;
 		font-size: 40rpx;
 		padding-left: 2%;
-		margin:1% 3% 0;
+		margin:0% 3% ;
 	}
 
 	.product .describle img {
@@ -149,14 +150,14 @@
 		width: 94%;font-style: normal;
 		bottom: 5.5%;
 	}
-
+.product .none{padding:20rpx;}
 	.product .none div {
-		font-size: 14px;
+		font-size: 28rpx;
 	}
-
+.product .none>>>img{object-fit: contain;width:100%;}
 	.product .none address {
 		font-size: 10px;font-style: normal;
 		text-align: center;
-		padding: 3% 0 21% 0;
+		
 	}
 </style>

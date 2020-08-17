@@ -120,9 +120,9 @@
 	.journey address {
 		text-align: center;
 		font-size: 10px;
-		padding: 8% 0;
+		/* padding: 8% 0; */
 		position: fixed;
-		bottom: 5.5%;
+		bottom: 60px;
 		width: 100%;font-style: normal;
 	}
 

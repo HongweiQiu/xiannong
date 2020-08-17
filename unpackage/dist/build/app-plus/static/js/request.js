@@ -35,8 +35,8 @@ function getRequest(url, datas, success) {
 				data: Object.assign(datas, active),
 				success: res => {
 					success(res)
-					if (res.header.Authorization != undefined) {
-						uni.setStorageSync("cdj_token", res.header.Authorization)
+					if (res.header.authorization != undefined) {
+						uni.setStorageSync("cdj_token", res.header.authorization)
 					}
 					if (res.data.code == 400) {
 						uni.showToast({
@@ -81,7 +81,11 @@ function getRequest(url, datas, success) {
 }
 
 //get请求
-function getRequests(url, datas, success) {
+function getRequests(url, datas, success) {   
+	
+                    uni.setNavigationBarTitle({
+                        title: uni.getStorageSync('titleKey')
+                    });
 	uni.request({
 		url: rootDocment + url,
 		method: 'GET',
@@ -93,9 +97,11 @@ function getRequests(url, datas, success) {
 		data: Object.assign(datas, active),
 		success: res => {
 			success(res)
-			if (res.header.Authorization != undefined) {
-				uni.setStorageSync("cdj_token", res.header.Authorization)
+			if (res.header.authorization != undefined) {
+				uni.setStorageSync("cdj_token", res.header.authorization);
+				
 			}
+				
 			if (res.data.code == 401) {
 				uni.navigateTo({
 					url: '/pages/account/login'
@@ -122,6 +128,7 @@ function getRequests(url, datas, success) {
 		},
 
 	})
+
 }
 
 /***
@@ -148,8 +155,8 @@ function postRequest(url, datas, success) {
 				data: Object.assign(datas, active),
 				success: res => {
 					success(res)
-					if (res.header.Authorization != undefined) {
-						uni.setStorageSync("cdj_token", res.header.Authorization)
+					if (res.header.authorization != undefined) {
+						uni.setStorageSync("cdj_token", res.header.authorization)
 					}
 					if (res.data.code == 400) {
 						uni.showToast({
@@ -213,6 +220,9 @@ function postRequest(url, datas, success) {
 }
 //POST请求不带加载中
 function postRequests(url, datas, success) {
+	uni.setNavigationBarTitle({
+	    title: uni.getStorageSync('titleKey')
+	});
 	uni.request({
 		url: rootDocment + url,
 		method: 'POST',
@@ -224,8 +234,9 @@ function postRequests(url, datas, success) {
 		data: Object.assign(datas, active),
 		success: res => {
 			success(res)
-			if (res.header.Authorization != undefined) {
-				uni.setStorageSync("cdj_token", res.header.Authorization)
+		
+			if (res.header.authorization != undefined) {
+				uni.setStorageSync("cdj_token", res.header.authorization)
 			}
 			if (res.data.code == 401) {
 
@@ -322,8 +333,12 @@ function MP(ak) {
 	})
 
 }
-
-
+function hideTabBar(){
+	// uni.hideTabBar()
+}
+function showTabBar(){
+	// uni.showTabBar()
+}
 
 module.exports = {
 	getRequest: getRequest,
@@ -331,6 +346,8 @@ module.exports = {
 	postRequest: postRequest,
 	postRequests: postRequests,
 	Toast: Toast,
+	hideTabBar:hideTabBar,
+	showTabBar:showTabBar,
 	header: header, //请求头部
 	objKeySort: objKeySort, //加密排序
 	thedefaulttime: thedefaulttime, //加密排序

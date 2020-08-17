@@ -25,7 +25,6 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-/* 注意要写在第一行，同时给style标签加入lang="scss"属性 */
 /*每个页面公共css */
 @font-face {
   font-family: 'iconfont';

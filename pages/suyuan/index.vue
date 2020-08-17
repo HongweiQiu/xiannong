@@ -204,15 +204,27 @@
 		text-align: center;
 	}
 
+	
+@media (max-height:700px) {
 	.suyuan_index address {
 		font-size: 10px;
 	font-style: normal;
-		bottom: 10%;
-		margin-top: 11%;
+		bottom: 60px;
+		position: fixed;
 		text-align: center;
 		width: 100%;
 	}
-
+}
+@media (min-height:700px) {
+	.suyuan_index address {
+		font-size: 10px;
+	font-style: normal;
+		bottom: 60px;
+		position: fixed;
+		text-align: center;
+		width: 100%;
+	}
+}
 	.suyuan_index table {
 		width: 100%;
 	}

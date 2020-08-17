@@ -19,7 +19,7 @@
 			// #ifdef H5
 			isWeixin: false,
 			rootUrl: '/api', //主接口地址
-			imgRemote: 'http://test.caidj.cn/',
+			// imgRemote: 'http://test.caidj.cn/',
 			// rootUrl: window.location.protocol + "//" + window.location.hostname, //线上地址
 			// imgRemote: window.location.protocol + "//" + window.location.hostname,
 			// #endif
@@ -42,110 +42,110 @@
 	};
 </script>
 
-<style lang="scss">
-	/* 注意要写在第一行，同时给style标签加入lang="scss"属性 */
-
-		
+<style lang="scss">	
 	/*每个页面公共css */
 	@font-face {
-		font-family: 'iconfont';
-		/* project id 1843139 */
-		src: url('https://at.alicdn.com/t/font_1843139_qglkn6qh8t.eot');
-		src: url('https://at.alicdn.com/t/font_1843139_qglkn6qh8t.eot?#iefix') format('embedded-opentype'),
-			url('https://at.alicdn.com/t/font_1843139_qglkn6qh8t.woff2') format('woff2'),
-			url('https://at.alicdn.com/t/font_1843139_qglkn6qh8t.woff') format('woff'),
-			url('https://at.alicdn.com/t/font_1843139_qglkn6qh8t.ttf') format('truetype'),
-			url('https://at.alicdn.com/t/font_1843139_qglkn6qh8t.svg#iconfont') format('svg');
+	  font-family: 'iconfont';  /* project id 1843139 */
+	  src: url('https://at.alicdn.com/t/font_1843139_8saln554dz3.eot');
+	  src: url('https://at.alicdn.com/t/font_1843139_8saln554dz3.eot?#iefix') format('embedded-opentype'),
+	  url('https://at.alicdn.com/t/font_1843139_8saln554dz3.woff2') format('woff2'),
+	  url('https://at.alicdn.com/t/font_1843139_8saln554dz3.woff') format('woff'),
+	  url('https://at.alicdn.com/t/font_1843139_8saln554dz3.ttf') format('truetype'),
+	  url('https://at.alicdn.com/t/font_1843139_8saln554dz3.svg#iconfont') format('svg');
 	}
-
+	
 	.iconfont {
-		font-family: "iconfont" !important;
-		font-size: 16px;
-		font-style: normal;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
+	  font-family: "iconfont" !important;
+	  font-size: 16px;
+	  font-style: normal;
+	  -webkit-font-smoothing: antialiased;
+	  -moz-osx-font-smoothing: grayscale;
 	}
-
+	
+	.icon-yuandian:before {
+	  content: "\e7c2";
+	}
+	
 	.icon-zhifubaorenzheng:before {
-		content: "\e625";
+	  content: "\e625";
 	}
-
+	
 	.icon-sousuo:before {
-		content: "\e60f";
+	  content: "\e60f";
 	}
-
+	
 	.icon-fenxiang:before {
-		content: "\e623";
+	  content: "\e623";
 	}
-
+	
 	.icon-buy-fill:before {
-		content: "\e64c";
+	  content: "\e64c";
 	}
-
+	
 	.icon-huidaodingbu:before {
-		content: "\e6c0";
+	  content: "\e6c0";
 	}
-
+	
 	.icon-alreadystar:before {
-		content: "\e624";
+	  content: "\e624";
 	}
-
+	
 	.icon-xing:before {
-		content: "\e600";
+	  content: "\e600";
 	}
-
+	
 	.icon-tianchongxing--:before {
-		content: "\e614";
+	  content: "\e614";
 	}
-
+	
 	.icon-mima:before {
-		content: "\e645";
+	  content: "\e645";
 	}
-
+	
 	.icon-yuyin:before {
-		content: "\e631";
+	  content: "\e631";
 	}
-
+	
 	.icon-08_zizhanghaoguanli:before {
-		content: "\e630";
+	  content: "\e630";
 	}
-
+	
 	.icon-shanchu:before {
-		content: "\e663";
+	  content: "\e663";
 	}
-
+	
 	.icon-qianbao:before {
-		content: "\e604";
+	  content: "\e604";
 	}
-
+	
 	.icon-juan:before {
-		content: "\e64b";
+	  content: "\e64b";
 	}
-
+	
 	.icon-huabanfuben:before {
-		content: "\e65d";
+	  content: "\e65d";
 	}
-
+	
 	.icon-X:before {
-		content: "\e674";
+	  content: "\e674";
 	}
-
+	
 	.icon-weixin:before {
-		content: "\e637";
+	  content: "\e637";
 	}
-
+	
 	.icon-yonghu:before {
-		content: "\e603";
+	  content: "\e603";
 	}
-
+	
 	.icon-fapiao:before {
-		content: "\e720";
+	  content: "\e720";
 	}
-
+	
 	.icon-tuichu:before {
-		content: "\e69e";
+	  content: "\e69e";
 	}
-
+	
 
 
 
