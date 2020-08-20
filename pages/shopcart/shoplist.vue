@@ -162,7 +162,10 @@
 			},
 			leftClick() {
 				// #ifdef H5
-				window.history.back(-1);
+			
+					window.history.back(-1);
+			
+				
 				// #endif 
 				// #ifndef H5
 				uni.navigateBack({

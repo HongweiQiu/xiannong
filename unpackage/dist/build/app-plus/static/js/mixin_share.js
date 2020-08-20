@@ -1,3 +1,4 @@
+
 export default {
 	data() {
 		return {
@@ -8,6 +9,7 @@ export default {
 			}
 		}
 	},
+	
 	onShareAppMessage(res) {
 		return {
 		

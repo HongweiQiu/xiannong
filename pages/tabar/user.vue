@@ -249,7 +249,7 @@
 										"title": data.share_title
 									}, function(res) { /*** 回调函数，最好设置为空 ***/
 										this.hShare = false
-										console.log(res)
+										// console.log(res)
 									});
 
 								});

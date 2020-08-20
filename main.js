@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import App from './App'
 import share from'./static/js/mixin_share.js';
+// #ifdef MP-WEIXIN
 Vue.mixin(share)
+// #endif
+
 
 Vue.config.productionTip = false
 

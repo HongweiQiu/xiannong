@@ -315,7 +315,7 @@
 							encryptedData,
 							iv
 						} = infoRes;
-						console.log(infoRes);
+						// console.log(infoRes);
 						uni.login({
 							provider: 'weixin',
 							success(res) {
@@ -379,6 +379,10 @@
 						uni.getUserInfo({
 							success(infos) {
 								console.log(infos);
+								if(!infos.avatar){
+									rs.Toast('登录失败，请重试')
+									return;
+								}
 								let timeStamp = Math.round(new Date().getTime() / 1000);
 								let obj = {
 									appid: appid,

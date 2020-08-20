@@ -207,7 +207,7 @@
 							} else {
 								
 								this.textInfo = parseHtml("上滑或点击<span class='red_font'>" + this.secondCate[this.kind+1].name + '</span>进入下一分类');
-								console.log(this.secondCate)
+								// console.log(this.secondCate)
 							}
 
 						} else {

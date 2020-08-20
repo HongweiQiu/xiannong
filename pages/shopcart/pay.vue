@@ -103,7 +103,13 @@
 				setTimeout(() => {
 					this.count = 0
 				}, 1000)
+				
+				// #ifdef MP-ALIPAY
+				rs.Toast('该账号未绑定支付宝，请先绑定再来支付');
+				// #endif
+				// #ifndef MP-ALIPAY
 				rs.Toast('该账号未绑定微信，请先绑定再来支付');
+				// #endif
 				setTimeout(() => {
 					uni.switchTab({
 						url: '/pages/tabar/user'

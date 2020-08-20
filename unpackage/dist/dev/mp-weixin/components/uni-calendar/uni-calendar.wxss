@@ -25,7 +25,7 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.uni-calendar.data-v-f632ecd6 {
+.uni-calendar.data-v-21a99d64 {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -34,7 +34,7 @@
   -webkit-flex-direction: column;
           flex-direction: column;
 }
-.uni-calendar__mask.data-v-f632ecd6 {
+.uni-calendar__mask.data-v-21a99d64 {
   position: fixed;
   bottom: 0;
   top: 0;
@@ -48,10 +48,10 @@
   opacity: 0;
   z-index: 99;
 }
-.uni-calendar--mask-show.data-v-f632ecd6 {
+.uni-calendar--mask-show.data-v-21a99d64 {
   opacity: 1;
 }
-.uni-calendar--fixed.data-v-f632ecd6 {
+.uni-calendar--fixed.data-v-21a99d64 {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -66,14 +66,14 @@
           transform: translateY(460px);
   z-index: 99;
 }
-.uni-calendar--ani-show.data-v-f632ecd6 {
+.uni-calendar--ani-show.data-v-21a99d64 {
   -webkit-transform: translateY(0);
           transform: translateY(0);
 }
-.uni-calendar__content.data-v-f632ecd6 {
+.uni-calendar__content.data-v-21a99d64 {
   background-color: #fff;
 }
-.uni-calendar__header.data-v-f632ecd6 {
+.uni-calendar__header.data-v-21a99d64 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -93,7 +93,7 @@
   border-bottom-style: solid;
   border-bottom-width: 1px;
 }
-.uni-calendar--fixed-top.data-v-f632ecd6 {
+.uni-calendar--fixed-top.data-v-21a99d64 {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -108,10 +108,10 @@
   border-top-style: solid;
   border-top-width: 1px;
 }
-.uni-calendar--fixed-width.data-v-f632ecd6 {
+.uni-calendar--fixed-width.data-v-21a99d64 {
   width: 50px;
 }
-.uni-calendar__backtoday.data-v-f632ecd6 {
+.uni-calendar__backtoday.data-v-21a99d64 {
   position: absolute;
   right: 0;
   top: 25rpx;
@@ -125,13 +125,13 @@
   color: #333;
   background-color: #f1f1f1;
 }
-.uni-calendar__header-text.data-v-f632ecd6 {
+.uni-calendar__header-text.data-v-21a99d64 {
   text-align: center;
   width: 100px;
   font-size: 28rpx;
   color: #333;
 }
-.uni-calendar__header-btn-box.data-v-f632ecd6 {
+.uni-calendar__header-btn-box.data-v-21a99d64 {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -148,7 +148,7 @@
   width: 50px;
   height: 50px;
 }
-.uni-calendar__header-btn.data-v-f632ecd6 {
+.uni-calendar__header-btn.data-v-21a99d64 {
   width: 10px;
   height: 10px;
   border-left-color: #808080;
@@ -158,15 +158,15 @@
   border-top-style: solid;
   border-top-width: 2px;
 }
-.uni-calendar--left.data-v-f632ecd6 {
+.uni-calendar--left.data-v-21a99d64 {
   -webkit-transform: rotate(-45deg);
           transform: rotate(-45deg);
 }
-.uni-calendar--right.data-v-f632ecd6 {
+.uni-calendar--right.data-v-21a99d64 {
   -webkit-transform: rotate(135deg);
           transform: rotate(135deg);
 }
-.uni-calendar__weeks.data-v-f632ecd6 {
+.uni-calendar__weeks.data-v-21a99d64 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -176,12 +176,12 @@
   -webkit-flex-direction: row;
           flex-direction: row;
 }
-.uni-calendar__weeks-item.data-v-f632ecd6 {
+.uni-calendar__weeks-item.data-v-21a99d64 {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
           flex: 1;
 }
-.uni-calendar__weeks-day.data-v-f632ecd6 {
+.uni-calendar__weeks-day.data-v-21a99d64 {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
           flex: 1;
@@ -203,13 +203,13 @@
   border-bottom-style: solid;
   border-bottom-width: 1px;
 }
-.uni-calendar__weeks-day-text.data-v-f632ecd6 {
+.uni-calendar__weeks-day-text.data-v-21a99d64 {
   font-size: 14px;
 }
-.uni-calendar__box.data-v-f632ecd6 {
+.uni-calendar__box.data-v-21a99d64 {
   position: relative;
 }
-.uni-calendar__box-bg.data-v-f632ecd6 {
+.uni-calendar__box-bg.data-v-21a99d64 {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -225,7 +225,7 @@
   right: 0;
   bottom: 0;
 }
-.uni-calendar__box-bg-text.data-v-f632ecd6 {
+.uni-calendar__box-bg-text.data-v-21a99d64 {
   font-size: 200px;
   font-weight: bold;
   color: #999;

@@ -54,6 +54,7 @@
 					<view>
 						<view>
 							<view>{{item.item_title}}</view>
+							<!-- <view>{{item.describe}}</view> -->
 							<view class="hidden"><text class="red_tag" v-for="(label,index) in item.label" :key="index">{{label}}</text></view>
 						</view>
 						<view class="price">

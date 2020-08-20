@@ -52,19 +52,23 @@
 				navBar: navBar,
 				lat: '',
 				lng: '',
-				count:0
+				count: 0
 			};
 		},
 		methods: {
 			leftClick() {
-				uni.switchTab({
-					url: '../tabar/shopcart'
-				})
+				uni.hideKeyboard();
+				setTimeout(() => {
+					uni.switchTab({
+						url: '../tabar/shopcart'
+					})
+				}, 100)
+
 			},
 			mapPage() {
 				let that = this;
 				// #ifdef H5
-				
+
 				uni.navigateTo({
 					url: `address?contact=${this.contact}&mobile=${this.mobile}&address=${this.address}&details=${this.details}&lat=${that.lat}&lng=${that.lng}`
 				})
@@ -118,8 +122,10 @@
 					return;
 				}
 				this.count++;
-				if(this.count!=1)return;
-				setTimeout(()=>{this.count=0},500)
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 500)
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -151,22 +157,22 @@
 		},
 		onLoad(option) {
 			this.childzid = option.childzid;
-			this.contact = option.contact;
-			this.mobile = option.mobile;
-			this.address = option.address;
-			this.details = option.details;
+		
+			 this.contact = option.contact=='null'?'':option.contact;
+			this.mobile = option.mobile=='null'?'':option.mobile;
+			this.address = option.address=='null'?'':option.address;
+			this.details = option.details=='null'?'':option.details;
 			let count = option.count || 1;
 			// console.log(option.count)
 			if (count == 1) {
-				
-					this.memberAddressInfo()
+				this.memberAddressInfo()
 			}
 		},
-onShow() {
-	uni.setNavigationBarTitle({
-		    title: uni.getStorageSync('titleKey')
-		});
-}
+		onShow() {
+			uni.setNavigationBarTitle({
+				title: uni.getStorageSync('titleKey')
+			});
+		}
 
 
 	};
@@ -196,8 +202,14 @@ onShow() {
 		width: 384rpx;
 		height: 64rpx;
 		line-height: 64rpx;
-		
+
 	}
-	.delivery input{padding:0;}
-	.delivery text-no-space{white-space: pre-line;}
+
+	.delivery input {
+		padding: 0;
+	}
+
+	.delivery text-no-space {
+		white-space: pre-line;
+	}
 </style>

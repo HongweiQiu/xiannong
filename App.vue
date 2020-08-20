@@ -13,15 +13,15 @@
 			active: '2',
 			appsecret: 'StJfzJcXmya6k6Ar',
 			// #ifdef APP-PLUS |MP-WEIXIN |MP-ALIPAY
-			rootUrl: 'https://test.caidj.cn', //主接口地址
-			imgRemote: 'https://test.caidj.cn',
+			rootUrl: 'https://dnkj.caidj.cn', //主接口地址
+			imgRemote: 'https://dnkj.caidj.cn',
 			// #endif 
 			// #ifdef H5
 			isWeixin: false,
-			rootUrl: '/api', //主接口地址
+			// rootUrl: '/api', //主接口地址
 			// imgRemote: 'http://test.caidj.cn/',
-			// rootUrl: window.location.protocol + "//" + window.location.hostname, //线上地址
-			// imgRemote: window.location.protocol + "//" + window.location.hostname,
+			rootUrl: window.location.protocol + "//" + window.location.hostname, //线上地址
+			imgRemote: window.location.protocol + "//" + window.location.hostname,
 			// #endif
 			classId: '',
 			isReload: true,

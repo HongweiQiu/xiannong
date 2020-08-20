@@ -2269,7 +2269,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-uni-view",
-    { staticClass: _vm._$g(0, "sc"), attrs: { _i: 0 } },
+    { staticClass: _vm._$g(0, "sc"), style: _vm._$g(0, "s"), attrs: { _i: 0 } },
     [
       _c(
         "v-uni-view",
@@ -19173,7 +19173,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.delivery .get_info {\n\tbackground: white;\n\tpadding: 0 20rpx;\n\tmargin-top: 10rpx;\n}\n.delivery .get_info>uni-view {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\theight: 80rpx;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\tborder-bottom: 1px solid #f7f6f6;\n}\n.delivery .get_info>uni-view>uni-text {\n\twidth: 150rpx;\n\tcolor: #808080;\n}\n.delivery .button_style {\n\tfont-size: 32rpx;\n\twidth: 384rpx;\n\theight: 64rpx;\n\tline-height: 64rpx;\n}\n.delivery uni-input{padding:0;}\n.delivery text-no-space{white-space: pre-line;}\n", ""]);
+exports.push([module.i, "\n.delivery .get_info {\n\tbackground: white;\n\tpadding: 0 20rpx;\n\tmargin-top: 10rpx;\n}\n.delivery .get_info>uni-view {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\theight: 80rpx;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\tborder-bottom: 1px solid #f7f6f6;\n}\n.delivery .get_info>uni-view>uni-text {\n\twidth: 150rpx;\n\tcolor: #808080;\n}\n.delivery .button_style {\n\tfont-size: 32rpx;\n\twidth: 384rpx;\n\theight: 64rpx;\n\tline-height: 64rpx;\n}\n.delivery uni-input {\n\tpadding: 0;\n}\n.delivery text-no-space {\n\twhite-space: pre-line;\n}\n", ""]);
 // Exports
 module.exports = exports;
 

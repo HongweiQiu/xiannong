@@ -1,6 +1,6 @@
 <template>
 
-	<view class="recomend_single">
+	<view class="recomend_single" :style="{'height':config.logo&&config.shuiyin==1?'414rpx':'360rpx'}">
 		<view @click="detail">
 			<view>
 				<image :src="config.logo" mode="aspectFit" class="shuiyin" v-if="config.logo&&config.shuiyin==1"></image>

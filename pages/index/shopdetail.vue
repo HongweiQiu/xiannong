@@ -37,7 +37,7 @@
 			</view>
 			<view class="info">
 				<view class="">{{ware.title}}</view>
-				<view class="gray_font" v-if="ware.desribe">{{ware.desribe}}</view>
+				<view class="gray_font" v-if="ware.describe">{{ware.describe}}</view>
 				<view class="align_center">
 					<view v-for="(item, index) in ware.label" :key="index" class="red_tag">{{item}}</view>
 					<view class="gift_info" v-if="ware.is_activity==3||attrspec.is_activity==3">

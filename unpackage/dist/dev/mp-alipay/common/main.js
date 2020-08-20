@@ -9,9 +9,9 @@
 "use strict";
 /* WEBPACK VAR INJECTION */(function(createApp) {__webpack_require__(/*! uni-pages */ 4);var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 5));
+var _mixin_share = _interopRequireDefault(__webpack_require__(/*! ./static/js/mixin_share.js */ 11));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
 
-var _uviewUi = _interopRequireDefault(__webpack_require__(/*! uview-ui */ 11));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
-_vue.default.use(_uviewUi.default);
+
 
 
 
@@ -65,7 +65,7 @@ var component = Object(_D_QMDownload_SoftMgr_HBuilderX_plugins_uniapp_cli_node_m
   renderjs
 )
 
-component.options.__file = "E:/desktop/uniapp/App.vue"
+component.options.__file = "App.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
@@ -107,8 +107,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     active: '2',
     appsecret: 'StJfzJcXmya6k6Ar',
 
-    rootUrl: 'https://test.caidj.cn', //主接口地址
-    imgRemote: 'https://test.caidj.cn',
+    rootUrl: 'https://dnkj.caidj.cn', //主接口地址
+    imgRemote: 'https://dnkj.caidj.cn',
 
 
 
@@ -163,4 +163,3 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ })
 ],[[0,"common/runtime","common/vendor"]]]);
-//# sourceMappingURL=../../.sourcemap/mp-alipay/common/main.js.map

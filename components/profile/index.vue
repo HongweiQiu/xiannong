@@ -170,7 +170,6 @@
 				});
 			},
 			minus(e) {
-				this.ware.cart_num--;
 				if (e == 0) {
 					this.addcart('deleteCart', e, '成功删除商品');
 				} else {
@@ -178,18 +177,13 @@
 				}
 			},
 			plus(e) {
-				this.ware.cart_num++;
 				this.addcart('changeNum', e);
-
 			},
 			plusCart() {
-				this.ware.cart_num = 1;
+				
 				this.addcart('changeNum', 1);
 			},
 			showKey() {
-				// #ifdef MP-WEIXIN
-				uni.hideTabBar();
-				// #endif
 				this.$emit('showKey')
 			},
 			detail() {
