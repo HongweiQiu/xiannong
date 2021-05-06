@@ -25,16 +25,16 @@
 			// #endif
 			classId: '',
 			isReload: true,
-			aplipay:true,
+			aplipay: true,
 			aData: {
 				show: true
 			}
 		},
 		onLaunch: function() {
-          
+
 		},
 		onShow: function() {
-			
+
 		},
 		onHide: function() {
 
@@ -42,118 +42,12 @@
 	};
 </script>
 
-<style lang="scss">	
-	/*每个页面公共css */
-	@font-face {
-	  font-family: 'iconfont';  /* project id 1843139 */
-	  src: url('https://at.alicdn.com/t/font_1843139_8saln554dz3.eot');
-	  src: url('https://at.alicdn.com/t/font_1843139_8saln554dz3.eot?#iefix') format('embedded-opentype'),
-	  url('https://at.alicdn.com/t/font_1843139_8saln554dz3.woff2') format('woff2'),
-	  url('https://at.alicdn.com/t/font_1843139_8saln554dz3.woff') format('woff'),
-	  url('https://at.alicdn.com/t/font_1843139_8saln554dz3.ttf') format('truetype'),
-	  url('https://at.alicdn.com/t/font_1843139_8saln554dz3.svg#iconfont') format('svg');
-	}
-	
-	.iconfont {
-	  font-family: "iconfont" !important;
-	  font-size: 16px;
-	  font-style: normal;
-	  -webkit-font-smoothing: antialiased;
-	  -moz-osx-font-smoothing: grayscale;
-	}
-	
-	.icon-yuandian:before {
-	  content: "\e7c2";
-	}
-	
-	.icon-zhifubaorenzheng:before {
-	  content: "\e625";
-	}
-	
-	.icon-sousuo:before {
-	  content: "\e60f";
-	}
-	
-	.icon-fenxiang:before {
-	  content: "\e623";
-	}
-	
-	.icon-buy-fill:before {
-	  content: "\e64c";
-	}
-	
-	.icon-huidaodingbu:before {
-	  content: "\e6c0";
-	}
-	
-	.icon-alreadystar:before {
-	  content: "\e624";
-	}
-	
-	.icon-xing:before {
-	  content: "\e600";
-	}
-	
-	.icon-tianchongxing--:before {
-	  content: "\e614";
-	}
-	
-	.icon-mima:before {
-	  content: "\e645";
-	}
-	
-	.icon-yuyin:before {
-	  content: "\e631";
-	}
-	
-	.icon-08_zizhanghaoguanli:before {
-	  content: "\e630";
-	}
-	
-	.icon-shanchu:before {
-	  content: "\e663";
-	}
-	
-	.icon-qianbao:before {
-	  content: "\e604";
-	}
-	
-	.icon-juan:before {
-	  content: "\e64b";
-	}
-	
-	.icon-huabanfuben:before {
-	  content: "\e65d";
-	}
-	
-	.icon-X:before {
-	  content: "\e674";
-	}
-	
-	.icon-weixin:before {
-	  content: "\e637";
-	}
-	
-	.icon-yonghu:before {
-	  content: "\e603";
-	}
-	
-	.icon-fapiao:before {
-	  content: "\e720";
-	}
-	
-	.icon-tuichu:before {
-	  content: "\e69e";
-	}
-	
-
-
-
-
+<style lang="scss">
+	@import url("static/icon/iconfont.css");
 
 	page {
 		background: #f8f6f9;
-		font-size: 28rpx;
+		font-size:30rpx;
 	}
 
 	.addcart image {
@@ -164,7 +58,7 @@
 	.white_b {
 		background: white;
 	}
-
+.padding-15{padding:0 30rpx;}
 	.status_bar {
 		/* background: white; */
 
@@ -192,9 +86,9 @@
 	}
 
 	.gray_font {
-		color: #808080;
+		color: #999;
 	}
-
+  
 	.flex {
 		display: flex;
 	}
@@ -205,13 +99,18 @@
 		justify-content: space-between;
 	}
 
+	.flex-column {
+		display: flex;
+		flex-direction: column;
+	}
+
 	.align_center {
 		display: flex;
 		align-items: center;
 	}
-
+.flex-full{flex:1;}
 	.line_through {
-		color: #808080;
+		color: #999;
 		text-decoration: line-through;
 	}
 
@@ -252,16 +151,16 @@
 	.recomend .title {
 		display: flex;
 		align-items: center;
-		height: 80rpx;
-		line-height: 80rpx;
-		background-image: linear-gradient(180deg, #fff, #f7f7f7);
+		justify-content: center;
+		height: 94rpx;
+		line-height: 94rpx;
 		padding: 0 20rpx;
 		margin-top: 10rpx;
 	}
 
 	.recomend .title .name {
-		margin: 0 12rpx;
-		font-size: 32rpx;
+		margin: 0 4rpx;
+		font-size: 36rpx;
 		font-weight: 600;
 	}
 
@@ -269,11 +168,11 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
-		padding: 0 20rpx;
+		padding: 0 30rpx;
 	}
 
 	.body .myc_recomend:nth-child(n+3) {
-		margin-top: 40rpx;
+		margin-top: 30rpx;
 	}
 
 	/* #ifdef MP-ALIPAY */
@@ -304,12 +203,44 @@
 		margin: 30rpx auto;
 	}
 
-	.twelve {
+	.red-font {
+		color: #F01D1D;
+	}
+
+	.fs-11 {
+		font-size: 22rpx;
+	}
+
+	.fs-12 {
 		font-size: 24rpx;
+	}
+
+	.fs-13 {
+		font-size: 26rpx;
+	}
+
+	.fs-15 {
+		font-size: 30rpx;
+	}
+
+	.fs-18 {
+		font-size: 36rpx;
+	}
+
+	.fs-23 {
+		font-size: 46rpx;
+	}
+   .r-15{border-radius: 10rpx;}
+	.bold {
+		font-weight: bold;
 	}
 
 	.ten {
 		font-size: 20rpx;
+	}
+
+	.m-color {
+		color: #57B127;
 	}
 
 	.fiveteen {
@@ -360,6 +291,10 @@
 	text-no-space {
 		white-space: nowrap
 	}
-	
-	
+	.pay-button{	height: 78rpx;
+			width: 184rpx;
+			display: inline-block;
+			text-align: center;
+			line-height: 78rpx;
+			border-radius: 39rpx;}
 </style>

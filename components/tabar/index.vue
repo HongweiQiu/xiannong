@@ -1,6 +1,5 @@
 <template>
 	<view v-if="masktabar">
-		<!-- <view style="position: fixed;width:100vw;height:60px;z-index:9999;bottom: 0;background: red;" v-show="masktabar"></view> -->
 		<view style="height:50px;"></view>
 		<view class="my_tabar">
 			<view v-for="(item, index) in tabList" :key="index" class="single_tabar" @click="pageUrl(item)">
@@ -39,12 +38,12 @@
 						img: imgPath + 'shopcart_green.png',
 						url: path + 'shopcart'
 					},
-					{
-						title: '订单',
-						inImg: imgPath + 'order_gray.png',
-						img: imgPath + 'order_green.png',
-						url: path + 'order'
-					},
+					// {
+					// 	title: '订单',
+					// 	inImg: imgPath + 'order_gray.png',
+					// 	img: imgPath + 'order_green.png',
+					// 	url: path + 'order'
+					// },
 					{
 						title: '我的',
 						inImg: imgPath + 'user_gray.png',
@@ -84,7 +83,7 @@
 					}
 				} else {
 					// #ifdef MP-WEIXIN
-					wx.reLaunch({
+					uni.switchTab({
 						url: data.url
 					});
 					// #endif
@@ -130,11 +129,11 @@
 	}
 
 	.my_tabar .single_tabar .color {
-		color: #009A44;
+		color: #57B127;
 	}
 
 	.my_tabar .single_tabar .incolor {
-		color: #808080;
+		color: #999;
 	}
 
 	/* #ifdef MP-ALIPAY */

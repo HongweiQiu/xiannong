@@ -1,28 +1,30 @@
 <template>
 	<view class="classify">
-		<my-search></my-search>
+		<my-search :show="false"></my-search>
 		<view class="classify_good">
 			<view class="left_area">
-				<view class="second_name" v-for="(item, index) in secondCate" :key="index" :class="kind == index ? 'is_active' : ''"
-				 @click="changeSecond(index)">
+				<view class="second_name" v-for="(item, index) in secondCate" :key="index"
+					:class="kind == index ? 'is_active' : ''" @click="changeSecond(index)">
 					<view class="left_border" v-if="kind == index"></view>
-					<view class="hidden">{{item.name}}</view>
+					<view class="hidden fs-13">{{item.name}}</view>
 				</view>
 			</view>
 			<view class="right_area">
 				<view class="first_name">
 
-					<my-s-tabs effect slot-title @change="changeFirst" class="mp_tab_width" activeColor="#009a44" lineColor="none"
-					 v-model="activeTab">
+					<my-s-tabs effect slot-title @change="changeFirst" class="mp_tab_width" activeColor="#57B127"
+						lineColor="none" v-model="activeTab">
 						<my-s-tab v-for="(item,index) of firstCate" :key="index">{{item.name}}</my-s-tab>
 					</my-s-tabs>
-					<uni-icons type="more-filled" size="18" color="#009a44" @click="showDraw"></uni-icons>
+					<!-- <uni-icons type="more-filled" size="18" color="#009a44" @click="showDraw"></uni-icons> -->
 				</view>
-				<view style="height: 99rpx;"></view>
+				<view style="height: 80rpx;"></view>
 				<view v-if="bitmap">
-					<block >	<my-profile v-for="(item,index) in list" :key="index"  :wares="item" :config="config" class="single_good" @showCart="openCart(item)"
-					 @showKey="showKey(item,index)"></my-profile></block>
-				
+					<block>
+						<my-profile v-for="(item,index) in list" :key="index" :wares="item" :config="config"
+							class="single_good" @showCart="openCart(item)" @showKey="showKey(item,index)"></my-profile>
+					</block>
+
 
 					<view class="my_loading">
 						<view class="loading" v-if="loading">
@@ -55,7 +57,8 @@
 			<!-- #endif -->
 			<view class="all_title">全部分类</view>
 			<view class="show_all_sort">
-				<text v-for="(item,index) in firstCate" :key="index" @click="selectSort(index)" :class="active==index?'select_back':''">{{item.name}}</text>
+				<text v-for="(item,index) in firstCate" :key="index" @click="selectSort(index)"
+					:class="active==index?'select_back':''">{{item.name}}</text>
 			</view>
 			<view class="option">
 				<view class="cancel" @click="cancelSort">取消</view>
@@ -63,7 +66,7 @@
 			</view>
 		</uni-drawer>
 		<my-tabar tabarIndex=1></my-tabar>
-	
+
 	</view>
 </template>
 
@@ -99,9 +102,9 @@
 				firstCate: [],
 				secondCate: [],
 				bitmap: true,
-				list: [
-					{price:1}
-				],
+				list: [{
+					price: 1
+				}],
 				config: [],
 				cartware: [],
 				arrObj: {},
@@ -117,10 +120,10 @@
 				rs.showTabBar();
 				this.$refs.keyboard.cancel();
 			},
-			cancelKey(){
-				
+			cancelKey() {
+
 				rs.showTabBar();
-			
+
 				this.$refs.popup.close();
 			},
 			toParent(e) {
@@ -182,7 +185,7 @@
 				rs.getRequests('mpItemList', params, res => {
 					let data = res.data;
 					if (data.code == 200) {
-						
+
 						if (!firstId) {
 							firstId = data.data.firstCate[0].id;
 
@@ -205,8 +208,9 @@
 							if (this.kind == this.secondCate.length - 1) {
 								this.textInfo = parseHtml('没有更多呢');
 							} else {
-								
-								this.textInfo = parseHtml("上滑或点击<span class='red_font'>" + this.secondCate[this.kind+1].name + '</span>进入下一分类');
+
+								this.textInfo = parseHtml("上滑或点击<span class='red_font'>" + this.secondCate[this
+									.kind + 1].name + '</span>进入下一分类');
 								// console.log(this.secondCate)
 							}
 
@@ -215,7 +219,7 @@
 							this.loading = false;
 						}
 					}
-                   });
+				});
 			},
 			// 切换一级分类
 			changeFirst(index) {
@@ -248,14 +252,14 @@
 			},
 			// 显示键盘
 			showKey(item, index) {
-				
+
 				this.arrObj = item;
 				this.index = index;
 				this.$refs.popup.open();
 			},
 			showDraw() {
 				this.$refs.drawer.open();
-				rs.hideTabBar()	
+				rs.hideTabBar()
 			},
 			selectSort(index) {
 				this.active = index;
@@ -293,15 +297,15 @@
 					this.firstId = classId
 				}
 				this.mpItem();
-			}else{
-				
+			} else {
+
 				this.list = uni.getStorageSync('classify');
-				
+
 			}
 		},
 		onHide() {
 			uni.setStorageSync('classify', this.list);
-			
+
 		},
 		onReachBottom() {
 			var that = this;
@@ -339,7 +343,8 @@
 						if (this.kind == this.secondCate.length - 1) {
 							this.textInfo = parseHtml("没有更多呢");
 						} else {
-							this.textInfo = parseHtml("上滑或点击<span class='red_font'>" + this.secondCate[this.kind + 1].name +
+							this.textInfo = parseHtml("上滑或点击<span class='red_font'>" + this.secondCate[this.kind +
+									1].name +
 								'</span>进入下一分类');
 						}
 					}
@@ -348,25 +353,23 @@
 		},
 		onLoad(e) {
 			app.isReload = true;
-		uni.hideTabBar();
+			uni.hideTabBar();
 		}
 	};
 </script>
 
-<style>
+<style scoped>
 	page {
 		background: white;
 	}
 
 	.classify .second_name {
 
-		height: 96rpx;
+		height: 80rpx;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: #f7f7f7;
-		border-bottom: 1px solid;
-		border-color: hsla(0, 0%, 59.2%, .1);
+		background: #F8F8F8;
 
 	}
 
@@ -375,17 +378,17 @@
 		z-index: 5;
 		/* padding-right: 20rpx; */
 		display: flex;
-		width: 75%;
+		width: 78.5%;
 		/* #ifdef APP-PLUS */
 		width: 73%;
 		/* #endif */
-		height: 98rpx;
+	
 		background: white;
 		align-items: center;
 	}
 
 	.classify .left_area {
-		width: 25%;
+		width: 21.5%;
 		position: fixed;
 		overflow-x: scroll;
 		background: #f7f7f7;
@@ -397,8 +400,8 @@
 	}
 
 	.classify .right_area {
-		width: 75%;
-		margin-left: 25%;
+		width:78.5%;
+		margin-left: 21.5%;
 	}
 
 	.classify>.classify_good {
@@ -412,15 +415,16 @@
 	}
 
 	.classify .is_active .left_border {
-		background: #009a44;
-		width: 12rpx;
-		height: 60rpx;
+		background: #57B127;
+		width: 4rpx;
+		height: 24rpx;
 		position: absolute;
 		left: 0;
+		border-radius: 2rpx;
 	}
 
 	.mp_tab_width {
-		width: 90%;
+		width: 96%;
 	}
 
 	/* #ifdef APP-PLUS |H5 */
@@ -539,4 +543,7 @@
 		line-height: 80rpx;
 		background: white;
 	}
+		/deep/ .s-tab-nav {background: #eee;border-radius: 20rpx;color:#999;margin-left:30rpx ;padding:2rpx 23rpx;font-size: 22rpx;}
+	/deep/ .is-active {background: #E9FFDD;border: 1px solid #57B127;}
+
 </style>

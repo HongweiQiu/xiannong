@@ -6,165 +6,76 @@
 		</view>
 		<view class="status_bar white_b"></view>
 		<!-- #endif -->
-		<view class="shopcart" v-if="cartInfo.countNum!=0">
-			<view class="cart_buy">
-				<!-- <view style="height:10px;background-color: #F8F6F9;"></view> -->
-				<!-- 送货地址 -->
-				<view class="deliver_address" @click="deliveryPage">
-					<view>
-						<text class="weight nickname">{{contact?contact:'请输入地址'}}</text>
-						<text>{{mobile?mobile:''}}</text>
-					</view>
-					<view class="detail_address">
-						<view class="align_center dizhi">
-							<view>
-								<image src="../../static/img/dizhi.png" mode="aspectFit"></image>
-							</view>
-							<view>{{address?address:''}}</view>
-						</view>
-						<view>
-							<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
-						</view>
+		<view class=" white_b  car-nav">
+			<view class="padding-15 flex_left_right"><text class="fs-15 bold">购物车</text>
+				<text class="fs-13 gray_font">编辑</text>
+			</view>
+		</view>
+		<view style="height: 88rpx;"></view>
+		<!-- <view class="shopcart" v-if="cartInfo.countNum!=0"> -->
+		<view class="shopcart" v-if="true">
+			<view class="good-num white_b">
+				<view>
+					<view v-for="(item,index) in itemList" :key="index" class="align_center sign-good">
+						<uni-icons class="check-button" :type="item.check?'checkbox-filled':'circle'"
+							:color="item.check?'#57B127':'#999'" size="14" @click="selectCheck(index)" />
+						<my-profile :wares="item" :config="config" class="single_good" @showCart="openCart(item)"
+							@showKey="showKey(item,index)"></my-profile>
 					</view>
 				</view>
-				<!-- 下单时间段 -->
-				<view class="order_time align_center">
-					<image src="../../static/img/clock.gif" mode="aspectFit"></image>
-					<text class="red_font">请在( {{cartInfo.open_time+'-'+cartInfo.end_time}})之间下单</text>
-				</view>
-				<view class="select_info">
-					<view>
-						<view class="weight">子账号</view>
-						<view class="gray_font" @click="selectAccount">
-							{{account}}
-							<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
-						</view>
-					</view>
-					<view>
-						<view class="weight">配送日期</view>
-						<view class="gray_font" @click="selectDate">
-							{{ sendDate }}
-							<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
-						</view>
-					</view>
-					<view>
-						<view class="weight">配送时间</view>
-						<view class="gray_font" @click="selectTime">
-							{{deliveryTime}}
-							<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
-						</view>
-					</view>
-					<view>
-						<view class="weight">商品列表</view>
-						<view class="gray_font" @click="shoplist">
-							单品备注
-							<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
-						</view>
-					</view>
-				</view>
-				<!-- 价格信息 -->
-				<view class="price_info">
-					<view v-if="cartInfo.is_child==0&&cartInfo.on_delivery==0">
-						<view class="weight">现金劵</view>
-						<view class="gray_font" @click="selectCash">
-							{{cash}}
-							<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
-						</view>
-					</view>
-					<view>
-						<view class="weight">小计</view>
-						<view class="weight margin_right">¥{{cartInfo.countPrice}}</view>
-					</view>
-					<view>
-						<view class="weight">运费</view>
-						<view class="weight margin_right" v-if="cartInfo.fare!=0">¥{{cartInfo.fare}}</view>
-						<view v-else class="gray_font margin_right">(免运费)</view>
-					</view>
-				</view>
-				<!-- 备注 -->
-				<view class="remark">
-					<text class="weight">备注</text>
-					<input placeholder="请告诉我们需要注意的地方" @focus="onFocus()" @blur="onBlur()" v-model="remark" placeholder-style="font-size:28rpx;" class="twelve remark_note"
-					 show-confirm-bar=false />
-				</view>
-				<!-- 下单 -->
-				<view class="order_method" v-if="display">
-					<view class="flex_left_right active_info" v-if="cartInfo.activity_type==1" @click="collectBill">
-						<view>
-							<rich-text :nodes="reduce"></rich-text>
-						</view>
-						<view class="red_font">
+				<view class="flex_left_right go-bill fs-11">
+					<view> 实付满99元免运费，还差<text class="red-font">78.8</text>元</view>
+					<navigator url="/pages/shopcart/goodbill">
+						<view class="red-font">
 							去凑单
-							<uni-icons type="arrowright" size="18" color="red"></uni-icons>
+							<uni-icons type="arrowright" size="11" color="#F01D1D" class="bold" />
 						</view>
+					</navigator>
+
+
+				</view>
+			</view>
+			<view class="new-order">
+				<view class="flex_left_right submit white_b">
+					<view class="align_center">
+						<uni-icons class="check-button" :type="allCheck?'checkbox-filled':'circle'"
+							:color="allCheck?'#57B127':'#999'" size="20" @click="allCheckGood" />
+
+						<text class="fs-15" style="margin-left:30rpx;">全选</text>
 					</view>
-					<view class="flex_left_right price_order">
-						<view class="flex total_price">
-							<view class="cart_num">
-								<view class="gray_font">共{{cartInfo.countNum+gift}}件</view>
-								<view class="gift_num" v-if="gift==1">(含赠品1件)</view>
-							</view>
-							<view class="count">
-								<view>
-									<text class="weight">合计</text>
-									　<text style="margin:0 10rpx;">:</text>　
-									<text class="red_font">¥{{(cartInfo.totalPrice-juanPrice-cartInfo.discount).toFixed(2)}}</text>
-								</view>
-								<view class="real_price" v-if="cartInfo.discount!=0">¥{{cartInfo.totalPrice}}</view>
-							</view>
-						</view>
-						<view class="determine" @click="confirmOrder">确认下单</view>
+					<view class="align_center">
+						<text class="fs-13 gray_font">不含运费 合计：</text>
+						<text class="fs-18 red-font">￥0</text>
+						<text class="fs-15 gray_font  pay-button"
+							:class="settlement?'go-settle':'in-go-settle'" @click="shoplist">去结算</text>
+
 					</view>
 				</view>
 			</view>
-
-			<!-- 子账号 -->
-			<w-picker mode="selector" default-type="title" :default-props="childListProps" :options="childList" @confirm="onConfirmAccount($event, 'selector')"
-			 ref="account">
-				子账号
-			</w-picker>
-			<!-- 配送日期 -->
-			<w-picker mode="date" :value="sendDate" fields="day"   @confirm="onConfirmDate($event, 'date')" :startYear="startyear"
-			 endYear="2029" :disabled-before="true" ref="date">
-				配送日期
-			</w-picker>
-		
-			<!-- 配送时间-->
-			<w-picker mode="selector" default-type="title" :default-props="deliveryListProps" :options="deliveryList" @confirm="onConfirmDelivery($event, 'selector')"
-			 ref="delivery">
-				配送时间
-			</w-picker>
-			<!-- 现金券-->
-			<w-picker mode="selector" default-type="title" :default-props="couponsListProps" :options="couponsList" @confirm="onConfirmCash($event, 'selector')"
-			 ref="cash">
-				现金券
-			</w-picker>
-
-
+			<view style="height: 130rpx;"></view>
 		</view>
 		<view v-else class="null_cart">
 			<view class="null_img">
 				<image src="../../static/img/nullcart.png" mode="aspectFit"></image>
+				<view class="fs-15 gray_font" style="margin:61rpx 0 40rpx;">购物车里空空如也~</view>
+				<view class="go-shopping">去逛一逛</view>
 			</view>
 			<view class="recomend">
 				<view class="title">
-					<view class="line_border"></view>
-					<text class="name">为你推荐</text>
+
+					<text class="name align_center">猜你喜欢</text>
 				</view>
 				<view class="body">
-					<my-recomend v-for="(item, index) in itemList" :key="index" :ware="item" :config="config" @showCart="openCart(item)"
-					 class="myc_recomend"></my-recomend>
+					<my-recomend v-for="(item, index) in itemList" :key="index" :ware="item" :config="config"
+						@showCart="openCart(item)" class="myc_recomend"></my-recomend>
 				</view>
 				<my-loading :loading="loading"></my-loading>
 			</view>
 			<my-backtop bottom="60" :showTop="showTop"></my-backtop>
 
-			<uni-popup ref="popup" type="bottom" @maskInfo="closeCart">
-				<my-addcart @onClose="onClose" :cartware="cartware" :config="config" ref="addcart"></my-addcart>
-			</uni-popup>
+
 		</view>
 		<my-tabar tabarIndex=2 v-if="display"></my-tabar>
-		<my-mask :masktabar="masktabar"></my-mask>
 	</view>
 </template>
 
@@ -186,55 +97,13 @@
 
 	export default {
 		components: {
-			wPicker,ruiDatePicker
+			wPicker,
+			ruiDatePicker
 		},
 		data() {
 			return {
-					masktabar:false,
+
 				display: true,
-				scrollHeight: '',
-				newHeight: '',
-				title: '',
-				contact: '',
-				mobile: '',
-				address: '',
-				childzid: '',
-				childListProps: {
-					label: 'nickname',
-					value: 'zid'
-				},
-				childList: [{
-					zid: '',
-					nickname: '当前账号'
-				}],
-				deliveryListProps: {
-					label: 'delivery_time_info',
-					value: 'delivery_time_id'
-				},
-				deliveryList: [{
-					delivery_time_id: '',
-					delivery_time_info: '不限'
-				}],
-				couponsListProps: {
-					label: 'txt',
-					value: 'id'
-				},
-				couponsList: [{
-					id: '',
-					txt: '不使用'
-				}],
-				deliveryId: '',
-				deliveryTime: '不限',
-				account: '当前账号',
-				cash: '不使用',
-				couponsId: '',
-				juanPrice: 0,
-				sendDate: '',
-				startyear: '',
-				cartInfo: {
-					countNum: 0
-				},
-				reduce: '',
 				page: 1,
 				num: 10,
 				loading: true,
@@ -242,32 +111,41 @@
 				config: [],
 				cartware: [],
 				itemList: [],
-				remark: '',
-				gift: 0,
-				count: 0,
+				settlement: true,
+				allCheck: true
 			};
 		},
+
 		methods: {
-			// #ifdef H5
-			onFocus(){
-				if(uni.getSystemInfoSync().platform == 'ios'){
-					this.display=false;
+			selectCheck(index) {
+				if (index >= 0) {
+					this.itemList[index].check = !this.itemList[index].check;
 				}
+
+				this.settlement = this.itemList.some((item) => {
+					return item.check == true;
+				})
+				this.allCheck = this.itemList.every((item) => {
+					return item.check == true;
+				})
 			},
-			onBlur(){
-				if(uni.getSystemInfoSync().platform == 'ios'){
-					this.display=true;
-				}
-			},
-			// #endif
-		
-			closeCart() {
-				this.$refs.addcart.onClose();
+			allCheckGood() {
+				this.allCheck = !this.allCheck;
+				this.itemList.map((item) => {
+					item.check = this.allCheck;
+					return item;
+				})
+				this.selectCheck();
 			},
 			shoplist() {
-				uni.navigateTo({
-					url: "/pages/shopcart/shoplist"
-				})
+				if (this.settlement) {
+					uni.navigateTo({
+						url: "/pages/shopcart/shoplist"
+					})
+				} else {
+                         rs.Toast('没有选中商品哦')
+				}
+
 			},
 			deliveryPage() {
 				uni.navigateTo({
@@ -305,7 +183,7 @@
 				});
 			},
 			addInfo() {
-			
+
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
 					appid: appid,
@@ -331,9 +209,9 @@
 					this.address = userInfo.address;
 
 					// 判断购物车是否有数量
-					if (data.data.countNum == 0 && app.isReload == true) {
-						this.indexItem()
-					}
+					// if (data.data.countNum == 0 && app.isReload == true) {
+					this.indexItem()
+					// }
 					// 配送时间
 					this.deliveryList.push(...data.data.delivery_time_list);
 
@@ -341,7 +219,8 @@
 					if (data.data.couponsList.length != 0) {
 						let nrr = this.newArr(data.data.couponsList)
 						for (let i = 0; i < data.data.couponsList.length; i++) {
-							nrr[i].txt = `${data.data.couponsList[i].coupons_title}(余额${data.data.couponsList[i].residue}元)`
+							nrr[i].txt =
+								`${data.data.couponsList[i].coupons_title}(余额${data.data.couponsList[i].residue}元)`
 						}
 						this.couponsList.push(...nrr);
 					}
@@ -372,14 +251,14 @@
 						}
 					}
 				});
-				
+
 			},
 			// 显示子账号
 			selectAccount() {
 				this.$refs.account.show();
 			},
 			onConfirmAccount(e) {
-			
+
 				if (!e.value) {
 					let {
 						userInfo
@@ -398,7 +277,7 @@
 			// 显示配送日期
 			selectDate() {
 				this.$refs.date.show();
-				
+
 			},
 			onConfirmDate(e) {
 				let {
@@ -406,7 +285,7 @@
 					month,
 					day
 				} = e.obj;
-			
+
 				this.sendDate = `${year}-${month}-${day}`;
 			},
 			// 显示配送时间
@@ -704,6 +583,10 @@
 				rs.getRequests('indexItem', params, res => {
 					let data = res.data;
 					if (data.code == 200) {
+						data.data.list.map((item) => {
+							item.check = true;
+							return item;
+						})
 						this.itemList = data.data.list;
 						this.config = data.data;
 						if (data.data.total <= 10) {
@@ -778,7 +661,7 @@
 				this.remark = '';
 			},
 			onLoad() {
-					app.isReload = true;
+				app.isReload = true;
 				uni.hideTabBar();
 				// #ifdef H5				
 				if (uni.getSystemInfoSync().platform === 'android') {
@@ -843,178 +726,121 @@
 	};
 </script>
 
-<style>
-	.shopcart .cart_buy>view {
-		background: white;
+<style scoped lang="scss">
+	page {
+		background: #f8f8f8;
 	}
 
-	.shopcart .cart_buy>view:nth-child(n + 3) {
-		margin-top: 5px;
-	}
-
-	.shopcart .cart_buy .gray_font {
-		display: flex;
-	}
-
-	.deliver_address {
-		padding: 10rpx 5rpx 10rpx 20rpx;
-	}
-
-	/* #ifdef MP-WEIXIN */
-	.deliver_address {
-		margin-top: 0 !important;
-	}
-
-	/* #endif */
-	.deliver_address .nickname {
-		font-size: 40rpx;
-		margin-right: 10rpx;
-	}
-
-	.deliver_address .icon-jiantou {
-		font-size: 30rpx !important;
-		color: #808080;
-	}
-
-	.deliver_address image {
-		width: 38rpx;
-		height: 38rpx;
-		margin-right: 10rpx;
-	}
-
-	.deliver_address .detail_address {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 5rpx 0;
-	}
-
-	.deliver_address .dizhi {
-		display: flex;
-		align-items: center;
-	}
-
-	.deliver_address .dizhi image {
-		width: 40rpx;
-		height: 40rpx;
-	}
-
-	.order_time {
-		padding: 0 !important;
-		background: #f8f6f9 !important;
-		height: 60rpx;
-	}
-
-	.order_time image {
-		width: 60rpx;
-		height: 40rpx;
-	}
-
-	.select_info>view,
-	.price_info>view {
-		padding: 0rpx 5rpx 0 20rpx;
-		display: flex;
-		justify-content: space-between;
-		height: 68rpx;
-		line-height: 58rpx;
-	}
-
-	.shopcart .remark {
-		display: flex;
-		padding: 15rpx 20rpx !important;
-		height: 100rpx;
-	}
-
-	.shopcart .remark .weight {
-		width: 70rpx;
-	}
-
-	.shopcart .remark .remark_note {
-		margin-right: 20rpx;
-		width: 100%;
-
-	}
-
-	/* #ifdef MP-ALIPAY */
-	.shopcart .remark .remark_note {
-		margin-right: 20rpx;
-		width: 100%;
-		height: 28rpx;
-	}
-
-	/* #endif */
-
-	.order_method .active_info {
-		/* padding: 5rpx 20rpx; */
-		padding: 0 0 0 20rpx;
-		height: 50rpx;
-		background: rgba(173, 219, 140, 0.2);
-	}
-
-	.order_method .price_order {
-		height: 90rpx;
-	}
-
-	.order_method .total_price {
-		padding-left: 20rpx;
-		width: 70%;
-	}
-
-	.order_method .total_price .count {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
-
-	.order_method .determine {
-		height: 100%;
-		line-height: 90rpx;
-		background: red;
-		color: white;
-		width: 30%;
-		text-align: center;
-		font-size: 32rpx;
-	}
-
-	.order_method .gift_num {
-		color: #009a44;
-		font-size: 20rpx;
-	}
-
-	.order_method .cart_num {
-		margin-right: 20rpx;
-	}
-
-	.order_method .real_price {
-		color: #808080;
-		text-decoration: line-through;
-		font-size: 20rpx;
-		text-indent: 80rpx;
-	}
-
-	.order_method {
+	.car-nav {
+		height: 88rpx;
+		line-height: 88rpx;
 		position: fixed;
-	
-		bottom: 50px;
-		
+		top: 0;
 		width: 100%;
 	}
 
-	.null_cart .null_img {
-		background: white;
+	.good-num {
+		border-radius: 10rpx;
+		margin: 30rpx 30rpx 0rpx 30rpx;
+		padding-bottom: 30rpx;
+
+		.check-button {
+			margin: 0 20rpx 0 0;
+		}
+
+		.sign-good {
+
+			padding: 30rpx 0;
+
+			margin: 0rpx 20rpx;
+
+			&:nth-last-child(n+2) {
+				border-bottom: 1px solid #eee;
+
+			}
+		}
+
+		.go-bill {
+			padding: 20rpx;
+			margin: 0 20rpx 0rpx 20rpx;
+			background: #eee;
+			border-radius: 10rpx;
+		}
+
+	}
+
+	.new-order {
+		position: fixed;
+		bottom: 50px;
+		width: 100%;
+
+		.submit {
+			padding: 0 30rpx;
+			height: 98rpx;
+		}
+
+		.in-go-settle {
+			background: #eee;
+			margin-left: 30rpx;
+		}
+
+		.go-settle {
+			color: white;
+			background: #57B127;
+			margin-left: 30rpx;
+		}
+	}
+
+	.single_good {
+		flex: 1;
+	}
+
+	/deep/ .my_profile {
+		padding: 0;
+
+		.add_cart {
+			margin: 0;
+		}
+	}
+
+	.recomend .title .name {
+
+		&:before {
+			content: '';
+			display: inline-block;
+			width: 150rpx;
+			height: 4rpx;
+			background: linear-gradient(to right, #FFFFFF, #57B127);
+			margin-right: 20rpx;
+		}
+
+		&:after {
+			content: '';
+			display: inline-block;
+			width: 150rpx;
+			height: 4rpx;
+			background: linear-gradient(to left, #FFFFFF, #57B127);
+			margin-left: 20rpx;
+		}
+	}
+
+	.null_img {
 		text-align: center;
-		padding: 20% 0;
-	}
 
-	.null_cart .null_img image {
-		width: 37%;
-		height: 260rpx;
-	}
+		image {
+			width: 318rpx;
+			height: 350rpx;
+			margin-top: 60rpx;
+		}
 
-	.margin_right {
-		margin-right: 10rpx;
+		.go-shopping {
+			width: 256rpx;
+			height: 70rpx;
+			line-height: 70rpx;
+			color: white;
+			background: #57B127;
+			border-radius: 35rpx;
+			margin: 0 auto 50rpx;
+		}
 	}
-
-	/* .showNav .order_method{display: none;}
-	.showNav .my_tabar{display: none;} */
 </style>

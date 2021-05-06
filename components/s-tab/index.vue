@@ -95,9 +95,9 @@ export default {
 <style lang="scss">
 .s-tab-nav {
   display: inline-flex;
-  height: 100%;
+  // height: 100%;
   font-size: 28rpx;
-  padding: 0 30rpx;
+  padding: 0 23rpx;
   justify-content: center;
   align-items: center;
   white-space: nowrap;
@@ -108,6 +108,7 @@ export default {
   &.is-disabled {
     color: #c8c9cc !important;
     cursor: not-allowed;
+	background: red;
   }
 }
 .s-tab-wrap {

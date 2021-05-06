@@ -110,7 +110,7 @@
 				</view>
 			</view>
 		</view>
-		<my-tabar tabarIndex=4></my-tabar>
+		<my-tabar tabarIndex=3></my-tabar>
 		<my-mask :masktabar="masktabar"></my-mask>
 		<view class="share_box" v-if="hShare" @click="share()">
 			<view class="item">

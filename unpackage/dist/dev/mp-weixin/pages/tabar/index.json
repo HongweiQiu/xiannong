@@ -1,4 +1,7 @@
 {
+  "navigationBarTitleText": "鲜农同城配送",
+  "navigationBarBackgroundColor": "#57B127",
+  "navigationBarTextStyle": "white",
   "usingComponents": {
     "my-search": "/components/search/index",
     "uni-notice-bar": "/components/uni-notice-bar/uni-notice-bar",

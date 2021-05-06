@@ -12,19 +12,28 @@
 			</view>
 			<!-- #endif -->
 			<view class="input_key">
-				<view class="arrow_left" @click="back">
-					<uni-icons type="arrowleft" size="25"></uni-icons>
-				</view>
-				<view class="flex_left_right right_area">
+				<view class="right_area align_center">
 					<view class="select_key align_center">
-						<text class="iconfont icon-sousuo"></text>
-						<input v-model="keyword" placeholder="请输入商品名称" @focus="focus" placeholder-class="place_style" class="keyword" />
+						<text class="iconfont new-icon">&#xe615;</text>
+						<input v-model="keyword" placeholder="搜索你想知道的" @focus="focus" placeholder-class="place_style"
+							class="keyword" />
 						<!-- #ifndef MP-ALIPAY -->
-							<uni-icons type="mic-filled" size="20" color="#808080" @click="speed"></uni-icons>
+						<uni-icons type="mic-filled" size="20" color="#808080" @click="speed"></uni-icons>
 						<!-- #endif -->
-					
+
 					</view>
-					<view style="color:#009B44;width:20%;text-align: center;" @click="submit">搜索</view>
+					<view style="color:#333;text-align: center;" class="bold" @click="submit">搜索</view>
+				</view>
+				<view class="flex_left_right fs-15 sort" v-show="!showSearch&&list.length">
+					<view @click="sortIndex=1" :class="sortIndex==1?'m-color':''"><text>综合</text></view>
+					<view @click="sortIndex=2" :class="sortIndex==2?'m-color':''"><text>销量</text></view>
+					<view @click="sortIndex=3" :class="sortIndex==3?'m-color':''" class="flex">
+						<view style="padding-right:5rpx;">价格</view>
+						<view class="flex-column">
+							<text class="iconfont jiantou" style="transform: rotate(180deg);margin-top:6rpx;">&#xf36c;</text>
+							<text class="iconfont jiantou" style="margin-top:-12rpx;">&#xf36c;</text>
+						</view>
+						</view>
 				</view>
 			</view>
 		</view>
@@ -34,19 +43,39 @@
 			<!-- 这里是状态栏 -->
 		</view>
 		<!-- #endif -->
-		<view style="height:109rpx;"></view>
+		<view :style="{'height':showSearch?'120rpx':'200rpx'}"></view>
 		<!-- 热门搜索 -->
 		<view class="hot_search" v-if="showSearch">
-			<view class="title">热门搜索</view>
-			<view class="key_tag"><text v-for="(item, index) in keyList" :key="index" @click="searchList(item.keywords)">{{item.keywords}}</text></view>
+			<view>
+				<view class="title flex_left_right">
+					<text class="fs-13 bold"> 历史记录</text>
+					<text class="iconfont delete" @click="deleteHistory">&#xe626;</text>
+				</view>
+				<view class="key_tag"><text v-for="(item, index) in keyList" :key="index"
+						@click="searchList(item.keywords)">{{item.keywords}}水电费</text></view>
+			</view>
+			<view style="margin-top:30rpx;">
+				<view class="title fs-13 bold">猜你喜欢</view>
+				<view class="key_tag"><text v-for="(item, index) in keyList" :key="index"
+						@click="searchList(item.keywords)">{{item.keywords}}</text></view>
+			</view>
 		</view>
+
 		<!-- 搜索结果 -->
 		<view class="search_result" v-else>
-			<my-profile v-for="(item,index) in list" :wares="item" :config="config" :key="index" @showCart="openCart(item)"
-			 @showKey="showKey(item,index)"></my-profile>
+			<view class="recomend" style="margin-top:20rpx;">
+				
+				<view class="body">
+					<my-recomend v-for="(item, index) in list" :key="index" :ware="item" :config="config"
+						@showCart="openCart(item)" class="myc_recomend"></my-recomend>
+				</view>
+			</view>
+		<!-- 	<my-profile v-for="(item,index) in list" :wares="item" :config="config" :key="index"
+				@showCart="openCart(item)" @showKey="showKey(item,index)"></my-profile> -->
 			<!-- 占位图 -->
 			<view class="search_bitmap" v-if="bitmap">
-				<image class="bitmap" src="../../static/img/no_content.png" mode="aspectFit"></image>
+				<image class="bitmap" src="../../static/img/searchbitmap.png" mode="aspectFit"></image>
+				<view class="gray_font fs-15">抱歉，没有相关商品哦~</view>
 			</view>
 		</view>
 
@@ -72,10 +101,11 @@
 				</view>
 			</view>
 		</uni-popup>
-	
-		
+
+
 		<uni-popup ref="popup" type="bottom" @maskInfo="closeKey">
-			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent" ref="keyboard"></my-keyboard>
+			<my-keyboard @cancelKey="$refs.popup.close()" :arrObj="arrObj" @toParent="toParent" ref="keyboard">
+			</my-keyboard>
 		</uni-popup>
 		<uni-popup ref="cart" type="bottom" @maskInfo="closeCart">
 			<my-addcart @onClose="onClose" :cartware="cartware" :config="config" ref="addcart"></my-addcart>
@@ -102,6 +132,7 @@
 	export default {
 		data() {
 			return {
+				sortIndex:1,
 				keyList: [],
 				list: [],
 				keyword: '',
@@ -115,21 +146,35 @@
 			}
 		},
 		methods: {
-			closeCart(){
+			deleteHistory() {
+				uni.showModal({
+					title: '提示',
+					content: '确定清空历史记录吗？',
+					confirmColor: '#57B127',
+					success: function(res) {
+						if (res.confirm) {
+							console.log('用户点击确定');
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
+					}
+				});
+			},
+			closeCart() {
 				this.$refs.addcart.onClose();
 			},
-			closeKey(){
+			closeKey() {
 				this.$refs.keyboard.cancel();
 			},
 			back() {
-			// #ifdef H5
-			window.history.back(-1);
-			// #endif 
-			// #ifndef H5
-			uni.navigateBack({
-				delta: 1
-			});
-			// #endif	
+				// #ifdef H5
+				window.history.back(-1);
+				// #endif 
+				// #ifndef H5
+				uni.navigateBack({
+					delta: 1
+				});
+				// #endif	
 			},
 			toParent(e) {
 				let item = e.arrObj;
@@ -403,7 +448,7 @@
 			// #ifdef H5
 			this.wxConfig();
 			// #endif
-			
+
 			this.getSearchData();
 			if (this.keyword) {
 				this.list = uni.getStorageSync('search');
@@ -412,26 +457,27 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	.search_list .input_key {
 		position: fixed;
 		width: 100%;
 		z-index: 9;
 		background: white;
 		/* height: 68rpx; */
-		padding: 20rpx 0;
-		display: flex;
+	
+		/* 	display: flex;
 		align-items: center;
-		justify-content: space-between;
-		
+		justify-content: space-between; */
+
 	}
 
 	.search_list .input_key .select_key {
-		padding: 0 10rpx 0 20rpx;
-		border-radius: 40rpx;
-		background: #f7f6f6;
-		width: 80%;
-		height: 68rpx;
+		padding: 0 10rpx 0 0rpx;
+		border-radius: 30rpx;
+		background: #eee;
+		width: 600rpx;
+		height: 60rpx;
+		margin: 0 30rpx;
 	}
 
 	.search_list .input_key .arrow_left {
@@ -439,19 +485,20 @@
 	}
 
 	.search_list .input_key .right_area {
-		width: 85%;
+		padding: 30rpx 0;
 	}
 
 	.search_list .input_key .select_key .keyword {
-		width: 100%;background: #f7f6f6;
+		width: 100%;
+		background: #eee;
 	}
 
 	.search_list .hot_search {
-		position: fixed;
+		/* position: fixed; */
 		height: calc(100vh - 108rpx);
 		background: white;
-		width: 100%;
-		padding: 0 20rpx;
+		/* width: 100%; */
+		padding: 0 20rpx 0 30rpx;
 	}
 
 
@@ -461,15 +508,16 @@
 	}
 
 	.search_list .hot_search .key_tag text {
-		border-radius: 3px;
-		color: grey;
-		padding: 0 6rpx;
-		background: #f2f2f2;
-		margin: 20rpx 20rpx 0 0;
+		border-radius: 20rpx;
+		color: #333;
+		padding: 2rpx 20rpx;
+		background: #eee;
+		font-size: 26rpx;
+		margin: 20rpx 38rpx 0 0;
 	}
 
 	.search_list .search_bitmap {
-		margin-top: 25%;
+		margin-top: 10%;
 		text-align: center;
 	}
 
@@ -532,4 +580,17 @@
 	}
 
 	/* #endif */
+
+	.new-icon {
+		padding: 0 9rpx 0 33rpx;
+	}
+
+	.delete {
+		font-size: 44rpx;
+		color: #999;
+	}
+	.sort{
+		padding:0rpx 60rpx 30rpx 60rpx;
+	}
+	.jiantou{font-size: 20rpx;}
 </style>

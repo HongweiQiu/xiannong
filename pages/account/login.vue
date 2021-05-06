@@ -1,7 +1,7 @@
 <template>
 	<view class="login">
 		<view>
-			<uni-nav-bar left-icon="arrowleft" :status-bar="navBar" fixed="true" @clickLeft="clickLeft"></uni-nav-bar>
+			<!-- <uni-nav-bar left-icon="arrowleft" :status-bar="navBar" fixed="true" @clickLeft="clickLeft"></uni-nav-bar> -->
 
 			<view class="logo_width">
 				<image class="login_logo" :src="logo" mode="aspectFit"></image>

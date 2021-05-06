@@ -35,10 +35,10 @@
 	font-size: 10px;
 }
 .my_tabar .single_tabar .color {
-	color: #009A44;
+	color: #57B127;
 }
 .my_tabar .single_tabar .incolor {
-	color: #808080;
+	color: #999;
 }
 
 

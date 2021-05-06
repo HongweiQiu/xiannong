@@ -1,10 +1,10 @@
 
-page {
+page.data-v-c63a8bb4 {
 	background: white;
 }
-.classify .second_name {
+.classify .second_name.data-v-c63a8bb4 {
 
-	height: 96rpx;
+	height: 80rpx;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -14,76 +14,75 @@ page {
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;
-	background: #f7f7f7;
-	border-bottom: 1px solid;
-	border-color: hsla(0, 0%, 59.2%, .1);
+	background: #F8F8F8;
 }
-.classify .first_name {
+.classify .first_name.data-v-c63a8bb4 {
 	position: fixed;
 	z-index: 5;
 	/* padding-right: 20rpx; */
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
-	width: 75%;
+	width: 78.5%;
 
 
 
-	height: 98rpx;
+
 	background: white;
 	-webkit-box-align: center;
 	-webkit-align-items: center;
 	        align-items: center;
 }
-.classify .left_area {
-	width: 25%;
+.classify .left_area.data-v-c63a8bb4 {
+	width: 21.5%;
 	position: fixed;
 	overflow-x: scroll;
 	background: #f7f7f7;
 	height: calc(100vh - 104rpx - 50px);
 }
-.classify .left_area::-webkit-scrollbar {
+.classify .left_area.data-v-c63a8bb4::-webkit-scrollbar {
 	display: none;
 }
-.classify .right_area {
-	width: 75%;
-	margin-left: 25%;
+.classify .right_area.data-v-c63a8bb4 {
+	width:78.5%;
+	margin-left: 21.5%;
 }
-.classify>.classify_good {
+.classify>.classify_good.data-v-c63a8bb4 {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
 	/* padding-right: 20rpx; */
 }
-.classify .is_active {
+.classify .is_active.data-v-c63a8bb4 {
 	background: white;
 }
-.classify .is_active .left_border {
-	background: #009a44;
-	width: 12rpx;
-	height: 60rpx;
+.classify .is_active .left_border.data-v-c63a8bb4 {
+	background: #57B127;
+	width: 4rpx;
+	height: 24rpx;
 	position: absolute;
 	left: 0;
+	border-radius: 2rpx;
 }
-.mp_tab_width {
-	width: 90%;
+.mp_tab_width.data-v-c63a8bb4 {
+	width: 96%;
 }
-.classify .right_area .single_good .my_profile {
+.classify .right_area .single_good .my_profile.data-v-c63a8bb4 {
 	border-bottom: 1px solid #eaeaea;
 }
-.classify .right_area .single_good {
+.classify .right_area .single_good.data-v-c63a8bb4 {
 	border-bottom: 1px solid #eaeaea;
 	/* padding-right: 20rpx; */
 }
-.classify .bitmap {
+.classify .bitmap.data-v-c63a8bb4 {
 	text-align: center;
 	height: calc(100vh - 204rpx - 50px);
 	background: white;
 }
-.classify .bitmap image {
+.classify .bitmap image.data-v-c63a8bb4 {
 	width: 50%;
 }
-.classify .option {
+.classify .option.data-v-c63a8bb4 {
 	position: fixed;
 	bottom: 20rpx;
 	right: 20rpx;
@@ -91,29 +90,29 @@ page {
 	display: -webkit-flex;
 	display: flex;
 }
-.classify .option>view {
+.classify .option>view.data-v-c63a8bb4 {
 	color: white;
 	line-height: 60rpx;
 	width: 120rpx;
 	height: 60rpx;
 	text-align: center;
 }
-.classify .cancel {
+.classify .cancel.data-v-c63a8bb4 {
 
 	background: #addb8c;
 	border-radius: 10rpx 0 0 10rpx;
 }
-.classify .determine {
+.classify .determine.data-v-c63a8bb4 {
 
 	background: #009A44;
 	border-radius: 0 10rpx 10rpx 0;
 }
-.classify .all_title {
+.classify .all_title.data-v-c63a8bb4 {
 	height: 80rpx;
 	line-height: 80rpx;
 	text-align: center;
 }
-.classify .show_all_sort {
+.classify .show_all_sort.data-v-c63a8bb4 {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -121,17 +120,17 @@ page {
 	        flex-wrap: wrap;
 	margin-left: 10rpx;
 }
-.classify .select_back {
+.classify .select_back.data-v-c63a8bb4 {
 	background: #cceadc !important;
 }
-.classify .show_all_sort text {
+.classify .show_all_sort text.data-v-c63a8bb4 {
 	color: #009a44;
 	border: 1px solid #009b44;
 	border-radius: 6rpx;
 	margin: 2%;
 	padding: 2rpx 14rpx;
 }
-.loading {
+.loading.data-v-c63a8bb4 {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -142,12 +141,12 @@ page {
 	-webkit-justify-content: center;
 	        justify-content: center;
 }
-.loading .load_img {
+.loading .load_img.data-v-c63a8bb4 {
 	width: 25rpx;
 	height: 25rpx;
 	margin-right: 10rpx;
 }
-.classify .my_loading {
+.classify .my_loading.data-v-c63a8bb4 {
 	color: #808080;
 	font-size: 24rpx !important;
 	text-align: center;
@@ -155,4 +154,7 @@ page {
 	line-height: 80rpx;
 	background: white;
 }
+.data-v-c63a8bb4 .s-tab-nav {background: #eee;border-radius: 20rpx;color:#999;margin-left:30rpx ;padding:2rpx 23rpx;font-size: 22rpx;}
+.data-v-c63a8bb4 .is-active {background: #E9FFDD;border: 1px solid #57B127;}
+
 

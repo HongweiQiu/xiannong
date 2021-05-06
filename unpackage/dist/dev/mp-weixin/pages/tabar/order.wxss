@@ -38,7 +38,7 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
-  padding: 6px 12px;
+  padding: 20rpx 30rpx;
 }
 .uni-noticebar-close.data-v-24a05de4 {
   margin-right: 5px;

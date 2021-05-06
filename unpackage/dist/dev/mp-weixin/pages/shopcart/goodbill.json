@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "商品凑单",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "my-recomend": "/components/recomend/index"
+  }
+}

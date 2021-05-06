@@ -29,9 +29,8 @@
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: inline-flex;
-  height: 100%;
   font-size: 28rpx;
-  padding: 0 30rpx;
+  padding: 0 23rpx;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;
@@ -46,6 +45,7 @@
 .s-tab-nav.is-disabled {
   color: #c8c9cc !important;
   cursor: not-allowed;
+  background: red;
 }
 .s-tab-wrap {
   width: 100%;

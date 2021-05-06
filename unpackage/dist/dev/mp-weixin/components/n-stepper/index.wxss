@@ -1,0 +1,26 @@
+
+.my_stepper.data-v-b87223ec {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;padding: 0 2rpx;
+	height: 36rpx;
+	line-height: 36rpx;
+	width: 140rpx;
+	background: #f8f8f8;
+	border-radius: 18rpx;
+	-webkit-box-pack:center;
+	-webkit-justify-content:center;
+	        justify-content:center;
+	margin-right:20rpx;
+}
+.my_stepper .input_value.data-v-b87223ec {
+	width: 60rpx;
+	height: initial;
+	text-align: center;
+}
+.iconfont.data-v-b87223ec{color:#57B127;}
+.plus.data-v-b87223ec {font-size: 30rpx;font-weight: bold;}
+

@@ -1,88 +1,71 @@
-
-.shoplist .icon-shanchu {
-		color: red;
-		font-weight: 700;
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* uni.scss */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.customer-info.data-v-492cd5c4 {
+  margin: 30rpx;
+  padding: 30rpx;
 }
-.shoplist .class_name {
-		padding-top: 10rpx;
+.customer-info image.data-v-492cd5c4 {
+  width: 34rpx;
+  height: 58rpx;
 }
-.shoplist .shop {
-		background: white;
-		margin-top: 10rpx;
-		padding: 0 20rpx;
+.customer-info .select-address.data-v-492cd5c4 {
+  border-bottom: 2px dashed #eee;
+  padding-bottom: 30rpx;
 }
-.shoplist .single_good {
-		padding: 10rpx 0;
-		border-bottom: 1px solid #f7f6f6;
+.detail-address.data-v-492cd5c4 {
+  width: 500rpx;
+  padding: 0 30rpx;
 }
-.shoplist .class_tag {
-		background: #009a44;
-		color: #fff;
-		padding: 0 8rpx;
-		margin-right: 10rpx;
-		border-radius: 6rpx;
+.all-good.data-v-492cd5c4 {
+  padding: 0 30rpx;
+  margin: 0 30rpx;
 }
-.shoplist .good_img {
-		width: 30%;
+.single_good.data-v-492cd5c4 {
+  padding-top: 30rpx;
 }
-.shoplist .good_img .have_img {
-		width: 100%;
-		height: 160rpx;
+.single_good .good_img.data-v-492cd5c4 {
+  width: 180rpx;
+  height: 120rpx;
+  margin-right: 30rpx;
 }
-.shoplist .include_delete {
-		display: -webkit-box;
-		display: -webkit-flex;
-		display: flex;
-		-webkit-box-orient: vertical;
-		-webkit-box-direction: normal;
-		-webkit-flex-direction: column;
-		        flex-direction: column;
-		-webkit-box-pack: justify;
-		-webkit-justify-content: space-between;
-		        justify-content: space-between;
-		width: 70%;
+.single_good .good_img image.data-v-492cd5c4 {
+  width: 100%;
+  height: 100%;
 }
-.shoplist .include_delete .info {
-		display: -webkit-box;
-		display: -webkit-flex;
-		display: flex;
-		-webkit-box-pack: justify;
-		-webkit-justify-content: space-between;
-		        justify-content: space-between;
+.total-price.data-v-492cd5c4 {
+  border-top: 1px solid #eee;
+  margin-top: 30rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: right;
 }
-.shoplist .mask_overly{
-		position: fixed;
-		width: 100%;
-		top:0;left:0;
-		z-index: 999;
-		height:100%;background-color: rgba(0,0,0,.5);
+.order-remark.data-v-492cd5c4 {
+  height: 83rpx;
+  margin: 30rpx;
 }
-.shoplist .remark_dialog{
-		position: fixed;
-		width: 480rpx;
-		top: 300rpx;left:18.5%;
-		z-index: 1000;border-radius: 5px;
-		background-color: white;
-}
-.shoplist .remark_dialog .title{height:80rpx;line-height: 80rpx;text-align: center;}
-.shoplist .remark_dialog .textarea{height: 160rpx;
-    width:80%;
-    border: 1px solid #ccc;
-   padding:10rpx;
-	margin:0 auto;
-    border-radius: 5px;}
-.shoplist .remark_dialog textarea{width:95%;height:75%;}
-.shoplist .remark_dialog .buttons{display: -webkit-box;display: -webkit-flex;display: flex;height: 60rpx;line-height: 60rpx;   border-top: 1px solid #ccc;margin-top:40rpx;}
-.shoplist .remark_dialog .buttons>view{width:50%;text-align: center;}
-.shoplist .remark_dialog .cancel{border-right:1px solid #ccc;}
-.shoplist .gift {margin-top: 10rpx;background: white;padding:0 20rpx;}
-.shoplist .showToast{position:fixed;
-		margin:auto;
-		left:0;
-		right:0;
-		top:12px;
-		bottom:0;
-		width:200rpx;
-		height:30rpx;
-		background: rgba(0,0,0,0.7);border-radius: 10rpx;padding:15rpx;color: white;}
 

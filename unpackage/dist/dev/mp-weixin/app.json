@@ -46,7 +46,8 @@
         "delivery",
         "pay",
         "address",
-        "shoplist"
+        "shoplist",
+        "goodbill"
       ]
     },
     {

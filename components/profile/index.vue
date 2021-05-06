@@ -10,8 +10,8 @@
 			<view class="info">
 				<view class="operate flex">
 					<view style="width:86%;" @click="detail">
-						<view>{{ware.title}}</view>
-						<view v-if="ware.describe" class="hidden gray_font twelve">{{ware.describe}}</view>
+						<view class="fs-13 bold">{{ware.title}}</view>
+						<view v-if="ware.describe" class="hidden gray_font fs-11">{{ware.describe}}</view>
 					</view>
 					<view v-if="url=='collect'" @click="cancelCollect">
 						<text class="iconfont icon-alreadystar" style="color:orange;"></text>
@@ -21,7 +21,8 @@
 				<view class="flex_left_right">
 					<view style="width:82%;" @click="detail">
 
-						<view><text class="red_tag" v-for="(item,index) in ware.label" :key="index">{{item}}</text></view>
+						<view><text class="red_tag" v-for="(item,index) in ware.label" :key="index">{{item}}</text>
+						</view>
 
 						<block v-if="token">
 							<block v-if="config.is_look==1">
@@ -29,13 +30,16 @@
 									<text class="red_font">¥{{ware.area_price}}/{{ware.unit}}</text>
 									<text class="gray_font">(多规格)</text>
 								</view>
-								<view v-else class="red_font">
+								<view v-else>
 									<block v-if="ware.activity_num>=ware.cart_num&&ware.is_activity==1">
 										¥{{ware.activity_price+'/'+ware.unit}}
 									</block>
 									<block v-else>
 										<view v-if="ware.market_price==1">时价</view>
-										<view v-else>¥{{ware.price+'/'+ware.unit}}</view>
+										<view v-else>
+											<text class="red-font fs-18">¥{{ware.price}}</text>
+											<text class="fs-11 gray_font">/{{ware.unit}}</text>
+										</view>
 									</block>
 
 								</view>
@@ -64,9 +68,9 @@
 						</block>
 						<block v-else>
 
-							<my-stepper @showKey="showKey" :val="ware.cart_num" @minus="minus(ware.cart_num-1)" @plus="plus(ware.cart_num+1)"
-							 v-if="ware.cart_num"></my-stepper>
-							<image v-else class="add_cart" src="../../static/img/plus.png" @click="plusCart"></image>
+							<my-n-stepper @showKey="showKey" :val="ware.cart_num" @minus="minus(ware.cart_num-1)"
+								@plus="plus(ware.cart_num+1)" v-if="ware.cart_num"></my-n-stepper>
+							<text v-else class="iconfont add_cart" @click="plusCart"> &#xe600;</text>
 						</block>
 					</view>
 				</view>
@@ -97,7 +101,6 @@
 		watch: {
 			wares(newvalue) {
 				this.ware = newvalue;
-				console.log(newvalue)
 			}
 		},
 		data() {
@@ -180,7 +183,7 @@
 				this.addcart('changeNum', e);
 			},
 			plusCart() {
-				
+
 				this.addcart('changeNum', 1);
 			},
 			showKey() {
@@ -207,18 +210,18 @@
 
 <style>
 	.my_profile {
-		padding: 20rpx 20rpx 10rpx;
+		padding: 0 0 30rpx 0;
 		background: white;
 	}
 
 	.my_profile .photo {
-		margin-right: 20rpx;
-		width: 200rpx;
+		margin-right: 29rpx;
+		width: 180rpx;
 	}
 
 	.my_profile .good_img {
 		width: 100%;
-		height: 160rpx;
+		height: 140rpx;
 	}
 
 	.my_profile .info {
@@ -234,8 +237,14 @@
 	}
 
 	.my_profile .add_cart {
-		width: 32rpx;
-		height: 32rpx;
+		width: 44.4rpx;
+		height: 44.4rpx;
+		background: #57B127;
+		text-align: center;
+		line-height: 44.4rpx;
+		border-radius: 50%;
+		color: white;
+		margin-right: 30rpx;
 	}
 
 	.my_profile .showToast {

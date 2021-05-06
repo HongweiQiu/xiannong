@@ -82,10 +82,6 @@ function getRequest(url, datas, success) {
 
 //get请求
 function getRequests(url, datas, success) {   
-	
-                    uni.setNavigationBarTitle({
-                        title: uni.getStorageSync('titleKey')
-                    });
 	uni.request({
 		url: rootDocment + url,
 		method: 'GET',
@@ -220,9 +216,7 @@ function postRequest(url, datas, success) {
 }
 //POST请求不带加载中
 function postRequests(url, datas, success) {
-	uni.setNavigationBarTitle({
-	    title: uni.getStorageSync('titleKey')
-	});
+
 	uni.request({
 		url: rootDocment + url,
 		method: 'POST',

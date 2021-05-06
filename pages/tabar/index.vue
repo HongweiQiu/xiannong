@@ -1,34 +1,36 @@
 <template>
 	<view class="home">
+
 		<my-search></my-search>
 		<!-- banner图 -->
 		<view class="banner">
-			<swiper class="swiper" indicator-dots="true" autoplay="true" duration="2000" circular="true" disable-touch="true">
+			<swiper class="swiper" indicator-dots="true" autoplay="true" duration="2000" circular="true"
+				disable-touch="true">
 				<swiper-item v-for="(item, index) in adList.ad" :key="index">
-						<image :src="item.banner"></image>
+					<image :src="item.banner"></image>
 				</swiper-item>
 			</swiper>
-			
-			
+
+
 		</view>
-		
+
 		<!-- 公告 -->
 		<view class="" v-if="adList.public_msg">
-			<uni-notice-bar showIcon="true" background-color="white" color="balck" scrollable="true" single="true" :text="adList.public_msg"
-			 :speed="speed"></uni-notice-bar>
+			<uni-notice-bar showIcon="true" background-color="white" color="balck" scrollable="true" single="true"
+				:text="adList.public_msg" :speed="speed"></uni-notice-bar>
 		</view>
 		<!-- 导航 -->
 		<view class="nav">
 			<view v-for="(item, index) in adList.nav" :key="index" @click="navUrl(item)">
 				<image :src="imgRemote + item.img_url" mode="aspectFit" v-if="item.cate_id != 0"></image>
 				<image :src="imgRemote + '/' + item.img_url" mode="aspectFit" v-if="item.cate_id == 0"></image>
-				<text class="hidden" style="width: 70%;text-align: center;">{{item.title}}</text>
+				<text class="hidden" style="width: 100%;text-align: center;">{{item.title}}</text>
 			</view>
 		</view>
 		<!-- banner4 -->
-		<view class="banner4" v-if="adList.banner4">
+		<!-- 	<view class="banner4" v-if="adList.banner4">
 			<image :src="adList.banner4" mode="aspectFit"></image>
-		</view>
+		</view> -->
 		<!-- 限时抢购 -->
 
 		<view class="limit_buy" v-if="showActive">
@@ -46,16 +48,20 @@
 			</view>
 
 			<view class="whole">
-				<view class="body" v-for="(item, index) in activeList" :key="index" @click="newPage('shopdetail',item.item_id)">
+				<view class="body" v-for="(item, index) in activeList" :key="index"
+					@click="newPage('shopdetail',item.item_id)">
 					<view>
-						<image :src="config.logo" mode="aspectFit" class="shuiyin1" v-if="config.logo&&config.shuiyin==1"></image>
-						<image class="good_img" :src="item.img==''?imgRemote+activeConf.item_default:item.img" mode="aspectFit"></image>
+						<image :src="config.logo" mode="aspectFit" class="shuiyin1"
+							v-if="config.logo&&config.shuiyin==1"></image>
+						<image class="good_img" :src="item.img==''?imgRemote+activeConf.item_default:item.img"
+							mode="aspectFit"></image>
 					</view>
 					<view>
 						<view>
 							<view>{{item.item_title}}</view>
 							<!-- <view>{{item.describe}}</view> -->
-							<view class="hidden"><text class="red_tag" v-for="(label,index) in item.label" :key="index">{{label}}</text></view>
+							<view class="hidden"><text class="red_tag" v-for="(label,index) in item.label"
+									:key="index">{{label}}</text></view>
 						</view>
 						<view class="price">
 
@@ -83,15 +89,27 @@
 				</view>
 			</view>
 		</view>
+		<!-- 今日上新 -->
+		<view class="recomend">
+			<view class="title">
+				<image src="../../static/img/radish.png" style="width: 66rpx;height:32rpx;" mode="widthFix"></image>
+				<text class="name">今日上新</text>
+			</view>
+			<view class="body">
+				<my-recomend v-for="(item, index) in itemList" :key="index" :ware="item" :config="config"
+					@showCart="openCart(item)" class="myc_recomend"></my-recomend>
+			</view>
+		</view>
+
 		<!-- 为你推荐 -->
 		<view class="recomend">
 			<view class="title">
-				<view class="line_border"></view>
-				<text class="name">为你推荐</text>
+				<image src="../../static/img/cucumber.png" style="width: 66rpx;height:32rpx;" mode="widthFix"></image>
+				<text class="name">精选推荐</text>
 			</view>
 			<view class="body">
-				<my-recomend v-for="(item, index) in itemList" :key="index" :ware="item" :config="config" @showCart="openCart(item)"
-				 class="myc_recomend"></my-recomend>
+				<my-recomend v-for="(item, index) in itemList" :key="index" :ware="item" :config="config"
+					@showCart="openCart(item)" class="myc_recomend"></my-recomend>
 			</view>
 			<my-loading :loading="loading"></my-loading>
 		</view>
@@ -174,39 +192,39 @@
 				}
 				switch (id) {
 					case 1:
-					if(this.token){
-						uni.navigateTo({
-							url: '/pages/index/collect'
-						});
-						}else{
+						if (this.token) {
+							uni.navigateTo({
+								url: '/pages/index/collect'
+							});
+						} else {
 							uni.navigateTo({
 								url: '/pages/account/login'
 							});
 						}
 						break;
 					case 2:
-					if(this.token){
-						uni.navigateTo({
-							url: '/pages/index/newback'
-						});
-						}else{
+						if (this.token) {
+							uni.navigateTo({
+								url: '/pages/index/newback'
+							});
+						} else {
 							uni.navigateTo({
 								url: '/pages/account/login'
 							});
 						}
-						
+
 						break;
 					case 3:
-					if(this.token){
-						uni.navigateTo({
-							url: '/pages/index/recommed'
-						});
-						}else{
+						if (this.token) {
+							uni.navigateTo({
+								url: '/pages/index/recommed'
+							});
+						} else {
 							uni.navigateTo({
 								url: '/pages/account/login'
 							});
 						}
-					
+
 						break;
 					case 4:
 						uni.makePhoneCall({
@@ -219,28 +237,28 @@
 						});
 						break;
 					case 6:
-					if(this.token){
-						uni.switchTab({
-							url: '/pages/tabar/shopcart'
-						});
-						}else{
+						if (this.token) {
+							uni.switchTab({
+								url: '/pages/tabar/shopcart'
+							});
+						} else {
 							uni.navigateTo({
 								url: '/pages/account/login'
 							});
 						}
-						
+
 						break;
 					case 7:
-					if(this.token){
-						uni.switchTab({
-							url: '/pages/tabar/order'
-						});
-						}else{
+						if (this.token) {
+							uni.switchTab({
+								url: '/pages/tabar/order'
+							});
+						} else {
 							uni.navigateTo({
 								url: '/pages/account/login'
 							});
 						}
-						
+
 						break;
 					case 8:
 						uni.switchTab({
@@ -295,16 +313,12 @@
 					let data = res.data;
 					if (data.code == 200) {
 						this.adList = data.data;
-						uni.setStorageSync('titleKey', data.data.title);
-						uni.setNavigationBarTitle({
-							title: uni.getStorageSync('titleKey')
-						});
-						
+
+
 					}
 				});
 			},
 			indexItem() {
-
 				this.itemList = [];
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				let obj = {
@@ -446,30 +460,31 @@
 	.nav {
 		display: flex;
 		flex-wrap: wrap;
-		padding-bottom: 20rpx;
-		justify-content: space-between;
+		padding: 0 30rpx 20rpx 30rpx;
+		/* justify-content: space-between; */
 	}
 
 	.nav>view {
 		margin-top: 20rpx;
-		width: 25%;
+		width: 20%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 	}
 
 	.nav>view text {
-		margin-top: 10rpx;
+		margin-top: 20rpx;
 	}
 
 	.banner image {
 		width: 100%;
 		height: 100%;
+		border-radius: 10rpx;
 	}
 
 	.nav>view image {
-		width: 100rpx;
-		height: 100rpx;
+		width: 90rpx;
+		height: 90rpx;
 	}
 
 	.banner4 {
@@ -491,11 +506,12 @@
 	}
 
 	.home .limit_buy .title {
+		justify-content: center;
 		display: flex;
 		align-items: center;
 		align-items: center;
-		height: 80rpx;
-		line-height: 80rpx;
+		height: 94rpx;
+		line-height: 94rpx;
 	}
 
 	.home .limit_buy .name {
@@ -547,13 +563,13 @@
 	.limit_buy {
 		background: white;
 		/* padding: 0 20rpx; */
-		margin-top: 10rpx;
+		margin-top: 16rpx;
 	}
 
 	.banner,
 	.notice {
 		background: white;
-		padding: 0 20rpx;
+		padding: 0 30rpx;
 	}
 
 	.support {

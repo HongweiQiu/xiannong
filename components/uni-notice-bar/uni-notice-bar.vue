@@ -6,7 +6,8 @@
 		</view>
 		<view v-if="showIcon === true || showIcon === 'true'" class="uni-noticebar-icon">
 			<!-- <uni-icons type="sound" :color="color" size="14" /> -->
-			<image src="../../static/img/gcaidj_pic4.png" mode="aspectFit" style="width:32rpx;height:32rpx;margin-right: 20rpx;"></image>
+			<text class="iconfont">&#xe67b;</text>
+			<!-- <image src="../../static/img/gcaidj_pic4.png" mode="aspectFit" style="width:32rpx;height:32rpx;margin-right: 20rpx;"></image> -->
 		</view>
 		<!-- #endif -->
 		<!-- #ifndef MP-ALIPAY -->
@@ -14,8 +15,8 @@
 		 size="12" @click="close" />
 		<!-- <uni-icons v-if="showIcon === true || showIcon === 'true'" class="uni-noticebar-icon" type="sound" :color="color"
 		 size="14" /> -->
-		 <image v-if="showIcon === true || showIcon === 'true'" src="../../static/img/gcaidj_pic4.png" mode="aspectFit" style="width:32rpx;height:32rpx;margin-right: 20rpx;"></image>
-		 
+		 <!-- <image v-if="showIcon === true || showIcon === 'true'" src="../../static/img/gcaidj_pic4.png" mode="aspectFit" style="width:32rpx;height:32rpx;margin-right: 20rpx;"></image> -->
+		 <text class="iconfont" style="color:#57b127;margin-right:20rpx;font-size: 50rpx;">&#xe67b;</text>
 		<!-- #endif -->
 		<view ref="textBox" class="uni-noticebar__content-wrapper" :class="{'uni-noticebar__content-wrapper--scrollable':scrollable, 'uni-noticebar__content-wrapper--single':!scrollable && (single || moreText)}">
 			<view :id="elIdBox" class="uni-noticebar__content" :class="{'uni-noticebar__content--scrollable':scrollable, 'uni-noticebar__content--single':!scrollable && (single || moreText)}">
@@ -282,7 +283,7 @@
 		/* #endif */
 		flex-direction: row;
 		align-items: center;
-		padding: 6px 12px;
+		padding: 20rpx 30rpx;
 		// margin-bottom: 10px;
 	}
 

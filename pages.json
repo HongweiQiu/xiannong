@@ -1,13 +1,28 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/tabar/index"
+			"path": "pages/tabar/index",
+			"style": {
+				"navigationBarTitleText": "鲜农同城配送",
+				"navigationBarBackgroundColor": "#57B127",
+				"navigationBarTextStyle": "white"
+			}
 		}, {
-			"path": "pages/tabar/classify"
+			"path": "pages/tabar/classify",
+			"style": {
+				"navigationBarTitleText": "分类",
+				"navigationBarBackgroundColor": "#FFF",
+				"navigationBarTextStyle": "black"
+			}
 		}, {
 			"path": "pages/tabar/order"
 		}, {
-			"path": "pages/tabar/shopcart"
+			"path": "pages/tabar/shopcart",
+			"style": {
+				"navigationBarTitleText": "鲜农同城配送",
+				"navigationBarBackgroundColor": "#fff",
+				"navigationBarTextStyle": "black"
+			}
 		}, {
 			"path": "pages/tabar/user"
 		}
@@ -15,7 +30,12 @@
 	"subPackages": [{
 			"root": "pages/index",
 			"pages": [{
-				"path": "shopdetail"
+				"path": "shopdetail",
+				"style": {
+					"navigationBarTitleText": "商品详情",
+					"navigationBarBackgroundColor": "#fff",
+					"navigationBarTextStyle": "black"
+				}
 			}, {
 				"path": "collect"
 			}, {
@@ -23,7 +43,12 @@
 			}, {
 				"path": "newback"
 			}, {
-				"path": "search"
+				"path": "search",
+				"style": {
+					"navigationBarTitleText": "搜索",
+					"navigationBarBackgroundColor": "#fff",
+					"navigationBarTextStyle": "black"
+				}
 			}, {
 				"path": "flashsale"
 			}]
@@ -76,7 +101,20 @@
 					"path": "address"
 				},
 				{
-					"path": "shoplist"
+					"path": "shoplist",
+					"style": {
+						"navigationBarTitleText": "提交订单",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
+				},
+				{
+					"path": "goodbill",
+					"style": {
+						"navigationBarTitleText": "商品凑单",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
 				}
 			]
 		},
