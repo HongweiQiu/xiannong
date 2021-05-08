@@ -1,7 +1,6 @@
 {
   "usingComponents": {
-    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar",
     "uni-icons": "/components/uni-icons/uni-icons",
-    "image-cropper": "/components/ling-imgcropper/ling-imgcropper"
+    "uni-popup": "/components/uni-popup/uni-popup"
   }
 }

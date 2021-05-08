@@ -1,159 +1,162 @@
 
 page {
-		background: #fff;
+	background: #fff;
 }
 
 /* 	.login {
 
-		width: 100vw;
-		height: 100vh;
-	} */
+	width: 100vw;
+	height: 100vh;
+} */
 .logo_width {
-		text-align: center;
-		/* margin: 60rpx 0 80rpx; */
-		height: 300rpx;
-		display: -webkit-box;
-		display: -webkit-flex;
-		display: flex;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
+	text-align: center;
+	/* margin: 60rpx 0 80rpx; */
+	height: 300rpx;
+	width: 400rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
 }
 .login .login_logo {
-		width: 100%;
-		height: 92rpx;
+	width: 100%;
+	height: 100%;
 }
 .login .login_method {
-		display: -webkit-box;
-		display: -webkit-flex;
-		display: flex;
-		/* height: 72%; */
-		-webkit-box-orient: vertical;
-		-webkit-box-direction: normal;
-		-webkit-flex-direction: column;
-		        flex-direction: column;
-		-webkit-box-pack: justify;
-		-webkit-justify-content: space-between;
-		        justify-content: space-between;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	/* height: 72%; */
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
 }
 .login .phone,
-	.login .password {
-		display: -webkit-box;
-		display: -webkit-flex;
-		display: flex;
+.login .password {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
 }
 .login .mobilelogin {
-		width: 580rpx;
-		height: 600rpx;
+	width: 580rpx;
+	/* height: 600rpx; */
 
-		margin: 0 auto;
+	margin: 0 auto;
 }
-.login .mobilelogin input{width:100%;}
+.login .mobilelogin input {
+	width: 100%;
+}
 .login .determine_mobile {
-		background: #009a44;
-		height: 80rpx;
-		color: white;
-		border-radius: 12rpx;
-		line-height: 80rpx;
-		text-align: center;
-		font-size: 32rpx;
-		margin: 60rpx 0 20rpx;
+	background: #009a44;
+	height: 80rpx;
+	color: white;
+	border-radius: 12rpx;
+	line-height: 80rpx;
+	text-align: center;
+	font-size: 32rpx;
+	margin: 60rpx 0 20rpx;
 }
 .login .phone,
-	.login .password {
-		border-bottom: 1px solid #c2c2c2;
-		margin-top: 50rpx;
+.login .password {
+	border-bottom: 1px solid #c2c2c2;
+	margin-top: 50rpx;
 }
 .login .phone .iconfont,
-	.login .password .iconfont {
-		color: #46c68a;
-		margin-right: 5rpx;
+.login .password .iconfont {
+	color: #46c68a;
+	margin-right: 5rpx;
 }
 .login .password .iconfont {
-		margin-top: 2rpx;
-		font-size: 35rpx;
+	margin-top: 2rpx;
+	font-size: 35rpx;
 }
 .wechat_login {
-		/* position: absolute; */
-		z-index: 0;
-		/* bottom: 20rpx; */
-		padding-bottom:20rpx;
-		width: 100%;
-		text-align: center;
-		font-size: 24rpx;
+	/* position: absolute; */
+	z-index: 0;
+	/* bottom: 20rpx; */
+	padding-bottom: 20rpx;
+	width: 100%;
+	text-align: center;
+	font-size: 24rpx;
 }
 .wechat_login .divider {
-		display: -webkit-box;
-		display: -webkit-flex;
-		display: flex;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
-		margin: 0 20rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	margin: 0 20rpx;
 }
 .wechat_login .divider:before {
-		content: '';
-		display: block;
-		-webkit-box-flex: 1;
-		-webkit-flex: 1;
-		flex: 1;
-		box-sizing: border-box;
-		height: 1px;
-		border-color: #eaeaea;
-		border-style: solid;
-		border-width: 1px 0 0;
-		margin-right: 20rpx;
+	content: '';
+	display: block;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+	box-sizing: border-box;
+	height: 1px;
+	border-color: #eaeaea;
+	border-style: solid;
+	border-width: 1px 0 0;
+	margin-right: 20rpx;
 }
 .wechat_login .divider:after {
-		margin-left: 20rpx;
-		content: '';
-		display: block;
-		-webkit-box-flex: 1;
-		-webkit-flex: 1;
-		flex: 1;
-		box-sizing: border-box;
-		height: 1px;
-		border-color: #eaeaea;
-		border-style: solid;
-		border-width: 1px 0 0;
+	margin-left: 20rpx;
+	content: '';
+	display: block;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+	box-sizing: border-box;
+	height: 1px;
+	border-color: #eaeaea;
+	border-style: solid;
+	border-width: 1px 0 0;
 }
 .wechat_login .weixin_img {
-		width: 90rpx;
-		height: 90rpx;
-		margin-bottom: 5rpx;
+	width: 90rpx;
+	height: 90rpx;
+	margin-bottom: 5rpx;
 }
 .login .weixin_button {
-		display: -webkit-box;
-		display: -webkit-flex;
-		display: flex;
-		-webkit-box-orient: vertical;
-		-webkit-box-direction: normal;
-		-webkit-flex-direction: column;
-		        flex-direction: column;
-		-webkit-box-pack: center;
-		-webkit-justify-content: center;
-		        justify-content: center;
-		margin: 41rpx 0 89rpx;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	margin: 41rpx 0 89rpx;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
 }
 .wechat_login .read_treaty {
-		font-size: 20rpx;
+	font-size: 20rpx;
 }
 .wechat_login .read_treaty text {
-		color: #1ea55a;
+	color: #1ea55a;
 }
 .login .place_style {
-		font-size: 28rpx;
-		color: #c2c2c2;
+	font-size: 28rpx;
+	color: #c2c2c2;
 }
 .login button {
-		border: none;
-		background: none;
-		line-height: initial;
+	border: none;
+	background: none;
+	line-height: initial;
 }
 .login button::after {
-		border: none;
+	border: none;
 }
 

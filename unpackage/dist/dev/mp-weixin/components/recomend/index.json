@@ -1,6 +1,6 @@
 {
-  "component": true,
   "usingComponents": {
     "my-n-stepper": "/components/n-stepper/index"
-  }
+  },
+  "component": true
 }

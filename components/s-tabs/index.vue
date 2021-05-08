@@ -52,7 +52,7 @@
 			// 导航颜色
 			color: {
 				type: String,
-				default: '#999'
+				default: '#000'
 			},
 			// 导航选中颜色
 			activeColor: {

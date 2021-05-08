@@ -1,25 +1,32 @@
 <template>
 	<view class="delivery">
-		<uni-nav-bar left-icon="arrowleft" title="收货地址" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
+		<!-- <uni-nav-bar left-icon="arrowleft" title="收货地址" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar> -->
 
 		<view class="get_info">
+
 			<view>
-				<text>联系人</text>
+				<text class="iconfont iconshouji1"></text>
+				<input type="number" v-model="mobile" placeholder="请输入手机号" placeholder-class="place_style" />
+			</view>
+			<view>
+				<text class="iconfont iconwode11"></text>
 				<input type="text" v-model="contact" placeholder="联系人姓名" placeholder-class="place_style" />
 			</view>
 			<view>
-				<text>手机号</text>
-				<input type="number" v-model="mobile" placeholder="请输入手机号" placeholder-class="place_style" />
+				<text class="iconfont icondianpu"></text>
+				<input type="text" v-model="contact" placeholder="联系人姓名" placeholder-class="place_style" />
 			</view>
-			<view @click="mapPage">
-				<text>收货地址</text>
-				<view class="flex_left_right" style="width: 83%;">
-					<text>{{address?address:''}}</text>
+			<view @click="mapPage" class="flex_left_right ">
+
+				<view class="align_center"><text class="iconfont iconshouhuodizhi"></text>
+					<text>{{address?address:''}}</text></view>
+				<view>
+
 					<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
 				</view>
 			</view>
 			<view>
-				<text>门牌号</text>
+				<text class="iconfont iconxiangxidizhi"></text>
 				<input type="text" v-model="details" placeholder="例如：5号509室" placeholder-class="place_style" />
 			</view>
 		</view>
@@ -157,11 +164,11 @@
 		},
 		onLoad(option) {
 			this.childzid = option.childzid;
-		
-			 this.contact = option.contact=='null'?'':option.contact;
-			this.mobile = option.mobile=='null'?'':option.mobile;
-			this.address = option.address=='null'?'':option.address;
-			this.details = option.details=='null'?'':option.details;
+
+			this.contact = option.contact == 'null' ? '' : option.contact;
+			this.mobile = option.mobile == 'null' ? '' : option.mobile;
+			this.address = option.address == 'null' ? '' : option.address;
+			this.details = option.details == 'null' ? '' : option.details;
 			let count = option.count || 1;
 			// console.log(option.count)
 			if (count == 1) {
@@ -169,40 +176,40 @@
 			}
 		},
 		onShow() {
-			uni.setNavigationBarTitle({
-				title: uni.getStorageSync('titleKey')
-			});
+
 		}
 
 
 	};
 </script>
 
-<style>
+<style  lang="scss">
+	page{background-color: white;}
 	.delivery .get_info {
 		background: white;
 		padding: 0 20rpx;
-		margin-top: 10rpx;
+		// margin-top: 10rpx;
 	}
 
 	.delivery .get_info>view {
 		display: flex;
-		height: 80rpx;
+		height: 100rpx;
 		align-items: center;
-		border-bottom: 1px solid #f7f6f6;
+		border-bottom: 1px solid #eee;
 	}
 
 	.delivery .get_info>view>text {
-		width: 150rpx;
-		color: #808080;
+		width: 70rpx;
+		// color: #808080;
 	}
 
 	.delivery .button_style {
-		font-size: 32rpx;
-		width: 384rpx;
-		height: 64rpx;
-		line-height: 64rpx;
-
+		font-size: 36rpx;
+		margin: 60rpx 30rpx 0;
+		height: 90rpx;
+		line-height: 90rpx;
+		border-radius: 45rpx;
+		background: #57B127;
 	}
 
 	.delivery input {
@@ -211,5 +218,11 @@
 
 	.delivery text-no-space {
 		white-space: pre-line;
+	}
+
+	.delivery {
+		.iconfont {
+			font-size: 60rpx;
+		}
 	}
 </style>

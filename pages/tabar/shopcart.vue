@@ -17,8 +17,9 @@
 			<view class="good-num white_b">
 				<view>
 					<view v-for="(item,index) in itemList" :key="index" class="align_center sign-good">
+						
 						<uni-icons class="check-button" :type="item.check?'checkbox-filled':'circle'"
-							:color="item.check?'#57B127':'#999'" size="14" @click="selectCheck(index)" />
+							:color="item.check?'#57B127':'#999'" size="20" @click="selectCheck(index)" />
 						<my-profile :wares="item" :config="config" class="single_good" @showCart="openCart(item)"
 							@showKey="showKey(item,index)"></my-profile>
 					</view>

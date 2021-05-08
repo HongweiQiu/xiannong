@@ -13,20 +13,17 @@
 				<view class="first_name">
 
 					<my-s-tabs effect slot-title @change="changeFirst" class="mp_tab_width" activeColor="#57B127"
-						lineColor="none" v-model="activeTab">
+						lineColor="none" v-model="activeTab" color="#999">
 						<my-s-tab v-for="(item,index) of firstCate" :key="index">{{item.name}}</my-s-tab>
 					</my-s-tabs>
 					<!-- <uni-icons type="more-filled" size="18" color="#009a44" @click="showDraw"></uni-icons> -->
 				</view>
 				<view style="height: 80rpx;"></view>
-				<view v-if="bitmap">
-					<block>
+				<view v-if="bitmap" class="all-good">
+					  <scroll-view></scroll-view>
 						<my-profile v-for="(item,index) in list" :key="index" :wares="item" :config="config"
 							class="single_good" @showCart="openCart(item)" @showKey="showKey(item,index)"></my-profile>
-					</block>
-
-
-					<view class="my_loading">
+					 <view class="my_loading">
 						<view class="loading" v-if="loading">
 							<image class="load_img" src="../../static/img/loading.gif" mode="aspectFit"></image>
 							<text>正在加载中...</text>
@@ -358,11 +355,14 @@
 	};
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 	page {
 		background: white;
 	}
-
+.classify {
+	height: 100vh;
+	background: white;
+}
 	.classify .second_name {
 
 		height: 80rpx;
@@ -392,7 +392,7 @@
 		position: fixed;
 		overflow-x: scroll;
 		background: #f7f7f7;
-		height: calc(100vh - 104rpx - 50px);
+	    height:100vh;
 	}
 
 	.classify .left_area::-webkit-scrollbar {
@@ -400,8 +400,9 @@
 	}
 
 	.classify .right_area {
-		width:78.5%;
+		width:78%;
 		margin-left: 21.5%;
+		
 	}
 
 	.classify>.classify_good {
@@ -427,28 +428,7 @@
 		width: 96%;
 	}
 
-	/* #ifdef APP-PLUS |H5 */
-	.classify .right_area .single_good:nth-last-child(n+3) {
-		border-bottom: 1px solid #eaeaea;
-	}
 
-	.classify .right_area .single_good {
-		border-bottom: 1px solid #eaeaea;
-		padding-right: 20rpx;
-	}
-
-	/* #endif */
-	/* #ifdef MP-ALIPAY */
-	.classify .right_area .my_profile:nth-last-child(n+3) {
-		border-bottom: 1px solid #eaeaea;
-	}
-
-	.classify .right_area .my_profile {
-		border-bottom: 1px solid #eaeaea;
-		padding-right: 20rpx;
-	}
-
-	/* #endif */
 	/* #ifdef MP-WEIXIN   */
 	.classify .right_area .single_good .my_profile {
 		border-bottom: 1px solid #eaeaea;
@@ -545,5 +525,5 @@
 	}
 		/deep/ .s-tab-nav {background: #eee;border-radius: 20rpx;color:#999;margin-left:30rpx ;padding:2rpx 23rpx;font-size: 22rpx;}
 	/deep/ .is-active {background: #E9FFDD;border: 1px solid #57B127;}
-
+  /deep/ .s-tabs-nav-wrap .s-tab-nav-view{height: 40rpx;}
 </style>

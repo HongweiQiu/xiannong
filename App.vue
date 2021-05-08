@@ -2,27 +2,11 @@
 	export default {
 		//全局共享数据
 		globalData: {
-			// #ifdef APP-PLUS
-			navBar: true,
-			backFast: true,
-			// #endif
-			// #ifdef MP-WEIXIN |H5
-			navBar: false,
-			// #endif
 			appid: '1',
 			active: '2',
 			appsecret: 'StJfzJcXmya6k6Ar',
-			// #ifdef APP-PLUS |MP-WEIXIN |MP-ALIPAY
-			rootUrl: 'https://dnkj.caidj.cn', //主接口地址
-			imgRemote: 'https://dnkj.caidj.cn',
-			// #endif 
-			// #ifdef H5
-			isWeixin: false,
-			// rootUrl: '/api', //主接口地址
-			// imgRemote: 'http://test.caidj.cn/',
-			rootUrl: window.location.protocol + "//" + window.location.hostname, //线上地址
-			imgRemote: window.location.protocol + "//" + window.location.hostname,
-			// #endif
+			rootUrl: 'https://test.caidj.cn', //主接口地址
+			imgRemote: 'https://test.caidj.cn',
 			classId: '',
 			isReload: true,
 			aplipay: true,
@@ -47,7 +31,7 @@
 
 	page {
 		background: #f8f6f9;
-		font-size:30rpx;
+		font-size: 30rpx;
 	}
 
 	.addcart image {
@@ -58,7 +42,11 @@
 	.white_b {
 		background: white;
 	}
-.padding-15{padding:0 30rpx;}
+
+	.padding-15 {
+		padding: 0 30rpx;
+	}
+
 	.status_bar {
 		/* background: white; */
 
@@ -88,7 +76,7 @@
 	.gray_font {
 		color: #999;
 	}
-  
+
 	.flex {
 		display: flex;
 	}
@@ -99,16 +87,39 @@
 		justify-content: space-between;
 	}
 
+	.flex-space-between {
+		display: flex;
+		justify-content: space-between;
+	}
+
 	.flex-column {
 		display: flex;
 		flex-direction: column;
+	}
+
+	.flex-j-c {
+		display: flex;
+		justify-content: center;
+	}
+
+	.flex-end {
+		display: flex;
+		justify-content: flex-end;
 	}
 
 	.align_center {
 		display: flex;
 		align-items: center;
 	}
-.flex-full{flex:1;}
+
+	.flex-full {
+		flex: 1;
+	}
+
+	.center {
+		text-align: center;
+	}
+
 	.line_through {
 		color: #999;
 		text-decoration: line-through;
@@ -175,24 +186,21 @@
 		margin-top: 30rpx;
 	}
 
-	/* #ifdef MP-ALIPAY */
-	.body .recomend_single:nth-child(n+3) {
-		margin-top: 40rpx;
-	}
-
-	/* #endif */
-
 	.order .uni-icons {
 		color: #009a44 !important;
 	}
 
 	.place_style {
-		font-size: 24rpx;
-		color: #c2c2c2;
+		font-size: 26rpx;
+		color: #999;
 	}
 
 	.center {
 		text-align: center;
+	}
+
+	.right {
+		text-align: right;
 	}
 
 	.submit_button {
@@ -230,7 +238,23 @@
 	.fs-23 {
 		font-size: 46rpx;
 	}
-   .r-15{border-radius: 10rpx;}
+
+	.fs-24 {
+		font-size: 48rpx;
+	}
+
+	.r-5 {
+		border-radius: 10rpx;
+	}
+
+	.r-10 {
+		border-radius: 20rpx;
+	}
+
+	.r-15 {
+		border-radius: 30rpx;
+	}
+
 	.bold {
 		font-weight: bold;
 	}
@@ -291,10 +315,17 @@
 	text-no-space {
 		white-space: nowrap
 	}
-	.pay-button{	height: 78rpx;
-			width: 184rpx;
-			display: inline-block;
-			text-align: center;
-			line-height: 78rpx;
-			border-radius: 39rpx;}
+
+	.pay-button {
+		height: 78rpx;
+		width: 184rpx;
+		display: inline-block;
+		text-align: center;
+		line-height: 78rpx;
+		border-radius: 39rpx;
+	}
+
+	.border {
+		border-bottom: 1px solid #eee;
+	}
 </style>

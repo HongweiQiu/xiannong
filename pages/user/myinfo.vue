@@ -1,42 +1,32 @@
 <template>
 	<view class="myinfo">
-		<uni-nav-bar v-if="showtitle" left-icon="arrowleft" title="个人信息" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
-		<uni-nav-bar v-else title="裁剪" :status-bar="navBar" fixed="true" color="white" background-color="black"></uni-nav-bar>
-
 		<view class="get_info">
 			<view class="flex_left_right avator">
-				<text>头像</text>
-				<view class="align_center" @tap="upload">
-					<image class="goods_img" v-if="cropFilePath" :src='cropFilePath' mode='scaleToFill'></image>
-					<image class="goods_img" v-if="!cropFilePath" :src='imgRemote+member_default '></image>
+				<image class="goods_img" v-if="cropFilePath" :src='cropFilePath' mode='scaleToFill'></image>
+				<image class="goods_img" v-if="!cropFilePath" :src='imgRemote+member_default '></image>
+				<view class="align_center gray_font" @tap="showUpload('open')">
+					<text class="fs-13">修改头像</text>
 					<uni-icons type="arrowright" size="18" color="black"></uni-icons>
 				</view>
 			</view>
-			<view>
-				<text>单位名称</text>
-				<input type="text"  v-model="nickname" placeholder="请输入单位名称" placeholder-class="place_style" />
+			<view class="flex_left_right" @click="modifyPwd">
+				<text>修改登录密码</text>
+				<uni-icons type="arrowright" size="18" color="black"></uni-icons>
 			</view>
-			<view class="flex_left_right" @click="bindPhonePage">
-				<text v-if="!phone">绑定手机号</text>
-				<text v-if="phone">更换手机号</text>
-				<view>
-					<text>{{phone}}</text>
-					<uni-icons type="arrowright" size="18" color="black"></uni-icons>
-				</view>
-			</view>
-			<block v-if="memberInfoData.is_password==0">
-				<view>
-					<text>密码</text>
-					<input password v-model="password" placeholder="请输入六位及以上的密码" placeholder-class="place_style" />
-				</view>
-				<view>
-					<text>确认密码</text>
-					<input password v-model="confirmPwd" placeholder="请再次确认登录密码" placeholder-class="place_style" />
-				</view>
-			</block>
+
 		</view>
-		<view class="submit_button button_style" @click="formSubmit">保存</view>
-		<image-cropper :src="tempFilePath" @confirm="confirm" @cancel="cancel"></image-cropper>
+		<view class="center button_style" @click="formSubmit">退出登录</view>
+		<uni-popup ref="popup" type="bottom">
+			<view class="upload-img">
+				<view class="white_b r-10">
+					<view class="border method">本地上传</view>
+					<view class="method">拍照上传</view>
+				</view>
+				<view class="white_b method r-10 cancel" @click="showUpload('close')">
+					取消
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -50,11 +40,8 @@
 		imgRemote,
 		navBar
 	} = app;
-	import ImageCropper from '@/components/ling-imgcropper/ling-imgcropper.vue';
 	export default {
-		components: {
-			ImageCropper
-		},
+
 		data() {
 			return {
 				tempFilePath: '',
@@ -67,10 +54,10 @@
 				memberInfoData: '',
 				member_default: '',
 				nickname: '',
-				password:'',
-				confirmPwd:'',
-				imgPath:'',
-				count:0
+				password: '',
+				confirmPwd: '',
+				imgPath: '',
+				count: 0
 			};
 		},
 		methods: {
@@ -90,7 +77,7 @@
 				rs.getRequests("memberInfo", data, (res) => {
 					if (res.data.code == 200) {
 						var reg = /^(\d{3})\d*(\d{4})$/;
-						
+
 						that.memberInfoData = res.data.data.info;
 						that.cropFilePath = that.memberInfoData.logo;
 						that.nickname = that.memberInfoData.nickname;
@@ -99,23 +86,24 @@
 					}
 				})
 			},
-			leftClick() {
-				// #ifdef H5
-				window.history.back(-1);
-				// #endif 
-				// #ifndef H5
-				uni.navigateBack({
-					delta: 1
-				});
-				// #endif	
-			},
-			bindPhonePage() {
+
+			modifyPwd() {
 				this.count++;
-				if(this.count!=1)return;
-				setTimeout(()=>{this.count=0},1000)
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 1000)
 				uni.navigateTo({
-					url: 'bindphone'
+					url: './modifypwd'
 				})
+			},
+			showUpload(way) {
+				if (way == 'open') {
+					this.$refs.popup.open();
+				} else {
+					this.$refs.popup.close();
+				}
+			
 			},
 			upload() {
 				uni.chooseImage({
@@ -158,12 +146,12 @@
 					success: function(res) {
 						var imga = JSON.parse(res.data);
 						that.imgPath = imga.data.path
-						that.cropFilePath = imga.data.src;   
+						that.cropFilePath = imga.data.src;
 						that.uploadAvatar()
 					},
 				})
-				
-				
+
+
 			},
 			//确认更换头像
 			uploadAvatar() {
@@ -193,24 +181,26 @@
 			},
 			formSubmit() {
 				this.count++;
-				if(this.count!=1)return;
-				setTimeout(()=>{this.count=0},1000)
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 1000)
 				var that = this;
-				if(that.memberInfoData.is_password==0){
-					if(!that.password){
-					  rs.Toast('密码不能为空');
-					  return;
+				if (that.memberInfoData.is_password == 0) {
+					if (!that.password) {
+						rs.Toast('密码不能为空');
+						return;
 					}
-					if(!that.confirmPwd){
-					  rs.Toast('确认密码不能为空');
-					  return;
+					if (!that.confirmPwd) {
+						rs.Toast('确认密码不能为空');
+						return;
 					}
-					if(that.password!=this.confirmPwd){
-					  rs.Toast('密码和确认密码不一致');
-					  return;
+					if (that.password != this.confirmPwd) {
+						rs.Toast('密码和确认密码不一致');
+						return;
 					}
 				}
-				
+
 				var nickname = that.nickname.replace(/\s+/g, "");
 				var timeStamp = Math.round(new Date().getTime() / 1000);
 				var obj = {
@@ -221,8 +211,8 @@
 				var data = {
 					appid: appid,
 					nickname: nickname,
-					password:that.password,
-					confirm_pwd:that.confirmPwd,
+					password: that.password,
+					confirm_pwd: that.confirmPwd,
 					timeStamp: timeStamp,
 					sign: sign,
 				}
@@ -231,16 +221,16 @@
 						rs.Toast("修改成功")
 						setTimeout(function() {
 							uni.navigateBack({
-								delta:1
+								delta: 1
 							})
 						}, 1000);
-			
+
 					} else {
 						rs.Toast(res.data.msg)
 					}
 				})
 			},
-			
+
 			cancel() {
 				this.showtitle = true;
 			}
@@ -255,39 +245,54 @@
 	};
 </script>
 
-<style>
+<style lang="scss" scoped>
 	.myinfo .get_info {
 		background: white;
 		padding: 0 20rpx;
-		margin-top: 10rpx;
 	}
 
 	.myinfo .get_info>view {
 		display: flex;
-		height: 80rpx;
+		height: 88rpx;
 		align-items: center;
 		border-bottom: 1px solid #f7f6f6;
+
 	}
 
 	.myinfo .get_info>view>text {
-		width: 150rpx;
-		color: #808080;
+		width: 180rpx;
+		color: #333;
 	}
 
 	.myinfo .button_style {
-		font-size: 32rpx;
-		width: 384rpx;
-		height: 64rpx;
-		line-height: 64rpx;
+		margin-top:16rpx;
+		width: 100%;	
+		height: 88rpx;
+		line-height: 88rpx;
+		background:white;
+		color: #333;
 	}
 
 	.myinfo .get_info .avator {
-		height: 120rpx;
+		height: 182rpx;
 	}
 
 	.myinfo .avator image {
-		width: 80rpx !important;
-		height: 80rpx;
+		width: 110rpx !important;
+		height: 110rpx;
 		border-radius: 50%;
+	}
+	.upload-img {
+		margin: 0 30rpx;
+	
+		.method {
+			height: 109rpx;
+			line-height: 109rpx;
+			text-align: center;
+		}
+	
+		.cancel {
+			margin: 30rpx 0;
+		}
 	}
 </style>

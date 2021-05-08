@@ -29,7 +29,8 @@
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: inline-flex;
-  font-size: 28rpx;
+  height: 100%;
+  font-size: 30rpx;
   padding: 0 23rpx;
   -webkit-box-pack: center;
   -webkit-justify-content: center;

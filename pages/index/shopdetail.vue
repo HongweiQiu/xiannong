@@ -1,9 +1,15 @@
 <template>
 	<view class="detail">
 		<view>
-			<view>
-				<imgsBanner :imgList='imgList' :currentImg='currentImg'></imgsBanner>
-			</view>
+
+			<swiper class="imgsBanner_swiper" :current='currentIndex' @change='changCurrent' circular="true">
+				<swiper-item v-for="(item,index) in imgList" :key='index'>
+					<image :src="item" mode="aspectFill"></image>
+				</swiper-item>
+			</swiper>
+			<!-- 图片位置 -->
+			<view class="imgLength">{{(currentIndex+1)+'/'+(imgList.length)}}</view>
+
 			<view class="white_b">
 				<view class="fs-18 bold title">新鲜大白菜干净新鲜大白菜干净新鲜大白菜新鲜大白菜...</view>
 				<view class="flex_left_right">
@@ -37,24 +43,28 @@
 				<text class="line-bottom"></text>
 			</view>
 		</view>
-		<view class="addcart align_center">
-			<view class="align_center">
-				<text class="iconfont fiveteen" style="padding:0 6rpx 0 20rpx;">&#xe658;</text>
-				<text class="fs-15">售前咨询</text>
-			</view>
-			<view class="align_center">
-				<text class="iconfont fiveteen" style="padding:0 6rpx 0 20rpx;">&#xe611;</text>
-				<text class="fs-15">购物车</text>
-			</view>
-			<view class="submit">
-				<!-- <my-n-stepper val="12" ></my-n-steper> -->
-				<view class="add fs-15">
-					加入购物车
+		<view class="addcart">
+			<view class="flex_left_right">
+				<view class="align_center">
+					<text class="iconfont fiveteen" style="padding:0 6rpx 0 20rpx;">&#xe658;</text>
+					<text class="fs-15">售前咨询</text>
+				</view>
+				<view class="align_center">
+					<text class="iconfont fiveteen" style="padding:0 6rpx 0 20rpx;">&#xe611;</text>
+					<text class="fs-15">购物车</text>
+				</view>
+				<view class="submit">
+					<!-- <my-n-stepper val="12" ></my-n-steper> -->
+					<view class="add fs-15">
+						加入购物车
+					</view>
 				</view>
 			</view>
+
 		</view>
 		<uni-popup ref="popup" type="bottom">
 			<view class="white_b share-option">
+
 				<view class="flex_left_right select">
 					<button open-type="share">
 						<view>
@@ -63,38 +73,141 @@
 						</view>
 					</button>
 
-					<view>
+					<view @click="playBill">
 						<image src="../../static/img/sharefriend.png"></image>
+
 						<view>生成海报</view>
 					</view>
 				</view>
-				<view @click="$refs.popup.close()" class="cancel fs-15">取消</view>
+				<view @click="cancelShare" class="cancel fs-15">取消</view>
 			</view>
+		</uni-popup>
+		<uni-popup ref="poster">
+			<view class="share-friend-info r-5"
+				style="background: url(../../static/img/share_friends.png);background-size:540rpx 800rpx ;background-position: 0 -18px;">
+				<view class="right close-share"><text class="iconfont iconguanbi" @click="$refs.poster.close()"></text>
+				</view>
+				<view class="white_b detail r-5">
+
+					<view class="good-img align_center">
+						<image src="../../static/img/404.png" mode="aspectFit">
+						</image>
+					</view>
+					<view class="product">
+						<view class="bold name">新鲜大白菜干净新鲜大白鲜大白菜asdasd...</view>
+						<view class="flex about-qr">
+							<view class="price-qr">
+								<view class="red-font rmb">
+									<text class="fs-11">￥</text>
+									<text class="fs-23">19.9</text>
+								</view>
+								<view class="fs-11 mp">
+									长按识别小程序
+								</view>
+							</view>
+
+							<image class="qr-code" src="../../static/img/404.png" mode="aspectFit"
+								style="background: gray;"></image>
+
+						</view>
+					</view>
+				</view>
+
+			</view>
+			<view class="save-photo">
+				保存图片
+			</view>
+
 		</uni-popup>
 	</view>
 </template>
 <script>
-	import imgsBanner from '../../components/imgsBanner-tag/imgsBanner-tag.vue';
 	export default {
-		components: {
-			imgsBanner
-		},
 		data() {
 			return {
 				imgList: [
 					'../../static/img/404.png', '../../static/img/404.png'
 				],
-				currentImg: 0, //当前默认选中
+				currentIndex: 0, //当前默认选中
 			};
 		},
 		methods: {
+			changCurrent(e) {
+				this.currentIndex = e.target.current
+
+			},
 			openShare() {
-				this.$refs.popup.open()
+				this.$refs.popup.open();
+			},
+			cancelShare() {
+				this.$refs.popup.close();
+			},
+			playBill() {
+				this.cancelShare();
+				this.$refs.poster.open()
+
 			}
+		},
+		onShow() {
+
 		}
 	}
 </script>
 <style scoped lang="scss">
+	.imgsBannerBox {
+		position: relative;
+	}
+
+	.imgLength {
+		position: absolute;
+		top: 441rpx;
+		right: 0rpx;
+		background: rgba(0, 0, 0, 0.2);
+		padding: 0 12rpx;
+		line-height: 32rpx;
+		font-size: 22rpx;
+		border-radius: 15rpx 0 0 15rpx;
+		color: #fff;
+	}
+
+	.imgsBanner_swiper {
+		width: 750rpx;
+		height: 500rpx;
+
+
+		swiper-item {
+			width: 750rpx;
+			height: 100%;
+
+			image {
+				width: 750rpx;
+				height: 500rpx;
+			}
+		}
+	}
+
+	.scrollImgBox {
+		.scrollImgList {
+			white-space: nowrap;
+
+			image {
+				width: 132rpx;
+				height: 132rpx;
+				margin-right: 16rpx;
+				display: inline-block;
+				border: 6rpx solid #fff;
+			}
+
+			image:last-child {
+				margin-right: 0;
+			}
+
+			.activeImageItem {
+				border: 6rpx solid #F57341;
+			}
+		}
+	}
+
 	.detail .title {
 		padding: 30rpx 32rpx 20rpx 30rpx;
 		;
@@ -151,11 +264,16 @@
 	}
 
 	.addcart {
-		height: 98rpx;
+
 		position: fixed;
 		bottom: 0;
 		background: white;
 		width: 100%;
+
+		&>view {
+			height: 98rpx;
+			padding: 0 30rpx 0 0;
+		}
 
 		.submit {
 			width: 308rpx;
@@ -190,10 +308,13 @@
 			background: none;
 			margin: 0;
 			padding: 0;
-		border: none;
+			border: none;
 			font-size: 30rpx;
 			line-height: normal;
-			&::after{border:none;}
+
+			&::after {
+				border: none;
+			}
 		}
 
 		.select {
@@ -210,5 +331,90 @@
 			text-align: center;
 			border-top: 1px solid #eee;
 		}
+	}
+
+	.share-friend-info {
+		width: 540rpx;
+		margin: -150rpx auto 0;
+		height: 760rpx;
+
+		.close-share {
+
+			height: 60rpx;
+			line-height: 60rpx;
+
+			text {
+				font-size: 40rpx;
+				color: white;
+			}
+		}
+
+		.detail {
+			box-shadow: 2rpx 0 8rpx rgba(0, 0%, 20%, 0.15);
+			margin: 0rpx 42rpx 62rpx;
+			padding-bottom: 30rpx;
+		}
+
+		.product {
+			.name {
+				margin: 0 29rpx;
+				padding: 30rpx 0 9rpx;
+				border-top: 1px solid #eee;
+				text-align: left;
+			}
+
+		}
+
+		.good-img {
+
+			height: 350rpx;
+			justify-content: center;
+
+			image {
+				width: 268rpx;
+				height: 234rpx;
+			}
+		}
+
+		.about-qr {
+			justify-content: space-between;
+			text-align: left;
+
+			.qr-code {
+				width: 150rpx;
+				height: 150rpx;
+				margin-right: 28rpx;
+			}
+
+			.price-qr {
+
+				display: flex;
+				flex-direction: column;
+
+				.rmb {
+					padding-left: 28rpx;
+				}
+
+				.mp {
+					margin-top: 30rpx;
+					background: #E1FFE3;
+					color: #008909;
+					padding: 7rpx 18rpx 8rpx 28rpx;
+					border-radius: 0 20rpx 20rpx 0;
+				}
+
+			}
+		}
+	}
+
+	.save-photo {
+		width: 460rpx;
+		height: 74rpx;
+		margin: 30rpx auto 0;
+		text-align: center;
+		line-height: 74rpx;
+		color: white;
+		background: #57B127;
+		border-radius: 37rpx;
 	}
 </style>

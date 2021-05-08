@@ -1,7 +1,7 @@
 <template>
 	<view class="my_countdown">
-		<text :style="{background:bgC}" class="text">{{hour}}</text>
-		<text :style="{color:lineC}" class="text"> : </text>
+	<!-- 	<text :style="{background:bgC}" class="text" >{{hour}}</text>
+		<text :style="{color:lineC}" class="text"> : </text> -->
 		<text :style="{background:bgC}" class="text">{{minus}}</text>
 		<text :style="{'color':lineC}" class="text"> : </text>
 		<text :style="{background:bgC}" class="text">{{second}}</text>
@@ -78,12 +78,9 @@
 
 <style>
 	.my_countdown {
-		color: white;
-		font-size: 24rpx;
+		color: #FF3333;
+		font-size: 30rpx;
 	}
 
-	.my_countdown .text {
-		padding: 0 2px;
-		border-radius: 2px;
-	}
+	
 </style>

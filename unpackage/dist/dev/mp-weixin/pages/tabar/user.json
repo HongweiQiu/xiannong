@@ -1,7 +1,9 @@
 {
+  "navigationBarTitleText": "我的",
+  "navigationBarBackgroundColor": "#59BC2C",
+  "navigationBarTextStyle": "white",
   "usingComponents": {
     "uni-icons": "/components/uni-icons/uni-icons",
-    "my-tabar": "/components/tabar/index",
-    "my-mask": "/components/mask/index"
+    "my-tabar": "/components/tabar/index"
   }
 }

@@ -1,6 +1,6 @@
 <template>
 	<view class="my_profile flex">
-		<view class="photo" @click="detail">
+		<view class="photo" @click="$doubleClick(detail)">
 			<image :src="config.logo" mode="aspectFit" class="shuiyin" v-if="config.logo&&config.shuiyin==1"></image>
 			<image class="good_img" :src="ware.img==''?imgRemote+config.item_default:ware.img" mode="aspectFit"></image>
 		</view>

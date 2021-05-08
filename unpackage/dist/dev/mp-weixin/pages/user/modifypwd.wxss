@@ -2,13 +2,12 @@
 .modifypwd .get_info {
 	background: white;
 	padding: 0 20rpx;
-	margin-top: 10rpx;
 }
 .modifypwd .get_info>view {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
-	height: 80rpx;
+	height: 89rpx;
 	-webkit-box-align: center;
 	-webkit-align-items: center;
 	        align-items: center;
@@ -16,12 +15,14 @@
 }
 .modifypwd .get_info>view>text {
 	width: 150rpx;
-	color: #808080;
+	color: #333;
 }
 .modifypwd .button_style {
-	font-size: 32rpx;
-	width: 384rpx;
-	height: 64rpx;
-	line-height: 64rpx;
+	font-size: 36rpx;
+margin:60rpx 30rpx 0;
+border-radius: 45rpx;
+	height: 90rpx;
+	line-height: 90rpx;
+	background: #57B127;
 }
 

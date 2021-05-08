@@ -1,7 +1,7 @@
 <template>
 	<view class="shoplist">
 		<view class="white_b customer-info r-15">
-			<view class="align_center select-address">
+			<view class="align_center select-address" @click="modifyAddress">
 				<view class="">
 					<image src="../../static/img/shoplistadd.png"></image>
 				</view>
@@ -19,7 +19,7 @@
 			</view>
 			<view class="flex_left_right align_center" style="margin-top:30rpx;">
 				<view class="bold">配送时间</view>
-				<view class="gray_font">
+				<view class="gray_font" @click="$refs.picker.show()">
 					<text class="fs-13" style="margin-right:21rpx;"> 请选择配送时间</text>
 
 					<uni-icons type="arrowright" size="15" color="#ccc" class="bold" />
@@ -38,7 +38,7 @@
 								<image class="have_img" :src="list.img==''?imgRemote+config.item_default:list.img"
 									mode="aspectFit"></image>
 							</view>
-							<view class="include_delete  flex_left_right flex-full" >
+							<view class="include_delete  flex_left_right flex-full">
 								<view class="info">
 									<view style="width:100%;">
 										<view class="bold">{{list.title}}</view>
@@ -48,12 +48,12 @@
 									</view>
 
 								</view>
-								
-									
-									<view class="bold" style="margin-top:20rpx;">
-										￥93.4
-									</view>
-								
+
+
+								<view class="bold" style="margin-top:20rpx;">
+									￥93.4
+								</view>
+
 							</view>
 
 						</view>
@@ -73,23 +73,52 @@
 		</view>
 		<view class="flex_left_right order-remark white_b padding-15 r-15">
 			<text class="bold">订单备注</text>
-				<uni-icons type="arrowright" size="15" color="#ccc" class="bold" />
+			<uni-icons type="arrowright" size="15" color="#ccc" class="bold" />
 		</view>
-		<view>
-			<view>支付方式</view>
-			<view>
-				<view>
-					<text class="iconfont">asd</text>
+		<view class="white_b pay-method ">
+			<view class="way bold padding-15">支付方式</view>
+			<radio-group class="radio-pay">
+				<view class="flex_left_right align_center">
+					<view class="align_center">
+						<text class="iconfont iconweixinzhifu" style="color:#09BB07;"> </text>
+						<text class="bold fs-13">微信支付</text>
+					</view>
+					<radio value="r1" checked="true" style="transform:scale(0.7)" />
 				</view>
-				<view></view>
-			</view>
-			<view></view>
+				<view class="border-color">
+
+				</view>
+				<view class="flex_left_right remain-money">
+					<view class="align_center">
+						<text class="iconfont iconfeiyong" style="color:#FFB92C;"> </text>
+						<text class="bold fs-13">余额支付</text>
+						<text class="fs-11 gray_font" style="margin-left:4rpx;">(可用￥200)</text>
+					</view>
+					<radio value="r2" style="transform:scale(0.7)" />
+				</view>
+			</radio-group>
 		</view>
-		<view></view>
+		<view style="height:60px;">
+
+		</view>
+		<view class="fixed-bottom white_b width">
+
+			<view class="align_center price-info">
+				<view>
+					<text class="fs-13">合计：</text>
+					<text class="bold red-font">￥3562</text>
+				</view>
+				<view class="pay-button" @click="pay">支付</view>
+			</view>
+
+		</view>
+		<w-picker :visible.sync="visible" mode="selector" @confirm="onConfirm" ref="picker">
+		</w-picker>
 	</view>
 </template>
 
 <script>
+	import wPicker from "@/components/w-picker/w-picker.vue";
 	import md5 from '../../static/js/md5.js';
 	import rs from '../../static/js/request.js';
 	let {
@@ -103,12 +132,16 @@
 		navBar
 	} = app;
 	export default {
+		components: {
+			wPicker
+		},
 		data() {
 			return {
 				token: uni.getStorageSync('cdj_token'),
 				imgRemote: imgRemote,
 				shop: [],
 				config: [],
+				visible: false
 			}
 		},
 		methods: {
@@ -129,19 +162,23 @@
 					if (data.code == 200) {
 						this.config = data.data;
 						this.shop = data.data.shop;
-
 					}
-
 				})
 			},
-
-			determine() {
+			onConfirm() {
 
 			},
+			modifyAddress(){
+				uni.navigateTo({
+					url:'./delivery'
+				})
+			},
+			pay(){
+				uni.navigateTo({
+					url:'./paySuccess'
+				})
+			}
 		},
-
-
-
 		onShow() {
 			this.openCart();
 		}
@@ -165,17 +202,18 @@
 	}
 
 	.detail-address {
-		width: 500rpx;
+		width: 550rpx;
 		padding: 0 30rpx;
 	}
 
 	.all-good {
 		padding: 0 30rpx;
-		margin:0 30rpx;
+		margin: 0 30rpx;
 	}
 
 	.single_good {
 		padding-top: 30rpx;
+
 		.good_img {
 			width: 180rpx;
 			height: 120rpx;
@@ -188,10 +226,62 @@
 			}
 		}
 	}
-	.total-price{
-		border-top: 1px solid #eee;margin-top: 30rpx;
-		height:80rpx;line-height: 80rpx;
+
+	.total-price {
+		border-top: 1px solid #eee;
+		margin-top: 30rpx;
+		height: 80rpx;
+		line-height: 80rpx;
 		text-align: right;
 	}
-	.order-remark{height: 83rpx;margin:30rpx;}
+
+	.order-remark {
+		height: 83rpx;
+		margin: 30rpx;
+	}
+
+	.pay-method {
+		border-radius: 10rpx;
+		padding-bottom: 20rpx;
+
+		.radio-pay {
+			padding: 0 16rpx 0 20rpx;
+		}
+
+		margin:0 30rpx;
+
+		.way {
+			height: 82rpx;
+			line-height: 82rpx;
+		}
+
+		.iconfont {
+			margin-right: 19rpx;
+			font-size: 40rpx;
+		}
+
+		.border-color {
+			border-top: 1px solid #EEE;
+			margin: 20rpx 12rpx 20rpx 8rpx;
+		}
+
+
+	}
+
+	.fixed-bottom {
+		position: fixed;
+		bottom: 0;
+
+		.price-info {
+			justify-content: flex-end;
+			height: 49px;
+
+
+			.pay-button {
+				background: #57B127;
+				color: white;
+				margin: 0 30rpx;
+			}
+		}
+	}
 </style>

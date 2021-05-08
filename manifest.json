@@ -1,5 +1,5 @@
 {
-    "name" : "沃斯",
+    "name" : "鲜农",
     "appid" : "__UNI__713240E",
     "description" : "",
     "versionName" : "1.0.0",
@@ -7,7 +7,7 @@
     "transformPx" : false,
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "wx30e4417d558fd1ef",
+        "appid" : "wx5922a4f9543c5e9e",
         "setting" : {
             "urlCheck" : false,
             "es6" : true,

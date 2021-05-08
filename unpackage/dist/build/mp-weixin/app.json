@@ -11,11 +11,7 @@
       "root": "pages/index",
       "pages": [
         "shopdetail",
-        "collect",
-        "recommed",
-        "newback",
-        "search",
-        "flashsale"
+        "search"
       ]
     },
     {
@@ -35,41 +31,27 @@
       "root": "pages/order",
       "pages": [
         "orderdetail",
-        "address",
-        "pay",
-        "fenjian"
+        "orderAfterSale",
+        "applyAfterSale"
       ]
     },
     {
       "root": "pages/shopcart",
       "pages": [
         "delivery",
-        "pay",
-        "address",
-        "shoplist"
+        "shoplist",
+        "goodbill",
+        "paySuccess"
       ]
     },
     {
       "root": "pages/user",
       "pages": [
-        "accountmange",
-        "accountadd",
-        "accountedit",
         "modifypwd",
-        "receipt",
-        "invest",
-        "investlist",
-        "investrecord",
-        "bill",
-        "billdetail",
-        "cash",
-        "cashdetail",
         "myinfo",
-        "bindphone",
-        "userAddress",
-        "address",
-        "purchase_detail",
-        "purchase_record"
+        "newProductDemand",
+        "feedback",
+        "remainder"
       ]
     }
   ],
@@ -91,9 +73,6 @@
       },
       {
         "pagePath": "pages/tabar/shopcart"
-      },
-      {
-        "pagePath": "pages/tabar/order"
       },
       {
         "pagePath": "pages/tabar/user"

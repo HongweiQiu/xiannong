@@ -95,8 +95,8 @@ export default {
 <style lang="scss">
 .s-tab-nav {
   display: inline-flex;
-  // height: 100%;
-  font-size: 28rpx;
+  height: 100%;
+  font-size: 30rpx;
   padding: 0 23rpx;
   justify-content: center;
   align-items: center;

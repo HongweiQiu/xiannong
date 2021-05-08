@@ -1,57 +1,149 @@
-
-.order_detail .order_info>view {
-	margin-top: 10rpx;
-	background: white;
-	padding: 0rpx 20rpx;
-	font-size: 24rpx;
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* uni.scss */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.order-detail.data-v-234351b5 {
+  margin: 0 30rpx;
 }
-.order_detail .order_info .pay_info>view,
-.order_detail .order_info .money_info>view {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-pack: justify;
-	-webkit-justify-content: space-between;
-	        justify-content: space-between;
-	padding: 10rpx 0;
+.order-detail .order-statu.data-v-234351b5 {
+  margin: 40rpx 0 29rpx;
 }
-.order_detail .pay_info>view>view:last-child,
-.order_detail .money_info>view>view:last-child {
-	color: #808080;
-	width: 74%;
-	text-align: right;
+.order-detail .explain.data-v-234351b5 {
+  margin: 0 30rpx;
+  height: 120rpx;
 }
-.order_detail .pay_info>view:nth-child(n + 2)>view:first-child,
-.order_detail .money_info>view:nth-child(n + 2)>view:first-child {
-	width: 120rpx;
-	text-align: right;
+.order-detail .button.data-v-234351b5 {
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+          justify-content: flex-end;
+  height: 96rpx;
+  margin-right: 30rpx;
 }
-.order_detail .contact_phone {
-	width: 80rpx;
-	height: 80rpx;
-	position: fixed;
-	bottom: 60rpx;
-	right: 20rpx;
+.order-detail .button text.data-v-234351b5 {
+  width: 140rpx;
+  height: 46rpx;
+  line-height: 46rpx;
+  border-radius: 23rpx;
+  font-size: 26rpx;
+  display: inline-block;
+  text-align: center;
+  box-sizing: border-box;
+  margin-left: 33rpx;
 }
-.order_detail .title {
-	font-size: 28rpx;
-	font-weight: 700;
-	width: 150rpx;
+.order-detail .button .cancel.data-v-234351b5 {
+  border: 1px solid #333;
 }
-.order_detail .good_info {
-	padding: 10rpx 20rpx !important;
+.order-detail .button .go-pay.data-v-234351b5 {
+  background: #FF3333;
+  color: white;
 }
-.order_detail .good_info .single_good {
-	margin-top: 10rpx !important;
+.order-detail .delivery-address.data-v-234351b5 {
+  margin: 30rpx 0;
 }
-.order_detail .good_info .single_good>view {
-	height: 40rpx;
+.order-detail .delivery-address .way.data-v-234351b5 {
+  height: 88rpx;
+  line-height: 88rpx;
 }
-.order_detail .good_info .labe {
-	background: #FF3E1E;
-	color: #fff;
-	border-radius: 5rpx;
-	padding: 0 5rpx;
-	margin-right: 10rpx;
+.order-detail .desc.data-v-234351b5 {
+  padding: 30rpx 0 20rpx;
+}
+.order-detail .desc .more-address text.data-v-234351b5 {
+  height: 44rpx;
+  line-height: 44rpx;
+}
+.order-detail .good.data-v-234351b5 {
+  padding: 30rpx 30rpx 0;
+}
+.order-detail .good .sign-good.data-v-234351b5 {
+  margin-bottom: 30rpx;
+}
+.order-detail .good .sign-good .buy-num.data-v-234351b5 {
+  margin-top: 20rpx;
+  font-weight: normal;
+}
+.order-detail .good .sign-good .photo.data-v-234351b5 {
+  width: 180rpx;
+  height: 120rpx;
+  margin-right: 30rpx;
+}
+.order-detail .good .sign-good .photo image.data-v-234351b5 {
+  width: inherit;
+  height: inherit;
+}
+.order-detail .good .sign-good .return-button text.data-v-234351b5 {
+  border-radius: 23rpx;
+  border: 1px solid #999;
+  font-weight: normal;
+  width: 140rpx;
+  height: 46rpx;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  box-sizing: border-box;
+}
+.order-detail .good .total-fee.data-v-234351b5 {
+  margin-bottom: 25rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.order-detail .good .paid-in.data-v-234351b5 {
+  height: 90rpx;
+  line-height: 90rpx;
+}
+.order-detail .order-number.data-v-234351b5 {
+  padding: 0 30rpx 30rpx;
+  margin: 29rpx 0;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  box-sizing: border-box;
+}
+.order-detail .order-number > view.data-v-234351b5 {
+  padding-top: 30rpx;
+}
+.order-detail .cancel-order.data-v-234351b5 {
+  border-radius: 20rpx 20rpx 0 0;
+  padding: 40rpx 30rpx 30rpx;
+}
+.order-detail .cancel-order .title.data-v-234351b5 {
+  margin-bottom: 40rpx;
+}
+.order-detail .cancel-order .desc-reason.data-v-234351b5 {
+  margin-bottom: 60rpx;
+}
+.order-detail .cancel-order .submit.data-v-234351b5 {
+  background: #57B127;
+  color: white;
+  border-radius: 39rpx;
+  height: 78rpx;
+  line-height: 78rpx;
+  text-align: center;
 }
 

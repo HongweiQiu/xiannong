@@ -3,9 +3,9 @@
 		<view class="mask" :class="{'visible':visible}" @tap="onCancel" @touchmove.stop.prevent catchtouchmove="true"></view>
 		<view class="w-picker-cnt" :class="{'visible':visible}">
 			<view class="w-picker-header"  @touchmove.stop.prevent catchtouchmove="true">
-				<text @tap.stop.prevent="onCancel" style="color:#009a44;">取消</text>
+				<text @tap.stop.prevent="onCancel" style="color:#999;">取消</text>
 				<slot></slot>
-				<text style="color:#009a44;" @tap.stop.prevent="pickerConfirm">确定</text>
+				<text style="color:#57B127;" @tap.stop.prevent="pickerConfirm">确定</text>
 			</view>
 			<date-picker 
 				v-if="mode=='date'" 
@@ -66,7 +66,7 @@
 			},
 			themeColor:{//确认按钮主题颜色
 				type:String,
-				default:"#f5a200"
+				default:"#57B127"
 			},
 			fields:{//日期颗粒度:year、month、day、hour、minute、second
 				type:String,

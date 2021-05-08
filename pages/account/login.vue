@@ -1,15 +1,13 @@
-<template>
-	<view class="login">
-		<view>
-			<!-- <uni-nav-bar left-icon="arrowleft" :status-bar="navBar" fixed="true" @clickLeft="clickLeft"></uni-nav-bar> -->
-
+	<template>
+	<view class="login flex-column" style="height:100vh;">
+		<view style="justify-content: center;display: flex;margin-top:100rpx;">
+		
 			<view class="logo_width">
-				<image class="login_logo" :src="logo" mode="aspectFit"></image>
+				<image class="login_logo" src="../../static/img/login-logo.jpg" mode="aspectFit"></image>
 			</view>
 		</view>
-		<view class="login_method" :style="{height:logoHeight+'px'}">
-			<!-- {{scrollHeight}}/{{newHeight}}/{{display}} -->
-			<!-- 手机登录 -->
+		<view class="login_method flex-full" >
+			
 			<view class="mobilelogin">
 				<view class="phone align_center">
 					<text class="iconfont icon-yonghu"></text>
@@ -33,17 +31,19 @@
 					<view class="divider gray_font">其他登录</view>
 					<view class="weixin_button">
 						<!-- #ifdef APP-PLUS |H5 -->
-						<image class="weixin_img" src="../../static/img/wechat.png" mode="" @click="wechatLogin"></image>
+						<image class="weixin_img" src="../../static/img/wechat.png" mode="" @click="wechatLogin">
+						</image>
 						<!-- #endif -->
 
 						<!-- #ifdef MP-WEIXIN -->
 						<button open-type="getUserInfo" @click="wechatLogin">
-							<image class="weixin_img" src="../../static/img/wechat.png" mode="" ></image>
+							<image class="weixin_img" src="../../static/img/wechat.png" mode=""></image>
 						</button>
 						<!-- #endif -->
 						<!-- #ifdef MP-ALIPAY -->
 						<!-- <button open-type="getAuthorize" scope="userInfo" > -->
-							<image  @click="wechatLogin" class="weixin_img" src="../../static/img/alipay.png" mode="aspectFit"></image>
+						<image @click="wechatLogin" class="weixin_img" src="../../static/img/alipay.png"
+							mode="aspectFit"></image>
 						<!-- </button> -->
 						<!-- #endif -->
 						<!-- #ifndef MP-ALIPAY -->
@@ -89,7 +89,7 @@
 				scrollHeight: '',
 				newHeight: '',
 				count: 0,
-				logoHeight:''
+				logoHeight: ''
 			};
 		},
 		methods: {
@@ -120,8 +120,8 @@
 				setTimeout(() => {
 					uni.navigateTo({
 						url: data
-					})
-				, 300})
+					}), 300
+				})
 
 			},
 			// 手机登录
@@ -168,21 +168,8 @@
 						rs.Toast('登录成功，将跳转到首页');
 						uni.setStorageSync('cdj_token', data.data.token);
 						uni.setStorageSync('is_child', data.data.is_child);
-						// console.log(data)
-						// #ifdef APP-PLUS
-						uni.setStorageSync('is_miniBind', data.data.is_appBind);
-						// #endif
-
-						// #ifdef H5
-						uni.setStorageSync('is_miniBind', data.data.is_bind);
-						// #endif
-
 						// #ifdef MP-WEIXIN
 						uni.setStorageSync('is_miniBind', data.data.is_miniBind);
-						// #endif
-
-						// #ifdef MP-ALIPAY
-						uni.setStorageSync('is_miniBind', data.data.alipayBind);
 						// #endif
 						setTimeout(() => {
 							uni.switchTab({
@@ -195,109 +182,6 @@
 					}
 				});
 			},
-
-			// app端微信登录
-			// #ifdef APP-PLUS
-			wechatLogin() {
-				this.count++;
-				if (this.count != 1) return;
-				setTimeout(() => {
-					this.count = 0
-				}, 500)
-				uni.login({
-					provider: 'weixin',
-					success(res) {
-						uni.getUserInfo({
-							provider: 'weixin',
-							success(infoRes) {
-								let timeStamp = Math.round(new Date().getTime() / 1000);
-								let obj = {
-									appid: appid,
-									timeStamp: timeStamp,
-								};
-								let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-								let params = Object.assign({
-									sign: sign,
-									type: 'app',
-									openid: infoRes.userInfo.openId,
-									headimgurl: infoRes.userInfo.avatarUrl
-								}, obj);
-
-								rs.postRequests('wxLogin', params, (res) => {
-									let data = res.data;
-
-									if (data.code == 200) {
-										rs.Toast('登录成功，将跳转到首页');
-										uni.setStorageSync("cdj_token", data.data.token);
-										uni.setStorageSync("is_child", data.data.is_child);
-										uni.setStorageSync("is_miniBind", data.data.is_appBind);
-										// console.log(data)
-										setTimeout(function() {
-											uni.switchTab({
-												url: '../tabar/index'
-											})
-										}, 1000);
-									} else if (data.code == 201) {
-										uni.navigateTo({
-											url: 'selectway?identifying=' + data.data.identifying
-										})
-									} else {
-										rs.Toast(data.msg);
-									}
-								})
-							}
-
-						})
-					},
-					fail() {
-						console.log('fail')
-					}
-				})
-			}
-			// #endif
-
-			// H5端微信登录
-			// #ifdef H5
-			wechatLogin() {
-				this.count++;
-				if (this.count != 1) return;
-				setTimeout(() => {
-					this.count = 0
-				}, 500)
-				let timeStamp = Math.round(new Date().getTime() / 1000);
-				let obj = {
-					appid: appid,
-					timeStamp: timeStamp,
-				};
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-					sign: sign
-				}, obj);
-
-				rs.getRequests('wxConfig', params, (res) => {
-					let {
-						data
-					} = res;
-
-					if (data.code == 200) {
-
-						uni.setStorageSync('isWeixin', true)
-						let url = app.rootUrl + "/#/pages/account/login";
-						let redirect_uri = encodeURIComponent(url);
-						let a = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
-							"appid=" + data.data.appId + "&redirect_uri=" + redirect_uri +
-							"&response_type=code&scope=snsapi_userinfo#wechat_redirect";
-
-						window.location.href = a;
-
-					} else if (data.code == 500) {
-						rs.Toast('微信服务器出错');
-					} else {
-						rs.Toast(data.msg);
-					}
-				})
-			}
-			// #endif
 
 			// 微信端微信登录
 			// #ifdef MP-WEIXIN
@@ -348,7 +232,8 @@
 										}, 1000);
 									} else if (data.code == 201) {
 										wx.navigateTo({
-											url: 'selectway?identifying=' + data.data.identifying
+											url: 'selectway?identifying=' + data.data
+												.identifying
 										})
 									} else {
 										rs.Toast(data.msg);
@@ -363,182 +248,29 @@
 
 			// #endif
 
-			// 支付宝
-			// #ifdef MP-ALIPAY
-			wechatLogin() {
-				this.count++;
-				if (this.count != 1) return;
-				setTimeout(() => {
-					this.count = 0
-				}, 1000)
-				uni.login({
-					provider: 'alipay',
-					scopes: 'auth_user',
-					success(res) {
-						console.log(res)
-						uni.getUserInfo({
-							success(infos) {
-								console.log(infos);
-								if(!infos.avatar){
-									rs.Toast('登录失败，请重试')
-									return;
-								}
-								let timeStamp = Math.round(new Date().getTime() / 1000);
-								let obj = {
-									appid: appid,
-									timeStamp: timeStamp,
-									code: res.code
-								};
-								let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-								let params = Object.assign({
-									type: 'mini',
-									sign: sign,
-									code: res.code,
-									loginType: 'alipay',
-									headimgurl: infos.avatar
-
-								}, obj);
-								rs.postRequests('wxLogin', params, (result) => {
-									let data = result.data;
-
-									if (data.code == 200) {
-										rs.Toast('登录成功，将跳转到首页');
-										wx.setStorageSync("cdj_token", data.data.token);
-										wx.setStorageSync("is_child", data.data.is_child);
-										wx.setStorageSync("is_miniBind", data.data.is_alipayBind);
-										setTimeout(function() {
-											uni.switchTab({
-												url: '../tabar/index'
-											})
-										}, 1000);
-									} else if (data.code == 201) {
-										wx.navigateTo({
-											url: 'selectway?identifying=' + data.data.identifying
-										})
-									} else {
-										rs.Toast(data.msg);
-									}
-								})
-
-							}
-						})
-					}
-				})
-
-			}
-
-			// #endif
 		},
 		onShow() {
-
 			this.display = true;
-			// #ifdef H5 
-
-			// if (uni.getSystemInfoSync().platform === 'android') {
-			// 	this.scrollHeight = document.body.clientHeight;
-			// 	console.log(this.scrollHeight)
-			// 	uni.setStorageSync('scrollHeight', this.scrollHeight);
-			// 	window.onresize = () => {
-
-			// 		if (this.scrollHeight < this.newHeight) {
-			// 			window.location.reload();
-			// 		}
-			// 		this.newHeight = document.body.clientHeight;
-			// 		// window.location.reload();
-			// 		if (this.scrollHeight > this.newHeight) {
-			// 			this.display = false;
-			// 		} else {
-			// 			this.display = true;
-			// 		}
-			// 	}
-			// }
-
-			// #endif
-			let timeStamp = Math.round(new Date().getTime() / 1000);
-			let obj = {
-				appid: appid,
-				timeStamp: timeStamp
-			};
-			let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-			let params = Object.assign({
-					sign: sign
-				},
-				obj
-			);
-			rs.getRequests('indexAd', params, res => {
-				let data = res.data;
-				if (data.code == 200) {
-					this.logo = data.data.logo;	
-					uni.setStorageSync('titleKey', data.data.title);
-					uni.setNavigationBarTitle({
-						title: uni.getStorageSync('titleKey')
-					});
-				}
-			});
-
-			//H5微信登录
-			// #ifdef H5
-
-			let code = location.search;
-			let getCode = code.substring(code.indexOf('=') + 1, code.lastIndexOf('&'));
-			let isWeixin = uni.getStorageSync('isWeixin');
-			if (isWeixin && getCode) {
-
-				let obj = {
-					appid: appid,
-					timeStamp: timeStamp,
-					code: getCode
-				};
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-					sign: sign
-				}, obj);
-				rs.postRequests('wxLogin', params, (res) => {
-					let {
-						data
-					} = res;
-					uni.clearStorageSync('isWeixin');
-
-					if (data.code == 200) {
-						uni.setStorageSync('cdj_token', data.data.token);
-						uni.setStorageSync('is_miniBind', data.data.is_bind);
-						uni.setStorageSync('is_child', data.data.is_child);
-						window.location.href = app.rootUrl;
-
-					} else if (data.code == 201) {
-						wx.navigateTo({
-							url: 'selectway?identifying=' + data.data.identifying
-						})
-					} else {
-						rs.Toast(data.msg);
-						setTimeout(() => {
-							window.location.href = app.rootUrl + "/#/pages/account/login";
-						}, 1000)
-
-					}
-				})
-			}
-			// #endif
 		},
 		mounted() {
-			let that=this;
-		let bodyHeight,titleHeight,imgHeight;
+			let that = this;
+			let bodyHeight, titleHeight, imgHeight;
 			uni.getSystemInfo({
 				success: function(res) { // res - 各种参数
 					// that.logoHeight=res.windowHeight; // 屏幕的宽度 
-					uni.setStorageSync('scrollHeight',res.windowHeight);
+					uni.setStorageSync('scrollHeight', res.windowHeight);
 					let info = uni.createSelectorQuery().select('.logo_width');
 					info.boundingClientRect(function(data) { //data - 各种参数
-					imgHeight=data.height; // 获取元素宽度
-					// #ifdef APP-PLUS
-					let titleHeight=70;
-					// #endif
-					// #ifndef APP-PLUS
-					let titleHeight=44;
-					// #endif
-				that.logoHeight=res.windowHeight-titleHeight-imgHeight;
+						imgHeight = data.height; // 获取元素宽度
+						// #ifdef APP-PLUS
+						let titleHeight = 70;
+						// #endif
+						// #ifndef APP-PLUS
+						let titleHeight = 44;
+						// #endif
+						that.logoHeight = res.windowHeight - titleHeight - imgHeight;
 					}).exec();
-					
+
 				}
 			});
 		},
@@ -550,7 +282,7 @@
 		background: #fff;
 	}
 
-/* 	.login {
+	/* 	.login {
 
 		width: 100vw;
 		height: 100vh;
@@ -560,13 +292,14 @@
 		text-align: center;
 		/* margin: 60rpx 0 80rpx; */
 		height: 300rpx;
+		width: 400rpx;
 		display: flex;
 		align-items: center;
 	}
 
 	.login .login_logo {
 		width: 100%;
-		height: 92rpx;
+		height: 100%;
 	}
 
 	.login .login_method {
@@ -583,11 +316,15 @@
 
 	.login .mobilelogin {
 		width: 580rpx;
-		height: 600rpx;
+		/* height: 600rpx; */
 
 		margin: 0 auto;
 	}
-.login .mobilelogin input{width:100%;}
+
+	.login .mobilelogin input {
+		width: 100%;
+	}
+
 	.login .determine_mobile {
 		background: #009a44;
 		height: 80rpx;
@@ -620,7 +357,7 @@
 		/* position: absolute; */
 		z-index: 0;
 		/* bottom: 20rpx; */
-		padding-bottom:20rpx;
+		padding-bottom: 20rpx;
 		width: 100%;
 		text-align: center;
 		font-size: 24rpx;

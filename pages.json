@@ -15,7 +15,12 @@
 				"navigationBarTextStyle": "black"
 			}
 		}, {
-			"path": "pages/tabar/order"
+			"path": "pages/tabar/order",
+			"style": {
+				"navigationBarTitleText": "全部订单",
+				"navigationBarBackgroundColor": "#fff",
+				"navigationBarTextStyle": "black"
+			}
 		}, {
 			"path": "pages/tabar/shopcart",
 			"style": {
@@ -24,7 +29,12 @@
 				"navigationBarTextStyle": "black"
 			}
 		}, {
-			"path": "pages/tabar/user"
+			"path": "pages/tabar/user",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"navigationBarBackgroundColor": "#59BC2C",
+				"navigationBarTextStyle": "white"
+			}
 		}
 	],
 	"subPackages": [{
@@ -37,25 +47,22 @@
 					"navigationBarTextStyle": "black"
 				}
 			}, {
-				"path": "collect"
-			}, {
-				"path": "recommed"
-			}, {
-				"path": "newback"
-			}, {
 				"path": "search",
 				"style": {
 					"navigationBarTitleText": "搜索",
 					"navigationBarBackgroundColor": "#fff",
 					"navigationBarTextStyle": "black"
 				}
-			}, {
-				"path": "flashsale"
 			}]
 		}, {
 			"root": "pages/account",
 			"pages": [{
-					"path": "login"
+					"path": "login",
+					"style": {
+						"navigationBarTitleText": "登录",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
 				},
 				{
 					"path": "selectway"
@@ -82,24 +89,40 @@
 		}, {
 			"root": "pages/order",
 			"pages": [{
-				"path": "orderdetail"
-			}, {
-				"path": "address"
-			}, {
-				"path": "pay"
-			}, {
-				"path": "fenjian"
-			}]
+					"path": "orderdetail",
+					"style": {
+						"navigationBarTitleText": "订单详情",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
+				},
+				{
+					"path": "orderAfterSale",
+					"style": {
+						"navigationBarTitleText": "订单售后",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
+				}, {
+					"path": "applyAfterSale",
+					"style": {
+						"navigationBarTitleText": "订单售后",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
+				}
+			]
 		}, {
 			"root": "pages/shopcart",
 			"pages": [{
-					"path": "delivery"
+					"path": "delivery",
+					"style": {
+						"navigationBarTitleText": "地址",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
 				},
-				{
-					"path": "pay"
-				}, {
-					"path": "address"
-				},
+				
 				{
 					"path": "shoplist",
 					"style": {
@@ -115,67 +138,50 @@
 						"navigationBarBackgroundColor": "#fff",
 						"navigationBarTextStyle": "black"
 					}
+				},
+				{
+					"path": "paySuccess",
+					"style": {
+						"navigationBarTitleText": "支付成功",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
 				}
 			]
 		},
-		// #ifdef H5
-		{
-			"root": "pages/suyuan",
-			"pages": [{
-					"path": "index"
-				},
-				{
-					"path": "product"
-				}, {
-					"path": "journey"
-				},
-				{
-					"path": "quantity"
-				}
-			]
-		},
-		// #endif
 		{
 			"root": "pages/user",
 			"pages": [{
-					"path": "accountmange"
-				}, {
-					"path": "accountadd"
-				}, {
-					"path": "accountedit"
-				}, {
 					"path": "modifypwd"
 				}, {
-					"path": "receipt"
-				}, {
-					"path": "invest"
-				}, {
-					"path": "investlist"
-				}, {
-					"path": "investrecord"
-				}, {
-					"path": "bill"
-				}, {
-					"path": "billdetail"
-				}, {
-					"path": "cash"
-				}, {
-					"path": "cashdetail"
-				}, {
 					"path": "myinfo"
-				}, {
-					"path": "bindphone"
-				}, {
-					"path": "userAddress"
-				}, {
-					"path": "address"
-				}, {
-					"path": "purchase_detail"
-				}, {
-					"path": "purchase_record"
-				}
+				},
+				{
+					"path": "newProductDemand",
+					"style": {
+						"navigationBarTitleText": "新品需求",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
+					
 
-			]
+				}, {
+					"path": "feedback",
+					"style": {
+						"navigationBarTitleText": "意见反馈",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
+				},
+				{
+					"path": "remainder",
+					"style": {
+						"navigationBarTitleText": "我的余额",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
+				}
+            ]
 		}
 	],
 	"globalStyle": {
@@ -183,14 +189,12 @@
 		"navigationBarTitleText": " ",
 		"navigationBarBackgroundColor": "#F0F0F0",
 		"backgroundColor": "#F8F8F8",
-
 		"app-plus": {
 			"titleNView": false
 		},
 		"h5": {
 			"titleNView": false
 		}
-
 	},
 	"tabBar": {
 		"color": "#999999",
@@ -208,11 +212,6 @@
 		}, {
 			"pagePath": "pages/tabar/shopcart"
 			// "text": "购物车"
-
-
-		}, {
-			"pagePath": "pages/tabar/order"
-			// "text": "订单"
 
 
 		}, {

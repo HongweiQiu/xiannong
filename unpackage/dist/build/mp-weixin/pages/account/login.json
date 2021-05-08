@@ -1,5 +1,6 @@
 {
-  "usingComponents": {
-    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar"
-  }
+  "navigationBarTitleText": "登录",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {}
 }

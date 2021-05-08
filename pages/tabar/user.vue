@@ -1,125 +1,62 @@
 <template>
 	<view class="user">
-		<!-- #ifdef APP-PLUS -->
-		<uni-status-bar style="background:#094 ;"></uni-status-bar>
-		<!-- #endif -->
-
-		<view class="flex_left_right author" v-if="is_child != 1" @click="myinfoPage">
-			<view class="align_center" v-if="token">
-				<image v-if="memberInfoData.logo" :src='memberInfoData.logo'></image>
-				<image v-if="!memberInfoData.logo" :src='imgRemote+member_default'></image>
-				<text v-if="memberInfoData.nickname != ''">{{memberInfoData.nickname}}</text>
-				<text v-if="memberInfoData.nickname == ''">请设置昵称</text>
-			</view>
-			<view class="align_center" v-if="!token">
-				<image v-if="memberInfoData.logo" :src='memberInfoData.logo'></image>
-				<image v-if="!memberInfoData.logo" :src='imgRemote+member_default'></image>
-				<text>请先登录</text>
-			</view>
-			<uni-icons type="arrowright" size="20" color="white"></uni-icons>
-		</view>
-		<view class="flex_left_right author" v-if="is_child == 1">
-			<view class="align_center" v-if="token">
-				<image v-if="memberInfoData.logo" :src='memberInfoData.logo'></image>
-				<image v-if="!memberInfoData.logo" :src='imgRemote+member_default'></image>
-				<text v-if="memberInfoData.nickname != ''">{{memberInfoData.nickname}}</text>
-				<text v-if="memberInfoData.nickname == ''">请设置昵称</text>
-			</view>
-			<view class="align_center" v-if="!token">
-				<image v-if="memberInfoData.logo" :src='memberInfoData.logo'></image>
-				<image v-if="!memberInfoData.logo" :src='imgRemote+member_default'></image>
-				<text>请先登录</text>
-			</view>
-			<uni-icons type="arrowright" size="20" color="white"></uni-icons>
-		</view>
-
-		<view class="back_green"></view>
-		<view class="middle">
-			<view class="" @click="threePage('recomend')">
-				<image src="../../static/img/recommand.png" mode="aspectFit"></image>
-				<text>推荐</text>
-			</view>
-			<view class="modify_address" @click="threePage('address')">
-				<text class="icon_border"></text>
-				<view class="address">
-					<image src="../../static/img/address.png" mode="aspectFit"></image>
-					<text>地址</text>
+		<image src="../../static/img/user_back.png" mode="aspectFill"
+			style="height:452rpx;width:100%;margin-top:-158rpx;"></image>
+		<view class="author">
+			<view class="flex-column flex-space-between img">
+				<view class="align_center" v-if="token">
+					<image v-if="memberInfoData.logo" :src='memberInfoData.logo' class="avator"></image>
+					<text v-if="memberInfoData.nickname != ''">{{memberInfoData.nickname}}</text>
+					<text v-if="memberInfoData.nickname == ''">请设置昵称</text>
 				</view>
-				<text class="icon_border"></text>
+				<view class="align_center" v-else>
+					<image v-if="memberInfoData.logo" :src='memberInfoData.logo' class="avator"></image>
+					<image v-if="!memberInfoData.logo" :src='imgRemote+member_default'></image>
+					<text>请先登录</text>
+				</view>
+				<navigator url="../user/remainder">
+					<view class="flex_left_right remain-money">
+						<text>我的余额</text>
+						<view class="">
+							<text>0.00</text>
+							<uni-icons type="arrowright" size="18" color="white"></uni-icons>
+						</view>
+					</view>
+				</navigator>
+
 			</view>
-			<view class="" @click="threePage('password')">
-				<image src="../../static/img/password.png" mode="aspectFit"></image>
-				<text>密码</text>
+
+		</view>
+
+		<view class="order-info">
+			<view class="my-order flex_left_right" @click="orderPage(0)">
+				<text class="bold">我的订单</text>
+				<uni-icons type="arrowright" size="18" color="#999"></uni-icons>
+			</view>
+			<view class="order-statu flex_left_right">
+				<view v-for="(item,index) in orderStatu" @click="orderPage(item)">
+					<view class="center">
+						<image :src="'../../static/img/'+item.path+'.png'" mode="aspectFit"
+							:class="index==1?'scale':''"></image>
+						<text class="to-be-paid" v-if="index==0">2</text>
+					</view>
+					<view class="fs-13 center">{{item.name}}</view>
+				</view>
 			</view>
 		</view>
 		<view class="select_operate">
-			<view v-if="is_child != 1" @click="pageUrl(item)" v-for="(item, index) in userList" :key="index" class="flex_left_right">
-				<view class="">
-					<text :class="'iconfont ' + item.icon" :style="{ color: item.color }"></text>
+			<view @click="pageUrl(item)" v-for="(item, index) in userList" :key="index"
+				class="flex_left_right align_center">
+				<view class="align_center">
+					<text :class="'iconfont ' + item.icon" style="font-size: 50rpx;width: 50rpx;"></text>
 					<text class="name">{{ item.name }}</text>
 				</view>
 				<view>
-					<uni-icons type="arrowright" size="18" color="black"></uni-icons>
-				</view>
-			</view>
-			<!-- #ifdef MP-WEIXIN | MP-ALIPAY -->
-
-			<view v-if="is_child != 1&&token">
-				<button open-type="share" class="flex_left_right" v-if="token">
-					<view class="">
-						<text class="iconfont icon-fenxiang" style="color: #26DD5B;"></text>
-						<text class="name">分享小程序</text>
-					</view>
-					<view>
-						<uni-icons type="arrowright" size="18" color="black"></uni-icons>
-					</view>
-				</button>
-
-			</view>
-			<view v-if="is_child != 1&&!token" class="flex_left_right" @click="exit">
-				<view class="">
-					<text class="iconfont icon-fenxiang" style="color: #26DD5B;"></text>
-					<text class="name">分享小程序</text>
-				</view>
-				<view>
-					<uni-icons type="arrowright" size="18" color="black"></uni-icons>
-				</view>
-			</view>
-			<!-- #endif -->
-
-			<!-- #ifdef H5 -->
-
-			<view class="flex_left_right" v-if="is_child != 1" @click="share()">
-				<view class="">
-					<text class="iconfont  icon-fenxiang" style="color:#26DD5B"></text>
-					<text class="name">分享公众号</text>
-				</view>
-				<view>
-					<uni-icons type="arrowright" size="18" color="black"></uni-icons>
-				</view>
-			</view>
-			<!-- #endif -->
-
-			<view class="flex_left_right" @click="exit">
-				<view class="">
-					<text class="iconfont  icon-tuichu" style="color:#ADDB8C"></text>
-					<text class="name">退出登录</text>
-				</view>
-				<view>
-					<uni-icons type="arrowright" size="18" color="black"></uni-icons>
+					<uni-icons type="arrowright" size="18" color="#999"></uni-icons>
 				</view>
 			</view>
 		</view>
 		<my-tabar tabarIndex=3></my-tabar>
-		<my-mask :masktabar="masktabar"></my-mask>
-		<view class="share_box" v-if="hShare" @click="share()">
-			<view class="item">
-				<image class="share_msg" src="../../static/img/share.png" mode=""></image>
-			</view>
-			<view class="item">
-				<image class="share_x" src="../../static/img/x.png" mode=""></image>
-			</view>
-		</view>
 	</view>
 </template>
 
@@ -133,136 +70,64 @@
 		imgRemote,
 		navBar
 	} = app;
-	// #ifdef H5
-	var wx = require('jweixin-module');
-	// #endif
-	import uniIcons from '../../components/uni-icons/uni-icons.vue';
 	export default {
-		components: {
-			uniIcons,
-		},
 		data() {
 			return {
-				masktabar: false,
-				hShare: false,
 				userList: [{
-						icon: 'icon-08_zizhanghaoguanli',
-						name: '账号管理',
+						icon: 'iconshouhuodizhi',
+						name: '地址管理',
 						color: '#3DABFF',
-						url: 'accountmange'
+						url: 'delivery'
 					},
 					{
-						icon: 'icon-fapiao',
-						name: '开具发票',
+						icon: 'iconkefu',
+						name: '联系客服',
 						color: '#FF9C00',
 						url: 'receipt'
 					},
 					{
-						icon: 'icon-tianchongxing--',
-						name: '账单记录',
+						icon: 'iconxuqiu',
+						name: '新品需求',
 						color: '#FFF000',
-						url: 'bill'
+						url: 'newProductDemand'
 					},
 					{
 						color: '#ffab9a',
-						icon: 'icon-buy-fill',
-						name: '购买记录',
-						url: 'purchase_record'
+						icon: 'iconxinxi',
+						name: '意见反馈',
+						url: 'feedback'
 					},
 					{
-						icon: 'icon-qianbao',
-						name: '充值',
+						icon: 'iconshezhi',
+						name: '设置',
 						color: '#2DC4B4',
-						url: 'invest'
-					},
-					{
-						icon: 'icon-juan',
-						name: '现金劵',
-						color: '#F8632F',
-						url: 'cash'
-					},
-					// #ifndef MP-ALIPAY
-					{
-						icon: 'icon-weixin',
-						name: uni.getStorageSync('is_miniBind') == 0 ? '绑定微信' : '改绑微信',
-						color: '#26DD5B',
-						url: 'bindWeChat'
+						url: 'myinfo'
 					}
-					// #endif
-					// #ifdef MP-ALIPAY
-					{
-						icon: 'icon-zhifubaorenzheng',
-						name: uni.getStorageSync('is_miniBind') == 0 ? '绑定支付宝' : '改绑支付宝',
-						color: '#1296db',
-						url: 'bindWeChat'
-					}
-					// #endif
-
-
 				],
+				orderStatu: [{
+					path: 'to_be_paid',
+					name: '待付款'
+				}, {
+					path: 'to_be_delivered',
+					name: '待发货'
+				}, {
+					path: 'to_be_received',
+					name: '待收货'
+				}, {
+					path: 'completed',
+					name: '已完成'
+				}, {
+					path: 'after_sales',
+					name: '售后/退款'
+				}, ],
 				count: 0,
-				is_bind: '',
-				is_child: '',
-				token: '',
+				token: '12',
 				imgRemote: imgRemote,
 				memberInfoData: '',
 				member_default: '',
-				code: '',
-				shareInfo: [],
-				// #ifdef H5
-				userinfo: '',
-				// #endif
 			};
 		},
 		methods: {
-			share() {
-				if (!this.token) {
-					uni.navigateTo({
-						url: '/pages/account/login'
-					})
-				} else {
-					if (this.hShare == false) {
-						let that = this;
-						that.hShare = true;
-						var timeStamp = Math.round(new Date().getTime() / 1000);
-						var obj = {
-							appid: appid,
-							timeStamp: timeStamp,
-						}
-						var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-						var data = {
-							appid: appid,
-							timeStamp: timeStamp,
-							sign: sign,
-						}
-						rs.getRequests("shareConfig", data, (res) => {
-							if (res.data.code == 200) {
-								var data = res.data.data;
-								WeixinJSBridge.on('menu:share:appmessage', function(argv) {
-									WeixinJSBridge.invoke('sendAppMessage', {
-										"appid": that.userinfo.appId, //appid 设置空就好了。
-										"img_url": data.share_img, //分享时所带的图片路径
-										"img_width": "120", //图片宽度
-										"img_height": "120", //图片高度
-										"link": data.share_href, //分享附带链接地址
-										"desc": data.share_describe, //分享内容介绍
-										"title": data.share_title
-									}, function(res) { /*** 回调函数，最好设置为空 ***/
-										this.hShare = false
-										// console.log(res)
-									});
-
-								});
-							} else {
-								rs.Toast(res.data.msg)
-							}
-						})
-					} else {
-						this.hShare = false
-					}
-
-				}
-			},
 			memberInfo() {
 
 				var that = this;
@@ -309,292 +174,18 @@
 				setTimeout(() => {
 					this.count = 0
 				}, 500)
+
 				if (this.token) {
-					if (item.url == 'bindWeChat') {
-
-						// #ifdef H5
-						this.adminisus_weixin()
-						// #endif
-
-						// #ifdef APP-PLUS
-						this.bindWeChat()
-						// #endif
-
-						// #ifdef MP-WEIXIN
-						this.wxbindWeChat()
-						// #endif
-
-						// #ifdef MP-ALIPAY
-						this.alipayBind()
-						// #endif
-
-					} else {
-						getApp().globalData.isReload = true;
-						uni.navigateTo({
-							url: `/pages/user/${item.url}`
-						});
-					}
+					getApp().globalData.isReload = true;
+					let path = item.url == 'delivery' ? 'shopcart' : 'user';
+					uni.navigateTo({
+						url: `/pages/${path}/${item.url}`
+					});
 				} else {
 					uni.reLaunch({
 						url: '/pages/account/login'
 					});
 				}
-			},
-
-			//小程序绑定
-			wxbindWeChat(e) {
-				console.log("小程序绑定")
-				var that = this;
-				uni.showModal({
-					content: this.is_bind == 1 ? '是否微信改绑' : '是否绑定微信',
-					cancelText: "我再想想",
-					cancelColor: "#999",
-					confirmText: "确认",
-					confirmColor: "#009a44",
-					success: function(res) {
-						if (res.confirm) {
-							uni.getUserInfo({
-								provider: 'weixin',
-								success(infoRes) {
-									let {
-										encryptedData,
-										iv
-									} = infoRes;
-									console.log(infoRes);
-									uni.login({
-										provider: 'weixin',
-										success(res) {
-											console.log(res.code)
-											that.wxbindWeChata(res.code)
-										}
-
-									})
-								}
-							})
-						} else if (res.cancel) {
-							// console.log('用户点击取消');
-						}
-					}
-				});
-
-			},
-			wxbindWeChata(code) {
-				var that = this;
-				var timeStamp = Math.round(new Date().getTime() / 1000);
-				var obj = {
-					appid: appid,
-					code: code,
-					timeStamp: timeStamp,
-				}
-				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				var data = {
-					appid: appid,
-					code: code,
-					type: "mini",
-					timeStamp: timeStamp,
-					sign: sign,
-				}
-				rs.postRequests("bindWeChat", data, (res) => {
-					if (res.data.code == 200) {
-						rs.Toast('绑定微信成功');
-
-						setTimeout(function() {
-							uni.clearStorage({
-								success: function(reg) {
-									uni.navigateTo({
-										url: '/pages/account/login'
-									});
-								}
-							})
-						}, 1000);
-
-					} else {
-						rs.Toast(res.data.msg)
-					}
-				})
-			},
-			// h5绑定微信
-			adminisus_weixin() {
-				console.log("H5绑定")
-				var that = this;
-				uni.showModal({
-					content: this.is_bind == 1 ? '是否微信改绑' : '是否绑定微信',
-					cancelText: "我再想想",
-					cancelColor: "#999",
-					confirmText: "确认",
-					confirmColor: "#DEC17C",
-					success: function(res) {
-						if (res.confirm) {
-							uni.setStorageSync('isWeixin', true)
-							// let code = location.search;
-							// let getCode = code.substring(code.indexOf('=') + 1, code.lastIndexOf('&'));
-							// if (!getCode) {
-							let url = window.location.href;
-							let redirect_uri = encodeURIComponent(url);
-							let a = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
-								"appid=" + that.userinfo.appId + "&redirect_uri=" + redirect_uri +
-								"&response_type=code&scope=snsapi_userinfo#wechat_redirect"
-							window.location.href = a;
-							// }
-						} else if (res.cancel) {
-							// console.log('用户点击取消');
-						}
-					}
-				});
-			},
-			//支付宝
-			alipayBind(e) {
-				console.log("小程序绑定")
-				var that = this;
-				uni.showModal({
-					content: this.is_bind == 1 ? '是否改绑支付宝' : '是否绑定支付宝',
-					cancelText: "我再想想",
-					cancelColor: "#999",
-					confirmText: "确认",
-					confirmColor: "#009a44",
-					success: function(res) {
-						if (res.confirm) {
-							uni.getUserInfo({
-								provider: 'alipay',
-								success(infoRes) {
-									console.log(infoRes);
-									uni.login({
-										provider: 'alipay',
-										success(res) {
-											console.log(res.code)
-											that.alipayBinda(res.code, infoRes.avatar)
-										}
-
-									})
-								}
-							})
-						} else if (res.cancel) {
-							// console.log('用户点击取消');
-						}
-					}
-				});
-
-			},
-			alipayBinda(code, img) {
-				var that = this;
-				var timeStamp = Math.round(new Date().getTime() / 1000);
-				var obj = {
-					appid: appid,
-					code: code,
-					timeStamp: timeStamp,
-					headimgurl: img
-				}
-				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				var data = Object.assign({
-					loginType: "alipay",
-					type: "mini",
-					sign: sign
-				}, obj)
-
-				rs.postRequests("bindWeChat", data, (res) => {
-					if (res.data.code == 200) {
-						rs.Toast('绑定支付宝成功');
-						setTimeout(function() {
-							uni.clearStorage({
-								success: function(reg) {
-									uni.navigateTo({
-										url: '/pages/account/login'
-									});
-								}
-							})
-						}, 1000);
-
-					} else {
-						rs.Toast(res.data.msg)
-					}
-				})
-			},
-
-			//APP绑定
-			bindWeChat() {
-				console.log("APP绑定")
-				var that = this
-				uni.getProvider({
-					service: 'oauth',
-					success: function(res) {
-						//res.provider  检测手机上是否安装微信、QQ、新浪微博等
-						if (~res.provider.indexOf('weixin')) {
-							//手机安装了微信
-							uni.login({
-								provider: 'weixin',
-								success: function(loginRes) {
-									// console.log('-------获取openid(unionid)-----');
-									// console.log(JSON.stringify(loginRes));
-									uni.getUserInfo({
-										provider: 'weixin',
-										success: function(infoRes) {
-											that.code = infoRes.userInfo.openId;
-											that.bindWeChata()
-										}
-									});
-
-								}
-							});
-						} else {
-							uni.showToast({
-								title: '手机上还没安装微信,请安装微信后重试',
-								duration: 2000,
-								icon: "none"
-							});
-						}
-
-					}
-				});
-			},
-			bindWeChata() {
-				var that = this;
-				uni.showModal({
-					content: this.is_bind == 1 ? '是否微信改绑' : '是否绑定微信',
-					cancelText: "我再想想",
-					cancelColor: "#999",
-					confirmText: "确认",
-					confirmColor: "#DEC17C",
-					success: function(res) {
-						if (res.confirm) {
-							// console.log('用户点击确定');
-							var app_openid = that.code;
-							var timeStamp = Math.round(new Date().getTime() / 1000);
-							var obj = {
-								appid: appid,
-								timeStamp: timeStamp,
-							}
-							var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-							var data = {
-								appid: appid,
-								app_openid: app_openid,
-								type: "app",
-								timeStamp: timeStamp,
-								sign: sign,
-							}
-							rs.postRequests("saveMemberInfo", data, (res) => {
-								// console.log(res)
-								if (res.data.code == 200) {
-									rs.Toast('绑定微信成功')
-									setTimeout(function() {
-										uni.clearStorage({
-											success: function(reg) {
-												uni.navigateTo({
-													url: '/pages/account/login'
-												});
-											}
-										})
-									}, 1000);
-									// uni.setStorageSync('is_miniBind', 1)
-									// that.is_bind = uni.getStorageSync("is_miniBind")
-								} else {
-									rs.Toast(res.data.msg)
-								}
-							})
-						} else if (res.cancel) {
-							// console.log('用户点击取消');
-						}
-					}
-				});
 			},
 			threePage(data) {
 				this.count++;
@@ -626,88 +217,18 @@
 					});
 				}
 			},
-			exit() {
-				if (!this.token) {
+			orderPage(data) {
+				if (data.path == 'after_sales') {
 					uni.navigateTo({
-						url: '/pages/account/login'
-					});
-					return;
-				}
-				uni.showModal({
-					title: '提示',
-					content: '是否退出登录？',
-					success: function(res) {
-						if (res.confirm) {
-							// console.log('用户点击确定');
-							var that = this
-							var timeStamp = Math.round(new Date().getTime() / 1000);
-							var obj = {
-								appid: appid,
-								timeStamp: timeStamp,
-							}
-							var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-							var data = {
-								appid: appid,
-								timeStamp: timeStamp,
-								sign: sign,
-							}
-							rs.getRequests("logout", data, (res) => {
-								if (res.data.code == 200) {
-									rs.Toast("退出成功");
-
-									setTimeout(function() {
-										uni.clearStorage({
-											success: function(reg) {
-												uni.navigateTo({
-													url: '/pages/account/login'
-												});
-											}
-										})
-									}, 1000);
-								}
-							})
-						} else if (res.cancel) {
-							// console.log('用户点击取消');
-						}
-					}
-				});
-			},
-			wxConfig() {
-
-				if (this.token) {
-
-					var that = this
-					var timeStamp = Math.round(new Date().getTime() / 1000);
-					var obj = {
-						appid: appid,
-						timeStamp: timeStamp,
-					}
-					var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-					var data = {
-						appid: appid,
-						timeStamp: timeStamp,
-						sign: sign,
-					}
-					rs.getRequests("wxConfig", data, (res) => {
-						if (res.data.code == 200) {
-							this.userinfo = res.data.data;
-							wx.config({
-								debug: false, // 开启调试模式
-								appId: res.data.data.appId, // 必填，公众号的唯一标识
-								timestamp: res.data.data.timestamp, // 必填，生成签名的时间戳
-								nonceStr: res.data.data.nonceStr, // 必填，生成签名的随机串
-								signature: res.data.data.signature, // 必填，签名，见附录1
-								jsApiList: [
-									'updateAppMessageShareData', 'onMenuShareAppMessage'
-								] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-							});
-						}
+						url: '../order/orderAfterSale'
+					})
+				} else {
+					uni.navigateTo({
+						url: './order'
 					})
 				}
 
-			}
-
-
+			},
 		},
 		onLoad() {
 			uni.hideTabBar();
@@ -718,108 +239,40 @@
 		onShow: function() {
 			var that = this;
 			that.memberInfo();
-			that.is_bind = uni.getStorageSync('is_miniBind');
-			that.is_child = uni.getStorageSync("is_child");
-
-			that.token = uni.getStorageSync("cdj_token");
-			var timeStamp = Math.round(new Date().getTime() / 1000);
-			var obj = {
-				appid: appid,
-				timeStamp: timeStamp,
-			}
-			var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-			var data = {
-				appid: appid,
-				timeStamp: timeStamp,
-				sign: sign,
-			}
-			rs.getRequests("shareConfig", data, (res) => {
-				if (res.data.code == 200) {
-					that.shareInfo = res.data.data;
-
-				}
-			})
-
-			//H5
-			// #ifdef H5
-			that.wxConfig();
-			let code = location.search;
-			let getCode = code.substring(code.indexOf('=') + 1, code.lastIndexOf('&'));
-			let isWeixin = uni.getStorageSync('isWeixin');
-			if (isWeixin && getCode) {
-				var timeStamp = Math.round(new Date().getTime() / 1000);
-				var obj = {
-					appid: appid,
-					timeStamp: timeStamp,
-					code: getCode,
-				}
-				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				var data = {
-					appid: appid,
-					code: getCode,
-					timeStamp: timeStamp,
-					sign: sign,
-				}
-				rs.postRequests("bindWeChat", data, (res) => {
-					uni.clearStorageSync('isWeixin')
-					getCode = '';
-					// console.log(res)
-					if (res.data.code == 200) {
-						rs.Toast('绑定微信成功')
-						setTimeout(function() {
-							uni.clearStorage({
-								success: function(reg) {
-									uni.navigateTo({
-										url: '/pages/account/login'
-									});
-								}
-							})
-						}, 1000);
-						// uni.setStorageSync('is_miniBind', 1)
-						// that.is_bind = uni.getStorageSync("is_miniBind")
-					} else {
-						rs.Toast(res.data.msg);
-						setTimeout(() => {
-							window.location.href = app.rootUrl + "/#/pages/tabar/user";
-						}, 1000)
-					}
-				})
-
-			}
-			// #endif
 		},
-		// 分享
-		onShareAppMessage() {
-			let path = this.shareInfo.share_href;
-			return {
-				"imageUrl": this.shareInfo.share_img, //分享时所带的图片路径
-				"path": path.substring(path.indexOf('#') + 1), //分享附带链接地址
-				"desc": this.shareInfo.share_describe, //分享内容介绍
-				"title": this.shareInfo.share_title
-			}
-		}
+
 	};
 </script>
 
-<style>
+<style lang="scss">
 	page,
 	.user {
 		background: white;
 		/* height: 100%; */
 	}
 
-	.user .author image {
-		width: 140rpx;
-		height: 140rpx;
-		margin-right: 20rpx;
+	.user .author>view image {
+		width: 110rpx;
+		height: 110rpx;
+		margin: 0rpx 20rpx 0 0;
 		border-radius: 50%;
 	}
 
 	.user .author {
-		background: #094;
-		height: 230rpx;
+		position: absolute;
+		top: 0;
+		height: 300rpx;
 		color: white;
-		padding: 0 20rpx;
+		padding: 0 30rpx;
+		width: 690rpx;
+
+		.img {
+			height: 294rpx;
+
+			&>view:first-child {
+				margin-top: 20rpx;
+			}
+		}
 	}
 
 	.user .back_green {
@@ -828,110 +281,71 @@
 		width: 100%;
 	}
 
-	.user .middle {
-		display: flex;
-		margin: 0 20rpx;
-		position: relative;
-		margin-top: -80rpx;
-		justify-content: space-around;
-		line-height: 160rpx;
-		border-radius: 6px;
-		height: 160rpx;
-		box-shadow: 1px 1px 4px #e0e0e0;
-		background: #fff;
-	}
-
-	.user .middle image {
-		width: 40rpx;
-		height: 40rpx;
-		margin-left: 10rpx;
-
-	}
-
-	.user .middle>view {
-		display: flex;
-		align-items: center;
-		width: 33%;
-		justify-content: center;
-	}
-
-	.user .middle>view text {
-		margin-left: 10rpx;
-		/* #ifdef MP-ALIPAY */
-		padding-top: 6rpx;
-		/* #endif */
-		;
-	}
-
-	.user .middle .modify_address {
-		display: flex;
-		justify-content: space-between;
-	}
-
-	.user .middle .modify_address .address {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.user .middle .modify_address .address image {
-		width: 32rpx;
-	}
-
-	.user .middle .modify_address .icon_border {
-		border: 0.5px solid black;
-		height: 25rpx;
-	}
-
 	.user .select_operate {
 		padding: 0 20rpx;
 	}
 
 	.user .select_operate>view {
-		height: 80rpx;
+		height: 98rpx;
+		border-bottom: 1px solid #EEE;
+		box-sizing: border-box;
+
 	}
 
 	.user .select_operate>view .name {
 		margin-left: 10rpx;
 	}
 
-	.user button {
-		line-height: 80rpx;
-		padding: 0;
-		background: none;
-		font-size: 28rpx;
-		border: none;
-	}
 
-	.user button::after {
-		border: none;
-	}
+	.user {
+		.remain-money {
+			border-radius: 10rpx 10rpx 0 0;
+			background: linear-gradient(to right, #FF9044, #FFB92C);
+			height: 80rpx;
+			line-height: 80rpx;
+			padding: 0 30rpx;
+		}
 
-	.share_box {
-		background: rgba(0, 0, 0, 0.5);
-		position: fixed;
-		top: 0;
-		left: 0;
-		height: 100%;
-		width: 100%;
-		z-index: 999;
-	}
+		.order-info {
+			border-radius: 10rpx;
+			margin: 30rpx 30rpx 0rpx;
+			padding: 0 30rpx 30rpx 30rpx;
+			box-shadow: 3rpx 4rpx 6px rgba(0, 0, 0, 0.1);
+		}
 
-	.share_box .item {
-		display: flex;
-		justify-content: center;
-	}
+		.order-info .my-order {
+			height: 91.8rpx;
+			line-height: 91.8rpx;
+			border-bottom: 1px solid #eee;
+		}
 
-	.share_box .share_msg {
-		width: 70%;
-		height: 310rpx;
-		margin-left: 19%;
-		margin-top: 80rpx;
-	}
+		.order-statu {
 
-	.share_box .share_x {
-		width: 50rpx;
-		height: 50rpx;
-		margin-top: 500rpx;
+			flex-basis: 20%;
+			margin-top: 30rpx;
+
+			image {
+				width: 80rpx;
+				height: 60rpx;
+
+			}
+
+			.to-be-paid {
+				position: absolute;
+				width: 32rpx;
+				height: 32rpx;
+				background: #FF3333;
+				color: white;
+				border-radius: 50%;
+				margin: -10rpx 0 0 -25rpx;
+				line-height: 32rpx;
+				font-size: 16rpx;
+			}
+
+			.scale {
+				width: 50rpx;
+			}
+		}
+
 	}
 </style>

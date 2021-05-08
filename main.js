@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import App from './App'
-import share from'./static/js/mixin_share.js';
+import doubleClick from'./static/js/request.js';
 // #ifdef MP-WEIXIN
-Vue.mixin(share)
+Vue.mixin(doubleClick)
 // #endif
 
 

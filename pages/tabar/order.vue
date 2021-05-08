@@ -1,40 +1,18 @@
 <template>
 	<view class="order">
 		<view class="order_top">
-			<uni-nav-bar right-icon="more-filled" right-text="菜单" :title="orderTitle" :status-bar="navBar" fixed="true"
-			 @clickRight="rightClick"></uni-nav-bar>
+			<!-- <uni-nav-bar right-icon="more-filled" right-text="菜单" :title="orderTitle" :status-bar="navBar" fixed="true"
+			 @clickRight="rightClick"></uni-nav-bar> -->
 			<view class="account_info">
-				<!-- 选择账号 -->
-				<view class="select_account" @click="selectAccount" v-if="is_child != 1">
-					<view>选择子账号: </view>
-					<view>
-						<text>{{childtxt}}</text>
-						<uni-icons type="arrowright" size="18"></uni-icons>
-					</view>
-				</view>
 				<view class="">
-					<!-- #ifdef APP-PLUS || H5 || MP-WEIXIN -->
-					<my-s-tabs effect slot-title @change="changeFirst" v-model="activeTab" class="custom-tabs" :line="lineShow">
+					<my-s-tabs effect slot-title @change="changeFirst" v-model="activeTab" class="custom-tabs"
+						lineHeight='6'>
 						<my-s-tab v-for="(item, index) of tabList" :key="index">{{ item.name }}</my-s-tab>
 					</my-s-tabs>
-					<!-- #endif -->
-
-					<!-- #ifdef MP-ALIPAY -->
-					<my-o-tabs :tabList="tabList" :isShow="activeTab" @tab="tabClick"></my-o-tabs>
-					<!-- #endif -->
-
 				</view>
 			</view>
-			<view class="order_statu" v-if="showOrderType">
-				<view class="mask" @click="closemask"></view>
-				<view class="operate">
-					<view class="all_order" @click="titleTab('全部订单')">全部订单</view>
-					<view @click="titleTab('未支付')">未支付</view>
-				</view>
-			</view>
-			<view style="height:156rpx;" v-if="is_child != 1"></view>
-			<view style="height:90rpx;" v-if="is_child == 1"></view>
 		</view>
+		<view style="height:80rpx;"></view>
 		<view class="order_info">
 			<view class="content" v-if="search_default">
 				<view v-for="(item, index) in orderList" :key="index">
@@ -47,68 +25,28 @@
 						<view style="color:#FF3E1E;" class="right" v-if="item.order_status==4">已取消</view>
 					</view>
 					<view class="flex detail" @click="orderDetailPage('orderDetail',item)">
-						<image class="order_img" :src="item.item_img==''?imgRemote+orderInfo.item_default:item.item_img" mode="aspectFit"></image>
+						<image class="order_img" :src="item.item_img==''?imgRemote+orderInfo.item_default:item.item_img"
+							mode="aspectFit"></image>
+
 						<view class="order_oneline">
 							<view class="">
-								<text>{{item.item_title}}</text>
-								<text class="gray_font">(等{{item.item_count}}件商品¥{{item.xd_price}})</text>
+								<text class="bold">新鲜大白菜干净新鲜大白菜干净新鲜大白菜...</text>
+								<view class="fs-13 gray_font" style="margin-top:10rpx;">x20</view>
 							</view>
-							<view class="">配送日期 ： {{item.send_time}}</view>
-							<view class="flex" v-if="item.is_cash_delivery==0">
-								<view>
-									运费：
-									<text class="red_font" v-if="is_look==0">¥***</text>
-									<text class="red_font" v-if="is_look==1">¥{{item.delivery_fee}}</text>
-								</view>
-								<view>
-									应付:
-									<text class="red_font" v-if="is_look==0">¥***</text>
-									<text class="red_font" v-if="is_look==1">¥{{item.yf_price}}</text>
-								</view>
-							</view>
-							<view class="flex" v-if="item.is_cash_delivery==1">
-								<view>
-									实付:
-									<text class="red_font" v-if="is_look==0">¥***</text>
-									<text class="red_font" v-if="is_look==1">¥{{item.total_fee}}</text>
-								</view>
-								<view>
-									应付:
-									<text class="red_font" v-if="is_look==0">¥***</text>
-									<text class="red_font" v-if="is_look==1">¥{{item.yf_price}}</text>
-								</view>
-							</view>
-							<view class="flex" v-if="item.coupons_member_id != 0">
-								<view>
-									现金券:
-									<text class="red_font" v-if="is_look==0">¥***</text>
-									<text class="red_font" v-if="is_look==1">¥{{item.coupons_price}}</text>
-								</view>
-							</view>
-							<view class="time" style="display: flex;justify-content: space-between;">
-								<view>
-									下单时间： {{item.created_time}}
-								</view>
-								<view>
-									<text v-if="item.pay_status==0" style="color:#FF3E1E;">未支付</text>
-									<text v-if="item.pay_status==1" style="color:#1EA55A;">已支付</text>
-								</view>
+
+							<view class="time" style="text-align: right;">
+								<text class="fs-11">共计20件商品 合计：</text>
+								<text class="red-font bold">￥19.99</text>
 							</view>
 						</view>
 					</view>
-					<view class="order_option" v-if="item.order_status == 0 || item.order_status == 2 || item.order_status == 3">
-						<text class="another_order" v-if="item.order_status==3 || item.order_status==2" @click="oneMoreTime(item.id)">再来一单</text>
-						<text class="look_logist" v-if="item.order_status==2" @click="ckwl(item.vehicle_id)">查看物流</text>
-						<text class="cancel_order" v-if="item.order_status==0" @click="cancelOrder(item.id,index)">取消订单</text>
-						<text class="cancel_order" v-if="item.order_status==3 && item.pay_status==1">已支付</text>
+					<view class="order_option">
+						<text class=" cancel_order" @click="oneMoreTime(item.id)">查看详情</text>
+						<text class="cancel_order" @click="ckwl">查看物流</text>
+						<text class="another_order" @click="cancelOrder(item.id,index)">确认收货</text>
+						<text class="another_order">付款</text>
+						<!-- <text class="confirm_good" @click="play(item.id)">马上支付</text> -->
 
-						<block v-if="is_child==0 && item.order_status==3 && item.pay_status==0">
-							<text class="confirm_good" v-if="is_miniBind==1" @click="play(item.id)">马上支付</text>
-							<text class="confirm_good" v-if="is_miniBind==0" @click="orderDetailPage('user')">马上支付</text>
-						</block>
-
-
-						<text class="confirm_good" v-if="item.order_status==2" @click="receiveOrder(item.id,index)">确认收货</text>
 					</view>
 				</view>
 				<my-loading :loading="load"></my-loading>
@@ -116,21 +54,18 @@
 
 			<view class="bitmap" v-else>
 				<image src="../../static/img/no_content.png" mode="aspectFit"></image>
+				<view class="gray_font" >
+					没有订单信息哦~
+				</view>
 			</view>
 		</view>
-		<w-picker mode="selector" default-type="title" :default-props="childListProps" :options="childList" @confirm="onChild($event, 'selector')"
-		 ref="account">
-			子账号
-		</w-picker>
-		<my-tabar tabarIndex=3></my-tabar>
-		<my-mask :masktabar="masktabar"></my-mask>
+
 	</view>
 </template>
 
 <script>
 	import md5 from '../../static/js/md5.js';
 	import rs from '../../static/js/request.js';
-	import uniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar.vue';
 	const app = getApp().globalData;
 	const {
 		appid,
@@ -138,46 +73,25 @@
 		imgRemote,
 		navBar
 	} = app;
-	import wPicker from '@/components/w-picker/w-picker.vue';
 	export default {
-		components: {
-			wPicker
-		},
 		data() {
 			return {
-				masktabar:false,
-				is_child: '',
-				is_miniBind: '',
 				imgRemote: imgRemote,
 				load: true,
 				navBar: navBar,
 				tabList: [{
-					name: '待审核'
+					name: '全部'
 				}, {
-					name: '备货中'
+					name: '待付款'
 				}, {
-					name: '配送中'
+					name: '待发货'
 				}, {
-					name: '已收货'
+					name: '待收货'
 				}, {
-					name: '已取消'
+					name: '已完成'
 				}],
-				// #ifdef MP-ALIPAY
-				activeTab: -1,
-				// #endif
 				activeTab: 1,
 				lineShow: false,
-				showOrderType: false,
-				childListProps: {
-					"label": "nickname",
-					"value": "zid"
-				},
-				childList: [{
-					"zid": "",
-					"nickname": "当前账号",
-				}],
-				childzid: '',
-				childtxt: '当前账号',
 				isActive: '全部',
 				orderTitle: '全部订单',
 				type: 1,
@@ -191,17 +105,7 @@
 			};
 		},
 		methods: {
-			// #ifdef MP-ALIPAY
-			tabClick(data) {
-				this.activeTab = data;
-				this.isActive = data;
-				this.page = 1;
-				this.orderLista();
-			},
-			// #endif
-			closemask(){
-				this.showOrderType=false;
-			},
+
 			/**
 			 * 确认收货
 			 */
@@ -252,12 +156,8 @@
 						}
 					}
 				});
-
 			},
-			/**
-			 * 页面跳转
-			 */
-			//支付
+			// 页面跳转支付
 			play(data) {
 				this.count++;
 				if (this.count != 1) return;
@@ -348,6 +248,19 @@
 			 * 查看物流
 			 */
 			ckwl(data) {
+				uni.showModal({
+					title: '提示',
+					content: '该商品由商家亲自配送 请你耐心等待！',
+					confirmColor: '#57B127',
+					success: function(res) {
+						if (res.confirm) {
+							console.log('用户点击确定');
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
+					}
+				})
+				return;
 				var that = this;
 				var id = data;
 
@@ -373,7 +286,7 @@
 					if (res.data.code == 200) {
 						if (res.data.data != '') {
 							var latitude = res.data.data.latitude;
-							var longitude =res.data.data.longitude;
+							var longitude = res.data.data.longitude;
 							if (res.data.data.latitude == '' || res.data.data.longitude == '') {
 								rs.Toast("无物流信息")
 							} else {
@@ -381,10 +294,10 @@
 								uni.navigateTo({
 									url: '/pages/order/address?data=' + JSON.stringify(res.data.data)
 								});
-							
+
 								// #endif
-								
-							
+
+
 								// #ifdef MP-WEIXIN | APP-PLUS | MP-ALIPAY
 								uni.getLocation({
 									type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
@@ -452,7 +365,7 @@
 							rs.getRequests("oneMoreTime", data, (res) => {
 								console.log(res)
 								if (res.data.code == 200) {
-									rs.Toast( "再来一单成功");
+									rs.Toast("再来一单成功");
 									setTimeout(function() {
 										uni.switchTab({
 											url: '/pages/tabar/shopcart'
@@ -467,7 +380,7 @@
 										})
 									}, 1000);
 								} else {
-									rs.Toast( res.data.msg)
+									rs.Toast(res.data.msg)
 								}
 							})
 						} else if (res.cancel) {
@@ -541,19 +454,12 @@
 				rs.getRequests("orderList", data, (res) => {
 					if (res.data.code == 200) {
 						if (res.data.data.list.length > 0) {
-							if (res.data.data.list.length <= 9) {
-								that.load = false;
-							} else {
-								that.load = true;
-							}
-
-							that.search_default = true;
+							that.load = res.data.data.list.length <= 9 ? false : true;
+							that.search_default = false;
 							that.is_look = res.data.data.is_look;
 							that.orderInfo = res.data.data;
 							that.orderList = res.data.data.list;
-							// console.log(res.data.orderInfo)
 						} else {
-
 							that.search_default = false;
 							that.load = '空';
 						}
@@ -662,7 +568,7 @@
 		 * 生命周期函数--监听页面显示
 		 */
 		onShow() {
-			
+
 			var that = this;
 			that.is_child = uni.getStorageSync("is_child");
 			that.is_miniBind = uni.getStorageSync("is_miniBind");
@@ -696,8 +602,8 @@
 					//用户信息
 				}
 			}
-		
-			
+
+
 		},
 		/**
 		 * 生命周期函数--监听页面隐藏
@@ -759,13 +665,13 @@
 		},
 		onLoad() {
 			app.aData.show = false;
-			
+
 			uni.hideTabBar();
 		}
 	};
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.order .select_account {
 		border-bottom: 1px solid #efefef;
 		display: flex;
@@ -786,7 +692,6 @@
 	}
 
 	.order .account_info {
-		border-top: 10rpx solid #efefef;
 		background: white;
 		position: fixed;
 		width: 100%;
@@ -801,24 +706,27 @@
 
 	.order .order_option {
 		border-top: 1px solid #efefef;
-		height: 60rpx;
-		line-height: 60rpx;
+		height: 96rpx;
+		line-height: 96rpx;
 		text-align: right;
+		padding-right: 20rpx;
 	}
 
 	.order .order_option text {
-		border-radius: 20rpx;
-		padding: 0 12rpx;
+		border-radius: 23rpx;
+		width: 140rpx;
+		display: inline-block;
+		height: 46rpx;
+		line-height: 46rpx;
 		margin-left: 20rpx;
-		font-size: 24rpx;
-		/* #ifdef MP-ALIPAY */
-		padding: 5rpx 12rpx 0;
-		/* #endif */
+		font-size: 26rpx;
+		text-align: center;
 	}
 
 	.order .another_order {
-		background: rgb(173, 219, 140);
-		color: white;
+		background: white;
+		color: #FF3333;
+		border: 1px solid #F33;
 	}
 
 	.order .look_logist {
@@ -828,8 +736,8 @@
 
 	.order .cancel_order {
 		background: white;
-		color: rgb(128, 128, 128);
-		border: 1px solid rgb(128, 128, 128);
+		color: #333;
+		border: 1px solid #333;
 	}
 
 	.confirm_good {
@@ -839,27 +747,28 @@
 	}
 
 	.order .order_img {
-		width: 200rpx;
-		height: 160rpx;
-		margin-right: 20rpx;
+		width: 208rpx;
+		height: 208rpx;
+		margin-right: 30rpx;
 	}
 
-	.order .order_info .content>view:nth-last-child(n + 2) {
+	.order .order_info .content>view {
 		background: white;
-		margin-bottom: 10rpx;
-		padding: 0 20rpx;
+		margin: 30rpx 30rpx 0;
+
+		border-radius: 10rpx;
 	}
 
 	.order .order_info .content .top {
+		padding: 0 20rpx;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding-top: 5px;
-		padding-bottom: 5px;
+		height: 60rpx;
 	}
 
 	.order .order_info .content .detail {
-		padding: 20rpx 0 20rpx 20rpx;
+		padding: 20rpx;
 		border-top: 1px solid #efefef;
 	}
 
@@ -907,15 +816,24 @@
 	}
 
 	.order .bitmap image {
-		width: 400rpx;
-		height: 360rpx;
-		margin-top: 150rpx;
+		width: 445rpx;
+		height: 335rpx;
+		margin: 252rpx 0 60rpx;
 	}
 
 	.order .order_oneline {
-		width: 100%;
+		flex: 1;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+	}
+
+	/deep/ .s-tabs .s-tab-line {
+		bottom: 1rpx;
+		border-radius: 10rpx;
+	}
+
+	/deep/ .s-tab-nav {
+		color: #000;
 	}
 </style>

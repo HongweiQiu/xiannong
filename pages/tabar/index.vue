@@ -129,7 +129,7 @@
 			<my-addcart @onClose="onClose" :cartware="cartware" :config="config" ref="addcart"></my-addcart>
 		</uni-popup>
 		<my-tabar tabarIndex=0></my-tabar>
-		<my-mask :masktabar="masktabar"></my-mask>
+	
 	</view>
 </template>
 
@@ -150,7 +150,7 @@
 		},
 		data() {
 			return {
-				masktabar: false,
+			
 				showActive: false,
 				support: false,
 				showTop: false,

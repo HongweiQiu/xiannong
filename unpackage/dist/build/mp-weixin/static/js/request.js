@@ -81,11 +81,7 @@ function getRequest(url, datas, success) {
 }
 
 //get请求
-function getRequests(url, datas, success) {   
-	
-                    uni.setNavigationBarTitle({
-                        title: uni.getStorageSync('titleKey')
-                    });
+function getRequests(url, datas, success) {
 	uni.request({
 		url: rootDocment + url,
 		method: 'GET',
@@ -99,9 +95,9 @@ function getRequests(url, datas, success) {
 			success(res)
 			if (res.header.authorization != undefined) {
 				uni.setStorageSync("cdj_token", res.header.authorization);
-				
+
 			}
-				
+
 			if (res.data.code == 401) {
 				uni.navigateTo({
 					url: '/pages/account/login'
@@ -220,9 +216,7 @@ function postRequest(url, datas, success) {
 }
 //POST请求不带加载中
 function postRequests(url, datas, success) {
-	uni.setNavigationBarTitle({
-	    title: uni.getStorageSync('titleKey')
-	});
+
 	uni.request({
 		url: rootDocment + url,
 		method: 'POST',
@@ -234,7 +228,7 @@ function postRequests(url, datas, success) {
 		data: Object.assign(datas, active),
 		success: res => {
 			success(res)
-		
+
 			if (res.header.authorization != undefined) {
 				uni.setStorageSync("cdj_token", res.header.authorization)
 			}
@@ -319,25 +313,17 @@ function thedefaulttime() { //购买记录默认时间
 	return dateArr;
 }
 
-// 百度地图
-function MP(ak) {
-	return new Promise(function(resolve, reject) {
-		window.init = function() {
-			resolve(BMap)
-		}
-		var script = document.createElement("script");
-		script.type = "text/javascript";
-		script.src = "http://api.map.baidu.com/api?v=2.0&ak=" + ak + "&callback=init";
-		script.onerror = reject;
-		document.head.appendChild(script);
-	})
-
-}
-function hideTabBar(){
-	// uni.hideTabBar()
-}
-function showTabBar(){
-	// uni.showTabBar()
+function doubleClick(fn) {
+	let that = this;
+	if (that.onoff) {
+		that.onoff = false;
+		fn();
+		setTimeout(function() {
+			that.onoff = true;
+		}, 1500)
+	} else {
+		console.log("请稍后点击")
+	}
 }
 
 module.exports = {
@@ -346,10 +332,8 @@ module.exports = {
 	postRequest: postRequest,
 	postRequests: postRequests,
 	Toast: Toast,
-	hideTabBar:hideTabBar,
-	showTabBar:showTabBar,
 	header: header, //请求头部
 	objKeySort: objKeySort, //加密排序
 	thedefaulttime: thedefaulttime, //加密排序
-	MP: MP
+	doubleClick: doubleClick
 }

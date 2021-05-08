@@ -1,6 +1,7 @@
 <template>
 	<view class="modifypwd">
-		<uni-nav-bar left-icon="arrowleft" title="修改密码" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
+		<!-- <uni-nav-bar left-icon="arrowleft" title="修改密码" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
+		 -->
 		<view class="get_info">
 			<view>
 				<text>原密码</text>
@@ -33,11 +34,11 @@
 	export default {
 		data() {
 			return {
-				old_pwd:'',  //旧密码
-				password:'',  //旧密码
-				password_confirmation:'',  //旧密码
+				old_pwd: '', //旧密码
+				password: '', //旧密码
+				password_confirmation: '', //旧密码
 				navBar: navBar,
-				count:0
+				count: 0
 			};
 		},
 		methods: {
@@ -57,44 +58,55 @@
 				var password = this.password;
 				var password_confirmation = this.password_confirmation;
 				var timeStamp = Math.round(new Date().getTime() / 1000);
-				var obj = { appid: appid, old_pwd: old_pwd, password: password, password_confirmation: password_confirmation, timeStamp: timeStamp, }
+				var obj = {
+					appid: appid,
+					old_pwd: old_pwd,
+					password: password,
+					password_confirmation: password_confirmation,
+					timeStamp: timeStamp,
+				}
 				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
 				if (old_pwd == "") {
-				  rs.Toast("原始密码不能为空")
-				  return false;
+					rs.Toast("原始密码不能为空")
+					return false;
 				}
 				if (password.length < 6) {
-				  rs.Toast("密码不能小于六位数")
-				  return false;
+					rs.Toast("密码不能小于六位数")
+					return false;
 				}
 				if (password_confirmation != password) {
-				  rs.Toast("密码不一致")
-				  return false;
+					rs.Toast("密码不一致")
+					return false;
 				}
 				this.count++;
-				if(this.count!=1)return;
-				setTimeout(()=>{this.count=0},500)
-				var data = { appid: appid, old_pwd: old_pwd, password: password, password_confirmation: password_confirmation, timeStamp: timeStamp, sign: sign, }
+				if (this.count != 1) return;
+				setTimeout(() => {
+					this.count = 0
+				}, 500)
+				var data = {
+					appid: appid,
+					old_pwd: old_pwd,
+					password: password,
+					password_confirmation: password_confirmation,
+					timeStamp: timeStamp,
+					sign: sign,
+				}
 				rs.postRequests("modifyPassword", data, (res) => {
-				  if (res.data.code == 200) {
-					  rs.Toast('修改成功');
-					  setTimeout(() => {
-					  	uni.navigateTo({
-					  		url:"/pages/account/login"
-					  	})
-					  }, 1000);
-				  }
-				  if(res.data.code == 400){
-				    rs.Toast(res.data.msg)
-				  } 
+					if (res.data.code == 200) {
+						rs.Toast('修改成功');
+						setTimeout(() => {
+							uni.navigateTo({
+								url: "/pages/account/login"
+							})
+						}, 1000);
+					}
+					if (res.data.code == 400) {
+						rs.Toast(res.data.msg)
+					}
 				})
 			}
 		},
-		onShow() {
-			uni.setNavigationBarTitle({
-				    title: uni.getStorageSync('titleKey')
-				});
-		}
+		
 	};
 </script>
 
@@ -102,25 +114,27 @@
 	.modifypwd .get_info {
 		background: white;
 		padding: 0 20rpx;
-		margin-top: 10rpx;
+	
 	}
 
 	.modifypwd .get_info>view {
 		display: flex;
-		height: 80rpx;
+		height: 89rpx;
 		align-items: center;
 		border-bottom: 1px solid #f7f6f6;
 	}
 
 	.modifypwd .get_info>view>text {
 		width: 150rpx;
-		color: #808080;
+		color: #333;
 	}
 
 	.modifypwd .button_style {
-		font-size: 32rpx;
-		width: 384rpx;
-		height: 64rpx;
-		line-height: 64rpx;
+		font-size: 36rpx;
+	margin:60rpx 30rpx 0;
+	border-radius: 45rpx;
+		height: 90rpx;
+		line-height: 90rpx;
+		background: #57B127;
 	}
 </style>

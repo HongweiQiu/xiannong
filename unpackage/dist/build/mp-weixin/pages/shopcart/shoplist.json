@@ -1,8 +1,9 @@
 {
+  "navigationBarTitleText": "提交订单",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
   "usingComponents": {
-    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar",
-    "my-stepper": "/components/stepper/index",
-    "uni-popup": "/components/uni-popup/uni-popup",
-    "my-keyboard": "/components/keyboard/index"
+    "uni-icons": "/components/uni-icons/uni-icons",
+    "w-picker": "/components/w-picker/w-picker"
   }
 }

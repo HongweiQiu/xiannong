@@ -3,7 +3,6 @@
   "navigationBarBackgroundColor": "#fff",
   "navigationBarTextStyle": "black",
   "usingComponents": {
-    "uni-popup": "/components/uni-popup/uni-popup",
-    "imgs-banner": "/components/imgsBanner-tag/imgsBanner-tag"
+    "uni-popup": "/components/uni-popup/uni-popup"
   }
 }
