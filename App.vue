@@ -5,23 +5,13 @@
 			appid: '1',
 			active: '2',
 			appsecret: 'StJfzJcXmya6k6Ar',
-			rootUrl: 'https://test.caidj.cn', //主接口地址
-			imgRemote: 'https://test.caidj.cn',
+			// rootUrl: 'https://test.caidj.cn', //主接口地址
+			// imgRemote: 'https://test.caidj.cn',
+			rootUrl: 'https://xntcps.jxsxkeji.com/api.php',
+			imgRemote: 'https://xntcps.jxsxkeji.com',
 			classId: '',
 			isReload: true,
-			aplipay: true,
-			aData: {
-				show: true
-			}
-		},
-		onLaunch: function() {
-
-		},
-		onShow: function() {
-
-		},
-		onHide: function() {
-
+			onoff: true
 		}
 	};
 </script>
@@ -34,9 +24,9 @@
 		font-size: 30rpx;
 	}
 
-	.addcart image {
-		width: 32rpx;
-		height: 32rpx;
+	.t-180 {
+		transform: rotate(180deg);
+		display: inline-block;
 	}
 
 	.white_b {
@@ -70,13 +60,15 @@
 	}
 
 	.red_font {
-		color: red !important;
+		color: #F01D1D;
 	}
 
 	.gray_font {
 		color: #999;
 	}
-
+    .white-font {
+		color: white;
+	}
 	.flex {
 		display: flex;
 	}

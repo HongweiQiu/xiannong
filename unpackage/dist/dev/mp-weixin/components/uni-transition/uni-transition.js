@@ -1,6 +1,6 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["components/uni-transition/uni-transition"],{
 
-/***/ 374:
+/***/ 318:
 /*!**********************************************************************!*\
   !*** F:/desktop/uniapp/components/uni-transition/uni-transition.vue ***!
   \**********************************************************************/
@@ -365,7 +365,7 @@ __webpack_require__.r(__webpack_exports__);
     'components/uni-transition/uni-transition-create-component',
     {
         'components/uni-transition/uni-transition-create-component':(function(module, exports, __webpack_require__){
-            __webpack_require__('1')['createComponent'](__webpack_require__(374))
+            __webpack_require__('1')['createComponent'](__webpack_require__(318))
         })
     },
     [['components/uni-transition/uni-transition-create-component']]

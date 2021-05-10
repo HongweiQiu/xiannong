@@ -9,8 +9,6 @@
     "my-profile": "/components/profile/index",
     "uni-popup": "/components/uni-popup/uni-popup",
     "my-keyboard": "/components/keyboard/index",
-    "my-addcart": "/components/addcart/index",
-    "uni-drawer": "/components/uni-drawer/uni-drawer",
-    "my-tabar": "/components/tabar/index"
+    "my-addcart": "/components/addcart/index"
   }
 }

@@ -58,7 +58,7 @@ page.data-v-529031b8 {
 }
 .new-order.data-v-529031b8 {
   position: fixed;
-  bottom: 50px;
+  bottom: 0px;
   width: 100%;
 }
 .new-order .submit.data-v-529031b8 {

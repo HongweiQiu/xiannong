@@ -1,7 +1,5 @@
 <template>
 	<view class="modifypwd">
-		<!-- <uni-nav-bar left-icon="arrowleft" title="修改密码" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
-		 -->
 		<view class="get_info">
 			<view>
 				<text>原密码</text>

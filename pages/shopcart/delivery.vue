@@ -1,7 +1,6 @@
 <template>
 	<view class="delivery">
-		<!-- <uni-nav-bar left-icon="arrowleft" title="收货地址" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar> -->
-
+	
 		<view class="get_info">
 
 			<view>
@@ -22,7 +21,7 @@
 					<text>{{address?address:''}}</text></view>
 				<view>
 
-					<uni-icons type="arrowright" size="18" color="gray"></uni-icons>
+					<!-- <uni-icons type="arrowright" size="18" color="gray"></uni-icons> -->
 				</view>
 			</view>
 			<view>

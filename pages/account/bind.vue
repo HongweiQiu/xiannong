@@ -1,6 +1,5 @@
 <template>
 	<view class="register">
-		<uni-nav-bar left-icon="arrowleft" title="更换手机" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
 		<view class="caution">绑定后可提高账号安全性</view>
 		<view class="get_info">
 			<view>
@@ -24,7 +23,7 @@
 </template>
 
 <script>
-	import moveVerify from '@/components/helang-moveVerify/helang-moveVerify.vue';
+
 	import md5 from '../../static/js/md5.js';
 	import rs from '../../static/js/request.js';
 	const app = getApp().globalData;
@@ -34,9 +33,7 @@
 		appsecret
 	} = app;
 	export default {
-		components: {
-			moveVerify
-		},
+	
 		data() {
 			return {
 				resultData: {},

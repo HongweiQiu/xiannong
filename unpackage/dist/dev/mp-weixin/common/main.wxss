@@ -220,9 +220,10 @@ page {
   background: #f8f6f9;
   font-size: 30rpx;
 }
-.addcart image {
-  width: 32rpx;
-  height: 32rpx;
+.t-180 {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+  display: inline-block;
 }
 .white_b {
   background: white;
@@ -249,10 +250,13 @@ page {
   margin-right: 5rpx;
 }
 .red_font {
-  color: red !important;
+  color: #F01D1D;
 }
 .gray_font {
   color: #999;
+}
+.white-font {
+  color: white;
 }
 .flex {
   display: -webkit-box;

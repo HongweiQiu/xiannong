@@ -1,16 +1,15 @@
 import Vue from 'vue'
 import App from './App'
-import doubleClick from'./static/js/request.js';
-// #ifdef MP-WEIXIN
-Vue.mixin(doubleClick)
-// #endif
 
-
+import {
+	dianji
+} from './static/js/common.js'
+Vue.prototype.$doubleClick = dianji;
 Vue.config.productionTip = false
 
 App.mpType = 'app'
 
 const app = new Vue({
-    ...App
+	...App
 })
 app.$mount()

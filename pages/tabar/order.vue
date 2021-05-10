@@ -1,9 +1,7 @@
 <template>
 	<view class="order">
 		<view class="order_top">
-			<!-- <uni-nav-bar right-icon="more-filled" right-text="菜单" :title="orderTitle" :status-bar="navBar" fixed="true"
-			 @clickRight="rightClick"></uni-nav-bar> -->
-			<view class="account_info">
+		<view class="account_info">
 				<view class="">
 					<my-s-tabs effect slot-title @change="changeFirst" v-model="activeTab" class="custom-tabs"
 						lineHeight='6'>

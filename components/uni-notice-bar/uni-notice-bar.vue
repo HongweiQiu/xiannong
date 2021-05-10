@@ -1,23 +1,12 @@
 <template>
 	<view v-if="show" class="uni-noticebar" :style="{ backgroundColor: backgroundColor }" @click="onClick">
-		<!-- #ifdef MP-ALIPAY -->
-		<view v-if="showClose === true || showClose === 'true'" class="uni-noticebar-close" @click="close">
-			<uni-icons type="closeempty" :color="color" size="12" />
-		</view>
-		<view v-if="showIcon === true || showIcon === 'true'" class="uni-noticebar-icon">
-			<!-- <uni-icons type="sound" :color="color" size="14" /> -->
-			<text class="iconfont">&#xe67b;</text>
-			<!-- <image src="../../static/img/gcaidj_pic4.png" mode="aspectFit" style="width:32rpx;height:32rpx;margin-right: 20rpx;"></image> -->
-		</view>
-		<!-- #endif -->
-		<!-- #ifndef MP-ALIPAY -->
-		<uni-icons v-if="showClose === true || showClose === 'true'" class="uni-noticebar-close" type="closeempty" :color="color"
+		
+		<!-- <uni-icons v-if="showClose === true || showClose === 'true'" class="uni-noticebar-close" type="closeempty" :color="color"
 		 size="12" @click="close" />
-		<!-- <uni-icons v-if="showIcon === true || showIcon === 'true'" class="uni-noticebar-icon" type="sound" :color="color"
+		 --><!-- <uni-icons v-if="showIcon === true || showIcon === 'true'" class="uni-noticebar-icon" type="sound" :color="color"
 		 size="14" /> -->
-		 <!-- <image v-if="showIcon === true || showIcon === 'true'" src="../../static/img/gcaidj_pic4.png" mode="aspectFit" style="width:32rpx;height:32rpx;margin-right: 20rpx;"></image> -->
 		 <text class="iconfont" style="color:#57b127;margin-right:20rpx;font-size: 50rpx;">&#xe67b;</text>
-		<!-- #endif -->
+		
 		<view ref="textBox" class="uni-noticebar__content-wrapper" :class="{'uni-noticebar__content-wrapper--scrollable':scrollable, 'uni-noticebar__content-wrapper--single':!scrollable && (single || moreText)}">
 			<view :id="elIdBox" class="uni-noticebar__content" :class="{'uni-noticebar__content--scrollable':scrollable, 'uni-noticebar__content--single':!scrollable && (single || moreText)}">
 				<text :id="elId" ref="animationEle" class="uni-noticebar__content-text" :class="{'uni-noticebar__content-text--scrollable':scrollable,'uni-noticebar__content-text--single':!scrollable && (single || moreText)}"
@@ -26,13 +15,13 @@
 		</view>
 		<view v-if="showGetMore === true || showGetMore === 'true'" class="uni-noticebar__more" @click="clickMore">
 			<text v-if="moreText" :style="{ color: moreColor }" class="uni-noticebar__more-text">{{ moreText }}</text>
-			<uni-icons type="arrowright" :color="moreColor" size="14" />
+			<!-- <uni-icons type="arrowright" :color="moreColor" size="14" /> -->
 		</view>
 	</view>
 </template>
 
 <script>
-	import uniIcons from '../uni-icons/uni-icons.vue'
+	// import uniIcons from '../uni-icons/uni-icons.vue'
 	// #ifdef APP-NVUE
 	const dom = weex.requireModule('dom');
 	const animation = weex.requireModule('animation');
@@ -61,7 +50,7 @@
 	export default {
 		name: 'UniNoticeBar',
 		components: {
-			uniIcons
+			// uniIcons
 		},
 		props: {
 			text: {

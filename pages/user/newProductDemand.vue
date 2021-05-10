@@ -1,7 +1,5 @@
 <template>
 	<view class="modifypwd">
-		<!-- <uni-nav-bar left-icon="arrowleft" title="修改密码" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
-		 -->
 		<view class="get_info">
 			<view>
 				<text>商品名称</text>
@@ -11,7 +9,7 @@
 			<view @click="$refs.picker.show()">
 				<text>商品类别</text>
 				<input password v-model="password" disabled placeholder="请选择商品分类" placeholder-class="place_style" />
-				<uni-icons type="arrowright" size="18" color="black"></uni-icons>
+				<!-- <uni-icons type="arrowright" size="18" color="black"></uni-icons> -->
 			</view>
 			<view>
 				<text>商品品牌</text>

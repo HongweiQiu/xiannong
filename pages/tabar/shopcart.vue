@@ -17,10 +17,10 @@
 			<view class="good-num white_b">
 				<view>
 					<view v-for="(item,index) in itemList" :key="index" class="align_center sign-good">
-						
-						<uni-icons class="check-button" :type="item.check?'checkbox-filled':'circle'"
+
+						<!-- <uni-icons class="check-button" :type="item.check?'checkbox-filled':'circle'"
 							:color="item.check?'#57B127':'#999'" size="20" @click="selectCheck(index)" />
-						<my-profile :wares="item" :config="config" class="single_good" @showCart="openCart(item)"
+						 --><my-profile :wares="item" :config="config" class="single_good" @showCart="openCart(item)"
 							@showKey="showKey(item,index)"></my-profile>
 					</view>
 				</view>
@@ -29,7 +29,7 @@
 					<navigator url="/pages/shopcart/goodbill">
 						<view class="red-font">
 							去凑单
-							<uni-icons type="arrowright" size="11" color="#F01D1D" class="bold" />
+							<!-- <uni-icons type="arrowright" size="11" color="#F01D1D" class="bold" /> -->
 						</view>
 					</navigator>
 
@@ -47,8 +47,8 @@
 					<view class="align_center">
 						<text class="fs-13 gray_font">不含运费 合计：</text>
 						<text class="fs-18 red-font">￥0</text>
-						<text class="fs-15 gray_font  pay-button"
-							:class="settlement?'go-settle':'in-go-settle'" @click="shoplist">去结算</text>
+						<text class="fs-15 gray_font  pay-button" :class="settlement?'go-settle':'in-go-settle'"
+							@click="shoplist">去结算</text>
 
 					</view>
 				</view>
@@ -76,16 +76,16 @@
 
 
 		</view>
-		<my-tabar tabarIndex=2 v-if="display"></my-tabar>
+		<!-- 	<my-tabar tabarIndex=2 v-if="display"></my-tabar> -->
 	</view>
 </template>
 
 <script>
 	import wPicker from '@/components/w-picker/w-picker.vue';
 	import md5 from '../../static/js/md5.js';
-	import parseHtml from '../../static/js/parseHtml.js';
+
 	import rs from '../../static/js/request.js';
-	import ruiDatePicker from '@/components/rattenking-dtpicker/rattenking-dtpicker.vue';
+	
 	let {
 		log
 	} = console;
@@ -98,8 +98,7 @@
 
 	export default {
 		components: {
-			wPicker,
-			ruiDatePicker
+			wPicker
 		},
 		data() {
 			return {
@@ -144,7 +143,7 @@
 						url: "/pages/shopcart/shoplist"
 					})
 				} else {
-                         rs.Toast('没有选中商品哦')
+					rs.Toast('没有选中商品哦')
 				}
 
 			},
@@ -634,50 +633,14 @@
 
 				this.getSendTime();
 				this.addInfo();
-				// #ifdef H5
-				this.scrollHeight = document.body.clientHeight;
-				// #endif
+			
 
 			},
 			onHide() {
-				this.childzid = '';
-				this.childList = [{
-					zid: '',
-					nickname: '当前账号'
-				}];
-				this.deliveryList = [{
-					delivery_time_id: '',
-					delivery_time_info: '不限'
-				}];
-				this.couponsList = [{
-					id: '',
-					txt: '不使用'
-				}];
-				this.deliveryId = '';
-				this.deliveryTime = '不限';
-				this.account = '当前账号';
-				this.cash = '不使用';
-				this.couponsId = '';
-				this.juanPrice = 0;
-				this.remark = '';
+		
 			},
 			onLoad() {
 				app.isReload = true;
-				uni.hideTabBar();
-				// #ifdef H5				
-				if (uni.getSystemInfoSync().platform === 'android') {
-					window.onresize = () => {
-						// 解决刷新底部会隐藏的问题
-						let newHeight = document.body.clientHeight;
-						if (this.scrollHeight == newHeight) {
-							this.display = true;
-						} else {
-							this.display = false;
-						}
-
-					}
-				}
-				// #endif
 			}
 		},
 
@@ -772,7 +735,7 @@
 
 	.new-order {
 		position: fixed;
-		bottom: 50px;
+		bottom: 0px;
 		width: 100%;
 
 		.submit {

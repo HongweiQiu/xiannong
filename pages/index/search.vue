@@ -18,7 +18,7 @@
 						<input v-model="keyword" placeholder="搜索你想知道的" @focus="focus" placeholder-class="place_style"
 							class="keyword" />
 						<!-- #ifndef MP-ALIPAY -->
-						<uni-icons type="mic-filled" size="20" color="#808080" @click="speed"></uni-icons>
+						<!-- <uni-icons type="mic-filled" size="20" color="#808080" @click="speed"></uni-icons> -->
 						<!-- #endif -->
 
 					</view>
@@ -92,10 +92,10 @@
 						<view>没有听清,请重试</view>
 						<view>点击说话</view>
 						<view style="height: 40rpx;line-height: 14rpx;">
-							<uni-icons type="arrowdown" size="18" color="#009943"></uni-icons>
+							<!-- <uni-icons type="arrowdown" size="18" color="#009943"></uni-icons> -->
 						</view>
 						<view style="margin-top:10rpx;" @click="speed">
-							<uni-icons type="mic-filled" size="40" color="white" class="mic_filled"></uni-icons>
+							<!-- <uni-icons type="mic-filled" size="40" color="white" class="mic_filled"></uni-icons> -->
 						</view>
 					</view>
 				</view>

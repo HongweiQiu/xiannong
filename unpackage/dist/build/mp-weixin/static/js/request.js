@@ -2,7 +2,8 @@ let app = getApp();
 var active = {
 	'active': app.globalData.active
 };
-var rootDocment = app.globalData.rootUrl + '/mobileOrder/'; //主接口; //主接口
+// var rootDocment = app.globalData.rootUrl + '/mobileOrder/'; //主接口; //主接口
+var rootDocment = app.globalData.rootUrl ; //主接口; //主接口
 var globalUrl = ["login"]
 if (uni.getStorageSync("cdj_token")) {
 	var header = {
@@ -17,68 +18,6 @@ if (uni.getStorageSync("cdj_token")) {
  * success:请求成功的返回值
  * fail:请求失败的返回值
  */
-//get请求带加载
-function getRequest(url, datas, success) {
-	uni.showLoading({
-		title: '加载中...',
-		duration: 2000,
-		mask: true,
-		success: function(res) {
-			uni.request({
-				url: rootDocment + url,
-				method: 'GET',
-				header: {
-					'Accept': 'application/json',
-					'content-type': 'application/json', //
-					'Authorization': uni.getStorageSync("cdj_token"),
-				},
-				data: Object.assign(datas, active),
-				success: res => {
-					success(res)
-					if (res.header.authorization != undefined) {
-						uni.setStorageSync("cdj_token", res.header.authorization)
-					}
-					if (res.data.code == 400) {
-						uni.showToast({
-							title: res.data.msg,
-							icon: 'none',
-							duration: 1000,
-							success: function() {
-
-							}
-						})
-					}
-					if (res.data.code == 401) {
-						uni.navigateTo({
-							url: '/pages/account/login'
-						});
-					}
-					if (res.data.code == 404) {
-
-						uni.navigateTo({
-							url: '/pages/account/404'
-						});
-
-					}
-
-					uni.hideLoading();
-				},
-				fail: res => {
-					uni.showModal({
-						title: res.data,
-						content: '网络出错，请刷新重试',
-						showCancel: false
-					})
-				},
-
-			})
-		},
-		fail: function(res) {},
-		complete: function(res) {},
-	})
-
-
-}
 
 //get请求
 function getRequests(url, datas, success) {
@@ -90,7 +29,7 @@ function getRequests(url, datas, success) {
 			'content-type': 'application/json',
 			'Authorization': uni.getStorageSync("cdj_token"),
 		},
-		data: Object.assign(datas, active),
+		data: Object.assign(datas),
 		success: res => {
 			success(res)
 			if (res.header.authorization != undefined) {
@@ -134,86 +73,6 @@ function getRequests(url, datas, success) {
  * success:请求成功的返回值
  * fail:请求失败的返回值
  */
-//POST请求带加载中
-function postRequest(url, datas, success) {
-	uni.showLoading({
-		title: '加载中',
-		mask: true,
-		success: function(res) {
-			uni.request({
-				url: rootDocment + url,
-				method: 'POST',
-				header: {
-					'Accept': 'application/json',
-					'content-type': 'application/json', //
-					'Authorization': uni.getStorageSync("cdj_token"),
-				},
-				data: Object.assign(datas, active),
-				success: res => {
-					success(res)
-					if (res.header.authorization != undefined) {
-						uni.setStorageSync("cdj_token", res.header.authorization)
-					}
-					if (res.data.code == 400) {
-						uni.showToast({
-							title: res.data.msg,
-							icon: 'none',
-							duration: 1000,
-							success: function() {
-
-							}
-						})
-					}
-					if (res.data.code == 401) {
-
-						uni.navigateTo({
-							url: '/pages/account/login'
-						});
-
-					}
-					if (res.data.code == 403) {
-						uni.showToast({
-							title: '账号已禁用',
-							icon: 'none',
-							duration: 1000,
-							success: function() {
-								uni.navigateTo({
-									url: '/pages/account/login'
-								});
-							}
-						})
-					}
-					if (res.data.code == 404) {
-
-						uni.navigateTo({
-							url: '/pages/account/404'
-						});
-
-					}
-					if (res.data.code == 408) {
-						uni.showToast({
-							title: '抱歉，您的服务已到期，请联系《菜东家》工作人员续费！',
-							icon: 'none',
-							duration: 2000,
-						})
-					}
-					uni.hideLoading();
-				},
-				fail: res => {
-					uni.showModal({
-						title: '网络错误',
-						content: '网络出错，请刷新重试',
-						showCancel: false
-					})
-				},
-
-			})
-		},
-		fail: function(res) {},
-		complete: function(res) {},
-	})
-
-}
 //POST请求不带加载中
 function postRequests(url, datas, success) {
 
@@ -313,19 +172,6 @@ function thedefaulttime() { //购买记录默认时间
 	return dateArr;
 }
 
-function doubleClick(fn) {
-	let that = this;
-	if (that.onoff) {
-		that.onoff = false;
-		fn();
-		setTimeout(function() {
-			that.onoff = true;
-		}, 1500)
-	} else {
-		console.log("请稍后点击")
-	}
-}
-
 module.exports = {
 	getRequest: getRequest,
 	getRequests: getRequests,
@@ -335,5 +181,4 @@ module.exports = {
 	header: header, //请求头部
 	objKeySort: objKeySort, //加密排序
 	thedefaulttime: thedefaulttime, //加密排序
-	doubleClick: doubleClick
 }

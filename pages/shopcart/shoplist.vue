@@ -13,7 +13,7 @@
 					</view>
 				</view>
 				<view>
-					<uni-icons type="arrowright" size="15" color="#ccc" class="bold" />
+					<!-- <uni-icons type="arrowright" size="15" color="#ccc" class="bold" /> -->
 
 				</view>
 			</view>
@@ -22,7 +22,7 @@
 				<view class="gray_font" @click="$refs.picker.show()">
 					<text class="fs-13" style="margin-right:21rpx;"> 请选择配送时间</text>
 
-					<uni-icons type="arrowright" size="15" color="#ccc" class="bold" />
+					<!-- <uni-icons type="arrowright" size="15" color="#ccc" class="bold" /> -->
 				</view>
 			</view>
 		</view>

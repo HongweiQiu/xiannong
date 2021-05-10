@@ -6,12 +6,12 @@
 				<image class="goods_img" v-if="!cropFilePath" :src='imgRemote+member_default '></image>
 				<view class="align_center gray_font" @tap="showUpload('open')">
 					<text class="fs-13">修改头像</text>
-					<uni-icons type="arrowright" size="18" color="black"></uni-icons>
+					<!-- <uni-icons type="arrowright" size="18" color="black"></uni-icons> -->
 				</view>
 			</view>
 			<view class="flex_left_right" @click="modifyPwd">
 				<text>修改登录密码</text>
-				<uni-icons type="arrowright" size="18" color="black"></uni-icons>
+				<!-- <uni-icons type="arrowright" size="18" color="black"></uni-icons> -->
 			</view>
 
 		</view>

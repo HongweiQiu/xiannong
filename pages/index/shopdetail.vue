@@ -119,6 +119,7 @@
 			</view>
 
 		</uni-popup>
+		<canvas style="width: 540rpx; height: 760rpx;" canvas-id="firstCanvas" id="firstCanvas"></canvas>
 	</view>
 </template>
 <script>
@@ -149,6 +150,86 @@
 			}
 		},
 		onShow() {
+			var canvas = uni.createCanvasContext('firstCanvas')
+			let that = this;
+			canvas.drawImage('../../static/img/share_friends.png', 0, 0, 270, 380);
+			canvas.save();
+			canvas.beginPath();
+			canvas.rect(21, 30, 228, 318);
+			canvas.fillStyle = "#fff";
+			canvas.shadowBlur = 20;
+			canvas.shadowOffsetX = "1",
+				canvas.shadowOffBlue = "4";
+			canvas.shadowColor = "rgba(51, 51, 51, 0.15)";
+			canvas.fill();
+			canvas.restore();
+			canvas.drawImage('../../static/img/404.png', 66, 53, 134, 116);
+			canvas.drawImage('../../static/img/404.png', 160, 258, 75, 75);
+			canvas.beginPath();
+			canvas.moveTo(35, 206);
+			canvas.lineTo(235, 206);
+			canvas.strokeStyle = '#eee';
+			canvas.stroke();
+			canvas.setFontSize(15);
+			canvas.setFillStyle("black");
+			canvas.fillText('新鲜大白菜干净新鲜大白菜干', 35, 240);
+			canvas.fillText('净新鲜大白菜...', 35, 260);
+			canvas.setFillStyle("red")
+			canvas.fillText('￥', 30, 298);
+			canvas.setFontSize(23);
+			canvas.fillText('19.9', 44, 298);
+			// canvas.stroke();
+			canvas.beginPath();
+			canvas.rect(21, 310, 100, 18);
+			canvas.fillStyle = "#E1FFE3";
+			canvas.fill();
+			canvas.beginPath();
+			canvas.fillStyle = "#E1FFE3";
+			canvas.arc(120, 319, 8, 1.5 * Math.PI, 0.5 * Math.PI);
+			canvas.fill();
+			canvas.setFontSize(11);
+			canvas.fillStyle = "#008909";
+			canvas.fillText('长按识别小程序', 35, 323);
+			canvas.draw()
+			setTimeout(function() {
+				uni.canvasToTempFilePath({
+					// x: 0,
+					// y: 0,
+					// width: 540,
+					// height: 760,
+					// destWidth:540,
+					// destHeight: 760,
+					canvasId: 'firstCanvas',
+					success: function(res) {
+						console.log(res)
+						// return
+						//将图片保存到相册       
+						wx.saveImageToPhotosAlbum({
+							filePath: res.tempFilePath,
+							success(res) {
+								wx.showModal({
+									title: '保存成功',
+									content: '图片成功保存到相册了，快去分享朋友圈吧',
+									showCancel: false,
+									confirmText: '好的',
+									confirmColor: '#818FFB',
+									success: function(res) {
+										if (res.confirm) {
+											that.setData({
+												showPosterImage: true
+											})
+										}
+										that.hideShareImg()
+									}
+								})
+							}
+						})
+
+
+					},
+					fail: function(res) {}
+				})
+			}, 500)
 
 		}
 	}
@@ -416,5 +497,10 @@
 		color: white;
 		background: #57B127;
 		border-radius: 37rpx;
+	}
+
+	canvas {
+		width: 100px;
+		height: 200px;
 	}
 </style>

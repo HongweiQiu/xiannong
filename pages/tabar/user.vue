@@ -19,7 +19,7 @@
 						<text>我的余额</text>
 						<view class="">
 							<text>0.00</text>
-							<uni-icons type="arrowright" size="18" color="white"></uni-icons>
+							<text class="iconfont iconfanhui t-180 white-font"></text>
 						</view>
 					</view>
 				</navigator>
@@ -31,7 +31,7 @@
 		<view class="order-info">
 			<view class="my-order flex_left_right" @click="orderPage(0)">
 				<text class="bold">我的订单</text>
-				<uni-icons type="arrowright" size="18" color="#999"></uni-icons>
+				<text class="iconfont iconfanhui t-180 gray_font"></text>
 			</view>
 			<view class="order-statu flex_left_right">
 				<view v-for="(item,index) in orderStatu" @click="orderPage(item)">
@@ -52,11 +52,11 @@
 					<text class="name">{{ item.name }}</text>
 				</view>
 				<view>
-					<uni-icons type="arrowright" size="18" color="#999"></uni-icons>
+					<text class="iconfont iconfanhui t-180 gray_font"></text>
 				</view>
 			</view>
 		</view>
-		<my-tabar tabarIndex=3></my-tabar>
+		<!-- <my-tabar tabarIndex=3></my-tabar> -->
 	</view>
 </template>
 
@@ -121,7 +121,7 @@
 					name: '售后/退款'
 				}, ],
 				count: 0,
-				token: '12',
+				token: '',
 				imgRemote: imgRemote,
 				memberInfoData: '',
 				member_default: '',
@@ -231,7 +231,7 @@
 			},
 		},
 		onLoad() {
-			uni.hideTabBar();
+
 		},
 		/**
 		 * 生命周期函数--监听页面显示

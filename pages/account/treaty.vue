@@ -1,6 +1,5 @@
 <template>
 	<view class="treaty">
-		<uni-nav-bar left-icon="arrowleft" title="注册协议" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
 		<view class="content">
 			<view class="first">1、生鲜配送服务管理平台（以下简称平台）的所有权归本公司所有。所提供的服务必须按照其发布的服务条款和操作规则严格执行。用户通过完成注册程序并点击一下"提交"的按钮，这表示用户接受所有的服务条款。
 			</view>

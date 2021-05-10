@@ -65,25 +65,21 @@
 					}
 				},
 				{
-					"path": "selectway"
-				},
-				{
 					"path": "forget"
 				},
 				{
-					"path": "register"
-				},
-				{
-					"path": "service"
+					"path": "register",
+					"style": {
+						"navigationBarTitleText": "注册",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
 				},
 				{
 					"path": "treaty"
 				},
 				{
 					"path": "bind"
-				},
-				{
-					"path": "404"
 				}
 			]
 		}, {
@@ -122,7 +118,7 @@
 						"navigationBarTextStyle": "black"
 					}
 				},
-				
+
 				{
 					"path": "shoplist",
 					"style": {
@@ -163,8 +159,6 @@
 						"navigationBarBackgroundColor": "#fff",
 						"navigationBarTextStyle": "black"
 					}
-					
-
 				}, {
 					"path": "feedback",
 					"style": {
@@ -181,42 +175,41 @@
 						"navigationBarTextStyle": "black"
 					}
 				}
-            ]
+			]
 		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": " ",
 		"navigationBarBackgroundColor": "#F0F0F0",
-		"backgroundColor": "#F8F8F8",
-		"app-plus": {
-			"titleNView": false
-		},
-		"h5": {
-			"titleNView": false
-		}
+		"backgroundColor": "#F8F8F8"
 	},
 	"tabBar": {
 		"color": "#999999",
 		"selectedColor": "#009A44",
 		"list": [{
-			"pagePath": "pages/tabar/index"
-			// "iconPath": "./static/img/index_gray.png.png",
-			// "selectedIconPath": "./static/img/index_green.png.png",
-			// "text": "组件"
+			"pagePath": "pages/tabar/index",
+			"iconPath": "/static/img/index_gray.png",
+			"selectedIconPath": "/static/img/index_green.png",
+			"text": "首页"
+		}, {
+			"pagePath": "pages/tabar/classify",
+			"iconPath": "/static/img/classify_gray.png",
+			"selectedIconPath": "/static/img/classify_green.png",
+			"text": "分类"
 
 		}, {
-			"pagePath": "pages/tabar/classify"
-			// "text": "分类"
-
-		}, {
-			"pagePath": "pages/tabar/shopcart"
-			// "text": "购物车"
+			"pagePath": "pages/tabar/shopcart",
+			"iconPath": "/static/img/shopcart_gray.png",
+			"selectedIconPath": "/static/img/shopcart_green.png",
+			"text": "购物车"
 
 
 		}, {
-			"pagePath": "pages/tabar/user"
-			// "text": "我的"
+			"pagePath": "pages/tabar/user",
+			"iconPath": "/static/img/user_gray.png",
+			"selectedIconPath": "/static/img/user_green.png",
+			"text": "我的"
 
 		}]
 	},
@@ -224,10 +217,7 @@
 	"easycom": {
 		"autoscan": true, //是否自动扫描组件
 		"custom": { //自定义扫描规则
-			"my-(.*)": "@/components/$1/index.vue",
-			// "uni-(.*)": "@/components/uni-$1/$1.vue"
-			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
-
+			"my-(.*)": "@/components/$1/index.vue"
 		}
 	}
 }

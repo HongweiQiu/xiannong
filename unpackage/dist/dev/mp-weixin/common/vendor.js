@@ -822,7 +822,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -2000,351 +2000,30 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 15:
-/*!**********************************************!*\
-  !*** F:/desktop/uniapp/static/js/request.js ***!
-  \**********************************************/
+/*!*********************************************!*\
+  !*** F:/desktop/uniapp/static/js/common.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(uni) {var app = getApp();
-var active = {
-  'active': app.globalData.active };
-
-var rootDocment = app.globalData.rootUrl + '/mobileOrder/'; //主接口; //主接口
-var globalUrl = ["login"];
-if (uni.getStorageSync("cdj_token")) {
-  var header = {
-    'Accept': 'application/json',
-    'content-type': 'application/json', //
-    'Authorization': uni.getStorageSync("cdj_token") };
-
-}
-/***
-   * uri: 请求地址
-   * datas:请求参数
-   * success:请求成功的返回值
-   * fail:请求失败的返回值
-   */
-//get请求带加载
-function getRequest(url, datas, _success) {
-  uni.showLoading({
-    title: '加载中...',
-    duration: 2000,
-    mask: true,
-    success: function success(res) {
-      uni.request({
-        url: rootDocment + url,
-        method: 'GET',
-        header: {
-          'Accept': 'application/json',
-          'content-type': 'application/json', //
-          'Authorization': uni.getStorageSync("cdj_token") },
-
-        data: Object.assign(datas, active),
-        success: function success(res) {
-          _success(res);
-          if (res.header.authorization != undefined) {
-            uni.setStorageSync("cdj_token", res.header.authorization);
-          }
-          if (res.data.code == 400) {
-            uni.showToast({
-              title: res.data.msg,
-              icon: 'none',
-              duration: 1000,
-              success: function success() {
-
-              } });
-
-          }
-          if (res.data.code == 401) {
-            uni.navigateTo({
-              url: '/pages/account/login' });
-
-          }
-          if (res.data.code == 404) {
-
-            uni.navigateTo({
-              url: '/pages/account/404' });
-
-
-          }
-
-          uni.hideLoading();
-        },
-        fail: function fail(res) {
-          uni.showModal({
-            title: res.data,
-            content: '网络出错，请刷新重试',
-            showCancel: false });
-
-        } });
-
-
-    },
-    fail: function fail(res) {},
-    complete: function complete(res) {} });
-
-
-
-}
-
-//get请求
-function getRequests(url, datas, _success2) {
-  uni.request({
-    url: rootDocment + url,
-    method: 'GET',
-    header: {
-      'Accept': 'application/json',
-      'content-type': 'application/json',
-      'Authorization': uni.getStorageSync("cdj_token") },
-
-    data: Object.assign(datas, active),
-    success: function success(res) {
-      _success2(res);
-      if (res.header.authorization != undefined) {
-        uni.setStorageSync("cdj_token", res.header.authorization);
-
-      }
-
-      if (res.data.code == 401) {
-        uni.navigateTo({
-          url: '/pages/account/login' });
-
-      }
-      if (res.data.code == 404) {
-        uni.navigateTo({
-          url: '/pages/account/404' });
-
-
-      }
-      if (res.data.code == 408) {
-        uni.navigateTo({
-          url: '/pages/account/service' });
-
-      }
-    },
-    fail: function fail(res) {
-      uni.showModal({
-        title: res.data,
-        content: '网络出错，请刷新重试',
-        showCancel: false });
-
-    } });
-
-
-
-}
-
-/***
-   * 
-   * uri: 请求地址
-   * datas:请求参数
-   * success:请求成功的返回值
-   * fail:请求失败的返回值
-   */
-//POST请求带加载中
-function postRequest(url, datas, _success3) {
-  uni.showLoading({
-    title: '加载中',
-    mask: true,
-    success: function success(res) {
-      uni.request({
-        url: rootDocment + url,
-        method: 'POST',
-        header: {
-          'Accept': 'application/json',
-          'content-type': 'application/json', //
-          'Authorization': uni.getStorageSync("cdj_token") },
-
-        data: Object.assign(datas, active),
-        success: function success(res) {
-          _success3(res);
-          if (res.header.authorization != undefined) {
-            uni.setStorageSync("cdj_token", res.header.authorization);
-          }
-          if (res.data.code == 400) {
-            uni.showToast({
-              title: res.data.msg,
-              icon: 'none',
-              duration: 1000,
-              success: function success() {
-
-              } });
-
-          }
-          if (res.data.code == 401) {
-
-            uni.navigateTo({
-              url: '/pages/account/login' });
-
-
-          }
-          if (res.data.code == 403) {
-            uni.showToast({
-              title: '账号已禁用',
-              icon: 'none',
-              duration: 1000,
-              success: function success() {
-                uni.navigateTo({
-                  url: '/pages/account/login' });
-
-              } });
-
-          }
-          if (res.data.code == 404) {
-
-            uni.navigateTo({
-              url: '/pages/account/404' });
-
-
-          }
-          if (res.data.code == 408) {
-            uni.showToast({
-              title: '抱歉，您的服务已到期，请联系《菜东家》工作人员续费！',
-              icon: 'none',
-              duration: 2000 });
-
-          }
-          uni.hideLoading();
-        },
-        fail: function fail(res) {
-          uni.showModal({
-            title: '网络错误',
-            content: '网络出错，请刷新重试',
-            showCancel: false });
-
-        } });
-
-
-    },
-    fail: function fail(res) {},
-    complete: function complete(res) {} });
-
-
-}
-//POST请求不带加载中
-function postRequests(url, datas, _success4) {
-
-  uni.request({
-    url: rootDocment + url,
-    method: 'POST',
-    header: {
-      'Accept': 'application/json',
-      'content-type': 'application/json', //
-      'Authorization': uni.getStorageSync("cdj_token") },
-
-    data: Object.assign(datas, active),
-    success: function success(res) {
-      _success4(res);
-
-      if (res.header.authorization != undefined) {
-        uni.setStorageSync("cdj_token", res.header.authorization);
-      }
-      if (res.data.code == 401) {
-
-        uni.navigateTo({
-          url: '/pages/account/login' });
-
-
-      }
-    },
-    fail: function fail(res) {
-      uni.showModal({
-        title: '网络错误',
-        content: '网络出错，请刷新重试',
-        showCancel: false });
-
-    } });
-
-
-}
-
-function objKeySort(obj) {//排序的函数
-  var newkey = Object.keys(obj).sort();
-  //先用Object内置类的keys方法获取要排序对象的属性名，再利用Array原型上的sort方法对获取的属性名进行排序，newkey是一个数组
-  var newObj = {}; //创建一个新的对象，用于存放排好序的键值对
-  var sz = '';
-  for (var i = 0; i < newkey.length; i++) {//遍历newkey数组
-    newObj[newkey[i]] = obj[newkey[i]]; //向新创建的对象中按照排好的顺序依次增加键值对
-  }
-  Object.keys(newObj).forEach(function (key) {
-    sz += '&' + key + '=' + newObj[key];
-  });
-  return sz.substr(1); //返回排好序的新对象
-}
-
-
-function Toast(message) {
-  uni.showToast({
-    title: message,
-    icon: 'none',
-    duration: 1000 });
-
-}
-
-
-function getLastDay() {
-  var current = new Date();
-  var currentMonth = current.getMonth();
-  var nextMonth = ++currentMonth;
-
-  var nextMonthDayOne = new Date(current.getFullYear(), nextMonth, 1);
-
-  var minusDate = 1000 * 60 * 60 * 24;
-
-  return new Date(nextMonthDayOne.getTime() - minusDate);
-}
-
-function thedefaulttime() {//购买记录默认时间
-  var date = new Date();
-  var year = date.getFullYear().toString();
-  var time = (date.getMonth() + 1).toString();
-
-
-  var month = '';
-  if (time < 10) {
-    month = "0" + time;
-  } else {
-    month = time;
-  }
-  var num = date.getDate().toString();
-  var day = getLastDay().getDate();
-
-  // if (num < 10) {
-  // 	day = "0" + num;
-  // } else {
-  // 	day = num;
-  // }
-  var start = year + '-' + month + '-01';
-  var end = year + '-' + month + '-' + day;
-  var dateArr = [start, end];
-  return dateArr;
-}
-
-function doubleClick(fn) {
-  var that = this;
-  if (that.onoff) {
-    that.onoff = false;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.dianji = dianji;function dianji(fn) {
+  //多次点击的问题
+  var
+  onoff =
+  getApp().globalData.onoff;
+
+  if (onoff) {
+    getApp().globalData.onoff = false;
     fn();
     setTimeout(function () {
-      that.onoff = true;
+      getApp().globalData.onoff = true;
     }, 1500);
   } else {
+    //如果一直走else分支可能是你没有在页面的data下面挂载onoff:true,不然一直都会走else
     console.log("请稍后点击");
   }
 }
-
-module.exports = {
-  getRequest: getRequest,
-  getRequests: getRequests,
-  postRequest: postRequest,
-  postRequests: postRequests,
-  Toast: Toast,
-  header: header, //请求头部
-  objKeySort: objKeySort, //加密排序
-  thedefaulttime: thedefaulttime, //加密排序
-  doubleClick: doubleClick };
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
@@ -7874,7 +7553,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7895,14 +7574,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7988,7 +7667,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8396,7 +8075,7 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 26:
+/***/ 22:
 /*!******************************************!*\
   !*** F:/desktop/uniapp/static/js/md5.js ***!
   \******************************************/
@@ -8622,7 +8301,361 @@ module.exports = {
 
 /***/ }),
 
-/***/ 263:
+/***/ 23:
+/*!**********************************************!*\
+  !*** F:/desktop/uniapp/static/js/request.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(uni) {var app = getApp();
+var active = {
+  'active': app.globalData.active };
+
+// var rootDocment = app.globalData.rootUrl + '/mobileOrder/'; //主接口; //主接口
+var rootDocment = app.globalData.rootUrl; //主接口; //主接口
+var globalUrl = ["login"];
+if (uni.getStorageSync("cdj_token")) {
+  var header = {
+    'Accept': 'application/json',
+    'content-type': 'application/json', //
+    'Authorization': uni.getStorageSync("cdj_token") };
+
+}
+/***
+   * uri: 请求地址
+   * datas:请求参数
+   * success:请求成功的返回值
+   * fail:请求失败的返回值
+   */
+//get请求带加载
+function getRequest(url, datas, _success) {
+  uni.showLoading({
+    title: '加载中...',
+    duration: 2000,
+    mask: true,
+    success: function success(res) {
+      uni.request({
+        url: rootDocment + url,
+        method: 'GET',
+        header: {
+          'Accept': 'application/json',
+          'content-type': 'application/json', //
+          'Authorization': uni.getStorageSync("cdj_token") },
+
+        data: Object.assign(datas, active),
+        success: function success(res) {
+          _success(res);
+          if (res.header.authorization != undefined) {
+            uni.setStorageSync("cdj_token", res.header.authorization);
+          }
+          if (res.data.code == 400) {
+            uni.showToast({
+              title: res.data.msg,
+              icon: 'none',
+              duration: 1000,
+              success: function success() {
+
+              } });
+
+          }
+          if (res.data.code == 401) {
+            uni.navigateTo({
+              url: '/pages/account/login' });
+
+          }
+          if (res.data.code == 404) {
+
+            uni.navigateTo({
+              url: '/pages/account/404' });
+
+
+          }
+
+          uni.hideLoading();
+        },
+        fail: function fail(res) {
+          uni.showModal({
+            title: res.data,
+            content: '网络出错，请刷新重试',
+            showCancel: false });
+
+        } });
+
+
+    },
+    fail: function fail(res) {},
+    complete: function complete(res) {} });
+
+
+
+}
+
+//get请求
+function getRequests(url, datas, _success2) {
+  uni.request({
+    url: rootDocment + url,
+    method: 'GET',
+    header: {
+      'Accept': 'application/json',
+      'content-type': 'application/json',
+      'Authorization': uni.getStorageSync("cdj_token") },
+
+    data: Object.assign(datas, active),
+    success: function success(res) {
+      _success2(res);
+      if (res.header.authorization != undefined) {
+        uni.setStorageSync("cdj_token", res.header.authorization);
+
+      }
+
+      if (res.data.code == 401) {
+        uni.navigateTo({
+          url: '/pages/account/login' });
+
+      }
+      if (res.data.code == 404) {
+        uni.navigateTo({
+          url: '/pages/account/404' });
+
+
+      }
+      if (res.data.code == 408) {
+        uni.navigateTo({
+          url: '/pages/account/service' });
+
+      }
+    },
+    fail: function fail(res) {
+      uni.showModal({
+        title: res.data,
+        content: '网络出错，请刷新重试',
+        showCancel: false });
+
+    } });
+
+
+
+}
+
+/***
+   * 
+   * uri: 请求地址
+   * datas:请求参数
+   * success:请求成功的返回值
+   * fail:请求失败的返回值
+   */
+//POST请求带加载中
+function postRequest(url, datas, _success3) {
+  uni.showLoading({
+    title: '加载中',
+    mask: true,
+    success: function success(res) {
+      uni.request({
+        url: rootDocment + url,
+        method: 'POST',
+        header: {
+          'Accept': 'application/json',
+          'content-type': 'application/json', //
+          'Authorization': uni.getStorageSync("cdj_token") },
+
+        data: Object.assign(datas, active),
+        success: function success(res) {
+          _success3(res);
+          if (res.header.authorization != undefined) {
+            uni.setStorageSync("cdj_token", res.header.authorization);
+          }
+          if (res.data.code == 400) {
+            uni.showToast({
+              title: res.data.msg,
+              icon: 'none',
+              duration: 1000,
+              success: function success() {
+
+              } });
+
+          }
+          if (res.data.code == 401) {
+
+            uni.navigateTo({
+              url: '/pages/account/login' });
+
+
+          }
+          if (res.data.code == 403) {
+            uni.showToast({
+              title: '账号已禁用',
+              icon: 'none',
+              duration: 1000,
+              success: function success() {
+                uni.navigateTo({
+                  url: '/pages/account/login' });
+
+              } });
+
+          }
+          if (res.data.code == 404) {
+
+            uni.navigateTo({
+              url: '/pages/account/404' });
+
+
+          }
+          if (res.data.code == 408) {
+            uni.showToast({
+              title: '抱歉，您的服务已到期，请联系《菜东家》工作人员续费！',
+              icon: 'none',
+              duration: 2000 });
+
+          }
+          uni.hideLoading();
+        },
+        fail: function fail(res) {
+          uni.showModal({
+            title: '网络错误',
+            content: '网络出错，请刷新重试',
+            showCancel: false });
+
+        } });
+
+
+    },
+    fail: function fail(res) {},
+    complete: function complete(res) {} });
+
+
+}
+//POST请求不带加载中
+function postRequests(url, datas, _success4) {
+
+  uni.request({
+    url: rootDocment + url,
+    method: 'POST',
+    header: {
+      'Accept': 'application/json',
+      'content-type': 'application/json', //
+      'Authorization': uni.getStorageSync("cdj_token") },
+
+    data: Object.assign(datas, active),
+    success: function success(res) {
+      _success4(res);
+
+      if (res.header.authorization != undefined) {
+        uni.setStorageSync("cdj_token", res.header.authorization);
+      }
+      if (res.data.code == 401) {
+
+        uni.navigateTo({
+          url: '/pages/account/login' });
+
+
+      }
+    },
+    fail: function fail(res) {
+      uni.showModal({
+        title: '网络错误',
+        content: '网络出错，请刷新重试',
+        showCancel: false });
+
+    } });
+
+
+}
+
+function objKeySort(obj) {//排序的函数
+  var newkey = Object.keys(obj).sort();
+  //先用Object内置类的keys方法获取要排序对象的属性名，再利用Array原型上的sort方法对获取的属性名进行排序，newkey是一个数组
+  var newObj = {}; //创建一个新的对象，用于存放排好序的键值对
+  var sz = '';
+  for (var i = 0; i < newkey.length; i++) {//遍历newkey数组
+    newObj[newkey[i]] = obj[newkey[i]]; //向新创建的对象中按照排好的顺序依次增加键值对
+  }
+  Object.keys(newObj).forEach(function (key) {
+    sz += '&' + key + '=' + newObj[key];
+  });
+  return sz.substr(1); //返回排好序的新对象
+}
+
+
+function Toast(message) {
+  uni.showToast({
+    title: message,
+    icon: 'none',
+    duration: 1000 });
+
+}
+
+
+function getLastDay() {
+  var current = new Date();
+  var currentMonth = current.getMonth();
+  var nextMonth = ++currentMonth;
+
+  var nextMonthDayOne = new Date(current.getFullYear(), nextMonth, 1);
+
+  var minusDate = 1000 * 60 * 60 * 24;
+
+  return new Date(nextMonthDayOne.getTime() - minusDate);
+}
+
+function thedefaulttime() {//购买记录默认时间
+  var date = new Date();
+  var year = date.getFullYear().toString();
+  var time = (date.getMonth() + 1).toString();
+
+
+  var month = '';
+  if (time < 10) {
+    month = "0" + time;
+  } else {
+    month = time;
+  }
+  var num = date.getDate().toString();
+  var day = getLastDay().getDate();
+
+  // if (num < 10) {
+  // 	day = "0" + num;
+  // } else {
+  // 	day = num;
+  // }
+  var start = year + '-' + month + '-01';
+  var end = year + '-' + month + '-' + day;
+  var dateArr = [start, end];
+  return dateArr;
+}
+
+module.exports = {
+  getRequest: getRequest,
+  getRequests: getRequests,
+  postRequest: postRequest,
+  postRequests: postRequests,
+  Toast: Toast,
+  header: header, //请求头部
+  objKeySort: objKeySort, //加密排序
+  thedefaulttime: thedefaulttime //加密排序
+};
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 24:
+/*!******************************************!*\
+  !*** F:/desktop/uniapp/static/js/api.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.api = void 0;var api = {
+  //首页
+  mainCate: '/main/cate', //首页分类
+  mainRecommend: '/main/recommend', //精选推荐
+  mainNew: '/main/new' //今日上新
+};exports.api = api;
+
+/***/ }),
+
+/***/ 251:
 /*!*******************************************************!*\
   !*** F:/desktop/uniapp/components/uni-popup/popup.js ***!
   \*******************************************************/
@@ -8630,7 +8663,7 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 264));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 252));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 // 定义 type 类型:弹出类型：top/bottom/center
 var config = {
   // 顶部弹出
@@ -8657,7 +8690,7 @@ var config = {
 
 /***/ }),
 
-/***/ 264:
+/***/ 252:
 /*!*********************************************************!*\
   !*** F:/desktop/uniapp/components/uni-popup/message.js ***!
   \*********************************************************/
@@ -8695,369 +8728,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 27:
-/*!************************************************!*\
-  !*** F:/desktop/uniapp/static/js/parseHtml.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /*
-                                                                                                      * HTML5 Parser By Sam Blowes
-                                                                                                      *
-                                                                                                      * Designed for HTML5 documents
-                                                                                                      *
-                                                                                                      * Original code by John Resig (ejohn.org)
-                                                                                                      * http://ejohn.org/blog/pure-javascript-html-parser/
-                                                                                                      * Original code by Erik Arvidsson, Mozilla Public License
-                                                                                                      * http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
-                                                                                                      *
-                                                                                                      * ----------------------------------------------------------------------------
-                                                                                                      * License
-                                                                                                      * ----------------------------------------------------------------------------
-                                                                                                      *
-                                                                                                      * This code is triple licensed using Apache Software License 2.0,
-                                                                                                      * Mozilla Public License or GNU Public License
-                                                                                                      *
-                                                                                                      * ////////////////////////////////////////////////////////////////////////////
-                                                                                                      *
-                                                                                                      * Licensed under the Apache License, Version 2.0 (the "License"); you may not
-                                                                                                      * use this file except in compliance with the License.  You may obtain a copy
-                                                                                                      * of the License at http://www.apache.org/licenses/LICENSE-2.0
-                                                                                                      *
-                                                                                                      * ////////////////////////////////////////////////////////////////////////////
-                                                                                                      *
-                                                                                                      * The contents of this file are subject to the Mozilla Public License
-                                                                                                      * Version 1.1 (the "License"); you may not use this file except in
-                                                                                                      * compliance with the License. You may obtain a copy of the License at
-                                                                                                      * http://www.mozilla.org/MPL/
-                                                                                                      *
-                                                                                                      * Software distributed under the License is distributed on an "AS IS"
-                                                                                                      * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
-                                                                                                      * License for the specific language governing rights and limitations
-                                                                                                      * under the License.
-                                                                                                      *
-                                                                                                      * The Original Code is Simple HTML Parser.
-                                                                                                      *
-                                                                                                      * The Initial Developer of the Original Code is Erik Arvidsson.
-                                                                                                      * Portions created by Erik Arvidssson are Copyright (C) 2004. All Rights
-                                                                                                      * Reserved.
-                                                                                                      *
-                                                                                                      * ////////////////////////////////////////////////////////////////////////////
-                                                                                                      *
-                                                                                                      * This program is free software; you can redistribute it and/or
-                                                                                                      * modify it under the terms of the GNU General Public License
-                                                                                                      * as published by the Free Software Foundation; either version 2
-                                                                                                      * of the License, or (at your option) any later version.
-                                                                                                      *
-                                                                                                      * This program is distributed in the hope that it will be useful,
-                                                                                                      * but WITHOUT ANY WARRANTY; without even the implied warranty of
-                                                                                                      * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-                                                                                                      * GNU General Public License for more details.
-                                                                                                      *
-                                                                                                      * You should have received a copy of the GNU General Public License
-                                                                                                      * along with this program; if not, write to the Free Software
-                                                                                                      * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-                                                                                                      *
-                                                                                                      * ----------------------------------------------------------------------------
-                                                                                                      * Usage
-                                                                                                      * ----------------------------------------------------------------------------
-                                                                                                      *
-                                                                                                      * // Use like so:
-                                                                                                      * HTMLParser(htmlString, {
-                                                                                                      *     start: function(tag, attrs, unary) {},
-                                                                                                      *     end: function(tag) {},
-                                                                                                      *     chars: function(text) {},
-                                                                                                      *     comment: function(text) {}
-                                                                                                      * });
-                                                                                                      *
-                                                                                                      * // or to get an XML string:
-                                                                                                      * HTMLtoXML(htmlString);
-                                                                                                      *
-                                                                                                      * // or to get an XML DOM Document
-                                                                                                      * HTMLtoDOM(htmlString);
-                                                                                                      *
-                                                                                                      * // or to inject into an existing document/DOM node
-                                                                                                      * HTMLtoDOM(htmlString, document);
-                                                                                                      * HTMLtoDOM(htmlString, document.body);
-                                                                                                      *
-                                                                                                      */
-// Regular Expressions for parsing tags and attributes
-var startTag = /^<([-A-Za-z0-9_]+)((?:\s+[a-zA-Z_:][-a-zA-Z0-9_:.]*(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/;
-var endTag = /^<\/([-A-Za-z0-9_]+)[^>]*>/;
-var attr = /([a-zA-Z_:][-a-zA-Z0-9_:.]*)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/g; // Empty Elements - HTML 5
-
-var empty = makeMap('area,base,basefont,br,col,frame,hr,img,input,link,meta,param,embed,command,keygen,source,track,wbr'); // Block Elements - HTML 5
-// fixed by xxx 将 ins 标签从块级名单中移除
-
-var block = makeMap('a,address,article,applet,aside,audio,blockquote,button,canvas,center,dd,del,dir,div,dl,dt,fieldset,figcaption,figure,footer,form,frameset,h1,h2,h3,h4,h5,h6,header,hgroup,hr,iframe,isindex,li,map,menu,noframes,noscript,object,ol,output,p,pre,section,script,table,tbody,td,tfoot,th,thead,tr,ul,video'); // Inline Elements - HTML 5
-
-var inline = makeMap('abbr,acronym,applet,b,basefont,bdo,big,br,button,cite,code,del,dfn,em,font,i,iframe,img,input,ins,kbd,label,map,object,q,s,samp,script,select,small,span,strike,strong,sub,sup,textarea,tt,u,var'); // Elements that you can, intentionally, leave open
-// (and which close themselves)
-
-var closeSelf = makeMap('colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr'); // Attributes that have their values filled in disabled="disabled"
-
-var fillAttrs = makeMap('checked,compact,declare,defer,disabled,ismap,multiple,nohref,noresize,noshade,nowrap,readonly,selected'); // Special Elements (can contain anything)
-
-var special = makeMap('script,style');
-function HTMLParser(html, handler) {
-  var index;
-  var chars;
-  var match;
-  var stack = [];
-  var last = html;
-
-  stack.last = function () {
-    return this[this.length - 1];
-  };
-
-  while (html) {
-    chars = true; // Make sure we're not in a script or style element
-
-    if (!stack.last() || !special[stack.last()]) {
-      // Comment
-      if (html.indexOf('<!--') == 0) {
-        index = html.indexOf('-->');
-
-        if (index >= 0) {
-          if (handler.comment) {
-            handler.comment(html.substring(4, index));
-          }
-
-          html = html.substring(index + 3);
-          chars = false;
-        } // end tag
-
-      } else if (html.indexOf('</') == 0) {
-        match = html.match(endTag);
-
-        if (match) {
-          html = html.substring(match[0].length);
-          match[0].replace(endTag, parseEndTag);
-          chars = false;
-        } // start tag
-
-      } else if (html.indexOf('<') == 0) {
-        match = html.match(startTag);
-
-        if (match) {
-          html = html.substring(match[0].length);
-          match[0].replace(startTag, parseStartTag);
-          chars = false;
-        }
-      }
-
-      if (chars) {
-        index = html.indexOf('<');
-        var text = index < 0 ? html : html.substring(0, index);
-        html = index < 0 ? '' : html.substring(index);
-
-        if (handler.chars) {
-          handler.chars(text);
-        }
-      }
-    } else {
-      html = html.replace(new RegExp('([\\s\\S]*?)<\/' + stack.last() + '[^>]*>'), function (all, text) {
-        text = text.replace(/<!--([\s\S]*?)-->|<!\[CDATA\[([\s\S]*?)]]>/g, '$1$2');
-
-        if (handler.chars) {
-          handler.chars(text);
-        }
-
-        return '';
-      });
-      parseEndTag('', stack.last());
-    }
-
-    if (html == last) {
-      throw 'Parse Error: ' + html;
-    }
-
-    last = html;
-  } // Clean up any remaining tags
-
-
-  parseEndTag();
-
-  function parseStartTag(tag, tagName, rest, unary) {
-    tagName = tagName.toLowerCase();
-
-    if (block[tagName]) {
-      while (stack.last() && inline[stack.last()]) {
-        parseEndTag('', stack.last());
-      }
-    }
-
-    if (closeSelf[tagName] && stack.last() == tagName) {
-      parseEndTag('', tagName);
-    }
-
-    unary = empty[tagName] || !!unary;
-
-    if (!unary) {
-      stack.push(tagName);
-    }
-
-    if (handler.start) {
-      var attrs = [];
-      rest.replace(attr, function (match, name) {
-        var value = arguments[2] ? arguments[2] : arguments[3] ? arguments[3] : arguments[4] ? arguments[4] : fillAttrs[name] ? name : '';
-        attrs.push({
-          name: name,
-          value: value,
-          escaped: value.replace(/(^|[^\\])"/g, '$1\\\"') // "
-        });
-
-      });
-
-      if (handler.start) {
-        handler.start(tagName, attrs, unary);
-      }
-    }
-  }
-
-  function parseEndTag(tag, tagName) {
-    // If no tag name is provided, clean shop
-    if (!tagName) {
-      var pos = 0;
-    } // Find the closest opened tag of the same type
-    else {
-        for (var pos = stack.length - 1; pos >= 0; pos--) {
-          if (stack[pos] == tagName) {
-            break;
-          }
-        }
-      }
-
-    if (pos >= 0) {
-      // Close all the open elements, up the stack
-      for (var i = stack.length - 1; i >= pos; i--) {
-        if (handler.end) {
-          handler.end(stack[i]);
-        }
-      } // Remove the open elements from the stack
-
-
-      stack.length = pos;
-    }
-  }
-}
-
-function makeMap(str) {
-  var obj = {};
-  var items = str.split(',');
-
-  for (var i = 0; i < items.length; i++) {
-    obj[items[i]] = true;
-  }
-
-  return obj;
-}
-
-function removeDOCTYPE(html) {
-  return html.replace(/<\?xml.*\?>\n/, '').replace(/<!doctype.*>\n/, '').replace(/<!DOCTYPE.*>\n/, '');
-}
-
-function parseAttrs(attrs) {
-  return attrs.reduce(function (pre, attr) {
-    var value = attr.value;
-    var name = attr.name;
-
-    if (pre[name]) {
-      pre[name] = pre[name] + " " + value;
-    } else {
-      pre[name] = value;
-    }
-
-    return pre;
-  }, {});
-}
-
-function parseHtml(html) {
-  html = removeDOCTYPE(html);
-  var stacks = [];
-  var results = {
-    node: 'root',
-    children: [] };
-
-  HTMLParser(html, {
-    start: function start(tag, attrs, unary) {
-      var node = {
-        name: tag };
-
-
-      if (attrs.length !== 0) {
-        node.attrs = parseAttrs(attrs);
-      }
-
-      if (unary) {
-        var parent = stacks[0] || results;
-
-        if (!parent.children) {
-          parent.children = [];
-        }
-
-        parent.children.push(node);
-      } else {
-        stacks.unshift(node);
-      }
-    },
-    end: function end(tag) {
-      var node = stacks.shift();
-      if (node.name !== tag) console.error('invalid state: mismatch end tag');
-
-      if (stacks.length === 0) {
-        results.children.push(node);
-      } else {
-        var parent = stacks[0];
-
-        if (!parent.children) {
-          parent.children = [];
-        }
-
-        parent.children.push(node);
-      }
-    },
-    chars: function chars(text) {
-      var node = {
-        type: 'text',
-        text: text };
-
-
-      if (stacks.length === 0) {
-        results.children.push(node);
-      } else {
-        var parent = stacks[0];
-
-        if (!parent.children) {
-          parent.children = [];
-        }
-
-        parent.children.push(node);
-      }
-    },
-    comment: function comment(text) {
-      var node = {
-        node: 'comment',
-        text: text };
-
-      var parent = stacks[0];
-
-      if (!parent.children) {
-        parent.children = [];
-      }
-
-      parent.children.push(node);
-    } });
-
-  return results.children;
-}var _default =
-
-parseHtml;exports.default = _default;
-
-/***/ }),
-
 /***/ 3:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -9086,289 +8756,6 @@ try {
 
 module.exports = g;
 
-
-/***/ }),
-
-/***/ 307:
-/*!*******************************************************!*\
-  !*** F:/desktop/uniapp/components/uni-icons/icons.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  'contact': "\uE100",
-  'person': "\uE101",
-  'personadd': "\uE102",
-  'contact-filled': "\uE130",
-  'person-filled': "\uE131",
-  'personadd-filled': "\uE132",
-  'phone': "\uE200",
-  'email': "\uE201",
-  'chatbubble': "\uE202",
-  'chatboxes': "\uE203",
-  'phone-filled': "\uE230",
-  'email-filled': "\uE231",
-  'chatbubble-filled': "\uE232",
-  'chatboxes-filled': "\uE233",
-  'weibo': "\uE260",
-  'weixin': "\uE261",
-  'pengyouquan': "\uE262",
-  'chat': "\uE263",
-  'qq': "\uE264",
-  'videocam': "\uE300",
-  'camera': "\uE301",
-  'mic': "\uE302",
-  'location': "\uE303",
-  'mic-filled': "\uE332",
-  'speech': "\uE332",
-  'location-filled': "\uE333",
-  'micoff': "\uE360",
-  'image': "\uE363",
-  'map': "\uE364",
-  'compose': "\uE400",
-  'trash': "\uE401",
-  'upload': "\uE402",
-  'download': "\uE403",
-  'close': "\uE404",
-  'redo': "\uE405",
-  'undo': "\uE406",
-  'refresh': "\uE407",
-  'star': "\uE408",
-  'plus': "\uE409",
-  'minus': "\uE410",
-  'circle': "\uE411",
-  'checkbox': "\uE411",
-  'close-filled': "\uE434",
-  'clear': "\uE434",
-  'refresh-filled': "\uE437",
-  'star-filled': "\uE438",
-  'plus-filled': "\uE439",
-  'minus-filled': "\uE440",
-  'circle-filled': "\uE441",
-  'checkbox-filled': "\uE442",
-  'closeempty': "\uE460",
-  'refreshempty': "\uE461",
-  'reload': "\uE462",
-  'starhalf': "\uE463",
-  'spinner': "\uE464",
-  'spinner-cycle': "\uE465",
-  'search': "\uE466",
-  'plusempty': "\uE468",
-  'forward': "\uE470",
-  'back': "\uE471",
-  'left-nav': "\uE471",
-  'checkmarkempty': "\uE472",
-  'home': "\uE500",
-  'navigate': "\uE501",
-  'gear': "\uE502",
-  'paperplane': "\uE503",
-  'info': "\uE504",
-  'help': "\uE505",
-  'locked': "\uE506",
-  'more': "\uE507",
-  'flag': "\uE508",
-  'home-filled': "\uE530",
-  'gear-filled': "\uE532",
-  'info-filled': "\uE534",
-  'help-filled': "\uE535",
-  'more-filled': "\uE537",
-  'settings': "\uE560",
-  'list': "\uE562",
-  'bars': "\uE563",
-  'loop': "\uE565",
-  'paperclip': "\uE567",
-  'eye': "\uE568",
-  'arrowup': "\uE580",
-  'arrowdown': "\uE581",
-  'arrowleft': "\uE582",
-  'arrowright': "\uE583",
-  'arrowthinup': "\uE584",
-  'arrowthindown': "\uE585",
-  'arrowthinleft': "\uE586",
-  'arrowthinright': "\uE587",
-  'pulldown': "\uE588",
-  'closefill': "\uE589",
-  'sound': "\uE590",
-  'scan': "\uE612" };exports.default = _default;
-
-/***/ }),
-
-/***/ 336:
-/*!*******************************************************************!*\
-  !*** F:/desktop/uniapp/components/rattenking-dtpicker/GetDate.js ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}var GetDate = {
-  withData: function withData(num) {
-    var param = parseInt(num);
-    return param < 10 ? '0' + param : '' + param;
-  },
-  getTimes: function getTimes(str) {
-    return new Date(str.replace(/-/g, '/')).getTime();
-  },
-  getCurrentTimes: function getCurrentTimes() {
-    var date = new Date();
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    var day = date.getDate();
-    var hour = date.getHours();
-    var minute = date.getMinutes();
-    var second = date.getSeconds();
-    return {
-      detail: {
-        year: year,
-        month: month,
-        day: day,
-        hour: hour,
-        minute: minute,
-        second: second } };
-
-
-  },
-  format: function format(arr) {
-    var curarr = [];
-    var curarr0 = [];
-    var str = '';
-    arr.forEach(function (cur, index) {
-      var o = GetDate.withData(cur);
-      if (index > 2) {
-        curarr.push(o);
-      } else {
-        curarr0.push(o);
-      }
-    });
-    if (arr.length < 4) {
-      str = curarr0.join('-');
-    } else {
-      str = curarr0.join('-') + ' ' + curarr.join(':');
-    }
-    return str;
-  },
-  getCurrentStringValue: function getCurrentStringValue(str) {
-    var newstr = str.split(' ');
-    if (newstr && newstr[1]) {
-      var arr = [].concat(_toConsumableArray(newstr[0].split('-')), _toConsumableArray(newstr[1].split(':')));
-      return arr;
-    }
-    return newstr[0].split('-');
-  },
-  getCompare: function getCompare(curp, startp, endp, timesp) {
-    var cur = GetDate.getTimes(curp);
-    var start = GetDate.getTimes(startp);
-    var end = GetDate.getTimes(endp);
-    if (cur < start) {
-      return GetDate.getTimeIndex(timesp, GetDate.getCurrentStringValue(startp));
-    } else if (cur > end) {
-      return GetDate.getTimeIndex(timesp, GetDate.getCurrentStringValue(endp));
-    } else {
-      return GetDate.getTimeIndex(timesp, GetDate.getCurrentStringValue(curp));
-    }
-  },
-  getChooseArr: function getChooseArr(times, indexs) {
-    var arr = [];
-    times.forEach(function (cur, index) {return arr.push(cur[indexs[index]]);});
-    return arr;
-  },
-  getNewArray: function getNewArray(arr) {
-    var newarr = [];
-    arr.forEach(function (cur) {return newarr.push(cur);});
-    return newarr;
-  },
-  getLoopArray: function getLoopArray(start, end) {
-    var start = start || 0;
-    var end = end || 1;
-    var array = [];
-    for (var i = start; i <= end; i++) {
-      array.push(GetDate.withData(i));
-    }
-    return array;
-  },
-  getMonthDay: function getMonthDay(year, month) {
-    var flag = year % 400 == 0 || year % 4 == 0 && year % 100 != 0,array = null;
-
-    switch (month) {
-      case '01':
-      case '03':
-      case '05':
-      case '07':
-      case '08':
-      case '10':
-      case '12':
-        array = GetDate.getLoopArray(1, 31);
-        break;
-      case '04':
-      case '06':
-      case '09':
-      case '11':
-        array = GetDate.getLoopArray(1, 30);
-        break;
-      case '02':
-        array = flag ? GetDate.getLoopArray(1, 29) : GetDate.getLoopArray(1, 28);
-        break;
-      default:
-        array = '月份格式不正确，请重新输入！';}
-
-    return array;
-  },
-  getDateTimes: function getDateTimes(opts) {
-    var years = GetDate.getLoopArray(opts.start, opts.end);
-    var months = GetDate.getLoopArray(1, 12);
-    var days = GetDate.getMonthDay(opts.curyear, opts.curmonth);
-    var hours = GetDate.getLoopArray(0, 23);
-    var minutes = GetDate.getLoopArray(0, 59);
-    var seconds = GetDate.getLoopArray(0, 59);
-    var times = null;
-
-    switch (opts.fields) {
-      case 'year':
-        times = [years];
-        break;
-      case 'month':
-        times = [years, months];
-        break;
-      case 'day':
-        times = [years, months, days];
-        break;
-      case 'hour':
-        times = [years, months, days, hours];
-        break;
-      case 'minute':
-        times = [years, months, days, hours, minutes];
-        break;
-      case 'second':
-        times = [years, months, days, hours, minutes, seconds];
-        break;
-      default:
-        times = [years, months, days, hours, minutes, seconds];}
-
-    return times;
-  },
-  getIndex: function getIndex(arr, target) {
-    var len = arr.length;
-    for (var i = 0; i < len; i++) {
-      if (arr[i] == target) {
-        return i;
-      }
-    }
-  },
-  getTimeIndex: function getTimeIndex(arrs, targets) {
-    var len = arrs.length;
-    var arr = [];
-    for (var i = 0; i < len; i++) {
-      arr.push(GetDate.getIndex(arrs[i], targets[i]));
-    }
-    return arr;
-  },
-  error: function error(str) {
-    console.error(str);
-  } };
-
-
-module.exports = GetDate;
 
 /***/ }),
 
@@ -10404,7 +9791,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#57B127", "navigationBarTextStyle": "white" }, "pages/tabar/classify": { "navigationBarTitleText": "分类", "navigationBarBackgroundColor": "#FFF", "navigationBarTextStyle": "black" }, "pages/tabar/order": { "navigationBarTitleText": "全部订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/tabar/shopcart": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/tabar/user": { "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#59BC2C", "navigationBarTextStyle": "white" }, "pages/index/shopdetail": { "navigationBarTitleText": "商品详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/index/search": { "navigationBarTitleText": "搜索", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/login": { "navigationBarTitleText": "登录", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/selectway": {}, "pages/account/forget": {}, "pages/account/register": {}, "pages/account/service": {}, "pages/account/treaty": {}, "pages/account/bind": {}, "pages/account/404": {}, "pages/order/orderdetail": { "navigationBarTitleText": "订单详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/order/orderAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/order/applyAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/delivery": { "navigationBarTitleText": "地址", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/shoplist": { "navigationBarTitleText": "提交订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/goodbill": { "navigationBarTitleText": "商品凑单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/paySuccess": { "navigationBarTitleText": "支付成功", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/modifypwd": {}, "pages/user/myinfo": {}, "pages/user/newProductDemand": { "navigationBarTitleText": "新品需求", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/feedback": { "navigationBarTitleText": "意见反馈", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/remainder": { "navigationBarTitleText": "我的余额", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": " ", "navigationBarBackgroundColor": "#F0F0F0", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#57B127", "navigationBarTextStyle": "white" }, "pages/tabar/classify": { "navigationBarTitleText": "分类", "navigationBarBackgroundColor": "#FFF", "navigationBarTextStyle": "black" }, "pages/tabar/order": { "navigationBarTitleText": "全部订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/tabar/shopcart": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/tabar/user": { "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#59BC2C", "navigationBarTextStyle": "white" }, "pages/index/shopdetail": { "navigationBarTitleText": "商品详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/index/search": { "navigationBarTitleText": "搜索", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/login": { "navigationBarTitleText": "登录", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/forget": {}, "pages/account/register": { "navigationBarTitleText": "注册", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/treaty": {}, "pages/account/bind": {}, "pages/order/orderdetail": { "navigationBarTitleText": "订单详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/order/orderAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/order/applyAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/delivery": { "navigationBarTitleText": "地址", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/shoplist": { "navigationBarTitleText": "提交订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/goodbill": { "navigationBarTitleText": "商品凑单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/paySuccess": { "navigationBarTitleText": "支付成功", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/modifypwd": {}, "pages/user/myinfo": {}, "pages/user/newProductDemand": { "navigationBarTitleText": "新品需求", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/feedback": { "navigationBarTitleText": "意见反馈", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/remainder": { "navigationBarTitleText": "我的余额", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": " ", "navigationBarBackgroundColor": "#F0F0F0", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ })
 

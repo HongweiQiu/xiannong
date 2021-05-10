@@ -8,8 +8,6 @@
     "my-recomend": "/components/recomend/index",
     "my-loading": "/components/loading/index",
     "my-backtop": "/components/backtop/index",
-    "my-tabar": "/components/tabar/index",
-    "w-picker": "/components/w-picker/w-picker",
-    "rui-date-picker": "/components/rattenking-dtpicker/rattenking-dtpicker"
+    "w-picker": "/components/w-picker/w-picker"
   }
 }

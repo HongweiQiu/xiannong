@@ -1,44 +1,47 @@
 <template>
 	<view class="register" :style="{height:height+'px'}">
-		<view><uni-nav-bar left-icon="arrowleft" title="注册" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
-    
-		<view class="get_info">
-			<view>
-				<text>单位名称</text>
-				<input type="text" v-model="nickname" placeholder="请输入单位名称" placeholder-class="place_style" />
-			</view>
-			<view>
-				<text>手机号</text>
-				<input type="number" v-model="mobile" placeholder="请输入手机" placeholder-class="place_style" />
-			</view>
-			<view>
-				<text>密码</text>
-				<input password v-model="password" placeholder="请输入六位及以上的密码" placeholder-class="place_style" />
-			</view>
-			<view>
-				<text>确认密码</text>
-				<input password v-model="confirm_pwd" placeholder="请再次确认登录密码" placeholder-class="place_style" />
-			</view>
-			<move-verify @result="verifyResult" ref="verifyElement"></move-verify>
-			<view class="flex">
-				<text>验证码</text>
-				<view class="flex_left_right" style="width:79%;">
-					<input type="number" v-model="verify_code" placeholder="请输入验证码" placeholder-class="place_style" @focus="back=false" />
-					<my-identifyingcode @getCode="getCode" ref="code"></my-identifyingcode>
+		<view>
+
+			<view class="get_info">
+				<view>
+					<text>单位名称</text>
+					<input type="text" v-model="nickname" placeholder="请输入单位名称" placeholder-class="place_style" />
 				</view>
+				<view>
+					<text>手机号</text>
+					<input type="number" v-model="mobile" placeholder="请输入手机" placeholder-class="place_style" />
+				</view>
+				<view class="flex">
+					<text>验证码</text>
+					<view class="flex_left_right" style="width:79%;">
+						<input type="number" v-model="verify_code" placeholder="请输入验证码" placeholder-class="place_style"
+							@focus="back=false" />
+						<my-identifyingcode @getCode="getCode" ref="code"></my-identifyingcode>
+					</view>
+				</view>
+				<view>
+					<text>密码</text>
+					<input password v-model="password" placeholder="请输入六位及以上的密码" placeholder-class="place_style" />
+				</view>
+				<view>
+					<text>确认密码</text>
+					<input password v-model="confirm_pwd" placeholder="请再次确认登录密码" placeholder-class="place_style" />
+				</view>
+
+
+			</view>
+			<view class="submit_button button_style" @click="register" :class="{'gray_b':back}">提交</view>
+			<view class="now_login">
+				<text @click="pageUrl('login')">已有账户？现在登录>></text>
 			</view>
 		</view>
-		<view class="submit_button button_style" @click="register" :class="{'gray_b':back}">提交</view>
-		<view class="now_login">
-			<text @click="pageUrl('login')">已有账户？现在登录>></text></view>
-			 </view>
 		<view class="agree" v-if="display1">
-			<text @click="pageUrl('treaty')">注册协议</text></view>
+			<text @click="pageUrl('treaty')">注册协议</text>
+		</view>
 	</view>
 </template>
 
 <script>
-	import moveVerify from '@/components/helang-moveVerify/helang-moveVerify.vue';
 	import md5 from '../../static/js/md5.js';
 	import rs from '../../static/js/request.js';
 	const app = getApp().globalData;
@@ -48,9 +51,7 @@
 		appsecret
 	} = app;
 	export default {
-		components: {
-			moveVerify
-		},
+
 		data() {
 			return {
 				navBar: navBar,
@@ -68,24 +69,11 @@
 				scrollHeight: '',
 				resultData: {},
 				count: 0,
-				height:''
+				height: ''
 			};
 		},
 		methods: {
-			leftClick() {
-				// #ifdef H5
-				// uni.hideKeyboard();
-				// setTimeout(() => {
-					window.history.back(-1);
-				// }, 100)
 
-				// #endif 
-				// #ifndef H5
-				uni.navigateBack({
-					delta: 1
-				});
-				// #endif	
-			},
 			pageUrl(data) {
 				this.count++;
 				if (this.count != 1) return;
@@ -257,7 +245,8 @@
 							setTimeout(() => {
 								// #ifdef H5
 								setTimeout(() => {
-									window.location.href = app.rootUrl + "/#/pages/account/login";
+									window.location.href = app.rootUrl +
+										"/#/pages/account/login";
 								}, 1000)
 								return;
 								// #endif
@@ -273,23 +262,7 @@
 				})
 			}
 		},
-		onReady() {
-
-			// #ifdef H5
-			// this.scrollHeight = uni.getStorageSync('scrollHeight');
-
-			// window.onresize = () => {
-
-			// 	let newHeight = document.body.clientHeight;
-			// 	if (this.scrollHeight == newHeight) {
-			// 		this.display1 = true;
-			// 	} else {
-			// 		this.display1 = false;
-			// 	}
-
-			// }
-			// #endif
-		},
+		onReady() {},
 		onLoad(options) {
 			var that = this;
 			that.sale = options.sale;
@@ -297,13 +270,9 @@
 
 		},
 		onShow() {
-			uni.setNavigationBarTitle({
-				title: uni.getStorageSync('titleKey')
-			});
 		},
 		mounted() {
-			let that=this;
-				that.height=uni.getStorageSync('scrollHeight');	
+			
 		},
 	};
 </script>
@@ -312,7 +281,13 @@
 	page {
 		background: white;
 	}
-.register{display: flex;flex-direction: column;justify-content: space-between;}
+
+	.register {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
 	.register .get_info {
 		background: white;
 		padding: 0 20rpx;
@@ -349,7 +324,7 @@
 		/* position: fixed; */
 		width: 100%;
 		bottom: 20rpx;
-		padding-bottom:20rpx;
+		padding-bottom: 20rpx;
 		text-align: center;
 		font-size: 24rpx;
 		color: #418d5f;

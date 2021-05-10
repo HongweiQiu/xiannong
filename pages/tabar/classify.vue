@@ -45,33 +45,13 @@
 		<uni-popup ref="cart" type="bottom" @maskInfo="closeCart">
 			<my-addcart @onClose="onClose" :cartware="cartware" :config="config" ref="addcart"></my-addcart>
 		</uni-popup>
-		<uni-drawer ref="drawer" mode="right">
-			<!-- #ifdef APP-PLUS |H5 -->
-			<view class="status_bar">
-				<!-- 这里是状态栏 -->
-			</view>
-
-			<!-- #endif -->
-			<view class="all_title">全部分类</view>
-			<view class="show_all_sort">
-				<text v-for="(item,index) in firstCate" :key="index" @click="selectSort(index)"
-					:class="active==index?'select_back':''">{{item.name}}</text>
-			</view>
-			<view class="option">
-				<view class="cancel" @click="cancelSort">取消</view>
-				<view class="determine" @click="deterSort">确定</view>
-			</view>
-		</uni-drawer>
-		<my-tabar tabarIndex=1></my-tabar>
-
 	</view>
 </template>
 
 <script>
-	import uniDrawer from "@/components/uni-drawer/uni-drawer.vue";
+	
 	import md5 from '../../static/js/md5.js';
 	import rs from '../../static/js/request.js';
-	import parseHtml from '../../static/js/parseHtml.js';
 	const app = getApp().globalData;
 	const {
 		appid,
@@ -82,9 +62,7 @@
 		log
 	} = console;
 	export default {
-		components: {
-			uniDrawer
-		},
+		
 		data() {
 			return {
 				waitLoad: false,
@@ -118,9 +96,6 @@
 				this.$refs.keyboard.cancel();
 			},
 			cancelKey() {
-
-				rs.showTabBar();
-
 				this.$refs.popup.close();
 			},
 			toParent(e) {
@@ -350,7 +325,7 @@
 		},
 		onLoad(e) {
 			app.isReload = true;
-			uni.hideTabBar();
+		
 		}
 	};
 </script>

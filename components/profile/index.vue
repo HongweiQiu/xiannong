@@ -1,6 +1,6 @@
 <template>
 	<view class="my_profile flex">
-		<view class="photo" @click="$doubleClick(detail)">
+		<view class="photo" @click="detail">
 			<image :src="config.logo" mode="aspectFit" class="shuiyin" v-if="config.logo&&config.shuiyin==1"></image>
 			<image class="good_img" :src="ware.img==''?imgRemote+config.item_default:ware.img" mode="aspectFit"></image>
 		</view>
@@ -68,8 +68,8 @@
 						</block>
 						<block v-else>
 
-							<my-n-stepper @showKey="showKey" :val="ware.cart_num" @minus="minus(ware.cart_num-1)"
-								@plus="plus(ware.cart_num+1)" v-if="ware.cart_num"></my-n-stepper>
+							<my-stepper @showKey="showKey" :val="ware.cart_num" @minus="minus(ware.cart_num-1)"
+								@plus="plus(ware.cart_num+1)" v-if="ware.cart_num"></my-stepper>
 							<text v-else class="iconfont add_cart" @click="plusCart"> &#xe600;</text>
 						</block>
 					</view>

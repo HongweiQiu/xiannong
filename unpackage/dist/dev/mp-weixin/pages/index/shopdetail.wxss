@@ -242,4 +242,8 @@
   background: #57B127;
   border-radius: 37rpx;
 }
+canvas.data-v-0e3bfe9d {
+  width: 100px;
+  height: 200px;
+}
 

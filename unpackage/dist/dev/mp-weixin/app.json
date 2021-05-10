@@ -18,13 +18,10 @@
       "root": "pages/account",
       "pages": [
         "login",
-        "selectway",
         "forget",
         "register",
-        "service",
         "treaty",
-        "bind",
-        "404"
+        "bind"
       ]
     },
     {
@@ -66,16 +63,28 @@
     "selectedColor": "#009A44",
     "list": [
       {
-        "pagePath": "pages/tabar/index"
+        "pagePath": "pages/tabar/index",
+        "iconPath": "/static/img/index_gray.png",
+        "selectedIconPath": "/static/img/index_green.png",
+        "text": "首页"
       },
       {
-        "pagePath": "pages/tabar/classify"
+        "pagePath": "pages/tabar/classify",
+        "iconPath": "/static/img/classify_gray.png",
+        "selectedIconPath": "/static/img/classify_green.png",
+        "text": "分类"
       },
       {
-        "pagePath": "pages/tabar/shopcart"
+        "pagePath": "pages/tabar/shopcart",
+        "iconPath": "/static/img/shopcart_gray.png",
+        "selectedIconPath": "/static/img/shopcart_green.png",
+        "text": "购物车"
       },
       {
-        "pagePath": "pages/tabar/user"
+        "pagePath": "pages/tabar/user",
+        "iconPath": "/static/img/user_gray.png",
+        "selectedIconPath": "/static/img/user_green.png",
+        "text": "我的"
       }
     ]
   },

@@ -3,7 +3,6 @@
   "navigationBarBackgroundColor": "#59BC2C",
   "navigationBarTextStyle": "white",
   "usingComponents": {
-    "uni-icons": "/components/uni-icons/uni-icons",
-    "my-tabar": "/components/tabar/index"
+    "uni-icons": "/components/uni-icons/uni-icons"
   }
 }

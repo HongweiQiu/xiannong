@@ -15,80 +15,18 @@
 		</view>
 
 		<!-- 公告 -->
-		<view class="" v-if="adList.public_msg">
+		<view class="" >
 			<uni-notice-bar showIcon="true" background-color="white" color="balck" scrollable="true" single="true"
-				:text="adList.public_msg" :speed="speed"></uni-notice-bar>
+				:text="adList.public_msg+'asdsad'" :speed="speed"></uni-notice-bar>
 		</view>
 		<!-- 导航 -->
 		<view class="nav">
-			<view v-for="(item, index) in adList.nav" :key="index" @click="navUrl(item)">
-				<image :src="imgRemote + item.img_url" mode="aspectFit" v-if="item.cate_id != 0"></image>
-				<image :src="imgRemote + '/' + item.img_url" mode="aspectFit" v-if="item.cate_id == 0"></image>
-				<text class="hidden" style="width: 100%;text-align: center;">{{item.title}}</text>
+			<view v-for="(item, index) in adList" :key="index" @click="navUrl(item)">
+				<image :src="imgRemote + item.image" mode="aspectFit"></image>
+				<text class="hidden width center">{{item.name}}</text>
 			</view>
 		</view>
-		<!-- banner4 -->
-		<!-- 	<view class="banner4" v-if="adList.banner4">
-			<image :src="adList.banner4" mode="aspectFit"></image>
-		</view> -->
-		<!-- 限时抢购 -->
 
-		<view class="limit_buy" v-if="showActive">
-			<view class="head" @click="newPage('flashsale')">
-				<view class="title">
-					<view class="line_border"></view>
-					<text class="name">限时抢购</text>
-					<text v-if="activeConf.activity_status==0" style="margin-right: 10rpx;">距离开始</text>
-					<my-countdown :time="hours"></my-countdown>
-				</view>
-				<view class="align_center more">
-					更多
-					<text class="iconfont icon-jiantou"></text>
-				</view>
-			</view>
-
-			<view class="whole">
-				<view class="body" v-for="(item, index) in activeList" :key="index"
-					@click="newPage('shopdetail',item.item_id)">
-					<view>
-						<image :src="config.logo" mode="aspectFit" class="shuiyin1"
-							v-if="config.logo&&config.shuiyin==1"></image>
-						<image class="good_img" :src="item.img==''?imgRemote+activeConf.item_default:item.img"
-							mode="aspectFit"></image>
-					</view>
-					<view>
-						<view>
-							<view>{{item.item_title}}</view>
-							<!-- <view>{{item.describe}}</view> -->
-							<view class="hidden"><text class="red_tag" v-for="(label,index) in item.label"
-									:key="index">{{label}}</text></view>
-						</view>
-						<view class="price">
-
-							<block v-if="token">
-								<block v-if="config.is_look==1">
-									<view style="width:66%;">
-										<view class="red_font hidden">¥{{item.activity_price}}/{{item.unit}}</view>
-										<view class="line_through hidden">¥{{item.price}}</view>
-									</view>
-								</block>
-								<block v-else>
-									<view class="red_font ">¥***</view>
-								</block>
-
-							</block>
-							<block v-else>
-								<view class="red_font">¥{{item.price+'/'+item.unit}}</view>
-							</block>
-
-							<view class="addcart">
-								<image src="../../static/img/addcart.png"></image>
-							</view>
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>
 		<!-- 今日上新 -->
 		<view class="recomend">
 			<view class="title">
@@ -114,13 +52,7 @@
 			<my-loading :loading="loading"></my-loading>
 		</view>
 		<view class="support" v-if="support&&adList.copyright.is_copyright==0">
-			<!-- #ifndef H5 -->
 			由<text>菜东家</text>提供技术支持
-			<!-- #endif -->
-
-			<!-- #ifdef H5 -->
-			<a :href="adList.copyright.caidj_url">由<text>菜东家</text>提供技术支持</a>
-			<!-- #endif -->
 		</view>
 
 		<my-backtop bottom="60" :showTop="showTop"></my-backtop>
@@ -128,14 +60,16 @@
 		<uni-popup ref="popup" type="bottom" @maskInfo="closeCart">
 			<my-addcart @onClose="onClose" :cartware="cartware" :config="config" ref="addcart"></my-addcart>
 		</uni-popup>
-		<my-tabar tabarIndex=0></my-tabar>
-	
+
 	</view>
 </template>
 
 <script>
 	import md5 from '../../static/js/md5.js';
 	import rs from '../../static/js/request.js';
+	import {
+		api
+	} from '../../static/js/api.js';
 	import uniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar.vue';
 
 	const app = getApp().globalData;
@@ -150,7 +84,7 @@
 		},
 		data() {
 			return {
-			
+
 				showActive: false,
 				support: false,
 				showTop: false,
@@ -298,152 +232,61 @@
 
 			},
 			indexAd() {
-				let timeStamp = Math.round(new Date().getTime() / 1000);
-				let obj = {
-					appid: appid,
-					timeStamp: timeStamp
-				};
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-						sign: sign
-					},
-					obj
-				);
-				rs.getRequests('indexAd', params, res => {
+				rs.getRequests(api.mainCate, {}, res => {
 					let data = res.data;
-					if (data.code == 200) {
+
+					if (data.code == 1) {
 						this.adList = data.data;
-
-
 					}
 				});
 			},
 			indexItem() {
 				this.itemList = [];
-				let timeStamp = Math.round(new Date().getTime() / 1000);
-				let obj = {
-					appid: appid,
-					timeStamp: timeStamp
-				};
 				let {
 					num,
 					page
 				} = this;
-
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-						page: 1,
-						sign: sign,
-						page: page,
-						num: num
-					},
-					obj
-				);
-
-				rs.getRequests('indexItem', params, res => {
+				rs.getRequests(api.mainRecommend, {}, res => {
 					let data = res.data;
-					if (data.code == 200) {
-						this.itemList = data.data.list;
+					if (data.code == 1) {
+						this.itemList = data.data;
 						this.config = data.data;
-						if (data.data.total <= 10) {
-							this.loading = false;
-							this.support = true;
-						} else {
-							this.support = false;
-							this.loading = true;
-						}
-					}
-				});
-
-			},
-			//限时抢购
-			limitList() {
-
-				let timeStamp = Math.round(new Date().getTime() / 1000);
-				let obj = {
-					appid: appid,
-					timeStamp: timeStamp
-				};
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-						sign: sign
-					},
-					obj
-				);
-				rs.getRequests('panicBuyIndex', params, res => {
-					let data = res.data;
-					if (data.code == 200) {
-						let {
-							itemList,
-							timeRemain
-						} = data.data;
-						if (data.data.length != 0) {
-							this.showActive = true;
-						} else {
-							this.showActive = false;
-						}
-						this.hours = Math.abs(timeRemain);
-						this.activeConf = data.data;
-						this.activeList = itemList;
+						// if (data.data.total <= 10) {
+						// 	this.loading = false;
+						// 	this.support = true;
+						// } else {
+						// 	this.support = false;
+						// 	this.loading = true;
+						// }
 					}
 				});
 			},
-
+			newToday() {
+				rs.getRequests(api.mainNew, {}, res => {})
+			}
 		},
 		onShow() {
 			this.token = uni.getStorageSync('cdj_token');
-			this.indexAd();
-			this.limitList();
-			if (app.isReload == true) {
-				this.page = 1;
-				uni.pageScrollTo({
-					scrollTop: 0,
-					duration: 0
-				});
-				this.indexItem();
-			}
+			// if (app.isReload == true) {
+			// 	this.page = 1;
+			// 	uni.pageScrollTo({
+			// 		scrollTop: 0,
+			// 		duration: 0
+			// 	});
+			// 	
+			// }
 		},
 		onLoad() {
 			app.isReload = true;
-			uni.hideTabBar();
+			this.indexAd();
+			this.indexItem();
+			this.newToday()
 		},
 		onReachBottom() {
 			//页面上拉触底事件的处理函数
 			var that = this;
-
-			var timeStamp = Math.round(new Date().getTime() / 1000);
-			let {
-				num,
-				page
-			} = that;
-			var obj = {
-				appid: appid,
-				timeStamp: timeStamp
-			};
-
-			var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-			var data = {
-				appid: appid,
-				num: num,
-				page: page + 1,
-				timeStamp: timeStamp,
-				sign: sign
-			};
-			rs.getRequests('indexItem', data, res => {
-				let {
-					data
-				} = res;
-				if ((data.code = 200)) {
-					if (data.data != '') {
-						this.itemList.push(...data.data.list);
-						this.page += 1;
-						this.loading = true;
-					} else {
-						this.support = true;
-						this.loading = false;
-					}
-				}
-			});
+			that.page++;
+			that.indexItem();
 		},
 		onPageScroll(e) {
 			if (e.scrollTop == 0) {

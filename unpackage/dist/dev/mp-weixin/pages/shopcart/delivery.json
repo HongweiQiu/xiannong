@@ -2,7 +2,5 @@
   "navigationBarTitleText": "地址",
   "navigationBarBackgroundColor": "#fff",
   "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "uni-icons": "/components/uni-icons/uni-icons"
-  }
+  "usingComponents": {}
 }

@@ -1,7 +1,6 @@
 <template>
 	<view class="register">
-		<uni-nav-bar left-icon="arrowleft" title="忘记密码" :status-bar="navBar" fixed="true" @clickLeft="leftClick"></uni-nav-bar>
-
+		
 		<view class="get_info">
 			<view>
 				<text>手机号</text>
@@ -31,7 +30,7 @@
 </template>
 
 <script>
-	import moveVerify from '@/components/helang-moveVerify/helang-moveVerify.vue';
+	
 	import md5 from '../../static/js/md5.js';
 	import rs from '../../static/js/request.js';
 	const app = getApp().globalData;
@@ -41,9 +40,7 @@
 		appsecret
 	} = app;
 	export default {
-		components: {
-			moveVerify
-		},
+	
 		data() {
 			return {
 				resultData: {},
