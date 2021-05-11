@@ -1,27 +1,31 @@
 <template>
 	<view class="home">
-
 		<my-search></my-search>
 		<!-- banner图 -->
 		<view class="banner">
 			<swiper class="swiper" indicator-dots="true" autoplay="true" duration="2000" circular="true"
 				disable-touch="true">
-				<swiper-item v-for="(item, index) in adList.ad" :key="index">
-					<image :src="item.banner"></image>
+				<swiper-item v-for="(item, index) in adList" :key="index">
+					<image :src="imgRemote+item.image"></image>
 				</swiper-item>
 			</swiper>
-
-
 		</view>
-
 		<!-- 公告 -->
-		<view class="" >
-			<uni-notice-bar showIcon="true" background-color="white" color="balck" scrollable="true" single="true"
-				:text="adList.public_msg+'asdsad'" :speed="speed"></uni-notice-bar>
+		<view class="flex padding-15 white_b align_center" style="height: 65rpx;">
+			<text class="iconfont icongonggao fs-23" />
+			<swiper class="swiper width" autoplay="true" duration="2000" circular="true"
+				style="height: 100%;line-height: 65rpx;">
+				<swiper-item v-for="(item, index) in noticeList" :key="index">
+					{{item.title}}
+				</swiper-item>
+			</swiper>
+			
 		</view>
+		<!-- <uni-notice-bar  background-color="white" color="balck" scrollable="true"
+			text="新鲜蔬菜上新了阿斯顿撒多撒多水电费是的冯绍峰！！！盛大的范德萨" :speed="speed"></uni-notice-bar> -->
 		<!-- 导航 -->
 		<view class="nav">
-			<view v-for="(item, index) in adList" :key="index" @click="navUrl(item)">
+			<view v-for="(item, index) in navList" :key="index" @click="navUrl(item)">
 				<image :src="imgRemote + item.image" mode="aspectFit"></image>
 				<text class="hidden width center">{{item.name}}</text>
 			</view>
@@ -34,7 +38,7 @@
 				<text class="name">今日上新</text>
 			</view>
 			<view class="body">
-				<my-recomend v-for="(item, index) in itemList" :key="index" :ware="item" :config="config"
+				<my-recomend v-for="(item, index) in newList" :key="index" :ware="item" :config="config"
 					@showCart="openCart(item)" class="myc_recomend"></my-recomend>
 			</view>
 		</view>
@@ -46,17 +50,13 @@
 				<text class="name">精选推荐</text>
 			</view>
 			<view class="body">
-				<my-recomend v-for="(item, index) in itemList" :key="index" :ware="item" :config="config"
+				<my-recomend v-for="(item, index) in recommendList" :key="index" :ware="item" :config="config"
 					@showCart="openCart(item)" class="myc_recomend"></my-recomend>
 			</view>
-			<my-loading :loading="loading"></my-loading>
-		</view>
-		<view class="support" v-if="support&&adList.copyright.is_copyright==0">
-			由<text>菜东家</text>提供技术支持
+			<!-- <my-loading :loading="loading"></my-loading> -->
 		</view>
 
 		<my-backtop bottom="60" :showTop="showTop"></my-backtop>
-
 		<uni-popup ref="popup" type="bottom" @maskInfo="closeCart">
 			<my-addcart @onClose="onClose" :cartware="cartware" :config="config" ref="addcart"></my-addcart>
 		</uni-popup>
@@ -65,11 +65,7 @@
 </template>
 
 <script>
-	import md5 from '../../static/js/md5.js';
-	import rs from '../../static/js/request.js';
-	import {
-		api
-	} from '../../static/js/api.js';
+	
 	import uniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar.vue';
 
 	const app = getApp().globalData;
@@ -84,8 +80,6 @@
 		},
 		data() {
 			return {
-
-				showActive: false,
 				support: false,
 				showTop: false,
 				token: '',
@@ -94,27 +88,16 @@
 				loading: true,
 				page: 1,
 				num: 10,
-				hours: 1000,
-				adList: {},
-				activeList: {},
-				activeConf: {},
-				cartware: {},
-				config: {},
-				itemList: [],
-				count: 0
+				adList: [],
+				navList: [],
+				newList: [],
+				recommendList: [],
+				noticeList: [],
 			};
 		},
 		methods: {
-			closeCart() {
-				this.$refs.addcart.onClose();
-			},
 			//导航页面
 			navUrl(e) {
-				this.count++;
-				if (this.count != 1) return;
-				setTimeout(() => {
-					this.count = 0
-				}, 1000)
 				let {
 					id,
 					cate_id,
@@ -207,19 +190,7 @@
 						break;
 				}
 			},
-			openCart(item) {
-				this.$refs.popup.open();
-				this.cartware = item;
-			},
-			onClose() {
-				this.$refs.popup.close();
-			},
 			newPage(url, id) {
-				this.count++;
-				if (this.count != 1) return;
-				setTimeout(() => {
-					this.count = 0
-				}, 1000)
 				if (id) {
 					uni.navigateTo({
 						url: `/pages/index/${url}?id=${id}`
@@ -231,80 +202,86 @@
 				}
 
 			},
-			indexAd() {
-				rs.getRequests(api.mainCate, {}, res => {
-					let data = res.data;
-
+			indexMainAd() {
+				this.$get(this.$api.mainAd, {}, (res) => {
+					let {
+						data
+					} = res;
 					if (data.code == 1) {
 						this.adList = data.data;
 					}
+				})
+			},
+			indexMainCate() {
+				this.$get(this.$api.mainCate, {}, res => {
+					let data = res.data;
+					if (data.code == 1) {
+						this.navList = data.data;
+					}
 				});
 			},
-			indexItem() {
-				this.itemList = [];
+			indexMainRecommend() {
 				let {
 					num,
 					page
 				} = this;
-				rs.getRequests(api.mainRecommend, {}, res => {
+				this.$get(this.$api.mainRecommend, {}, res => {
 					let data = res.data;
 					if (data.code == 1) {
-						this.itemList = data.data;
-						this.config = data.data;
-						// if (data.data.total <= 10) {
-						// 	this.loading = false;
-						// 	this.support = true;
-						// } else {
-						// 	this.support = false;
-						// 	this.loading = true;
-						// }
+						this.recommendList = data.data;
+
 					}
 				});
 			},
-			newToday() {
-				rs.getRequests(api.mainNew, {}, res => {})
+			indexMainNew() {
+				this.$get(this.$api.mainNew, {}, res => {
+					let data = res.data;
+					if (data.code == 1) {
+						this.newList = data.data;
+
+					}
+				})
+			},
+			indexMainNotice() {
+				this.$get(this.$api.mainNotice, {}, res => {
+					let data = res.data;
+					if (data.code == 1) {
+						this.noticeList = data.data;
+
+					}
+				})
 			}
 		},
 		onShow() {
 			this.token = uni.getStorageSync('cdj_token');
-			// if (app.isReload == true) {
-			// 	this.page = 1;
-			// 	uni.pageScrollTo({
-			// 		scrollTop: 0,
-			// 		duration: 0
-			// 	});
-			// 	
-			// }
 		},
 		onLoad() {
-			app.isReload = true;
-			this.indexAd();
-			this.indexItem();
-			this.newToday()
+			this.indexMainAd();
+			this.indexMainCate();
+			this.indexMainRecommend();
+			this.indexMainNew();
+			this.indexMainNotice();
 		},
 		onReachBottom() {
 			//页面上拉触底事件的处理函数
 			var that = this;
 			that.page++;
-			that.indexItem();
-		},
-		onPageScroll(e) {
-			if (e.scrollTop == 0) {
-
-				this.showTop = false;
-			} else {
-				this.showTop = true;
-			}
+			// that.indexItem();
 		}
 	};
 </script>
 
-<style>
+<style scoped>
 	.nav {
 		display: flex;
 		flex-wrap: wrap;
 		padding: 0 30rpx 20rpx 30rpx;
 		/* justify-content: space-between; */
+	}
+
+	.home .icongonggao {
+		color: #57B127;
+		margin-right: 20rpx;
 	}
 
 	.nav>view {
@@ -328,6 +305,7 @@
 	.nav>view image {
 		width: 90rpx;
 		height: 90rpx;
+		border-radius: 50%;
 	}
 
 	.banner4 {
@@ -342,54 +320,8 @@
 		height: 200rpx;
 	}
 
-	.home .limit_buy .head {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
 
-	.home .limit_buy .title {
-		justify-content: center;
-		display: flex;
-		align-items: center;
-		align-items: center;
-		height: 94rpx;
-		line-height: 94rpx;
-	}
 
-	.home .limit_buy .name {
-		margin: 0 12rpx;
-		font-size: 32rpx;
-		font-weight: 600;
-	}
-
-	.home .limit_buy .body .good_img {
-		width: 240rpx;
-		height: 200rpx;
-	}
-
-	.home .limit_buy .body .price {
-		display: flex;
-		justify-content: space-between;
-	}
-
-	.home .limit_buy .whole {
-		overflow-x: scroll;
-		display: flex;
-	}
-
-	.home .limit_buy .more {
-		color: #009a44;
-	}
-
-	.home .limit_buy .head {
-		padding: 0 20rpx;
-	}
-
-	,
-	.home .limit_buy .whole {
-		padding: 0 0 20rpx 20rpx;
-	}
 
 	.home .limit_buy .icon-jiantou {
 		font-size: 20rpx;

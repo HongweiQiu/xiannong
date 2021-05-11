@@ -96,7 +96,7 @@ var components
 try {
   components = {
     myProfile: function() {
-      return __webpack_require__.e(/*! import() | components/profile/index */ "components/profile/index").then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 276))
+      return Promise.all(/*! import() | components/profile/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/profile/index")]).then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 276))
     },
     myRecomend: function() {
       return __webpack_require__.e(/*! import() | components/recomend/index */ "components/recomend/index").then(__webpack_require__.bind(null, /*! @/components/recomend/index.vue */ 225))

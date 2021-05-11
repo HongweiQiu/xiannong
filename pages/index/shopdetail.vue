@@ -1,20 +1,19 @@
 <template>
 	<view class="detail">
 		<view>
-
 			<swiper class="imgsBanner_swiper" :current='currentIndex' @change='changCurrent' circular="true">
-				<swiper-item v-for="(item,index) in imgList" :key='index'>
-					<image :src="item" mode="aspectFill"></image>
+				<swiper-item v-for="(item,index) in ware.images" :key='index'>
+					<image :src="imgRemote+item" mode="aspectFill"></image>
 				</swiper-item>
 			</swiper>
 			<!-- 图片位置 -->
-			<view class="imgLength">{{(currentIndex+1)+'/'+(imgList.length)}}</view>
+			<view class="imgLength">{{(currentIndex+1)+'/'+(ware.images.length)}}</view>
 
 			<view class="white_b">
-				<view class="fs-18 bold title">新鲜大白菜干净新鲜大白菜干净新鲜大白菜新鲜大白菜...</view>
+				<view class="fs-18 bold title">{{ware.name}}</view>
 				<view class="flex_left_right">
 					<view class="fs-13 gray_font desc">
-						<text>新鲜草莓，为炎热的夏天带来一丝甜腻</text>
+						<text v-if="ware.desc">{{ware.desc}}</text>
 					</view>
 					<view class="share-info align_center" @click="openShare">
 						<text class="iconfont bold" style="margin-top: 2rpx;">&#xe6a3;</text>
@@ -29,18 +28,19 @@
 						<text class="fs-11">/盒</text>
 						<text class="fs-11 gray_font line_through" style="margin-left: 10rpx;">￥25.8</text>
 					</view>
-					<view class="fs-11 gray_font">月销97件</view>
+					<view class="fs-11 gray_font">月销{{ware.sales}}件</view>
 				</view>
 			</view>
 		</view>
 		<view class="delivery white_b align_center">
 			<image src="../../static/img/car.png" style="width: 60rpx;height:32rpx;margin-right: 20rpx;"></image>
-			<text class="fs-13">16：00前下单，最快次日达，商品满99元免运费</text>
+			<text class="fs-13">{{explain}}</text>
 		</view>
-		<view>
+		<view v-if="ware.content">
 			<view class="flex align_center flex-column more-info white_b">
 				<text class="fs-15 bold">商品详情</text>
 				<text class="line-bottom"></text>
+				<rich-text :nodes="ware.content"></rich-text>
 			</view>
 		</view>
 		<view class="addcart">
@@ -55,7 +55,7 @@
 				</view>
 				<view class="submit">
 					<!-- <my-n-stepper val="12" ></my-n-steper> -->
-					<view class="add fs-15">
+					<view class="add fs-15" @click="$refs.addcart.open()">
 						加入购物车
 					</view>
 				</view>
@@ -64,7 +64,6 @@
 		</view>
 		<uni-popup ref="popup" type="bottom">
 			<view class="white_b share-option">
-
 				<view class="flex_left_right select">
 					<button open-type="share">
 						<view>
@@ -83,8 +82,10 @@
 			</view>
 		</uni-popup>
 		<uni-popup ref="poster">
-			<view class="share-friend-info r-5"
-				style="background: url(../../static/img/share_friends.png);background-size:540rpx 800rpx ;background-position: 0 -18px;">
+			<view class="share-friend-info r-5">
+				<view class="r-5 poster-back">
+					<image src="../../static/img/share_friends.png" mode=""></image>
+				</view>
 				<view class="right close-share"><text class="iconfont iconguanbi" @click="$refs.poster.close()"></text>
 				</view>
 				<view class="white_b detail r-5">
@@ -119,23 +120,57 @@
 			</view>
 
 		</uni-popup>
-		<canvas style="width: 540rpx; height: 760rpx;" canvas-id="firstCanvas" id="firstCanvas"></canvas>
+		<uni-popup ref="addcart" type="bottom">
+			<my-addcart>
+			</my-addcart>
+		</uni-popup>
+
+		<!-- <canvas style="width: 540rpx; height: 760rpx;" canvas-id="firstCanvas" id="firstCanvas"></canvas> -->
 	</view>
 </template>
 <script>
+	
+	const app = getApp().globalData;
+	const {
+		appid,
+		appsecret,
+		imgRemote
+	} = app;
 	export default {
 		data() {
 			return {
-				imgList: [
-					'../../static/img/404.png', '../../static/img/404.png'
-				],
+				imgRemote: imgRemote,
+				ware: [],
+				explain:'',
 				currentIndex: 0, //当前默认选中
 			};
 		},
 		methods: {
+			goodDetail(id) {
+				this.$get(this.$api.goodDetail, {
+					id: id
+				}, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						data.data.content = data.data.content.replace('<img src="',
+							'<img style="max-width:100%;height:auto" src="' + getApp().globalData.imgRemote);
+						this.ware = data.data;
+					}
+				})
+				this.$get(this.$api.mainSevice, {}, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+					
+						this.explain = data.data;
+					}
+				})
+			},
 			changCurrent(e) {
 				this.currentIndex = e.target.current
-
 			},
 			openShare() {
 				this.$refs.popup.open();
@@ -150,6 +185,7 @@
 			}
 		},
 		onShow() {
+			// this.$refs.addcart.open()
 			var canvas = uni.createCanvasContext('firstCanvas')
 			let that = this;
 			canvas.drawImage('../../static/img/share_friends.png', 0, 0, 270, 380);
@@ -178,7 +214,6 @@
 			canvas.fillText('￥', 30, 298);
 			canvas.setFontSize(23);
 			canvas.fillText('19.9', 44, 298);
-			// canvas.stroke();
 			canvas.beginPath();
 			canvas.rect(21, 310, 100, 18);
 			canvas.fillStyle = "#E1FFE3";
@@ -193,12 +228,6 @@
 			canvas.draw()
 			setTimeout(function() {
 				uni.canvasToTempFilePath({
-					// x: 0,
-					// y: 0,
-					// width: 540,
-					// height: 760,
-					// destWidth:540,
-					// destHeight: 760,
 					canvasId: 'firstCanvas',
 					success: function(res) {
 						console.log(res)
@@ -231,6 +260,13 @@
 				})
 			}, 500)
 
+		},
+		onLoad(e) {
+			console.log(e)
+			let {
+				id
+			} = e;
+			this.goodDetail(id)
 		}
 	}
 </script>
@@ -239,9 +275,13 @@
 		position: relative;
 	}
 
+	.more-info img {
+		width: 100%;
+	}
+
 	.imgLength {
 		position: absolute;
-		top: 441rpx;
+		top: 660rpx;
 		right: 0rpx;
 		background: rgba(0, 0, 0, 0.2);
 		padding: 0 12rpx;
@@ -253,16 +293,16 @@
 
 	.imgsBanner_swiper {
 		width: 750rpx;
-		height: 500rpx;
+		height: 750rpx;
 
 
 		swiper-item {
-			width: 750rpx;
+			width: 100%;
 			height: 100%;
 
 			image {
-				width: 750rpx;
-				height: 500rpx;
+				width: 100%;
+				height: 100%;
 			}
 		}
 	}
@@ -290,7 +330,7 @@
 	}
 
 	.detail .title {
-		padding: 30rpx 32rpx 20rpx 30rpx;
+		padding: 13rpx 32rpx 20rpx 30rpx;
 		;
 	}
 
@@ -418,6 +458,21 @@
 		width: 540rpx;
 		margin: -150rpx auto 0;
 		height: 760rpx;
+
+		.poster-back {
+			width: 540rpx;
+			height: 760rpx;
+			position: absolute;
+			z-index: -1;
+
+			left: 0;
+
+			image {
+				width: inherit;
+				height: inherit;
+				border-radius: 10rpx;
+			}
+		}
 
 		.close-share {
 

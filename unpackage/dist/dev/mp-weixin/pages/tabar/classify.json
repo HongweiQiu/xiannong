@@ -4,8 +4,6 @@
   "navigationBarTextStyle": "black",
   "usingComponents": {
     "my-search": "/components/search/index",
-    "my-s-tabs": "/components/s-tabs/index",
-    "my-s-tab": "/components/s-tab/index",
     "my-profile": "/components/profile/index",
     "uni-popup": "/components/uni-popup/uni-popup",
     "my-keyboard": "/components/keyboard/index",

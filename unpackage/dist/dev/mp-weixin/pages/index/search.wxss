@@ -95,8 +95,10 @@
 	font-size: 44rpx;
 	color: #999;
 }
-.sort.data-v-64d2b7fe{
-	padding:0rpx 60rpx 30rpx 60rpx;
+.sort.data-v-64d2b7fe {
+	padding: 0rpx 60rpx 30rpx 60rpx;
 }
-.jiantou.data-v-64d2b7fe{font-size: 20rpx;}
+.jiantou.data-v-64d2b7fe {
+	font-size: 20rpx;
+}
 

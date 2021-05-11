@@ -1,21 +1,27 @@
 
 .my_profile {
-	padding: 0 0 30rpx 0;
+	/* padding: 0 0 30rpx 0; */
 	background: white;
+	border-bottom: 1px solid #eee;
 }
 .my_profile .photo {
-	margin-right: 29rpx;
-	width: 180rpx;
+
+	/* width: 180rpx; */
 }
 .my_profile .good_img {
-	width: 100%;
-	height: 140rpx;
+	margin: 29rpx;
+	border-radius: 10rpx;
+	width: 180rpx;
+	height: 180rpx;
 }
 .my_profile .info {
-	width: calc(100% - 200rpx);
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
+	padding: 29rpx 0;
 	-webkit-box-orient: vertical;
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: column;
@@ -38,7 +44,7 @@
 	line-height: 44.4rpx;
 	border-radius: 50%;
 	color: white;
-	margin-right: 30rpx;
+	margin: -20rpx 30rpx 0 0;
 }
 .my_profile .showToast {
 	position: fixed;

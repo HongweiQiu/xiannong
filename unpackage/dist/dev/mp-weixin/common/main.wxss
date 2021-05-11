@@ -340,18 +340,6 @@ page {
 .weight {
   font-weight: 700;
 }
-.home .uni-countdown__number {
-  height: 30rpx !important;
-  color: white !important;
-  border-radius: 4rpx;
-  width: 40rpx !important;
-}
-.flash_sale .uni-countdown__number {
-  height: 30rpx !important;
-  color: white !important;
-  border-radius: 4rpx;
-  width: 35rpx !important;
-}
 .uni-nav-bar-right-text {
   color: #009a44;
 }
@@ -499,5 +487,14 @@ text-no-space {
 }
 .border {
   border-bottom: 1px solid #eee;
+}
+.two-line {
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 

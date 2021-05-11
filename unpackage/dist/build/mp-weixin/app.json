@@ -61,8 +61,6 @@
   "tabBar": {
     "color": "#999999",
     "selectedColor": "#009A44",
-    "fontSize": "30px",
-    "height": "100px",
     "list": [
       {
         "pagePath": "pages/tabar/index",

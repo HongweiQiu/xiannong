@@ -3,7 +3,12 @@ import App from './App'
 
 import {
 	dianji
-} from './static/js/common.js'
+} from './static/js/common.js';
+import {api} from './static/js/api.js';
+import {getRequests,getRequest} from './static/js/request.js';
+Vue.prototype.$api = api;
+Vue.prototype.$gets = getRequests;
+Vue.prototype.$get= getRequest;
 Vue.prototype.$doubleClick = dianji;
 Vue.config.productionTip = false
 

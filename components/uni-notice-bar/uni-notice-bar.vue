@@ -11,6 +11,9 @@
 			<view :id="elIdBox" class="uni-noticebar__content" :class="{'uni-noticebar__content--scrollable':scrollable, 'uni-noticebar__content--single':!scrollable && (single || moreText)}">
 				<text :id="elId" ref="animationEle" class="uni-noticebar__content-text" :class="{'uni-noticebar__content-text--scrollable':scrollable,'uni-noticebar__content-text--single':!scrollable && (single || moreText)}"
 				 :style="{color:color, width:wrapWidth+'px', 'animationDuration': animationDuration, '-webkit-animationDuration': animationDuration ,animationPlayState: webviewHide?'paused':animationPlayState,'-webkit-animationPlayState':webviewHide?'paused':animationPlayState, animationDelay: animationDelay, '-webkit-animationDelay':animationDelay}">{{text}}</text>
+			<text :id="elId" ref="animationEle" class="uni-noticebar__content-text" :class="{'uni-noticebar__content-text--scrollable':scrollable,'uni-noticebar__content-text--single':!scrollable && (single || moreText)}"
+				 :style="{color:color, width:wrapWidth+'px', 'animationDuration': animationDuration, '-webkit-animationDuration': animationDuration ,animationPlayState: webviewHide?'paused':animationPlayState,'-webkit-animationPlayState':webviewHide?'paused':animationPlayState, animationDelay: animationDelay, '-webkit-animationDelay':animationDelay}">12412</text>
+			
 			</view>
 		</view>
 		<view v-if="showGetMore === true || showGetMore === 'true'" class="uni-noticebar__more" @click="clickMore">

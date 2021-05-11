@@ -2,7 +2,5 @@
   "navigationBarTitleText": "我的",
   "navigationBarBackgroundColor": "#59BC2C",
   "navigationBarTextStyle": "white",
-  "usingComponents": {
-    "uni-icons": "/components/uni-icons/uni-icons"
-  }
+  "usingComponents": {}
 }

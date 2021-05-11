@@ -1,16 +1,16 @@
 <template>
 	<view class="recomend_single">
 		<view @click="$doubleClick(detail)">
-			<view style="width: 100%;height: 230rpx;">
-				<image class="photo" :src="ware.main_image==''?imgRemote+config.main_image:imgRemote+ware.main_image"
-					mode="aspectFit">
+			<view >
+				<image class="photo r-5" :src="ware.main_image==''?imgRemote+config.main_image:imgRemote+ware.main_image"
+					mode="aspectFill">
 				</image>
 			</view>
-			<view style="height:110rpx;">
-				<view class="name fs-13 bold">{{ware.name}}</view>
-				<view class="gray_font hidden describe" v-if="ware.content">
-					<rich-text :nodes="ware.content"></rich-text>
-				</view>
+			<view style="height: 80rpx;">
+				<view class="name fs-13 two-line">{{ware.name}}</view>
+				<!-- <view class="gray_font hidden describe" v-if="ware.desc">
+					{{ware.desc}}
+				</view> -->
 			</view>
 		</view>
 		<view>
@@ -49,11 +49,11 @@
 				this.$emit('showCart')
 			},
 			detail() {
-				if (this.config.is_detail == 2) {
-					uni.navigateTo({
-						url: `/pages/index/shopdetail?id=${this.ware.id}`
-					})
-				}
+
+				uni.navigateTo({
+					url: `/pages/index/shopdetail?id=${this.ware.id}`
+				})
+
 			},
 			plusCart() {
 				this.ware.is_del = 1;
@@ -65,13 +65,13 @@
 <style scoped lang="scss">
 	.recomend_single {
 		background: #fff;
-		// height: 437rpx;
+		box-sizing: border-box;
 		display: flex;
 		flex-direction: column;
 		border-radius: 10px;
 		width: 330rpx;
 		border-radius: 10rpx;
-		padding: 0 20rpx 30rpx;
+		padding: 0 20rpx 10rpx;
 
 		.describe {
 			width: 100%;
@@ -82,9 +82,9 @@
 	}
 
 	.recomend_single .photo {
-		border-radius: 10rpx 10rpx 0 0;
-		width: 100%;
-		height: 100%;
+		margin: 20rpx 0 10rpx;
+		width: 290rpx;
+		height: 290rpx;
 	}
 
 	.recomend_single .price {

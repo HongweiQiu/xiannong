@@ -188,11 +188,11 @@ app.imgRemote;var _default =
       this.$emit('showCart');
     },
     detail: function detail() {
-      if (this.config.is_detail == 2) {
-        uni.navigateTo({
-          url: "/pages/index/shopdetail?id=".concat(this.ware.id) });
 
-      }
+      uni.navigateTo({
+        url: "/pages/index/shopdetail?id=".concat(this.ware.id) });
+
+
     },
     plusCart: function plusCart() {
       this.ware.is_del = 1;

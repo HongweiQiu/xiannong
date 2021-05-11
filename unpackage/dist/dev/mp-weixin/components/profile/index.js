@@ -184,46 +184,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 22));
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
@@ -271,47 +231,39 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _console = console,log = _console.log;var _default = { props: ['wares', 'config', 'url'], watch: { wares: function wares(newvalue) {this.ware = newvalue;} }, data: function data() {return { apliyShow: false, ware: this.wares, imgRemote: imgRemote, token: uni.getStorageSync('cdj_token'), count: 0, addcount: 0, message: '' };}, methods: { showCart: function showCart() {uni.hideTabBar();this.$emit('showCart');}, addcart: function addcart(url, num) {var _this = this;var message = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '成功加入购物车';getApp().globalData.aplipay = false;var item = this.ware;if (item.is_float == 1 && !Number.isInteger(Number(num))) {_request.default.Toast('购买数量不能为小数');return;}var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp, item_id: item.id, attr_id: 0, item_num: num };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var params = Object.assign({ sign: sign }, obj);_request.default.postRequests(url, params, function (res) {var data = res.data;if (data.code == 200) {_request.default.Toast(message);if (num <= 0) {_this.ware.cart_num = 0;} else {_this.ware.cart_num = num;}} else if (data.code == 407 || data.code == 406) {_request.default.Toast("购买数量不能超过活动数量");} else {_request.default.Toast(res.data.msg);}});}, minus: function minus(e) {
+var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _console = console,log = _console.log;var _default = { props: ['wares', 'config', 'url'], watch: { wares: function wares(newvalue) {this.ware = newvalue;} }, data: function data() {return { apliyShow: false, ware: this.wares, imgRemote: imgRemote, token: uni.getStorageSync('cdj_token'), count: 0, addcount: 0, message: '' };}, methods: { showCart: function showCart() {uni.hideTabBar();this.$emit('showCart');}, addcart: function addcart(url, num) {var _this = this;var message = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '成功加入购物车';getApp().globalData.aplipay = false;var item = this.ware;if (item.is_float == 1 && !Number.isInteger(Number(num))) {_request.default.Toast('购买数量不能为小数');return;}var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp, item_id: item.id,
+        attr_id: 0,
+        item_num: num };
+
+      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var params = Object.assign({
+        sign: sign },
+
+      obj);
+
+      _request.default.postRequests(url, params, function (res) {
+        var data = res.data;
+        if (data.code == 200) {
+
+          _request.default.Toast(message);
+
+
+
+          if (num <= 0) {
+            _this.ware.cart_num = 0;
+          } else {
+
+            _this.ware.cart_num = num;
+
+          }
+        } else if (data.code == 407 || data.code == 406) {
+          _request.default.Toast("购买数量不能超过活动数量");
+        } else {
+          _request.default.Toast(res.data.msg);
+        }
+      });
+    },
+    minus: function minus(e) {
       if (e == 0) {
         this.addcart('deleteCart', e, '成功删除商品');
       } else {
@@ -328,17 +280,10 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
     showKey: function showKey() {
       this.$emit('showKey');
     },
-    detail: function detail() {var _this2 = this;
-      this.count++;
-      if (this.count != 1) return;
-      setTimeout(function () {
-        _this2.count = 0;
-      }, 1000);
-      if (this.config.is_detail == 1) {
-        uni.navigateTo({
-          url: "/pages/index/shopdetail?id=".concat(this.ware.id) });
+    detail: function detail() {
+      uni.navigateTo({
+        url: "/pages/index/shopdetail?id=".concat(this.ware.id) });
 
-      }
     },
     cancelCollect: function cancelCollect() {
       this.$emit('cancelCollect');

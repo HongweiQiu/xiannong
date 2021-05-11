@@ -33,7 +33,7 @@ page.data-v-c63a8bb4 {
   background: white;
 }
 .classify .second_name.data-v-c63a8bb4 {
-  height: 80rpx;
+  height: 100rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -80,11 +80,13 @@ page.data-v-c63a8bb4 {
 }
 .classify .is_active.data-v-c63a8bb4 {
   background: white;
+  font-weight: bold;
+  color: #57B127;
 }
 .classify .is_active .left_border.data-v-c63a8bb4 {
   background: #57B127;
   width: 4rpx;
-  height: 24rpx;
+  height: 100rpx;
   position: absolute;
   left: 0;
   border-radius: 2rpx;

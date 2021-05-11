@@ -1,26 +1,12 @@
 <template>
 	<view class="search_list">
-
 		<view class="fixed">
-			<!-- #ifdef APP-PLUS |H5 -->
-
-			<view class="status_bar fixed white_b">
-				<!-- 这里是状态栏 -->
-			</view>
-			<view class="status_bar">
-				<!-- 这里是状态栏 -->
-			</view>
-			<!-- #endif -->
 			<view class="input_key">
 				<view class="right_area align_center">
 					<view class="select_key align_center">
 						<text class="iconfont new-icon">&#xe615;</text>
 						<input v-model="keyword" placeholder="搜索你想知道的" @focus="focus" placeholder-class="place_style"
 							class="keyword" />
-						<!-- #ifndef MP-ALIPAY -->
-						<!-- <uni-icons type="mic-filled" size="20" color="#808080" @click="speed"></uni-icons> -->
-						<!-- #endif -->
-
 					</view>
 					<view style="color:#333;text-align: center;" class="bold" @click="submit">搜索</view>
 				</view>
@@ -30,19 +16,16 @@
 					<view @click="sortIndex=3" :class="sortIndex==3?'m-color':''" class="flex">
 						<view style="padding-right:5rpx;">价格</view>
 						<view class="flex-column">
-							<text class="iconfont jiantou" style="transform: rotate(180deg);margin-top:6rpx;">&#xf36c;</text>
+							<text class="iconfont jiantou"
+								style="transform: rotate(180deg);margin-top:6rpx;">&#xf36c;</text>
 							<text class="iconfont jiantou" style="margin-top:-12rpx;">&#xf36c;</text>
 						</view>
-						</view>
+					</view>
 				</view>
 			</view>
 		</view>
 
-		<!-- #ifdef APP-PLUS |H5 -->
-		<view class="status_bar">
-			<!-- 这里是状态栏 -->
-		</view>
-		<!-- #endif -->
+
 		<view :style="{'height':showSearch?'120rpx':'200rpx'}"></view>
 		<!-- 热门搜索 -->
 		<view class="hot_search" v-if="showSearch">
@@ -52,25 +35,24 @@
 					<text class="iconfont delete" @click="deleteHistory">&#xe626;</text>
 				</view>
 				<view class="key_tag"><text v-for="(item, index) in keyList" :key="index"
-						@click="searchList(item.keywords)">{{item.keywords}}水电费</text></view>
+						@click="searchList(item.keywords)">{{item.keywords}}</text></view>
 			</view>
 			<view style="margin-top:30rpx;">
 				<view class="title fs-13 bold">猜你喜欢</view>
 				<view class="key_tag"><text v-for="(item, index) in keyList" :key="index"
-						@click="searchList(item.keywords)">{{item.keywords}}</text></view>
+						@click="searchList(item)">{{item}}</text></view>
 			</view>
 		</view>
 
 		<!-- 搜索结果 -->
 		<view class="search_result" v-else>
 			<view class="recomend" style="margin-top:20rpx;">
-				
 				<view class="body">
-					<my-recomend v-for="(item, index) in list" :key="index" :ware="item" :config="config"
-						@showCart="openCart(item)" class="myc_recomend"></my-recomend>
+					<my-recomend v-for="(item, index) in list" :key="index" :ware="item" @showCart="openCart(item)"
+						class="myc_recomend"></my-recomend>
 				</view>
 			</view>
-		<!-- 	<my-profile v-for="(item,index) in list" :wares="item" :config="config" :key="index"
+			<!-- 	<my-profile v-for="(item,index) in list" :wares="item" :config="config" :key="index"
 				@showCart="openCart(item)" @showKey="showKey(item,index)"></my-profile> -->
 			<!-- 占位图 -->
 			<view class="search_bitmap" v-if="bitmap">
@@ -114,28 +96,21 @@
 </template>
 
 <script>
-	import md5 from '../../static/js/md5.js';
-	import rs from '../../static/js/request.js';
-	let {
-		log
-	} = console;
 	const app = getApp().globalData;
 	const {
 		appid,
 		appsecret,
 		imgRemote
 	} = app;
-	// #ifdef H5
-	var wx = require('jweixin-module');
-	// #endif
 
 	export default {
 		data() {
 			return {
-				sortIndex:1,
+				sortIndex: 1,
 				keyList: [],
 				list: [],
 				keyword: '',
+				page: 1,
 				showSearch: true,
 				startSpeech: true,
 				config: [],
@@ -166,16 +141,7 @@
 			closeKey() {
 				this.$refs.keyboard.cancel();
 			},
-			back() {
-				// #ifdef H5
-				window.history.back(-1);
-				// #endif 
-				// #ifndef H5
-				uni.navigateBack({
-					delta: 1
-				});
-				// #endif	
-			},
+
 			toParent(e) {
 				let item = e.arrObj;
 				let timeStamp = Math.round(new Date().getTime() / 1000);
@@ -249,35 +215,34 @@
 			},
 			// 搜索列表
 			searchList(key) {
-				this.list = [];
-				let timeStamp = Math.round(new Date().getTime() / 1000);
-				let obj = {
-					appid: appid,
-					timeStamp: timeStamp,
-					keyword: key
-				};
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-						sign: sign
-					},
-					obj
-				);
-				rs.getRequests('getSearchItem', params, res => {
+				let params = {
+					keyword: key,
+					page: this.page
+				}
+				this.$get(this.$api.goodsList, params, res => {
 					let data = res.data;
-					if (data.code == 200) {
-						this.keyword = key;
+					if (data.code == 1) {
+						
 						this.showSearch = false;
-						if (data.data.length != 0) {
-							this.list = data.data.list;
-							this.config = data.data;
-							this.bitmap = false;
-						} else {
+						this.list = data.data;
+						if (data.data.length == 0&&this.page==1) {
+							this.list=[];
 							this.bitmap = true;
+						} else {
+							this.bitmap = false;
 						}
-					} else {
-						rs.Toast(data.msg)
 					}
 				});
+			},
+			hotSearch() {
+				this.$get(this.$api.mainHotSearch, {}, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						this.keyList = data.data
+					}
+				})
 			},
 			// #ifdef APP-PLUS |MP-WEIXIN
 			speed() {
@@ -343,116 +308,12 @@
 
 			// #endif
 
-			// #ifdef H5
-			speed() {
-				this.$refs.speech.open();
-				let that = this;
-				that.startSpeech = true;
 
-				wx.startRecord({
-					success: function() {
-						console.log(wx)
-						recordTimer = setTimeout(() => {
-							wx.stopRecord({
-								success: function(res) {
 
-									that.wxuploadVoice(res.localId);
-									clearTimeout(recordTimer);
-								},
-								fail: function(res) {
-									alert(JSON.stringify(res));
-								}
-							});
-						}, 5000);
-					},
-					cancel: function() {
-						that.$toast('用户拒绝授权录音');
-					}
-				});
-			},
-			wxuploadVoice(localId) {
-				var that = this;
-				//调用微信的上传录音接口把本地录音先上传到微信的服务器
-				//不过，微信只保留3天，而我们需要长期保存，我们需要把资源从微信服务器下载到自己的服务器
-				wx.uploadVoice({
-					localId: localId, // 需要上传的音频的本地ID，由stopRecord接口获得
-					isShowProgressTips: 1, // 默认为1，显示进度提示
-					success: function(res) {
-						wx.downloadVoice({
-							serverId: res.serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
-							isShowProgressTips: 1, // 默认为1，显示进度提示
-							success: function(res) {
-								var localId = res.localId; // 返回音频的本地ID
-								wx.translateVoice({
-									localId: localId, // 需要识别的音频的本地Id，由录音相关接口获得
-									isShowProgressTips: 1, // 默认为1，显示进度提示
-									success: function(res) {
-
-										var transl = res.translateResult
-										transl = transl.replace(/。/g, "");
-										that.keyword = transl;
-										that.list = [];
-										that.showSearch = false;
-										that.$refs.speech.close();
-										that.searchList(that.keyword);
-									},
-									fail: function(res) {
-										that.startSpeech = false;
-									}
-								});
-							}
-						});
-					}
-				});
-			},
-			// #endif
-
-			wxConfig() {
-				var timeStamp = Math.round(new Date().getTime() / 1000);
-				let obj = {
-					appid: appid,
-					timeStamp: timeStamp
-				};
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-					sign: sign
-				}, obj)
-				rs.getRequests("wxConfig", params, (response) => {
-
-					if (response.data.code == 200) {
-						// console.log(response.data)
-						wx.config({
-							debug: false, // 开启调试模式
-							appId: response.data.data.appId, // 必填，公众号的唯一标识
-							timestamp: response.data.data.timestamp, // 必填，生成签名的时间戳
-							nonceStr: response.data.data.nonceStr, // 必填，生成签名的随机串
-							signature: response.data.data.signature, // 必填，签名，见附录1
-							jsApiList: [
-								'checkJsApi',
-								'startRecord',
-								'stopRecord',
-								'translateVoice',
-								'downloadVoice',
-								'uploadVoice',
-								'getLocation'
-							] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-						});
-					}
-				});
-			}
 		},
-		onHide() {
-			uni.setStorageSync('search', this.list);
-		},
+		onHide() {},
 		onShow() {
-			// #ifdef H5
-			this.wxConfig();
-			// #endif
-
-			this.getSearchData();
-			if (this.keyword) {
-				this.list = uni.getStorageSync('search');
-			}
+			this.hotSearch()
 		}
 	}
 </script>
@@ -464,7 +325,7 @@
 		z-index: 9;
 		background: white;
 		/* height: 68rpx; */
-	
+
 		/* 	display: flex;
 		align-items: center;
 		justify-content: space-between; */
@@ -589,8 +450,12 @@
 		font-size: 44rpx;
 		color: #999;
 	}
-	.sort{
-		padding:0rpx 60rpx 30rpx 60rpx;
+
+	.sort {
+		padding: 0rpx 60rpx 30rpx 60rpx;
 	}
-	.jiantou{font-size: 20rpx;}
+
+	.jiantou {
+		font-size: 20rpx;
+	}
 </style>

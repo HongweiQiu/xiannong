@@ -27,6 +27,7 @@
 /* 文章场景相关 */
 .recomend_single.data-v-d43ed42a {
   background: #fff;
+  box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -37,7 +38,7 @@
   border-radius: 10px;
   width: 330rpx;
   border-radius: 10rpx;
-  padding: 0 20rpx 30rpx;
+  padding: 0 20rpx 10rpx;
 }
 .recomend_single .describe.data-v-d43ed42a {
   width: 100%;
@@ -46,9 +47,9 @@
   margin-top: 20rpx;
 }
 .recomend_single .photo.data-v-d43ed42a {
-  border-radius: 10rpx 10rpx 0 0;
-  width: 100%;
-  height: 100%;
+  margin: 20rpx 0 10rpx;
+  width: 290rpx;
+  height: 290rpx;
 }
 .recomend_single .price.data-v-d43ed42a {
   display: -webkit-box;

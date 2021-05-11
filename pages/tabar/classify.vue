@@ -3,39 +3,28 @@
 		<my-search :show="false"></my-search>
 		<view class="classify_good">
 			<view class="left_area">
-				<view class="second_name" v-for="(item, index) in secondCate" :key="index"
-					:class="kind == index ? 'is_active' : ''" @click="changeSecond(index)">
+				<view class="second_name" v-for="(item, index) in firstCate" :key="index"
+					:class="kind == index ? 'is_active' : ''" @click="changeFirst(index)">
 					<view class="left_border" v-if="kind == index"></view>
 					<view class="hidden fs-13">{{item.name}}</view>
 				</view>
 			</view>
 			<view class="right_area">
-				<view class="first_name">
-
+				<!-- <view class="first_name">
 					<my-s-tabs effect slot-title @change="changeFirst" class="mp_tab_width" activeColor="#57B127"
 						lineColor="none" v-model="activeTab" color="#999">
 						<my-s-tab v-for="(item,index) of firstCate" :key="index">{{item.name}}</my-s-tab>
 					</my-s-tabs>
-					<!-- <uni-icons type="more-filled" size="18" color="#009a44" @click="showDraw"></uni-icons> -->
 				</view>
-				<view style="height: 80rpx;"></view>
+				<view style="height: 80rpx;"></view> -->
 				<view v-if="bitmap" class="all-good">
-					  <scroll-view></scroll-view>
-						<my-profile v-for="(item,index) in list" :key="index" :wares="item" :config="config"
-							class="single_good" @showCart="openCart(item)" @showKey="showKey(item,index)"></my-profile>
-					 <view class="my_loading">
-						<view class="loading" v-if="loading">
-							<image class="load_img" src="../../static/img/loading.gif" mode="aspectFit"></image>
-							<text>正在加载中...</text>
-						</view>
-						<view v-else @click="nextSecond">
-							<rich-text :nodes="textInfo"></rich-text>
-						</view>
-					</view>
+					<my-profile v-for="(item,index) in list" :key="index" :wares="item" class="single_good"
+						@showCart="openCart(item)" @showKey="showKey(item,index)"></my-profile>
 				</view>
 				<view v-else class="bitmap">
 					<view style="height:150rpx;"></view>
 					<image src="../../static/img/no_content.png" mode="aspectFit"></image>
+					<view class="center gray_font">暂时没有商品，请耐心等候</view>
 				</view>
 			</view>
 		</view>
@@ -49,9 +38,6 @@
 </template>
 
 <script>
-	
-	import md5 from '../../static/js/md5.js';
-	import rs from '../../static/js/request.js';
 	const app = getApp().globalData;
 	const {
 		appid,
@@ -62,41 +48,52 @@
 		log
 	} = console;
 	export default {
-		
+
 		data() {
 			return {
-				waitLoad: false,
 				kind: 0,
-				active: -1,
-				activeTab: 0,
-				loading: true,
-				firstId: '',
-				secondId: '',
+				cateId: '',
 				page: 1,
-				num: 10,
 				firstCate: [],
-				secondCate: [],
 				bitmap: true,
-				list: [{
-					price: 1
-				}],
-				config: [],
+				list: [],
 				cartware: [],
 				arrObj: {},
 				index: '',
-				textInfo: ''
 			};
 		},
 		methods: {
-			closeCart() {
-				this.$refs.addcart.onClose();
+			goodCate() {
+				this.$get(this.$api.goodCate, {}, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						this.firstCate = data.data;
+						this.cateId = data.data[0].id;
+						this.getGood()
+					}
+				})
 			},
-			closeKey() {
-				rs.showTabBar();
-				this.$refs.keyboard.cancel();
-			},
-			cancelKey() {
-				this.$refs.popup.close();
+			getGood() {
+				let params = {
+					cate_id: this.cateId,
+					page: this.page
+				}
+
+				this.$get(this.$api.goodCateGood, params, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						this.list = data.data;
+						if(this.page==1){
+							this.bitmap=data.data.length?true:false;
+						}
+						console.log(data.data)
+					}
+
+				})
 			},
 			toParent(e) {
 				let item = e.arrObj;
@@ -108,7 +105,7 @@
 					attr_id: 0,
 					item_num: e.val
 				};
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+
 				let params = Object.assign({
 						sign: sign
 					},
@@ -127,93 +124,11 @@
 				});
 				this.$refs.popup.close();
 			},
-			mpItem() {
-				this.list = [];
-				this.bitmap = true;
-				this.loading = true;
-				this.page = 1;
-				let timeStamp = Math.round(new Date().getTime() / 1000);
-				let obj = {
-					appid: appid,
-					timeStamp: timeStamp
-				};
-				let {
-					firstId,
-					secondId,
-					page,
-					num
-				} = this;
-
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-						sign: sign,
-						firstId: firstId,
-						secondId: secondId,
-						page: 1,
-						num: num
-					},
-					obj
-				);
-				rs.getRequests('mpItemList', params, res => {
-					let data = res.data;
-					if (data.code == 200) {
-
-						if (!firstId) {
-							firstId = data.data.firstCate[0].id;
-
-						}
-						if (firstId) {
-							data.data.firstCate.map((e, index) => {
-								if (firstId == e.id) {
-									this.activeTab = index;
-								}
-							});
-						}
-						this.config = data.data;
-						this.firstCate = data.data.firstCate;
-						this.secondCate = data.data.secondCate;
-						this.list = data.data.list;
-
-						if (data.data.list.length) {
-							this.loading = false;
-							this.bitmap = true;
-							if (this.kind == this.secondCate.length - 1) {
-								this.textInfo = parseHtml('没有更多呢');
-							} else {
-
-								this.textInfo = parseHtml("上滑或点击<span class='red_font'>" + this.secondCate[this
-									.kind + 1].name + '</span>进入下一分类');
-								// console.log(this.secondCate)
-							}
-
-						} else {
-							this.bitmap = false;
-							this.loading = false;
-						}
-					}
-				});
-			},
 			// 切换一级分类
 			changeFirst(index) {
-				this.firstId = this.firstCate[index].id;
-				this.secondId = "";
-				this.kind = 0;
-				getApp().globalData.classId = "";
-				this.mpItem();
-			},
-			// 切换二级分类
-			changeSecond(index) {
-
-				this.secondId = this.secondCate[index].id;
+				this.cateId = this.firstCate[index].id;
 				this.kind = index;
-				this.mpItem();
-			},
-			nextSecond() {
-				if (this.textInfo != '没有更多呢') {
-					this.secondId = this.secondCate[this.kind + 1].id;
-					this.kind += 1;
-					this.mpItem();
-				}
+				this.getGood();
 			},
 			openCart(item) {
 				this.cartware = item;
@@ -224,108 +139,18 @@
 			},
 			// 显示键盘
 			showKey(item, index) {
-
 				this.arrObj = item;
 				this.index = index;
 				this.$refs.popup.open();
-			},
-			showDraw() {
-				this.$refs.drawer.open();
-				rs.hideTabBar()
-			},
-			selectSort(index) {
-				this.active = index;
-			},
-			cancelSort() {
-				this.active = -1;
-				rs.showTabBar();
-				this.$refs.drawer.close();
-			},
-			deterSort() {
-				if (this.active == -1) {
-					rs.Toast('请先选择分类')
-					return;
-				}
-				this.firstId = this.firstCate[this.active].id;
-				this.activeTab = this.active;
-				this.secondId = "";
-				this.kind = 0;
-				this.mpItem();
-				this.cancelSort();
 			}
 		},
-		onShow() {
-			let classId = getApp().globalData.classId;
-			if (app.isReload == true) {
-				this.kind = 0;
-				this.active = -1;
-				this.activeTab = 0;
-				this.loading = true;
-				this.firstId = '';
-				this.secondId = '';
-				this.page = 1;
-				this.num = 10;
-				if (classId) {
-					this.firstId = classId
-				}
-				this.mpItem();
-			} else {
+		onShow() {},
 
-				this.list = uni.getStorageSync('classify');
-
-			}
-		},
-		onHide() {
-			uni.setStorageSync('classify', this.list);
-
-		},
-		onReachBottom() {
-			var that = this;
-			var timeStamp = Math.round(new Date().getTime() / 1000);
-			var {
-				num,
-				page,
-				list,
-				secondId,
-				firstId
-			} = that;
-			var obj = {
-				appid: appid,
-				timeStamp: timeStamp
-			};
-			var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-			var data = {
-				appid: appid,
-				num: num,
-				page: page + 1,
-				firstId: firstId,
-				secondId: secondId,
-				timeStamp: timeStamp,
-				sign: sign
-			};
-			this.loading = true;
-			rs.getRequests('mpItemList', data, res => {
-				if (res.data.code == 200) {
-					if (res.data.data.list.length != 0) {
-						this.list.push(...res.data.data.list);
-						this.page += 1;
-						this.loading = true;
-					} else {
-						this.loading = false;
-						if (this.kind == this.secondCate.length - 1) {
-							this.textInfo = parseHtml("没有更多呢");
-						} else {
-							this.textInfo = parseHtml("上滑或点击<span class='red_font'>" + this.secondCate[this.kind +
-									1].name +
-								'</span>进入下一分类');
-						}
-					}
-				}
-			})
-		},
+		onReachBottom() {},
 		onLoad(e) {
 			app.isReload = true;
-		
+			this.goodCate();
+
 		}
 	};
 </script>
@@ -334,13 +159,15 @@
 	page {
 		background: white;
 	}
-.classify {
-	height: 100vh;
-	background: white;
-}
+
+	.classify {
+		height: 100vh;
+		background: white;
+	}
+
 	.classify .second_name {
 
-		height: 80rpx;
+		height: 100rpx;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -354,10 +181,8 @@
 		/* padding-right: 20rpx; */
 		display: flex;
 		width: 78.5%;
-		/* #ifdef APP-PLUS */
-		width: 73%;
-		/* #endif */
 	
+
 		background: white;
 		align-items: center;
 	}
@@ -367,7 +192,7 @@
 		position: fixed;
 		overflow-x: scroll;
 		background: #f7f7f7;
-	    height:100vh;
+		height: 100vh;
 	}
 
 	.classify .left_area::-webkit-scrollbar {
@@ -375,9 +200,9 @@
 	}
 
 	.classify .right_area {
-		width:78%;
+		width: 78%;
 		margin-left: 21.5%;
-		
+
 	}
 
 	.classify>.classify_good {
@@ -388,12 +213,14 @@
 
 	.classify .is_active {
 		background: white;
+		font-weight: bold;
+		color: #57B127;
 	}
 
 	.classify .is_active .left_border {
 		background: #57B127;
 		width: 4rpx;
-		height: 24rpx;
+		height: 100rpx;
 		position: absolute;
 		left: 0;
 		border-radius: 2rpx;
@@ -498,7 +325,22 @@
 		line-height: 80rpx;
 		background: white;
 	}
-		/deep/ .s-tab-nav {background: #eee;border-radius: 20rpx;color:#999;margin-left:30rpx ;padding:2rpx 23rpx;font-size: 22rpx;}
-	/deep/ .is-active {background: #E9FFDD;border: 1px solid #57B127;}
-  /deep/ .s-tabs-nav-wrap .s-tab-nav-view{height: 40rpx;}
+
+	/deep/ .s-tab-nav {
+		background: #eee;
+		border-radius: 20rpx;
+		color: #999;
+		margin-left: 30rpx;
+		padding: 2rpx 23rpx;
+		font-size: 22rpx;
+	}
+
+	/deep/ .is-active {
+		background: #E9FFDD;
+		border: 1px solid #57B127;
+	}
+
+	/deep/ .s-tabs-nav-wrap .s-tab-nav-view {
+		height: 40rpx;
+	}
 </style>

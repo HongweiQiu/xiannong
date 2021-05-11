@@ -97,6 +97,9 @@ try {
   components = {
     uniPopup: function() {
       return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 246))
+    },
+    myAddcart: function() {
+      return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 255))
     }
   }
 } catch (e) {
@@ -122,6 +125,10 @@ var render = function() {
   var _c = _vm._self._c || _h
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
+      return _vm.$refs.addcart.open()
+    }
+
+    _vm.e1 = function($event) {
       return _vm.$refs.poster.close()
     }
   }
@@ -282,20 +289,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var _default =
+//
+//
+//
+//
+//
+//
+
+
+var app = getApp().globalData;var
+
+appid =
+
+
+app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
 {
   data: function data() {
     return {
-      imgList: [
-      '../../static/img/404.png', '../../static/img/404.png'],
-
+      imgRemote: imgRemote,
+      ware: [],
+      explain: '',
       currentIndex: 0 //当前默认选中
     };
   },
   methods: {
+    goodDetail: function goodDetail(id) {var _this = this;
+      this.$get(this.$api.goodDetail, {
+        id: id },
+      function (res) {var
+
+        data =
+        res.data;
+        if (data.code == 1) {
+          data.data.content = data.data.content.replace('<img src="',
+          '<img style="max-width:100%;height:auto" src="' + getApp().globalData.imgRemote);
+          _this.ware = data.data;
+        }
+      });
+      this.$get(this.$api.mainSevice, {}, function (res) {var
+
+        data =
+        res.data;
+        if (data.code == 1) {
+
+          _this.explain = data.data;
+        }
+      });
+    },
     changCurrent: function changCurrent(e) {
       this.currentIndex = e.target.current;
-
     },
     openShare: function openShare() {
       this.$refs.popup.open();
@@ -310,6 +352,7 @@ var _default =
     } },
 
   onShow: function onShow() {
+    // this.$refs.addcart.open()
     var canvas = uni.createCanvasContext('firstCanvas');
     var that = this;
     canvas.drawImage('../../static/img/share_friends.png', 0, 0, 270, 380);
@@ -338,7 +381,6 @@ var _default =
     canvas.fillText('￥', 30, 298);
     canvas.setFontSize(23);
     canvas.fillText('19.9', 44, 298);
-    // canvas.stroke();
     canvas.beginPath();
     canvas.rect(21, 310, 100, 18);
     canvas.fillStyle = "#E1FFE3";
@@ -353,12 +395,6 @@ var _default =
     canvas.draw();
     setTimeout(function () {
       uni.canvasToTempFilePath({
-        // x: 0,
-        // y: 0,
-        // width: 540,
-        // height: 760,
-        // destWidth:540,
-        // destHeight: 760,
         canvasId: 'firstCanvas',
         success: function success(res) {
           console.log(res);
@@ -391,6 +427,13 @@ var _default =
 
     }, 500);
 
+  },
+  onLoad: function onLoad(e) {
+    console.log(e);var
+
+    id =
+    e.id;
+    this.goodDetail(id);
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

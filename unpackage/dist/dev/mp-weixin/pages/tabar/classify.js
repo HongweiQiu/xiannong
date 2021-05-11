@@ -98,20 +98,14 @@ try {
     mySearch: function() {
       return __webpack_require__.e(/*! import() | components/search/index */ "components/search/index").then(__webpack_require__.bind(null, /*! @/components/search/index.vue */ 211))
     },
-    mySTabs: function() {
-      return __webpack_require__.e(/*! import() | components/s-tabs/index */ "components/s-tabs/index").then(__webpack_require__.bind(null, /*! @/components/s-tabs/index.vue */ 262))
-    },
-    mySTab: function() {
-      return __webpack_require__.e(/*! import() | components/s-tab/index */ "components/s-tab/index").then(__webpack_require__.bind(null, /*! @/components/s-tab/index.vue */ 269))
-    },
     myProfile: function() {
-      return __webpack_require__.e(/*! import() | components/profile/index */ "components/profile/index").then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 276))
+      return Promise.all(/*! import() | components/profile/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/profile/index")]).then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 276))
     },
     uniPopup: function() {
       return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 246))
     },
     myKeyboard: function() {
-      return __webpack_require__.e(/*! import() | components/keyboard/index */ "components/keyboard/index").then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 283))
+      return Promise.all(/*! import() | components/keyboard/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/keyboard/index")]).then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 283))
     },
     myAddcart: function() {
       return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 255))
@@ -171,60 +165,46 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 22));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}
 var app = getApp().globalData;var
 
 appid =
@@ -238,40 +218,51 @@ console,log = _console.log;var _default =
 
   data: function data() {
     return {
-      waitLoad: false,
       kind: 0,
-      active: -1,
-      activeTab: 0,
-      loading: true,
-      firstId: '',
-      secondId: '',
+      cateId: '',
       page: 1,
-      num: 10,
       firstCate: [],
-      secondCate: [],
       bitmap: true,
-      list: [{
-        price: 1 }],
-
-      config: [],
+      list: [],
       cartware: [],
       arrObj: {},
-      index: '',
-      textInfo: '' };
+      index: '' };
 
   },
   methods: {
-    closeCart: function closeCart() {
-      this.$refs.addcart.onClose();
+    goodCate: function goodCate() {var _this = this;
+      this.$get(this.$api.goodCate, {}, function (res) {var
+
+        data =
+        res.data;
+        if (data.code == 1) {
+          _this.firstCate = data.data;
+          _this.cateId = data.data[0].id;
+          _this.getGood();
+        }
+      });
     },
-    closeKey: function closeKey() {
-      _request.default.showTabBar();
-      this.$refs.keyboard.cancel();
+    getGood: function getGood() {var _this2 = this;
+      var params = {
+        cate_id: this.cateId,
+        page: this.page };
+
+
+      this.$get(this.$api.goodCateGood, params, function (res) {var
+
+        data =
+        res.data;
+        if (data.code == 1) {
+          _this2.list = data.data;
+          if (_this2.page == 1) {
+            _this2.bitmap = data.data.length ? true : false;
+          }
+          console.log(data.data);
+        }
+
+      });
     },
-    cancelKey: function cancelKey() {
-      this.$refs.popup.close();
-    },
-    toParent: function toParent(e) {var _this = this;
+    toParent: function toParent(e) {var _this3 = this;
       var item = e.arrObj;
       var timeStamp = Math.round(new Date().getTime() / 1000);
       var obj = {
@@ -281,112 +272,30 @@ console,log = _console.log;var _default =
         attr_id: 0,
         item_num: e.val };
 
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+
       var params = Object.assign({
         sign: sign },
 
       obj);
 
-      _request.default.postRequests('changeNum', params, function (res) {
+      rs.postRequests('changeNum', params, function (res) {
         var data = res.data;
         if (data.code == 200) {
-          _request.default.Toast('加入购物车成功');
-          _this.list[_this.index].cart_num = e.val;
+          rs.Toast('加入购物车成功');
+          _this3.list[_this3.index].cart_num = e.val;
         } else if (data.code == 407 || data.code == 406) {
-          _request.default.Toast("购买数量不能超过活动数量");
+          rs.Toast("购买数量不能超过活动数量");
         } else {
-          _request.default.Toast(res.data.msg);
+          rs.Toast(res.data.msg);
         }
       });
       this.$refs.popup.close();
     },
-    mpItem: function mpItem() {var _this2 = this;
-      this.list = [];
-      this.bitmap = true;
-      this.loading = true;
-      this.page = 1;
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        timeStamp: timeStamp };var
-
-
-      firstId =
-
-
-
-      this.firstId,secondId = this.secondId,page = this.page,num = this.num;
-
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-      var params = Object.assign({
-        sign: sign,
-        firstId: firstId,
-        secondId: secondId,
-        page: 1,
-        num: num },
-
-      obj);
-
-      _request.default.getRequests('mpItemList', params, function (res) {
-        var data = res.data;
-        if (data.code == 200) {
-
-          if (!firstId) {
-            firstId = data.data.firstCate[0].id;
-
-          }
-          if (firstId) {
-            data.data.firstCate.map(function (e, index) {
-              if (firstId == e.id) {
-                _this2.activeTab = index;
-              }
-            });
-          }
-          _this2.config = data.data;
-          _this2.firstCate = data.data.firstCate;
-          _this2.secondCate = data.data.secondCate;
-          _this2.list = data.data.list;
-
-          if (data.data.list.length) {
-            _this2.loading = false;
-            _this2.bitmap = true;
-            if (_this2.kind == _this2.secondCate.length - 1) {
-              _this2.textInfo = parseHtml('没有更多呢');
-            } else {
-
-              _this2.textInfo = parseHtml("上滑或点击<span class='red_font'>" + _this2.secondCate[_this2.
-              kind + 1].name + '</span>进入下一分类');
-              // console.log(this.secondCate)
-            }
-
-          } else {
-            _this2.bitmap = false;
-            _this2.loading = false;
-          }
-        }
-      });
-    },
     // 切换一级分类
     changeFirst: function changeFirst(index) {
-      this.firstId = this.firstCate[index].id;
-      this.secondId = "";
-      this.kind = 0;
-      getApp().globalData.classId = "";
-      this.mpItem();
-    },
-    // 切换二级分类
-    changeSecond: function changeSecond(index) {
-
-      this.secondId = this.secondCate[index].id;
+      this.cateId = this.firstCate[index].id;
       this.kind = index;
-      this.mpItem();
-    },
-    nextSecond: function nextSecond() {
-      if (this.textInfo != '没有更多呢') {
-        this.secondId = this.secondCate[this.kind + 1].id;
-        this.kind += 1;
-        this.mpItem();
-      }
+      this.getGood();
     },
     openCart: function openCart(item) {
       this.cartware = item;
@@ -397,110 +306,19 @@ console,log = _console.log;var _default =
     },
     // 显示键盘
     showKey: function showKey(item, index) {
-
       this.arrObj = item;
       this.index = index;
       this.$refs.popup.open();
-    },
-    showDraw: function showDraw() {
-      this.$refs.drawer.open();
-      _request.default.hideTabBar();
-    },
-    selectSort: function selectSort(index) {
-      this.active = index;
-    },
-    cancelSort: function cancelSort() {
-      this.active = -1;
-      _request.default.showTabBar();
-      this.$refs.drawer.close();
-    },
-    deterSort: function deterSort() {
-      if (this.active == -1) {
-        _request.default.Toast('请先选择分类');
-        return;
-      }
-      this.firstId = this.firstCate[this.active].id;
-      this.activeTab = this.active;
-      this.secondId = "";
-      this.kind = 0;
-      this.mpItem();
-      this.cancelSort();
     } },
 
-  onShow: function onShow() {
-    var classId = getApp().globalData.classId;
-    if (app.isReload == true) {
-      this.kind = 0;
-      this.active = -1;
-      this.activeTab = 0;
-      this.loading = true;
-      this.firstId = '';
-      this.secondId = '';
-      this.page = 1;
-      this.num = 10;
-      if (classId) {
-        this.firstId = classId;
-      }
-      this.mpItem();
-    } else {
+  onShow: function onShow() {},
 
-      this.list = uni.getStorageSync('classify');
-
-    }
-  },
-  onHide: function onHide() {
-    uni.setStorageSync('classify', this.list);
-
-  },
-  onReachBottom: function onReachBottom() {var _this3 = this;
-    var that = this;
-    var timeStamp = Math.round(new Date().getTime() / 1000);var
-
-    num =
-
-
-
-
-    that.num,page = that.page,list = that.list,secondId = that.secondId,firstId = that.firstId;
-    var obj = {
-      appid: appid,
-      timeStamp: timeStamp };
-
-    var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-    var data = {
-      appid: appid,
-      num: num,
-      page: page + 1,
-      firstId: firstId,
-      secondId: secondId,
-      timeStamp: timeStamp,
-      sign: sign };
-
-    this.loading = true;
-    _request.default.getRequests('mpItemList', data, function (res) {
-      if (res.data.code == 200) {
-        if (res.data.data.list.length != 0) {var _this3$list;
-          (_this3$list = _this3.list).push.apply(_this3$list, _toConsumableArray(res.data.data.list));
-          _this3.page += 1;
-          _this3.loading = true;
-        } else {
-          _this3.loading = false;
-          if (_this3.kind == _this3.secondCate.length - 1) {
-            _this3.textInfo = parseHtml("没有更多呢");
-          } else {
-            _this3.textInfo = parseHtml("上滑或点击<span class='red_font'>" + _this3.secondCate[_this3.kind +
-            1].name +
-            '</span>进入下一分类');
-          }
-        }
-      }
-    });
-  },
+  onReachBottom: function onReachBottom() {},
   onLoad: function onLoad(e) {
     app.isReload = true;
+    this.goodCate();
 
   } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

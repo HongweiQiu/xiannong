@@ -102,7 +102,7 @@ try {
       return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 246))
     },
     myKeyboard: function() {
-      return __webpack_require__.e(/*! import() | components/keyboard/index */ "components/keyboard/index").then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 283))
+      return Promise.all(/*! import() | components/keyboard/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/keyboard/index")]).then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 283))
     },
     myAddcart: function() {
       return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 255))
@@ -183,127 +183,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 22));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -400,28 +280,114 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default = { data: function data() {return { sortIndex: 1, keyList: [], list: [], keyword: '', showSearch: true, startSpeech: true, config: [], bitmap: false, arrObj: {}, index: '', cartware: {} };}, methods: { deleteHistory: function deleteHistory() {uni.showModal({ title: '提示', content: '确定清空历史记录吗？', confirmColor: '#57B127', success: function success(res) {if (res.confirm) {console.log('用户点击确定');} else if (res.cancel) {console.log('用户点击取消');}} });}, closeCart: function closeCart() {this.$refs.addcart.onClose();}, closeKey: function closeKey() {this.$refs.keyboard.cancel();}, back: function back() {uni.navigateBack({ delta: 1 });}, toParent: function toParent(e) {var _this = this;var item = e.arrObj;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp, item_id: item.id, attr_id: 0, item_num: e.val };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var params = Object.assign({ sign: sign }, obj);_request.default.postRequests('changeNum', params, function (res) {var data = res.data;if (data.code == 200) {_request.default.Toast('加入购物车成功');_this.list[_this.index].cart_num = e.val;} else if (data.code == 407 || data.code == 406) {_request.default.Toast("购买数量不能超过活动数量");} else {_request.default.Toast(res.data.msg);}});this.$refs.popup.close();}, openCart: function openCart(item) {this.cartware = item;this.$refs.cart.open();}, onClose: function onClose() {this.$refs.cart.close();}, // 显示键盘
-    showKey: function showKey(item, index) {this.arrObj = item;this.index = index;this.$refs.popup.open();}, // 热门搜索
-    getSearchData: function getSearchData() {var _this2 = this;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);var params = Object.assign({ sign: sign }, obj);_request.default.getRequests('getSearchData', params, function (res) {var data = res.data;
+
+var app = getApp().globalData;var
+
+appid =
+
+
+app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
+
+{
+  data: function data() {
+    return {
+      sortIndex: 1,
+      keyList: [],
+      list: [],
+      keyword: '',
+      page: 1,
+      showSearch: true,
+      startSpeech: true,
+      config: [],
+      bitmap: false,
+      arrObj: {},
+      index: '',
+      cartware: {} };
+
+  },
+  methods: {
+    deleteHistory: function deleteHistory() {
+      uni.showModal({
+        title: '提示',
+        content: '确定清空历史记录吗？',
+        confirmColor: '#57B127',
+        success: function success(res) {
+          if (res.confirm) {
+            console.log('用户点击确定');
+          } else if (res.cancel) {
+            console.log('用户点击取消');
+          }
+        } });
+
+    },
+    closeCart: function closeCart() {
+      this.$refs.addcart.onClose();
+    },
+    closeKey: function closeKey() {
+      this.$refs.keyboard.cancel();
+    },
+
+    toParent: function toParent(e) {var _this = this;
+      var item = e.arrObj;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp,
+        item_id: item.id,
+        attr_id: 0,
+        item_num: e.val };
+
+      var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+      var params = Object.assign({
+        sign: sign },
+
+      obj);
+
+      rs.postRequests('changeNum', params, function (res) {
+        var data = res.data;
+        if (data.code == 200) {
+          rs.Toast('加入购物车成功');
+          _this.list[_this.index].cart_num = e.val;
+        } else if (data.code == 407 || data.code == 406) {
+          rs.Toast("购买数量不能超过活动数量");
+        } else {
+          rs.Toast(res.data.msg);
+        }
+      });
+      this.$refs.popup.close();
+    },
+    openCart: function openCart(item) {
+      this.cartware = item;
+      this.$refs.cart.open();
+    },
+    onClose: function onClose() {
+      this.$refs.cart.close();
+    },
+    // 显示键盘
+    showKey: function showKey(item, index) {
+      this.arrObj = item;
+      this.index = index;
+      this.$refs.popup.open();
+    },
+    // 热门搜索
+    getSearchData: function getSearchData() {var _this2 = this;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp };
+
+      var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+      var params = Object.assign({
+        sign: sign },
+
+      obj);
+
+      rs.getRequests('getSearchData', params, function (res) {
+        var data = res.data;
         if (data.code == 200) {
           _this2.keyList = data.data;
         } else {
-          _request.default.Toast(data.msg);
+          rs.Toast(data.msg);
         }
       });
     },
@@ -434,33 +400,32 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
     },
     // 搜索列表
     searchList: function searchList(key) {var _this3 = this;
-      this.list = [];
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        timeStamp: timeStamp,
-        keyword: key };
+      var params = {
+        keyword: key,
+        page: this.page };
 
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-      var params = Object.assign({
-        sign: sign },
-
-      obj);
-
-      _request.default.getRequests('getSearchItem', params, function (res) {
+      this.$get(this.$api.goodsList, params, function (res) {
         var data = res.data;
-        if (data.code == 200) {
-          _this3.keyword = key;
+        if (data.code == 1) {
+
           _this3.showSearch = false;
-          if (data.data.length != 0) {
-            _this3.list = data.data.list;
-            _this3.config = data.data;
-            _this3.bitmap = false;
-          } else {
+          _this3.list = data.data;
+          if (data.data.length == 0 && _this3.page == 1) {
+            _this3.list = [];
             _this3.bitmap = true;
+          } else {
+            _this3.bitmap = false;
           }
-        } else {
-          _request.default.Toast(data.msg);
+        }
+      });
+    },
+    hotSearch: function hotSearch() {var _this4 = this;
+      this.$get(this.$api.mainHotSearch, {}, function (res) {var
+
+        data =
+        res.data;
+        if (data.code == 1) {
+          _this4.keyList = data.data;
         }
       });
     },
@@ -488,7 +453,7 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
           appid: appid,
           timeStamp: timeStamp };
 
-        var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+        var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
         var audio = res.tempFilePath;
         uni.uploadFile({
           url: app.rootUrl + "/mobileOrder/voiceSearch",
@@ -524,120 +489,16 @@ var _console = console,log = _console.log;var app = getApp().globalData;var appi
           } });
 
       });
-    },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    wxConfig: function wxConfig() {
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        timeStamp: timeStamp };
-
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-      var params = Object.assign({
-        sign: sign },
-      obj);
-      _request.default.getRequests("wxConfig", params, function (response) {
-
-        if (response.data.code == 200) {
-          // console.log(response.data)
-          wx.config({
-            debug: false, // 开启调试模式
-            appId: response.data.data.appId, // 必填，公众号的唯一标识
-            timestamp: response.data.data.timestamp, // 必填，生成签名的时间戳
-            nonceStr: response.data.data.nonceStr, // 必填，生成签名的随机串
-            signature: response.data.data.signature, // 必填，签名，见附录1
-            jsApiList: [
-            'checkJsApi',
-            'startRecord',
-            'stopRecord',
-            'translateVoice',
-            'downloadVoice',
-            'uploadVoice',
-            'getLocation']
-            // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-          });
-        }
-      });
     } },
 
-  onHide: function onHide() {
-    uni.setStorageSync('search', this.list);
-  },
+
+
+
+
+
+  onHide: function onHide() {},
   onShow: function onShow() {
-
-
-
-
-    this.getSearchData();
-    if (this.keyword) {
-      this.list = uni.getStorageSync('search');
-    }
+    this.hotSearch();
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

@@ -2,11 +2,6 @@
 	export default {
 		//全局共享数据
 		globalData: {
-			appid: '1',
-			active: '2',
-			appsecret: 'StJfzJcXmya6k6Ar',
-			// rootUrl: 'https://test.caidj.cn', //主接口地址
-			// imgRemote: 'https://test.caidj.cn',
 			rootUrl: 'https://xntcps.jxsxkeji.com/api.php',
 			imgRemote: 'https://xntcps.jxsxkeji.com',
 			classId: '',
@@ -66,9 +61,11 @@
 	.gray_font {
 		color: #999;
 	}
-    .white-font {
+
+	.white-font {
 		color: white;
 	}
+
 	.flex {
 		display: flex;
 	}
@@ -131,21 +128,9 @@
 		font-weight: 700;
 	}
 
-	.home .uni-countdown__number {
-		height: 30rpx !important;
+	
 
-		color: white !important;
-		border-radius: 4rpx;
-		width: 40rpx !important;
-	}
-
-	.flash_sale .uni-countdown__number {
-		height: 30rpx !important;
-
-		color: white !important;
-		border-radius: 4rpx;
-		width: 35rpx !important;
-	}
+	
 
 	.uni-nav-bar-right-text {
 		color: #009a44;
@@ -319,5 +304,15 @@
 
 	.border {
 		border-bottom: 1px solid #eee;
+	}
+
+	.two-line {
+		text-overflow: -o-ellipsis-lastline;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		line-clamp: 2;
+		-webkit-box-orient: vertical;
 	}
 </style>

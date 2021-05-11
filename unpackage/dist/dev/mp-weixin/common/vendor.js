@@ -822,7 +822,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -7553,7 +7553,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7574,14 +7574,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7667,7 +7667,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8308,12 +8308,9 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(uni) {var app = getApp();
-var active = {
-  'active': app.globalData.active };
-
-// var rootDocment = app.globalData.rootUrl + '/mobileOrder/'; //主接口; //主接口
-var rootDocment = app.globalData.rootUrl; //主接口; //主接口
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.getRequest = getRequest;exports.getRequests = getRequests;exports.postRequest = postRequest;exports.postRequests = postRequests;exports.Toast = Toast;var app = getApp();
+var rootDocment = 'https://xntcps.jxsxkeji.com/api.php'; //主接口;
 var globalUrl = ["login"];
 if (uni.getStorageSync("cdj_token")) {
   var header = {
@@ -8343,7 +8340,7 @@ function getRequest(url, datas, _success) {
           'content-type': 'application/json', //
           'Authorization': uni.getStorageSync("cdj_token") },
 
-        data: Object.assign(datas, active),
+        data: Object.assign(datas),
         success: function success(res) {
           _success(res);
           if (res.header.authorization != undefined) {
@@ -8401,7 +8398,7 @@ function getRequests(url, datas, _success2) {
       'content-type': 'application/json',
       'Authorization': uni.getStorageSync("cdj_token") },
 
-    data: Object.assign(datas, active),
+    data: datas,
     success: function success(res) {
       _success2(res);
       if (res.header.authorization != undefined) {
@@ -8459,7 +8456,7 @@ function postRequest(url, datas, _success3) {
           'content-type': 'application/json', //
           'Authorization': uni.getStorageSync("cdj_token") },
 
-        data: Object.assign(datas, active),
+        data: datas,
         success: function success(res) {
           _success3(res);
           if (res.header.authorization != undefined) {
@@ -8536,7 +8533,7 @@ function postRequests(url, datas, _success4) {
       'content-type': 'application/json', //
       'Authorization': uni.getStorageSync("cdj_token") },
 
-    data: Object.assign(datas, active),
+    data: datas,
     success: function success(res) {
       _success4(res);
 
@@ -8624,16 +8621,16 @@ function thedefaulttime() {//购买记录默认时间
   return dateArr;
 }
 
-module.exports = {
-  getRequest: getRequest,
-  getRequests: getRequests,
-  postRequest: postRequest,
-  postRequests: postRequests,
-  Toast: Toast,
-  header: header, //请求头部
-  objKeySort: objKeySort, //加密排序
-  thedefaulttime: thedefaulttime //加密排序
-};
+// module.exports = {
+// 	getRequest: getRequest,
+// 	getRequests: getRequests,
+// 	postRequest: postRequest,
+// 	postRequests: postRequests,
+// 	Toast: Toast,
+// 	header: header, //请求头部
+// 	objKeySort: objKeySort, //加密排序
+// 	thedefaulttime: thedefaulttime, //加密排序
+// }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
@@ -8648,9 +8645,18 @@ module.exports = {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.api = void 0;var api = {
   //首页
-  mainCate: '/main/cate', //首页分类
+  mainCate: '/main/cate', //分类
   mainRecommend: '/main/recommend', //精选推荐
-  mainNew: '/main/new' //今日上新
+  mainNew: '/main/new', //今日上新
+  mainAd: '/main/ad', //轮播
+  mainNotice: '/main/notice', //公告
+  mainHotSearch: "/main/hot_search", //热门搜索
+  mainSevice: "/main/service", //服务说明
+
+  goodDetail: "/goods/detail", //商品详情
+  goodCate: "/goods/cate", //商品分类
+  goodCateGood: "/goods/cate_goods", //分类下商品
+  goodsList: '/goods/goods_list' //搜索商品列表
 };exports.api = api;
 
 /***/ }),

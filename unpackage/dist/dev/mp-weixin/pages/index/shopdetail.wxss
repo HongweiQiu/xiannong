@@ -28,9 +28,12 @@
 .imgsBannerBox.data-v-0e3bfe9d {
   position: relative;
 }
+.more-info ._img.data-v-0e3bfe9d {
+  width: 100%;
+}
 .imgLength.data-v-0e3bfe9d {
   position: absolute;
-  top: 441rpx;
+  top: 660rpx;
   right: 0rpx;
   background: rgba(0, 0, 0, 0.2);
   padding: 0 12rpx;
@@ -41,15 +44,15 @@
 }
 .imgsBanner_swiper.data-v-0e3bfe9d {
   width: 750rpx;
-  height: 500rpx;
+  height: 750rpx;
 }
 .imgsBanner_swiper swiper-item.data-v-0e3bfe9d {
-  width: 750rpx;
+  width: 100%;
   height: 100%;
 }
 .imgsBanner_swiper swiper-item image.data-v-0e3bfe9d {
-  width: 750rpx;
-  height: 500rpx;
+  width: 100%;
+  height: 100%;
 }
 .scrollImgBox .scrollImgList.data-v-0e3bfe9d {
   white-space: nowrap;
@@ -68,7 +71,7 @@
   border: 6rpx solid #F57341;
 }
 .detail .title.data-v-0e3bfe9d {
-  padding: 30rpx 32rpx 20rpx 30rpx;
+  padding: 13rpx 32rpx 20rpx 30rpx;
 }
 .share-info.data-v-0e3bfe9d {
   color: #F01D1D;
@@ -172,6 +175,18 @@
   width: 540rpx;
   margin: -150rpx auto 0;
   height: 760rpx;
+}
+.share-friend-info .poster-back.data-v-0e3bfe9d {
+  width: 540rpx;
+  height: 760rpx;
+  position: absolute;
+  z-index: -1;
+  left: 0;
+}
+.share-friend-info .poster-back image.data-v-0e3bfe9d {
+  width: inherit;
+  height: inherit;
+  border-radius: 10rpx;
 }
 .share-friend-info .close-share.data-v-0e3bfe9d {
   height: 60rpx;
