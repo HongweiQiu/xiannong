@@ -96,7 +96,7 @@ var components
 try {
   components = {
     uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 246))
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 232))
     }
   }
 } catch (e) {
@@ -153,41 +153,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 22));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -219,17 +185,45 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { tempFilePath: '', cropFilePath: '', showtitle: true, navBar: navBar, imgUrl: app.imgUrl, imgRemote: imgRemote, phone: '', memberInfoData: '', member_default: '', nickname: '', password: '', confirmPwd: '', imgPath: '', count: 0 };}, methods: { memberInfo: function memberInfo() {var that = this;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = {
+
+var app = getApp().globalData;var
+
+imgRemote =
+app.imgRemote;var _default =
+{
+
+  data: function data() {
+    return {
+      tempFilePath: '',
+      cropFilePath: '',
+
+      imgUrl: app.imgUrl,
+      imgRemote: imgRemote,
+      phone: '',
+      memberInfoData: '',
+      member_default: '',
+      nickname: '',
+      password: '',
+      confirmPwd: '',
+      imgPath: '',
+      count: 0 };
+
+  },
+  methods: {
+    memberInfo: function memberInfo() {
+      var that = this;
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
         appid: appid,
         timeStamp: timeStamp };
 
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
       var data = {
         appid: appid,
         timeStamp: timeStamp,
         sign: sign };
 
-      _request.default.getRequests("memberInfo", data, function (res) {
+      rs.getRequests("memberInfo", data, function (res) {
         if (res.data.code == 200) {
           var reg = /^(\d{3})\d*(\d{4})$/;
 
@@ -242,12 +236,8 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       });
     },
 
-    modifyPwd: function modifyPwd() {var _this = this;
-      this.count++;
-      if (this.count != 1) return;
-      setTimeout(function () {
-        _this.count = 0;
-      }, 1000);
+    modifyPwd: function modifyPwd() {
+
       uni.navigateTo({
         url: './modifypwd' });
 
@@ -260,13 +250,13 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       }
 
     },
-    upload: function upload() {var _this2 = this;
+    upload: function upload() {var _this = this;
       uni.chooseImage({
         count: 1, //默认9
         sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
         success: function success(res) {
-          _this2.showtitle = false;
-          _this2.tempFilePath = res.tempFilePaths.shift();
+          _this.showtitle = false;
+          _this.tempFilePath = res.tempFilePaths.shift();
         } });
 
     },
@@ -281,7 +271,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         type: feed,
         timeStamp: timeStamp };
 
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
       var that = this;
       uni.uploadFile({
         method: 'POST',
@@ -318,14 +308,14 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         img: img,
         timeStamp: timeStamp };
 
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
       var data = {
         appid: appid,
         img: img,
         timeStamp: timeStamp,
         sign: sign };
 
-      _request.default.postRequests("uploadAvatar", data, function (res) {
+      rs.postRequests("uploadAvatar", data, function (res) {
         if (res.data.code == 200) {
           uni.showToast({
             title: "更换头像成功",
@@ -334,60 +324,36 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         }
       });
     },
-    formSubmit: function formSubmit() {var _this3 = this;
-      this.count++;
-      if (this.count != 1) return;
-      setTimeout(function () {
-        _this3.count = 0;
-      }, 1000);
+    formSubmit: function formSubmit() {
       var that = this;
-      if (that.memberInfoData.is_password == 0) {
-        if (!that.password) {
-          _request.default.Toast('密码不能为空');
-          return;
-        }
-        if (!that.confirmPwd) {
-          _request.default.Toast('确认密码不能为空');
-          return;
-        }
-        if (that.password != this.confirmPwd) {
-          _request.default.Toast('密码和确认密码不一致');
-          return;
-        }
-      }
+      uni.showModal({
+        title: '提示',
+        content: '是否退出',
+        cancelColor: '#999',
+        confirmColor: "#59B727",
+        success: function success(res) {
+          if (res.confirm) {
+            that.$get(that.$api.userLogout, {
+              token: uni.getStorageSync('userInfo').token },
+            function (res) {
+              if (res.data.code == 1) {
+                that.$Toast("退出成功");
+                uni.removeStorageSync('userInfo');
+                setTimeout(function () {
+                  uni.reLaunch({
+                    url: '../account/login' });
 
-      var nickname = that.nickname.replace(/\s+/g, "");
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        timeStamp: timeStamp };
+                }, 1000);
 
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-      var data = {
-        appid: appid,
-        nickname: nickname,
-        password: that.password,
-        confirm_pwd: that.confirmPwd,
-        timeStamp: timeStamp,
-        sign: sign };
+              } else {
+                that.$Toast(res.data.msg);
+              }
+            });
+          }
+        } });
 
-      _request.default.postRequests("saveMemberInfo", data, function (res) {
-        if (res.data.code == 200) {
-          _request.default.Toast("修改成功");
-          setTimeout(function () {
-            uni.navigateBack({
-              delta: 1 });
 
-          }, 1000);
 
-        } else {
-          _request.default.Toast(res.data.msg);
-        }
-      });
-    },
-
-    cancel: function cancel() {
-      this.showtitle = true;
     } },
 
   /**
@@ -395,7 +361,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
           */
   onShow: function onShow() {
     var that = this;
-    that.memberInfo();
+    // that.memberInfo();
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

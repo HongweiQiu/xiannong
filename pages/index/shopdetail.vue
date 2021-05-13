@@ -3,7 +3,7 @@
 		<view>
 			<swiper class="imgsBanner_swiper" :current='currentIndex' @change='changCurrent' circular="true">
 				<swiper-item v-for="(item,index) in ware.images" :key='index'>
-					<image :src="imgRemote+item" mode="aspectFill"></image>
+					<image :src="imgRemote+item" mode="widthFix"></image>
 				</swiper-item>
 			</swiper>
 			<!-- 图片位置 -->
@@ -23,19 +23,29 @@
 				</view>
 				<view class="price flex_left_right">
 					<view>
-						<text class="fs-11 pink bold">￥</text>
+						<text class="fs-23 pink bold" v-if="ware.sku.length==1">￥{{ware.sku[0].market_price}}</text>
+						<text class="fs-23 pink bold" v-else>￥{{minPrice}}-{{maxPrice}}</text>
+						<!-- <text class="fs-11 pink bold">￥</text>
 						<text class="pink fs-23 bold">19.9</text>
 						<text class="fs-11">/盒</text>
-						<text class="fs-11 gray_font line_through" style="margin-left: 10rpx;">￥25.8</text>
+						<text class="fs-11 gray_font line_through" style="margin-left: 10rpx;">￥25.8</text> -->
 					</view>
 					<view class="fs-11 gray_font">月销{{ware.sales}}件</view>
 				</view>
 			</view>
 		</view>
-		<view class="delivery white_b align_center">
-			<image src="../../static/img/car.png" style="width: 60rpx;height:32rpx;margin-right: 20rpx;"></image>
-			<text class="fs-13">{{explain}}</text>
+		<view class="delivery white_b" v-if="explain">
+			<view class=" align_center" v-if="explain.service_top">
+				<image src="../../static/img/car.png" class="img-width"></image>
+				<text class="fs-13">{{explain.service_top}}</text>
+			</view>
+			<view style="border-bottom: 1px solid #eee;" v-if="explain.service_bottom&&explain.service_top"></view>
+			<view class="align_center" v-if="explain.service_bottom">
+				<text class="iconfont iconfuwu1" style="color:#009B44;margin-right: 22rpx;font-size: 62rpx;"></text>
+				<text class="fs-13">{{explain.service_bottom}}</text>
+			</view>
 		</view>
+
 		<view v-if="ware.content">
 			<view class="flex align_center flex-column more-info white_b">
 				<text class="fs-15 bold">商品详情</text>
@@ -43,19 +53,27 @@
 				<rich-text :nodes="ware.content"></rich-text>
 			</view>
 		</view>
+		<view style="height: 100rpx;" />
 		<view class="addcart">
 			<view class="flex_left_right">
-				<view class="align_center">
-					<text class="iconfont fiveteen" style="padding:0 6rpx 0 20rpx;">&#xe658;</text>
-					<text class="fs-15">售前咨询</text>
+				<navigator open-type="switchTab" url="../tabar/index">
+					<view class="align_center flex-column">
+					<text class="iconfont iconshouye2-copy"></text>
+					<text class="fs-13">首页</text>
 				</view>
-				<view class="align_center">
-					<text class="iconfont fiveteen" style="padding:0 6rpx 0 20rpx;">&#xe611;</text>
-					<text class="fs-15">购物车</text>
+				</navigator>
+				
+				<view class="align_center flex-column">
+					<text class="iconfont iconkefu-copy"></text>
+					<text class="fs-13">售前咨询</text>
+				</view>
+				<view class="align_center flex-column">
+					<text class="iconfont icongouwuche21-copy"></text>
+					<text class="fs-13">购物车</text>
 				</view>
 				<view class="submit">
 					<!-- <my-n-stepper val="12" ></my-n-steper> -->
-					<view class="add fs-15" @click="$refs.addcart.open()">
+					<view class="add fs-15" @click="buyGood">
 						加入购物车
 					</view>
 				</view>
@@ -66,15 +84,14 @@
 			<view class="white_b share-option">
 				<view class="flex_left_right select">
 					<button open-type="share">
-						<view>
-							<image src="../../static/img/wechat.png"></image>
+						<view class="center">
+							<text class="iconfont iconweixin1"></text>
 							<view>分享好友</view>
 						</view>
 					</button>
 
-					<view @click="playBill">
-						<image src="../../static/img/sharefriend.png"></image>
-
+					<view @click="playBill" class="center">
+						<text class="iconfont iconpengyouquan"></text>
 						<view>生成海报</view>
 					</view>
 				</view>
@@ -91,16 +108,18 @@
 				<view class="white_b detail r-5">
 
 					<view class="good-img align_center">
-						<image src="../../static/img/404.png" mode="aspectFit">
+						<image :src="imgRemote+ware.main_image" mode="widthFix">
 						</image>
 					</view>
 					<view class="product">
-						<view class="bold name">新鲜大白菜干净新鲜大白鲜大白菜asdasd...</view>
+						<view class="bold name two-line">{{ware.name}}</view>
 						<view class="flex about-qr">
 							<view class="price-qr">
 								<view class="red-font rmb">
 									<text class="fs-11">￥</text>
-									<text class="fs-23">19.9</text>
+									<text class="fs-15 bold"
+										v-if="ware.sku.length==1">{{ware.sku[0].market_price}}</text>
+									<text class="fs-15 bold" v-else>{{minPrice}}-{{maxPrice}}</text>
 								</view>
 								<view class="fs-11 mp">
 									长按识别小程序
@@ -115,25 +134,22 @@
 				</view>
 
 			</view>
-			<view class="save-photo">
+			<view class="save-photo" >
 				保存图片
 			</view>
 
 		</uni-popup>
 		<uni-popup ref="addcart" type="bottom">
-			<my-addcart>
-			</my-addcart>
+			<my-addcart :ware="ware" @close="close"></my-addcart>
 		</uni-popup>
 
-		<!-- <canvas style="width: 540rpx; height: 760rpx;" canvas-id="firstCanvas" id="firstCanvas"></canvas> -->
+		<canvas style="width: 540rpx; height: 760rpx;" canvas-id="firstCanvas" id="firstCanvas"></canvas>
 	</view>
 </template>
 <script>
-	
 	const app = getApp().globalData;
 	const {
-		appid,
-		appsecret,
+
 		imgRemote
 	} = app;
 	export default {
@@ -141,7 +157,9 @@
 			return {
 				imgRemote: imgRemote,
 				ware: [],
-				explain:'',
+				maxPrice: '',
+				minPrice: '',
+				explain: '',
 				currentIndex: 0, //当前默认选中
 			};
 		},
@@ -157,6 +175,13 @@
 						data.data.content = data.data.content.replace('<img src="',
 							'<img style="max-width:100%;height:auto" src="' + getApp().globalData.imgRemote);
 						this.ware = data.data;
+						let market_prices = [];
+						for (let i of data.data.sku) {
+							market_prices.push(i.market_price)
+						}
+						this.maxPrice = Math.max(...market_prices).toFixed(2);
+						this.minPrice = Math.min(...market_prices).toFixed(2);
+
 					}
 				})
 				this.$get(this.$api.mainSevice, {}, (res) => {
@@ -164,7 +189,6 @@
 						data
 					} = res;
 					if (data.code == 1) {
-					
 						this.explain = data.data;
 					}
 				})
@@ -181,11 +205,18 @@
 			playBill() {
 				this.cancelShare();
 				this.$refs.poster.open()
-
+			},
+			buyGood(){
+				this.$needLogin(()=>{
+					this.$refs.addcart.open()
+				})
+			},
+			close() {
+				this.$refs.addcart.close();
 			}
 		},
 		onShow() {
-			// this.$refs.addcart.open()
+			// this.$refs.poster.open()
 			var canvas = uni.createCanvasContext('firstCanvas')
 			let that = this;
 			canvas.drawImage('../../static/img/share_friends.png', 0, 0, 270, 380);
@@ -236,7 +267,7 @@
 						wx.saveImageToPhotosAlbum({
 							filePath: res.tempFilePath,
 							success(res) {
-								wx.showModal({
+								uni.showModal({
 									title: '保存成功',
 									content: '图片成功保存到相册了，快去分享朋友圈吧',
 									showCancel: false,
@@ -244,11 +275,9 @@
 									confirmColor: '#818FFB',
 									success: function(res) {
 										if (res.confirm) {
-											that.setData({
-												showPosterImage: true
-											})
+											
 										}
-										that.hideShareImg()
+									
 									}
 								})
 							}
@@ -262,7 +291,7 @@
 
 		},
 		onLoad(e) {
-			console.log(e)
+
 			let {
 				id
 			} = e;
@@ -271,14 +300,6 @@
 	}
 </script>
 <style scoped lang="scss">
-	.imgsBannerBox {
-		position: relative;
-	}
-
-	.more-info img {
-		width: 100%;
-	}
-
 	.imgLength {
 		position: absolute;
 		top: 660rpx;
@@ -295,7 +316,6 @@
 		width: 750rpx;
 		height: 750rpx;
 
-
 		swiper-item {
 			width: 100%;
 			height: 100%;
@@ -307,31 +327,8 @@
 		}
 	}
 
-	.scrollImgBox {
-		.scrollImgList {
-			white-space: nowrap;
-
-			image {
-				width: 132rpx;
-				height: 132rpx;
-				margin-right: 16rpx;
-				display: inline-block;
-				border: 6rpx solid #fff;
-			}
-
-			image:last-child {
-				margin-right: 0;
-			}
-
-			.activeImageItem {
-				border: 6rpx solid #F57341;
-			}
-		}
-	}
-
 	.detail .title {
 		padding: 13rpx 32rpx 20rpx 30rpx;
-		;
 	}
 
 	.share-info {
@@ -355,13 +352,20 @@
 		}
 
 		.delivery {
+			.img-width {
+				width: 60rpx;
+				height: 32rpx;
+				margin-right: 20rpx;
+			}
+
 			margin: 16rpx 0;
 			padding: 0 30rpx;
 			color: #333;
-			height: 100rpx;
-			line-height: 100rpx;
+			line-height: 92rpx;
 
-
+			.service-bottom {
+				border-top: 1px solid #eee;
+			}
 		}
 
 		.more-info {
@@ -393,7 +397,8 @@
 
 		&>view {
 			height: 98rpx;
-			padding: 0 30rpx 0 0;
+			padding: 0 30rpx;
+			.iconfont {font-size: 40rpx;}
 		}
 
 		.submit {
@@ -410,18 +415,8 @@
 		color: white;
 	}
 
-	/deep/ .my_stepper,
 	.add {
-		width: 100% !important;
-		height: 100% !important;
-		border-radius: 39rpx !important;
-		justify-content: space-between !important;
-		padding: 0 25rpx !important;
-		box-sizing: border-box;
-
-		.iconfont {
-			font-size: 50rpx;
-		}
+		border-radius: 39rpx;
 	}
 
 	.share-option {
@@ -440,15 +435,18 @@
 
 		.select {
 			padding: 40rpx 140rpx;
+
+			.iconfont {
+				font-size: 100rpx;
+				color: #07C160;
+				margin-bottom: 8rpx;
+				display: block;
+			}
 		}
 
-		image {
-			width: 99rpx;
-			height: 99rpx;
-		}
 
 		.cancel {
-			padding: 40rpx 0;
+			padding: 33rpx 0;
 			text-align: center;
 			border-top: 1px solid #eee;
 		}
@@ -456,12 +454,12 @@
 
 	.share-friend-info {
 		width: 540rpx;
-		margin: -150rpx auto 0;
-		height: 760rpx;
+		margin: -48rpx auto 0;
+		height: 850rpx;
 
 		.poster-back {
 			width: 540rpx;
-			height: 760rpx;
+			height: 850rpx;
 			position: absolute;
 			z-index: -1;
 
@@ -503,12 +501,14 @@
 
 		.good-img {
 
-			height: 350rpx;
+			// height: 350rpx;
 			justify-content: center;
 
 			image {
-				width: 268rpx;
+				width: 400rpx;
 				height: 234rpx;
+				margin: 25rpx 0;
+				border-radius: 10rpx;
 			}
 		}
 

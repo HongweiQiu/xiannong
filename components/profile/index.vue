@@ -1,6 +1,6 @@
 <template>
-	<view class="my_profile flex">
-		<view class="photo" @click="$doubleClick(detail)">
+	<view class="my_profile flex" @click="$doubleClick(detail)">
+		<view class="photo" >
 
 			<image class="good_img" :src="ware.main_image==''?imgRemote+config.item_default:imgRemote+ware.main_image"
 				mode="widthFix"></image>

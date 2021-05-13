@@ -39,16 +39,13 @@ export default {
 
 <style>
 .identifying_code {
-	width: 150rpx;
-	height: 38rpx;
-	/* #ifdef MP-ALIPAY */
-	line-height: 40rpx;
-	/* #endif */
-	
+	width: 180rpx;
+	height: 50rpx;
+	line-height: 50rpx;
 	color: white;
-	border-radius: 6px;
+	border-radius: 10rpx;
 	text-align: center;
-	padding:0 4rpx;
+	
 }
 .greencode {
 	background: #009a44;

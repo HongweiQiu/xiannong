@@ -25,12 +25,6 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.imgsBannerBox.data-v-0e3bfe9d {
-  position: relative;
-}
-.more-info ._img.data-v-0e3bfe9d {
-  width: 100%;
-}
 .imgLength.data-v-0e3bfe9d {
   position: absolute;
   top: 660rpx;
@@ -53,22 +47,6 @@
 .imgsBanner_swiper swiper-item image.data-v-0e3bfe9d {
   width: 100%;
   height: 100%;
-}
-.scrollImgBox .scrollImgList.data-v-0e3bfe9d {
-  white-space: nowrap;
-}
-.scrollImgBox .scrollImgList image.data-v-0e3bfe9d {
-  width: 132rpx;
-  height: 132rpx;
-  margin-right: 16rpx;
-  display: inline-block;
-  border: 6rpx solid #fff;
-}
-.scrollImgBox .scrollImgList image.data-v-0e3bfe9d:last-child {
-  margin-right: 0;
-}
-.scrollImgBox .scrollImgList .activeImageItem.data-v-0e3bfe9d {
-  border: 6rpx solid #F57341;
 }
 .detail .title.data-v-0e3bfe9d {
   padding: 13rpx 32rpx 20rpx 30rpx;
@@ -93,8 +71,15 @@
   margin: 16rpx 0;
   padding: 0 30rpx;
   color: #333;
-  height: 100rpx;
-  line-height: 100rpx;
+  line-height: 92rpx;
+}
+.detail .delivery .img-width.data-v-0e3bfe9d {
+  width: 60rpx;
+  height: 32rpx;
+  margin-right: 20rpx;
+}
+.detail .delivery .service-bottom.data-v-0e3bfe9d {
+  border-top: 1px solid #eee;
 }
 .detail .more-info.data-v-0e3bfe9d {
   height: 80rpx;
@@ -120,7 +105,10 @@
 }
 .addcart > view.data-v-0e3bfe9d {
   height: 98rpx;
-  padding: 0 30rpx 0 0;
+  padding: 0 30rpx;
+}
+.addcart > view .iconfont.data-v-0e3bfe9d {
+  font-size: 40rpx;
 }
 .addcart .submit.data-v-0e3bfe9d {
   width: 308rpx;
@@ -133,20 +121,8 @@
   line-height: 78rpx;
   color: white;
 }
-.data-v-0e3bfe9d .my_stepper,
 .add.data-v-0e3bfe9d {
-  width: 100% !important;
-  height: 100% !important;
-  border-radius: 39rpx !important;
-  -webkit-box-pack: justify !important;
-  -webkit-justify-content: space-between !important;
-          justify-content: space-between !important;
-  padding: 0 25rpx !important;
-  box-sizing: border-box;
-}
-.data-v-0e3bfe9d .my_stepper .iconfont,
-.add .iconfont.data-v-0e3bfe9d {
-  font-size: 50rpx;
+  border-radius: 39rpx;
 }
 .share-option button.data-v-0e3bfe9d {
   background: none;
@@ -162,23 +138,25 @@
 .share-option .select.data-v-0e3bfe9d {
   padding: 40rpx 140rpx;
 }
-.share-option image.data-v-0e3bfe9d {
-  width: 99rpx;
-  height: 99rpx;
+.share-option .select .iconfont.data-v-0e3bfe9d {
+  font-size: 100rpx;
+  color: #07C160;
+  margin-bottom: 8rpx;
+  display: block;
 }
 .share-option .cancel.data-v-0e3bfe9d {
-  padding: 40rpx 0;
+  padding: 33rpx 0;
   text-align: center;
   border-top: 1px solid #eee;
 }
 .share-friend-info.data-v-0e3bfe9d {
   width: 540rpx;
-  margin: -150rpx auto 0;
-  height: 760rpx;
+  margin: -48rpx auto 0;
+  height: 850rpx;
 }
 .share-friend-info .poster-back.data-v-0e3bfe9d {
   width: 540rpx;
-  height: 760rpx;
+  height: 850rpx;
   position: absolute;
   z-index: -1;
   left: 0;
@@ -208,14 +186,15 @@
   text-align: left;
 }
 .share-friend-info .good-img.data-v-0e3bfe9d {
-  height: 350rpx;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;
 }
 .share-friend-info .good-img image.data-v-0e3bfe9d {
-  width: 268rpx;
+  width: 400rpx;
   height: 234rpx;
+  margin: 25rpx 0;
+  border-radius: 10rpx;
 }
 .share-friend-info .about-qr.data-v-0e3bfe9d {
   -webkit-box-pack: justify;

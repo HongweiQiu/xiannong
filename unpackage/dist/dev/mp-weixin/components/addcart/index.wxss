@@ -27,14 +27,20 @@
 /* 文章场景相关 */
 .add-to-cart.data-v-33c19159 {
   border-radius: 20rpx 20rpx 0 0;
+  padding-bottom: 40rpx;
 }
 .add-to-cart .good-img.data-v-33c19159 {
-  width: 300rpx;
-  height: 300rpx;
+  margin-top: -100rpx;
+  background: white;
 }
 .add-to-cart .good-img image.data-v-33c19159 {
-  width: 100%;
-  height: 100%;
+  width: 280rpx;
+  height: 280rpx;
+  margin: 20rpx;
+  box-sizing: border-box;
+}
+.add-to-cart .close-icon.data-v-33c19159 {
+  margin-top: 30rpx;
 }
 .add-to-cart .close.data-v-33c19159 {
   border: 4rpx solid #999;
@@ -45,5 +51,33 @@
   height: 40rpx;
   text-align: center;
   line-height: 40rpx;
+}
+.add-to-cart .attr text.data-v-33c19159 {
+  padding: 10rpx 51rpx;
+  border: 1px solid #999;
+  display: inline-block;
+  margin: 30rpx 30rpx 0 0;
+  border-radius: 60rpx;
+  box-sizing: border-box;
+}
+.add-to-cart .attr .active.data-v-33c19159 {
+  border: 1px solid #57B127;
+  color: #57B127;
+}
+.add-to-cart .buy-num.data-v-33c19159 {
+  margin: 20rpx 0 30rpx;
+}
+.add-to-cart .attr-cart.data-v-33c19159 {
+  height: 78rpx;
+  line-height: 78rpx;
+  text-align: center;
+  background: #57B127;
+  color: white;
+  border-radius: 39rpx;
+}
+.add-to-cart .my_stepper.data-v-33c19159 {
+  width: 200px !important;
+  height: 100px !important;
+  border-radius: 39rpx !important;
 }
 

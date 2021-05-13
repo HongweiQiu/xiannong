@@ -124,6 +124,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
 var _default =
 {
   props: ['val', 'min'],
@@ -143,6 +144,12 @@ var _default =
     },
     plus: function plus() {
       this.$emit('plus', parseFloat(this.value));
+    },
+    input: function input(e) {var
+
+      value =
+      e.detail.value;
+      this.$emit('input', parseFloat(value));
     },
     showkey: function showkey() {
       this.$emit('showKey');

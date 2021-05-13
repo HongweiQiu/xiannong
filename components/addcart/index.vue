@@ -2,60 +2,155 @@
 	<view class="add-to-cart white_b padding-15">
 		<view class="flex">
 			<view class="good-img r-5">
-				<image src="../../static/img/completed.png"></image>
+				<image class="r-5" :src="imgRemote+ware.main_image" mode="widthFix"></image>
 			</view>
-			<view>
-				<view class="right">
-					<text class="close">X</text>
+			<view class="<flex-full></flex-full>">
+				<view class="right close-icon" @click="close">
+					<text class="iconfont iconguanbi2 fs-18"></text>
 				</view>
-				<view class="">
-					<view>
-						<text>￥</text>
-						<text>矩形 27</text>
+				<view class="" style="margin-top: 44rpx;">
+					<view class="red-font">
+						<text class="fs-11">￥</text>
+						<text class="fs-23">{{ware.sku[kind].market_price}}</text>
 					</view>
-					<view>已选：250g/盒, 1件</view>
+					<view>已选：{{ware.sku[kind].guige}}/{{ware.sku[kind].unit}}, {{num}}件</view>
 				</view>
 			</view>
 		</view>
 		<view>
-			<view class="">
+			<view class="bold">
 				规格
 			</view>
-			<view class="">
-				<text v-for="(item,index) in 5" :key="index">250g/盒 </text>
+			<view class="fs-13 attr">
+				<text v-for="(item,index) in ware.sku" :key="index" @click="kind=index"
+					:class="kind==index?'active':''">
+					{{item.guige}}/{{item.unit}}
+				</text>
 			</view>
 		</view>
-		<view>
-			<text>数量</text>
-			<my-stepper></my-stepper>
+		<view class="flex_left_right buy-num">
+			<text class="bold">数量</text>
+			<my-stepper :val="num" @plus="plus" @minus="minus" @input="input"></my-stepper>
 		</view>
-		<view>
+		<view class="attr-cart">
 			加入购物车
 		</view>
 	</view>
 </template>
+<script>
+	const app = getApp().globalData;
+	const {
+
+		imgRemote
+	} = app;
+	export default {
+		props: ['ware'],
+		data() {
+			return {
+				kind: 0,
+				num: 1,
+				imgRemote: imgRemote
+
+			}
+		},
+		methods: {
+			plus(val) {
+				this.num++;
+				console.log(val)
+			},
+			input(e){
+				this.num=e;
+			},
+			minus(val) {
+
+				if (this.num == 1) {
+					this.num = 1
+				} else {
+					this.num--;
+				}
+				console.log(val)
+			},
+			close() {
+				this.$emit('close')
+			}
+		}
+	}
+</script>
 <style lang="scss" scoped>
 	.add-to-cart {
 		border-radius: 20rpx 20rpx 0 0;
+		padding-bottom: 40rpx;
 
 		.good-img {
-			width: 300rpx;
-			height: 300rpx;
+
+			margin-top: -100rpx;
+			background: white;
 
 			image {
-				width: 100%;
-				height: 100%;
+				width: 280rpx;
+				height: 280rpx;
+				margin: 20rpx;
+				box-sizing: border-box;
 			}
 		}
 
+		.close-icon {
+			margin-top: 30rpx;
+		}
+
 		.close {
-			border:4rpx solid #999;
+			border: 4rpx solid #999;
 			border-radius: 50%;
 			color: #999;
 			display: inline-block;
 			width: 40rpx;
 			height: 40rpx;
-			text-align: center;line-height: 40rpx;
+			text-align: center;
+			line-height: 40rpx;
+		}
+
+		.attr {
+			text {
+				padding: 10rpx 51rpx;
+				border: 1px solid #999;
+				display: inline-block;
+				margin: 30rpx 30rpx 0 0;
+				border-radius: 60rpx;
+				box-sizing: border-box;
+			}
+
+			.active {
+				border: 1px solid #57B127;
+				color: #57B127;
+			}
+		}
+
+		.buy-num {
+			margin: 20rpx 0 30rpx;
+
+		}
+
+		.attr-cart {
+			height: 78rpx;
+			line-height: 78rpx;
+			text-align: center;
+			background: #57B127;
+			color: white;
+			border-radius: 39rpx;
+
+		}
+
+		.my_stepper {
+			width: 200px !important;
+			height: 100px !important;
+			border-radius: 39rpx !important;
+			// justify-content: space-between !important;
+			// padding: 0 25rpx !important;
+			// box-sizing: border-box;
+
+			// .iconfont {
+			// 	font-size: 50rpx;
+			// }
 		}
 	}
 </style>

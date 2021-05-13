@@ -45,14 +45,7 @@
 		white-space: nowrap;
 	}
 
-	.red_tag {
-		background: red;
-		color: white;
-		border-radius: 6rpx;
-		padding: 0 1px;
-		font-size: 20rpx;
-		margin-right: 5rpx;
-	}
+	
 
 	.red_font {
 		color: #F01D1D;
@@ -113,29 +106,6 @@
 		color: #999;
 		text-decoration: line-through;
 	}
-
-	.uni-countdown {
-		align-items: center;
-	}
-
-	.line_border {
-		width: 4px;
-		height: 40rpx;
-		background: #009a44;
-	}
-
-	.weight {
-		font-weight: 700;
-	}
-
-	
-
-	
-
-	.uni-nav-bar-right-text {
-		color: #009a44;
-	}
-
 	.recomend .title {
 		display: flex;
 		align-items: center;
@@ -162,11 +132,6 @@
 	.body .myc_recomend:nth-child(n+3) {
 		margin-top: 30rpx;
 	}
-
-	.order .uni-icons {
-		color: #009a44 !important;
-	}
-
 	.place_style {
 		font-size: 26rpx;
 		color: #999;
@@ -181,11 +146,10 @@
 	}
 
 	.submit_button {
-		background: #009a44;
+		background: #57B127;
 		color: white;
-		border-radius: 12rpx;
 		text-align: center;
-		margin: 30rpx auto;
+		margin: 60rpx auto;
 	}
 
 	.red-font {
@@ -236,27 +200,8 @@
 		font-weight: bold;
 	}
 
-	.ten {
-		font-size: 20rpx;
-	}
-
-	.m-color {
-		color: #57B127;
-	}
-
-	.fiveteen {
-		font-size: 50rpx;
-	}
-
 	.width {
 		width: 100%;
-	}
-
-	.shuiyin {
-		width: 60rpx;
-		height: 20rpx;
-		/* position: absolute; */
-		z-index: 1;
 	}
 
 	.uni-modal__btn_primary {
@@ -277,18 +222,12 @@
 		min-height: initial !important;
 	}
 
-	.green_b {
-		background: #009a44 !important;
-	}
-
+	
 	.gray_b {
 		background: gray !important;
 	}
 
-	.icon-sousuo {
-		color: #d6cdd2;
-	}
-
+	
 	text-no-space {
 		white-space: nowrap
 	}

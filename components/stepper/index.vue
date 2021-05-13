@@ -2,8 +2,9 @@
 	<view class="my_stepper addcart">
 		<text class="iconfont" @click="minus">&#xe6fc;</text>
 
-		<view @click="showkey" class="align_center"><input class="input_value" type="number" v-model="value"
-				disabled="true" /></view>
+		<view @click="showkey" class="align_center">
+			<input class="input_value" type="number" v-model="value" @input="input" />
+		</view>
 		<text class="iconfont plus" @click="plus">&#xe600;</text>
 	</view>
 </template>
@@ -28,6 +29,12 @@
 			plus() {
 				this.$emit('plus', parseFloat(this.value));
 			},
+			input(e) {
+				let {
+					value
+				} = e.detail;
+				this.$emit('input', parseFloat(value));
+			},
 			showkey() {
 				this.$emit('showKey')
 			}
@@ -38,14 +45,16 @@
 <style scoped>
 	.my_stepper {
 		display: flex;
-		align-items: center;padding: 0 2rpx;
-		height: 36rpx;
-		line-height: 36rpx;
-		width: 140rpx;
+		align-items: center;
+		padding: 0 2rpx;
+		height: 48rpx;
+		line-height: 48rpx;
+		width: 200rpx;
 		background: #f8f8f8;
-		border-radius: 18rpx;
-		justify-content:center;
-		margin-right:20rpx;
+		border-radius: 24rpx;
+		justify-content: space-between;
+		margin-right: 20rpx;
+		padding: 0 20rpx;
 	}
 
 	.my_stepper .input_value {
@@ -53,6 +62,13 @@
 		height: initial;
 		text-align: center;
 	}
-	.iconfont{color:#57B127;}
-	.plus {font-size: 30rpx;font-weight: bold;}
+
+	.iconfont {
+		color: #57B127;
+	}
+
+	.plus {
+		font-size: 30rpx;
+		font-weight: bold;
+	}
 </style>

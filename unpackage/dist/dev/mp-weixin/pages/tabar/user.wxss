@@ -44,6 +44,17 @@ page,
   padding: 0 30rpx;
   width: 690rpx;
 }
+.user .author .un-login {
+  display: inline-block;
+  font-size: 45px;
+  background: rgba(0, 0, 0, 0.2);
+  width: 110rpx;
+  height: 110rpx;
+  margin: 0rpx 20rpx 0 0;
+  border-radius: 50%;
+  line-height: 110rpx;
+  text-align: center;
+}
 .user .author .img {
   height: 294rpx;
 }

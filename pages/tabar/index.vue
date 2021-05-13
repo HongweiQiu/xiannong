@@ -32,7 +32,7 @@
 		</view>
 
 		<!-- 今日上新 -->
-		<view class="recomend">
+		<view class="recomend" v-if="newList.length">
 			<view class="title">
 				<image src="../../static/img/radish.png" style="width: 66rpx;height:32rpx;" mode="widthFix"></image>
 				<text class="name">今日上新</text>
@@ -44,7 +44,7 @@
 		</view>
 
 		<!-- 为你推荐 -->
-		<view class="recomend">
+		<view class="recomend" v-if="recommendList.length">
 			<view class="title">
 				<image src="../../static/img/cucumber.png" style="width: 66rpx;height:32rpx;" mode="widthFix"></image>
 				<text class="name">精选推荐</text>
@@ -55,7 +55,7 @@
 			</view>
 			<!-- <my-loading :loading="loading"></my-loading> -->
 		</view>
-
+<view style="height:30rpx;"></view>
 		<my-backtop bottom="60" :showTop="showTop"></my-backtop>
 		<uni-popup ref="popup" type="bottom" @maskInfo="closeCart">
 			<my-addcart @onClose="onClose" :cartware="cartware" :config="config" ref="addcart"></my-addcart>
@@ -379,13 +379,4 @@
 		width: 60rpx;
 		height: 20rpx;
 	}
-
-
-	/* #ifdef H5 */
-	a {
-		text-decoration: none;
-		color: gray;
-	}
-
-	/* #endif */
 </style>

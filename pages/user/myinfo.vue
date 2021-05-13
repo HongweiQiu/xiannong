@@ -6,12 +6,12 @@
 				<image class="goods_img" v-if="!cropFilePath" :src='imgRemote+member_default '></image>
 				<view class="align_center gray_font" @tap="showUpload('open')">
 					<text class="fs-13">修改头像</text>
-					<!-- <uni-icons type="arrowright" size="18" color="black"></uni-icons> -->
+					<text class="iconfont iconfanhui t-180"></text>
 				</view>
 			</view>
 			<view class="flex_left_right" @click="modifyPwd">
 				<text>修改登录密码</text>
-				<!-- <uni-icons type="arrowright" size="18" color="black"></uni-icons> -->
+				<text class="iconfont iconfanhui t-180"></text>
 			</view>
 
 		</view>
@@ -31,14 +31,9 @@
 </template>
 
 <script>
-	import md5 from '../../static/js/md5.js';
-	import rs from '../../static/js/request.js';
 	const app = getApp().globalData;
 	const {
-		appid,
-		appsecret,
 		imgRemote,
-		navBar
 	} = app;
 	export default {
 
@@ -46,8 +41,7 @@
 			return {
 				tempFilePath: '',
 				cropFilePath: '',
-				showtitle: true,
-				navBar: navBar,
+
 				imgUrl: app.imgUrl,
 				imgRemote: imgRemote,
 				phone: '',
@@ -88,11 +82,7 @@
 			},
 
 			modifyPwd() {
-				this.count++;
-				if (this.count != 1) return;
-				setTimeout(() => {
-					this.count = 0
-				}, 1000)
+
 				uni.navigateTo({
 					url: './modifypwd'
 				})
@@ -103,7 +93,7 @@
 				} else {
 					this.$refs.popup.close();
 				}
-			
+
 			},
 			upload() {
 				uni.chooseImage({
@@ -180,59 +170,35 @@
 				})
 			},
 			formSubmit() {
-				this.count++;
-				if (this.count != 1) return;
-				setTimeout(() => {
-					this.count = 0
-				}, 1000)
-				var that = this;
-				if (that.memberInfoData.is_password == 0) {
-					if (!that.password) {
-						rs.Toast('密码不能为空');
-						return;
-					}
-					if (!that.confirmPwd) {
-						rs.Toast('确认密码不能为空');
-						return;
-					}
-					if (that.password != this.confirmPwd) {
-						rs.Toast('密码和确认密码不一致');
-						return;
-					}
-				}
-
-				var nickname = that.nickname.replace(/\s+/g, "");
-				var timeStamp = Math.round(new Date().getTime() / 1000);
-				var obj = {
-					appid: appid,
-					timeStamp: timeStamp,
-				}
-				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				var data = {
-					appid: appid,
-					nickname: nickname,
-					password: that.password,
-					confirm_pwd: that.confirmPwd,
-					timeStamp: timeStamp,
-					sign: sign,
-				}
-				rs.postRequests("saveMemberInfo", data, (res) => {
-					if (res.data.code == 200) {
-						rs.Toast("修改成功")
-						setTimeout(function() {
-							uni.navigateBack({
-								delta: 1
-							})
-						}, 1000);
-
-					} else {
-						rs.Toast(res.data.msg)
-					}
+				let that = this;
+				uni.showModal({
+					 title: '提示',
+					    content: '是否退出',
+						cancelColor:'#999',
+						confirmColor:"#59B727",
+					    success: function (res) {
+					        if (res.confirm) {
+					           that.$get(that.$api.userLogout, {
+					           	token: uni.getStorageSync('userInfo').token
+					           },(res) => {
+					           	if (res.data.code == 1) {
+					           		that.$Toast("退出成功");
+					           		uni.removeStorageSync('userInfo')
+					           		setTimeout(function() {
+					           			uni.reLaunch({
+					           				url:'../account/login'
+					           			})
+					           		}, 1000);
+					           
+					           	} else {
+					           		that.$Toast(res.data.msg)
+					           	}
+					           })
+					        } 
+					    }
 				})
-			},
-
-			cancel() {
-				this.showtitle = true;
+				
+			
 			}
 		},
 		/**
@@ -240,7 +206,7 @@
 		 */
 		onShow: function() {
 			var that = this;
-			that.memberInfo();
+			// that.memberInfo();
 		},
 	};
 </script>
@@ -265,11 +231,11 @@
 	}
 
 	.myinfo .button_style {
-		margin-top:16rpx;
-		width: 100%;	
+		margin-top: 16rpx;
+		width: 100%;
 		height: 88rpx;
 		line-height: 88rpx;
-		background:white;
+		background: white;
 		color: #333;
 	}
 
@@ -282,15 +248,16 @@
 		height: 110rpx;
 		border-radius: 50%;
 	}
+
 	.upload-img {
 		margin: 0 30rpx;
-	
+
 		.method {
 			height: 109rpx;
 			line-height: 109rpx;
 			text-align: center;
 		}
-	
+
 		.cancel {
 			margin: 30rpx 0;
 		}

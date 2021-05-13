@@ -80,7 +80,7 @@
 				tabList: [{
 					name: '全部'
 				}, {
-					name: '待付款'
+					name: '待审核'
 				}, {
 					name: '待发货'
 				}, {

@@ -130,71 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 22));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -253,10 +189,65 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-//
-//
-//
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { userList: [{ icon: 'iconshouhuodizhi', name: '地址管理', color: '#3DABFF', url: 'delivery' }, { icon: 'iconkefu', name: '联系客服', color: '#FF9C00', url: 'receipt' }, { icon: 'iconxuqiu', name: '新品需求', color: '#FFF000', url: 'newProductDemand' }, { color: '#ffab9a', icon: 'iconxinxi', name: '意见反馈', url: 'feedback' }, { icon: 'iconshezhi', name: '设置', color: '#2DC4B4', url: 'myinfo' }], orderStatu: [{ path: 'to_be_paid', name: '待付款' }, { path: 'to_be_delivered', name: '待发货' }, { path: 'to_be_received', name: '待收货' }, { path: 'completed', name: '已完成' }, { path: 'after_sales', name: '售后/退款' }], count: 0, token: '', imgRemote: imgRemote, memberInfoData: '', member_default: '' };
+
+var app = getApp().globalData;var
+
+imgRemote =
+app.imgRemote;var _default =
+{
+  data: function data() {
+    return {
+      userInfo: uni.getStorageSync('userInfo'),
+      userList: [{
+        icon: 'iconshouhuodizhi',
+        name: '地址管理',
+        color: '#3DABFF',
+        url: 'delivery' },
+
+      {
+        icon: 'iconkefu',
+        name: '联系客服',
+        color: '#FF9C00',
+        url: 'receipt' },
+
+      {
+        icon: 'iconxuqiu',
+        name: '新品需求',
+        color: '#FFF000',
+        url: 'newProductDemand' },
+
+      {
+        color: '#ffab9a',
+        icon: 'iconxinxi',
+        name: '意见反馈',
+        url: 'feedback' },
+
+      {
+        icon: 'iconshezhi',
+        name: '设置',
+        color: '#2DC4B4',
+        url: 'myinfo' }],
+
+
+      orderStatu: [{
+        path: 'to_be_paid',
+        name: '待审核' },
+      {
+        path: 'to_be_delivered',
+        name: '待发货' },
+      {
+        path: 'to_be_received',
+        name: '待收货' },
+      {
+        path: 'completed',
+        name: '已完成' },
+      {
+        path: 'after_sales',
+        name: '售后/退款' }],
+
+
+      token: uni.getStorageSync('userInfo').token,
+      imgRemote: imgRemote };
 
   },
   methods: {
@@ -268,13 +259,13 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
         appid: appid,
         timeStamp: timeStamp };
 
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
       var data = {
         appid: appid,
         timeStamp: timeStamp,
         sign: sign };
 
-      _request.default.getRequests("memberInfo", data, function (res) {
+      rs.getRequests("memberInfo", data, function (res) {
         // console.log(res)
         if (res.data.code == 200) {
           _this.memberInfoData = res.data.data.info;
@@ -283,12 +274,8 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       });
 
     },
-    myinfoPage: function myinfoPage() {var _this2 = this;
-      this.count++;
-      if (this.count != 1) return;
-      setTimeout(function () {
-        _this2.count = 0;
-      }, 500);
+    myinfoPage: function myinfoPage() {
+
       if (!this.token) {
         uni.navigateTo({
           url: '/pages/account/login' });
@@ -300,31 +287,16 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       }
 
     },
-    pageUrl: function pageUrl(item) {var _this3 = this;
-      this.count++;
-      if (this.count != 1) return;
-      setTimeout(function () {
-        _this3.count = 0;
-      }, 500);
-
-      if (this.token) {
-        getApp().globalData.isReload = true;
+    pageUrl: function pageUrl(item) {
+      this.$needLogin(function () {
         var path = item.url == 'delivery' ? 'shopcart' : 'user';
         uni.navigateTo({
           url: "/pages/".concat(path, "/").concat(item.url) });
 
-      } else {
-        uni.reLaunch({
-          url: '/pages/account/login' });
-
-      }
+      });
     },
-    threePage: function threePage(data) {var _this4 = this;
-      this.count++;
-      if (this.count != 1) return;
-      setTimeout(function () {
-        _this4.count = 0;
-      }, 500);
+    threePage: function threePage(data) {
+
       if (this.token) {
         switch (data) {
           case 'recomend':
@@ -370,7 +342,7 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
       */
   onShow: function onShow() {
     var that = this;
-    that.memberInfo();
+    // that.memberInfo();
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

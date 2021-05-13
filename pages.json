@@ -150,7 +150,12 @@
 			"pages": [{
 					"path": "modifypwd"
 				}, {
-					"path": "myinfo"
+					"path": "myinfo",
+					"style": {
+						"navigationBarTitleText": "设置",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
 				},
 				{
 					"path": "newProductDemand",

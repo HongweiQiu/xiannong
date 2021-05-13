@@ -2027,6 +2027,177 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.dianji = d
 
 /***/ }),
 
+/***/ 16:
+/*!******************************************!*\
+  !*** F:/desktop/uniapp/static/js/api.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.api = void 0;var api = {
+  //首页
+  mainCate: '/main/cate', //分类
+  mainRecommend: '/main/recommend', //精选推荐
+  mainNew: '/main/new', //今日上新
+  mainAd: '/main/ad', //轮播
+  mainNotice: '/main/notice', //公告
+  mainHotSearch: "/main/hot_search", //热门搜索
+  mainSevice: "/main/service", //服务说明
+  mainSend_sms: "/main/send_sms", //发送短信
+
+  userRegister: "/user/register", //用户注册
+  userLogin: "/user/login", //用户登录
+  userLogout: "/user/logout", //用户退出
+
+  goodDetail: "/goods/detail", //商品详情
+  goodCate: "/goods/cate", //商品分类一级
+  goodChild_cate: "/goods/child_cate", //商品分类二级
+  goodCateGood: "/goods/cate_goods", //分类下商品
+  goodsList: '/goods/goods_list' //搜索商品列表
+};exports.api = api;
+
+/***/ }),
+
+/***/ 17:
+/*!**********************************************!*\
+  !*** F:/desktop/uniapp/static/js/request.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.get = get;exports.post = post;exports.Toast = Toast;exports.needLogin = needLogin;var rootDocment = 'https://xntcps.jxsxkeji.com/api.php'; //主接口;
+var globalUrl = ["login"];
+if (uni.getStorageSync("cdj_token")) {
+  var header = {
+    'Accept': 'application/json',
+    'content-type': 'application/json', //
+    'token': uni.getStorageSync("userToken") };
+
+}
+/***
+   * url: 请求地址
+   * datas:请求参数
+   * success:请求成功的返回值
+   * fail:请求失败的返回值
+   * loadig:是否含有加载样式,默认false
+   */
+//get请求
+function get(url, datas, _success) {var loading = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+  if (loading) {
+    uni.showLoading({
+      title: '加载中',
+      mask: true });
+
+
+  }
+  uni.request({
+    url: rootDocment + url,
+    method: 'GET',
+    header: {
+      'Accept': 'application/json',
+      'content-type': 'application/json', //
+      'token': uni.getStorageSync("userToken") },
+
+    data: datas,
+    success: function success(res) {
+      _success(res);
+      // if (res.header.token != undefined) {
+      // 	uni.setStorageSync("cdj_token", res.header.authorization)
+      // }
+      if (loading) {
+        uni.hideLoading();
+      }
+    },
+    fail: function fail(res) {
+      uni.showModal({
+        title: res.data,
+        content: '网络出错，请刷新重试',
+        showCancel: false });
+
+    } });
+
+
+}
+
+/***
+   * url: 请求地址
+   * datas:请求参数
+   * success:请求成功的返回值
+   * fail:请求失败的返回值
+   * loadig:是否含有加载样式,默认false
+   */
+//POST请求带加载中
+function post(url, datas, _success2) {var loading = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+  if (loading) {
+    uni.showLoading({
+      title: '加载中',
+      mask: true });
+
+
+  }
+  uni.request({
+    url: rootDocment + url,
+    method: 'POST',
+    header: {
+      'Accept': 'application/json',
+      'content-type': 'application/json', //
+      'token': uni.getStorageSync("userToken") },
+
+    data: datas,
+    success: function success(res) {
+      _success2(res);
+      // if (res.header.authorization != undefined) {
+      // 	uni.setStorageSync("cdj_token", res.header.authorization)
+      // }
+      if (loading) {
+        uni.hideLoading();
+      }
+    },
+    fail: function fail(res) {
+      uni.showModal({
+        title: '网络错误',
+        content: '网络出错，请刷新重试',
+        showCancel: false });
+
+    } });
+
+
+
+}
+//判断该操作是否需要登录
+function needLogin(success) {
+  if (uni.getStorageSync('userToken')) {
+    success();
+  } else {
+    uni.showModal({
+      title: '提示',
+      content: '是否登录',
+      cancelColor: '#999',
+      confirmColor: "#59B727",
+      success: function success(res) {
+        if (res.confirm) {
+          uni.reLaunch({
+            url: '/pages/account/login' });
+
+        }
+      } });
+
+  }
+}
+
+function Toast(message) {
+  uni.showToast({
+    title: message,
+    icon: 'none',
+    duration: 2000 });
+
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
 /***/ 2:
 /*!******************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js ***!
@@ -8075,7 +8246,122 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 22:
+/***/ 237:
+/*!*******************************************************!*\
+  !*** F:/desktop/uniapp/components/uni-popup/popup.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 238));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+// 定义 type 类型:弹出类型：top/bottom/center
+var config = {
+  // 顶部弹出
+  top: 'top',
+  // 底部弹出
+  bottom: 'bottom',
+  // 居中弹出
+  center: 'center',
+  // 消息提示
+  message: 'top',
+  // 对话框
+  dialog: 'center',
+  // 分享
+  share: 'bottom' };var _default =
+
+
+{
+  data: function data() {
+    return {
+      config: config };
+
+  },
+  mixins: [_message.default] };exports.default = _default;
+
+/***/ }),
+
+/***/ 238:
+/*!*********************************************************!*\
+  !*** F:/desktop/uniapp/components/uni-popup/message.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _created$created$meth;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default = (_created$created$meth = {
+  created: function created() {
+    if (this.type === 'message') {
+      // 获取自组件对象
+      this.maskShow = false;
+      this.children = null;
+    }
+  } }, _defineProperty(_created$created$meth, "created", function created()
+{
+  if (this.type === 'message') {
+    // 不显示遮罩
+    this.maskShow = false;
+    // 获取子组件对象
+    this.childrenMsg = null;
+  }
+}), _defineProperty(_created$created$meth, "methods",
+{
+  customOpen: function customOpen() {
+    if (this.childrenMsg) {
+      this.childrenMsg.open();
+    }
+  },
+  customClose: function customClose() {
+    if (this.childrenMsg) {
+      this.childrenMsg.close();
+    }
+  } }), _created$created$meth);exports.default = _default;
+
+/***/ }),
+
+/***/ 3:
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 4:
+/*!************************************!*\
+  !*** F:/desktop/uniapp/pages.json ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
+/***/ 40:
 /*!******************************************!*\
   !*** F:/desktop/uniapp/static/js/md5.js ***!
   \******************************************/
@@ -8298,481 +8584,6 @@ function md5(string) {
 
 module.exports = {
   hexMD5: md5 };
-
-/***/ }),
-
-/***/ 23:
-/*!**********************************************!*\
-  !*** F:/desktop/uniapp/static/js/request.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.getRequest = getRequest;exports.getRequests = getRequests;exports.postRequest = postRequest;exports.postRequests = postRequests;exports.Toast = Toast;var app = getApp();
-var rootDocment = 'https://xntcps.jxsxkeji.com/api.php'; //主接口;
-var globalUrl = ["login"];
-if (uni.getStorageSync("cdj_token")) {
-  var header = {
-    'Accept': 'application/json',
-    'content-type': 'application/json', //
-    'Authorization': uni.getStorageSync("cdj_token") };
-
-}
-/***
-   * uri: 请求地址
-   * datas:请求参数
-   * success:请求成功的返回值
-   * fail:请求失败的返回值
-   */
-//get请求带加载
-function getRequest(url, datas, _success) {
-  uni.showLoading({
-    title: '加载中...',
-    duration: 2000,
-    mask: true,
-    success: function success(res) {
-      uni.request({
-        url: rootDocment + url,
-        method: 'GET',
-        header: {
-          'Accept': 'application/json',
-          'content-type': 'application/json', //
-          'Authorization': uni.getStorageSync("cdj_token") },
-
-        data: Object.assign(datas),
-        success: function success(res) {
-          _success(res);
-          if (res.header.authorization != undefined) {
-            uni.setStorageSync("cdj_token", res.header.authorization);
-          }
-          if (res.data.code == 400) {
-            uni.showToast({
-              title: res.data.msg,
-              icon: 'none',
-              duration: 1000,
-              success: function success() {
-
-              } });
-
-          }
-          if (res.data.code == 401) {
-            uni.navigateTo({
-              url: '/pages/account/login' });
-
-          }
-          if (res.data.code == 404) {
-
-            uni.navigateTo({
-              url: '/pages/account/404' });
-
-
-          }
-
-          uni.hideLoading();
-        },
-        fail: function fail(res) {
-          uni.showModal({
-            title: res.data,
-            content: '网络出错，请刷新重试',
-            showCancel: false });
-
-        } });
-
-
-    },
-    fail: function fail(res) {},
-    complete: function complete(res) {} });
-
-
-
-}
-
-//get请求
-function getRequests(url, datas, _success2) {
-  uni.request({
-    url: rootDocment + url,
-    method: 'GET',
-    header: {
-      'Accept': 'application/json',
-      'content-type': 'application/json',
-      'Authorization': uni.getStorageSync("cdj_token") },
-
-    data: datas,
-    success: function success(res) {
-      _success2(res);
-      if (res.header.authorization != undefined) {
-        uni.setStorageSync("cdj_token", res.header.authorization);
-
-      }
-
-      if (res.data.code == 401) {
-        uni.navigateTo({
-          url: '/pages/account/login' });
-
-      }
-      if (res.data.code == 404) {
-        uni.navigateTo({
-          url: '/pages/account/404' });
-
-
-      }
-      if (res.data.code == 408) {
-        uni.navigateTo({
-          url: '/pages/account/service' });
-
-      }
-    },
-    fail: function fail(res) {
-      uni.showModal({
-        title: res.data,
-        content: '网络出错，请刷新重试',
-        showCancel: false });
-
-    } });
-
-
-
-}
-
-/***
-   * 
-   * uri: 请求地址
-   * datas:请求参数
-   * success:请求成功的返回值
-   * fail:请求失败的返回值
-   */
-//POST请求带加载中
-function postRequest(url, datas, _success3) {
-  uni.showLoading({
-    title: '加载中',
-    mask: true,
-    success: function success(res) {
-      uni.request({
-        url: rootDocment + url,
-        method: 'POST',
-        header: {
-          'Accept': 'application/json',
-          'content-type': 'application/json', //
-          'Authorization': uni.getStorageSync("cdj_token") },
-
-        data: datas,
-        success: function success(res) {
-          _success3(res);
-          if (res.header.authorization != undefined) {
-            uni.setStorageSync("cdj_token", res.header.authorization);
-          }
-          if (res.data.code == 400) {
-            uni.showToast({
-              title: res.data.msg,
-              icon: 'none',
-              duration: 1000,
-              success: function success() {
-
-              } });
-
-          }
-          if (res.data.code == 401) {
-
-            uni.navigateTo({
-              url: '/pages/account/login' });
-
-
-          }
-          if (res.data.code == 403) {
-            uni.showToast({
-              title: '账号已禁用',
-              icon: 'none',
-              duration: 1000,
-              success: function success() {
-                uni.navigateTo({
-                  url: '/pages/account/login' });
-
-              } });
-
-          }
-          if (res.data.code == 404) {
-
-            uni.navigateTo({
-              url: '/pages/account/404' });
-
-
-          }
-          if (res.data.code == 408) {
-            uni.showToast({
-              title: '抱歉，您的服务已到期，请联系《菜东家》工作人员续费！',
-              icon: 'none',
-              duration: 2000 });
-
-          }
-          uni.hideLoading();
-        },
-        fail: function fail(res) {
-          uni.showModal({
-            title: '网络错误',
-            content: '网络出错，请刷新重试',
-            showCancel: false });
-
-        } });
-
-
-    },
-    fail: function fail(res) {},
-    complete: function complete(res) {} });
-
-
-}
-//POST请求不带加载中
-function postRequests(url, datas, _success4) {
-
-  uni.request({
-    url: rootDocment + url,
-    method: 'POST',
-    header: {
-      'Accept': 'application/json',
-      'content-type': 'application/json', //
-      'Authorization': uni.getStorageSync("cdj_token") },
-
-    data: datas,
-    success: function success(res) {
-      _success4(res);
-
-      if (res.header.authorization != undefined) {
-        uni.setStorageSync("cdj_token", res.header.authorization);
-      }
-      if (res.data.code == 401) {
-
-        uni.navigateTo({
-          url: '/pages/account/login' });
-
-
-      }
-    },
-    fail: function fail(res) {
-      uni.showModal({
-        title: '网络错误',
-        content: '网络出错，请刷新重试',
-        showCancel: false });
-
-    } });
-
-
-}
-
-function objKeySort(obj) {//排序的函数
-  var newkey = Object.keys(obj).sort();
-  //先用Object内置类的keys方法获取要排序对象的属性名，再利用Array原型上的sort方法对获取的属性名进行排序，newkey是一个数组
-  var newObj = {}; //创建一个新的对象，用于存放排好序的键值对
-  var sz = '';
-  for (var i = 0; i < newkey.length; i++) {//遍历newkey数组
-    newObj[newkey[i]] = obj[newkey[i]]; //向新创建的对象中按照排好的顺序依次增加键值对
-  }
-  Object.keys(newObj).forEach(function (key) {
-    sz += '&' + key + '=' + newObj[key];
-  });
-  return sz.substr(1); //返回排好序的新对象
-}
-
-
-function Toast(message) {
-  uni.showToast({
-    title: message,
-    icon: 'none',
-    duration: 1000 });
-
-}
-
-
-function getLastDay() {
-  var current = new Date();
-  var currentMonth = current.getMonth();
-  var nextMonth = ++currentMonth;
-
-  var nextMonthDayOne = new Date(current.getFullYear(), nextMonth, 1);
-
-  var minusDate = 1000 * 60 * 60 * 24;
-
-  return new Date(nextMonthDayOne.getTime() - minusDate);
-}
-
-function thedefaulttime() {//购买记录默认时间
-  var date = new Date();
-  var year = date.getFullYear().toString();
-  var time = (date.getMonth() + 1).toString();
-
-
-  var month = '';
-  if (time < 10) {
-    month = "0" + time;
-  } else {
-    month = time;
-  }
-  var num = date.getDate().toString();
-  var day = getLastDay().getDate();
-
-  // if (num < 10) {
-  // 	day = "0" + num;
-  // } else {
-  // 	day = num;
-  // }
-  var start = year + '-' + month + '-01';
-  var end = year + '-' + month + '-' + day;
-  var dateArr = [start, end];
-  return dateArr;
-}
-
-// module.exports = {
-// 	getRequest: getRequest,
-// 	getRequests: getRequests,
-// 	postRequest: postRequest,
-// 	postRequests: postRequests,
-// 	Toast: Toast,
-// 	header: header, //请求头部
-// 	objKeySort: objKeySort, //加密排序
-// 	thedefaulttime: thedefaulttime, //加密排序
-// }
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 24:
-/*!******************************************!*\
-  !*** F:/desktop/uniapp/static/js/api.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.api = void 0;var api = {
-  //首页
-  mainCate: '/main/cate', //分类
-  mainRecommend: '/main/recommend', //精选推荐
-  mainNew: '/main/new', //今日上新
-  mainAd: '/main/ad', //轮播
-  mainNotice: '/main/notice', //公告
-  mainHotSearch: "/main/hot_search", //热门搜索
-  mainSevice: "/main/service", //服务说明
-
-  goodDetail: "/goods/detail", //商品详情
-  goodCate: "/goods/cate", //商品分类
-  goodCateGood: "/goods/cate_goods", //分类下商品
-  goodsList: '/goods/goods_list' //搜索商品列表
-};exports.api = api;
-
-/***/ }),
-
-/***/ 251:
-/*!*******************************************************!*\
-  !*** F:/desktop/uniapp/components/uni-popup/popup.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 252));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-// 定义 type 类型:弹出类型：top/bottom/center
-var config = {
-  // 顶部弹出
-  top: 'top',
-  // 底部弹出
-  bottom: 'bottom',
-  // 居中弹出
-  center: 'center',
-  // 消息提示
-  message: 'top',
-  // 对话框
-  dialog: 'center',
-  // 分享
-  share: 'bottom' };var _default =
-
-
-{
-  data: function data() {
-    return {
-      config: config };
-
-  },
-  mixins: [_message.default] };exports.default = _default;
-
-/***/ }),
-
-/***/ 252:
-/*!*********************************************************!*\
-  !*** F:/desktop/uniapp/components/uni-popup/message.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _created$created$meth;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default = (_created$created$meth = {
-  created: function created() {
-    if (this.type === 'message') {
-      // 获取自组件对象
-      this.maskShow = false;
-      this.children = null;
-    }
-  } }, _defineProperty(_created$created$meth, "created", function created()
-{
-  if (this.type === 'message') {
-    // 不显示遮罩
-    this.maskShow = false;
-    // 获取子组件对象
-    this.childrenMsg = null;
-  }
-}), _defineProperty(_created$created$meth, "methods",
-{
-  customOpen: function customOpen() {
-    if (this.childrenMsg) {
-      this.childrenMsg.open();
-    }
-  },
-  customClose: function customClose() {
-    if (this.childrenMsg) {
-      this.childrenMsg.close();
-    }
-  } }), _created$created$meth);exports.default = _default;
-
-/***/ }),
-
-/***/ 3:
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ 4:
-/*!************************************!*\
-  !*** F:/desktop/uniapp/pages.json ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
 
 /***/ }),
 
@@ -9797,7 +9608,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#57B127", "navigationBarTextStyle": "white" }, "pages/tabar/classify": { "navigationBarTitleText": "分类", "navigationBarBackgroundColor": "#FFF", "navigationBarTextStyle": "black" }, "pages/tabar/order": { "navigationBarTitleText": "全部订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/tabar/shopcart": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/tabar/user": { "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#59BC2C", "navigationBarTextStyle": "white" }, "pages/index/shopdetail": { "navigationBarTitleText": "商品详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/index/search": { "navigationBarTitleText": "搜索", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/login": { "navigationBarTitleText": "登录", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/forget": {}, "pages/account/register": { "navigationBarTitleText": "注册", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/treaty": {}, "pages/account/bind": {}, "pages/order/orderdetail": { "navigationBarTitleText": "订单详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/order/orderAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/order/applyAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/delivery": { "navigationBarTitleText": "地址", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/shoplist": { "navigationBarTitleText": "提交订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/goodbill": { "navigationBarTitleText": "商品凑单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/paySuccess": { "navigationBarTitleText": "支付成功", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/modifypwd": {}, "pages/user/myinfo": {}, "pages/user/newProductDemand": { "navigationBarTitleText": "新品需求", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/feedback": { "navigationBarTitleText": "意见反馈", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/remainder": { "navigationBarTitleText": "我的余额", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": " ", "navigationBarBackgroundColor": "#F0F0F0", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#57B127", "navigationBarTextStyle": "white" }, "pages/tabar/classify": { "navigationBarTitleText": "分类", "navigationBarBackgroundColor": "#FFF", "navigationBarTextStyle": "black" }, "pages/tabar/order": { "navigationBarTitleText": "全部订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/tabar/shopcart": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/tabar/user": { "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#59BC2C", "navigationBarTextStyle": "white" }, "pages/index/shopdetail": { "navigationBarTitleText": "商品详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/index/search": { "navigationBarTitleText": "搜索", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/login": { "navigationBarTitleText": "登录", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/forget": {}, "pages/account/register": { "navigationBarTitleText": "注册", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/treaty": {}, "pages/account/bind": {}, "pages/order/orderdetail": { "navigationBarTitleText": "订单详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/order/orderAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/order/applyAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/delivery": { "navigationBarTitleText": "地址", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/shoplist": { "navigationBarTitleText": "提交订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/goodbill": { "navigationBarTitleText": "商品凑单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/paySuccess": { "navigationBarTitleText": "支付成功", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/modifypwd": {}, "pages/user/myinfo": { "navigationBarTitleText": "设置", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/newProductDemand": { "navigationBarTitleText": "新品需求", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/feedback": { "navigationBarTitleText": "意见反馈", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/remainder": { "navigationBarTitleText": "我的余额", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": " ", "navigationBarBackgroundColor": "#F0F0F0", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ })
 

@@ -1,13 +1,13 @@
-	<template>
+<template>
 	<view class="login flex-column" style="height:100vh;">
-		<view style="justify-content: center;display: flex;margin-top:100rpx;">
-		
+		<view style="margin-top:100rpx;" class="flex-j-c">
+
 			<view class="logo_width">
 				<image class="login_logo" src="../../static/img/login-logo.jpg" mode="aspectFit"></image>
 			</view>
 		</view>
-		<view class="login_method flex-full" >
-			
+		<view class="login_method flex-full">
+
 			<view class="mobilelogin">
 				<view class="phone align_center">
 					<text class="iconfont icon-yonghu"></text>
@@ -24,35 +24,16 @@
 					<view class="" @click="pageUrl('forget')">忘记密码</view>
 				</view>
 			</view>
-			<!-- 微信登录 -->
 
-			<view class="wechat_login" v-if="display">
+			<!-- 微信登录 -->
+			<view class="wechat_login">
 				<view class="">
 					<view class="divider gray_font">其他登录</view>
 					<view class="weixin_button">
-						<!-- #ifdef APP-PLUS |H5 -->
-						<image class="weixin_img" src="../../static/img/wechat.png" mode="" @click="wechatLogin">
-						</image>
-						<!-- #endif -->
-
-						<!-- #ifdef MP-WEIXIN -->
 						<button open-type="getUserInfo" @click="wechatLogin">
-							<image class="weixin_img" src="../../static/img/wechat.png" mode=""></image>
+							<text class="iconfont iconweixin weixin_img"></text>
+							<!-- <image class="weixin_img" src="../../static/img/wechat.png" mode=""></image> -->
 						</button>
-						<!-- #endif -->
-						<!-- #ifdef MP-ALIPAY -->
-						<!-- <button open-type="getAuthorize" scope="userInfo" > -->
-						<image @click="wechatLogin" class="weixin_img" src="../../static/img/alipay.png"
-							mode="aspectFit"></image>
-						<!-- </button> -->
-						<!-- #endif -->
-						<!-- #ifndef MP-ALIPAY -->
-						<text @click="wechatLogin">微信登录</text>
-						<!-- #endif -->
-						<!-- #ifdef MP-ALIPAY -->
-						<text style="padding-top:4rpx;" @click="wechatLogin">支付宝登录</text>
-						<!-- #endif -->
-
 					</view>
 					<view class="read_treaty">
 						<text style="color: #000;" @click="pageUrl('treaty')">已阅读并同意</text>
@@ -60,69 +41,23 @@
 					</view>
 				</view>
 			</view>
-
-
 		</view>
 	</view>
 </template>
 
 <script>
-	import md5 from '../../static/js/md5.js';
-	import rs from '../../static/js/request.js';
-
-	const app = getApp().globalData;
-	const {
-		navBar,
-		appid,
-		appsecret,
-		isWeixin
-	} = app;
 	export default {
 		data() {
 			return {
-				display: true,
-				navBar: navBar,
-				showWechat: false,
-				logo: '',
 				mobile: '',
 				password: '',
-				scrollHeight: '',
-				newHeight: '',
-				count: 0,
-				logoHeight: ''
 			};
 		},
 		methods: {
-			showTabbar() {
-				this.tabbar = true;
-			},
-			hideTabbar() {
-				this.tabbar = false;
-			},
-
-			clickLeft() {
-				// #ifdef H5
-				uni.hideKeyboard();
-				// #endif
-				uni.reLaunch({
-					url: '/pages/tabar/index'
-				});
-			},
 			pageUrl(data) {
-				this.count++;
-				if (this.count != 1) return;
-				setTimeout(() => {
-					this.count = 0
-				}, 1000)
-				// #ifdef H5
-				uni.hideKeyboard()
-				// #endif
-				setTimeout(() => {
-					uni.navigateTo({
-						url: data
-					}), 300
-				})
-
+				uni.navigateTo({
+					url: data
+				}), 300
 			},
 			// 手机登录
 			mobileLogin() {
@@ -130,55 +65,33 @@
 					mobile,
 					password
 				} = this;
-				this.count++;
-				if (this.count != 1) return;
-				setTimeout(() => {
-					this.count = 0
-				}, 1000)
-				let timeStamp = Math.round(new Date().getTime() / 1000);
 				if (!mobile) {
-					rs.Toast('手机号码不能为空，请输入手机号');
+					this.$Toast('手机号码不能为空，请输入手机号');
 					return;
 				}
 				if (!password) {
-					rs.Toast('密码不能为空，请输入密码');
-					return;
-				}
-				if (password.length < 6) {
-					rs.Toast('密码不能少于六位');
+					this.$Toast('密码不能为空，请输入密码');
 					return;
 				}
 
-				let obj = {
-					mobile: mobile,
+				let params = {
+					account: mobile,
 					password: password,
-					appid: appid,
-					timeStamp: timeStamp
 				};
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-						sign: sign
-					},
-					obj
-				);
 
-				rs.postRequests('login', params, res => {
+				this.$get(this.$api.userLogin, params, res => {
 					let data = res.data;
-					if (data.code == 200) {
-						rs.Toast('登录成功，将跳转到首页');
-						uni.setStorageSync('cdj_token', data.data.token);
-						uni.setStorageSync('is_child', data.data.is_child);
-						// #ifdef MP-WEIXIN
-						uni.setStorageSync('is_miniBind', data.data.is_miniBind);
-						// #endif
+					if (data.code == 1) {
+						this.$Toast('登录成功，将跳转到首页');
+					uni.setStorageSync('userInfo', data.data.userinfo);
+					uni.setStorageSync('userToken', data.data.userinfo.token);
 						setTimeout(() => {
 							uni.switchTab({
 								url: '/pages/tabar/index'
 							});
 						}, 1000)
-
 					} else {
-						rs.Toast(data.msg);
+						this.$Toast(data.msg);
 					}
 				});
 			},
@@ -248,45 +161,14 @@
 
 			// #endif
 
-		},
-		onShow() {
-			this.display = true;
-		},
-		mounted() {
-			let that = this;
-			let bodyHeight, titleHeight, imgHeight;
-			uni.getSystemInfo({
-				success: function(res) { // res - 各种参数
-					// that.logoHeight=res.windowHeight; // 屏幕的宽度 
-					uni.setStorageSync('scrollHeight', res.windowHeight);
-					let info = uni.createSelectorQuery().select('.logo_width');
-					info.boundingClientRect(function(data) { //data - 各种参数
-						imgHeight = data.height; // 获取元素宽度
-						// #ifdef APP-PLUS
-						let titleHeight = 70;
-						// #endif
-						// #ifndef APP-PLUS
-						let titleHeight = 44;
-						// #endif
-						that.logoHeight = res.windowHeight - titleHeight - imgHeight;
-					}).exec();
-
-				}
-			});
-		},
+		}
 	};
 </script>
 
-<style>
+<style lang="scss">
 	page {
 		background: #fff;
 	}
-
-	/* 	.login {
-
-		width: 100vw;
-		height: 100vh;
-	} */
 
 	.logo_width {
 		text-align: center;
@@ -397,17 +279,11 @@
 		border-width: 1px 0 0;
 	}
 
-	.wechat_login .weixin_img {
-		width: 90rpx;
-		height: 90rpx;
-		margin-bottom: 5rpx;
-	}
 
 	.login .weixin_button {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		margin: 41rpx 0 89rpx;
 		align-items: center;
 	}
 
@@ -432,5 +308,12 @@
 
 	.login button::after {
 		border: none;
+	}
+
+	.login {
+		.weixin_img {
+			font-size: 200rpx;
+			color: #009a44;
+		}
 	}
 </style>

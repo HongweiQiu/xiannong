@@ -1,11 +1,6 @@
 <template>
 	<view>
-		<!-- #ifdef APP-PLUS -->
-		<view class="status_bar white_b" style="position: fixed;z-index: 9999;">
-			<!-- 这里是状态栏 -->
-		</view>
-		<view class="status_bar white_b"></view>
-		<!-- #endif -->
+	
 		<view class=" white_b  car-nav">
 			<view class="padding-15 flex_left_right"><text class="fs-15 bold">购物车</text>
 				<text class="fs-13 gray_font">编辑</text>

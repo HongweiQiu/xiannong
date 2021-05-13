@@ -96,10 +96,10 @@ var components
 try {
   components = {
     uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 246))
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 232))
     },
     myAddcart: function() {
-      return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 255))
+      return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 241))
     }
   }
 } catch (e) {
@@ -125,10 +125,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
-      return _vm.$refs.addcart.open()
-    }
-
-    _vm.e1 = function($event) {
       return _vm.$refs.poster.close()
     }
   }
@@ -165,7 +161,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;} //
 //
 //
 //
@@ -295,19 +291,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var app = getApp().globalData;var
 
-appid =
 
-
-app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
+imgRemote =
+app.imgRemote;var _default =
 {
   data: function data() {
     return {
       imgRemote: imgRemote,
       ware: [],
+      maxPrice: '',
+      minPrice: '',
       explain: '',
       currentIndex: 0 //当前默认选中
     };
@@ -324,6 +338,13 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
           data.data.content = data.data.content.replace('<img src="',
           '<img style="max-width:100%;height:auto" src="' + getApp().globalData.imgRemote);
           _this.ware = data.data;
+          var market_prices = [];var _iterator = _createForOfIteratorHelper(
+          data.data.sku),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var i = _step.value;
+              market_prices.push(i.market_price);
+            }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
+          _this.maxPrice = Math.max.apply(Math, market_prices).toFixed(2);
+          _this.minPrice = Math.min.apply(Math, market_prices).toFixed(2);
+
         }
       });
       this.$get(this.$api.mainSevice, {}, function (res) {var
@@ -331,7 +352,6 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
         data =
         res.data;
         if (data.code == 1) {
-
           _this.explain = data.data;
         }
       });
@@ -348,11 +368,18 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
     playBill: function playBill() {
       this.cancelShare();
       this.$refs.poster.open();
-
+    },
+    buyGood: function buyGood() {var _this2 = this;
+      this.$needLogin(function () {
+        _this2.$refs.addcart.open();
+      });
+    },
+    close: function close() {
+      this.$refs.addcart.close();
     } },
 
   onShow: function onShow() {
-    // this.$refs.addcart.open()
+    // this.$refs.poster.open()
     var canvas = uni.createCanvasContext('firstCanvas');
     var that = this;
     canvas.drawImage('../../static/img/share_friends.png', 0, 0, 270, 380);
@@ -403,7 +430,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
           wx.saveImageToPhotosAlbum({
             filePath: res.tempFilePath,
             success: function success(res) {
-              wx.showModal({
+              uni.showModal({
                 title: '保存成功',
                 content: '图片成功保存到相册了，快去分享朋友圈吧',
                 showCancel: false,
@@ -411,11 +438,9 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
                 confirmColor: '#818FFB',
                 success: function success(res) {
                   if (res.confirm) {
-                    that.setData({
-                      showPosterImage: true });
 
                   }
-                  that.hideShareImg();
+
                 } });
 
             } });
@@ -428,8 +453,8 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
     }, 500);
 
   },
-  onLoad: function onLoad(e) {
-    console.log(e);var
+  onLoad: function onLoad(e) {var
+
 
     id =
     e.id;

@@ -4,15 +4,14 @@
 			style="height:452rpx;width:100%;margin-top:-158rpx;"></image>
 		<view class="author">
 			<view class="flex-column flex-space-between img">
-				<view class="align_center" v-if="token">
-					<image v-if="memberInfoData.logo" :src='memberInfoData.logo' class="avator"></image>
-					<text v-if="memberInfoData.nickname != ''">{{memberInfoData.nickname}}</text>
-					<text v-if="memberInfoData.nickname == ''">请设置昵称</text>
+				<view class="align_center" v-if="userInfo.token">
+					<image :src='userInfo.avatar' class="avator"></image>
+					<text>{{userInfo.company}}</text>
 				</view>
-				<view class="align_center" v-else>
-					<image v-if="memberInfoData.logo" :src='memberInfoData.logo' class="avator"></image>
-					<image v-if="!memberInfoData.logo" :src='imgRemote+member_default'></image>
-					<text>请先登录</text>
+				
+				<view class="align_center" v-else @click="$needLogin">
+					<text class="iconfont iconwode11 un-login"></text>
+					<text>登录/注册</text>
 				</view>
 				<navigator url="../user/remainder">
 					<view class="flex_left_right remain-money">
@@ -23,9 +22,7 @@
 						</view>
 					</view>
 				</navigator>
-
 			</view>
-
 		</view>
 
 		<view class="order-info">
@@ -61,18 +58,14 @@
 </template>
 
 <script>
-	import md5 from '../../static/js/md5.js';
-	import rs from '../../static/js/request.js';
 	const app = getApp().globalData;
 	const {
-		appid,
-		appsecret,
 		imgRemote,
-		navBar
 	} = app;
 	export default {
 		data() {
 			return {
+				userInfo: uni.getStorageSync('userInfo'),
 				userList: [{
 						icon: 'iconshouhuodizhi',
 						name: '地址管理',
@@ -106,7 +99,7 @@
 				],
 				orderStatu: [{
 					path: 'to_be_paid',
-					name: '待付款'
+					name: '待审核'
 				}, {
 					path: 'to_be_delivered',
 					name: '待发货'
@@ -120,11 +113,9 @@
 					path: 'after_sales',
 					name: '售后/退款'
 				}, ],
-				count: 0,
-				token: '',
+
+				token: uni.getStorageSync('userInfo').token,
 				imgRemote: imgRemote,
-				memberInfoData: '',
-				member_default: '',
 			};
 		},
 		methods: {
@@ -152,11 +143,7 @@
 
 			},
 			myinfoPage() {
-				this.count++;
-				if (this.count != 1) return;
-				setTimeout(() => {
-					this.count = 0
-				}, 500)
+
 				if (!this.token) {
 					uni.navigateTo({
 						url: '/pages/account/login'
@@ -169,30 +156,15 @@
 
 			},
 			pageUrl(item) {
-				this.count++;
-				if (this.count != 1) return;
-				setTimeout(() => {
-					this.count = 0
-				}, 500)
-
-				if (this.token) {
-					getApp().globalData.isReload = true;
+				this.$needLogin(() => {
 					let path = item.url == 'delivery' ? 'shopcart' : 'user';
 					uni.navigateTo({
 						url: `/pages/${path}/${item.url}`
 					});
-				} else {
-					uni.reLaunch({
-						url: '/pages/account/login'
-					});
-				}
+				})
 			},
 			threePage(data) {
-				this.count++;
-				if (this.count != 1) return;
-				setTimeout(() => {
-					this.count = 0
-				}, 500)
+
 				if (this.token) {
 					switch (data) {
 						case 'recomend':
@@ -238,7 +210,7 @@
 		 */
 		onShow: function() {
 			var that = this;
-			that.memberInfo();
+			// that.memberInfo();
 		},
 
 	};
@@ -265,6 +237,19 @@
 		color: white;
 		padding: 0 30rpx;
 		width: 690rpx;
+
+		.un-login {
+			display: inline-block;
+			font-size: 45px;
+			background: rgba(0, 0, 0, 0.2);
+			width: 110rpx;
+			height: 110rpx;
+			margin: 0rpx 20rpx 0 0;
+			border-radius: 50%;
+
+			line-height: 110rpx;
+			text-align: center;
+		}
 
 		.img {
 			height: 294rpx;

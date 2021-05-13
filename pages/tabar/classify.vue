@@ -10,13 +10,27 @@
 				</view>
 			</view>
 			<view class="right_area">
-				<!-- <view class="first_name">
-					<my-s-tabs effect slot-title @change="changeFirst" class="mp_tab_width" activeColor="#57B127"
-						lineColor="none" v-model="activeTab" color="#999">
-						<my-s-tab v-for="(item,index) of firstCate" :key="index">{{item.name}}</my-s-tab>
-					</my-s-tabs>
+				<view class="first_name" v-if="secondCate.length!=1">
+					<view class="second-cate ">
+						<my-s-tabs effect slot-title @change="changeSecond" class="mp_tab_width border"
+							activeColor="#57B127" lineColor="none" v-model="activeTab" color="#999">
+							<my-s-tab v-for="(item,index) of secondCate" :key="index">{{item.name}}</my-s-tab>
+						</my-s-tabs>
+						<text @click="moreSecond=!moreSecond" class="iconfont iconfanhui" style="margin-left:15rpx;"
+							:style="{'transform':moreSecond?'rotate(270deg)':'rotate(90deg)'}"></text>
+					</view>
+
 				</view>
-				<view style="height: 80rpx;"></view> -->
+				<view style="height: 60rpx;" v-if="secondCate.length!=1"></view>
+
+				<view v-show="!moreSecond" class="second-mask" @click="moreSecond=!moreSecond">
+					<view class="all-second">
+						<text v-for="(item,index) of secondCate" :key="index"
+							:class="activeTab== index ? 'second_active' : ''"
+							@click="changeSecond(index)">{{item.name}}</text>
+					</view>
+
+				</view>
 				<view v-if="bitmap" class="all-good">
 					<my-profile v-for="(item,index) in list" :key="index" :wares="item" class="single_good"
 						@showCart="openCart(item)" @showKey="showKey(item,index)"></my-profile>
@@ -40,13 +54,9 @@
 <script>
 	const app = getApp().globalData;
 	const {
-		appid,
-		appsecret,
 		imgRemote
 	} = app;
-	let {
-		log
-	} = console;
+
 	export default {
 
 		data() {
@@ -55,15 +65,19 @@
 				cateId: '',
 				page: 1,
 				firstCate: [],
+				secondCate: [],
+				moreSecond: true,
 				bitmap: true,
+				activeTab: 0,
 				list: [],
 				cartware: [],
-				arrObj: {},
 				index: '',
 			};
 		},
 		methods: {
+			//一级分类
 			goodCate() {
+
 				this.$get(this.$api.goodCate, {}, (res) => {
 					let {
 						data
@@ -71,10 +85,31 @@
 					if (data.code == 1) {
 						this.firstCate = data.data;
 						this.cateId = data.data[0].id;
-						this.getGood()
+						this.goodSecondCate();
+						this.getGood();
 					}
 				})
 			},
+			//二级分类
+			goodSecondCate() {
+
+				this.$get(this.$api.goodChild_cate, {
+					cate_id: this.cateId
+				}, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						let arr = [{
+							name: '全部',
+							id: this.firstCate[this.kind].id
+						}]
+						arr.push(...data.data);
+						this.secondCate = arr;
+					}
+				})
+			},
+			//分类商品
 			getGood() {
 				let params = {
 					cate_id: this.cateId,
@@ -86,14 +121,13 @@
 						data
 					} = res;
 					if (data.code == 1) {
-						this.list = data.data;
-						if(this.page==1){
-							this.bitmap=data.data.length?true:false;
+						this.list = this.list.concat(data.data);
+						if (this.page == 1) {
+							this.bitmap = data.data.length ? true : false;
 						}
-						console.log(data.data)
 					}
 
-				})
+				}, true)
 			},
 			toParent(e) {
 				let item = e.arrObj;
@@ -126,8 +160,20 @@
 			},
 			// 切换一级分类
 			changeFirst(index) {
+				this.page = 1;
+				this.list = [];
 				this.cateId = this.firstCate[index].id;
 				this.kind = index;
+				this.moreSecond = true;
+				this.goodSecondCate();
+				this.getGood();
+			},
+			// 切换二级分类
+			changeSecond(index) {
+				this.page = 1;
+				this.list = [];
+				this.activeTab = index;
+				this.cateId = this.secondCate[index].id;
 				this.getGood();
 			},
 			openCart(item) {
@@ -146,7 +192,10 @@
 		},
 		onShow() {},
 
-		onReachBottom() {},
+		onReachBottom() {
+			this.page++;
+			this.getGood();
+		},
 		onLoad(e) {
 			app.isReload = true;
 			this.goodCate();
@@ -179,12 +228,16 @@
 		position: fixed;
 		z-index: 5;
 		/* padding-right: 20rpx; */
-		display: flex;
 		width: 78.5%;
-	
-
 		background: white;
-		align-items: center;
+
+		.second-cate {
+			margin-right: 40rpx;
+			display: flex;
+
+			flex: 1;
+			align-items: center;
+		}
 	}
 
 	.classify .left_area {
@@ -203,6 +256,13 @@
 		width: 78%;
 		margin-left: 21.5%;
 
+		.second-mask {
+			position: fixed;
+			width: 78.5%;
+			right: 0;
+			background: rgba(0, 0, 0, 0.4);
+			height: 100vh;
+		}
 	}
 
 	.classify>.classify_good {
@@ -228,6 +288,8 @@
 
 	.mp_tab_width {
 		width: 96%;
+		height: 50rpx;
+		padding-bottom: 6rpx;
 	}
 
 
@@ -292,16 +354,30 @@
 		margin-left: 10rpx;
 	}
 
-	.classify .select_back {
-		background: #cceadc !important;
-	}
 
-	.classify .show_all_sort text {
-		color: #009a44;
-		border: 1px solid #009b44;
-		border-radius: 6rpx;
-		margin: 2%;
-		padding: 2rpx 14rpx;
+
+	.classify .all-second {
+		padding-bottom: 20rpx;
+		background: white;
+
+
+
+		text {
+			background: #eee;
+			border-radius: 10rpx;
+			color: #999;
+			margin-left: 10rpx;
+			padding: 8rpx 23rpx;
+			font-size: 22rpx;
+			margin-top: 10rpx;
+			display: inline-block;
+
+		}
+
+		.second_active {
+			background: #E9FFDD;
+			color: #57B127;
+		}
 	}
 
 	.loading {
@@ -328,16 +404,16 @@
 
 	/deep/ .s-tab-nav {
 		background: #eee;
-		border-radius: 20rpx;
+		border-radius: 10rpx;
 		color: #999;
-		margin-left: 30rpx;
+		margin-left: 10rpx;
 		padding: 2rpx 23rpx;
 		font-size: 22rpx;
 	}
 
 	/deep/ .is-active {
 		background: #E9FFDD;
-		border: 1px solid #57B127;
+		// border: 1px solid #57B127;
 	}
 
 	/deep/ .s-tabs-nav-wrap .s-tab-nav-view {

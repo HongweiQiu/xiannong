@@ -17,7 +17,8 @@
 			</view>
 			<view @click="mapPage" class="flex_left_right ">
 
-				<view class="align_center"><text class="iconfont iconshouhuodizhi"></text>
+				<view class="align_center">
+					<text class="iconfont iconshouhuodizhi"></text>
 					<text>{{address?address:''}}</text></view>
 				<view>
 
