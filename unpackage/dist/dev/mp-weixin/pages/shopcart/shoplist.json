@@ -3,6 +3,6 @@
   "navigationBarBackgroundColor": "#fff",
   "navigationBarTextStyle": "black",
   "usingComponents": {
-    "w-picker": "/components/w-picker/w-picker"
+    "gpp-date-picker": "/components/gpp-datePicker/gpp-datePicker"
   }
 }

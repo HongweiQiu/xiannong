@@ -58,18 +58,21 @@
 			<view class="flex_left_right">
 				<navigator open-type="switchTab" url="../tabar/index">
 					<view class="align_center flex-column">
-					<text class="iconfont iconshouye2-copy"></text>
-					<text class="fs-13">首页</text>
-				</view>
+						<text class="iconfont iconshouye2-copy"></text>
+						<text class="fs-13">首页</text>
+					</view>
 				</navigator>
-				
-				<view class="align_center flex-column">
-					<text class="iconfont iconkefu-copy"></text>
-					<text class="fs-13">售前咨询</text>
-				</view>
+				<button open-type="contact">
+					<view class="align_center flex-column">
+						<text class="iconfont iconkefu-copy"></text>
+						<text class="fs-13">客服</text>
+					</view>
+				</button>
+
 				<view class="align_center flex-column">
 					<text class="iconfont icongouwuche21-copy"></text>
 					<text class="fs-13">购物车</text>
+					<text class="cart-count">{{cartCount?cartCount:0}}</text>
 				</view>
 				<view class="submit">
 					<!-- <my-n-stepper val="12" ></my-n-steper> -->
@@ -100,9 +103,7 @@
 		</uni-popup>
 		<uni-popup ref="poster">
 			<view class="share-friend-info r-5">
-				<view class="r-5 poster-back">
-					<image src="../../static/img/share_friends.png" mode=""></image>
-				</view>
+
 				<view class="right close-share"><text class="iconfont iconguanbi" @click="$refs.poster.close()"></text>
 				</view>
 				<view class="white_b detail r-5">
@@ -112,29 +113,30 @@
 						</image>
 					</view>
 					<view class="product">
-						<view class="bold name two-line">{{ware.name}}</view>
+
 						<view class="flex about-qr">
 							<view class="price-qr">
+								<view class="bold name two-line">{{ware.name}}</view>
 								<view class="red-font rmb">
 									<text class="fs-11">￥</text>
 									<text class="fs-15 bold"
 										v-if="ware.sku.length==1">{{ware.sku[0].market_price}}</text>
 									<text class="fs-15 bold" v-else>{{minPrice}}-{{maxPrice}}</text>
 								</view>
-								<view class="fs-11 mp">
-									长按识别小程序
+								<view class="fs-11 " style="margin-top:30rpx;">
+									<text class="mp">长按识别小程序</text>
+
 								</view>
 							</view>
 
-							<image class="qr-code" src="../../static/img/404.png" mode="aspectFit"
-								style="background: gray;"></image>
+							<image class="qr-code" src="../../static/img/mp.jpg" mode="aspectFit"></image>
 
 						</view>
 					</view>
 				</view>
 
 			</view>
-			<view class="save-photo" >
+			<view class="save-photo" @click="canvasToTempFilePath">
 				保存图片
 			</view>
 
@@ -142,28 +144,137 @@
 		<uni-popup ref="addcart" type="bottom">
 			<my-addcart :ware="ware" @close="close"></my-addcart>
 		</uni-popup>
-
-		<canvas style="width: 540rpx; height: 760rpx;" canvas-id="firstCanvas" id="firstCanvas"></canvas>
+		<l-painter :board="base" ref="painter" v-show="false" />
 	</view>
 </template>
 <script>
+	import lPainter from '@/uni_modules/lime-painter/components/lime-painter/'
 	const app = getApp().globalData;
 	const {
-
 		imgRemote
 	} = app;
 	export default {
+		components: {
+			lPainter
+		},
 		data() {
 			return {
+				path: '',
+				cartCount: '',
+				base: {
+					width: '540rpx',
+					height: '800rpx',
+					views: [{
+							type: 'view',
+							css: {
+								background: '#57B127',
+								width: '540rpx',
+								height: '800rpx',
+							}
+						}, {
+							type: 'view',
+							css: {
+								left: '40rpx',
+								top: '60rpx',
+								background: '#fff',
+								radius: '10rpx',
+								width: '460rpx',
+								height: '680rpx',
+								shadow: '0 20rpx 48rpx rgba(0,0,0,.05)'
+							}
+						},
+						{
+							type: 'image',
+							src: '',
+							css: {
+								left: '72rpx',
+								top: '86rpx',
+								width: '400rpx',
+								height: '400rpx',
+								radius: '10rpx'
+							}
+
+						},
+						{
+							type: 'text',
+							text: '',
+							maxLines: 2,
+							css: {
+								fontWeight: 'bold',
+								left: '72rpx',
+								top: '500rpx',
+								width: '260rpx',
+
+							}
+						},
+						{
+							type: 'text',
+							text: '',
+							css: {
+								color: '#F01D1D',
+								left: '72rpx',
+								top: '600rpx',
+							}
+						},
+						{
+							type: 'text',
+							text: '长按识别小程序',
+							css: {
+								color: '#008909',
+								left: '72rpx',
+								top: '650rpx',
+							}
+						},
+						{
+							type: 'image',
+							src: '../../static/img/mp.jpg',
+							css: {
+								left: '330rpx',
+								top: '500rpx',
+								width: '150rpx',
+								height: '150rpx'
+							}
+
+						}
+					]
+				},
 				imgRemote: imgRemote,
 				ware: [],
 				maxPrice: '',
 				minPrice: '',
 				explain: '',
-				currentIndex: 0, //当前默认选中
+				currentIndex: 0, //当前默认选中,
 			};
 		},
 		methods: {
+			canvasToTempFilePath() {
+				const painter = this.$refs.painter
+				// 支持通过调用canvasToTempFilePath方法传入参数 调取生成图片
+				painter.canvasToTempFilePath().then(res => {
+					this.path = res.tempFilePath;
+					uni.saveImageToPhotosAlbum({
+						filePath: this.path,
+						success(res) {
+							uni.showModal({
+								title: '保存成功',
+								content: '图片成功保存到相册了，快去分享朋友圈吧',
+								showCancel: false,
+								confirmText: '好的',
+								confirmColor: '#818FFB',
+								success: function(res) {
+									if (res.confirm) {
+
+									}
+
+								}
+							})
+						}
+					})
+				})
+				return
+
+			},
+
 			goodDetail(id) {
 				this.$get(this.$api.goodDetail, {
 					id: id
@@ -173,14 +284,26 @@
 					} = res;
 					if (data.code == 1) {
 						data.data.content = data.data.content.replace('<img src="',
-							'<img style="max-width:100%;height:auto" src="' + getApp().globalData.imgRemote);
+							'<img style="max-width:100%;height:auto" src="' + getApp().globalData
+							.imgRemote);
 						this.ware = data.data;
+
+
+						const painter = this.$refs.painter
+						painter.render(this.base)
 						let market_prices = [];
 						for (let i of data.data.sku) {
 							market_prices.push(i.market_price)
 						}
 						this.maxPrice = Math.max(...market_prices).toFixed(2);
 						this.minPrice = Math.min(...market_prices).toFixed(2);
+						this.base.views[2].src = this.imgRemote + this.ware.main_image;
+						this.base.views[3].text = this.ware.name;
+						if (this.ware.sku.length == 1) {
+							this.base.views[4].text = this.ware.sku[0].market_price
+						} else {
+							this.base.views[4].text = this.minPrice + '-' + this.maxPrice;
+						}
 
 					}
 				})
@@ -206,100 +329,69 @@
 				this.cancelShare();
 				this.$refs.poster.open()
 			},
-			buyGood(){
-				this.$needLogin(()=>{
+			buyGood() {
+				this.$needLogin(() => {
 					this.$refs.addcart.open()
 				})
 			},
 			close() {
 				this.$refs.addcart.close();
+				this.getCount();
+			},
+			getCount() {
+				this.$get(this.$api.cart_count, {}, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						this.cartCount = data.data;
+					}
+				})
+			},
+			goodLike(id) {
+				this.$get(this.$api.goodsJoin_like, {
+					token: uni.getStorageSync('userToken'),
+					goods_id: id
+				})
 			}
 		},
-		onShow() {
-			// this.$refs.poster.open()
-			var canvas = uni.createCanvasContext('firstCanvas')
-			let that = this;
-			canvas.drawImage('../../static/img/share_friends.png', 0, 0, 270, 380);
-			canvas.save();
-			canvas.beginPath();
-			canvas.rect(21, 30, 228, 318);
-			canvas.fillStyle = "#fff";
-			canvas.shadowBlur = 20;
-			canvas.shadowOffsetX = "1",
-				canvas.shadowOffBlue = "4";
-			canvas.shadowColor = "rgba(51, 51, 51, 0.15)";
-			canvas.fill();
-			canvas.restore();
-			canvas.drawImage('../../static/img/404.png', 66, 53, 134, 116);
-			canvas.drawImage('../../static/img/404.png', 160, 258, 75, 75);
-			canvas.beginPath();
-			canvas.moveTo(35, 206);
-			canvas.lineTo(235, 206);
-			canvas.strokeStyle = '#eee';
-			canvas.stroke();
-			canvas.setFontSize(15);
-			canvas.setFillStyle("black");
-			canvas.fillText('新鲜大白菜干净新鲜大白菜干', 35, 240);
-			canvas.fillText('净新鲜大白菜...', 35, 260);
-			canvas.setFillStyle("red")
-			canvas.fillText('￥', 30, 298);
-			canvas.setFontSize(23);
-			canvas.fillText('19.9', 44, 298);
-			canvas.beginPath();
-			canvas.rect(21, 310, 100, 18);
-			canvas.fillStyle = "#E1FFE3";
-			canvas.fill();
-			canvas.beginPath();
-			canvas.fillStyle = "#E1FFE3";
-			canvas.arc(120, 319, 8, 1.5 * Math.PI, 0.5 * Math.PI);
-			canvas.fill();
-			canvas.setFontSize(11);
-			canvas.fillStyle = "#008909";
-			canvas.fillText('长按识别小程序', 35, 323);
-			canvas.draw()
-			setTimeout(function() {
-				uni.canvasToTempFilePath({
-					canvasId: 'firstCanvas',
-					success: function(res) {
-						console.log(res)
-						// return
-						//将图片保存到相册       
-						wx.saveImageToPhotosAlbum({
-							filePath: res.tempFilePath,
-							success(res) {
-								uni.showModal({
-									title: '保存成功',
-									content: '图片成功保存到相册了，快去分享朋友圈吧',
-									showCancel: false,
-									confirmText: '好的',
-									confirmColor: '#818FFB',
-									success: function(res) {
-										if (res.confirm) {
-											
-										}
-									
-									}
-								})
-							}
-						})
-
-
-					},
-					fail: function(res) {}
-				})
-			}, 500)
-
-		},
 		onLoad(e) {
-
 			let {
 				id
 			} = e;
-			this.goodDetail(id)
+			this.goodDetail(id);
+			this.getCount();
+			if (uni.getStorageSync('userToken')) {
+				this.goodLike(id);
+			}
+
 		}
 	}
 </script>
 <style scoped lang="scss">
+	button {
+		border: none;
+		background: none;
+		line-height: initial;
+	}
+
+	button::after {
+		border: none;
+	}
+
+	.cart-count {
+		margin: -10rpx 0 0 20rpx;
+		text-align: center;
+		position: absolute;
+		width: 32rpx;
+		height: 32rpx;
+		line-height: 32rpx;
+		font-size: 14rpx;
+		border-radius: 50%;
+		background: #57B127;
+		color: white;
+	}
+
 	.imgLength {
 		position: absolute;
 		top: 660rpx;
@@ -398,11 +490,14 @@
 		&>view {
 			height: 98rpx;
 			padding: 0 30rpx;
-			.iconfont {font-size: 40rpx;}
+
+			.iconfont {
+				font-size: 40rpx;
+			}
 		}
 
 		.submit {
-			width: 308rpx;
+			width: 408rpx;
 			height: 78rpx;
 			margin-left: 30rpx;
 		}
@@ -453,9 +548,10 @@
 	}
 
 	.share-friend-info {
+		background: #57B127;
 		width: 540rpx;
-		margin: -48rpx auto 0;
-		height: 850rpx;
+		margin: -108rpx auto 0;
+		padding-bottom: 1rpx;
 
 		.poster-back {
 			width: 540rpx;
@@ -490,10 +586,11 @@
 		}
 
 		.product {
+			padding-top: 20rpx;
+
 			.name {
 				margin: 0 29rpx;
-				padding: 30rpx 0 9rpx;
-				border-top: 1px solid #eee;
+
 				text-align: left;
 			}
 
@@ -501,7 +598,7 @@
 
 		.good-img {
 
-			// height: 350rpx;
+			border-bottom: 1px solid #eee;
 			justify-content: center;
 
 			image {
@@ -526,6 +623,7 @@
 
 				display: flex;
 				flex-direction: column;
+				width: 60%;
 
 				.rmb {
 					padding-left: 28rpx;
@@ -552,10 +650,5 @@
 		color: white;
 		background: #57B127;
 		border-radius: 37rpx;
-	}
-
-	canvas {
-		width: 100px;
-		height: 200px;
 	}
 </style>

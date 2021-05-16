@@ -4,6 +4,7 @@
   "navigationBarTextStyle": "black",
   "usingComponents": {
     "uni-popup": "/components/uni-popup/uni-popup",
-    "my-addcart": "/components/addcart/index"
+    "my-addcart": "/components/addcart/index",
+    "l-painter": "/uni_modules/lime-painter/components/lime-painter/index"
   }
 }

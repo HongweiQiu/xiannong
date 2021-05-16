@@ -3,10 +3,7 @@
   "navigationBarBackgroundColor": "#fff",
   "navigationBarTextStyle": "black",
   "usingComponents": {
-    "my-profile": "/components/profile/index",
-    "my-recomend": "/components/recomend/index",
-    "my-loading": "/components/loading/index",
-    "my-backtop": "/components/backtop/index",
-    "w-picker": "/components/w-picker/w-picker"
+    "my-stepper": "/components/stepper/index",
+    "my-recomend": "/components/recomend/index"
   }
 }

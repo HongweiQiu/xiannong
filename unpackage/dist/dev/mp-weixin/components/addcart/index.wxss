@@ -34,8 +34,8 @@
   background: white;
 }
 .add-to-cart .good-img image.data-v-33c19159 {
-  width: 280rpx;
-  height: 280rpx;
+  width: 240rpx;
+  height: 240rpx;
   margin: 20rpx;
   box-sizing: border-box;
 }

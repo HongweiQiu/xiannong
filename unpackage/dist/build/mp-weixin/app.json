@@ -46,6 +46,8 @@
       "pages": [
         "modifypwd",
         "myinfo",
+        "updateavatar",
+        "receipt",
         "newProductDemand",
         "feedback",
         "remainder"
@@ -96,6 +98,5 @@
   "uniStatistics": {
     "enable": true
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "usingComponents": {}
 }

@@ -1,190 +1,151 @@
 <template>
 	<view class="delivery">
-	
-		<view class="get_info">
 
-			<view>
-				<text class="iconfont iconshouji1"></text>
-				<input type="number" v-model="mobile" placeholder="请输入手机号" placeholder-class="place_style" />
-			</view>
+		<view class="get_info">
 			<view>
 				<text class="iconfont iconwode11"></text>
-				<input type="text" v-model="contact" placeholder="联系人姓名" placeholder-class="place_style" />
+				<input type="text" v-model="form.shou_name" placeholder="收货人" placeholder-class="place_style" />
 			</view>
 			<view>
-				<text class="iconfont icondianpu"></text>
-				<input type="text" v-model="contact" placeholder="联系人姓名" placeholder-class="place_style" />
+				<text class="iconfont iconshouji1"></text>
+				<input type="number" v-model="form.shou_phone" placeholder="收货人电话" placeholder-class="place_style" />
 			</view>
 			<view @click="mapPage" class="flex_left_right ">
-
 				<view class="align_center">
-					<text class="iconfont iconshouhuodizhi"></text>
-					<text>{{address?address:''}}</text></view>
-				<view>
-
-					<!-- <uni-icons type="arrowright" size="18" color="gray"></uni-icons> -->
+					<text class="iconfont iconshouhuodizhi" style="width:70rpx;"></text>
+					<input type="number" disabled v-model="receiving" placeholder="收货区域"
+						placeholder-class="place_style" />
 				</view>
+				<text class="iconfont iconfanhui t-180"></text>
 			</view>
 			<view>
 				<text class="iconfont iconxiangxidizhi"></text>
-				<input type="text" v-model="details" placeholder="例如：5号509室" placeholder-class="place_style" />
+				<input type="text" v-model="form.address" placeholder="详细地址" placeholder-class="place_style" />
 			</view>
 		</view>
 		<view class="submit_button button_style" @click="submit">保存</view>
-
+		<w-picker :visible.sync="visible" mode="linkage" :value="defaultRegion1" :options="option" :level="3"
+			default-type="id" :default-props="defaultProps1" @confirm="confirmAddrss($event,'linkage')" ref="linkage">
+		</w-picker>
 	</view>
 </template>
 
 <script>
-	import md5 from '../../static/js/md5.js';
-	import rs from '../../static/js/request.js';
-	let {
-		log
-	} = console;
-	const app = getApp().globalData;
-	const {
-		appid,
-		appsecret,
-		imgRemote,
-		navBar
-	} = app;
+	import wPicker from "@/components/w-picker/w-picker.vue";
 	export default {
+		components: {
+			wPicker
+		},
 		data() {
 			return {
-				address: '',
-				contact: '',
-				details: '',
-				mobile: '',
-				childzid: '',
-				navBar: navBar,
-				lat: '',
-				lng: '',
-				count: 0
+				visible: false,
+				form: {
+					shou_name: '',
+					province: '',
+					city: '',
+					area: '',
+					shou_phone: '',
+					address: '',
+				},
+				receiving: '',
+				defaultProps1: {
+					label: "name",
+					value: "id",
+					children: "child"
+				},
+				defaultRegion1: [],
+				option: []
+
 			};
 		},
 		methods: {
-			leftClick() {
-				uni.hideKeyboard();
-				setTimeout(() => {
-					uni.switchTab({
-						url: '../tabar/shopcart'
-					})
-				}, 100)
-
-			},
 			mapPage() {
-				let that = this;
-				// #ifdef H5
-
-				uni.navigateTo({
-					url: `address?contact=${this.contact}&mobile=${this.mobile}&address=${this.address}&details=${this.details}&lat=${that.lat}&lng=${that.lng}`
-				})
-				return;
-				// #endif
-
-				uni.chooseLocation({
-					success: function(res) {
-						// console.log('位置名称：' + res.name);
-						that.address = res.address;
-						that.lat = res.latitude;
-						that.lng = res.longitude;
-					}
-				});
+				this.visible = true;
 			},
 			memberAddressInfo() {
-				let timeStamp = Math.round(new Date().getTime() / 1000);
-				let obj = {
-					appid: appid,
-					timeStamp: timeStamp
-				};
+				let params = {
+					token: uni.getStorageSync('userToken')
+				}
+				this.$get(this.$api.userInfo, params, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						this.form = {
+							shou_name: data.data.shou_name,
+							province: data.data.province,
+							city: data.data.city,
+							area: data.data.area,
+							shou_phone: data.data.shou_phone,
+							address: data.data.address,
 
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-					select_zid: this.childzid,
-					sign: sign
-				}, obj)
-				rs.getRequests("memberAddressInfo", params, (res) => {
-					// console.log(res)
-					if (res.data.code == 200) {
-						let data = res.data.data;
-						this.contact = data.contact;
-						this.mobile = data.phone;
-						this.address = data.address;
-						this.details = data.details;
+						};
+						this.receiving = data.data.province + data.data.city + data.data.area;
 					}
 				})
 			},
 			submit() {
-				var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
-				if (!this.contact) {
-					rs.Toast('联系人不能为空');
-					return;
-				}
-				if (!this.mobile) {
-					rs.Toast('手机号不能为空');
-					return;
-				}
-				if (!reg.test(this.contact)) {
-					rs.Toast('输入的信息不能含有特殊字符和空格');
-					return;
-				}
-				this.count++;
-				if (this.count != 1) return;
-				setTimeout(() => {
-					this.count = 0
-				}, 500)
-				let timeStamp = Math.round(new Date().getTime() / 1000);
-				let obj = {
-					appid: appid,
-					timeStamp: timeStamp,
-					contact: this.contact,
-					mobile: this.mobile,
-					address: this.address,
-				};
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
 				let params = Object.assign({
-					sign: sign,
-					details: this.details,
-					latitude: this.lat,
-					longitude: this.lng
-				}, obj)
-				rs.postRequests("updateAddress", params, (res) => {
-					if (res.data.code == 200) {
-						rs.Toast('保存成功');
+					token: uni.getStorageSync('userToken')
+				}, this.form)
+
+
+				this.$get(this.$api.ordershipping_address, params, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						this.$Toast('保存成功');
 						setTimeout(() => {
-							this.leftClick();
-						}, 1000);
-
+							uni.navigateBack()
+						}, 1000)
 					} else {
-						rs.Toast(res.data.msg);
+						this.$Toast(data.msg);
 					}
-
 				})
 			},
-		},
-		onLoad(option) {
-			this.childzid = option.childzid;
+			getAddress() {
+				this.$get(this.$api.mainRegion, {}, (res) => {
+							let {
+								data
+							} = res;
+							if (data.code == 1) {
+								data.data.map((item) => {
+										if (item.child.length == 0) {
+											item.child = [{
+													id: '',
+													name: '',
+													child: [{
+															id: '',
+															name: ''}]
+													}]
+											}
+										}) 
+										console.log(data.data)
+										 this.option = data.data;
+								}
+							})
+					},
+					confirmAddrss(e) {
+						this.receiving = e.result;
+						this.form.province = e.obj.col1.name;
+						this.form.city = e.obj.col2.name;
+						this.form.area = e.obj.col3.name;
+					}
+			},
+			onLoad(option) {
+				this.memberAddressInfo();
+				this.getAddress();
 
-			this.contact = option.contact == 'null' ? '' : option.contact;
-			this.mobile = option.mobile == 'null' ? '' : option.mobile;
-			this.address = option.address == 'null' ? '' : option.address;
-			this.details = option.details == 'null' ? '' : option.details;
-			let count = option.count || 1;
-			// console.log(option.count)
-			if (count == 1) {
-				this.memberAddressInfo()
-			}
-		},
-		onShow() {
-
-		}
-
-
-	};
+			},
+		};
 </script>
 
-<style  lang="scss">
-	page{background-color: white;}
+<style lang="scss">
+	page {
+		background-color: white;
+	}
+
 	.delivery .get_info {
 		background: white;
 		padding: 0 20rpx;

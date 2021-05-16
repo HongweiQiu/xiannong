@@ -93,38 +93,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components
-try {
-  components = {
-    wPicker: function() {
-      return __webpack_require__.e(/*! import() | components/w-picker/w-picker */ "components/w-picker/w-picker").then(__webpack_require__.bind(null, /*! @/components/w-picker/w-picker.vue */ 290))
-    }
-  }
-} catch (e) {
-  if (
-    e.message.indexOf("Cannot find module") !== -1 &&
-    e.message.indexOf(".vue") !== -1
-  ) {
-    console.error(e.message)
-    console.error("1. 排查组件名称拼写是否正确")
-    console.error(
-      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
-    )
-    console.error(
-      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
-    )
-  } else {
-    throw e
-  }
-}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$refs.picker.show()
+  var l0 = _vm.__map(_vm.shop, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var m0 = _vm.fixed(item.sku.market_price * item.buy_num)
+    return {
+      $orig: $orig,
+      m0: m0
     }
-  }
+  })
+
+  var m1 = _vm.fixed(_vm.totalPrice)
+  var m2 = _vm.fixed(_vm.freight ? _vm.freight : 0)
+  var m3 = _vm.fixed(_vm.totalPrice + parseFloat(_vm.freight))
+  var m4 = _vm.fixed(_vm.addressInfo.money)
+  var m5 = parseFloat(_vm.freight)
+  var m6 = _vm.fixed(_vm.totalPrice + parseFloat(_vm.freight))
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0,
+        m1: m1,
+        m2: m2,
+        m3: m3,
+        m4: m4,
+        m5: m5,
+        m6: m6
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -158,7 +160,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var gppDatePicker = function gppDatePicker() {__webpack_require__.e(/*! require.ensure | components/gpp-datePicker/gpp-datePicker */ "components/gpp-datePicker/gpp-datePicker").then((function () {return resolve(__webpack_require__(/*! @/components/gpp-datePicker/gpp-datePicker.vue */ 348));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 
 
@@ -279,68 +281,194 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 40));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 290));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _console =
 
 
-console,log = _console.log;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var app = getApp().globalData;var
 
-appid =
-
-
-
-app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default =
+imgRemote =
+app.imgRemote;var _default =
 {
   components: {
-    wPicker: wPicker },
+    gppDatePicker: gppDatePicker },
 
-  data: function data() {
-    return {
-      token: uni.getStorageSync('cdj_token'),
+  data: function data() {var _ref;
+    return _ref = {
+      startDate: "2021-05-15",
+      endDate: "2022-09-09",
+      pickerDate: '2021-05-16',
+      visible: false,
+      addressInfo: {},
       imgRemote: imgRemote,
       shop: [],
-      config: [],
-      visible: false };
+      totalPrice: '' }, _defineProperty(_ref, "visible",
+    false), _defineProperty(_ref, "feeInfo",
+    ''), _defineProperty(_ref, "freight",
+    ''), _defineProperty(_ref, "showSwitch",
+    false), _defineProperty(_ref, "pay_type",
+    'wxpay'), _defineProperty(_ref, "remark",
+    ''), _ref;
 
   },
   methods: {
-    openCart: function openCart() {var _this = this;
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        timeStamp: timeStamp };
+    getTomorrow: function getTomorrow() {
+      function format(dest) {
+        return dest < 10 ? '0' + dest : dest;
+      }
 
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-      var params = Object.assign({
-        sign: sign },
-      obj);
-      _request.default.getRequests("openCart", params, function (res) {var
+      var arg = new Date();
+      var year = arg.getFullYear();
+      var month = arg.getMonth() + parseInt(1);
+      var day = arg.getDate() + parseInt(1);
+      this.startDate = "".concat(year, "-").concat(format(month), "-").concat(format(day));
+      // this.startDate = "2021-05-16";
 
-        data =
-        res.data;
-        if (data.code == 200) {
-          _this.config = data.data;
-          _this.shop = data.data.shop;
+      this.pickerDate = "".concat(year, "-").concat(format(month), "-").concat(format(day));
+      this.endDate = "".concat(year + 2, "-12-31");
+    },
+    confirmDate: function confirmDate(e) {
+      this.pickerDate = e.dateValue;
+      console.log(e);
+    },
+    payWay: function payWay(e) {
+      this.pay_type = e.detail.value;
+    },
+    pay: function pay() {var _this = this;
+      var ids = '';var _iterator = _createForOfIteratorHelper(
+      this.shop),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var i = _step.value;
+          if (i.checked == true) {
+            ids += i.id + ',';
+          }
+        }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
+      var newId = ids.substring(0, ids.length - 1);var _this$addressInfo =
+
+
+
+
+
+
+
+
+
+      this.addressInfo,province = _this$addressInfo.province,city = _this$addressInfo.city,area = _this$addressInfo.area,address = _this$addressInfo.address,shou_name = _this$addressInfo.shou_name,shou_phone = _this$addressInfo.shou_phone,tax_name = _this$addressInfo.tax_name,tax_num = _this$addressInfo.tax_num;
+      if (!province) {
+        return this.$Toast('请先填写收货地址');
+      }
+      if (!shou_name &&
+      !shou_phone) {
+        return this.$Toast('请先填写收货人和收货人电话');
+      }
+      if (this.showSwitch) {
+        if (!tax_name && !tax_num) {
+          return this.$Toast('发票信息不能为空');
+        }
+      } else {
+        tax_name = '';
+        tax_num = '';
+      }
+      var params = {
+        token: uni.getStorageSync('userToken'),
+        province: province,
+        city: city,
+        area: area,
+        address: address,
+        shou_name: shou_name,
+        shou_phone: shou_phone,
+        tax_name: tax_name,
+        tax_num: tax_num,
+        cart_ids: newId,
+        freight: this.freight,
+        pay_type: this.pay_type,
+        total: this.totalPrice,
+        remark: this.remark };
+
+
+      this.$get(this.$api.orderAdd_order, params, function (res) {
+        var data = res.data;
+        if (data.code == 1) {
+          _this.$Toast('下单成功');
+          setTimeout(function () {
+            uni.reLaunch({
+              url: './paySuccess' });
+
+          }, 1000);
+
+        } else {
+          _this.$Toast(data.msg);
         }
       });
     },
-    onConfirm: function onConfirm() {
-
+    switchChange: function switchChange(e) {
+      this.showSwitch = e.target.value;
+    },
+    fixed: function fixed(val) {
+      if (val == 0) {
+        return '0.00';
+      }
+      return parseFloat(val).toFixed(2);
     },
     modifyAddress: function modifyAddress() {
       uni.navigateTo({
         url: './delivery' });
 
     },
-    pay: function pay() {
-      uni.navigateTo({
-        url: './paySuccess' });
 
+    // 邮费
+    getFreight: function getFreight() {var _this2 = this;
+      this.$get(this.$api.mainFreight, {}, function (res) {
+        var data = res.data;
+        if (data.code == 1) {
+          _this2.feeInfo = data.data;
+          _this2.freight = _this2.totalPrice > data.data.over ? 0 : data.data.freight;
+        }
+      });
+    },
+    getAddress: function getAddress() {var _this3 = this;
+      var params = {
+        token: uni.getStorageSync('userToken') };
+
+      this.$get(this.$api.userInfo, params, function (res) {var
+
+        data =
+        res.data;
+        if (data.code == 1) {
+          _this3.addressInfo = data.data;
+        }
+      });
     } },
 
   onShow: function onShow() {
-    this.openCart();
+    this.getAddress();
+
+  },
+  onLoad: function onLoad(e) {
+    this.getTomorrow();
+    this.shop = uni.getStorageSync('selectGoods');
+    var sum = 0;var _iterator2 = _createForOfIteratorHelper(
+    this.shop),_step2;try {for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {var i = _step2.value;
+        sum += i.buy_num * i.sku.market_price;
+      }} catch (err) {_iterator2.e(err);} finally {_iterator2.f();}
+    this.totalPrice = sum;
+    this.getFreight();
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

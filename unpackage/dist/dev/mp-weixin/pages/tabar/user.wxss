@@ -44,6 +44,14 @@ page,
   padding: 0 30rpx;
   width: 690rpx;
 }
+.user .author .user-level text {
+  background: -webkit-linear-gradient(left, #FF7D24, #FFB92C);
+  background: linear-gradient(to right, #FF7D24, #FFB92C);
+  color: white;
+  border-radius: 6rpx;
+  padding: 0rpx 15rpx 2rpx;
+  font-size: 22rpx;
+}
 .user .author .un-login {
   display: inline-block;
   font-size: 45px;

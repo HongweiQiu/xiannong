@@ -96,7 +96,7 @@ var components
 try {
   components = {
     myIdentifyingcode: function() {
-      return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 297))
+      return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 320))
     }
   }
 } catch (e) {
@@ -270,7 +270,6 @@ app.rootUrl;var _default =
 
 
 
-
       that.form,company = _that$form.company,password = _that$form.password,repassword = _that$form.repassword,mobile = _that$form.mobile,code = _that$form.code;
       if (!company) {
         that.$Toast('单位名称不能为空');
@@ -297,15 +296,15 @@ app.rootUrl;var _default =
 
       that.$get(that.$api.userRegister, that.form, function (res) {
         if (res.data.code == 1) {
-          _this.$Toast('登录成功，将跳转到我的页面');
-          uni.setStorageSync('userInfo', data.data.userinfo);
-          uni.setStorageSync('userToken', data.data.userinfo.token);
+          _this.$Toast('注册成功，将跳转到登录页面');
           setTimeout(function () {
-            uni.switchTab({
-              url: '../tabar/user' });
 
-          }, 1500);
+            uni.navigateTo({
+              url: './login' });
+
+          }, 1000);
         } else {
+
           that.$Toast(res.data.msg);
         }
       });

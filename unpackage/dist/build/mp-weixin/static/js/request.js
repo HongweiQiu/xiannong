@@ -4,7 +4,7 @@ if (uni.getStorageSync("cdj_token")) {
 	var header = {
 		'Accept': 'application/json',
 		'content-type': 'application/json', //
-		'Authorization': uni.getStorageSync("cdj_token"),
+		'token': uni.getStorageSync("userToken"),
 	}
 }
 /***
@@ -29,15 +29,23 @@ function get(url, datas, success, loading = false) {
 		header: {
 			'Accept': 'application/json',
 			'content-type': 'application/json', //
-			'Authorization': uni.getStorageSync("identityToken"),
+			'token': uni.getStorageSync("userToken"),
 		},
 		data: datas,
 		success: res => {
 			success(res)
-			if (res.header.authorization != undefined) {
-				uni.setStorageSync("cdj_token", res.header.authorization)
+				// if(res.data.code==401){
+					
+				// 	uni.reLaunch({
+				// 		url:'/pages/account/login'
+				// 	})
+				// }
+			// if (res.header.token != undefined) {
+			// 	uni.setStorageSync("cdj_token", res.header.authorization)
+			// }
+			if (loading) {
+				uni.hideLoading();
 			}
-			uni.hideLoading();
 		},
 		fail: res => {
 			uni.showModal({
@@ -72,15 +80,24 @@ function post(url, datas, success, loading = false) {
 		header: {
 			'Accept': 'application/json',
 			'content-type': 'application/json', //
-			'Authorization': uni.getStorageSync("cdj_token"),
+			'token': uni.getStorageSync("userToken"),
 		},
 		data: datas,
 		success: res => {
 			success(res)
-			if (res.header.authorization != undefined) {
-				uni.setStorageSync("cdj_token", res.header.authorization)
+			console.log(res)
+			// if(res.data.code==401){
+				
+			// 	uni.reLaunch({
+			// 		url:'/pages/account/login'
+			// 	})
+			// }
+			// if (res.header.authorization != undefined) {
+			// 	uni.setStorageSync("cdj_token", res.header.authorization)
+			// }
+			if (loading) {
+				uni.hideLoading();
 			}
-			uni.hideLoading();
 		},
 		fail: res => {
 			uni.showModal({
@@ -93,16 +110,39 @@ function post(url, datas, success, loading = false) {
 	})
 
 }
+//判断该操作是否需要登录
+function needLogin(success) {
+	if (uni.getStorageSync('userToken')) {
+		success()
+	} else {
+		uni.showModal({
+			title: '温馨提醒',
+			content: '是否登录',
+			cancelColor: '#999',
+			confirmColor: "#59B727",
+			success: function(res) {
+				if (res.confirm) {
+					uni.reLaunch({
+						url: '/pages/account/login'
+					})
+				}
+			}
+		})
+	}
+}
 
 function Toast(message) {
 	uni.showToast({
 		title: message,
 		icon: 'none',
-		duration: 1000
+		duration: 2000
 	})
 }
+
+
 export {
 	get,
 	post,
-	Toast
+	Toast,
+	needLogin
 }

@@ -114,65 +114,32 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-var app = getApp().globalData;var
-
-navBar =
-app.navBar;var _default =
+var _default =
 {
 
   data: function data() {
     return {
-      navBar: navBar };
+      info: '' };
 
   },
-  methods: {
-    leftClick: function leftClick() {
+  methods: {},
 
 
+  onShow: function onShow() {var _this = this;
+    this.$get(this.$api.mainAgree, {}, function (res) {
+      var data = res.data;
+      if (data.code == 1) {
+        _this.info = data.data;
 
-
-
-      uni.navigateBack({
-        delta: 1 });
-
-
-    } },
-
-  onShow: function onShow() {
-    uni.setNavigationBarTitle({
-      title: uni.getStorageSync('titleKey') });
-
+      }
+    });
   } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

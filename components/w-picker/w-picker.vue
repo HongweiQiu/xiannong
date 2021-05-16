@@ -3,9 +3,9 @@
 		<view class="mask" :class="{'visible':visible}" @tap="onCancel" @touchmove.stop.prevent catchtouchmove="true"></view>
 		<view class="w-picker-cnt" :class="{'visible':visible}">
 			<view class="w-picker-header"  @touchmove.stop.prevent catchtouchmove="true">
-				<text @tap.stop.prevent="onCancel" style="color:#999;">取消</text>
+				<text @tap.stop.prevent="onCancel">取消</text>
 				<slot></slot>
-				<text style="color:#57B127;" @tap.stop.prevent="pickerConfirm">确定</text>
+				<text :style="{'color':themeColor}" @tap.stop.prevent="pickerConfirm">确定</text>
 			</view>
 			<date-picker 
 				v-if="mode=='date'" 
@@ -22,7 +22,60 @@
 				@touchend="touchEnd">
 			</date-picker>
 			
+			<range-picker
+				v-if="mode=='range'" 
+				class="w-picker-wrapper"
+				:startYear="startYear"
+				:endYear="endYear"
+				:value="value"
+				:item-height="itemHeight"
+				:current="current"
+				@change="handlerChange"
+				@touchstart="touchStart" 
+				@touchend="touchEnd">
+			</range-picker>
 			
+			<half-picker
+				v-if="mode=='half'" 
+				class="w-picker-wrapper"
+				:startYear="startYear"
+				:endYear="endYear"
+				:value="value"
+				:item-height="itemHeight"
+				:current="current"
+				:disabled-after="disabledAfter"
+				@change="handlerChange"
+				@touchstart="touchStart" 
+				@touchend="touchEnd">
+			</half-picker>
+			
+			<shortterm-picker
+				v-if="mode=='shortTerm'" 
+				class="w-picker-wrapper"
+				:startYear="startYear"
+				:endYear="endYear"
+				:value="value"
+				:item-height="itemHeight"
+				:current="current"
+				expand="60"
+				:disabled-after="disabledAfter"
+				@change="handlerChange"
+				@touchstart="touchStart" 
+				@touchend="touchEnd">
+			</shortterm-picker>
+			
+			<time-picker
+				v-if="mode=='time'"
+				class="w-picker-wrapper"
+				:value="value"
+				:item-height="itemHeight"
+				:current="current"
+				:disabled-after="disabledAfter"
+				:second="second"
+				@change="handlerChange"
+				@touchstart="touchStart" 
+				@touchend="touchEnd">
+			</time-picker>
 			
 			<selector-picker
 				v-if="mode=='selector'"
@@ -37,19 +90,55 @@
 				@touchend="touchEnd">
 			</selector-picker>
 			
-	
+			<region-picker
+				v-if="mode=='region'"
+				class="w-picker-wrapper"
+				:value="value"
+				:hide-area="hideArea"
+				:default-type="defaultType"
+				:item-height="itemHeight"
+				@change="handlerChange"
+				@touchstart="touchStart" 
+				@touchend="touchEnd">
+			</region-picker>
+			
+			<linkage-picker
+				v-if="mode=='linkage'"
+				class="w-picker-wrapper"
+				:value="value"
+				:options="options"
+				:level="level"
+				:default-type="defaultType"
+				:default-props="defaultProps"
+				:item-height="itemHeight"
+				@change="handlerChange"
+				@touchstart="touchStart" 
+				@touchend="touchEnd">
+			</linkage-picker>
 		</view>
 	</view>
 </template>
 
 <script>
 	import datePicker from "./date-picker.vue"
+	import rangePicker from "./range-picker.vue"
+	import halfPicker from "./half-picker.vue"
+	import shorttermPicker from "./shortterm-picker.vue"
+	import timePicker from "./time-picker.vue"
 	import selectorPicker from "./selector-picker.vue"
+	import regionPicker from "./region-picker.vue"
+	import linkagePicker from "./linkage-picker.vue"
 	export default {
 		name:"w-picker",
 		components:{
 			datePicker,
-			selectorPicker
+			rangePicker,
+			halfPicker,
+			timePicker,
+			selectorPicker,
+			shorttermPicker,
+			regionPicker,
+			linkagePicker
 		},
 		props:{
 			mode:{
@@ -124,6 +213,10 @@
 			endYear:{
 				type:[String,Number],
 				default:new Date().getFullYear()
+			},
+			visible:{
+				type:Boolean,
+				default:false
 			}
 		},
 		created() {
@@ -132,7 +225,6 @@
 		data() {
 			return {
 				itemHeight:`height: ${uni.upx2px(88)}px;`,
-				visible:false,
 				result:{},
 				confirmFlag:true
 			};
@@ -155,13 +247,13 @@
 				this.result={...res};
 			},
 			show(){
-				this.visible=true;
+				this.$emit("update:visible",true);
 			},
 			hide(){
-				this.visible=false;
+				this.$emit("update:visible",false);
 			},
 			onCancel(res){
-				this.visible=false;
+				this.$emit("update:visible",false);
 				this.$emit("cancel");
 			},
 			pickerConfirm(){
@@ -169,7 +261,7 @@
 					return;
 				};
 				this.$emit("confirm",this.result);
-				this.visible=false;
+				this.$emit("update:visible",false);
 			}
 		}
 	}
@@ -214,7 +306,6 @@
 		  background-color: #fff;
 		}
 		.w-picker-cnt.visible {
-			border-radius: 15rpx;
 		  transform: translateY(0);
 		}
 		.w-picker-header{
@@ -226,7 +317,6 @@
 		  position: relative;
 		  text-align: center;
 		  font-size: 32upx;
-		border-radius: 15rpx;
 		  justify-content: space-between;
 		  border-bottom: solid 1px #eee;
 		  .w-picker-btn{

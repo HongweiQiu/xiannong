@@ -96,7 +96,7 @@ var components
 try {
   components = {
     uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 232))
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 248))
     }
   }
 } catch (e) {
@@ -185,6 +185,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 var app = getApp().globalData;var
 
@@ -196,7 +204,7 @@ app.imgRemote;var _default =
     return {
       tempFilePath: '',
       cropFilePath: '',
-
+      avatarUrl: uni.getStorageSync('userInfo').avatar,
       imgUrl: app.imgUrl,
       imgRemote: imgRemote,
       phone: '',
@@ -210,36 +218,14 @@ app.imgRemote;var _default =
 
   },
   methods: {
-    memberInfo: function memberInfo() {
-      var that = this;
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        timeStamp: timeStamp };
-
-      var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-      var data = {
-        appid: appid,
-        timeStamp: timeStamp,
-        sign: sign };
-
-      rs.getRequests("memberInfo", data, function (res) {
-        if (res.data.code == 200) {
-          var reg = /^(\d{3})\d*(\d{4})$/;
-
-          that.memberInfoData = res.data.data.info;
-          that.cropFilePath = that.memberInfoData.logo;
-          that.nickname = that.memberInfoData.nickname;
-          that.member_default = res.data.data.member_default;
-          that.phone = res.data.data.info.phone.replace(reg, '$1****$2');
-        }
-      });
-    },
-
     modifyPwd: function modifyPwd() {
-
       uni.navigateTo({
         url: './modifypwd' });
+
+    },
+    receipt: function receipt() {
+      uni.navigateTo({
+        url: './receipt' });
 
     },
     showUpload: function showUpload(way) {
@@ -339,6 +325,7 @@ app.imgRemote;var _default =
               if (res.data.code == 1) {
                 that.$Toast("退出成功");
                 uni.removeStorageSync('userInfo');
+                uni.removeStorageSync('userToken');
                 setTimeout(function () {
                   uni.reLaunch({
                     url: '../account/login' });

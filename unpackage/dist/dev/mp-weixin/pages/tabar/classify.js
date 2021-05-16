@@ -96,25 +96,25 @@ var components
 try {
   components = {
     mySearch: function() {
-      return __webpack_require__.e(/*! import() | components/search/index */ "components/search/index").then(__webpack_require__.bind(null, /*! @/components/search/index.vue */ 211))
+      return __webpack_require__.e(/*! import() | components/search/index */ "components/search/index").then(__webpack_require__.bind(null, /*! @/components/search/index.vue */ 227))
     },
     mySTabs: function() {
-      return __webpack_require__.e(/*! import() | components/s-tabs/index */ "components/s-tabs/index").then(__webpack_require__.bind(null, /*! @/components/s-tabs/index.vue */ 255))
+      return __webpack_require__.e(/*! import() | components/s-tabs/index */ "components/s-tabs/index").then(__webpack_require__.bind(null, /*! @/components/s-tabs/index.vue */ 271))
     },
     mySTab: function() {
-      return __webpack_require__.e(/*! import() | components/s-tab/index */ "components/s-tab/index").then(__webpack_require__.bind(null, /*! @/components/s-tab/index.vue */ 262))
+      return __webpack_require__.e(/*! import() | components/s-tab/index */ "components/s-tab/index").then(__webpack_require__.bind(null, /*! @/components/s-tab/index.vue */ 278))
     },
     myProfile: function() {
-      return Promise.all(/*! import() | components/profile/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/profile/index")]).then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 269))
+      return Promise.all(/*! import() | components/profile/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/profile/index")]).then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 285))
     },
     uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 232))
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 248))
     },
     myKeyboard: function() {
-      return Promise.all(/*! import() | components/keyboard/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/keyboard/index")]).then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 276))
+      return Promise.all(/*! import() | components/keyboard/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/keyboard/index")]).then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 292))
     },
     myAddcart: function() {
-      return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 241))
+      return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 257))
     }
   }
 } catch (e) {
@@ -257,16 +257,31 @@ app.imgRemote;var _default =
 
   },
   methods: {
-    //一级分类
-    goodCate: function goodCate() {var _this = this;
 
+    //查找索引
+    findIndex: function findIndex(obj, dest) {
+      for (var i in obj) {
+        if (obj[i].id == dest) {
+          return i;
+        }
+      }
+    },
+    //一级分类
+    goodCate: function goodCate() {var _this = this;var
+
+      classId =
+      getApp().globalData.classId;
       this.$get(this.$api.goodCate, {}, function (res) {var
 
         data =
         res.data;
+
         if (data.code == 1) {
+          //返回索引
+          var index = _this.findIndex(data.data, classId);
+          _this.kind = index ? index : 0;
           _this.firstCate = data.data;
-          _this.cateId = data.data[0].id;
+          _this.cateId = classId ? classId : data.data[0].id;
           _this.goodSecondCate();
           _this.getGood();
         }
@@ -311,35 +326,6 @@ app.imgRemote;var _default =
 
       }, true);
     },
-    toParent: function toParent(e) {var _this4 = this;
-      var item = e.arrObj;
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        timeStamp: timeStamp,
-        item_id: item.id,
-        attr_id: 0,
-        item_num: e.val };
-
-
-      var params = Object.assign({
-        sign: sign },
-
-      obj);
-
-      rs.postRequests('changeNum', params, function (res) {
-        var data = res.data;
-        if (data.code == 200) {
-          rs.Toast('加入购物车成功');
-          _this4.list[_this4.index].cart_num = e.val;
-        } else if (data.code == 407 || data.code == 406) {
-          rs.Toast("购买数量不能超过活动数量");
-        } else {
-          rs.Toast(res.data.msg);
-        }
-      });
-      this.$refs.popup.close();
-    },
     // 切换一级分类
     changeFirst: function changeFirst(index) {
       this.page = 1;
@@ -357,31 +343,20 @@ app.imgRemote;var _default =
       this.activeTab = index;
       this.cateId = this.secondCate[index].id;
       this.getGood();
-    },
-    openCart: function openCart(item) {
-      this.cartware = item;
-      this.$refs.cart.open();
-    },
-    onClose: function onClose() {
-      this.$refs.cart.close();
-    },
-    // 显示键盘
-    showKey: function showKey(item, index) {
-      this.arrObj = item;
-      this.index = index;
-      this.$refs.popup.open();
     } },
 
-  onShow: function onShow() {},
-
+  onShow: function onShow() {
+    if (app.isReload) {
+      this.list = [];
+      this.goodCate();
+    }
+  },
+  onHide: function onHide() {
+    getApp().globalData.isReload = false;
+  },
   onReachBottom: function onReachBottom() {
     this.page++;
     this.getGood();
-  },
-  onLoad: function onLoad(e) {
-    app.isReload = true;
-    this.goodCate();
-
   } };exports.default = _default;
 
 /***/ }),

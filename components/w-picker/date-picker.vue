@@ -10,7 +10,6 @@
 				<view class="w-picker-item" v-for="(item,index) in range.years" :key="index">{{item}}年</view>
 			</picker-view-column>
 			<picker-view-column>
-				
 				<view class="w-picker-item" v-for="(item,index) in range.months" :key="index">{{item}}月</view>
 			</picker-view-column>
 		</picker-view>
@@ -76,26 +75,6 @@
 				<view class="w-picker-item" v-for="(item,index) in range.seconds" :key="index">{{item}}秒</view>
 			</picker-view-column>
 		</picker-view>
-		<!-- <picker-view class="d-picker-view" :indicator-style="itemHeight" :value="pickVal" @change="handlerChange">
-			<picker-view-column>
-				<view class="w-picker-item" v-for="(item,index) in range.years" :key="index">{{item}}年</view>
-			</picker-view-column>
-			<picker-view-column v-if="fields=='month'||fields=='day'||fields=='hour'||fields=='minute'||fields=='second'">
-				<view class="w-picker-item" v-for="(item,index) in range.months" :key="index">{{item}}月</view>
-			</picker-view-column>
-			<picker-view-column v-if="fields=='day'||fields=='hour'||fields=='minute'||fields=='second'">
-				<view class="w-picker-item" v-for="(item,index) in range.days" :key="index">{{item}}日</view>
-			</picker-view-column>
-			<picker-view-column v-if="fields=='hour'||fields=='minute'||fields=='second'">
-				<view class="w-picker-item" v-for="(item,index) in range.hours" :key="index">{{item}}时</view>
-			</picker-view-column>
-			<picker-view-column v-if="fields=='minute'||fields=='second'">
-				<view class="w-picker-item" v-for="(item,index) in range.minutes" :key="index">{{item}}分</view>
-			</picker-view-column>
-			<picker-view-column v-if="fields=='second'">
-				<view class="w-picker-item" v-for="(item,index) in range.seconds" :key="index">{{item}}秒</view>
-			</picker-view-column>
-		</picker-view> -->
 	</view>
 </template>
 
@@ -112,9 +91,7 @@
 					minutes:[],
 					seconds:[]
 				},
-				checkObj:{},
-				year:'',
-				month:''
+				checkObj:{}
 			};
 		},
 		props:{
@@ -149,11 +126,9 @@
 		},
 		watch:{
 			fields(val){
-			
 				this.initData();
 			},
 			value(val){
-				
 				this.initData();
 			}
 		},
@@ -217,14 +192,7 @@
 				for(let month=1;month<=monthsLen;month++){
 					months.push(this.formatNum(month));
 				};
-				// console.log(months)
-				
-				let startDay=1;
-				if(month==curMonth&&year==curYear){
-					startDay=curDay;
-				}
-				
-				for(let day=startDay;day<=daysLen;day++){
+				for(let day=1;day<=daysLen;day++){
 					days.push(this.formatNum(day));
 				}
 				for(let hour=0;hour<hoursLen;hour++){
@@ -242,6 +210,13 @@
 					hours,
 					minutes,
 					seconds
+				}
+			},
+			isLeapYear (Year) {
+				if (((Year % 4)==0) && ((Year % 100)!=0) || ((Year % 400)==0)) {
+					return true;
+				} else { 
+					return false; 
 				}
 			},
 			getData(dVal){
@@ -413,7 +388,6 @@
 				let defaultDate=this.getDefaultDate();
 				let defaultYear=defaultDate.defaultYear;
 				let defaultMonth=defaultDate.defaultMonth;
-			
 				let defaultDay=defaultDate.defaultDay;
 				let defaultDays=defaultDate.defaultDays;
 				let curFlag=this.current;
@@ -439,13 +413,8 @@
 				endDay=endDate.getDate();
 				dateData=this.getData(dVal);
 				years=dateData.years;
-				// console.log(years)
 				months=dateData.months;
-				if(dVal[0]==curYear){		months.splice(0,curMonth-1);}
-	
 				days=dateData.days;
-								if(dVal[0]==curYear&&dVal[1]==curMonth){days.splice(0,curDay-1)}
-	
 				hours=dateData.hours;
 				minutes=dateData.minutes;
 				seconds=dateData.seconds;
@@ -499,23 +468,16 @@
 							dVal[1]&&months.indexOf(dVal[1])!=-1?months.indexOf(dVal[1]):0,
 							dVal[2]&&days.indexOf(dVal[2])!=-1?days.indexOf(dVal[2]):0
 						]);
-						// console.log(curFlag)
 						range={years,months,days};
-							
 						year=dVal[0]?dVal[0]:years[0];
-						// console.log(pickVal)
 						month=dVal[1]?dVal[1]:months[0];
-						
-					
 						day=dVal[2]?dVal[2]:days[0];
 						result=full=`${year+'-'+month+'-'+day}`;
-						// console.log(result)
 						obj={
 							year,
 							month,
 							day
 						}
-						
 						break;
 					case "hour":
 						pickVal=disabledAfter?[
@@ -610,7 +572,6 @@
 						range={years,months,days,hours,minutes,seconds};
 						year=dVal[0]?dVal[0]:years[0];
 						month=dVal[1]?dVal[1]:months[0];
-						
 						day=dVal[2]?dVal[2]:days[0];
 						hour=dVal[3]?dVal[3]:hours[0];
 						minute=dVal[4]?dVal[4]:minutes[0];
@@ -630,7 +591,6 @@
 						break;
 				}
 				this.range=range;
-			
 				this.checkObj=obj;
 				this.$emit("change",{
 					result:result,
@@ -648,30 +608,15 @@
 				let result="",full="",obj={};
 				let months=null,days=null,hours=null,minutes=null,seconds=null;
 				let disabledAfter=this.disabledAfter;
+				let leapYear=false,resetData={};
 				year=(arr[0]||arr[0]==0)?data.years[arr[0]]||data.years[data.years.length-1]:"";
-			// 	month=(arr[1]||arr[1]==0)?data.months[arr[1]]||data.months[data.months.length-1]:"";
-			
-				// day=(arr[2]||arr[2]==0)?data.days[arr[2]]||data.days[data.days.length-1]:"";
-			let newMonth=this.resetData(year,month,day,hour,minute).months;
-			let currentYear=new Date().getFullYear();
-			let currentMonth=new Date().getMonth()+1;
-			let currentDay=new Date().getDay();
-			
-			if(year!=currentYear){
-				month=newMonth[arr[1]];
-				}else{
-					newMonth.splice(0,7);
-					month=newMonth[arr[1]];		
-			}
-				let newDay=data.days;
-			days=this.resetData(year,month,day,hour,minute).days;
-				day= days[arr[2]];
-			
-
+				month=(arr[1]||arr[1]==0)?data.months[arr[1]]||data.months[data.months.length-1]:"";
+				day=(arr[2]||arr[2]==0)?data.days[arr[2]]||data.days[data.days.length-1]:"";
 				hour=(arr[3]||arr[3]==0)?data.hours[arr[3]]||data.hours[data.hours.length-1]:"";
 				minute=(arr[4]||arr[4]==0)?data.minutes[arr[4]]||data.minutes[data.minutes.length-1]:"";
 				second=(arr[5]||arr[5]==0)?data.seconds[arr[5]]||data.seconds[data.seconds.length-1]:"";
-			
+				resetData=this.resetData(year,month,day,hour,minute);//重新拉取当前日期数据;
+				leapYear=this.isLeapYear(year);//判断是否为闰年;
 				switch(this.fields){
 					case "year":
 						result=full=`${year}`;
@@ -681,7 +626,7 @@
 						break;
 					case "month":
 						result=full=`${year+'-'+month}`;
-						if(this.disabledAfter)months=this.resetData(year,month,day,hour,minute).months;
+						if(this.disabledAfter)months=resetData.months;
 						if(months)this.range.months=months;
 						obj={
 							year,
@@ -689,47 +634,33 @@
 						}
 						break;
 					case "day":
-					
 						result=full=`${year+'-'+month+'-'+day}`;
-						
 						if(this.disabledAfter){
-							months=this.resetData(year,month,day,hour,minute).months;
-						
-							days=this.resetData(year,month,day,hour,minute).days;
+							months=resetData.months;
+							days=resetData.days;
 						}else{
-							if(year%4==0||(month!=this.checkObj.month)){
-								days=this.resetData(year,month,day,hour,minute).days;
+							if(leapYear||(month!=this.checkObj.month)||month==2){
+								days=resetData.days;
 							}
 						}
-					let newMonth=this.resetData(year,month,day,hour,minute).months;
-						if(year!=currentYear){
-							this.range.months=newMonth}else{
-							newMonth.splice(0,7);
-							this.range.months=newMonth
-							this.range.days=days
-						}
-						
 						if(months)this.range.months=months;
-							
 						if(days)this.range.days=days;
-							
 						obj={
 							year,
 							month,
 							day
 						}
-						
 						break;
 					case "hour":
 						result=`${year+'-'+month+'-'+day+' '+hour}`;
 						full=`${year+'-'+month+'-'+day+' '+hour+':00:00'}`;
 						if(this.disabledAfter){
-							months=this.resetData(year,month,day,hour,minute).months;
-							days=this.resetData(year,month,day,hour,minute).days;
-							hours=this.resetData(year,month,day,hour,minute).hours;
+							months=resetData.months;
+							days=resetData.days;
+							hours=resetData.hours;
 						}else{
-							if(year%4==0||(month!=this.checkObj.month)){
-								days=this.resetData(year,month,day,hour,minute).days;
+							if(leapYear||(month!=this.checkObj.month)||month==2){
+								days=resetData.days;
 							}
 						}
 						if(months)this.range.months=months;
@@ -746,13 +677,13 @@
 						full=`${year+'-'+month+'-'+day+' '+hour+':'+minute+':00'}`;
 						result=`${year+'-'+month+'-'+day+' '+hour+':'+minute}`;
 						if(this.disabledAfter){
-							months=this.resetData(year,month,day,hour,minute).months;
-							days=this.resetData(year,month,day,hour,minute).days;
-							hours=this.resetData(year,month,day,hour,minute).hours;
-							minutes=this.resetData(year,month,day,hour,minute).minutes;
+							months=resetData.months;
+							days=resetData.days;
+							hours=resetData.hours;
+							minutes=resetData.minutes;
 						}else{
-							if(year%4==0||(month!=this.checkObj.month)){
-								days=this.resetData(year,month,day,hour,minute).days;
+							if(leapYear||(month!=this.checkObj.month)||month==2){
+								days=resetData.days;
 							}
 						}
 						if(months)this.range.months=months;
@@ -769,16 +700,15 @@
 						break;
 					case "second":
 						result=full=`${year+'-'+month+'-'+day+' '+hour+':'+minute+':'+second}`;
-						this.resetData(year,month,day,hour,minute)
 						if(this.disabledAfter){
-							months=this.resetData(year,month,day,hour,minute).months;
-							days=this.resetData(year,month,day,hour,minute).days;
-							hours=this.resetData(year,month,day,hour,minute).hours;
-							minutes=this.resetData(year,month,day,hour,minute).minutes;
-							//seconds=this.resetData(year,month,day,hour,minute).seconds;
+							months=resetData.months;
+							days=resetData.days;
+							hours=resetData.hours;
+							minutes=resetData.minutes;
+							//seconds=resetData.seconds;
 						}else{
-							if(year%4==0||(month!=this.checkObj.month)){
-								days=this.resetData(year,month,day,hour,minute).days;
+							if(leapYear||(month!=this.checkObj.month)||month==2){
+								days=resetData.days;
 							}
 						}
 						if(months)this.range.months=months;
@@ -796,7 +726,6 @@
 						}
 						break;
 				}
-				// this.initData();
 				this.checkObj=obj;
 				this.$emit("change",{
 					result:result,

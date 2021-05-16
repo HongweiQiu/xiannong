@@ -4,20 +4,31 @@
 			style="height:452rpx;width:100%;margin-top:-158rpx;"></image>
 		<view class="author">
 			<view class="flex-column flex-space-between img">
-				<view class="align_center" v-if="userInfo.token">
-					<image :src='userInfo.avatar' class="avator"></image>
-					<text>{{userInfo.company}}</text>
+				<view class="flex_left_right" v-if="userInfo.token" @click="updateAvatar">
+					<view class="align_center ">
+						<image :src='userInfo.avatar' class="avator" v-if="userInfo.avatar"></image>
+						<image src="../../static/img/avatar.png" class="avator" v-else></image>
+						<view>
+							<view>{{userInfo.company}}</view>
+							<view class="user-level">
+								<text>{{personInfo.level}}</text>
+							</view>
+						</view>
+
+					</view>
+					<text class="iconfont iconfanhui t-180 white-font"></text>
+
 				</view>
-				
+
 				<view class="align_center" v-else @click="$needLogin">
-					<text class="iconfont iconwode11 un-login"></text>
+					<image src="../../static/img/avatar.png" class="avator"></image>
 					<text>登录/注册</text>
 				</view>
 				<navigator url="../user/remainder">
 					<view class="flex_left_right remain-money">
 						<text>我的余额</text>
 						<view class="">
-							<text>0.00</text>
+							<text>{{personInfo.money}}</text>
 							<text class="iconfont iconfanhui t-180 white-font"></text>
 						</view>
 					</view>
@@ -31,7 +42,7 @@
 				<text class="iconfont iconfanhui t-180 gray_font"></text>
 			</view>
 			<view class="order-statu flex_left_right">
-				<view v-for="(item,index) in orderStatu" @click="orderPage(item)">
+				<view v-for="(item,index) in orderStatu" @click="orderPage(item)" :key="index">
 					<view class="center">
 						<image :src="'../../static/img/'+item.path+'.png'" mode="aspectFit"
 							:class="index==1?'scale':''"></image>
@@ -53,7 +64,6 @@
 				</view>
 			</view>
 		</view>
-		<!-- <my-tabar tabarIndex=3></my-tabar> -->
 	</view>
 </template>
 
@@ -113,46 +123,15 @@
 					path: 'after_sales',
 					name: '售后/退款'
 				}, ],
-
-				token: uni.getStorageSync('userInfo').token,
+				personInfo: '',
 				imgRemote: imgRemote,
 			};
 		},
 		methods: {
-			memberInfo() {
-
-				var that = this;
-				var timeStamp = Math.round(new Date().getTime() / 1000);
-				var obj = {
-					appid: appid,
-					timeStamp: timeStamp,
-				}
-				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				var data = {
-					appid: appid,
-					timeStamp: timeStamp,
-					sign: sign,
-				}
-				rs.getRequests("memberInfo", data, (res) => {
-					// console.log(res)
-					if (res.data.code == 200) {
-						this.memberInfoData = res.data.data.info;
-						this.member_default = res.data.data.member_default;
-					}
-				});
-
-			},
-			myinfoPage() {
-
-				if (!this.token) {
-					uni.navigateTo({
-						url: '/pages/account/login'
-					})
-				} else {
-					uni.navigateTo({
-						url: "/pages/user/myinfo"
-					})
-				}
+			updateAvatar() {
+				uni.navigateTo({
+					url: '../user/updateavatar'
+				})
 
 			},
 			pageUrl(item) {
@@ -162,32 +141,6 @@
 						url: `/pages/${path}/${item.url}`
 					});
 				})
-			},
-			threePage(data) {
-
-				if (this.token) {
-					switch (data) {
-						case 'recomend':
-							uni.navigateTo({
-								url: '/pages/index/recommed'
-							});
-							break;
-						case 'address':
-							uni.navigateTo({
-								url: '/pages/user/userAddress'
-							});
-							break;
-						case 'password':
-							uni.navigateTo({
-								url: '/pages/user/modifypwd'
-							});
-							break;
-					}
-				} else {
-					uni.reLaunch({
-						url: '/pages/account/login'
-					});
-				}
 			},
 			orderPage(data) {
 				if (data.path == 'after_sales') {
@@ -201,16 +154,24 @@
 				}
 
 			},
+			memberInfo() {
+				let params = {
+					token: uni.getStorageSync('userToken')
+				}
+				this.$get(this.$api.userInfo, params, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						this.personInfo = data.data;
+					}
+				})
+			}
 		},
-		onLoad() {
 
-		},
-		/**
-		 * 生命周期函数--监听页面显示
-		 */
 		onShow: function() {
 			var that = this;
-			// that.memberInfo();
+			that.memberInfo();
 		},
 
 	};
@@ -231,6 +192,14 @@
 	}
 
 	.user .author {
+		.user-level text {
+			background: linear-gradient(to right, #FF7D24, #FFB92C);
+			color: white;
+			border-radius: 6rpx;
+			padding: 0rpx 15rpx 2rpx;
+			font-size: 22rpx;
+		}
+
 		position: absolute;
 		top: 0;
 		height: 300rpx;

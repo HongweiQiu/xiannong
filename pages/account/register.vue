@@ -42,7 +42,7 @@
 			<view class="align_center flex-j-c">
 				<text class="iconfont fs-18" :class="check?'icondanxuanfuxuan':'iconico2'" @click="check=!check"></text>
 				<text>点击注册代表你同意</text>
-				<text @click="pageUrl('treaty')" class="protocol">《注册协议》</text>
+				<text @click="pageUrl('treaty')" class="protocol">《鲜农同城配送注册协议》</text>
 			</view>
 
 		</view>
@@ -100,7 +100,6 @@
 			},
 			formSubmit(e) {
 				let that = this;
-
 				let {
 					company,
 					password,
@@ -133,15 +132,15 @@
 
 				that.$get(that.$api.userRegister, that.form, (res) => {
 					if (res.data.code == 1) {
-						this.$Toast('登录成功，将跳转到我的页面');
-						uni.setStorageSync('userInfo', data.data.userinfo);
-						uni.setStorageSync('userToken', data.data.userinfo.token);
+						this.$Toast('注册成功，将跳转到登录页面');
 						setTimeout(() => {
-							uni.switchTab({
-								url: '../tabar/user'
+							
+							uni.navigateTo({
+								url: './login'
 							})
-						}, 1500)
+						}, 1000)
 					} else {
+						
 						that.$Toast(res.data.msg);
 					}
 				})

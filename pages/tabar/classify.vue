@@ -75,16 +75,31 @@
 			};
 		},
 		methods: {
+
+			//查找索引
+			findIndex(obj, dest) {
+				for (let i in obj) {
+					if (obj[i].id == dest) {
+						return i
+					}
+				}
+			},
 			//一级分类
 			goodCate() {
-
+				let {
+					classId
+				} = getApp().globalData;
 				this.$get(this.$api.goodCate, {}, (res) => {
 					let {
 						data
 					} = res;
+
 					if (data.code == 1) {
+						//返回索引
+						let index = this.findIndex(data.data, classId)
+						this.kind = index?index:0;
 						this.firstCate = data.data;
-						this.cateId = data.data[0].id;
+						this.cateId = classId ? classId : data.data[0].id;
 						this.goodSecondCate();
 						this.getGood();
 					}
@@ -129,35 +144,6 @@
 
 				}, true)
 			},
-			toParent(e) {
-				let item = e.arrObj;
-				let timeStamp = Math.round(new Date().getTime() / 1000);
-				let obj = {
-					appid: appid,
-					timeStamp: timeStamp,
-					item_id: item.id,
-					attr_id: 0,
-					item_num: e.val
-				};
-
-				let params = Object.assign({
-						sign: sign
-					},
-					obj
-				);
-				rs.postRequests('changeNum', params, res => {
-					let data = res.data;
-					if (data.code == 200) {
-						rs.Toast('加入购物车成功');
-						this.list[this.index].cart_num = e.val;
-					} else if (data.code == 407 || data.code == 406) {
-						rs.Toast("购买数量不能超过活动数量")
-					} else {
-						rs.Toast(res.data.msg)
-					}
-				});
-				this.$refs.popup.close();
-			},
 			// 切换一级分类
 			changeFirst(index) {
 				this.page = 1;
@@ -176,30 +162,19 @@
 				this.cateId = this.secondCate[index].id;
 				this.getGood();
 			},
-			openCart(item) {
-				this.cartware = item;
-				this.$refs.cart.open();
-			},
-			onClose() {
-				this.$refs.cart.close();
-			},
-			// 显示键盘
-			showKey(item, index) {
-				this.arrObj = item;
-				this.index = index;
-				this.$refs.popup.open();
+		},
+		onShow() {
+			if (app.isReload) {
+				this.list=[];
+				this.goodCate();
 			}
 		},
-		onShow() {},
-
+         onHide() {
+         	getApp().globalData.isReload=false;
+         },
 		onReachBottom() {
 			this.page++;
 			this.getGood();
-		},
-		onLoad(e) {
-			app.isReload = true;
-			this.goodCate();
-
 		}
 	};
 </script>
@@ -220,7 +195,6 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: #F8F8F8;
 
 	}
 
@@ -244,7 +218,7 @@
 		width: 21.5%;
 		position: fixed;
 		overflow-x: scroll;
-		background: #f7f7f7;
+		background: #eee;
 		height: 100vh;
 	}
 
@@ -279,7 +253,7 @@
 
 	.classify .is_active .left_border {
 		background: #57B127;
-		width: 4rpx;
+		width: 8rpx;
 		height: 100rpx;
 		position: absolute;
 		left: 0;

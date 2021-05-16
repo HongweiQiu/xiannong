@@ -46,6 +46,8 @@
       "pages": [
         "modifypwd",
         "myinfo",
+        "updateavatar",
+        "receipt",
         "newProductDemand",
         "feedback",
         "remainder"

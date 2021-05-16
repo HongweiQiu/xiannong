@@ -43,7 +43,6 @@ page.data-v-c63a8bb4 {
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;
-  background: #F8F8F8;
 }
 .classify .first_name.data-v-c63a8bb4 {
   position: fixed;
@@ -68,7 +67,7 @@ page.data-v-c63a8bb4 {
   width: 21.5%;
   position: fixed;
   overflow-x: scroll;
-  background: #f7f7f7;
+  background: #eee;
   height: 100vh;
 }
 .classify .left_area.data-v-c63a8bb4::-webkit-scrollbar {
@@ -98,7 +97,7 @@ page.data-v-c63a8bb4 {
 }
 .classify .is_active .left_border.data-v-c63a8bb4 {
   background: #57B127;
-  width: 4rpx;
+  width: 8rpx;
   height: 100rpx;
   position: absolute;
   left: 0;

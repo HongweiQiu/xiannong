@@ -34,6 +34,12 @@ function get(url, datas, success, loading = false) {
 		data: datas,
 		success: res => {
 			success(res)
+				// if(res.data.code==401){
+					
+				// 	uni.reLaunch({
+				// 		url:'/pages/account/login'
+				// 	})
+				// }
 			// if (res.header.token != undefined) {
 			// 	uni.setStorageSync("cdj_token", res.header.authorization)
 			// }
@@ -79,6 +85,13 @@ function post(url, datas, success, loading = false) {
 		data: datas,
 		success: res => {
 			success(res)
+			console.log(res)
+			// if(res.data.code==401){
+				
+			// 	uni.reLaunch({
+			// 		url:'/pages/account/login'
+			// 	})
+			// }
 			// if (res.header.authorization != undefined) {
 			// 	uni.setStorageSync("cdj_token", res.header.authorization)
 			// }
@@ -103,7 +116,7 @@ function needLogin(success) {
 		success()
 	} else {
 		uni.showModal({
-			title: '提示',
+			title: '温馨提醒',
 			content: '是否登录',
 			cancelColor: '#999',
 			confirmColor: "#59B727",
@@ -125,6 +138,8 @@ function Toast(message) {
 		duration: 2000
 	})
 }
+
+
 export {
 	get,
 	post,

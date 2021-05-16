@@ -19,9 +19,8 @@
 		<view style="height:110rpx;"></view>
 		<view class="search_result">
 			<view class="recomend" style="margin-top:20rpx;">
-
 				<view class="body">
-					<my-recomend v-for="(item, index) in list" :key="index" :ware="item" :config="config"
+					<my-recomend v-for="(item, index) in recommendList" :key="index" :ware="item" :config="config"
 						@showCart="openCart(item)" class="myc_recomend"></my-recomend>
 				</view>
 			</view>
@@ -32,193 +31,45 @@
 					<view class="fs-13 bold">小计：￥79.00</view>
 					<view class="fs-11 gray_font">再买￥10.00 即可享受免运费</view>
 				</view>
-				<view class="go-car pay-button fs-15">去购物车</view>
+				<navigator open-type="switchTab" url="../tabar/shopcart">
+					<view class="go-car pay-button fs-15">去购物车</view>
+				</navigator>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	import md5 from '../../static/js/md5.js';
-	import rs from '../../static/js/request.js';
-	let {
-		log
-	} = console;
 	const app = getApp().globalData;
 	const {
-		appid,
-		appsecret,
 		imgRemote
 	} = app;
-	// #ifdef H5
-	var wx = require('jweixin-module');
-	// #endif
-
 	export default {
 		data() {
 			return {
 				sortIndex: 1,
-				keyList: [],
-				list: [],
-				keyword: '菜',
-				showSearch: true,
-				startSpeech: true,
-				config: [],
+				recommendList: [],
 				bitmap: false,
-				arrObj: {},
-				index: '',
-				cartware: {}
 			}
 		},
 		methods: {
-			toParent(e) {
-				let item = e.arrObj;
-				let timeStamp = Math.round(new Date().getTime() / 1000);
-				let obj = {
-					appid: appid,
-					timeStamp: timeStamp,
-					item_id: item.id,
-					attr_id: 0,
-					item_num: e.val
-				};
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-						sign: sign
-					},
-					obj
-				);
-				rs.postRequests('changeNum', params, res => {
+			getGood() {
+				let {
+					num,
+					page
+				} = this;
+				this.$get(this.$api.mainRecommend, {}, res => {
 					let data = res.data;
-					if (data.code == 200) {
-						rs.Toast('加入购物车成功')
-						this.list[this.index].cart_num = e.val;
-					} else if (data.code == 407 || data.code == 406) {
-						rs.Toast("购买数量不能超过活动数量")
-					} else {
-						rs.Toast(res.data.msg)
-					}
-				});
-				this.$refs.popup.close();
-			},
-			openCart(item) {
-				this.cartware = item;
-				this.$refs.cart.open();
-			},
-			onClose() {
-				this.$refs.cart.close();
-			},
-			// 显示键盘
-			showKey(item, index) {
-				this.arrObj = item;
-				this.index = index;
-				this.$refs.popup.open();
-			},
-			// 热门搜索
-			getSearchData() {
-				let timeStamp = Math.round(new Date().getTime() / 1000);
-				let obj = {
-					appid: appid,
-					timeStamp: timeStamp
-				};
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-						sign: sign
-					},
-					obj
-				);
-				rs.getRequests('getSearchData', params, res => {
-					let data = res.data;
-					if (data.code == 200) {
-						this.keyList = data.data;
-					} else {
-						rs.Toast(data.msg);
-					}
-				});
-			},
-			submit() {
-				this.searchList(this.keyword);
-			},
-			focus() {
-				this.keyword = '',
-					this.showSearch = true;
-			},
-			// 搜索列表
-			searchList(key) {
-				this.list = [];
-				let timeStamp = Math.round(new Date().getTime() / 1000);
-				let obj = {
-					appid: appid,
-					timeStamp: timeStamp,
-					keyword: key
-				};
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-						sign: sign
-					},
-					obj
-				);
-				rs.getRequests('getSearchItem', params, res => {
-					let data = res.data;
-					if (data.code == 200) {
-						this.keyword = key;
-						this.showSearch = false;
-						if (data.data.length != 0) {
-							this.list = data.data.list;
-							this.config = data.data;
-							this.bitmap = false;
-						} else {
-							this.bitmap = true;
-						}
-					} else {
-						rs.Toast(data.msg)
-					}
-				});
-			},
+					if (data.code == 1) {
+						this.recommendList = data.data;
 
-			wxConfig() {
-				var timeStamp = Math.round(new Date().getTime() / 1000);
-				let obj = {
-					appid: appid,
-					timeStamp: timeStamp
-				};
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-					sign: sign
-				}, obj)
-				rs.getRequests("wxConfig", params, (response) => {
-
-					if (response.data.code == 200) {
-						// console.log(response.data)
-						wx.config({
-							debug: false, // 开启调试模式
-							appId: response.data.data.appId, // 必填，公众号的唯一标识
-							timestamp: response.data.data.timestamp, // 必填，生成签名的时间戳
-							nonceStr: response.data.data.nonceStr, // 必填，生成签名的随机串
-							signature: response.data.data.signature, // 必填，签名，见附录1
-							jsApiList: [
-								'checkJsApi',
-								'startRecord',
-								'stopRecord',
-								'translateVoice',
-								'downloadVoice',
-								'uploadVoice',
-								'getLocation'
-							] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-						});
 					}
 				});
 			}
-		},
-		onHide() {
-			uni.setStorageSync('search', this.list);
 		},
 		onShow() {
+			this.getGood();
 
-
-			this.getSearchData();
-			if (this.keyword) {
-				this.list = uni.getStorageSync('search');
-			}
 		}
 	}
 </script>
@@ -234,6 +85,10 @@
 
 	.search_list .search_result .my_profile {
 		margin-bottom: 10rpx;
+	}
+
+	.m-color {
+		color: #57B127;
 	}
 
 	.sort {
@@ -252,7 +107,8 @@
 		.total {
 			height: 98rpx;
 		}
-		.go-car{
+
+		.go-car {
 			background: #57B127;
 			color: white;
 		}

@@ -67,7 +67,6 @@
   background-color: #fff;
 }
 .w-picker .w-picker-cnt.visible {
-  border-radius: 15rpx;
   -webkit-transform: translateY(0);
           transform: translateY(0);
 }
@@ -84,7 +83,6 @@
   position: relative;
   text-align: center;
   font-size: 32rpx;
-  border-radius: 15rpx;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
           justify-content: space-between;

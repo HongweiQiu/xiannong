@@ -93,6 +93,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components
+try {
+  components = {
+    wPicker: function() {
+      return __webpack_require__.e(/*! import() | components/w-picker/w-picker */ "components/w-picker/w-picker").then(__webpack_require__.bind(null, /*! @/components/w-picker/w-picker.vue */ 341))
+    }
+  }
+} catch (e) {
+  if (
+    e.message.indexOf("Cannot find module") !== -1 &&
+    e.message.indexOf(".vue") !== -1
+  ) {
+    console.error(e.message)
+    console.error("1. 排查组件名称拼写是否正确")
+    console.error(
+      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
+    )
+    console.error(
+      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
+    )
+  } else {
+    throw e
+  }
+}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -130,7 +153,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 341));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -164,150 +187,110 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+{
+  components: {
+    wPicker: wPicker },
+
+  data: function data() {
+    return {
+      visible: false,
+      form: {
+        shou_name: '',
+        province: '',
+        city: '',
+        area: '',
+        shou_phone: '',
+        address: '' },
+
+      receiving: '',
+      defaultProps1: {
+        label: "name",
+        value: "id",
+        children: "child" },
+
+      defaultRegion1: [],
+      option: [] };
 
 
-
-
-var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 40));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { address: '', contact: '', details: '', mobile: '', childzid: '', navBar: navBar, lat: '', lng: '', count: 0 };}, methods: { leftClick: function leftClick() {uni.hideKeyboard();setTimeout(function () {uni.switchTab({ url: '../tabar/shopcart' });}, 100);}, mapPage: function mapPage() {var that = this;
-
-
-
-
-
-
-
-      uni.chooseLocation({
-        success: function success(res) {
-          // console.log('位置名称：' + res.name);
-          that.address = res.address;
-          that.lat = res.latitude;
-          that.lng = res.longitude;
-        } });
-
+  },
+  methods: {
+    mapPage: function mapPage() {
+      this.visible = true;
     },
     memberAddressInfo: function memberAddressInfo() {var _this = this;
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        timeStamp: timeStamp };
+      var params = {
+        token: uni.getStorageSync('userToken') };
+
+      this.$get(this.$api.userInfo, params, function (res) {var
+
+        data =
+        res.data;
+        if (data.code == 1) {
+          _this.form = {
+            shou_name: data.data.shou_name,
+            province: data.data.province,
+            city: data.data.city,
+            area: data.data.area,
+            shou_phone: data.data.shou_phone,
+            address: data.data.address };
 
 
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-      var params = Object.assign({
-        select_zid: this.childzid,
-        sign: sign },
-      obj);
-      _request.default.getRequests("memberAddressInfo", params, function (res) {
-        // console.log(res)
-        if (res.data.code == 200) {
-          var data = res.data.data;
-          _this.contact = data.contact;
-          _this.mobile = data.phone;
-          _this.address = data.address;
-          _this.details = data.details;
+          _this.receiving = data.data.province + data.data.city + data.data.area;
         }
       });
     },
     submit: function submit() {var _this2 = this;
-      var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
-      if (!this.contact) {
-        _request.default.Toast('联系人不能为空');
-        return;
-      }
-      if (!this.mobile) {
-        _request.default.Toast('手机号不能为空');
-        return;
-      }
-      if (!reg.test(this.contact)) {
-        _request.default.Toast('输入的信息不能含有特殊字符和空格');
-        return;
-      }
-      this.count++;
-      if (this.count != 1) return;
-      setTimeout(function () {
-        _this2.count = 0;
-      }, 500);
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        timeStamp: timeStamp,
-        contact: this.contact,
-        mobile: this.mobile,
-        address: this.address };
-
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
       var params = Object.assign({
-        sign: sign,
-        details: this.details,
-        latitude: this.lat,
-        longitude: this.lng },
-      obj);
-      _request.default.postRequests("updateAddress", params, function (res) {
-        if (res.data.code == 200) {
-          _request.default.Toast('保存成功');
+        token: uni.getStorageSync('userToken') },
+      this.form);
+
+
+      this.$get(this.$api.ordershipping_address, params, function (res) {var
+
+        data =
+        res.data;
+        if (data.code == 1) {
+          _this2.$Toast('保存成功');
           setTimeout(function () {
-            _this2.leftClick();
+            uni.navigateBack();
           }, 1000);
-
         } else {
-          _request.default.Toast(res.data.msg);
+          _this2.$Toast(data.msg);
         }
-
       });
+    },
+    getAddress: function getAddress() {var _this3 = this;
+      this.$get(this.$api.mainRegion, {}, function (res) {var
+
+        data =
+        res.data;
+        if (data.code == 1) {
+          data.data.map(function (item) {
+            if (item.child.length == 0) {
+              item.child = [{
+                id: '',
+                name: '',
+                child: [{
+                  id: '',
+                  name: '' }] }];
+
+            }
+          });
+          console.log(data.data);
+          _this3.option = data.data;
+        }
+      });
+    },
+    confirmAddrss: function confirmAddrss(e) {
+      this.receiving = e.result;
+      this.form.province = e.obj.col1.name;
+      this.form.city = e.obj.col2.name;
+      this.form.area = e.obj.col3.name;
     } },
 
   onLoad: function onLoad(option) {
-    this.childzid = option.childzid;
-
-    this.contact = option.contact == 'null' ? '' : option.contact;
-    this.mobile = option.mobile == 'null' ? '' : option.mobile;
-    this.address = option.address == 'null' ? '' : option.address;
-    this.details = option.details == 'null' ? '' : option.details;
-    var count = option.count || 1;
-    // console.log(option.count)
-    if (count == 1) {
-      this.memberAddressInfo();
-    }
-  },
-  onShow: function onShow() {
+    this.memberAddressInfo();
+    this.getAddress();
 
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

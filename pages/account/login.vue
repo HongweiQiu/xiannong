@@ -35,10 +35,10 @@
 							<!-- <image class="weixin_img" src="../../static/img/wechat.png" mode=""></image> -->
 						</button>
 					</view>
-					<view class="read_treaty">
+					<!-- <view class="read_treaty">
 						<text style="color: #000;" @click="pageUrl('treaty')">已阅读并同意</text>
 						<text @click="pageUrl('treaty')">注册协议</text>
-					</view>
+					</view> -->
 				</view>
 			</view>
 		</view>
@@ -83,6 +83,7 @@
 					let data = res.data;
 					if (data.code == 1) {
 						this.$Toast('登录成功，将跳转到首页');
+							getApp().globalData.isReload=true;
 					uni.setStorageSync('userInfo', data.data.userinfo);
 					uni.setStorageSync('userToken', data.data.userinfo.token);
 						setTimeout(() => {

@@ -98,109 +98,11 @@
 		methods: {
 			//导航页面
 			navUrl(e) {
-				let {
-					id,
-					cate_id,
-					status
-				} = e;
-				if (status == 0) {
-					rs.Toast("该栏目已下架");
-					return;
-				}
-				switch (id) {
-					case 1:
-						if (this.token) {
-							uni.navigateTo({
-								url: '/pages/index/collect'
-							});
-						} else {
-							uni.navigateTo({
-								url: '/pages/account/login'
-							});
-						}
-						break;
-					case 2:
-						if (this.token) {
-							uni.navigateTo({
-								url: '/pages/index/newback'
-							});
-						} else {
-							uni.navigateTo({
-								url: '/pages/account/login'
-							});
-						}
-
-						break;
-					case 3:
-						if (this.token) {
-							uni.navigateTo({
-								url: '/pages/index/recommed'
-							});
-						} else {
-							uni.navigateTo({
-								url: '/pages/account/login'
-							});
-						}
-
-						break;
-					case 4:
-						uni.makePhoneCall({
-							phoneNumber: this.adList.phone
-						});
-						break;
-					case 5:
-						uni.switchTab({
-							url: '/pages/tabar/classify'
-						});
-						break;
-					case 6:
-						if (this.token) {
-							uni.switchTab({
-								url: '/pages/tabar/shopcart'
-							});
-						} else {
-							uni.navigateTo({
-								url: '/pages/account/login'
-							});
-						}
-
-						break;
-					case 7:
-						if (this.token) {
-							uni.switchTab({
-								url: '/pages/tabar/order'
-							});
-						} else {
-							uni.navigateTo({
-								url: '/pages/account/login'
-							});
-						}
-
-						break;
-					case 8:
-						uni.switchTab({
-							url: '/pages/tabar/user'
-						});
-						break;
-					default:
-						getApp().globalData.classId = cate_id;
-						wx.switchTab({
-							url: '/pages/tabar/classify'
-						});
-						break;
-				}
-			},
-			newPage(url, id) {
-				if (id) {
-					uni.navigateTo({
-						url: `/pages/index/${url}?id=${id}`
-					});
-				} else {
-					uni.navigateTo({
-						url: `/pages/index/${url}`
-					});
-				}
-
+				getApp().globalData.classId=e.id;
+				getApp().globalData.isReload=true;
+				uni.switchTab({
+					url:'./classify'
+				})
 			},
 			indexMainAd() {
 				this.$get(this.$api.mainAd, {}, (res) => {

@@ -4,12 +4,13 @@
 			<view class="good-img r-5">
 				<image class="r-5" :src="imgRemote+ware.main_image" mode="widthFix"></image>
 			</view>
-			<view class="<flex-full></flex-full>">
+			<view class="flex-full">
 				<view class="right close-icon" @click="close">
 					<text class="iconfont iconguanbi2 fs-18"></text>
 				</view>
-				<view class="" style="margin-top: 44rpx;">
-					<view class="red-font">
+				<view class="" style="width: 90%;">
+					<view class="bold fs-18 two-line">{{ware.name}}</view>
+					<view class="red-font" style="margin:20rpx 0;">
 						<text class="fs-11">￥</text>
 						<text class="fs-23">{{ware.sku[kind].market_price}}</text>
 					</view>
@@ -32,7 +33,7 @@
 			<text class="bold">数量</text>
 			<my-stepper :val="num" @plus="plus" @minus="minus" @input="input"></my-stepper>
 		</view>
-		<view class="attr-cart">
+		<view class="attr-cart" @click="addCart">
 			加入购物车
 		</view>
 	</view>
@@ -58,8 +59,13 @@
 				this.num++;
 				console.log(val)
 			},
-			input(e){
-				this.num=e;
+			input(e) {
+				if (e.value) {
+					this.num = e.value;
+				} else {
+					this.num = parseInt(0);
+				}
+
 			},
 			minus(val) {
 
@@ -71,7 +77,28 @@
 				console.log(val)
 			},
 			close() {
+				this.kind = 0;
+				this.num = 1;
 				this.$emit('close')
+			},
+			addCart() {
+				let params = {
+					token: uni.getStorageSync('userToken'),
+					sku_id: this.ware.sku[this.kind].id,
+					goods_id: this.ware.id,
+					buy_num: this.num
+				}
+				this.$get(this.$api.cartAdd_cart, params, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						this.$Toast('加入购物车成功');
+						this.close();
+					} else {
+						this.$Toast(data.msg);
+					}
+				})
 			}
 		}
 	}
@@ -87,8 +114,8 @@
 			background: white;
 
 			image {
-				width: 280rpx;
-				height: 280rpx;
+				width: 240rpx;
+				height: 240rpx;
 				margin: 20rpx;
 				box-sizing: border-box;
 			}

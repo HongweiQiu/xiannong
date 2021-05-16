@@ -2,8 +2,8 @@
 	<view class="my_stepper addcart">
 		<text class="iconfont" @click="minus">&#xe6fc;</text>
 
-		<view @click="showkey" class="align_center">
-			<input class="input_value" type="number" v-model="value" @input="input" />
+		<view  class="align_center">
+			<input class="input_value" type="number" v-model="value" @input="input" :disabled="disabled" />
 		</view>
 		<text class="iconfont plus" @click="plus">&#xe600;</text>
 	</view>
@@ -11,7 +11,7 @@
 
 <script>
 	export default {
-		props: ['val', 'min'],
+		props: ['val', 'min','disabled','index'],
 		data() {
 			return {
 				value: this.val
@@ -33,7 +33,7 @@
 				let {
 					value
 				} = e.detail;
-				this.$emit('input', parseFloat(value));
+				this.$emit('input', {value:parseFloat(value),index:this.index});
 			},
 			showkey() {
 				this.$emit('showKey')
@@ -68,7 +68,7 @@
 	}
 
 	.plus {
-		font-size: 30rpx;
+		font-size: 48rpx;
 		font-weight: bold;
 	}
 </style>

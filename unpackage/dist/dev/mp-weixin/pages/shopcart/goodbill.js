@@ -96,7 +96,7 @@ var components
 try {
   components = {
     myRecomend: function() {
-      return __webpack_require__.e(/*! import() | components/recomend/index */ "components/recomend/index").then(__webpack_require__.bind(null, /*! @/components/recomend/index.vue */ 218))
+      return __webpack_require__.e(/*! import() | components/recomend/index */ "components/recomend/index").then(__webpack_require__.bind(null, /*! @/components/recomend/index.vue */ 234))
     }
   }
 } catch (e) {
@@ -166,49 +166,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 40));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -248,147 +206,39 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var _console = console,log = _console.log;var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default = { data: function data() {return { sortIndex: 1, keyList: [], list: [], keyword: '菜', showSearch: true, startSpeech: true, config: [], bitmap: false, arrObj: {}, index: '', cartware: {} };}, methods: { toParent: function toParent(e) {var _this = this;var item = e.arrObj;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp, item_id: item.id, attr_id: 0, item_num: e.val };
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-      var params = Object.assign({
-        sign: sign },
+//
 
-      obj);
+var app = getApp().globalData;var
 
-      _request.default.postRequests('changeNum', params, function (res) {
+imgRemote =
+app.imgRemote;var _default =
+{
+  data: function data() {
+    return {
+      sortIndex: 1,
+      recommendList: [],
+      bitmap: false };
+
+  },
+  methods: {
+    getGood: function getGood() {var _this = this;var
+
+      num =
+
+      this.num,page = this.page;
+      this.$get(this.$api.mainRecommend, {}, function (res) {
         var data = res.data;
-        if (data.code == 200) {
-          _request.default.Toast('加入购物车成功');
-          _this.list[_this.index].cart_num = e.val;
-        } else if (data.code == 407 || data.code == 406) {
-          _request.default.Toast("购买数量不能超过活动数量");
-        } else {
-          _request.default.Toast(res.data.msg);
-        }
-      });
-      this.$refs.popup.close();
-    },
-    openCart: function openCart(item) {
-      this.cartware = item;
-      this.$refs.cart.open();
-    },
-    onClose: function onClose() {
-      this.$refs.cart.close();
-    },
-    // 显示键盘
-    showKey: function showKey(item, index) {
-      this.arrObj = item;
-      this.index = index;
-      this.$refs.popup.open();
-    },
-    // 热门搜索
-    getSearchData: function getSearchData() {var _this2 = this;
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        timeStamp: timeStamp };
+        if (data.code == 1) {
+          _this.recommendList = data.data;
 
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-      var params = Object.assign({
-        sign: sign },
-
-      obj);
-
-      _request.default.getRequests('getSearchData', params, function (res) {
-        var data = res.data;
-        if (data.code == 200) {
-          _this2.keyList = data.data;
-        } else {
-          _request.default.Toast(data.msg);
-        }
-      });
-    },
-    submit: function submit() {
-      this.searchList(this.keyword);
-    },
-    focus: function focus() {
-      this.keyword = '',
-      this.showSearch = true;
-    },
-    // 搜索列表
-    searchList: function searchList(key) {var _this3 = this;
-      this.list = [];
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        timeStamp: timeStamp,
-        keyword: key };
-
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-      var params = Object.assign({
-        sign: sign },
-
-      obj);
-
-      _request.default.getRequests('getSearchItem', params, function (res) {
-        var data = res.data;
-        if (data.code == 200) {
-          _this3.keyword = key;
-          _this3.showSearch = false;
-          if (data.data.length != 0) {
-            _this3.list = data.data.list;
-            _this3.config = data.data;
-            _this3.bitmap = false;
-          } else {
-            _this3.bitmap = true;
-          }
-        } else {
-          _request.default.Toast(data.msg);
-        }
-      });
-    },
-
-    wxConfig: function wxConfig() {
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        timeStamp: timeStamp };
-
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-      var params = Object.assign({
-        sign: sign },
-      obj);
-      _request.default.getRequests("wxConfig", params, function (response) {
-
-        if (response.data.code == 200) {
-          // console.log(response.data)
-          wx.config({
-            debug: false, // 开启调试模式
-            appId: response.data.data.appId, // 必填，公众号的唯一标识
-            timestamp: response.data.data.timestamp, // 必填，生成签名的时间戳
-            nonceStr: response.data.data.nonceStr, // 必填，生成签名的随机串
-            signature: response.data.data.signature, // 必填，签名，见附录1
-            jsApiList: [
-            'checkJsApi',
-            'startRecord',
-            'stopRecord',
-            'translateVoice',
-            'downloadVoice',
-            'uploadVoice',
-            'getLocation']
-            // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-          });
         }
       });
     } },
 
-  onHide: function onHide() {
-    uni.setStorageSync('search', this.list);
-  },
   onShow: function onShow() {
+    this.getGood();
 
-
-    this.getSearchData();
-    if (this.keyword) {
-      this.list = uni.getStorageSync('search');
-    }
   } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

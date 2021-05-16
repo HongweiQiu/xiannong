@@ -6,13 +6,18 @@
 			<text class="fs-13 gray_font">恭喜下单成功，快递将以最快的速度送到你的手里， 期待你下次光临！</text>
 		</view>
 		<view class="next-page flex-column align_center">
-			<view class="look">查看订单</view>
-			<view class="back">返回首页</view>
+			<navigator url="../tabar/order"><view class="look">查看订单</view></navigator>
+			<navigator open-type="switchTab" url="../tabar/index"><view class="back">返回首页</view></navigator>
 		</view>
 	</view>
 </template>
 
 <script>
+	export default{
+		onHide(){
+				getApp().globalData.isReload=true;
+		}
+	}
 </script>
 
 <style  lang="scss">

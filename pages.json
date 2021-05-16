@@ -76,7 +76,12 @@
 					}
 				},
 				{
-					"path": "treaty"
+					"path": "treaty",
+					"style": {
+						"navigationBarTitleText": "注册协议",
+						"navigationBarBackgroundColor": "#59BC2C",
+						"navigationBarTextStyle": "white"
+					}
 				},
 				{
 					"path": "bind"
@@ -153,6 +158,22 @@
 					"path": "myinfo",
 					"style": {
 						"navigationBarTitleText": "设置",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
+				},
+				{
+					"path": "updateavatar",
+					"style": {
+						"navigationBarTitleText": "修改头像",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
+				},
+				{
+					"path": "receipt",
+					"style": {
+						"navigationBarTitleText": "发票",
 						"navigationBarBackgroundColor": "#fff",
 						"navigationBarTextStyle": "black"
 					}

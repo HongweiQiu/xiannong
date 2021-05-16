@@ -34,6 +34,9 @@
 .search_list .search_result .my_profile.data-v-1e934918 {
   margin-bottom: 10rpx;
 }
+.m-color.data-v-1e934918 {
+  color: #57B127;
+}
 .sort.data-v-1e934918 {
   padding: 30rpx 60rpx;
 }

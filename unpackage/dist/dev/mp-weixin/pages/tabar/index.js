@@ -96,19 +96,19 @@ var components
 try {
   components = {
     mySearch: function() {
-      return __webpack_require__.e(/*! import() | components/search/index */ "components/search/index").then(__webpack_require__.bind(null, /*! @/components/search/index.vue */ 211))
+      return __webpack_require__.e(/*! import() | components/search/index */ "components/search/index").then(__webpack_require__.bind(null, /*! @/components/search/index.vue */ 227))
     },
     myRecomend: function() {
-      return __webpack_require__.e(/*! import() | components/recomend/index */ "components/recomend/index").then(__webpack_require__.bind(null, /*! @/components/recomend/index.vue */ 218))
+      return __webpack_require__.e(/*! import() | components/recomend/index */ "components/recomend/index").then(__webpack_require__.bind(null, /*! @/components/recomend/index.vue */ 234))
     },
     myBacktop: function() {
-      return __webpack_require__.e(/*! import() | components/backtop/index */ "components/backtop/index").then(__webpack_require__.bind(null, /*! @/components/backtop/index.vue */ 225))
+      return __webpack_require__.e(/*! import() | components/backtop/index */ "components/backtop/index").then(__webpack_require__.bind(null, /*! @/components/backtop/index.vue */ 241))
     },
     uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 232))
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 248))
     },
     myAddcart: function() {
-      return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 241))
+      return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 257))
     }
   }
 } catch (e) {
@@ -165,7 +165,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNoticeBar = function uniNoticeBar() {__webpack_require__.e(/*! require.ensure | components/uni-notice-bar/uni-notice-bar */ "components/uni-notice-bar/uni-notice-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-notice-bar/uni-notice-bar.vue */ 248));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNoticeBar = function uniNoticeBar() {__webpack_require__.e(/*! require.ensure | components/uni-notice-bar/uni-notice-bar */ "components/uni-notice-bar/uni-notice-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-notice-bar/uni-notice-bar.vue */ 264));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 
 
@@ -264,109 +264,11 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
   },
   methods: {
     //导航页面
-    navUrl: function navUrl(e) {var
-
-      id =
-
-
-      e.id,cate_id = e.cate_id,status = e.status;
-      if (status == 0) {
-        rs.Toast("该栏目已下架");
-        return;
-      }
-      switch (id) {
-        case 1:
-          if (this.token) {
-            uni.navigateTo({
-              url: '/pages/index/collect' });
-
-          } else {
-            uni.navigateTo({
-              url: '/pages/account/login' });
-
-          }
-          break;
-        case 2:
-          if (this.token) {
-            uni.navigateTo({
-              url: '/pages/index/newback' });
-
-          } else {
-            uni.navigateTo({
-              url: '/pages/account/login' });
-
-          }
-
-          break;
-        case 3:
-          if (this.token) {
-            uni.navigateTo({
-              url: '/pages/index/recommed' });
-
-          } else {
-            uni.navigateTo({
-              url: '/pages/account/login' });
-
-          }
-
-          break;
-        case 4:
-          uni.makePhoneCall({
-            phoneNumber: this.adList.phone });
-
-          break;
-        case 5:
-          uni.switchTab({
-            url: '/pages/tabar/classify' });
-
-          break;
-        case 6:
-          if (this.token) {
-            uni.switchTab({
-              url: '/pages/tabar/shopcart' });
-
-          } else {
-            uni.navigateTo({
-              url: '/pages/account/login' });
-
-          }
-
-          break;
-        case 7:
-          if (this.token) {
-            uni.switchTab({
-              url: '/pages/tabar/order' });
-
-          } else {
-            uni.navigateTo({
-              url: '/pages/account/login' });
-
-          }
-
-          break;
-        case 8:
-          uni.switchTab({
-            url: '/pages/tabar/user' });
-
-          break;
-        default:
-          getApp().globalData.classId = cate_id;
-          wx.switchTab({
-            url: '/pages/tabar/classify' });
-
-          break;}
-
-    },
-    newPage: function newPage(url, id) {
-      if (id) {
-        uni.navigateTo({
-          url: "/pages/index/".concat(url, "?id=").concat(id) });
-
-      } else {
-        uni.navigateTo({
-          url: "/pages/index/".concat(url) });
-
-      }
+    navUrl: function navUrl(e) {
+      getApp().globalData.classId = e.id;
+      getApp().globalData.isReload = true;
+      uni.switchTab({
+        url: './classify' });
 
     },
     indexMainAd: function indexMainAd() {var _this = this;

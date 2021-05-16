@@ -100,6 +100,11 @@
   width: 208rpx;
   height: 208rpx;
   margin-right: 30rpx;
+  border-radius: 10rpx;
+}
+.time.data-v-4f8f7fc8 {
+  padding: 0 30rpx 28rpx;
+  margin-top: -46rpx;
 }
 .order .order_info .content > view.data-v-4f8f7fc8 {
   background: white;
@@ -120,8 +125,7 @@
   height: 60rpx;
 }
 .order .order_info .content .detail.data-v-4f8f7fc8 {
-  padding: 20rpx;
-  border-top: 1px solid #efefef;
+  padding: 20rpx 20rpx 0;
 }
 .order .order_statu .mask.data-v-4f8f7fc8 {
   position: fixed;

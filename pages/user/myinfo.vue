@@ -1,18 +1,26 @@
 <template>
 	<view class="myinfo">
 		<view class="get_info">
-			<view class="flex_left_right avator">
-				<image class="goods_img" v-if="cropFilePath" :src='cropFilePath' mode='scaleToFill'></image>
-				<image class="goods_img" v-if="!cropFilePath" :src='imgRemote+member_default '></image>
+			<!-- <view class="flex_left_right avator">
+				<image class="goods_img"  :src='avatarUrl' mode='scaleToFill'></image>
+			
 				<view class="align_center gray_font" @tap="showUpload('open')">
 					<text class="fs-13">修改头像</text>
 					<text class="iconfont iconfanhui t-180"></text>
 				</view>
-			</view>
+			</view> -->
 			<view class="flex_left_right" @click="modifyPwd">
 				<text>修改登录密码</text>
 				<text class="iconfont iconfanhui t-180"></text>
 			</view>
+		
+				<view class="flex_left_right" @click="receipt">
+					
+					<text>修改发票</text>
+					<text class="iconfont iconfanhui t-180"></text>
+					
+				</view>
+			
 
 		</view>
 		<view class="center button_style" @click="formSubmit">退出登录</view>
@@ -41,7 +49,7 @@
 			return {
 				tempFilePath: '',
 				cropFilePath: '',
-
+				avatarUrl: uni.getStorageSync('userInfo').avatar,
 				imgUrl: app.imgUrl,
 				imgRemote: imgRemote,
 				phone: '',
@@ -55,36 +63,14 @@
 			};
 		},
 		methods: {
-			memberInfo() {
-				var that = this
-				var timeStamp = Math.round(new Date().getTime() / 1000);
-				var obj = {
-					appid: appid,
-					timeStamp: timeStamp,
-				}
-				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				var data = {
-					appid: appid,
-					timeStamp: timeStamp,
-					sign: sign,
-				}
-				rs.getRequests("memberInfo", data, (res) => {
-					if (res.data.code == 200) {
-						var reg = /^(\d{3})\d*(\d{4})$/;
-
-						that.memberInfoData = res.data.data.info;
-						that.cropFilePath = that.memberInfoData.logo;
-						that.nickname = that.memberInfoData.nickname;
-						that.member_default = res.data.data.member_default;
-						that.phone = res.data.data.info.phone.replace(reg, '$1****$2')
-					}
-				})
-			},
-
 			modifyPwd() {
-
 				uni.navigateTo({
 					url: './modifypwd'
+				})
+			},
+			receipt(){
+				uni.navigateTo({
+					url:'./receipt'
 				})
 			},
 			showUpload(way) {
@@ -172,33 +158,34 @@
 			formSubmit() {
 				let that = this;
 				uni.showModal({
-					 title: '提示',
-					    content: '是否退出',
-						cancelColor:'#999',
-						confirmColor:"#59B727",
-					    success: function (res) {
-					        if (res.confirm) {
-					           that.$get(that.$api.userLogout, {
-					           	token: uni.getStorageSync('userInfo').token
-					           },(res) => {
-					           	if (res.data.code == 1) {
-					           		that.$Toast("退出成功");
-					           		uni.removeStorageSync('userInfo')
-					           		setTimeout(function() {
-					           			uni.reLaunch({
-					           				url:'../account/login'
-					           			})
-					           		}, 1000);
-					           
-					           	} else {
-					           		that.$Toast(res.data.msg)
-					           	}
-					           })
-					        } 
-					    }
+					title: '提示',
+					content: '是否退出',
+					cancelColor: '#999',
+					confirmColor: "#59B727",
+					success: function(res) {
+						if (res.confirm) {
+							that.$get(that.$api.userLogout, {
+								token: uni.getStorageSync('userInfo').token
+							}, (res) => {
+								if (res.data.code == 1) {
+									that.$Toast("退出成功");
+									uni.removeStorageSync('userInfo');
+									uni.removeStorageSync('userToken');
+									setTimeout(function() {
+										uni.reLaunch({
+											url: '../account/login'
+										})
+									}, 1000);
+
+								} else {
+									that.$Toast(res.data.msg)
+								}
+							})
+						}
+					}
 				})
-				
-			
+
+
 			}
 		},
 		/**

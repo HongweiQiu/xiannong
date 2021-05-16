@@ -31,7 +31,7 @@
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.14.4",
+	"libVersion": "",
 	"appid": "wx5922a4f9543c5e9e",
 	"projectname": "鲜农",
 	"simulatorType": "wechat",
@@ -62,37 +62,8 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "pages/tabar/classify",
-					"pathName": "pages/tabar/classify",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/account/register",
-					"pathName": "pages/account/register",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/account/login",
-					"pathName": "pages/account/login",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 3,
-					"name": "pages/index/shopdetail",
-					"pathName": "pages/index/shopdetail",
-					"query": "id=14",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/tabar/user",
-					"pathName": "pages/tabar/user",
-					"query": "id=15",
+					"name": "pages/shopcart/shoplist",
+					"pathName": "pages/shopcart/shoplist",
 					"scene": null
 				}
 			]
