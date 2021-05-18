@@ -102,7 +102,7 @@
 			// 底部条宽度相对于标签宽度比例
 			lineScale: {
 				type: Number,
-				default: 0.3
+				default: 0.8
 			}
 		},
 		data() {
@@ -139,16 +139,6 @@
 
 				this.renderContent();
 				this.refreshNavScroll();
-				// #ifdef MP-ALIPAY
-
-				if (index > oldindex) {
-					console.log(index)
-					this.scrollLeft = 80 * (index - 1);
-				} else {
-					this.scrollLeft = 80 * index - 100;
-				}
-				// #endif
-
 			}
 		},
 		methods: {
@@ -195,6 +185,7 @@
 										.diffLeft) + (item.left - centerLeft - wrap.left);
 
 									this.lineWidth = item.width * this.lineScale;
+									// this.lineWidth = '20';
 									this.lineLeft = this.scrollLeft + centerLeft + (item
 										.width - this.lineWidth) / 2;
 								}

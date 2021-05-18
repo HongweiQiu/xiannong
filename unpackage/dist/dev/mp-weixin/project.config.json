@@ -62,8 +62,22 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "pages/shopcart/shoplist",
-					"pathName": "pages/shopcart/shoplist",
+					"name": "pages/shopcart/delivery",
+					"pathName": "pages/shopcart/delivery",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/tabar/classify",
+					"pathName": "pages/tabar/classify",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/tabar/order",
+					"pathName": "pages/tabar/order",
 					"scene": null
 				}
 			]

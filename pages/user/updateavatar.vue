@@ -2,25 +2,29 @@
 	<view class="myinfo">
 		<view class="get_info">
 			<view class="flex_left_right avator">
-				<image class="goods_img"  :src='avatarUrl' mode='scaleToFill'></image>
-			
+				<image class="goods_img" :src='avatarUrl' mode='scaleToFill'></image>
+
 				<view class="align_center gray_font" @tap="showUpload('open')">
 					<text class="fs-13">修改头像</text>
 					<text class="iconfont iconfanhui t-180"></text>
 				</view>
 			</view>
-		<!-- 	<view class="flex_left_right" @click="modifyPwd">
-				<text>修改登录密码</text>
-				<text class="iconfont iconfanhui t-180"></text>
+			<view class="flex_left_right">
+				<text>单位名称</text>
+				<input type="text" v-model="personInfo.company" class="right gray_font" />
 			</view>
- -->
+			<view class="flex_left_right">
+				<text>手机号</text>
+				<input type="number" v-model="personInfo.mobile" class="right gray_font" />
+			</view>
+
 		</view>
-		<!-- <view class="center button_style" @click="formSubmit">退出登录</view> -->
+		<view class="center button_style" @click="formSubmit">保存</view>
 		<uni-popup ref="popup" type="bottom">
 			<view class="upload-img">
 				<view class="white_b r-10">
-					<view class="border method">本地上传</view>
-					<view class="method">拍照上传</view>
+					<view class="border method" @click="chooseImage('album')">本地上传</view>
+					<view class="method" @click="chooseImage('camera')">拍照上传</view>
 				</view>
 				<view class="white_b method r-10 cancel" @click="showUpload('close')">
 					取消
@@ -36,55 +40,25 @@
 		imgRemote,
 	} = app;
 	export default {
-
 		data() {
 			return {
-				tempFilePath: '',
-				cropFilePath: '',
-                 avatarUrl:uni.getStorageSync('userInfo').avatar,
-				imgUrl: app.imgUrl,
-				imgRemote: imgRemote,
-				phone: '',
-				memberInfoData: '',
-				member_default: '',
-				nickname: '',
-				password: '',
-				confirmPwd: '',
-				imgPath: '',
-				count: 0
+				avatarUrl: '',
+				personInfo: {}
 			};
 		},
 		methods: {
 			memberInfo() {
-				var that = this
-				var timeStamp = Math.round(new Date().getTime() / 1000);
-				var obj = {
-					appid: appid,
-					timeStamp: timeStamp,
+				let params = {
+					token: uni.getStorageSync('userToken')
 				}
-				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				var data = {
-					appid: appid,
-					timeStamp: timeStamp,
-					sign: sign,
-				}
-				rs.getRequests("memberInfo", data, (res) => {
-					if (res.data.code == 200) {
-						var reg = /^(\d{3})\d*(\d{4})$/;
-
-						that.memberInfoData = res.data.data.info;
-						that.cropFilePath = that.memberInfoData.logo;
-						that.nickname = that.memberInfoData.nickname;
-						that.member_default = res.data.data.member_default;
-						that.phone = res.data.data.info.phone.replace(reg, '$1****$2')
+				this.$get(this.$api.userInfo, params, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						this.personInfo = data.data;
+						this.avatarUrl = data.data.avatar;
 					}
-				})
-			},
-
-			modifyPwd() {
-
-				uni.navigateTo({
-					url: './modifypwd'
 				})
 			},
 			showUpload(way) {
@@ -95,111 +69,47 @@
 				}
 
 			},
-			upload() {
+			chooseImage(type) {
 				uni.chooseImage({
-					count: 1, //默认9
-					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-					success: res => {
-						this.showtitle = false;
-						this.tempFilePath = res.tempFilePaths.shift();
-					}
+				    count: 6, //默认9
+				    sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+				    sourceType: [type], //从相册选择
+				    success: function (res) {
+				        console.log(res);
+				    }
 				});
-			},
-			confirm(e) {
-				this.showtitle = true;
-				this.tempFilePath = '';
-				var media_id = e.detail.tempFilePath;
-				var feed = "avatars";
-				var timeStamp = Math.round(new Date().getTime() / 1000);
-				var obj = {
-					appid: appid,
-					type: feed,
-					timeStamp: timeStamp,
-				}
-				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				var that = this
-				uni.uploadFile({
-					method: 'POST',
-					url: app.rootUrl + "/mobileOrder/uploadImg", //此处换上你的接口地址
-					name: 'img',
-					header: {
-						'Authorization': uni.getStorageSync('cdj_token'),
-					},
-					formData: {
-						appid: appid,
-						timeStamp: timeStamp,
-						type: feed,
-						img: media_id,
-						sign: sign,
-					},
-					filePath: media_id,
-					success: function(res) {
-						var imga = JSON.parse(res.data);
-						that.imgPath = imga.data.path
-						that.cropFilePath = imga.data.src;
-						that.uploadAvatar()
-					},
-				})
-
-
-			},
-			//确认更换头像
-			uploadAvatar() {
-				var that = this
-				var img = that.imgPath;
-				var timeStamp = Math.round(new Date().getTime() / 1000);
-				var obj = {
-					appid: appid,
-					img: img,
-					timeStamp: timeStamp,
-				}
-				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				var data = {
-					appid: appid,
-					img: img,
-					timeStamp: timeStamp,
-					sign: sign
-				}
-				rs.postRequests("uploadAvatar", data, (res) => {
-					if (res.data.code == 200) {
-						uni.showToast({
-							title: "更换头像成功",
-							icon: 'none'
-						})
-					}
-				})
 			},
 			formSubmit() {
 				let that = this;
 				uni.showModal({
-					 title: '提示',
-					    content: '是否退出',
-						cancelColor:'#999',
-						confirmColor:"#59B727",
-					    success: function (res) {
-					        if (res.confirm) {
-					           that.$get(that.$api.userLogout, {
-					           	token: uni.getStorageSync('userInfo').token
-					           },(res) => {
-					           	if (res.data.code == 1) {
-					           		that.$Toast("退出成功");
-					           		uni.removeStorageSync('userInfo');
-					           		uni.removeStorageSync('userToken');
-					           		setTimeout(function() {
-					           			uni.reLaunch({
-					           				url:'../account/login'
-					           			})
-					           		}, 1000);
-					           
-					           	} else {
-					           		that.$Toast(res.data.msg)
-					           	}
-					           })
-					        } 
-					    }
+					title: '提示',
+					content: '是否退出',
+					cancelColor: '#999',
+					confirmColor: "#59B727",
+					success: function(res) {
+						if (res.confirm) {
+							that.$get(that.$api.userLogout, {
+								token: uni.getStorageSync('userInfo').token
+							}, (res) => {
+								if (res.data.code == 1) {
+									that.$Toast("退出成功");
+									uni.removeStorageSync('userInfo');
+									uni.removeStorageSync('userToken');
+									setTimeout(function() {
+										uni.reLaunch({
+											url: '../account/login'
+										})
+									}, 1000);
+
+								} else {
+									that.$Toast(res.data.msg)
+								}
+							})
+						}
+					}
 				})
-				
-			
+
+
 			}
 		},
 		/**
@@ -207,12 +117,13 @@
 		 */
 		onShow: function() {
 			var that = this;
-			// that.memberInfo();
+			that.memberInfo();
 		},
 	};
 </script>
 
 <style lang="scss" scoped>
+	.myinfo{height: 100vh;background: white;}
 	.myinfo .get_info {
 		background: white;
 		padding: 0 20rpx;
@@ -232,12 +143,13 @@
 	}
 
 	.myinfo .button_style {
-		margin-top: 16rpx;
-		width: 100%;
-		height: 88rpx;
-		line-height: 88rpx;
-		background: white;
-		color: #333;
+		margin: 119rpx 30rpx 0;
+		border-radius: 45rpx;
+	
+		height:90rpx;
+		line-height:90rpx;
+		background: #57B127;
+		color: #fff;
 	}
 
 	.myinfo .get_info .avator {

@@ -2084,7 +2084,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.api = void
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.get = get;exports.post = post;exports.Toast = Toast;exports.needLogin = needLogin;var rootDocment = 'https://xntcps.jxsxkeji.com/api.php'; //主接口;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.get = get;exports.post = post;exports.Toast = Toast;exports.needLogin = needLogin;exports.showModal = showModal;var rootDocment = 'https://xntcps.jxsxkeji.com/api.php'; //主接口;
 var globalUrl = ["login"];
 if (uni.getStorageSync("cdj_token")) {
   var header = {
@@ -2120,12 +2120,12 @@ function get(url, datas, _success) {var loading = arguments.length > 3 && argume
     data: datas,
     success: function success(res) {
       _success(res);
-      // if(res.data.code==401){
-
-      // 	uni.reLaunch({
-      // 		url:'/pages/account/login'
-      // 	})
-      // }
+      if (res.data.code == 401) {
+        uni.removeStorageSync('userToken');
+        // 	uni.reLaunch({
+        // 		url:'/pages/account/login'
+        // 	})
+      }
       // if (res.header.token != undefined) {
       // 	uni.setStorageSync("cdj_token", res.header.authorization)
       // }
@@ -2172,12 +2172,13 @@ function post(url, datas, _success2) {var loading = arguments.length > 3 && argu
     success: function success(res) {
       _success2(res);
       console.log(res);
-      // if(res.data.code==401){
+      if (res.data.code == 401) {
+        uni.removeStorageSync('userToken');
 
-      // 	uni.reLaunch({
-      // 		url:'/pages/account/login'
-      // 	})
-      // }
+        // uni.reLaunch({
+        // 	url:'/pages/account/login'
+        // })
+      }
       // if (res.header.authorization != undefined) {
       // 	uni.setStorageSync("cdj_token", res.header.authorization)
       // }
@@ -2208,6 +2209,7 @@ function needLogin(success) {
       confirmColor: "#59B727",
       success: function success(res) {
         if (res.confirm) {
+          getApp().globalData.isReload = true;
           uni.reLaunch({
             url: '/pages/account/login' });
 
@@ -2222,6 +2224,19 @@ function Toast(message) {
     title: message,
     icon: 'none',
     duration: 2000 });
+
+}
+
+function showModal(message, res) {
+  uni.showModal({
+    title: '温馨提示',
+    content: message,
+    confirmColor: '#57B127',
+    success: function success() {
+      res();
+    } });
+
+
 
 }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
@@ -10863,7 +10878,7 @@ function adaptor(ctx) {
 
 /***/ }),
 
-/***/ 409:
+/***/ 416:
 /*!******************************************************************!*\
   !*** F:/desktop/uniapp/components/w-picker/areadata/areadata.js ***!
   \******************************************************************/
@@ -11896,7 +11911,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#57B127", "navigationBarTextStyle": "white" }, "pages/tabar/classify": { "navigationBarTitleText": "分类", "navigationBarBackgroundColor": "#FFF", "navigationBarTextStyle": "black" }, "pages/tabar/order": { "navigationBarTitleText": "全部订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/tabar/shopcart": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/tabar/user": { "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#59BC2C", "navigationBarTextStyle": "white" }, "pages/index/shopdetail": { "navigationBarTitleText": "商品详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/index/search": { "navigationBarTitleText": "搜索", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/login": { "navigationBarTitleText": "登录", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/forget": {}, "pages/account/register": { "navigationBarTitleText": "注册", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/treaty": { "navigationBarTitleText": "注册协议", "navigationBarBackgroundColor": "#59BC2C", "navigationBarTextStyle": "white" }, "pages/account/bind": {}, "pages/order/orderdetail": { "navigationBarTitleText": "订单详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/order/orderAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/order/applyAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/delivery": { "navigationBarTitleText": "地址", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/shoplist": { "navigationBarTitleText": "提交订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/goodbill": { "navigationBarTitleText": "商品凑单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/paySuccess": { "navigationBarTitleText": "支付成功", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/modifypwd": {}, "pages/user/myinfo": { "navigationBarTitleText": "设置", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/updateavatar": { "navigationBarTitleText": "修改头像", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/receipt": { "navigationBarTitleText": "发票", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/newProductDemand": { "navigationBarTitleText": "新品需求", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/feedback": { "navigationBarTitleText": "意见反馈", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/remainder": { "navigationBarTitleText": "我的余额", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": " ", "navigationBarBackgroundColor": "#F0F0F0", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#57B127", "navigationBarTextStyle": "white" }, "pages/tabar/classify": { "navigationBarTitleText": "分类", "navigationBarBackgroundColor": "#FFF", "navigationBarTextStyle": "black" }, "pages/tabar/order": { "navigationBarTitleText": "全部订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/tabar/shopcart": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/tabar/user": { "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#59BC2C", "navigationBarTextStyle": "white" }, "pages/index/shopdetail": { "navigationBarTitleText": "商品详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/index/search": { "navigationBarTitleText": "搜索", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/login": { "navigationBarTitleText": "登录", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/forget": {}, "pages/account/register": { "navigationBarTitleText": "注册", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/treaty": { "navigationBarTitleText": "注册协议", "navigationBarBackgroundColor": "#59BC2C", "navigationBarTextStyle": "white" }, "pages/account/bind": {}, "pages/order/orderdetail": { "navigationBarTitleText": "订单详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/order/orderAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/order/applyAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/delivery": { "navigationBarTitleText": "地址", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/shoplist": { "navigationBarTitleText": "提交订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/goodbill": { "navigationBarTitleText": "商品凑单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/paySuccess": { "navigationBarTitleText": "支付成功", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/modifypwd": {}, "pages/user/myinfo": { "navigationBarTitleText": "设置", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/updateavatar": { "navigationBarTitleText": "设置", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/receipt": { "navigationBarTitleText": "发票", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/newProductDemand": { "navigationBarTitleText": "新品需求", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/feedback": { "navigationBarTitleText": "意见反馈", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/remainder": { "navigationBarTitleText": "我的余额", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": " ", "navigationBarBackgroundColor": "#F0F0F0", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 

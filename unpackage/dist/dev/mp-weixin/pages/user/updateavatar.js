@@ -185,62 +185,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 var app = getApp().globalData;var
 
 imgRemote =
 app.imgRemote;var _default =
 {
-
   data: function data() {
     return {
-      tempFilePath: '',
-      cropFilePath: '',
-      avatarUrl: uni.getStorageSync('userInfo').avatar,
-      imgUrl: app.imgUrl,
-      imgRemote: imgRemote,
-      phone: '',
-      memberInfoData: '',
-      member_default: '',
-      nickname: '',
-      password: '',
-      confirmPwd: '',
-      imgPath: '',
-      count: 0 };
+      avatarUrl: '',
+      personInfo: {} };
 
   },
   methods: {
-    memberInfo: function memberInfo() {
-      var that = this;
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        timeStamp: timeStamp };
+    memberInfo: function memberInfo() {var _this = this;
+      var params = {
+        token: uni.getStorageSync('userToken') };
 
-      var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-      var data = {
-        appid: appid,
-        timeStamp: timeStamp,
-        sign: sign };
+      this.$get(this.$api.userInfo, params, function (res) {var
 
-      rs.getRequests("memberInfo", data, function (res) {
-        if (res.data.code == 200) {
-          var reg = /^(\d{3})\d*(\d{4})$/;
-
-          that.memberInfoData = res.data.data.info;
-          that.cropFilePath = that.memberInfoData.logo;
-          that.nickname = that.memberInfoData.nickname;
-          that.member_default = res.data.data.member_default;
-          that.phone = res.data.data.info.phone.replace(reg, '$1****$2');
+        data =
+        res.data;
+        if (data.code == 1) {
+          _this.personInfo = data.data;
+          _this.avatarUrl = data.data.avatar;
         }
       });
-    },
-
-    modifyPwd: function modifyPwd() {
-
-      uni.navigateTo({
-        url: './modifypwd' });
-
     },
     showUpload: function showUpload(way) {
       if (way == 'open') {
@@ -250,79 +224,15 @@ app.imgRemote;var _default =
       }
 
     },
-    upload: function upload() {var _this = this;
+    chooseImage: function chooseImage(type) {
       uni.chooseImage({
-        count: 1, //默认9
+        count: 6, //默认9
         sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+        sourceType: [type], //从相册选择
         success: function success(res) {
-          _this.showtitle = false;
-          _this.tempFilePath = res.tempFilePaths.shift();
+          console.log(res);
         } });
 
-    },
-    confirm: function confirm(e) {
-      this.showtitle = true;
-      this.tempFilePath = '';
-      var media_id = e.detail.tempFilePath;
-      var feed = "avatars";
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        type: feed,
-        timeStamp: timeStamp };
-
-      var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-      var that = this;
-      uni.uploadFile({
-        method: 'POST',
-        url: app.rootUrl + "/mobileOrder/uploadImg", //此处换上你的接口地址
-        name: 'img',
-        header: {
-          'Authorization': uni.getStorageSync('cdj_token') },
-
-        formData: {
-          appid: appid,
-          timeStamp: timeStamp,
-          type: feed,
-          img: media_id,
-          sign: sign },
-
-        filePath: media_id,
-        success: function success(res) {
-          var imga = JSON.parse(res.data);
-          that.imgPath = imga.data.path;
-          that.cropFilePath = imga.data.src;
-          that.uploadAvatar();
-        } });
-
-
-
-    },
-    //确认更换头像
-    uploadAvatar: function uploadAvatar() {
-      var that = this;
-      var img = that.imgPath;
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        img: img,
-        timeStamp: timeStamp };
-
-      var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-      var data = {
-        appid: appid,
-        img: img,
-        timeStamp: timeStamp,
-        sign: sign };
-
-      rs.postRequests("uploadAvatar", data, function (res) {
-        if (res.data.code == 200) {
-          uni.showToast({
-            title: "更换头像成功",
-            icon: 'none' });
-
-        }
-      });
     },
     formSubmit: function formSubmit() {
       var that = this;
@@ -362,7 +272,7 @@ app.imgRemote;var _default =
           */
   onShow: function onShow() {
     var that = this;
-    // that.memberInfo();
+    that.memberInfo();
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

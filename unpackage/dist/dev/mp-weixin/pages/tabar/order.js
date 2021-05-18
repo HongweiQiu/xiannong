@@ -123,6 +123,27 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.search_default
+    ? _vm.__map(_vm.list, function(item, index) {
+        var $orig = _vm.__get_orig(item)
+
+        var m0 = _vm.formatTime(item.createtime)
+        var m1 = _vm.fixed(Number(item.total_price) + Number(item.freight))
+        return {
+          $orig: $orig,
+          m0: m0,
+          m1: m1
+        }
+      })
+    : null
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -212,17 +233,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 var app = getApp().globalData;var
 
@@ -233,15 +243,25 @@ app.imgRemote;var _default =
     return {
       imgRemote: imgRemote,
       tabList: [{
-        name: '全部' },
+        name: '全部',
+        id: '' },
       {
-        name: '待审核' },
+        name: '待审核',
+        id: '1' },
       {
-        name: '待发货' },
+        name: '待发货',
+        id: '2' },
       {
-        name: '待收货' },
+        name: '待收货',
+        id: '3' },
       {
-        name: '已完成' }],
+        name: '已完成',
+        id: '4' },
+
+      {
+        name: '已取消',
+        id: '5' }],
+
 
       activeTab: 0,
       type: 1,
@@ -251,6 +271,26 @@ app.imgRemote;var _default =
 
   },
   methods: {
+    fixed: function fixed(val) {
+      return Number(val).toFixed(2);
+    },
+    FomartDate: function FomartDate(date) {
+      var y = date.getFullYear();
+      var m = date.getMonth() + 1;
+      var d = date.getDate();
+      var H = date.getHours();
+      var M = date.getMinutes();
+      var S = date.getSeconds();
+
+      function Covering(num) {
+        return num >= 10 ? num : '0' + num;
+      }
+      return y + '-' + Covering(m) + '-' + Covering(d) + ' ' + Covering(H) + ':' + Covering(M) + ':' + Covering(
+      S);
+    },
+    formatTime: function formatTime(val) {
+      return this.FomartDate(new Date(val * 1000));
+    },
     orderDetailPage: function orderDetailPage(url, item) {
 
       if (url == 'orderDetail') {
@@ -260,8 +300,11 @@ app.imgRemote;var _default =
       }
     },
     //初始订单请求
-    orderList: function orderList() {var _this = this;
-      var params = {};
+    orderList: function orderList(id) {var _this = this;
+      var params = {
+        token: uni.getStorageSync('userToken'),
+        order_status: id };
+
       this.$get(this.$api.orderIndex, params, function (res) {var
 
         data =
@@ -272,6 +315,9 @@ app.imgRemote;var _default =
           _this.$Toast(data.msg);
         }
       });
+    },
+    changeFirst: function changeFirst(e) {
+      this.orderList(e);
     } },
 
   onLoad: function onLoad() {

@@ -68,11 +68,10 @@
 						<text class="fs-13">客服</text>
 					</view>
 				</button>
-
-				<view class="align_center flex-column">
+				<view class="align_center flex-column" @click="$doubleClick(shopcartPage)">
 					<text class="iconfont icongouwuche21-copy"></text>
 					<text class="fs-13">购物车</text>
-					<text class="cart-count">{{cartCount?cartCount:0}}</text>
+					<text class="cart-count" v-if="cartCount>0">{{cartCount}}</text>
 				</view>
 				<view class="submit">
 					<!-- <my-n-stepper val="12" ></my-n-steper> -->
@@ -103,11 +102,9 @@
 		</uni-popup>
 		<uni-popup ref="poster">
 			<view class="share-friend-info r-5">
-
 				<view class="right close-share"><text class="iconfont iconguanbi" @click="$refs.poster.close()"></text>
 				</view>
 				<view class="white_b detail r-5">
-
 					<view class="good-img align_center">
 						<image :src="imgRemote+ware.main_image" mode="widthFix">
 						</image>
@@ -144,6 +141,7 @@
 		<uni-popup ref="addcart" type="bottom">
 			<my-addcart :ware="ware" @close="close"></my-addcart>
 		</uni-popup>
+
 		<l-painter :board="base" ref="painter" v-show="false" />
 	</view>
 </template>
@@ -159,6 +157,7 @@
 		},
 		data() {
 			return {
+				showcart: false,
 				path: '',
 				cartCount: '',
 				base: {
@@ -217,6 +216,18 @@
 							}
 						},
 						{
+							type: 'view',
+							css: {
+								left: '40rpx',
+								top: '60rpx',
+								background: '#fff',
+								radius: '10rpx',
+								width: '460rpx',
+								height: '680rpx',
+								shadow: '0 20rpx 48rpx rgba(0,0,0,.05)'
+							}
+						},
+						{
 							type: 'text',
 							text: '长按识别小程序',
 							css: {
@@ -248,7 +259,8 @@
 		},
 		methods: {
 			canvasToTempFilePath() {
-				const painter = this.$refs.painter
+				const painter = this.$refs.painter;
+				painter.render(this.base);
 				// 支持通过调用canvasToTempFilePath方法传入参数 调取生成图片
 				painter.canvasToTempFilePath().then(res => {
 					this.path = res.tempFilePath;
@@ -260,19 +272,11 @@
 								content: '图片成功保存到相册了，快去分享朋友圈吧',
 								showCancel: false,
 								confirmText: '好的',
-								confirmColor: '#818FFB',
-								success: function(res) {
-									if (res.confirm) {
-
-									}
-
-								}
+								confirmColor: '#818FFB'
 							})
 						}
 					})
 				})
-				return
-
 			},
 
 			goodDetail(id) {
@@ -288,9 +292,6 @@
 							.imgRemote);
 						this.ware = data.data;
 
-
-						const painter = this.$refs.painter
-						painter.render(this.base)
 						let market_prices = [];
 						for (let i of data.data.sku) {
 							market_prices.push(i.market_price)
@@ -304,7 +305,8 @@
 						} else {
 							this.base.views[4].text = this.minPrice + '-' + this.maxPrice;
 						}
-
+						// const painter = this.$refs.painter;
+						// painter.render(this.base);
 					}
 				})
 				this.$get(this.$api.mainSevice, {}, (res) => {
@@ -353,6 +355,13 @@
 					token: uni.getStorageSync('userToken'),
 					goods_id: id
 				})
+			},
+			shopcartPage() {
+				this.$needLogin(() => {
+					uni.switchTab({
+						url: '../tabar/shopcart'
+					})
+				})
 			}
 		},
 		onLoad(e) {
@@ -369,16 +378,6 @@
 	}
 </script>
 <style scoped lang="scss">
-	button {
-		border: none;
-		background: none;
-		line-height: initial;
-	}
-
-	button::after {
-		border: none;
-	}
-
 	.cart-count {
 		margin: -10rpx 0 0 20rpx;
 		text-align: center;

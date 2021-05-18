@@ -48,7 +48,7 @@ page.data-v-c63a8bb4 {
   position: fixed;
   z-index: 5;
   /* padding-right: 20rpx; */
-  width: 78.5%;
+  width: 75.5%;
   background: white;
 }
 .classify .first_name .second-cate.data-v-c63a8bb4 {
@@ -64,7 +64,7 @@ page.data-v-c63a8bb4 {
           align-items: center;
 }
 .classify .left_area.data-v-c63a8bb4 {
-  width: 21.5%;
+  width: 24.5%;
   position: fixed;
   overflow-x: scroll;
   background: #eee;
@@ -75,14 +75,15 @@ page.data-v-c63a8bb4 {
 }
 .classify .right_area.data-v-c63a8bb4 {
   width: 78%;
-  margin-left: 21.5%;
+  margin-left: 24.5%;
 }
 .classify .right_area .second-mask.data-v-c63a8bb4 {
   position: fixed;
-  width: 78.5%;
+  width: 76.5%;
   right: 0;
   background: rgba(0, 0, 0, 0.4);
   height: 100vh;
+  z-index: 999;
 }
 .classify > .classify_good.data-v-c63a8bb4 {
   display: -webkit-box;

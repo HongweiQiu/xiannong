@@ -137,55 +137,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 88));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -229,23 +181,62 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-//
-//
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _console = console,log = _console.log;var _default = { props: ['wares', 'config', 'url'], watch: { wares: function wares(newvalue) {this.ware = newvalue;} }, data: function data() {return { apliyShow: false, ware: this.wares, imgRemote: imgRemote, token: uni.getStorageSync('cdj_token'), count: 0, addcount: 0, message: '' };}, methods: { showCart: function showCart() {uni.hideTabBar();this.$emit('showCart');}, addcart: function addcart(url, num) {var _this = this;var message = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '成功加入购物车';getApp().globalData.aplipay = false;var item = this.ware;if (item.is_float == 1 && !Number.isInteger(Number(num))) {_request.default.Toast('购买数量不能为小数');return;}var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, timeStamp: timeStamp, item_id: item.id,
+
+var app = getApp().globalData;var
+
+imgRemote =
+app.imgRemote;var _console =
+
+
+console,log = _console.log;var _default =
+{
+  props: ['wares', 'config', 'url'],
+  watch: {
+    wares: function wares(newvalue) {
+      this.ware = newvalue;
+    } },
+
+  data: function data() {
+    return {
+      apliyShow: false,
+      ware: this.wares,
+      imgRemote: imgRemote,
+      token: uni.getStorageSync('cdj_token'),
+      count: 0,
+      addcount: 0,
+      message: '' };
+
+  },
+  methods: {
+    showCart: function showCart() {
+      this.$emit('showCart');
+    },
+    addcart: function addcart(url, num) {var _this = this;var message = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '成功加入购物车';
+      getApp().globalData.aplipay = false;
+      var item = this.ware;
+      if (item.is_float == 1 && !Number.isInteger(Number(num))) {
+        rs.Toast('购买数量不能为小数');
+        return;
+      }
+      var timeStamp = Math.round(new Date().getTime() / 1000);
+      var obj = {
+        appid: appid,
+        timeStamp: timeStamp,
+        item_id: item.id,
         attr_id: 0,
         item_num: num };
 
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
+      var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
       var params = Object.assign({
         sign: sign },
 
       obj);
 
-      _request.default.postRequests(url, params, function (res) {
+      rs.postRequests(url, params, function (res) {
         var data = res.data;
         if (data.code == 200) {
 
-          _request.default.Toast(message);
+          rs.Toast(message);
 
 
 
@@ -257,9 +248,9 @@ var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,im
 
           }
         } else if (data.code == 407 || data.code == 406) {
-          _request.default.Toast("购买数量不能超过活动数量");
+          rs.Toast("购买数量不能超过活动数量");
         } else {
-          _request.default.Toast(res.data.msg);
+          rs.Toast(res.data.msg);
         }
       });
     },

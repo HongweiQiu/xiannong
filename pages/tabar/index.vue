@@ -25,7 +25,7 @@
 			text="新鲜蔬菜上新了阿斯顿撒多撒多水电费是的冯绍峰！！！盛大的范德萨" :speed="speed"></uni-notice-bar> -->
 		<!-- 导航 -->
 		<view class="nav">
-			<view v-for="(item, index) in navList" :key="index" @click="navUrl(item)">
+			<view v-for="(item, index) in navList" :key="index" @click="navUrl(item)" v-if="index<10">
 				<image :src="imgRemote + item.image" mode="aspectFit"></image>
 				<text class="hidden width center">{{item.name}}</text>
 			</view>

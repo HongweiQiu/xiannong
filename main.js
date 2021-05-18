@@ -5,12 +5,13 @@ import {
 	dianji
 } from './static/js/common.js';
 import {api} from './static/js/api.js';
-import {get,post,Toast,needLogin} from './static/js/request.js';
+import {get,post,Toast,needLogin,showModal} from './static/js/request.js';
 Vue.prototype.$api = api;
 Vue.prototype.$get= get;
 Vue.prototype.$post= post;
 Vue.prototype.$Toast= Toast;
 Vue.prototype.$needLogin= needLogin;
+Vue.prototype.$showModal= showModal;
 Vue.prototype.$doubleClick = dianji;
 Vue.config.productionTip = false
 

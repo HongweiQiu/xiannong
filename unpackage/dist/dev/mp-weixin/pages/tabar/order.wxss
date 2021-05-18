@@ -163,6 +163,9 @@
   -webkit-justify-content: space-between;
           justify-content: space-between;
 }
+.order .custom-tabs.data-v-4f8f7fc8 .s-tab-nav {
+  padding: 0;
+}
 .order .bitmap.data-v-4f8f7fc8 {
   text-align: center;
 }

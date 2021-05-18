@@ -6,7 +6,7 @@
 					<image src="../../static/img/shoplistadd.png"></image>
 				</view>
 				<view class="detail-address">
-					<view class="bold ">{{addressInfo.province+addressInfo.city+addressInfo.area+addressInfo.address}}
+					<view class="bold ">{{receiving}}
 					</view>
 					<view class="fs-13" style="margin-top: 10rpx;">
 						<text>{{addressInfo.shou_name}}</text>
@@ -24,8 +24,8 @@
 				</view> -->
 				<view class="align_center gray_font" @click="selectDate">
 					<!-- <text class="fs-13" style="margin-right:21rpx;"> 请选择配送时间</text> -->
-					<gpp-date-picker  @onConfirm="confirmDate" :startDate="startDate"
-						:endDate="endDate" :defaultValue="pickerDate" themeColor="#57B127">
+					<gpp-date-picker @onConfirm="confirmDate" :startDate="startDate" :endDate="endDate"
+						:defaultValue="pickerDate" themeColor="#57B127">
 						{{pickerDate}}
 					</gpp-date-picker>
 					<text class="iconfont iconfanhui t-180"></text>
@@ -165,6 +165,7 @@
 				showSwitch: false,
 				pay_type: 'wxpay',
 				remark: '',
+				receiving:''
 			}
 		},
 		methods: {
@@ -178,19 +179,16 @@
 				let month = arg.getMonth() + parseInt(1);
 				let day = arg.getDate() + parseInt(1);
 				this.startDate = `${year}-${format(month)}-${format(day)}`;
-				// this.startDate = "2021-05-16";
-			
-				this.pickerDate = `${year}-${format(month)}-${format(day)}`;	
-				this.endDate =`${year+2}-12-31`;
+				this.pickerDate = `${year}-${format(month)}-${format(day)}`;
+				this.endDate = `${year+2}-12-31`;
 			},
-			confirmDate(e){
-			 this.pickerDate = e.dateValue;
-				console.log(e)
+			confirmDate(e) {
+				this.pickerDate = e.dateValue;
 			},
 			payWay(e) {
 				this.pay_type = e.detail.value;
 			},
-			pay() {
+			confirmPay() {
 				let ids = '';
 				for (let i of this.shop) {
 					if (i.checked == true) {
@@ -237,16 +235,20 @@
 					freight: this.freight,
 					pay_type: this.pay_type,
 					total: this.totalPrice,
-					remark: this.remark
+					remark: this.remark,
+					delivery_time: this.pickerDate
 				};
 
 				this.$get(this.$api.orderAdd_order, params, (res) => {
 					let data = res.data;
 					if (data.code == 1) {
-						this.$Toast('下单成功');
+						this.$Toast('提交订单成功');
 						setTimeout(() => {
 							uni.reLaunch({
-								url: './paySuccess'
+								url: './paySuccess',
+								success() {
+									getApp().globalData.isReload = true;
+								}
 							})
 						}, 1000)
 
@@ -254,6 +256,12 @@
 						this.$Toast(data.msg);
 					}
 				});
+			},
+			pay() {
+				let _=this;
+				_.$showModal('确认提交订单?',()=>{
+						_.confirmPay()
+				})
 			},
 			switchChange(e) {
 				this.showSwitch = e.target.value;
@@ -290,6 +298,10 @@
 					} = res;
 					if (data.code == 1) {
 						this.addressInfo = data.data;
+						this.receiving=data.data.province+data.data.city+data.data.area;
+						if (this.receiving.match('null')) {
+							this.receiving = '';
+						}
 					}
 				})
 			}

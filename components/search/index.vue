@@ -17,13 +17,7 @@
 			</view>
 
 		</view>
-		<!-- #ifdef APP-PLUS |H5 -->
-		<view class="status_bar">
-			<!-- 这里是状态栏 -->
-		</view>
-
-		<!-- #endif -->
-		<view style="height:120rpx;"></view>
+		<view style="height:118rpx;"></view>
 	</view>
 </template>
 

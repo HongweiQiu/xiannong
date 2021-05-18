@@ -249,6 +249,15 @@ page {
   background: #f8f6f9;
   font-size: 30rpx;
 }
+button {
+  border: none;
+  background: none;
+  line-height: initial;
+  padding: 0;
+}
+button::after {
+  border: none;
+}
 .t-180 {
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
@@ -358,10 +367,7 @@ page {
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;
-  height: 94rpx;
-  line-height: 94rpx;
-  padding: 0 20rpx;
-  margin-top: 10rpx;
+  height: 104rpx;
 }
 .recomend .title .name {
   margin: 0 4rpx;
@@ -437,15 +443,6 @@ page {
 .width {
   width: 100%;
 }
-.uni-modal__btn_primary {
-  color: #009a44 !important;
-}
-.uni-modal__btn_default {
-  color: #999 !important;
-}
-.uni-modal__bd {
-  color: black !important;
-}
 input {
   font-size: 28rpx !important;
   line-height: initial !important;
@@ -453,9 +450,6 @@ input {
 }
 .gray_b {
   background: gray !important;
-}
-text-no-space {
-  white-space: nowrap;
 }
 .pay-button {
   height: 78rpx;

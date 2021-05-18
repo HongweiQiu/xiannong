@@ -2,7 +2,7 @@
 	<view class="add-to-cart white_b padding-15">
 		<view class="flex">
 			<view class="good-img r-5">
-				<image class="r-5" :src="imgRemote+ware.main_image" mode="widthFix"></image>
+				<image class="r-5 image" :src="imgRemote+ware.main_image" mode="widthFix"></image>
 			</view>
 			<view class="flex-full">
 				<view class="right close-icon" @click="close">
@@ -23,7 +23,7 @@
 				规格
 			</view>
 			<view class="fs-13 attr">
-				<text v-for="(item,index) in ware.sku" :key="index" @click="kind=index"
+				<text v-for="(item,index) in ware.sku" :key="index" @click="kind=index" class="text-label"
 					:class="kind==index?'active':''">
 					{{item.guige}}/{{item.unit}}
 				</text>
@@ -105,6 +105,8 @@
 </script>
 <style lang="scss" scoped>
 	.add-to-cart {
+		// position: fixed;bottom: 0;
+		// width:calc(100vw - 60rpx);
 		border-radius: 20rpx 20rpx 0 0;
 		padding-bottom: 40rpx;
 
@@ -113,7 +115,7 @@
 			margin-top: -100rpx;
 			background: white;
 
-			image {
+			.image {
 				width: 240rpx;
 				height: 240rpx;
 				margin: 20rpx;
@@ -137,7 +139,7 @@
 		}
 
 		.attr {
-			text {
+			.text-label {
 				padding: 10rpx 51rpx;
 				border: 1px solid #999;
 				display: inline-block;

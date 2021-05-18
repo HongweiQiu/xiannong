@@ -147,6 +147,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 var _default =
 {
   onHide: function onHide() {
+    console.log(12);
     getApp().globalData.isReload = true;
   } };exports.default = _default;
 

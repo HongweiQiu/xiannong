@@ -1,12 +1,11 @@
 <template>
 	<view class="user">
-		<image src="../../static/img/user_back.png" mode="aspectFill"
-			style="height:452rpx;width:100%;margin-top:-158rpx;"></image>
+		<image src="../../static/img/user_back.png" mode="aspectFill" class="user-back"></image>
 		<view class="author">
 			<view class="flex-column flex-space-between img">
-				<view class="flex_left_right" v-if="userInfo.token" @click="updateAvatar">
+				<view class="flex_left_right" v-if="userToken" @click="$doubleClick(updateAvatar)">
 					<view class="align_center ">
-						<image :src='userInfo.avatar' class="avator" v-if="userInfo.avatar"></image>
+						<image :src='personInfo.avatar' class="avator" v-if="personInfo.avatar"></image>
 						<image src="../../static/img/avatar.png" class="avator" v-else></image>
 						<view>
 							<view>{{userInfo.company}}</view>
@@ -14,25 +13,21 @@
 								<text>{{personInfo.level}}</text>
 							</view>
 						</view>
-
 					</view>
 					<text class="iconfont iconfanhui t-180 white-font"></text>
-
 				</view>
-
 				<view class="align_center" v-else @click="$needLogin">
 					<image src="../../static/img/avatar.png" class="avator"></image>
 					<text>登录/注册</text>
 				</view>
-				<navigator url="../user/remainder">
-					<view class="flex_left_right remain-money">
-						<text>我的余额</text>
-						<view class="">
-							<text>{{personInfo.money}}</text>
-							<text class="iconfont iconfanhui t-180 white-font"></text>
-						</view>
+
+				<view class="flex_left_right remain-money" @click="$doubleClick(remainPage)">
+					<text>我的余额</text>
+					<view class="">
+						<text>{{personInfo.money?personInfo.money:'0.00'}}</text>
+						<text class="iconfont iconfanhui t-180 white-font"></text>
 					</view>
-				</navigator>
+				</view>
 			</view>
 		</view>
 
@@ -53,15 +48,39 @@
 			</view>
 		</view>
 		<view class="select_operate">
-			<view @click="pageUrl(item)" v-for="(item, index) in userList" :key="index"
-				class="flex_left_right align_center">
+			<view @click="pageUrl(userList[0])" class="flex_left_right">
 				<view class="align_center">
-					<text :class="'iconfont ' + item.icon" style="font-size: 50rpx;width: 50rpx;"></text>
+					<text :class="'iconfont first-arrow ' + userList[0].icon"></text>
+					<text class="name">{{ userList[0].name }}</text>
+				</view>
+				<text class="iconfont iconfanhui t-180 gray_font"></text>
+			</view>
+			<view @click="pageUrl(userList[1])" class="flex_left_right" v-if="!userToken">
+				<view class="align_center">
+					<text :class="'iconfont first-arrow ' + userList[1].icon"></text>
+					<text class="name">{{ userList[1].name }}</text>
+				</view>
+				<text class="iconfont iconfanhui t-180 gray_font"></text>
+			</view>
+			<view v-else>
+				<button open-type="contact" style="height: 100%;" class="align_center">
+					<view class="flex_left_right flex-full fs-15">
+						<view class="align_center">
+							<text :class="'iconfont first-arrow ' + userList[1].icon"></text>
+							<text class="name">{{ userList[1].name }}</text>
+						</view>
+						<text class="iconfont iconfanhui t-180 gray_font"></text>
+					</view>
+				</button>
+			</view>
+
+			<view @click="pageUrl(item)" v-for="(item, index) in userList" :key="index" v-if="index>1"
+				class="flex_left_right">
+				<view class="align_center">
+					<text :class="'iconfont first-arrow ' + item.icon"></text>
 					<text class="name">{{ item.name }}</text>
 				</view>
-				<view>
-					<text class="iconfont iconfanhui t-180 gray_font"></text>
-				</view>
+				<text class="iconfont iconfanhui t-180 gray_font"></text>
 			</view>
 		</view>
 	</view>
@@ -76,6 +95,7 @@
 		data() {
 			return {
 				userInfo: uni.getStorageSync('userInfo'),
+				userToken: uni.getStorageSync('userToken'),
 				userList: [{
 						icon: 'iconshouhuodizhi',
 						name: '地址管理',
@@ -86,7 +106,7 @@
 						icon: 'iconkefu',
 						name: '联系客服',
 						color: '#FF9C00',
-						url: 'receipt'
+						url: 'kefu'
 					},
 					{
 						icon: 'iconxuqiu',
@@ -134,6 +154,14 @@
 				})
 
 			},
+			remainPage() {
+				this.$needLogin(() => {
+					uni.navigateTo({
+						url: '../user/remainder'
+					})
+				})
+
+			},
 			pageUrl(item) {
 				this.$needLogin(() => {
 					let path = item.url == 'delivery' ? 'shopcart' : 'user';
@@ -143,16 +171,17 @@
 				})
 			},
 			orderPage(data) {
-				if (data.path == 'after_sales') {
-					uni.navigateTo({
-						url: '../order/orderAfterSale'
-					})
-				} else {
-					uni.navigateTo({
-						url: './order'
-					})
-				}
-
+				this.$needLogin(() => {
+					if (data.path == 'after_sales') {
+						uni.navigateTo({
+							url: '../order/orderAfterSale'
+						})
+					} else {
+						uni.navigateTo({
+							url: './order'
+						})
+					}
+				})
 			},
 			memberInfo() {
 				let params = {
@@ -171,7 +200,10 @@
 
 		onShow: function() {
 			var that = this;
-			that.memberInfo();
+			if(uni.getStorageSync('userToken')){
+				that.memberInfo();
+			}
+			
 		},
 
 	};
@@ -189,6 +221,12 @@
 		height: 110rpx;
 		margin: 0rpx 20rpx 0 0;
 		border-radius: 50%;
+	}
+
+	.user .user-back {
+		height: 452rpx;
+		width: 100%;
+		margin-top: -158rpx;
 	}
 
 	.user .author {
@@ -244,10 +282,16 @@
 		border-bottom: 1px solid #EEE;
 		box-sizing: border-box;
 
+		.first-arrow {
+			font-size: 50rpx;
+			width: 50rpx;
+		}
+
 	}
 
 	.user .select_operate>view .name {
 		margin-left: 10rpx;
+
 	}
 
 

@@ -19,6 +19,17 @@
 		font-size: 30rpx;
 	}
 
+	button {
+		border: none;
+		background: none;
+		line-height: initial;
+		padding: 0;
+	}
+
+	button::after {
+		border: none;
+	}
+
 	.t-180 {
 		transform: rotate(180deg);
 		display: inline-block;
@@ -45,7 +56,7 @@
 		white-space: nowrap;
 	}
 
-	
+
 
 	.red_font {
 		color: #F01D1D;
@@ -106,15 +117,13 @@
 		color: #999;
 		text-decoration: line-through;
 	}
+
 	.recomend .title {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		height: 94rpx;
-		line-height: 94rpx;
-		padding: 0 20rpx;
-		margin-top: 10rpx;
-	}
+		height: 104rpx;
+		}
 
 	.recomend .title .name {
 		margin: 0 4rpx;
@@ -132,6 +141,7 @@
 	.body .myc_recomend:nth-child(n+3) {
 		margin-top: 30rpx;
 	}
+
 	.place_style {
 		font-size: 26rpx;
 		color: #999;
@@ -204,33 +214,17 @@
 		width: 100%;
 	}
 
-	.uni-modal__btn_primary {
-		color: #009a44 !important;
-	}
-
-	.uni-modal__btn_default {
-		color: #999 !important;
-	}
-
-	.uni-modal__bd {
-		color: black !important;
-	}
-
 	input {
 		font-size: 28rpx !important;
 		line-height: initial !important;
 		min-height: initial !important;
 	}
 
-	
+
 	.gray_b {
 		background: gray !important;
 	}
 
-	
-	text-no-space {
-		white-space: nowrap
-	}
 
 	.pay-button {
 		height: 78rpx;

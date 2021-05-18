@@ -502,7 +502,15 @@ app.imgRemote;var _default =
     this.allCheck = false;
     this.settlement = false;
     this.getFreight();
-    this.cartIndex();
+    if (uni.getStorageSync('userToken')) {
+      this.cartIndex();
+    } else {
+      getApp().globalData.isReload = true;
+      uni.reLaunch({
+        url: '../account/login' });
+
+    }
+
     this.likeGood();
   },
   onLoad: function onLoad() {

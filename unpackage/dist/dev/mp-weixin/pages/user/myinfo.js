@@ -326,6 +326,7 @@ app.imgRemote;var _default =
                 that.$Toast("退出成功");
                 uni.removeStorageSync('userInfo');
                 uni.removeStorageSync('userToken');
+                getApp().globalData.isReload = true;
                 setTimeout(function () {
                   uni.reLaunch({
                     url: '../account/login' });

@@ -1,9 +1,9 @@
 <template>
-	<view class="recomend_single">
-		<view @click="$doubleClick(detail)">
-			<view >
-				<image class="photo r-5" :src="ware.main_image==''?imgRemote+config.main_image:imgRemote+ware.main_image"
-					mode="aspectFill">
+	<view class="recomend_single" @click="$doubleClick(detail)">
+		<view>
+			<view>
+				<image class="photo r-5"
+					:src="ware.main_image==''?imgRemote+config.main_image:imgRemote+ware.main_image" mode="aspectFill">
 				</image>
 			</view>
 			<view style="height: 80rpx;">

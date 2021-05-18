@@ -96,7 +96,7 @@ var components
 try {
   components = {
     wPicker: function() {
-      return __webpack_require__.e(/*! import() | components/w-picker/w-picker */ "components/w-picker/w-picker").then(__webpack_require__.bind(null, /*! @/components/w-picker/w-picker.vue */ 341))
+      return __webpack_require__.e(/*! import() | components/w-picker/w-picker */ "components/w-picker/w-picker").then(__webpack_require__.bind(null, /*! @/components/w-picker/w-picker.vue */ 348))
     }
   }
 } catch (e) {
@@ -250,7 +250,7 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 341));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { components: { wPicker: wPicker }, data: function data() {return { old_pwd: '', //旧密码
+var app = getApp().globalData;var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 348));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { components: { wPicker: wPicker }, data: function data() {return { old_pwd: '', //旧密码
       password: '', //旧密码
       password_confirmation: '', //旧密码
       navBar: navBar, count: 0 };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, formSubmit: function formSubmit() {var _this = this;var old_pwd = this.old_pwd;var password = this.password;var password_confirmation = this.password_confirmation;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, old_pwd: old_pwd, password: password, password_confirmation: password_confirmation, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);if (old_pwd == "") {_request.default.Toast("原始密码不能为空");

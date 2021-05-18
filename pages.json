@@ -165,7 +165,7 @@
 				{
 					"path": "updateavatar",
 					"style": {
-						"navigationBarTitleText": "修改头像",
+						"navigationBarTitleText": "设置",
 						"navigationBarBackgroundColor": "#fff",
 						"navigationBarTextStyle": "black"
 					}

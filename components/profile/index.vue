@@ -1,7 +1,6 @@
 <template>
 	<view class="my_profile flex" @click="$doubleClick(detail)">
-		<view class="photo" >
-
+		<view class="photo">
 			<image class="good_img" :src="ware.main_image==''?imgRemote+config.item_default:imgRemote+ware.main_image"
 				mode="widthFix"></image>
 		</view>
@@ -17,7 +16,7 @@
 
 				</view>
 				<view class="flex_left_right">
-					<view style="width:82%;" @click="$doubleClick(detail)">
+					<view style="width:75%;" @click="$doubleClick(detail)">
 						<view class="hidden">
 							<text class="red_font fs-18 bold">¥{{ware.sku[0].market_price}}</text>
 							<text class="gray_font">/{{ware.sku[0].unit}}</text>
@@ -29,7 +28,6 @@
 							<image class="add_cart" src="../../static/img/addcart.png" @click="showCart"></image>
 						</block>
 						<block v-else>
-
 							<my-stepper @showKey="showKey" :val="ware.cart_num" @minus="minus(ware.cart_num-1)"
 								@plus="plus(ware.cart_num+1)" v-if="ware.cart_num"></my-stepper>
 							<text v-else class="iconfont add_cart" @click="plusCart"> &#xe600;</text>
@@ -45,12 +43,8 @@
 </template>
 
 <script>
-	import md5 from '../../static/js/md5.js';
-	import rs from '../../static/js/request.js';
 	const app = getApp().globalData;
 	const {
-		appid,
-		appsecret,
 		imgRemote
 	} = app;
 	let {
@@ -76,9 +70,6 @@
 		},
 		methods: {
 			showCart() {
-				// #ifdef MP-WEIXIN
-				uni.hideTabBar();
-				// #endif
 				this.$emit('showCart')
 			},
 			addcart(url, num, message = '成功加入购物车') {
@@ -179,6 +170,7 @@
 		padding: 29rpx 0;
 		flex-direction: column;
 		justify-content: space-between;
+		width: 0;
 	}
 
 	.my_profile .operate {

@@ -18,10 +18,11 @@
 						</my-s-tabs>
 						<text @click="moreSecond=!moreSecond" class="iconfont iconfanhui" style="margin-left:15rpx;"
 							:style="{'transform':moreSecond?'rotate(270deg)':'rotate(90deg)'}"></text>
+
 					</view>
 
 				</view>
-				<view style="height: 60rpx;" v-if="secondCate.length!=1"></view>
+				<view style="height: 58rpx;" v-if="secondCate.length!=1"></view>
 
 				<view v-show="!moreSecond" class="second-mask" @click="moreSecond=!moreSecond">
 					<view class="all-second">
@@ -32,8 +33,8 @@
 
 				</view>
 				<view v-if="bitmap" class="all-good">
-					<my-profile v-for="(item,index) in list" :key="index" :wares="item" class="single_good"
-						@showCart="openCart(item)" @showKey="showKey(item,index)"></my-profile>
+					<my-profile v-for="(item,index) in list" :key="index" :wares="item" class="single_good">
+					</my-profile>
 				</view>
 				<view v-else class="bitmap">
 					<view style="height:150rpx;"></view>
@@ -42,12 +43,29 @@
 				</view>
 			</view>
 		</view>
-		<uni-popup ref="popup" type="bottom" @maskInfo="closeKey">
-			<my-keyboard @cancelKey="cancelKey" :arrObj="arrObj" @toParent="toParent" ref="keyboard"></my-keyboard>
-		</uni-popup>
-		<uni-popup ref="cart" type="bottom" @maskInfo="closeCart">
-			<my-addcart @onClose="onClose" :cartware="cartware" :config="config" ref="addcart"></my-addcart>
-		</uni-popup>
+<!-- 
+			<v-tabs-column :tabs="firstCate" v-model="kind" field="name" @change="changeTab">
+			<view v-if="bitmap" class="all-good">
+				<my-profile v-for="(item,index) in list" :key="index" :wares="item" class="single_good"
+				></my-profile>
+			</view>
+			<view v-else class="bitmap">
+				<view class="second-cate ">
+					<my-s-tabs effect slot-title @change="changeSecond" class="mp_tab_width border"
+						activeColor="#57B127" lineColor="none" v-model="activeTab" color="#999">
+						<my-s-tab v-for="(item,index) of secondCate" :key="index">{{item.name}}</my-s-tab>
+					</my-s-tabs>
+
+				</view>
+				<view style="height:150rpx;"></view>
+
+				<image src="../../static/img/no_content.png" mode="aspectFit"></image>
+				<view class="center gray_font">暂时没有商品，请耐心等候</view>
+			</view>
+		</v-tabs-column> -->
+
+
+
 	</view>
 </template>
 
@@ -56,12 +74,15 @@
 	const {
 		imgRemote
 	} = app;
+	import tabs2 from '../../components/v-tabs-column/v-tabs-column.vue';
 
 	export default {
-
+		components: {
+			tabs2
+		},
 		data() {
 			return {
-				kind: 0,
+				kind: 2,
 				cateId: '',
 				page: 1,
 				firstCate: [],
@@ -96,8 +117,8 @@
 
 					if (data.code == 1) {
 						//返回索引
-						let index = this.findIndex(data.data, classId)
-						this.kind = index?index:0;
+						let index = this.findIndex(data.data, classId);
+						this.kind = index ? index : 0;
 						this.firstCate = data.data;
 						this.cateId = classId ? classId : data.data[0].id;
 						this.goodSecondCate();
@@ -107,7 +128,7 @@
 			},
 			//二级分类
 			goodSecondCate() {
-
+				this.activeTab = 0;
 				this.$get(this.$api.goodChild_cate, {
 					cate_id: this.cateId
 				}, (res) => {
@@ -144,6 +165,7 @@
 
 				}, true)
 			},
+		
 			// 切换一级分类
 			changeFirst(index) {
 				this.page = 1;
@@ -165,13 +187,13 @@
 		},
 		onShow() {
 			if (app.isReload) {
-				this.list=[];
+				this.list = [];
 				this.goodCate();
 			}
 		},
-         onHide() {
-         	getApp().globalData.isReload=false;
-         },
+		onHide() {
+			getApp().globalData.isReload = false;
+		},
 		onReachBottom() {
 			this.page++;
 			this.getGood();
@@ -202,7 +224,7 @@
 		position: fixed;
 		z-index: 5;
 		/* padding-right: 20rpx; */
-		width: 78.5%;
+		width: 75.5%;
 		background: white;
 
 		.second-cate {
@@ -215,7 +237,7 @@
 	}
 
 	.classify .left_area {
-		width: 21.5%;
+		width: 24.5%;
 		position: fixed;
 		overflow-x: scroll;
 		background: #eee;
@@ -228,14 +250,15 @@
 
 	.classify .right_area {
 		width: 78%;
-		margin-left: 21.5%;
+		margin-left: 24.5%;
 
 		.second-mask {
 			position: fixed;
-			width: 78.5%;
+			width: 76.5%;
 			right: 0;
 			background: rgba(0, 0, 0, 0.4);
 			height: 100vh;
+			z-index: 999;
 		}
 	}
 

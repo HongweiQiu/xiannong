@@ -25,6 +25,10 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.myinfo.data-v-2295ae06 {
+  height: 100vh;
+  background: white;
+}
 .myinfo .get_info.data-v-2295ae06 {
   background: white;
   padding: 0 20rpx;
@@ -44,12 +48,12 @@
   color: #333;
 }
 .myinfo .button_style.data-v-2295ae06 {
-  margin-top: 16rpx;
-  width: 100%;
-  height: 88rpx;
-  line-height: 88rpx;
-  background: white;
-  color: #333;
+  margin: 119rpx 30rpx 0;
+  border-radius: 45rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  background: #57B127;
+  color: #fff;
 }
 .myinfo .get_info .avator.data-v-2295ae06 {
   height: 182rpx;

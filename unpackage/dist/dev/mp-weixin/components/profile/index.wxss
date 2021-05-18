@@ -29,6 +29,7 @@
 	-webkit-box-pack: justify;
 	-webkit-justify-content: space-between;
 	        justify-content: space-between;
+	width: 0;
 }
 .my_profile .operate {
 	height: 100%;

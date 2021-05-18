@@ -218,7 +218,7 @@ var _default =
     // 底部条宽度相对于标签宽度比例
     lineScale: {
       type: Number,
-      default: 0.3 } },
+      default: 0.8 } },
 
 
   data: function data() {
@@ -255,16 +255,6 @@ var _default =
 
       this.renderContent();
       this.refreshNavScroll();
-
-
-
-
-
-
-
-
-
-
     } },
 
   methods: {
@@ -311,6 +301,7 @@ var _default =
                 diffLeft) + (item.left - centerLeft - wrap.left);
 
                 _this2.lineWidth = item.width * _this2.lineScale;
+                // this.lineWidth = '20';
                 _this2.lineLeft = _this2.scrollLeft + centerLeft + (item.
                 width - _this2.lineWidth) / 2;
               }

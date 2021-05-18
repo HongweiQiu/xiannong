@@ -36,6 +36,11 @@ page,
   margin: 0rpx 20rpx 0 0;
   border-radius: 50%;
 }
+.user .user-back {
+  height: 452rpx;
+  width: 100%;
+  margin-top: -158rpx;
+}
 .user .author {
   position: absolute;
   top: 0;
@@ -81,6 +86,10 @@ page,
   height: 98rpx;
   border-bottom: 1px solid #EEE;
   box-sizing: border-box;
+}
+.user .select_operate > view .first-arrow {
+  font-size: 50rpx;
+  width: 50rpx;
 }
 .user .select_operate > view .name {
   margin-left: 10rpx;

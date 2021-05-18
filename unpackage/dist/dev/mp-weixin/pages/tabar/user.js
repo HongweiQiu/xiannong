@@ -199,6 +199,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var app = getApp().globalData;var
 
@@ -208,6 +227,7 @@ app.imgRemote;var _default =
   data: function data() {
     return {
       userInfo: uni.getStorageSync('userInfo'),
+      userToken: uni.getStorageSync('userToken'),
       userList: [{
         icon: 'iconshouhuodizhi',
         name: '地址管理',
@@ -218,7 +238,7 @@ app.imgRemote;var _default =
         icon: 'iconkefu',
         name: '联系客服',
         color: '#FF9C00',
-        url: 'receipt' },
+        url: 'kefu' },
 
       {
         icon: 'iconxuqiu',
@@ -266,6 +286,14 @@ app.imgRemote;var _default =
 
 
     },
+    remainPage: function remainPage() {
+      this.$needLogin(function () {
+        uni.navigateTo({
+          url: '../user/remainder' });
+
+      });
+
+    },
     pageUrl: function pageUrl(item) {
       this.$needLogin(function () {
         var path = item.url == 'delivery' ? 'shopcart' : 'user';
@@ -275,16 +303,17 @@ app.imgRemote;var _default =
       });
     },
     orderPage: function orderPage(data) {
-      if (data.path == 'after_sales') {
-        uni.navigateTo({
-          url: '../order/orderAfterSale' });
+      this.$needLogin(function () {
+        if (data.path == 'after_sales') {
+          uni.navigateTo({
+            url: '../order/orderAfterSale' });
 
-      } else {
-        uni.navigateTo({
-          url: './order' });
+        } else {
+          uni.navigateTo({
+            url: './order' });
 
-      }
-
+        }
+      });
     },
     memberInfo: function memberInfo() {var _this = this;
       var params = {
@@ -303,7 +332,10 @@ app.imgRemote;var _default =
 
   onShow: function onShow() {
     var that = this;
-    that.memberInfo();
+    if (uni.getStorageSync('userToken')) {
+      that.memberInfo();
+    }
+
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

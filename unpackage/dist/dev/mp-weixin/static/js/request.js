@@ -34,12 +34,12 @@ function get(url, datas, success, loading = false) {
 		data: datas,
 		success: res => {
 			success(res)
-				// if(res.data.code==401){
-					
+				if(res.data.code==401){
+						uni.removeStorageSync('userToken');
 				// 	uni.reLaunch({
 				// 		url:'/pages/account/login'
 				// 	})
-				// }
+				}
 			// if (res.header.token != undefined) {
 			// 	uni.setStorageSync("cdj_token", res.header.authorization)
 			// }
@@ -86,12 +86,13 @@ function post(url, datas, success, loading = false) {
 		success: res => {
 			success(res)
 			console.log(res)
-			// if(res.data.code==401){
+			if(res.data.code==401){
+				uni.removeStorageSync('userToken');
 				
-			// 	uni.reLaunch({
-			// 		url:'/pages/account/login'
-			// 	})
-			// }
+				// uni.reLaunch({
+				// 	url:'/pages/account/login'
+				// })
+			}
 			// if (res.header.authorization != undefined) {
 			// 	uni.setStorageSync("cdj_token", res.header.authorization)
 			// }
@@ -122,6 +123,7 @@ function needLogin(success) {
 			confirmColor: "#59B727",
 			success: function(res) {
 				if (res.confirm) {
+						getApp().globalData.isReload = true;
 					uni.reLaunch({
 						url: '/pages/account/login'
 					})
@@ -139,10 +141,23 @@ function Toast(message) {
 	})
 }
 
+function showModal(message,res) {
+	uni.showModal({
+		title:'温馨提示',
+		content:message,
+		confirmColor:'#57B127',
+		success: () => {
+			res()
+		}
+		
+		
+	})
+}
 
 export {
 	get,
 	post,
 	Toast,
-	needLogin
+	needLogin,
+	showModal
 }

@@ -15,6 +15,7 @@
 <script>
 	export default{
 		onHide(){
+			console.log(12)
 				getApp().globalData.isReload=true;
 		}
 	}

@@ -310,8 +310,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
 var app = getApp().globalData;var
 
 imgRemote =
@@ -322,6 +320,7 @@ app.imgRemote;var _default =
 
   data: function data() {
     return {
+      showcart: false,
       path: '',
       cartCount: '',
       base: {
@@ -380,6 +379,18 @@ app.imgRemote;var _default =
 
 
         {
+          type: 'view',
+          css: {
+            left: '40rpx',
+            top: '60rpx',
+            background: '#fff',
+            radius: '10rpx',
+            width: '460rpx',
+            height: '680rpx',
+            shadow: '0 20rpx 48rpx rgba(0,0,0,.05)' } },
+
+
+        {
           type: 'text',
           text: '长按识别小程序',
           css: {
@@ -412,6 +423,7 @@ app.imgRemote;var _default =
   methods: {
     canvasToTempFilePath: function canvasToTempFilePath() {var _this = this;
       var painter = this.$refs.painter;
+      painter.render(this.base);
       // 支持通过调用canvasToTempFilePath方法传入参数 调取生成图片
       painter.canvasToTempFilePath().then(function (res) {
         _this.path = res.tempFilePath;
@@ -423,19 +435,11 @@ app.imgRemote;var _default =
               content: '图片成功保存到相册了，快去分享朋友圈吧',
               showCancel: false,
               confirmText: '好的',
-              confirmColor: '#818FFB',
-              success: function success(res) {
-                if (res.confirm) {
-
-                }
-
-              } });
+              confirmColor: '#818FFB' });
 
           } });
 
       });
-      return;
-
     },
 
     goodDetail: function goodDetail(id) {var _this2 = this;
@@ -451,9 +455,6 @@ app.imgRemote;var _default =
           imgRemote);
           _this2.ware = data.data;
 
-
-          var painter = _this2.$refs.painter;
-          painter.render(_this2.base);
           var market_prices = [];var _iterator = _createForOfIteratorHelper(
           data.data.sku),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var i = _step.value;
               market_prices.push(i.market_price);
@@ -467,7 +468,8 @@ app.imgRemote;var _default =
           } else {
             _this2.base.views[4].text = _this2.minPrice + '-' + _this2.maxPrice;
           }
-
+          // const painter = this.$refs.painter;
+          // painter.render(this.base);
         }
       });
       this.$get(this.$api.mainSevice, {}, function (res) {var
@@ -516,6 +518,13 @@ app.imgRemote;var _default =
         token: uni.getStorageSync('userToken'),
         goods_id: id });
 
+    },
+    shopcartPage: function shopcartPage() {
+      this.$needLogin(function () {
+        uni.switchTab({
+          url: '../tabar/shopcart' });
+
+      });
     } },
 
   onLoad: function onLoad(e) {var

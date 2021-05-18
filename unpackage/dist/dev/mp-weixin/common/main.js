@@ -20,6 +20,7 @@ _vue.default.prototype.$get = _request.get;
 _vue.default.prototype.$post = _request.post;
 _vue.default.prototype.$Toast = _request.Toast;
 _vue.default.prototype.$needLogin = _request.needLogin;
+_vue.default.prototype.$showModal = _request.showModal;
 _vue.default.prototype.$doubleClick = _common.dianji;
 _vue.default.config.productionTip = false;
 

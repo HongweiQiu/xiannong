@@ -7,8 +7,6 @@
     "my-s-tabs": "/components/s-tabs/index",
     "my-s-tab": "/components/s-tab/index",
     "my-profile": "/components/profile/index",
-    "uni-popup": "/components/uni-popup/uni-popup",
-    "my-keyboard": "/components/keyboard/index",
-    "my-addcart": "/components/addcart/index"
+    "tabs2": "/components/v-tabs-column/v-tabs-column"
   }
 }

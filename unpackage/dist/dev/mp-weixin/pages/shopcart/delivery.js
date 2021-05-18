@@ -96,7 +96,7 @@ var components
 try {
   components = {
     wPicker: function() {
-      return __webpack_require__.e(/*! import() | components/w-picker/w-picker */ "components/w-picker/w-picker").then(__webpack_require__.bind(null, /*! @/components/w-picker/w-picker.vue */ 341))
+      return __webpack_require__.e(/*! import() | components/w-picker/w-picker */ "components/w-picker/w-picker").then(__webpack_require__.bind(null, /*! @/components/w-picker/w-picker.vue */ 348))
     }
   }
 } catch (e) {
@@ -153,8 +153,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 341));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 348));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -236,6 +235,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
           _this.receiving = data.data.province + data.data.city + data.data.area;
+          if (_this.receiving.match('null')) {
+            _this.receiving = '';
+          }
         }
       });
     },
@@ -274,9 +276,18 @@ __webpack_require__.r(__webpack_exports__);
                   id: '',
                   name: '' }] }];
 
+
             }
+            item.child.map(function (second) {
+              if (second.child.length == 0) {
+                second.child = [{
+                  id: '',
+                  name: '' }];
+
+              }
+            });
+            return item;
           });
-          console.log(data.data);
           _this3.option = data.data;
         }
       });
@@ -291,7 +302,6 @@ __webpack_require__.r(__webpack_exports__);
   onLoad: function onLoad(option) {
     this.memberAddressInfo();
     this.getAddress();
-
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

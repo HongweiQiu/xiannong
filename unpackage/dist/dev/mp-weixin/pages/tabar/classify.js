@@ -105,16 +105,7 @@ try {
       return __webpack_require__.e(/*! import() | components/s-tab/index */ "components/s-tab/index").then(__webpack_require__.bind(null, /*! @/components/s-tab/index.vue */ 278))
     },
     myProfile: function() {
-      return Promise.all(/*! import() | components/profile/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/profile/index")]).then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 285))
-    },
-    uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 248))
-    },
-    myKeyboard: function() {
-      return Promise.all(/*! import() | components/keyboard/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/keyboard/index")]).then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 292))
-    },
-    myAddcart: function() {
-      return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 257))
+      return __webpack_require__.e(/*! import() | components/profile/index */ "components/profile/index").then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 285))
     }
   }
 } catch (e) {
@@ -233,17 +224,38 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var app = getApp().globalData;var
 
 imgRemote =
-app.imgRemote;var _default =
+app.imgRemote;var tabs2 = function tabs2() {__webpack_require__.e(/*! require.ensure | components/v-tabs-column/v-tabs-column */ "components/v-tabs-column/v-tabs-column").then((function () {return resolve(__webpack_require__(/*! ../../components/v-tabs-column/v-tabs-column.vue */ 292));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
 
 {
+  components: {
+    tabs2: tabs2 },
 
   data: function data() {
     return {
-      kind: 0,
+      kind: 2,
       cateId: '',
       page: 1,
       firstCate: [],
@@ -289,7 +301,7 @@ app.imgRemote;var _default =
     },
     //二级分类
     goodSecondCate: function goodSecondCate() {var _this2 = this;
-
+      this.activeTab = 0;
       this.$get(this.$api.goodChild_cate, {
         cate_id: this.cateId },
       function (res) {var
@@ -326,6 +338,7 @@ app.imgRemote;var _default =
 
       }, true);
     },
+
     // 切换一级分类
     changeFirst: function changeFirst(index) {
       this.page = 1;

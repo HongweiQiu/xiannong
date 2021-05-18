@@ -13,8 +13,7 @@
 			<view @click="mapPage" class="flex_left_right ">
 				<view class="align_center">
 					<text class="iconfont iconshouhuodizhi" style="width:70rpx;"></text>
-					<input type="number" disabled v-model="receiving" placeholder="收货区域"
-						placeholder-class="place_style" />
+					<input disabled v-model="receiving" placeholder="收货区域" placeholder-class="place_style" />
 				</view>
 				<text class="iconfont iconfanhui t-180"></text>
 			</view>
@@ -81,6 +80,9 @@
 
 						};
 						this.receiving = data.data.province + data.data.city + data.data.area;
+						if (this.receiving.match('null')) {
+							this.receiving = '';
+						}
 					}
 				})
 			},
@@ -106,39 +108,47 @@
 			},
 			getAddress() {
 				this.$get(this.$api.mainRegion, {}, (res) => {
-							let {
-								data
-							} = res;
-							if (data.code == 1) {
-								data.data.map((item) => {
-										if (item.child.length == 0) {
-											item.child = [{
-													id: '',
-													name: '',
-													child: [{
-															id: '',
-															name: ''}]
-													}]
-											}
-										}) 
-										console.log(data.data)
-										 this.option = data.data;
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						data.data.map((item) => {
+							if (item.child.length == 0) {
+								item.child = [{
+									id: '',
+									name: '',
+									child: [{
+										id: '',
+										name: ''
+									}]
+								}]
+							}
+							item.child.map((second) => {
+								if (second.child.length == 0) {
+									second.child = [{
+										id: '',
+										name: ''
+									}]
 								}
 							})
-					},
-					confirmAddrss(e) {
-						this.receiving = e.result;
-						this.form.province = e.obj.col1.name;
-						this.form.city = e.obj.col2.name;
-						this.form.area = e.obj.col3.name;
+							return item;
+						})
+						this.option = data.data;
 					}
+				})
 			},
-			onLoad(option) {
-				this.memberAddressInfo();
-				this.getAddress();
-
-			},
-		};
+			confirmAddrss(e) {
+				this.receiving = e.result;
+				this.form.province = e.obj.col1.name;
+				this.form.city = e.obj.col2.name;
+				this.form.area = e.obj.col3.name;
+			}
+		},
+		onLoad(option) {
+			this.memberAddressInfo();
+			this.getAddress();
+		},
+	};
 </script>
 
 <style lang="scss">
