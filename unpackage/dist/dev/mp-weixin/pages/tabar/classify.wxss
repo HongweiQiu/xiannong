@@ -48,7 +48,7 @@ page.data-v-c63a8bb4 {
   position: fixed;
   z-index: 5;
   /* padding-right: 20rpx; */
-  width: 75.5%;
+  width: 73.5%;
   background: white;
 }
 .classify .first_name .second-cate.data-v-c63a8bb4 {
@@ -74,12 +74,12 @@ page.data-v-c63a8bb4 {
   display: none;
 }
 .classify .right_area.data-v-c63a8bb4 {
-  width: 78%;
-  margin-left: 24.5%;
+  width: 72%;
+  margin-left: 26.8%;
 }
 .classify .right_area .second-mask.data-v-c63a8bb4 {
   position: fixed;
-  width: 76.5%;
+  width: 73.5%;
   right: 0;
   background: rgba(0, 0, 0, 0.4);
   height: 100vh;

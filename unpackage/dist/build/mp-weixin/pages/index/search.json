@@ -4,8 +4,6 @@
   "navigationBarTextStyle": "black",
   "usingComponents": {
     "my-recomend": "/components/recomend/index",
-    "uni-popup": "/components/uni-popup/uni-popup",
-    "my-keyboard": "/components/keyboard/index",
-    "my-addcart": "/components/addcart/index"
+    "uni-popup": "/components/uni-popup/uni-popup"
   }
 }

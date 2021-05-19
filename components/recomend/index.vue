@@ -39,9 +39,7 @@
 		props: ['ware', 'config'],
 		data() {
 			return {
-				imgRemote: imgRemote,
-				token: uni.getStorageSync('cdj_token'),
-				count: 0
+				imgRemote: imgRemote
 			}
 		},
 		methods: {
@@ -49,7 +47,6 @@
 				this.$emit('showCart')
 			},
 			detail() {
-
 				uni.navigateTo({
 					url: `/pages/index/shopdetail?id=${this.ware.id}`
 				})

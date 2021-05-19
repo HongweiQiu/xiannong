@@ -80,7 +80,7 @@ var components
 try {
   components = {
     myStepper: function() {
-      return __webpack_require__.e(/*! import() | components/stepper/index */ "components/stepper/index").then(__webpack_require__.bind(null, /*! @/components/stepper/index.vue */ 299))
+      return __webpack_require__.e(/*! import() | components/stepper/index */ "components/stepper/index").then(__webpack_require__.bind(null, /*! @/components/stepper/index.vue */ 276))
     }
   }
 } catch (e) {
@@ -178,9 +178,7 @@ app.imgRemote;var _default =
   props: ['ware', 'config'],
   data: function data() {
     return {
-      imgRemote: imgRemote,
-      token: uni.getStorageSync('cdj_token'),
-      count: 0 };
+      imgRemote: imgRemote };
 
   },
   methods: {
@@ -188,7 +186,6 @@ app.imgRemote;var _default =
       this.$emit('showCart');
     },
     detail: function detail() {
-
       uni.navigateTo({
         url: "/pages/index/shopdetail?id=".concat(this.ware.id) });
 

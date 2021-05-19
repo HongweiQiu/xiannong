@@ -165,11 +165,7 @@
 
 				this.$nextTick(() => {
 					const query = () => uni.createSelectorQuery().in(this);
-					// // #ifdef APP-PLUS |MP-WEIXIN |MP-ALIPAY
-					// const query = () => uni.createSelectorQuery().call(this);
-					// // #endif
-
-
+				
 					query().select('.s-tabs-nav-wrap').boundingClientRect().exec(([wrap]) => {
 
 						query().select('.s-tab-nav-view').boundingClientRect().exec(([view]) => {

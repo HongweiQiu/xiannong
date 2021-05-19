@@ -85,10 +85,10 @@
 					}
 				],
 				activeTab: 0,
-				type: 1,
 				search_default: true,
 				list: [],
 				page: 1,
+				id:''
 			};
 		},
 		methods: {
@@ -113,7 +113,6 @@
 				return this.FomartDate(new Date(val * 1000));
 			},
 			orderDetailPage(url, item) {
-
 				if (url == 'orderDetail') {
 					uni.navigateTo({
 						url: '/pages/order/orderdetail?orderItem=' + item.id
@@ -124,25 +123,35 @@
 			orderList(id) {
 				let params = {
 					token: uni.getStorageSync('userToken'),
-					order_status: id
+					order_status: id,
+					page:this.page
 				};
 				this.$get(this.$api.orderIndex, params, (res) => {
 					let {
 						data
 					} = res;
 					if (data.code == 1) {
-						this.list = data.data;
+						this.list = this.list.concat(data.data);
 					} else {
 						this.$Toast(data.msg);
 					}
-				})
+				},true)
 			},
 			changeFirst(e) {
-				this.orderList(e)
+				this.page=1;
+				this.list=[];
+				this.id=e;
+				this.orderList(e);
 			}
 		},
-		onLoad() {
-			this.orderList();
+		onLoad(e) {
+			this.activeTab=e.id?e.id:0;
+			this.id=e.id;
+			this.orderList(e.id);
+		},
+		onReachBottom() {
+			this.page++;
+			this.orderList(this.id);
 		}
 	};
 </script>

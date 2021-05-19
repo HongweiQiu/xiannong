@@ -10,7 +10,7 @@
 			<view class="info">
 				<view class="operate flex">
 					<view style="width:86%;" @click="$doubleClick(detail)">
-						<view class="fs-13  two-line">{{ware.name}}</view>
+						<view class="fs-13 two-line">{{ware.name}}</view>
 						<!-- <view v-if="ware.desc" class="hidden gray_font fs-11">{{ware.desc}}</view> -->
 					</view>
 
@@ -18,8 +18,8 @@
 				<view class="flex_left_right">
 					<view style="width:75%;" @click="$doubleClick(detail)">
 						<view class="hidden">
-							<text class="red_font fs-18 bold">¥{{ware.sku[0].market_price}}</text>
-							<text class="gray_font">/{{ware.sku[0].unit}}</text>
+							<text class="red_font fs-18">¥ {{ware.sku[0].market_price}}</text>
+							<text class="gray_font fs-11">/{{ware.sku[0].unit}}</text>
 						</view>
 					</view>
 

@@ -96,10 +96,10 @@ var components
 try {
   components = {
     uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 248))
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 283))
     },
     myAddcart: function() {
-      return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 257))
+      return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 292))
     }
   }
 } catch (e) {
@@ -161,7 +161,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}var lPainter = function lPainter() {Promise.all(/*! require.ensure | uni_modules/lime-painter/components/lime-painter/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/lime-painter/components/lime-painter/index")]).then((function () {return resolve(__webpack_require__(/*! @/uni_modules/lime-painter/components/lime-painter/ */ 306));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var lPainter = function lPainter() {Promise.all(/*! require.ensure | uni_modules/lime-painter/components/lime-painter/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/lime-painter/components/lime-painter/index")]).then((function () {return resolve(__webpack_require__(/*! @/uni_modules/lime-painter/components/lime-painter/ */ 299));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+
 
 
 
@@ -359,7 +360,7 @@ app.imgRemote;var _default =
 
         {
           type: 'text',
-          text: '',
+          text: '1212',
           maxLines: 2,
           css: {
             fontWeight: 'bold',
@@ -380,14 +381,15 @@ app.imgRemote;var _default =
 
         {
           type: 'view',
-          css: {
+          css: _defineProperty({
             left: '40rpx',
-            top: '60rpx',
-            background: '#fff',
+            top: '648rpx',
+            background: '#E1FFE3',
             radius: '10rpx',
-            width: '460rpx',
-            height: '680rpx',
-            shadow: '0 20rpx 48rpx rgba(0,0,0,.05)' } },
+            width: '245rpx',
+            height: '40rpx' }, "radius",
+          '0 20rpx 20rpx 0') },
+
 
 
         {
@@ -422,6 +424,7 @@ app.imgRemote;var _default =
   },
   methods: {
     canvasToTempFilePath: function canvasToTempFilePath() {var _this = this;
+
       var painter = this.$refs.painter;
       painter.render(this.base);
       // 支持通过调用canvasToTempFilePath方法传入参数 调取生成图片
@@ -461,12 +464,13 @@ app.imgRemote;var _default =
             }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
           _this2.maxPrice = Math.max.apply(Math, market_prices).toFixed(2);
           _this2.minPrice = Math.min.apply(Math, market_prices).toFixed(2);
+
           _this2.base.views[2].src = _this2.imgRemote + _this2.ware.main_image;
           _this2.base.views[3].text = _this2.ware.name;
           if (_this2.ware.sku.length == 1) {
-            _this2.base.views[4].text = _this2.ware.sku[0].market_price;
+            _this2.base.views[4].text = '￥' + _this2.ware.sku[0].market_price;
           } else {
-            _this2.base.views[4].text = _this2.minPrice + '-' + _this2.maxPrice;
+            _this2.base.views[4].text = '￥' + _this2.minPrice + '-' + _this2.maxPrice;
           }
           // const painter = this.$refs.painter;
           // painter.render(this.base);
@@ -516,8 +520,8 @@ app.imgRemote;var _default =
     goodLike: function goodLike(id) {
       this.$get(this.$api.goodsJoin_like, {
         token: uni.getStorageSync('userToken'),
-        goods_id: id });
-
+        goods_id: id },
+      function () {});
     },
     shopcartPage: function shopcartPage() {
       this.$needLogin(function () {
@@ -536,7 +540,6 @@ app.imgRemote;var _default =
     if (uni.getStorageSync('userToken')) {
       this.goodLike(id);
     }
-
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

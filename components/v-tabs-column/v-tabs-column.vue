@@ -3,12 +3,13 @@
 		<view class="v-tabs-column__bar" :style="getStyle">
 			<scroll-view scroll-y scroll-with-animation style="height: 100%; overflow: hidden" :scroll-top="scrollTop">
 				<view class="v-tabs-column__bar-item" v-for="(v, i) in tabs" :key="i"
-					:style="i == current ? getActiveStyle : getInActiveStyle" :class="{ active: i == current }"
+				:style="i == value ? getActiveStyle : getInActiveStyle" :class="{ active: i == value }"
 					@click="chooseItem(i)">
 					{{ field ? v[field] : v }}
 				</view>
 			</scroll-view>
 		</view>
+				<!-- :style="i == current ? getActiveStyle : getInActiveStyle" :class="{ active: i == current }" -->
 		<view class="v-tabs-column__container" :style="getWidth">
 			<slot />
 		</view>
@@ -42,7 +43,7 @@
 		props: {
 			width: {
 				type: String,
-				default: '180rpx'
+				default: '200rpx'
 			},
 			height: {
 				type: String,
@@ -96,40 +97,39 @@
 			},
 			activeFontSize: {
 				tyep: String,
-				default: '32rpx'
+				default: '30rpx'
 			},
 			inactiveFontSize: {
 				type: String,
-				default: '28rpx'
+				default: '26rpx'
 			},
 			padding: {
 				type: String,
-				default: '0'
+				default: '0 20rpx'
 			},
 			bold: {
 				type: [String, Number],
 				default: 500
 			},
 			value: {
-				type:[String, Number],
+				type: [String, Number],
 				default: 0
 			}
 		},
 		watch: {
 			current(newVal, oldVal) {
-				console.log(12)
 				this.$emit('input', newVal)
 			}
 		},
 		data() {
 			return {
 				current: this.value,
-				scrollTop: 0,
+				scrollTop:0,
 				containerHeight: 0,
 				items: [] // 缓存
 			}
 		},
-	
+
 		methods: {
 			getHeight() {
 				if (this.height) {
@@ -141,7 +141,7 @@
 				height = this.isTabbar ? 'calc(100vh - 44px - 50px)' : 'calc(100vh - 44px)'
 				// #endif
 				// #ifndef H5
-				height = this.isTabbar ? 'calc(100vh - 44px)' : 'calc(100vh - 53px)'
+				height = this.isTabbar ? 'calc(100vh - 44px)' : 'calc(100vh - 120rpx)'
 				// #endif
 
 				return height
@@ -149,7 +149,7 @@
 			chooseItem(index) {
 				if (this.current !== index) {
 					this.current = index;
-					
+
 					this.$emit('change', index);
 					this.setPosition()
 				}
@@ -186,11 +186,13 @@
 				}
 			},
 			calcScrollTop() {
+
 				if (this.items) {
 					// 每一个 item 的高度都相等，随便取一个即可
 					const currentHeight = (this.current + 1) * this.items[0].height
 					// 计算滚动条距离顶部的位置
-					this.scrollTop = currentHeight - this.containerHeight / 2
+					this.scrollTop = currentHeight - this.containerHeight / 2;
+					
 				}
 			},
 			// 将对象转换成字符串: {'font-size': '24rpx'}  ====> 'font-size: 24rpx'
@@ -203,11 +205,15 @@
 				return result
 			}
 		},
+		mounted() {
+			this.setPosition()
+		},
 		computed: {
 			// 计算 bar 的样式
 			getStyle() {
 				// 判断是否传入了 height，如果没有，计算一下 height（除去 navbar 和 tabbar）
 				return this.objToString({
+					top: '120rpx',
 					width: this.width,
 					height: this.getHeight(),
 					background: this.bgColor,

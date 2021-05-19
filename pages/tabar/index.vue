@@ -19,10 +19,9 @@
 					{{item.title}}
 				</swiper-item>
 			</swiper>
-			
+
 		</view>
-		<!-- <uni-notice-bar  background-color="white" color="balck" scrollable="true"
-			text="新鲜蔬菜上新了阿斯顿撒多撒多水电费是的冯绍峰！！！盛大的范德萨" :speed="speed"></uni-notice-bar> -->
+
 		<!-- 导航 -->
 		<view class="nav">
 			<view v-for="(item, index) in navList" :key="index" @click="navUrl(item)" v-if="index<10">
@@ -53,41 +52,26 @@
 				<my-recomend v-for="(item, index) in recommendList" :key="index" :ware="item" :config="config"
 					@showCart="openCart(item)" class="myc_recomend"></my-recomend>
 			</view>
-			<!-- <my-loading :loading="loading"></my-loading> -->
-		</view>
-<view style="height:30rpx;"></view>
-		<my-backtop bottom="60" :showTop="showTop"></my-backtop>
-		<uni-popup ref="popup" type="bottom" @maskInfo="closeCart">
-			<my-addcart @onClose="onClose" :cartware="cartware" :config="config" ref="addcart"></my-addcart>
-		</uni-popup>
 
+		</view>
+		<view style="height:30rpx;"></view>
+		<my-backtop bottom="60" :showTop="showTop"></my-backtop>
 	</view>
 </template>
 
 <script>
-	
-	import uniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar.vue';
-
 	const app = getApp().globalData;
 	const {
-		appid,
-		appsecret,
 		imgRemote
 	} = app;
 	export default {
-		components: {
-			uniNoticeBar
-		},
 		data() {
 			return {
 				support: false,
 				showTop: false,
 				token: '',
 				imgRemote: imgRemote,
-				speed: 30,
-				loading: true,
 				page: 1,
-				num: 10,
 				adList: [],
 				navList: [],
 				newList: [],
@@ -98,10 +82,10 @@
 		methods: {
 			//导航页面
 			navUrl(e) {
-				getApp().globalData.classId=e.id;
-				getApp().globalData.isReload=true;
+				getApp().globalData.classId = e.id;
+				getApp().globalData.isReload = true;
 				uni.switchTab({
-					url:'./classify'
+					url: './classify'
 				})
 			},
 			indexMainAd() {
@@ -153,9 +137,6 @@
 					}
 				})
 			}
-		},
-		onShow() {
-			this.token = uni.getStorageSync('cdj_token');
 		},
 		onLoad() {
 			this.indexMainAd();

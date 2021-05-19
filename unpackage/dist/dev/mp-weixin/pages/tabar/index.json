@@ -5,9 +5,6 @@
   "usingComponents": {
     "my-search": "/components/search/index",
     "my-recomend": "/components/recomend/index",
-    "my-backtop": "/components/backtop/index",
-    "uni-popup": "/components/uni-popup/uni-popup",
-    "my-addcart": "/components/addcart/index",
-    "uni-notice-bar": "/components/uni-notice-bar/uni-notice-bar"
+    "my-backtop": "/components/backtop/index"
   }
 }

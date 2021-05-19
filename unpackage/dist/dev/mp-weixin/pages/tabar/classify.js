@@ -99,13 +99,16 @@ try {
       return __webpack_require__.e(/*! import() | components/search/index */ "components/search/index").then(__webpack_require__.bind(null, /*! @/components/search/index.vue */ 227))
     },
     mySTabs: function() {
-      return __webpack_require__.e(/*! import() | components/s-tabs/index */ "components/s-tabs/index").then(__webpack_require__.bind(null, /*! @/components/s-tabs/index.vue */ 271))
+      return __webpack_require__.e(/*! import() | components/s-tabs/index */ "components/s-tabs/index").then(__webpack_require__.bind(null, /*! @/components/s-tabs/index.vue */ 248))
     },
     mySTab: function() {
-      return __webpack_require__.e(/*! import() | components/s-tab/index */ "components/s-tab/index").then(__webpack_require__.bind(null, /*! @/components/s-tab/index.vue */ 278))
+      return __webpack_require__.e(/*! import() | components/s-tab/index */ "components/s-tab/index").then(__webpack_require__.bind(null, /*! @/components/s-tab/index.vue */ 255))
+    },
+    vTabsColumn: function() {
+      return __webpack_require__.e(/*! import() | components/v-tabs-column/v-tabs-column */ "components/v-tabs-column/v-tabs-column").then(__webpack_require__.bind(null, /*! @/components/v-tabs-column/v-tabs-column.vue */ 262))
     },
     myProfile: function() {
-      return __webpack_require__.e(/*! import() | components/profile/index */ "components/profile/index").then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 285))
+      return __webpack_require__.e(/*! import() | components/profile/index */ "components/profile/index").then(__webpack_require__.bind(null, /*! @/components/profile/index.vue */ 269))
     }
   }
 } catch (e) {
@@ -233,20 +236,11 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 var app = getApp().globalData;var
 
 imgRemote =
-app.imgRemote;var tabs2 = function tabs2() {__webpack_require__.e(/*! require.ensure | components/v-tabs-column/v-tabs-column */ "components/v-tabs-column/v-tabs-column").then((function () {return resolve(__webpack_require__(/*! ../../components/v-tabs-column/v-tabs-column.vue */ 292));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+app.imgRemote;var tabs2 = function tabs2() {__webpack_require__.e(/*! require.ensure | components/v-tabs-column/v-tabs-column */ "components/v-tabs-column/v-tabs-column").then((function () {return resolve(__webpack_require__(/*! ../../components/v-tabs-column/v-tabs-column.vue */ 262));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 {
@@ -255,7 +249,7 @@ app.imgRemote;var tabs2 = function tabs2() {__webpack_require__.e(/*! require.en
 
   data: function data() {
     return {
-      kind: 2,
+      kind: 0,
       cateId: '',
       page: 1,
       firstCate: [],
@@ -359,13 +353,18 @@ app.imgRemote;var tabs2 = function tabs2() {__webpack_require__.e(/*! require.en
     } },
 
   onShow: function onShow() {
+
     if (app.isReload) {
+
       this.list = [];
+      this.firstCate = [];
       this.goodCate();
     }
+
   },
   onHide: function onHide() {
     getApp().globalData.isReload = false;
+    getApp().globalData.classId = "";
   },
   onReachBottom: function onReachBottom() {
     this.page++;

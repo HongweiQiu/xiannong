@@ -96,10 +96,10 @@ var components
 try {
   components = {
     mySTabs: function() {
-      return __webpack_require__.e(/*! import() | components/s-tabs/index */ "components/s-tabs/index").then(__webpack_require__.bind(null, /*! @/components/s-tabs/index.vue */ 271))
+      return __webpack_require__.e(/*! import() | components/s-tabs/index */ "components/s-tabs/index").then(__webpack_require__.bind(null, /*! @/components/s-tabs/index.vue */ 248))
     },
     mySTab: function() {
-      return __webpack_require__.e(/*! import() | components/s-tab/index */ "components/s-tab/index").then(__webpack_require__.bind(null, /*! @/components/s-tab/index.vue */ 278))
+      return __webpack_require__.e(/*! import() | components/s-tab/index */ "components/s-tab/index").then(__webpack_require__.bind(null, /*! @/components/s-tab/index.vue */ 255))
     }
   }
 } catch (e) {
@@ -264,10 +264,10 @@ app.imgRemote;var _default =
 
 
       activeTab: 0,
-      type: 1,
       search_default: true,
       list: [],
-      page: 1 };
+      page: 1,
+      id: '' };
 
   },
   methods: {
@@ -292,7 +292,6 @@ app.imgRemote;var _default =
       return this.FomartDate(new Date(val * 1000));
     },
     orderDetailPage: function orderDetailPage(url, item) {
-
       if (url == 'orderDetail') {
         uni.navigateTo({
           url: '/pages/order/orderdetail?orderItem=' + item.id });
@@ -303,25 +302,35 @@ app.imgRemote;var _default =
     orderList: function orderList(id) {var _this = this;
       var params = {
         token: uni.getStorageSync('userToken'),
-        order_status: id };
+        order_status: id,
+        page: this.page };
 
       this.$get(this.$api.orderIndex, params, function (res) {var
 
         data =
         res.data;
         if (data.code == 1) {
-          _this.list = data.data;
+          _this.list = _this.list.concat(data.data);
         } else {
           _this.$Toast(data.msg);
         }
-      });
+      }, true);
     },
     changeFirst: function changeFirst(e) {
+      this.page = 1;
+      this.list = [];
+      this.id = e;
       this.orderList(e);
     } },
 
-  onLoad: function onLoad() {
-    this.orderList();
+  onLoad: function onLoad(e) {
+    this.activeTab = e.id ? e.id : 0;
+    this.id = e.id;
+    this.orderList(e.id);
+  },
+  onReachBottom: function onReachBottom() {
+    this.page++;
+    this.orderList(this.id);
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

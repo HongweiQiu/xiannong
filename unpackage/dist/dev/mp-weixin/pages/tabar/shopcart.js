@@ -96,7 +96,7 @@ var components
 try {
   components = {
     myStepper: function() {
-      return __webpack_require__.e(/*! import() | components/stepper/index */ "components/stepper/index").then(__webpack_require__.bind(null, /*! @/components/stepper/index.vue */ 299))
+      return __webpack_require__.e(/*! import() | components/stepper/index */ "components/stepper/index").then(__webpack_require__.bind(null, /*! @/components/stepper/index.vue */ 276))
     },
     myRecomend: function() {
       return __webpack_require__.e(/*! import() | components/recomend/index */ "components/recomend/index").then(__webpack_require__.bind(null, /*! @/components/recomend/index.vue */ 234))
@@ -285,6 +285,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 var app = getApp().globalData;var
 
@@ -323,41 +324,37 @@ app.imgRemote;var _default =
     delterGood: function delterGood() {
       var that = this;
       if (that.settlement) {
-        uni.showModal({
-          title: '温馨提醒',
-          content: '确定要删除选中商品吗？',
+        that.$showModal('确定要删除选中商品吗？', function () {
+          var ids = '';var _iterator2 = _createForOfIteratorHelper(
 
-          confirmColor: "#59B727",
-          success: function success(res) {
-            if (res.confirm) {
+          that.itemList),_step2;try {for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {var i = _step2.value;
+              if (i.checked == true) {
+                ids += i.id + ',';
+              }
+            }} catch (err) {_iterator2.e(err);} finally {_iterator2.f();}
+          var newId = ids.substring(0, ids.length - 1);
+          var params = {
+            token: uni.getStorageSync('userToken'),
+            cart_id: newId };
 
-              var ids = '';var _iterator2 = _createForOfIteratorHelper(
-
-              that.itemList),_step2;try {for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {var i = _step2.value;
-                  if (i.checked == true) {
-                    ids += i.id + ',';
-                  }
-                }} catch (err) {_iterator2.e(err);} finally {_iterator2.f();}
-              var newId = ids.substring(0, ids.length - 1);
-              var params = {
-                token: uni.getStorageSync('userToken'),
-                cart_id: newId };
-
-              that.$get(that.$api.cartdel_cart, params, function (res) {
-                var data = res.data;
-                if (data.code == 1) {
-                  that.$Toast('删除成功');
-                  that.cartIndex();
-                } else {
-                  that.$Toast(data.msg);
-                }
-              });
-
+          that.$get(that.$api.cartdel_cart, params, function (res) {
+            var data = res.data;
+            if (data.code == 1) {
+              that.$Toast('删除成功');
+              that.cartIndex();
+            } else {
+              that.$Toast(data.msg);
             }
-          } });
+          });
+        });
 
       } else {
-        that.$Toast('没有选中商品哦');
+
+        if (that.itemList.length == 0) {
+          that.$Toast('购物车暂时无商品');
+        } else {
+          that.$Toast('没有选中商品哦');
+        }
       }
     },
     selectCheck: function selectCheck(index) {

@@ -96,7 +96,7 @@ var components
 try {
   components = {
     uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 248))
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 283))
     }
   }
 } catch (e) {
@@ -197,8 +197,10 @@ app.imgRemote;var _default =
 {
   data: function data() {
     return {
+      imgRemote: imgRemote,
       avatarUrl: '',
-      personInfo: {} };
+      personInfo: {},
+      file: '' };
 
   },
   methods: {
@@ -225,52 +227,57 @@ app.imgRemote;var _default =
 
     },
     chooseImage: function chooseImage(type) {
+      var _ = this;
       uni.chooseImage({
-        count: 6, //默认9
+        count: 1, //默认9
         sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
         sourceType: [type], //从相册选择
         success: function success(res) {
-          console.log(res);
+          _.file = res.tempFilePaths[0];
+          _.$refs.popup.close();
+          _.uploadImg();
+
         } });
 
     },
-    formSubmit: function formSubmit() {
-      var that = this;
-      uni.showModal({
-        title: '提示',
-        content: '是否退出',
-        cancelColor: '#999',
-        confirmColor: "#59B727",
-        success: function success(res) {
-          if (res.confirm) {
-            that.$get(that.$api.userLogout, {
-              token: uni.getStorageSync('userInfo').token },
-            function (res) {
-              if (res.data.code == 1) {
-                that.$Toast("退出成功");
-                uni.removeStorageSync('userInfo');
-                uni.removeStorageSync('userToken');
-                setTimeout(function () {
-                  uni.reLaunch({
-                    url: '../account/login' });
+    uploadImg: function uploadImg() {
+      var _ = this;
+      uni.uploadFile({
+        url: getApp().globalData.rootUrl + _.$api.mainUpload, //此处换上你的接口地址
+        name: 'file',
+        filePath: _.file,
+        success: function success(res1) {
+          _.avatarUrl = _.imgRemote + JSON.parse(res1.data).data;
 
-                }, 1000);
-
-              } else {
-                that.$Toast(res.data.msg);
-              }
-            });
-          }
         } });
 
+    },
+    formSubmit: function formSubmit() {var _this2 = this;
 
+      this.$showModal('确认修改信息', function () {
+        var params = {
+          avatar: _this2.avatarUrl };
 
+        _this2.$get(_this2.$api.userProfile, params, function (res) {
+          if (res.data.code == 1) {
+            _this2.$Toast('修改成功');
+            setTimeout(function () {
+              uni.navigateBack();
+            }, 1000);
+          } else {
+            _this2.$Toast(res.data.msg);
+          }
+        });
+      });
     } },
 
   /**
           * 生命周期函数--监听页面显示
           */
   onShow: function onShow() {
+
+  },
+  onLoad: function onLoad() {
     var that = this;
     that.memberInfo();
   } };exports.default = _default;

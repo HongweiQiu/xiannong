@@ -75,6 +75,9 @@
 							province: data.data.province,
 							city: data.data.city,
 							area: data.data.area,
+							// province: '',
+							// city: '',
+							// area: '',
 							shou_phone: data.data.shou_phone,
 							address: data.data.address,
 

@@ -10,8 +10,8 @@
 				</view>
 				<view class="" style="width: 90%;">
 					<view class="bold fs-18 two-line">{{ware.name}}</view>
-					<view class="red-font" style="margin:20rpx 0;">
-						<text class="fs-11">￥</text>
+					<view class="red-font bold" style="margin:20rpx 0;">
+						<text class="fs-13">￥</text>
 						<text class="fs-23">{{ware.sku[kind].market_price}}</text>
 					</view>
 					<view>已选：{{ware.sku[kind].guige}}/{{ware.sku[kind].unit}}, {{num}}件</view>

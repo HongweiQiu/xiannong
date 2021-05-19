@@ -261,16 +261,20 @@ app.imgRemote;var _default =
 
       orderStatu: [{
         path: 'to_be_paid',
-        name: '待审核' },
+        name: '待审核',
+        id: 1 },
       {
         path: 'to_be_delivered',
-        name: '待发货' },
+        name: '待发货',
+        id: 2 },
       {
         path: 'to_be_received',
-        name: '待收货' },
+        name: '待收货',
+        id: 3 },
       {
         path: 'completed',
-        name: '已完成' },
+        name: '已完成',
+        id: 4 },
       {
         path: 'after_sales',
         name: '售后/退款' }],
@@ -310,7 +314,7 @@ app.imgRemote;var _default =
 
         } else {
           uni.navigateTo({
-            url: './order' });
+            url: './order?id=' + data.id });
 
         }
       });

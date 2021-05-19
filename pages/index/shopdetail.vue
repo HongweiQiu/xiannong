@@ -23,8 +23,9 @@
 				</view>
 				<view class="price flex_left_right">
 					<view>
-						<text class="fs-23 pink bold" v-if="ware.sku.length==1">￥{{ware.sku[0].market_price}}</text>
-						<text class="fs-23 pink bold" v-else>￥{{minPrice}}-{{maxPrice}}</text>
+						<text class="fs-18  pink bold">￥</text>
+						<text class="fs-23 pink bold" v-if="ware.sku.length==1">{{ware.sku[0].market_price}}</text>
+						<text class="fs-23 pink bold" v-else>{{minPrice}}-{{maxPrice}}</text>
 						<!-- <text class="fs-11 pink bold">￥</text>
 						<text class="pink fs-23 bold">19.9</text>
 						<text class="fs-11">/盒</text>
@@ -196,7 +197,7 @@
 						},
 						{
 							type: 'text',
-							text: '',
+							text: '1212',
 							maxLines: 2,
 							css: {
 								fontWeight: 'bold',
@@ -219,12 +220,13 @@
 							type: 'view',
 							css: {
 								left: '40rpx',
-								top: '60rpx',
-								background: '#fff',
+								top: '648rpx',
+								background: '#E1FFE3',
 								radius: '10rpx',
-								width: '460rpx',
-								height: '680rpx',
-								shadow: '0 20rpx 48rpx rgba(0,0,0,.05)'
+								width: '245rpx',
+								height: '40rpx',
+								radius: '0 20rpx 20rpx 0'
+
 							}
 						},
 						{
@@ -259,6 +261,7 @@
 		},
 		methods: {
 			canvasToTempFilePath() {
+
 				const painter = this.$refs.painter;
 				painter.render(this.base);
 				// 支持通过调用canvasToTempFilePath方法传入参数 调取生成图片
@@ -298,12 +301,13 @@
 						}
 						this.maxPrice = Math.max(...market_prices).toFixed(2);
 						this.minPrice = Math.min(...market_prices).toFixed(2);
+
 						this.base.views[2].src = this.imgRemote + this.ware.main_image;
 						this.base.views[3].text = this.ware.name;
 						if (this.ware.sku.length == 1) {
-							this.base.views[4].text = this.ware.sku[0].market_price
+							this.base.views[4].text = '￥' + this.ware.sku[0].market_price
 						} else {
-							this.base.views[4].text = this.minPrice + '-' + this.maxPrice;
+							this.base.views[4].text = '￥' + this.minPrice + '-' + this.maxPrice;
 						}
 						// const painter = this.$refs.painter;
 						// painter.render(this.base);
@@ -354,7 +358,7 @@
 				this.$get(this.$api.goodsJoin_like, {
 					token: uni.getStorageSync('userToken'),
 					goods_id: id
-				})
+				}, () => {})
 			},
 			shopcartPage() {
 				this.$needLogin(() => {
@@ -373,7 +377,6 @@
 			if (uni.getStorageSync('userToken')) {
 				this.goodLike(id);
 			}
-
 		}
 	}
 </script>

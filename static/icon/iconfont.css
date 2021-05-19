@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'iconfont';  /* Project id 2495862 */
-  src: url('//at.alicdn.com/t/font_2495862_7m52nti7pox.woff2?t=1620887870852') format('woff2'),
-       url('//at.alicdn.com/t/font_2495862_7m52nti7pox.woff?t=1620887870852') format('woff'),
-       url('//at.alicdn.com/t/font_2495862_7m52nti7pox.ttf?t=1620887870852') format('truetype');
+  src: url('https://at.alicdn.com/t/font_2495862_7m52nti7pox.woff2?t=1620887870852') format('woff2'),
+       url('https://at.alicdn.com/t/font_2495862_7m52nti7pox.woff?t=1620887870852') format('woff'),
+       url('https://at.alicdn.com/t/font_2495862_7m52nti7pox.ttf?t=1620887870852') format('truetype');
 }
 
 .iconfont {

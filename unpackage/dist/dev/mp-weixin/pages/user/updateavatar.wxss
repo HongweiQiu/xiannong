@@ -59,7 +59,7 @@
   height: 182rpx;
 }
 .myinfo .avator image.data-v-2295ae06 {
-  width: 110rpx !important;
+  width: 110rpx;
   height: 110rpx;
   border-radius: 50%;
 }

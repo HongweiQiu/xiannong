@@ -4,11 +4,9 @@
 	width: 100%;
 	z-index: 9;
 	background: white;
-	/* height: 68rpx; */
-
-	/* 	display: flex;
-	align-items: center;
-	justify-content: space-between; */
+}
+.search_result.data-v-64d2b7fe {
+	margin-bottom: 30rpx;
 }
 .search_list .input_key .select_key.data-v-64d2b7fe {
 	padding: 0 10rpx 0 0rpx;
@@ -30,7 +28,7 @@
 }
 .search_list .hot_search.data-v-64d2b7fe {
 	/* position: fixed; */
-	height: calc(100vh - 108rpx);
+	height: calc(100vh - 120rpx);
 	background: white;
 	/* width: 100%; */
 	padding: 0 20rpx 0 30rpx;

@@ -2,13 +2,13 @@
 	<view class="classify">
 		<my-search :show="false"></my-search>
 		<view class="classify_good">
-			<view class="left_area">
+			<!-- <view class="left_area">
 				<view class="second_name" v-for="(item, index) in firstCate" :key="index"
 					:class="kind == index ? 'is_active' : ''" @click="changeFirst(index)">
 					<view class="left_border" v-if="kind == index"></view>
 					<view class="hidden fs-13">{{item.name}}</view>
 				</view>
-			</view>
+			</view> -->
 			<view class="right_area">
 				<view class="first_name" v-if="secondCate.length!=1">
 					<view class="second-cate ">
@@ -16,7 +16,7 @@
 							activeColor="#57B127" lineColor="none" v-model="activeTab" color="#999">
 							<my-s-tab v-for="(item,index) of secondCate" :key="index">{{item.name}}</my-s-tab>
 						</my-s-tabs>
-						<text @click="moreSecond=!moreSecond" class="iconfont iconfanhui" style="margin-left:15rpx;"
+						<text @click="moreSecond=!moreSecond" class="iconfont iconfanhui" style="margin:0 0 15rpx 15rpx;"
 							:style="{'transform':moreSecond?'rotate(270deg)':'rotate(90deg)'}"></text>
 
 					</view>
@@ -32,7 +32,7 @@
 					</view>
 
 				</view>
-				<view v-if="bitmap" class="all-good">
+				<!-- <view v-if="bitmap" class="all-good">
 					<my-profile v-for="(item,index) in list" :key="index" :wares="item" class="single_good">
 					</my-profile>
 				</view>
@@ -40,29 +40,20 @@
 					<view style="height:150rpx;"></view>
 					<image src="../../static/img/no_content.png" mode="aspectFit"></image>
 					<view class="center gray_font">暂时没有商品，请耐心等候</view>
-				</view>
+				</view> -->
 			</view>
 		</view>
-<!-- 
-			<v-tabs-column :tabs="firstCate" v-model="kind" field="name" @change="changeTab">
+
+		<v-tabs-column :tabs="firstCate" v-model="kind" field="name" @change="changeFirst" position="left">
 			<view v-if="bitmap" class="all-good">
-				<my-profile v-for="(item,index) in list" :key="index" :wares="item" class="single_good"
-				></my-profile>
+				<my-profile v-for="(item,index) in list" :key="index" :wares="item" class="single_good"></my-profile>
 			</view>
 			<view v-else class="bitmap">
-				<view class="second-cate ">
-					<my-s-tabs effect slot-title @change="changeSecond" class="mp_tab_width border"
-						activeColor="#57B127" lineColor="none" v-model="activeTab" color="#999">
-						<my-s-tab v-for="(item,index) of secondCate" :key="index">{{item.name}}</my-s-tab>
-					</my-s-tabs>
-
-				</view>
 				<view style="height:150rpx;"></view>
-
 				<image src="../../static/img/no_content.png" mode="aspectFit"></image>
 				<view class="center gray_font">暂时没有商品，请耐心等候</view>
 			</view>
-		</v-tabs-column> -->
+		</v-tabs-column>
 
 
 
@@ -75,14 +66,14 @@
 		imgRemote
 	} = app;
 	import tabs2 from '../../components/v-tabs-column/v-tabs-column.vue';
-
+	
 	export default {
 		components: {
 			tabs2
 		},
 		data() {
 			return {
-				kind: 2,
+				kind:0,
 				cateId: '',
 				page: 1,
 				firstCate: [],
@@ -165,7 +156,7 @@
 
 				}, true)
 			},
-		
+
 			// 切换一级分类
 			changeFirst(index) {
 				this.page = 1;
@@ -186,13 +177,18 @@
 			},
 		},
 		onShow() {
+			
 			if (app.isReload) {
+				
 				this.list = [];
+				this.firstCate=[];
 				this.goodCate();
 			}
+
 		},
 		onHide() {
 			getApp().globalData.isReload = false;
+			getApp().globalData.classId="";
 		},
 		onReachBottom() {
 			this.page++;
@@ -224,7 +220,7 @@
 		position: fixed;
 		z-index: 5;
 		/* padding-right: 20rpx; */
-		width: 75.5%;
+		width: 73.5%;
 		background: white;
 
 		.second-cate {
@@ -249,12 +245,12 @@
 	}
 
 	.classify .right_area {
-		width: 78%;
-		margin-left: 24.5%;
+		width: 72%;
+		margin-left: 26.8%;
 
 		.second-mask {
 			position: fixed;
-			width: 76.5%;
+			width: 73.5%;
 			right: 0;
 			background: rgba(0, 0, 0, 0.4);
 			height: 100vh;

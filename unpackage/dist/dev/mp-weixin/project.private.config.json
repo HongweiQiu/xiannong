@@ -1,0 +1,65 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/tabar/user",
+          "pathName": "pages/tabar/user",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/tabar/index",
+          "pathName": "pages/tabar/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/index/search",
+          "pathName": "pages/index/search",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/tabar/classify",
+          "pathName": "pages/tabar/classify",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/index/shopdetail",
+          "pathName": "pages/index/shopdetail",
+          "query": "id=41",
+          "scene": null
+        },
+        {
+          "name": "pages/order/orderdetail",
+          "pathName": "pages/order/orderdetail",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/order/applyAfterSale",
+          "pathName": "pages/order/applyAfterSale",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/user/updateavatar",
+          "pathName": "pages/user/updateavatar",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

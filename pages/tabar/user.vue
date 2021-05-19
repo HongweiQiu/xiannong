@@ -5,7 +5,7 @@
 			<view class="flex-column flex-space-between img">
 				<view class="flex_left_right" v-if="userToken" @click="$doubleClick(updateAvatar)">
 					<view class="align_center ">
-						<image :src='personInfo.avatar' class="avator" v-if="personInfo.avatar"></image>
+						<image :src='personInfo.avatar' class="avator" v-if="personInfo.avatar" mode="aspectFill"></image>
 						<image src="../../static/img/avatar.png" class="avator" v-else></image>
 						<view>
 							<view>{{userInfo.company}}</view>
@@ -32,7 +32,7 @@
 		</view>
 
 		<view class="order-info">
-			<view class="my-order flex_left_right" @click="orderPage(0)">
+			<view class="my-order flex_left_right" @click="orderPage({id:''})">
 				<text class="bold">我的订单</text>
 				<text class="iconfont iconfanhui t-180 gray_font"></text>
 			</view>
@@ -129,16 +129,20 @@
 				],
 				orderStatu: [{
 					path: 'to_be_paid',
-					name: '待审核'
+					name: '待审核',
+					id:1
 				}, {
 					path: 'to_be_delivered',
-					name: '待发货'
+					name: '待发货',
+						id:2
 				}, {
 					path: 'to_be_received',
-					name: '待收货'
+					name: '待收货',
+						id:3
 				}, {
 					path: 'completed',
-					name: '已完成'
+					name: '已完成',
+						id:4
 				}, {
 					path: 'after_sales',
 					name: '售后/退款'
@@ -178,7 +182,7 @@
 						})
 					} else {
 						uni.navigateTo({
-							url: './order'
+							url: './order?id='+data.id
 						})
 					}
 				})

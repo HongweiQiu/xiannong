@@ -101,6 +101,7 @@
 					<my-recomend v-for="(item, index) in recommendList" :key="index" :ware="item" class="myc_recomend">
 					</my-recomend>
 				</view>
+				<view style="height: 30rpx;"></view>
 			</view>
 		</view>
 	</view>
@@ -144,41 +145,37 @@
 			delterGood() {
 				let that = this;
 				if (that.settlement) {
-					uni.showModal({
-						title: '温馨提醒',
-						content: '确定要删除选中商品吗？',
+					that.$showModal('确定要删除选中商品吗？', () => {
+						let ids = '';
 
-						confirmColor: "#59B727",
-						success: function(res) {
-							if (res.confirm) {
-
-								let ids = '';
-
-								for (let i of that.itemList) {
-									if (i.checked == true) {
-										ids += i.id + ','
-									}
-								}
-								let newId = ids.substring(0, ids.length - 1)
-								let params = {
-									token: uni.getStorageSync('userToken'),
-									cart_id: newId
-								}
-								that.$get(that.$api.cartdel_cart, params, res => {
-									let data = res.data;
-									if (data.code == 1) {
-										that.$Toast('删除成功');
-										that.cartIndex();
-									} else {
-										that.$Toast(data.msg);
-									}
-								});
-
+						for (let i of that.itemList) {
+							if (i.checked == true) {
+								ids += i.id + ','
 							}
 						}
+						let newId = ids.substring(0, ids.length - 1)
+						let params = {
+							token: uni.getStorageSync('userToken'),
+							cart_id: newId
+						}
+						that.$get(that.$api.cartdel_cart, params, res => {
+							let data = res.data;
+							if (data.code == 1) {
+								that.$Toast('删除成功');
+								that.cartIndex();
+							} else {
+								that.$Toast(data.msg);
+							}
+						});
 					})
+
 				} else {
-					that.$Toast('没有选中商品哦');
+					
+					if(that.itemList.length==0){
+						that.$Toast('购物车暂时无商品');
+					}else{
+						that.$Toast('没有选中商品哦');
+					}
 				}
 			},
 			selectCheck(index) {
@@ -323,15 +320,15 @@
 			this.allCheck = false;
 			this.settlement = false;
 			this.getFreight();
-			if(uni.getStorageSync('userToken')){
-					this.cartIndex();
-			}else{
+			if (uni.getStorageSync('userToken')) {
+				this.cartIndex();
+			} else {
 				getApp().globalData.isReload = true;
 				uni.reLaunch({
-					url:'../account/login'
+					url: '../account/login'
 				})
 			}
-		
+
 			this.likeGood();
 		},
 		onLoad() {

@@ -103,12 +103,6 @@ try {
     },
     myBacktop: function() {
       return __webpack_require__.e(/*! import() | components/backtop/index */ "components/backtop/index").then(__webpack_require__.bind(null, /*! @/components/backtop/index.vue */ 241))
-    },
-    uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 248))
-    },
-    myAddcart: function() {
-      return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 257))
     }
   }
 } catch (e) {
@@ -165,96 +159,80 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNoticeBar = function uniNoticeBar() {__webpack_require__.e(/*! require.ensure | components/uni-notice-bar/uni-notice-bar */ "components/uni-notice-bar/uni-notice-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-notice-bar/uni-notice-bar.vue */ 264));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var app = getApp().globalData;var
 
-appid =
-
-
-app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
+imgRemote =
+app.imgRemote;var _default =
 {
-  components: {
-    uniNoticeBar: uniNoticeBar },
-
   data: function data() {
     return {
       support: false,
       showTop: false,
       token: '',
       imgRemote: imgRemote,
-      speed: 30,
-      loading: true,
       page: 1,
-      num: 10,
       adList: [],
       navList: [],
       newList: [],
@@ -321,9 +299,6 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       });
     } },
 
-  onShow: function onShow() {
-    this.token = uni.getStorageSync('cdj_token');
-  },
   onLoad: function onLoad() {
     this.indexMainAd();
     this.indexMainCate();

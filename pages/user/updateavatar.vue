@@ -2,7 +2,7 @@
 	<view class="myinfo">
 		<view class="get_info">
 			<view class="flex_left_right avator">
-				<image class="goods_img" :src='avatarUrl' mode='scaleToFill'></image>
+				<image class="goods_img" :src='avatarUrl' mode="aspectFill"></image>
 
 				<view class="align_center gray_font" @tap="showUpload('open')">
 					<text class="fs-13">修改头像</text>
@@ -42,8 +42,10 @@
 	export default {
 		data() {
 			return {
+				imgRemote: imgRemote,
 				avatarUrl: '',
-				personInfo: {}
+				personInfo: {},
+				file:''
 			};
 		},
 		methods: {
@@ -70,60 +72,69 @@
 
 			},
 			chooseImage(type) {
+				let _ = this;
 				uni.chooseImage({
-				    count: 6, //默认9
-				    sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-				    sourceType: [type], //从相册选择
-				    success: function (res) {
-				        console.log(res);
-				    }
+					count: 1, //默认9
+					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+					sourceType: [type], //从相册选择
+					success(res) {
+						_.file=res.tempFilePaths[0];
+						_.$refs.popup.close();
+						_.uploadImg()
+						
+					}
 				});
 			},
-			formSubmit() {
-				let that = this;
-				uni.showModal({
-					title: '提示',
-					content: '是否退出',
-					cancelColor: '#999',
-					confirmColor: "#59B727",
-					success: function(res) {
-						if (res.confirm) {
-							that.$get(that.$api.userLogout, {
-								token: uni.getStorageSync('userInfo').token
-							}, (res) => {
-								if (res.data.code == 1) {
-									that.$Toast("退出成功");
-									uni.removeStorageSync('userInfo');
-									uni.removeStorageSync('userToken');
-									setTimeout(function() {
-										uni.reLaunch({
-											url: '../account/login'
-										})
-									}, 1000);
-
-								} else {
-									that.$Toast(res.data.msg)
-								}
-							})
-						}
+			uploadImg(){
+				let _=this;
+				uni.uploadFile({
+					url: getApp().globalData.rootUrl + _.$api.mainUpload, //此处换上你的接口地址
+					name: 'file',
+					filePath:_.file,
+					success: function(res1) {
+						_.avatarUrl = _.imgRemote + JSON.parse(res1.data).data;
+						
 					}
 				})
+			},
+			formSubmit() {
 
-
+				this.$showModal('确认修改信息', () => {
+					let params = {
+						avatar: this.avatarUrl
+					}
+					this.$get(this.$api.userProfile, params, (res) => {
+						if (res.data.code == 1) {
+							this.$Toast('修改成功');
+							setTimeout(() => {
+								uni.navigateBack();
+							}, 1000)
+						} else {
+							this.$Toast(res.data.msg);
+						}
+					})
+				})
 			}
 		},
 		/**
 		 * 生命周期函数--监听页面显示
 		 */
 		onShow: function() {
+
+		},
+		onLoad() {
 			var that = this;
 			that.memberInfo();
-		},
+		}
 	};
 </script>
 
 <style lang="scss" scoped>
-	.myinfo{height: 100vh;background: white;}
+	.myinfo {
+		height: 100vh;
+		background: white;
+	}
+
 	.myinfo .get_info {
 		background: white;
 		padding: 0 20rpx;
@@ -145,9 +156,9 @@
 	.myinfo .button_style {
 		margin: 119rpx 30rpx 0;
 		border-radius: 45rpx;
-	
-		height:90rpx;
-		line-height:90rpx;
+
+		height: 90rpx;
+		line-height: 90rpx;
 		background: #57B127;
 		color: #fff;
 	}
@@ -157,7 +168,7 @@
 	}
 
 	.myinfo .avator image {
-		width: 110rpx !important;
+		width: 110rpx;
 		height: 110rpx;
 		border-radius: 50%;
 	}

@@ -99,13 +99,7 @@ try {
       return __webpack_require__.e(/*! import() | components/recomend/index */ "components/recomend/index").then(__webpack_require__.bind(null, /*! @/components/recomend/index.vue */ 234))
     },
     uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 248))
-    },
-    myKeyboard: function() {
-      return Promise.all(/*! import() | components/keyboard/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/keyboard/index")]).then(__webpack_require__.bind(null, /*! @/components/keyboard/index.vue */ 320))
-    },
-    myAddcart: function() {
-      return __webpack_require__.e(/*! import() | components/addcart/index */ "components/addcart/index").then(__webpack_require__.bind(null, /*! @/components/addcart/index.vue */ 257))
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 283))
     }
   }
 } catch (e) {
@@ -131,23 +125,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
-      _vm.sortIndex = 1
-    }
-
-    _vm.e1 = function($event) {
-      _vm.sortIndex = 2
-    }
-
-    _vm.e2 = function($event) {
-      _vm.sortIndex = 3
-    }
-
-    _vm.e3 = function($event) {
       return _vm.$refs.speech.close()
-    }
-
-    _vm.e4 = function($event) {
-      return _vm.$refs.popup.close()
     }
   }
 }
@@ -273,20 +251,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 var app = getApp().globalData;var
 
-appid =
-
-
-app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
+imgRemote =
+app.imgRemote;var _default =
 
 {
   data: function data() {
@@ -320,77 +289,6 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
         } });
 
     },
-    closeCart: function closeCart() {
-      this.$refs.addcart.onClose();
-    },
-    closeKey: function closeKey() {
-      this.$refs.keyboard.cancel();
-    },
-
-    toParent: function toParent(e) {var _this = this;
-      var item = e.arrObj;
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        timeStamp: timeStamp,
-        item_id: item.id,
-        attr_id: 0,
-        item_num: e.val };
-
-      var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-      var params = Object.assign({
-        sign: sign },
-
-      obj);
-
-      rs.postRequests('changeNum', params, function (res) {
-        var data = res.data;
-        if (data.code == 200) {
-          rs.Toast('加入购物车成功');
-          _this.list[_this.index].cart_num = e.val;
-        } else if (data.code == 407 || data.code == 406) {
-          rs.Toast("购买数量不能超过活动数量");
-        } else {
-          rs.Toast(res.data.msg);
-        }
-      });
-      this.$refs.popup.close();
-    },
-    openCart: function openCart(item) {
-      this.cartware = item;
-      this.$refs.cart.open();
-    },
-    onClose: function onClose() {
-      this.$refs.cart.close();
-    },
-    // 显示键盘
-    showKey: function showKey(item, index) {
-      this.arrObj = item;
-      this.index = index;
-      this.$refs.popup.open();
-    },
-    // 热门搜索
-    getSearchData: function getSearchData() {var _this2 = this;
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        timeStamp: timeStamp };
-
-      var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-      var params = Object.assign({
-        sign: sign },
-
-      obj);
-
-      rs.getRequests('getSearchData', params, function (res) {
-        var data = res.data;
-        if (data.code == 200) {
-          _this2.keyList = data.data;
-        } else {
-          rs.Toast(data.msg);
-        }
-      });
-    },
     submit: function submit() {
       this.searchList(this.keyword);
     },
@@ -399,7 +297,7 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
       this.showSearch = true;
     },
     // 搜索列表
-    searchList: function searchList(key) {var _this3 = this;
+    searchList: function searchList(key) {var _this = this;
       var params = {
         keyword: key,
         page: this.page };
@@ -408,24 +306,24 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
         var data = res.data;
         if (data.code == 1) {
 
-          _this3.showSearch = false;
-          _this3.list = data.data;
-          if (data.data.length == 0 && _this3.page == 1) {
-            _this3.list = [];
-            _this3.bitmap = true;
+          _this.showSearch = false;
+          _this.list = data.data;
+          if (data.data.length == 0 && _this.page == 1) {
+            _this.list = [];
+            _this.bitmap = true;
           } else {
-            _this3.bitmap = false;
+            _this.bitmap = false;
           }
         }
       });
     },
-    hotSearch: function hotSearch() {var _this4 = this;
+    hotSearch: function hotSearch() {var _this2 = this;
       this.$get(this.$api.mainHotSearch, {}, function (res) {var
 
         data =
         res.data;
         if (data.code == 1) {
-          _this4.keyList = data.data;
+          _this2.keyList = data.data;
         }
       });
     },
@@ -492,11 +390,6 @@ app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote;var _default =
     } },
 
 
-
-
-
-
-  onHide: function onHide() {},
   onShow: function onShow() {
     this.hotSearch();
   } };exports.default = _default;

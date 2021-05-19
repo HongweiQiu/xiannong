@@ -2,15 +2,16 @@
 	<view class="apply-return">
 		<view class="return-good">
 			<view class="border padding-15 order-num align_center">
-			<!-- 	<uni-icons class="check-button" :type="allCheck?'checkbox-filled':'circle'"
-					:color="allCheck?'#57B127':'#999'" size="20" @click="allCheckGood" /> -->
+			
+					<text class="iconfont" :class="allCheck?'icondanxuanfuxuan':'iconico2'"
+						:style="{'color':item.checked?'#57B127':'#999'}" @click="allCheckGood"></text>
 				<text class="fs-13" style="margin-left: 20rpx;">订单编号：2375647384983426</text>
 			</view>
 			<view class="padding-15">
-				<view class="" v-for="item in 2" class="flex sign-good ">
+				<view class="" v-for="(item,index) in 2" class="flex sign-good " :key="index">
 					<view class="align_center">
-						<uni-icons class="check-button" :type="allCheck?'checkbox-filled':'circle'"
-							:color="allCheck?'#57B127':'#999'" size="20" @click="allCheckGood" />
+					<text class="iconfont" :class="item.checked?'icondanxuanfuxuan':'iconico2'"
+						:style="{'color':item.checked?'#57B127':'#999'}" @click="allCheckGood"></text>
 					</view>
 					<view class="flex">
 						<view class="img">

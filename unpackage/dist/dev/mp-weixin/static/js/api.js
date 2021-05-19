@@ -11,11 +11,14 @@ const api = {
 	mainFreight: "/main/freight", //邮费
 	mainAgree: "/main/agree", //个人协议
 	mainRegion: "/main/region", //个人协议
+	mainUpload: "/main/upload", //上传图片
+	
 
 	userRegister: "/user/register", //用户注册
 	userLogin: "/user/login", //用户登录
 	userLogout: "/user/logout", //用户退出
 	userInfo: "/user/user_info", //用户退出
+	userProfile: "/user/profile", //修改个人信息
 
 	goodDetail: "/goods/detail", //商品详情
 	goodCate: "/goods/cate", //商品分类一级
