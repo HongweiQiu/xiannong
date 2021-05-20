@@ -96,7 +96,7 @@ var components
 try {
   components = {
     wPicker: function() {
-      return __webpack_require__.e(/*! import() | components/w-picker/w-picker */ "components/w-picker/w-picker").then(__webpack_require__.bind(null, /*! @/components/w-picker/w-picker.vue */ 327))
+      return __webpack_require__.e(/*! import() | components/w-picker/w-picker */ "components/w-picker/w-picker").then(__webpack_require__.bind(null, /*! @/components/w-picker/w-picker.vue */ 320))
     }
   }
 } catch (e) {
@@ -122,7 +122,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
-      return _vm.$refs.picker.show()
+      _vm.visible = true
     }
   }
 }
@@ -158,7 +158,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 320));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -200,97 +200,64 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+{
+  components: {
+    wPicker: wPicker },
+
+  data: function data() {
+    return {
+      visible: false,
+      options: [],
+      defaultProps: {
+        "label": "name",
+        "value": "id" },
+
+      form: {
+        name: '',
+        cate: '',
+        brand: '',
+        sku: '',
+        supplier: '',
+        price: '',
+        desc: '',
+        token: uni.getStorageSync('userToken') } };
 
 
-
-
-var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 88));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var app = getApp().globalData;var wPicker = function wPicker() {__webpack_require__.e(/*! require.ensure | components/w-picker/w-picker */ "components/w-picker/w-picker").then((function () {return resolve(__webpack_require__(/*! @/components/w-picker/w-picker.vue */ 327));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { components: { wPicker: wPicker }, data: function data() {return { old_pwd: '', //旧密码
-      password: '', //旧密码
-      password_confirmation: '', //旧密码
-      navBar: navBar, count: 0 };}, methods: { leftClick: function leftClick() {uni.navigateBack({ delta: 1 });}, formSubmit: function formSubmit() {var _this = this;var old_pwd = this.old_pwd;var password = this.password;var password_confirmation = this.password_confirmation;var timeStamp = Math.round(new Date().getTime() / 1000);var obj = { appid: appid, old_pwd: old_pwd, password: password, password_confirmation: password_confirmation, timeStamp: timeStamp };var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);if (old_pwd == "") {_request.default.Toast("原始密码不能为空");
-        return false;
-      }
-      if (password.length < 6) {
-        _request.default.Toast("密码不能小于六位数");
-        return false;
-      }
-      if (password_confirmation != password) {
-        _request.default.Toast("密码不一致");
-        return false;
-      }
-      this.count++;
-      if (this.count != 1) return;
-      setTimeout(function () {
-        _this.count = 0;
-      }, 500);
-      var data = {
-        appid: appid,
-        old_pwd: old_pwd,
-        password: password,
-        password_confirmation: password_confirmation,
-        timeStamp: timeStamp,
-        sign: sign };
-
-      _request.default.postRequests("modifyPassword", data, function (res) {
-        if (res.data.code == 200) {
-          _request.default.Toast('修改成功');
-          setTimeout(function () {
-            uni.navigateTo({
-              url: "/pages/account/login" });
-
-          }, 1000);
+  },
+  methods: {
+    confirmCate: function confirmCate(e) {
+      this.form.cate = e.result;
+    },
+    formSubmit: function formSubmit() {var _this = this;
+      var params = this.form;
+      for (var i in this.form) {
+        if (!this.form[i]) {
+          return this.$Toast('请填写相关信息');
         }
-        if (res.data.code == 400) {
-          _request.default.Toast(res.data.msg);
+      }
+      this.$get(this.$api.userXuqiu, params, function (res) {
+        var data = res.data;
+        if (data.code == 1) {
+          _this.$Toast('提交新品需求成功');
+          setTimeout(function () {
+            uni.navigateBack();
+          }, 1000);
+        } else {
+          _this.$Toast(data.msg);
         }
       });
-    } } };exports.default = _default;
+    } },
+
+  onLoad: function onLoad() {var _this2 = this;
+    this.$get(this.$api.goodCate, {}, function (res) {var
+
+      data =
+      res.data;
+      if (data.code == 1) {
+        _this2.options = data.data;
+      }
+    });
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

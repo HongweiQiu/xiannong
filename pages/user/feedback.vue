@@ -1,15 +1,11 @@
 <template>
 	<view class="feedback">
 		<view>
-			<view class="bold">选择反馈类型</view>
-			<view class="type flex_left_right fs-13">
-				<text v-for="(item,index) in 8" @click="indexType=index" :class="indexType==index?'active-type':''">服务相关</text>
-			</view>
 			<view>
-				<textarea placeholder="请在此描述你的建议或反馈，我们会尽快为你处理的哦~(必填)"></textarea>
+				<textarea v-model="content" placeholder="请在此描述你的建议或反馈，我们会尽快为你处理的哦~(必填)"></textarea>
 			</view>
 		</view>
-		<view class="submit">确定提交</view>
+		<view class="submit" @click="$doubleClick(submit)">确定提交</view>
 	</view>
 </template>
 
@@ -17,12 +13,28 @@
 	export default {
 		data() {
 			return {
-				indexType:0
-
+				indexType: 0,
+				content: ''
 			}
 		},
 		methods: {
-
+			submit() {
+				let params = {
+					token: uni.getStorageSync('userToken'),
+					content: this.content
+				};
+				this.$get(this.$api.userFankui, params, res => {
+					let data = res.data;
+					if (data.code == 1) {
+						this.$Toast('提交意见成功');
+						setTimeout(() => {
+							uni.navigateBack()
+						}, 1000)
+					} else {
+						this.$Toast(data.msg);
+					}
+				});
+			}
 		}
 	}
 </script>
@@ -48,10 +60,11 @@
 
 		.type {
 			flex-wrap: wrap;
-			.active-type{
-					border: 1px solid #57B127;
-					background: #E8FFDC;
-					color: #57B127;
+
+			.active-type {
+				border: 1px solid #57B127;
+				background: #E8FFDC;
+				color: #57B127;
 			}
 		}
 
@@ -67,10 +80,9 @@
 		}
 
 		textarea {
-			height: 210rpx;
+			height: 310rpx;
 			padding: 24rpx 21rpx 0 29rpx;
 			width: 690rpx;
-			margin-top: 32rpx;
 			background: #F8F8F8;
 			border-radius: 10rpx;
 			box-sizing: border-box;

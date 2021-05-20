@@ -316,7 +316,6 @@ app.imgRemote;var _default =
           if (i.checked) {
             sum += i.buy_num * i.sku.market_price;
           }
-
         }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
       this.totalPrice = sum;
       return this.totalPrice;
@@ -347,9 +346,7 @@ app.imgRemote;var _default =
             }
           });
         });
-
       } else {
-
         if (that.itemList.length == 0) {
           that.$Toast('购物车暂时无商品');
         } else {
@@ -364,7 +361,6 @@ app.imgRemote;var _default =
           this.itemList[index].checked = false;
         }
       }
-
       this.settlement = this.itemList.some(function (item) {
         return item.checked == true;
       });
@@ -401,7 +397,6 @@ app.imgRemote;var _default =
       } else {
         this.$Toast('没有选中商品哦');
       }
-
     },
     cartIndex: function cartIndex() {var _this2 = this;
       this.$get(this.$api.cartIndex, {
@@ -420,7 +415,6 @@ app.imgRemote;var _default =
           // })
           _this2.itemList = data.data;
           _this2.calculate();
-
         }
       });
     },
@@ -481,9 +475,7 @@ app.imgRemote;var _default =
       }
       var indexGood = this.itemList[index];
       this.updateCart(indexGood.id, indexGood.buy_num);
-
     },
-
     //邮费
     getFreight: function getFreight() {var _this5 = this;
       this.$get(this.$api.mainFreight, {}, function (res) {
@@ -507,11 +499,9 @@ app.imgRemote;var _default =
         url: '../account/login' });
 
     }
-
     this.likeGood();
   },
   onLoad: function onLoad() {
-
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

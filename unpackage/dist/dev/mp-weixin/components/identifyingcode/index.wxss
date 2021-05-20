@@ -1,6 +1,6 @@
 
 .identifying_code {
-	width: 180rpx;
+	width: 200rpx;
 	height: 50rpx;
 	line-height: 50rpx;
 	color: white;

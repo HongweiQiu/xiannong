@@ -100,9 +100,6 @@ try {
     },
     myRecomend: function() {
       return __webpack_require__.e(/*! import() | components/recomend/index */ "components/recomend/index").then(__webpack_require__.bind(null, /*! @/components/recomend/index.vue */ 234))
-    },
-    myBacktop: function() {
-      return __webpack_require__.e(/*! import() | components/backtop/index */ "components/backtop/index").then(__webpack_require__.bind(null, /*! @/components/backtop/index.vue */ 241))
     }
   }
 } catch (e) {
@@ -218,8 +215,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 var app = getApp().globalData;var
 
@@ -276,7 +271,6 @@ app.imgRemote;var _default =
         var data = res.data;
         if (data.code == 1) {
           _this3.recommendList = data.data;
-
         }
       });
     },
@@ -285,7 +279,6 @@ app.imgRemote;var _default =
         var data = res.data;
         if (data.code == 1) {
           _this4.newList = data.data;
-
         }
       });
     },
@@ -294,7 +287,6 @@ app.imgRemote;var _default =
         var data = res.data;
         if (data.code == 1) {
           _this5.noticeList = data.data;
-
         }
       });
     } },
@@ -311,7 +303,11 @@ app.imgRemote;var _default =
     var that = this;
     that.page++;
     // that.indexItem();
-  } };exports.default = _default;
+  },
+  onShareAppMessage: function onShareAppMessage() {
+
+  },
+  onShareTimeline: function onShareTimeline() {} };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

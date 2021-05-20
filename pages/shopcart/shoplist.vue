@@ -40,22 +40,23 @@
 						<view class="info">
 							<view style="width:100%;">
 								<view class="bold two-line">{{item.goods.name}}</view>
-								<view class="gray_font fs-11">
-									￥{{item.sku.market_price}}/{{item.sku.unit}}（{{item.sku.guige}}）x{{item.buy_num}}
+								<view style="margin-top: 20rpx;" class="flex_left_right">
+									<text class="gray_font fs-11">￥{{item.sku.market_price}}/{{item.sku.unit}}（{{item.sku.guige}}）x{{item.buy_num}}</text>
+									<text class="bold " style="margin-top:-8rpx;">
+										￥{{fixed(item.sku.market_price*item.buy_num)}}
+									</text>
 								</view>
 							</view>
 						</view>
-						<view class="bold " style="margin-top:20rpx;">
-							￥{{fixed(item.sku.market_price*item.buy_num)}}
-						</view>
+					
 					</view>
 				</view>
 			</view>
-			<view class="flex_left_right bold" style="margin-top: 30rpx;">
+			<view class="flex_left_right" style="margin-top: 30rpx;">
 				<text>商品金额</text>
 				<text>￥{{fixed(totalPrice)}}</text>
 			</view>
-			<view class="flex_left_right bold" style="margin-top: 30rpx;">
+			<view class="flex_left_right " style="margin-top: 30rpx;">
 				<text>配送费</text>
 				<text>￥{{fixed(freight?freight:0)}}</text>
 			</view>
@@ -67,21 +68,21 @@
 		</view>
 		<view class="white_b padding-15 r-5" style="margin:30rpx;">
 			<view class="align_center order-remark">
-				<text class="bold" style="width:160rpx;">订单备注</text>
+				<text style="width:160rpx;">订单备注</text>
 				<input v-model="remark" placeholder="选填" class="flex-full" />
 			</view>
 
 			<view class="flex_left_right order-remark">
-				<text class="bold" style="width:160rpx;">开具发票</text>
+				<text style="width:160rpx;">开具发票</text>
 				<switch color="#57B127" @change="switchChange" style="height:80rpx;" />
 			</view>
 			<view v-show="showSwitch">
 				<view class="align_center order-remark">
-					<text class="bold" style="width:160rpx;">发票抬头</text>
+					<text style="width:160rpx;">发票抬头</text>
 					<input v-model="addressInfo.tax_name" placeholder="请输入发票抬头" class="flex-full" />
 				</view>
 				<view class="align_center order-remark">
-					<text class="bold" style="width:160rpx;">发票税号</text>
+					<text style="width:160rpx;">发票税号</text>
 
 					<input type="number" v-model="addressInfo.tax_num" placeholder="请输入发票税号" class="flex-full" />
 				</view>
@@ -165,7 +166,7 @@
 				showSwitch: false,
 				pay_type: 'wxpay',
 				remark: '',
-				receiving:''
+				receiving: ''
 			}
 		},
 		methods: {
@@ -258,10 +259,7 @@
 				});
 			},
 			pay() {
-				let _=this;
-				_.$showModal('确认提交订单?',()=>{
-						_.confirmPay()
-				})
+				this.confirmPay();
 			},
 			switchChange(e) {
 				this.showSwitch = e.target.value;
@@ -298,7 +296,7 @@
 					} = res;
 					if (data.code == 1) {
 						this.addressInfo = data.data;
-						this.receiving=data.data.province+data.data.city+data.data.area;
+						this.receiving = data.data.province + data.data.city + data.data.area;
 						if (this.receiving.match('null')) {
 							this.receiving = '';
 						}

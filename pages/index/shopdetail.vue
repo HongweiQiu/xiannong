@@ -377,12 +377,16 @@
 			if (uni.getStorageSync('userToken')) {
 				this.goodLike(id);
 			}
-		}
+		},
+		onShareAppMessage() {
+
+		},
+		onShareTimeline() {}
 	}
 </script>
 <style scoped lang="scss">
 	.cart-count {
-		margin: -10rpx 0 0 20rpx;
+		margin: -10rpx 0 0 30rpx;
 		text-align: center;
 		position: absolute;
 		width: 32rpx;

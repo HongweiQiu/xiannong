@@ -19,8 +19,8 @@
 }
 .modifypwd .button_style {
 	font-size: 36rpx;
-margin:60rpx 30rpx 0;
-border-radius: 45rpx;
+	margin: 60rpx 30rpx 0;
+	border-radius: 45rpx;
 	height: 90rpx;
 	line-height: 90rpx;
 	background: #57B127;

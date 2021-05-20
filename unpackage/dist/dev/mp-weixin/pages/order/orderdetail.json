@@ -3,7 +3,6 @@
   "navigationBarBackgroundColor": "#fff",
   "navigationBarTextStyle": "black",
   "usingComponents": {
-    "my-countdown": "/components/countdown/index",
     "uni-popup": "/components/uni-popup/uni-popup"
   }
 }

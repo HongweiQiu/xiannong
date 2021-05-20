@@ -63,10 +63,9 @@
   border: 1px solid #c3c3c3;
 }
 .feedback textarea.data-v-f34175c0 {
-  height: 210rpx;
+  height: 310rpx;
   padding: 24rpx 21rpx 0 29rpx;
   width: 690rpx;
-  margin-top: 32rpx;
   background: #F8F8F8;
   border-radius: 10rpx;
   box-sizing: border-box;

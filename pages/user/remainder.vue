@@ -7,7 +7,7 @@
 				<view class="three-ellipse"></view>
 				<view class="bold  flex-column flex-full align_center flex-space-between" style="margin:72rpx 0;">
 					<text>账号余额(元）</text>
-					<text class="money">1000.00</text>
+					<text class="money">{{personInfo.money}}</text>
 				</view>
 			</view>
 			<my-s-tabs effect slot-title @change="changeFirst" v-model="activeTab" class="custom-tabs" lineHeight='6'>
@@ -16,16 +16,23 @@
 		</view>
 		<view style="height: 360rpx;"></view>
 		<view>
-			<view class="all-money" v-show="false">
-				<view v-for="(item,index) in 10" class="border white_b sign">
+			<view class="all-money" v-if="list.length">
+				<view v-for="(item,index) in list" :key="index" class="border white_b sign">
 					<view class="flex_left_right">
-						<text>购买商品</text>
-						<text>-￥40.00</text>
+						<text>{{item.msg}}</text>
+						<view>
+							<text v-if="direct==1">-{{item.money}}</text>
+							<view v-else class="align_center" style="color: orange;">
+								<text>+</text>
+								<text>{{item.money}}</text>
+							</view>
+						</view>
+
 					</view>
-					<view class="fs-11 gray_font">2021-03-24 23:22:22</view>
+					<view class="fs-11 gray_font">{{$fomartDate(item.createtime)}}</view>
 				</view>
 			</view>
-			<view v-show="true" class="bitmap flex-column align_center">
+			<view v-else class="bitmap flex-column align_center">
 				<image src="../../static/img/remain_record.png" mode="aspectFit"></image>
 				<text class="fs-13 gray_font">没有明细记录哦~</text>
 			</view>
@@ -42,10 +49,57 @@
 				}, {
 					name: '收入明细'
 				}],
+				direct: 1,
+				page: 1,
+				list: [],
+				personInfo: {}
 			}
 		},
 		methods: {
-
+			changeFirst(e) {
+				this.direct = e + 1;
+				this.list = [];
+				this.page = 1;
+				this.getList();
+			},
+			getList() {
+				let params = {
+					token: uni.getStorageSync('userToken'),
+					direct: this.direct,
+					page: this.page
+				};
+				this.$get(this.$api.userMoney_log, params, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						this.list = this.list.concat(data.data);
+					} else {
+						this.$Toast(data.msg);
+					}
+				}, true)
+			},
+			memberInfo() {
+				let params = {
+					token: uni.getStorageSync('userToken')
+				}
+				this.$get(this.$api.userInfo, params, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						this.personInfo = data.data;
+					}
+				})
+			}
+		},
+		onLoad() {
+			this.memberInfo()
+			this.getList()
+		},
+		onReachBottom() {
+			this.page++;
+			this.getList();
 		}
 	}
 </script>

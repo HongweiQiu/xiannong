@@ -173,10 +173,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 var _default =
 {
   data: function data() {
@@ -231,13 +227,8 @@ var _default =
 
     // 微信端微信登录
 
-    wechatLogin: function wechatLogin() {var _this2 = this;
-      console.log('weixin');
-      this.count++;
-      if (this.count != 1) return;
-      setTimeout(function () {
-        _this2.count = 0;
-      }, 500);
+    wechatLogin: function wechatLogin() {
+      var _ = this;
       uni.getUserInfo({
         provider: 'weixin',
         success: function success(infoRes) {var
@@ -249,44 +240,23 @@ var _default =
           uni.login({
             provider: 'weixin',
             success: function success(res) {
-              var timeStamp = Math.round(new Date().getTime() / 1000);
-              var obj = {
-                appid: appid,
-                timeStamp: timeStamp,
-                code: res.code };
+              console.log(res);
+              _.$get(_.$api.userWx_login, {
+                code: res.code },
+              function (result) {var
 
-              var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-              var params = Object.assign({
-                type: 'mini',
-                sign: sign,
-                code: res.code,
-                encryptedData: encryptedData,
-                iv: iv },
-              obj);
-              rs.postRequests('wxLogin', params, function (result) {
-                var data = result.data;
 
-                if (data.code == 200) {
-                  rs.Toast('登录成功，将跳转到首页');
-                  wx.setStorageSync("cdj_token", data.data.token);
-                  wx.setStorageSync("is_child", data.data.is_child);
-                  wx.setStorageSync("is_miniBind", data.data.is_miniBind);
-                  setTimeout(function () {
-                    uni.switchTab({
-                      url: '../tabar/index' });
+                data =
+                result.data;
+                if (data.code == 1) {
+                  if (typeof data.data == 'string') {
+                    uni.navigateTo({
+                      url: './bind?openId=' + data.data });
 
-                  }, 1000);
-                } else if (data.code == 201) {
-                  wx.navigateTo({
-                    url: 'selectway?identifying=' + data.data.
-                    identifying });
-
-                } else {
-                  rs.Toast(data.msg);
+                  }
                 }
               });
             } });
-
 
         } });
 

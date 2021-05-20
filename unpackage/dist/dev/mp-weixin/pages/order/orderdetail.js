@@ -95,9 +95,6 @@ __webpack_require__.r(__webpack_exports__);
 var components
 try {
   components = {
-    myCountdown: function() {
-      return __webpack_require__.e(/*! import() | components/countdown/index */ "components/countdown/index").then(__webpack_require__.bind(null, /*! @/components/countdown/index.vue */ 320))
-    },
     uniPopup: function() {
       return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 283))
     }
@@ -123,11 +120,30 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 = /2|3|4|5|6/.test(_vm.info.order_status)
+  var g1 = g0 ? /2|3/.test(_vm.info.order_status) : null
+  var g2 = (Number(_vm.info.total_price) + Number(_vm.info.freight)).toFixed(2)
+  var m0 = _vm.$fomartDate(_vm.info.createtime)
+  var m1 = _vm.info.refund_time ? _vm.$fomartDate(_vm.info.refund_time) : null
+
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
       return _vm.$refs.popup.open()
     }
   }
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0,
+        g1: g1,
+        g2: g2,
+        m0: m0,
+        m1: m1
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -270,12 +286,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
     return {
+      imgRemote: getApp().globalData.imgRemote,
       time: 1222,
-      second: '',
+      id: '',
+      info: [],
       returnReason: [{
         reason: '不想买了' },
 
@@ -289,21 +323,92 @@ var _default =
         reason: '地址错误' },
 
       {
-        reason: '无理由' }] };
+        reason: '无理由' }],
 
 
+
+      reason: '',
+      orderIndex: '' };
 
   },
   methods: {
-
-    applyReturnMoney: function applyReturnMoney() {
+    fixed: function fixed(val) {
+      return Number(val).toFixed(2);
+    },
+    applyReturnMoney: function applyReturnMoney(index) {
       uni.navigateTo({
-        url: 'applyAfterSale' });
+        url: 'applyAfterSale?id=' + this.id + '&returnIndex=' + index });
 
+    },
+    selectReson: function selectReson(e) {
+      this.reason = e.detail;
+    },
+    cancelOrder: function cancelOrder(id) {var _this = this;
+      if (!this.reason) {
+        return this.$Toast('请选择退款原因');
+      }
+      this.$showModal('确认取消订单?', function () {
+        var params = {
+          token: uni.getStorageSync('userToken'),
+          order_id: id,
+          shenhe_remark: _this.reason };
+
+        _this.$get(_this.$api.orderCancel, params, function (res) {var
+
+          data =
+          res.data;
+          if (data.code == 1) {
+            _this.$Toast('取消订单成功');
+            getApp().globalData.orderIndex = _this.orderIndex;
+            _this.getOrderDetail(id);
+            _this.$refs.popup.close();
+          } else {
+            _this.$Toast(data.msg);
+          }
+        });
+      });
+
+    },
+    confirmReceipt: function confirmReceipt(id) {var _this2 = this;
+      this.$showModal('确认收货?', function () {
+        var params = {
+          token: uni.getStorageSync('userToken'),
+          order_id: id };
+
+        _this2.$get(_this2.$api.orderReceipt, params, function (res) {var
+
+          data =
+          res.data;
+          if (data.code == 1) {
+            _this2.$Toast('收货成功');
+            _this2.getOrderDetail(id);
+            getApp().globalData.orderIndex = _this2.orderIndex;
+          } else {
+            _this2.$Toast(data.msg);
+          }
+        });
+      });
+    },
+    getOrderDetail: function getOrderDetail(id) {var _this3 = this;
+      this.$get(this.$api.orderDetail, {
+        token: uni.getStorageSync('userToken'),
+        order_id: id },
+      function (res) {var
+
+        data =
+        res.data;
+        if (data.code == 1) {
+          _this3.info = data.data;
+        } else {
+          _this3.$Toast(data.msg);
+        }
+      });
     } },
 
-  onShow: function onShow() {
-    this.countdown();
+  onLoad: function onLoad(e) {
+    this.id = e.id;
+    this.orderIndex = e.index;
+    this.getOrderDetail(e.id);
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

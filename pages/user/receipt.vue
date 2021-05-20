@@ -25,22 +25,17 @@
 			};
 		},
 		methods: {
-
-
 			formSubmit() {
 				let {
-					tax_name
-				} = this;
-				let {
-					tax_num
+					tax_name,tax_num
 				} = this;
 
-				// if (tax_name == "") {
-				// 	return this.$Toast("发票抬头不能为空")
-				// }
-				// if (tax_num == '') {
-				// 	return this.$Toast("发票税号不能为空")
-				// }
+				if (tax_name == "") {
+					return this.$Toast("发票抬头不能为空")
+				}
+				if (tax_num == '') {
+					return this.$Toast("发票税号不能为空")
+				}
 
 				let params = {
 					token: uni.getStorageSync('userToken'),
@@ -56,7 +51,6 @@
 					} else {
 						this.$Toast(data.msg);
 					}
-
 				})
 			},
 			getUserInfo() {
@@ -68,7 +62,6 @@
 						data
 					} = res;
 					if (data.code == 1) {
-
 						this.tax_name = data.data.tax_name;
 						this.tax_num = data.data.tax_num;
 					}
@@ -78,7 +71,6 @@
 		onShow() {
 			this.getUserInfo();
 		}
-
 	};
 </script>
 

@@ -75,7 +75,20 @@
   width: 450rpx;
   height: 150rpx;
 }
+.apply-return .delete-img.data-v-30c6c24f {
+  position: absolute;
+  margin-left: -40rpx;
+  margin-top: -13rpx;
+  background: rgba(0, 0, 0, 0.5);
+  width: 40rpx;
+  height: 40rpx;
+  text-align: center;
+  line-height: 32rpx;
+  color: white;
+  border-radius: 50%;
+}
 .apply-return .camera.data-v-30c6c24f {
+  margin-right: 15rpx;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;

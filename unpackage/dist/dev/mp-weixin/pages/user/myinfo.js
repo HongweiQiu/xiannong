@@ -93,29 +93,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components
-try {
-  components = {
-    uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 283))
-    }
-  }
-} catch (e) {
-  if (
-    e.message.indexOf("Cannot find module") !== -1 &&
-    e.message.indexOf(".vue") !== -1
-  ) {
-    console.error(e.message)
-    console.error("1. 排查组件名称拼写是否正确")
-    console.error(
-      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
-    )
-    console.error(
-      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
-    )
-  } else {
-    throw e
-  }
-}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -169,52 +146,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-var app = getApp().globalData;var
-
-imgRemote =
-app.imgRemote;var _default =
+var _default =
 {
-
   data: function data() {
-    return {
-      tempFilePath: '',
-      cropFilePath: '',
-      avatarUrl: uni.getStorageSync('userInfo').avatar,
-      imgUrl: app.imgUrl,
-      imgRemote: imgRemote,
-      phone: '',
-      memberInfoData: '',
-      member_default: '',
-      nickname: '',
-      password: '',
-      confirmPwd: '',
-      imgPath: '',
-      count: 0 };
+    return {};
+
 
   },
   methods: {
@@ -228,120 +164,28 @@ app.imgRemote;var _default =
         url: './receipt' });
 
     },
-    showUpload: function showUpload(way) {
-      if (way == 'open') {
-        this.$refs.popup.open();
-      } else {
-        this.$refs.popup.close();
-      }
-
-    },
-    upload: function upload() {var _this = this;
-      uni.chooseImage({
-        count: 1, //默认9
-        sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-        success: function success(res) {
-          _this.showtitle = false;
-          _this.tempFilePath = res.tempFilePaths.shift();
-        } });
-
-    },
-    confirm: function confirm(e) {
-      this.showtitle = true;
-      this.tempFilePath = '';
-      var media_id = e.detail.tempFilePath;
-      var feed = "avatars";
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        type: feed,
-        timeStamp: timeStamp };
-
-      var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-      var that = this;
-      uni.uploadFile({
-        method: 'POST',
-        url: app.rootUrl + "/mobileOrder/uploadImg", //此处换上你的接口地址
-        name: 'img',
-        header: {
-          'Authorization': uni.getStorageSync('cdj_token') },
-
-        formData: {
-          appid: appid,
-          timeStamp: timeStamp,
-          type: feed,
-          img: media_id,
-          sign: sign },
-
-        filePath: media_id,
-        success: function success(res) {
-          var imga = JSON.parse(res.data);
-          that.imgPath = imga.data.path;
-          that.cropFilePath = imga.data.src;
-          that.uploadAvatar();
-        } });
-
-
-
-    },
-    //确认更换头像
-    uploadAvatar: function uploadAvatar() {
-      var that = this;
-      var img = that.imgPath;
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        img: img,
-        timeStamp: timeStamp };
-
-      var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-      var data = {
-        appid: appid,
-        img: img,
-        timeStamp: timeStamp,
-        sign: sign };
-
-      rs.postRequests("uploadAvatar", data, function (res) {
-        if (res.data.code == 200) {
-          uni.showToast({
-            title: "更换头像成功",
-            icon: 'none' });
-
-        }
-      });
-    },
     formSubmit: function formSubmit() {
       var that = this;
-      uni.showModal({
-        title: '提示',
-        content: '是否退出',
-        cancelColor: '#999',
-        confirmColor: "#59B727",
-        success: function success(res) {
-          if (res.confirm) {
-            that.$get(that.$api.userLogout, {
-              token: uni.getStorageSync('userInfo').token },
-            function (res) {
-              if (res.data.code == 1) {
-                that.$Toast("退出成功");
-                uni.removeStorageSync('userInfo');
-                uni.removeStorageSync('userToken');
-                getApp().globalData.isReload = true;
-                setTimeout(function () {
-                  uni.reLaunch({
-                    url: '../account/login' });
+      that.$showModal('是否退出', function () {
+        that.$get(that.$api.userLogout, {
+          token: uni.getStorageSync('userInfo').token },
+        function (res) {
+          if (res.data.code == 1) {
+            that.$Toast("退出成功");
+            uni.removeStorageSync('userInfo');
+            uni.removeStorageSync('userToken');
+            getApp().globalData.isReload = true;
+            setTimeout(function () {
+              uni.reLaunch({
+                url: '../account/login' });
 
-                }, 1000);
+            }, 1000);
 
-              } else {
-                that.$Toast(res.data.msg);
-              }
-            });
+          } else {
+            that.$Toast(res.data.msg);
           }
-        } });
-
-
-
+        });
+      });
     } },
 
   /**

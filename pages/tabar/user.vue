@@ -5,10 +5,11 @@
 			<view class="flex-column flex-space-between img">
 				<view class="flex_left_right" v-if="userToken" @click="$doubleClick(updateAvatar)">
 					<view class="align_center ">
-						<image :src='personInfo.avatar' class="avator" v-if="personInfo.avatar" mode="aspectFill"></image>
+						<image :src='personInfo.avatar' class="avator" v-if="personInfo.avatar" mode="aspectFill">
+						</image>
 						<image src="../../static/img/avatar.png" class="avator" v-else></image>
 						<view>
-							<view>{{userInfo.company}}</view>
+							<view>{{personInfo.company}}</view>
 							<view class="user-level">
 								<text>{{personInfo.level}}</text>
 							</view>
@@ -41,7 +42,7 @@
 					<view class="center">
 						<image :src="'../../static/img/'+item.path+'.png'" mode="aspectFit"
 							:class="index==1?'scale':''"></image>
-						<text class="to-be-paid" v-if="index==0">2</text>
+						<text class="to-be-paid" v-if="index==0&&auditNum>0">{{auditNum}}</text>
 					</view>
 					<view class="fs-13 center">{{item.name}}</view>
 				</view>
@@ -96,6 +97,7 @@
 			return {
 				userInfo: uni.getStorageSync('userInfo'),
 				userToken: uni.getStorageSync('userToken'),
+				auditNum: 0,
 				userList: [{
 						icon: 'iconshouhuodizhi',
 						name: '地址管理',
@@ -130,19 +132,19 @@
 				orderStatu: [{
 					path: 'to_be_paid',
 					name: '待审核',
-					id:1
+					id: 1
 				}, {
 					path: 'to_be_delivered',
 					name: '待发货',
-						id:2
+					id: 2
 				}, {
 					path: 'to_be_received',
 					name: '待收货',
-						id:3
+					id: 3
 				}, {
 					path: 'completed',
 					name: '已完成',
-						id:4
+					id: 4
 				}, {
 					path: 'after_sales',
 					name: '售后/退款'
@@ -156,7 +158,6 @@
 				uni.navigateTo({
 					url: '../user/updateavatar'
 				})
-
 			},
 			remainPage() {
 				this.$needLogin(() => {
@@ -164,7 +165,6 @@
 						url: '../user/remainder'
 					})
 				})
-
 			},
 			pageUrl(item) {
 				this.$needLogin(() => {
@@ -182,7 +182,7 @@
 						})
 					} else {
 						uni.navigateTo({
-							url: './order?id='+data.id
+							url: './order?id=' + data.id
 						})
 					}
 				})
@@ -199,17 +199,28 @@
 						this.personInfo = data.data;
 					}
 				})
+			},
+			auditOrder() {
+				let params = {
+					token: uni.getStorageSync('userToken')
+				}
+				this.$get(this.$api.orderNo_shenhe_order, params, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						this.auditNum = data.data;
+					}
+				})
 			}
 		},
-
 		onShow: function() {
 			var that = this;
-			if(uni.getStorageSync('userToken')){
+			if (uni.getStorageSync('userToken')) {
 				that.memberInfo();
+				that.auditOrder()
 			}
-			
 		},
-
 	};
 </script>
 

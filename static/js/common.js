@@ -15,6 +15,28 @@ function dianji(fn) {
 		console.log("请稍后点击")
 	}
 }
+
+function Covering(num) {
+	return num >= 10 ? num : '0' + num
+}
+
+function fomartDate(date) {
+	let ms = new Date(date * 1000);
+	var y = ms.getFullYear()
+	var m = ms.getMonth() + 1
+	var d = ms.getDate()
+	var H = ms.getHours()
+	var M = ms.getMinutes()
+	var S = ms.getSeconds()
+
+	return y + '-' + Covering(m) + '-' + Covering(d) + ' ' + Covering(H) + ':' + Covering(M) + ':' + Covering(
+		S)
+}
+function fixed(val){
+	return val.toFixed(2)
+}
 export {
-	dianji
+	dianji,
+	fomartDate,
+	fixed
 }

@@ -81,11 +81,6 @@
 	line-height: 50rpx;
 	text-align: center;
 }
-.search_list .lang_search .error_txt .mic_filled .uni-icons.data-v-64d2b7fe {
-	background: #009943;
-	border-radius: 50%;
-	padding: 10rpx;
-}
 .new-icon.data-v-64d2b7fe {
 	padding: 0 9rpx 0 33rpx;
 }

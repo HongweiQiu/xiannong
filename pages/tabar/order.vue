@@ -11,15 +11,16 @@
 			</view>
 		</view>
 		<view style="height:80rpx;"></view>
-		<view class="order_info">
-			<view class="content" v-if="search_default">
+		<view class="order_info" style="margin-bottom: 30rpx;">
+			<view class="content" v-if="list.length">
 				<view v-for="(item, index) in list" :key="index">
 					<view class="top border fs-13">
-						<view>{{formatTime(item.createtime)}}</view>
+						<view>{{$fomartDate(item.createtime)}}</view>
 						<view :class="item.order_status==6?'gray_font':(item.order_status==5?'':'red-font')">
-							{{item.order_status_msg}}</view>
+							{{item.order_status_msg}}
+						</view>
 					</view>
-					<view @click="orderDetailPage('orderDetail',item)">
+					<view @click="orderDetailPage(item,index)">
 						<view class="flex detail" v-for="(second,sIndex) in item.details" :key="sIndex">
 							<image class="order_img" :src="imgRemote+second.goods_img" mode="aspectFit" />
 							<view class="order_oneline">
@@ -35,14 +36,16 @@
 						</view>
 					</view>
 					<view class="order_option">
-						<text class=" cancel_order" @click="oneMoreTime(item.id)">查看详情</text>
-						<text class="cancel_order" @click="ckwl" v-if="item.order_status==4">查看物流</text>
-						<text class="another_order" @click="cancelOrder(item.id,index)"
+						<text class=" cancel_order" @click="orderDetailPage(item,index)">查看详情</text>
+						<!-- <text class="cancel_order" @click="ckwl" v-if="item.order_status==4">查看物流</text> -->
+						<text class="another_order" @click="confirmReceipt(item.id,index)"
 							v-if="item.order_status==4">确认收货</text>
-						<text class="another_order" v-if="item.order_status==1">付款</text>
-						<text class="cancel_order" @click="play(item.id)" v-if="item.order_status==1">取消订单</text>
+						<text class="another_order" v-if="item.order_status==1">立即支付</text>
+						<text class="cancel_order" v-if="item.order_status==1"
+							@click="cancelOrder(item.id,index)">取消订单</text>
 					</view>
 				</view>
+
 			</view>
 			<view class="bitmap" v-else>
 				<image src="../../static/img/no_content.png" mode="aspectFit"></image>
@@ -88,43 +91,26 @@
 				search_default: true,
 				list: [],
 				page: 1,
-				id:''
+				id: ''
 			};
 		},
 		methods: {
 			fixed(val) {
 				return Number(val).toFixed(2);
 			},
-			FomartDate(date) {
-				var y = date.getFullYear()
-				var m = date.getMonth() + 1
-				var d = date.getDate()
-				var H = date.getHours()
-				var M = date.getMinutes()
-				var S = date.getSeconds()
 
-				function Covering(num) {
-					return num >= 10 ? num : '0' + num
-				}
-				return y + '-' + Covering(m) + '-' + Covering(d) + ' ' + Covering(H) + ':' + Covering(M) + ':' + Covering(
-					S)
-			},
-			formatTime(val) {
-				return this.FomartDate(new Date(val * 1000));
-			},
-			orderDetailPage(url, item) {
-				if (url == 'orderDetail') {
-					uni.navigateTo({
-						url: '/pages/order/orderdetail?orderItem=' + item.id
-					})
-				}
+			orderDetailPage(item, index) {
+				uni.navigateTo({
+					url: '/pages/order/orderdetail?id=' + item.id + '&index=' + index
+				})
+
 			},
 			//初始订单请求
 			orderList(id) {
 				let params = {
 					token: uni.getStorageSync('userToken'),
 					order_status: id,
-					page:this.page
+					page: this.page
 				};
 				this.$get(this.$api.orderIndex, params, (res) => {
 					let {
@@ -135,23 +121,80 @@
 					} else {
 						this.$Toast(data.msg);
 					}
-				},true)
+
+				}, true)
 			},
 			changeFirst(e) {
-				this.page=1;
-				this.list=[];
-				this.id=e;
+				this.page = 1;
+				this.list = [];
+				this.id = e;
 				this.orderList(e);
-			}
+			},
+			cancelOrder(id, index) {
+				this.$showModal('确认取消订单?', () => {
+					let params = {
+						token: uni.getStorageSync('userToken'),
+						order_id: id
+					};
+					this.$get(this.$api.orderCancel, params, (res) => {
+						let {
+							data
+						} = res;
+						if (data.code == 1) {
+							this.$Toast('取消订单成功');
+							this.list.splice(index, 1);
+						} else {
+							this.$Toast(data.msg);
+						}
+					})
+				})
+
+			},
+			confirmReceipt(id, index) {
+				this.$showModal('确认收货?', () => {
+					let params = {
+						token: uni.getStorageSync('userToken'),
+						order_id: id
+					};
+					this.$get(this.$api.orderReceipt, params, (res) => {
+						let {
+							data
+						} = res;
+						if (data.code == 1) {
+							this.$Toast('收货成功');
+							this.list.splice(index, 1);
+						} else {
+							this.$Toast(data.msg);
+						}
+					})
+				})
+			},
 		},
 		onLoad(e) {
-			this.activeTab=e.id?e.id:0;
-			this.id=e.id;
+			this.activeTab = e.id ? e.id : 0;
+			this.id = e.id;
 			this.orderList(e.id);
+
 		},
 		onReachBottom() {
 			this.page++;
 			this.orderList(this.id);
+		},
+		onShow() {
+			setTimeout(() => {
+				let {
+					orderIndex
+				} = getApp().globalData;
+				if (orderIndex) {
+					this.list.splice(orderIndex, 1)
+				}
+			}, 1000)
+		},
+		onHide() {
+			getApp().globalData.orderIndex = null;
+		},
+		onUnload() {
+			getApp().globalData.orderIndex = null;
 		}
 	};
 </script>

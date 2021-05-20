@@ -263,7 +263,6 @@ app.imgRemote;var tabs2 = function tabs2() {__webpack_require__.e(/*! require.en
 
   },
   methods: {
-
     //查找索引
     findIndex: function findIndex(obj, dest) {
       for (var i in obj) {
@@ -353,14 +352,12 @@ app.imgRemote;var tabs2 = function tabs2() {__webpack_require__.e(/*! require.en
     } },
 
   onShow: function onShow() {
-
     if (app.isReload) {
-
+      this.page = 1;
       this.list = [];
       this.firstCate = [];
       this.goodCate();
     }
-
   },
   onHide: function onHide() {
     getApp().globalData.isReload = false;

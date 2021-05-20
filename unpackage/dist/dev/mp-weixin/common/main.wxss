@@ -27,9 +27,9 @@
 /* 文章场景相关 */
 @font-face {
   font-family: 'iconfont';  /* Project id 2495862 */
-  src: url('https://at.alicdn.com/t/font_2495862_7m52nti7pox.woff2?t=1620887870852') format('woff2'),
-       url('https://at.alicdn.com/t/font_2495862_7m52nti7pox.woff?t=1620887870852') format('woff'),
-       url('https://at.alicdn.com/t/font_2495862_7m52nti7pox.ttf?t=1620887870852') format('truetype');
+  src: url('https://at.alicdn.com/t/font_2495862_la3shvqu0ga.woff2?t=1621480321213') format('woff2'),
+       url('https://at.alicdn.com/t/font_2495862_la3shvqu0ga.woff?t=1621480321213') format('woff'),
+       url('https://at.alicdn.com/t/font_2495862_la3shvqu0ga.ttf?t=1621480321213') format('truetype');
 }
 .iconfont {
   font-family: "iconfont" !important;
@@ -38,14 +38,14 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.iconguanbi2:before {
-  content: "\e612";
-}
-.iconshouye2:before {
-  content: "\e6a4";
+.iconyuyin:before {
+  content: "\e713";
 }
 .iconshouye2-copy:before {
   content: "\f36e";
+}
+.iconguanbi2:before {
+  content: "\e612";
 }
 .iconweixin1:before {
   content: "\e607";
@@ -134,9 +134,6 @@
 .icondingwei1:before {
   content: "\e664";
 }
-.icongouwuche21:before {
-  content: "\e663";
-}
 .icongouwuche21-copy:before {
   content: "\f36f";
 }
@@ -162,7 +159,7 @@
   content: "\e626";
 }
 .iconkefu-copy:before {
-  content: "\f36d";
+  content: "\f370";
 }
 .iconkefu:before {
   content: "\e658";
@@ -200,23 +197,11 @@
 .icondaipingjia:before {
   content: "\e66c";
 }
-.iconyou2x:before {
-  content: "\e650";
-}
-.iconshengxian-roulei:before {
-  content: "\e601";
-}
-.iconshengxian-shucai:before {
-  content: "\e606";
-}
 .icongouwuche2:before {
   content: "\e611";
 }
 .iconwode2:before {
   content: "\e617";
-}
-.iconshangxinshangpin:before {
-  content: "\e654";
 }
 .iconshouye1:before {
   content: "\e60c";
@@ -238,12 +223,6 @@
 }
 .iconsort-bottom:before {
   content: "\f36c";
-}
-.iconshuiguo:before {
-  content: "\e630";
-}
-.iconshuichan2x:before {
-  content: "\e647";
 }
 page {
   background: #f8f6f9;
@@ -444,12 +423,12 @@ button::after {
   width: 100%;
 }
 input {
-  font-size: 28rpx !important;
+  font-size: 30rpx;
   line-height: initial !important;
   min-height: initial !important;
 }
 .gray_b {
-  background: gray !important;
+  background: gray;
 }
 .pay-button {
   height: 78rpx;

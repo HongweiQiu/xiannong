@@ -250,7 +250,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 var app = getApp().globalData;var
 
@@ -327,8 +326,25 @@ app.imgRemote;var _default =
         }
       });
     },
-
     speed: function speed() {
+      var plugin = requirePlugin("WechatSI");
+      console.log(plugin);
+      var manager = plugin.getRecordRecognitionManager();
+      manager.onRecognize = function (res) {
+        console.log("current result", res.result);
+      };
+      manager.onStop = function (res) {
+        console.log("record file path", res.tempFilePath);
+        console.log("result", res.result);
+      };
+      manager.onStart = function (res) {
+        console.log("成功开始录音识别", res);
+      };
+      manager.onError = function (res) {
+        console.error("error msg", res.msg);
+      };
+      manager.start({ duration: 30000, lang: "zh_CN" });
+      return;
       this.$refs.speech.open();
       var that = this;
       that.startSpeech = true;
@@ -346,12 +362,7 @@ app.imgRemote;var _default =
       recorderManager.start(options);
 
       recorderManager.onStop(function (res) {
-        var timeStamp = Math.round(new Date().getTime() / 1000);
-        var obj = {
-          appid: appid,
-          timeStamp: timeStamp };
 
-        var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
         var audio = res.tempFilePath;
         uni.uploadFile({
           url: app.rootUrl + "/mobileOrder/voiceSearch",
@@ -362,10 +373,8 @@ app.imgRemote;var _default =
             'content-type': 'multipart/form-data' },
 
           formData: {
-            appid: appid,
-            timeStamp: timeStamp,
-            audio: audio,
-            sign: sign },
+
+            audio: audio },
 
           success: function success(reg) {
             console.log(JSON.parse(reg.data));
@@ -388,7 +397,6 @@ app.imgRemote;var _default =
 
       });
     } },
-
 
   onShow: function onShow() {
     this.hotSearch();

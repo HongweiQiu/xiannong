@@ -1,19 +1,15 @@
 <template>
 	<view>
-		<view class="my_search" @click="searchPage">
-			<!-- #ifdef APP-PLUS |H5 -->
-			<view class="status_bar">
-				<!-- 这里是状态栏 -->
-			</view>
+		<view class="my_search">
 
-			<!-- #endif -->
 			<view class="flex new">
-				<view class="my_search_content">
+				<view class="my_search_content" @click="searchPage">
 					<text class="iconfont newicon-sousuo">&#xe615;</text>
 					<text class="text">搜索你想知道的</text>
 				</view>
+				<button open-type="contact"> <text class="iconfont" style="font-size:60rpx;margin-left:20rpx;"
+						v-if="show">&#xe658;</text></button>
 
-				<text class="iconfont" style="font-size:60rpx;margin-left:20rpx;" v-if="show">&#xe658;</text>
 			</view>
 
 		</view>

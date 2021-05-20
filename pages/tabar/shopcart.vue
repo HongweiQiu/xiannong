@@ -137,7 +137,6 @@
 					if (i.checked) {
 						sum += i.buy_num * i.sku.market_price;
 					}
-
 				}
 				this.totalPrice = sum;
 				return this.totalPrice;
@@ -168,12 +167,10 @@
 							}
 						});
 					})
-
 				} else {
-					
-					if(that.itemList.length==0){
+					if (that.itemList.length == 0) {
 						that.$Toast('购物车暂时无商品');
-					}else{
+					} else {
 						that.$Toast('没有选中商品哦');
 					}
 				}
@@ -185,7 +182,6 @@
 						this.itemList[index].checked = false;
 					}
 				}
-
 				this.settlement = this.itemList.some((item) => {
 					return item.checked == true;
 				})
@@ -222,7 +218,6 @@
 				} else {
 					this.$Toast('没有选中商品哦')
 				}
-
 			},
 			cartIndex() {
 				this.$get(this.$api.cartIndex, {
@@ -241,7 +236,6 @@
 						// })
 						this.itemList = data.data;
 						this.calculate();
-
 					}
 				})
 			},
@@ -302,9 +296,7 @@
 				}
 				let indexGood = this.itemList[index];
 				this.updateCart(indexGood.id, indexGood.buy_num)
-
 			},
-
 			//邮费
 			getFreight() {
 				this.$get(this.$api.mainFreight, {}, res => {
@@ -328,11 +320,9 @@
 					url: '../account/login'
 				})
 			}
-
 			this.likeGood();
 		},
 		onLoad() {
-
 		}
 	};
 </script>

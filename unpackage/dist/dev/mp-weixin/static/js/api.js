@@ -12,13 +12,18 @@ const api = {
 	mainAgree: "/main/agree", //个人协议
 	mainRegion: "/main/region", //个人协议
 	mainUpload: "/main/upload", //上传图片
-	
+
 
 	userRegister: "/user/register", //用户注册
 	userLogin: "/user/login", //用户登录
 	userLogout: "/user/logout", //用户退出
 	userInfo: "/user/user_info", //用户退出
 	userProfile: "/user/profile", //修改个人信息
+	userMoney_log: "/user/money_log", //修改个人信息
+	userXuqiu: "/user/xuqiu", //修改个人信息
+	userFankui: "/user/fankui", //意见反馈
+	userWx_login: "/user/wx_login", //意见反馈
+	userBind_user: "/user/bind_user", //意见反馈
 
 	goodDetail: "/goods/detail", //商品详情
 	goodCate: "/goods/cate", //商品分类一级
@@ -38,7 +43,10 @@ const api = {
 	orderSex_tax: '/order/set_tax', //设置发票抬头
 	orderAdd_order: '/order/add_order', //下单
 	orderIndex: '/order/index', //所有订单
-	
+	orderDetail: '/order/order_detail', //订单详情
+	orderCancel: '/order/order_cancel', //取消订单
+	orderReceipt: '/order/order_receipt', //确认收货
+	orderNo_shenhe_order: '/order/no_shenhe_order', //待审核订单数量
 }
 export {
 	api

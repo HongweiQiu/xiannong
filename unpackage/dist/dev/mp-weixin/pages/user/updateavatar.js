@@ -188,7 +188,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 var app = getApp().globalData;var
 
@@ -224,7 +223,6 @@ app.imgRemote;var _default =
       } else {
         this.$refs.popup.close();
       }
-
     },
     chooseImage: function chooseImage(type) {
       var _ = this;
@@ -236,7 +234,6 @@ app.imgRemote;var _default =
           _.file = res.tempFilePaths[0];
           _.$refs.popup.close();
           _.uploadImg();
-
         } });
 
     },
@@ -248,12 +245,10 @@ app.imgRemote;var _default =
         filePath: _.file,
         success: function success(res1) {
           _.avatarUrl = _.imgRemote + JSON.parse(res1.data).data;
-
         } });
 
     },
     formSubmit: function formSubmit() {var _this2 = this;
-
       this.$showModal('确认修改信息', function () {
         var params = {
           avatar: _this2.avatarUrl };
@@ -271,12 +266,6 @@ app.imgRemote;var _default =
       });
     } },
 
-  /**
-          * 生命周期函数--监听页面显示
-          */
-  onShow: function onShow() {
-
-  },
   onLoad: function onLoad() {
     var that = this;
     that.memberInfo();

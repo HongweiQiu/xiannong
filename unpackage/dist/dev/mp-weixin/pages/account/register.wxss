@@ -56,7 +56,7 @@ page {
   border-bottom: 1px solid #f7f6f6;
 }
 .register .get_info > view > text {
-  width: 100rpx;
+  width: 60rpx;
   font-size: 50rpx;
 }
 .register .button_style {

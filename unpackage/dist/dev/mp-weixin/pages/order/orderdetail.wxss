@@ -25,15 +25,14 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.order-detail.data-v-234351b5 {
-  margin: 0 30rpx;
-}
 .order-detail .order-statu.data-v-234351b5 {
-  margin: 40rpx 0 29rpx;
+  height: 100rpx;
+  color: white;
+  line-height: 100rpx;
+  background: #57B127;
 }
 .order-detail .explain.data-v-234351b5 {
-  margin: 0 30rpx;
-  height: 120rpx;
+  padding: 0 30rpx;
 }
 .order-detail .button.data-v-234351b5 {
   -webkit-box-pack: end;
@@ -45,7 +44,7 @@
 .order-detail .button text.data-v-234351b5 {
   width: 140rpx;
   height: 46rpx;
-  line-height: 46rpx;
+  line-height: 42rpx;
   border-radius: 23rpx;
   font-size: 26rpx;
   display: inline-block;
@@ -61,11 +60,11 @@
   color: white;
 }
 .order-detail .delivery-address.data-v-234351b5 {
-  margin: 30rpx 0;
+  margin: 0rpx 0 30rpx;
+  height: 160rpx;
 }
-.order-detail .delivery-address .way.data-v-234351b5 {
-  height: 88rpx;
-  line-height: 88rpx;
+.order-detail .delivery-address > view.data-v-234351b5:first-child {
+  margin-right: 20rpx;
 }
 .order-detail .desc.data-v-234351b5 {
   padding: 30rpx 0 20rpx;
@@ -75,10 +74,13 @@
   line-height: 44rpx;
 }
 .order-detail .good.data-v-234351b5 {
-  padding: 30rpx 30rpx 0;
+  padding: 0rpx 30rpx 1rpx;
+}
+.order-detail .good .title.data-v-234351b5 {
+  padding: 15rpx 0;
 }
 .order-detail .good .sign-good.data-v-234351b5 {
-  margin-bottom: 30rpx;
+  margin: 30rpx 0;
 }
 .order-detail .good .sign-good .buy-num.data-v-234351b5 {
   margin-top: 20rpx;
@@ -86,7 +88,7 @@
 }
 .order-detail .good .sign-good .photo.data-v-234351b5 {
   width: 180rpx;
-  height: 120rpx;
+  height: 180rpx;
   margin-right: 30rpx;
 }
 .order-detail .good .sign-good .photo image.data-v-234351b5 {
@@ -145,5 +147,19 @@
   height: 78rpx;
   line-height: 78rpx;
   text-align: center;
+}
+.order-detail .fixed-buttons.data-v-234351b5 {
+  position: fixed;
+  bottom: 0;
+  background: white;
+  width: 100%;
+}
+.order-detail .fixed-buttons .return-good.data-v-234351b5 {
+  color: #999;
+  border: 1px solid #999;
+}
+.order-detail .fixed-buttons .confirm-receipt.data-v-234351b5 {
+  border: 1px solid #f33;
+  color: #f33;
 }
 

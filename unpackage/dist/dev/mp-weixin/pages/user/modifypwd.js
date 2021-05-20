@@ -130,30 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var _md = _interopRequireDefault(__webpack_require__(/*! ../../static/js/md5.js */ 88));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/request.js */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -174,68 +151,19 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../static/js/re
 //
 //
 //
-var app = getApp().globalData;var appid = app.appid,appsecret = app.appsecret,imgRemote = app.imgRemote,navBar = app.navBar;var _default = { data: function data() {return { old_pwd: '', //旧密码
+var _default =
+{
+  data: function data() {
+    return {
+      old_pwd: '', //旧密码
       password: '', //旧密码
       password_confirmation: '', //旧密码
-      navBar: navBar, count: 0 };}, methods: { leftClick: function leftClick() {uni.navigateBack({
-        delta: 1 });
+      navBar: navBar,
+      count: 0 };
 
-
-    },
-
-    formSubmit: function formSubmit() {var _this = this;
-      var old_pwd = this.old_pwd;
-      var password = this.password;
-      var password_confirmation = this.password_confirmation;
-      var timeStamp = Math.round(new Date().getTime() / 1000);
-      var obj = {
-        appid: appid,
-        old_pwd: old_pwd,
-        password: password,
-        password_confirmation: password_confirmation,
-        timeStamp: timeStamp };
-
-      var sign = _md.default.hexMD5(_request.default.objKeySort(obj) + appsecret);
-      if (old_pwd == "") {
-        _request.default.Toast("原始密码不能为空");
-        return false;
-      }
-      if (password.length < 6) {
-        _request.default.Toast("密码不能小于六位数");
-        return false;
-      }
-      if (password_confirmation != password) {
-        _request.default.Toast("密码不一致");
-        return false;
-      }
-      this.count++;
-      if (this.count != 1) return;
-      setTimeout(function () {
-        _this.count = 0;
-      }, 500);
-      var data = {
-        appid: appid,
-        old_pwd: old_pwd,
-        password: password,
-        password_confirmation: password_confirmation,
-        timeStamp: timeStamp,
-        sign: sign };
-
-      _request.default.postRequests("modifyPassword", data, function (res) {
-        if (res.data.code == 200) {
-          _request.default.Toast('修改成功');
-          setTimeout(function () {
-            uni.navigateTo({
-              url: "/pages/account/login" });
-
-          }, 1000);
-        }
-        if (res.data.code == 400) {
-          _request.default.Toast(res.data.msg);
-        }
-      });
-    } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+  },
+  methods: {
+    formSubmit: function formSubmit() {} } };exports.default = _default;
 
 /***/ }),
 

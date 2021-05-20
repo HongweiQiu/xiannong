@@ -15,7 +15,7 @@
 					</view>
 					<view class="flex">
 						<text class="iconfont iconyanzhengma"></text>
-						<view class="flex_left_right" style="width:79%;">
+						<view class="flex_left_right flex-full">
 							<input type="number" v-model="form.code" placeholder="请输入验证码"
 								placeholder-class="place_style" @focus="back=false" />
 							<my-identifyingcode @getCode="getCode" ref="code"></my-identifyingcode>
@@ -86,7 +86,7 @@
 					that.$Toast('请输入正确的电话号码', );
 					return;
 				}
-			
+
 				that.$get(that.$api.mainSend_sms, {
 					phone: mobile
 				}, (res) => {
@@ -131,17 +131,21 @@
 				}
 
 				that.$get(that.$api.userRegister, that.form, (res) => {
-					if (res.data.code == 1) {
-						this.$Toast('注册成功，将跳转到登录页面');
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						this.$Toast('登录成功，将跳转到首页');
+						getApp().globalData.isReload = true;
+						uni.setStorageSync('userInfo', data.data);
+						uni.setStorageSync('userToken', data.data.token);
 						setTimeout(() => {
-							
-							uni.navigateTo({
-								url: './login'
-							})
+							uni.reLaunch({
+								url: '/pages/tabar/index'
+							});
 						}, 1000)
 					} else {
-						
-						that.$Toast(res.data.msg);
+						this.$Toast(data.msg)
 					}
 				})
 			}
@@ -174,8 +178,7 @@
 	}
 
 	.register .get_info>view>text {
-		width: 100rpx;
-
+		width: 60rpx;
 		font-size: 50rpx;
 	}
 

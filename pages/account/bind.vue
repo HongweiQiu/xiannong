@@ -1,301 +1,255 @@
 <template>
-	<view class="register">
-		<view class="caution">绑定后可提高账号安全性</view>
-		<view class="get_info">
-			<view>
-				<text>手机号</text>
-				<input type="number" v-model="mobile" placeholder="请输入手机号" placeholder-class="place_style" />
+	<view class="bind-wechat">
+		<view class="center">
+			<image class="login_logo" src="../../static/img/login-logo.jpg" mode="aspectFit"></image>
+		</view>
+		<my-s-tabs effect slot-title @change="changeSecond" class="mp_tab_width border" activeColor="#57B127"
+			v-model="activeTab" color="#999" lineScale="1" navPerView="2">
+			<my-s-tab>绑定</my-s-tab>
+			<my-s-tab>注册</my-s-tab>
+		</my-s-tabs>
+		<view class="" v-if="activeTab==0">
+			<view class="get_info">
+				<view>
+					<text class="iconfont iconshouji1"></text>
+					<input type="number" v-model="form.mobile" placeholder="请输入手机号" placeholder-class="place_style" />
+				</view>
+				<view class="flex">
+					<text class="iconfont iconyanzhengma"></text>
+					<view class="flex_left_right flex-full">
+						<input type="number" v-model="form.code" placeholder="请输入验证码" placeholder-class="place_style"
+							@focus="back=false" />
+						<my-identifyingcode @getCode="getCode" ref="code"></my-identifyingcode>
+					</view>
+				</view>
+
 			</view>
-
-
-			<move-verify @result="verifyResult" ref="verifyElement"></move-verify>
-			<view class="flex">
-				<text>验证码</text>
-				<view class="flex_left_right" style="width:79%;">
-					<input type="number" v-model="verify_code" placeholder="请输入验证码" placeholder-class="place_style" @focus="back=false" />
-					<my-identifyingcode @getCode="getCode" ref="code"></my-identifyingcode>
+			<view class="button_style" @click="$doubleClick(bindWechat)">登录</view>
+		</view>
+		<view v-else>
+			<view class="get_info">
+				<view>
+					<text class="iconfont icondianpu"></text>
+					<input type="text" v-model="form.company" placeholder="请输入单位名称" placeholder-class="place_style" />
+				</view>
+				<view>
+					<text class="iconfont iconshouji1"></text>
+					<input type="number" v-model="form.mobile" placeholder="请输入手机号" placeholder-class="place_style" />
+				</view>
+				<view class="flex">
+					<text class="iconfont iconyanzhengma"></text>
+					<view class="flex_left_right flex-full">
+						<input type="number" v-model="form.code" placeholder="请输入验证码" placeholder-class="place_style"
+							@focus="back=false" />
+						<my-identifyingcode @getCode="getCode" ref="code"></my-identifyingcode>
+					</view>
+				</view>
+				<view>
+					<text class="iconfont iconmima"></text>
+					<input password v-model="form.password" placeholder="请输入密码" placeholder-class="place_style" />
+				</view>
+				<view>
+					<text class="iconfont iconmima"></text>
+					<input password v-model="form.repassword" placeholder="请再次确认登录密码" placeholder-class="place_style" />
 				</view>
 			</view>
-
+			<view class="button_style" @click="$doubleClick(formSubmit)">注册</view>
 		</view>
-		<view class="submit_button button_style" :class="{'gray_b':back}" @click="forget">立即绑定</view>
 	</view>
 </template>
 
 <script>
-
-	import md5 from '../../static/js/md5.js';
-	import rs from '../../static/js/request.js';
 	const app = getApp().globalData;
 	const {
-		navBar,
-		appid,
-		appsecret
+		imgRemote
 	} = app;
 	export default {
-	
+
 		data() {
 			return {
-				resultData: {},
-				mobile: '',
-				verify_code: '',
-				secret_str: '',
-				identifying: '',
-				navBar: navBar,
-				back: true,
-				count: 0
+				imgRemote: imgRemote,
+				openId: '',
+				activeTab: 0,
+				form: {
+					company: '',
+					mobile: '',
+					code: '',
+					password: '',
+					repassword: '',
+					openid: ''
+				},
 			};
 		},
 		methods: {
-			leftClick() {
-				// #ifdef H5
-				window.history.back(-1);
-				// #endif 
-				// #ifndef H5
-				uni.navigateBack({
-					delta: 1
-				});
-				// #endif	
+			changeSecond(e) {
+				this.activeTab = e;
+				this.form.code='';
 			},
-			verifyResult(res) {
-				this.resultData = res;
-				if (this.resultData.flag == true) {
-					this.captcha()
-					return;
-				}
-			},
-			/* 校验插件重置 */
-			verifyReset() {
-				this.$refs.verifyElement.reset();
-				/* 删除当前页面的数据 */
-				this.resultData = {};
-			},
-
-			captcha() {
-				let timeStamp = Math.round(new Date().getTime() / 1000);
-				let obj = {
-					appid: appid,
-					timeStamp: timeStamp
-				};
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-					sign: sign
-				}, obj)
-				rs.getRequests("random", params, (res) => {
-					let data = res.data;
-					if (data.code == 200) {
-						this.secret_str = data.data.number
-						uni.setStorageSync("laravel_session", res.header["Set-Cookie"]);
-					} else {
-						rs.Toast(data.msg);
-					}
-				})
-			},
-			// 获取短信验证码
 			getCode() {
-				var that = this;
+				let that = this;
+				let {
+					mobile
+				} = that.form;
 
-				let timeStamp = Math.round(new Date().getTime() / 1000);
-				if (!that.mobile) {
-					rs.Toast('手机号不能为空');
-					return;
-				}
-				var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
-				if (!reg.test(that.mobile)) {
-					rs.Toast('不能输入特殊字符和空格');
-					return;
-				}
-				if (!that.secret_str) {
-					rs.Toast('请拖动滑块验证');
+				let reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+				if (!reg.test(mobile)) {
+					that.$Toast('请输入正确的电话号码', );
 					return;
 				}
 
-				let obj = {
-					appid: appid,
-					mobile: that.mobile,
-					timeStamp: timeStamp
-				};
-
-				var random_str = md5.hexMD5(appsecret + that.secret_str);
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-					sign: sign,
-					secret_str: random_str
-				}, obj)
-				uni.request({
-					url: app.rootUrl + "/mobileOrder/sendCodeNot",
-					method: 'POST',
-					header: {
-						'content-type': 'application/json', // 默认值
-						'cookie': uni.getStorageSync("laravel_session")
-					},
-					data: params,
-					success: function(res) {
-						if (res.data.code == 200) {
-							that.secret_str = res.data.data.random_str;
-							rs.Toast('验证码已发送到你手机中，请注意查收');
-							that.$refs.code.sendCode();
-						} else {
-							that.verifyReset()
-							rs.Toast(res.data.msg);
-						}
+				that.$get(that.$api.mainSend_sms, {
+					phone: mobile
+				}, (res) => {
+					if (res.data.code == 1) {
+						that.$refs.code.sendCode();
+						that.$Toast('验证码已发送到你手机中，请注意查收');
+					} else {
+						that.$Toast(res.data.msg);
 					}
 				})
 			},
-			//提交
-			forget() {
-				var that = this;
-
-				var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
-				if (!this.mobile) {
-					rs.Toast('手机号不能为空');
+			//登录
+			bindWechat() {
+				let {
+					code,
+					mobile
+				} = this.form;
+				if (!code) {
+					return this.$Toast('验证码不能为空')
+				}
+				let reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+				if (!reg.test(mobile)) {
+					that.$Toast('请输入正确的电话号码', );
 					return;
 				}
-
-				if (!reg.test(this.mobile)) {
-					rs.Toast('不能输入特殊字符和空格');
-					return;
-				}
-				if (!this.verify_code) {
-					rs.Toast('请输入验证码');
-					return;
-				}
-				this.count++;
-				if (this.count != 1) return;
-				setTimeout(() => {
-					this.count = 0
-				}, 1000)
-				let timeStamp = Math.round(new Date().getTime() / 1000);
-				let obj = {
-					appid: appid,
-					timeStamp: timeStamp
-
+				let params = {
+					code: code,
+					openid: this.form.openid,
+					mobile: mobile
 				};
-
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-					sign: sign,
-					mobile: this.mobile,
-					code: this.verify_code,
-					identifying: that.identifying
-
-				}, obj)
-
-				uni.request({
-					url: app.rootUrl + "/mobileOrder/wxLoginFollow",
-					method: 'POST',
-					data: params,
-					header: {
-						'content-type': 'application/json', // 默认值
-						'cookie': uni.getStorageSync("laravel_session")
-					},
-					success: function(res) {
-						if (res.data.code == 200) {
-							let {
-								data
-							} = res;
-							rs.Toast('手机号绑定成功');
-							uni.setStorageSync('cdj_token', data.data.token);
-							uni.setStorageSync('is_child', data.data.is_child);
-
-							// #ifdef APP-PLUS
-							uni.setStorageSync('is_miniBind', data.data.is_appBind);
-							// #endif
-
-							// #ifdef H5
-							uni.setStorageSync('is_miniBind', data.data.is_bind);
-							// #endif
-
-							// #ifdef MP-WEIXIN
-							uni.setStorageSync('is_miniBind', data.data.is_miniBind);
-							// #endif
-
-							// #ifdef MP-ALIPAY
-							uni.setStorageSync('is_miniBind', data.data.is_alipayBind);
-							// #endif
-							setTimeout(() => {
-								uni.switchTab({
-									url: "../tabar/index"
-								})
-							}, 1000);
-
-						} else if (res.data.code == 403) {
-							rs.Toast('绑定手机成功，请耐心等待审核');
-							setTimeout(() => {
-								uni.navigateTo({
-									url: './login'
-								})
-							}, 1000)
-
-						} else {
-							rs.Toast(res.data.msg);
-						}
+				this.$get(this.$api.userBind_user, params, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						this.$Toast('登录成功，将跳转到首页');
+						getApp().globalData.isReload = true;
+						uni.setStorageSync('userInfo', data.data);
+						uni.setStorageSync('userToken', data.data.token);
+						setTimeout(() => {
+							uni.reLaunch({
+								url: '/pages/tabar/index'
+							});
+						}, 1000)
+					} else {
+						this.$Toast(data.msg)
 					}
 				})
 			},
+			formSubmit(e) {
+				let that = this;
+				let {
+					company,
+					password,
+					repassword,
+					mobile,
+					code
+				} = that.form;
+				if (!company) {
+					that.$Toast('单位名称不能为空');
+					return;
+				}
+				let reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+				if (!reg.test(mobile)) {
+					that.$Toast('请输入正确的电话号码', );
+					return;
+				}
+
+				if (!code) {
+					that.$Toast('请输入正确的短信验证码');
+					return;
+				}
+				if (!password || !repassword) {
+					that.$Toast('密码不能为空');
+					return;
+				}
+				if (password != repassword) {
+					that.$Toast('两次输入的密码不一致');
+					return;
+				}
+
+				that.$get(that.$api.userRegister, that.form, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						this.$Toast('登录成功，将跳转到首页');
+						getApp().globalData.isReload = true;
+						uni.setStorageSync('userInfo', data.data);
+						uni.setStorageSync('userToken', data.data.token);
+						setTimeout(() => {
+							uni.reLaunch({
+								url: '/pages/tabar/index'
+							});
+						}, 1000)
+					} else {
+						this.$Toast(data.msg)
+					}
+				})
+			}
+
 		},
 		onLoad(options) {
-			this.identifying = options.identifying;
-		},
-		onShow() {
-			uni.setNavigationBarTitle({
-				    title: uni.getStorageSync('titleKey')
-				});
+			this.form.openid = options.openId;
 		}
 	};
 </script>
 
-<style>
+<style lang="scss">
 	page {
 		background: white;
 	}
 
-	.register .get_info {
-		background: white;
-		padding: 0 20rpx;
-		margin-top: 10rpx;
-	}
+	.bind-wechat {
+		padding: 0 30rpx;
 
-	.register .get_info>view {
-		display: flex;
-		height: 80rpx;
-		align-items: center;
-		border-bottom: 1px solid #f7f6f6;
-	}
+		.login_logo {
+			width: 300rpx;
+			height: 300rpx;
+			margin-top: 30rpx;
+		}
 
-	.register .get_info>view>text {
-		width: 150rpx;
-		color: #808080;
-	}
+		.mp_tab_width .s-tabs {
+			width: 50%;
+			margin: 0 auto;
+			font-weight: bold;
 
-	.register .button_style {
-		font-size: 32rpx;
-		width: 384rpx;
-		height: 64rpx;
-		line-height: 64rpx;
-	}
+			.s-tab-line {
+				bottom: 10rpx;
+			}
+		}
 
-	.register .now_login {
-		color: #A1A1A1;
-		text-align: center;
-		font-size: 24rpx;
-	}
+		.get_info>view {
+			height: 100rpx;
+			border-bottom: 1px solid #eee;
+			display: flex;
+			align-items: center;
 
-	.register .agree {
-		position: fixed;
-		width: 100%;
-		bottom: 20rpx;
-		text-align: center;
-		font-size: 24rpx;
-		color: #418d5f;
-	}
+		}
 
-	.register .caution {
-		color: red;
-		background: #f9d1cb;
-		font-size: 12px;
-		height: 25px;
-		text-align: center;
-		line-height: 25px;
+		.button_style {
+			background: #009a44;
+			color: white;
+			height: 78rpx;
+			line-height: 78rpx;
+			text-align: center;
+			border-radius: 10rpx;
+			margin-top: 40rpx;
+		}
+
+		.iconfont {
+			font-size: 48rpx;
+			width: 60rpx;
+		}
 	}
 </style>

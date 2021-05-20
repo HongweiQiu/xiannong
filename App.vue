@@ -6,7 +6,8 @@
 			imgRemote: 'https://xntcps.jxsxkeji.com',
 			classId: '',
 			isReload: true,
-			onoff: true
+			onoff: true,
+			orderIndex:''
 		}
 	};
 </script>
@@ -215,14 +216,14 @@
 	}
 
 	input {
-		font-size: 28rpx !important;
+		font-size: 30rpx ;
 		line-height: initial !important;
 		min-height: initial !important;
 	}
 
 
 	.gray_b {
-		background: gray !important;
+		background: gray;;
 	}
 
 

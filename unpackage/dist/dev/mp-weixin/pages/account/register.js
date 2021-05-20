@@ -294,18 +294,22 @@ app.rootUrl;var _default =
         return;
       }
 
-      that.$get(that.$api.userRegister, that.form, function (res) {
-        if (res.data.code == 1) {
-          _this.$Toast('注册成功，将跳转到登录页面');
-          setTimeout(function () {
+      that.$get(that.$api.userRegister, that.form, function (res) {var
 
-            uni.navigateTo({
-              url: './login' });
+        data =
+        res.data;
+        if (data.code == 1) {
+          _this.$Toast('登录成功，将跳转到首页');
+          getApp().globalData.isReload = true;
+          uni.setStorageSync('userInfo', data.data);
+          uni.setStorageSync('userToken', data.data.token);
+          setTimeout(function () {
+            uni.reLaunch({
+              url: '/pages/tabar/index' });
 
           }, 1000);
         } else {
-
-          that.$Toast(res.data.msg);
+          _this.$Toast(data.msg);
         }
       });
     } } };exports.default = _default;

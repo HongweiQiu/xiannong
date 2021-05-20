@@ -4,13 +4,14 @@
 			<view class="input_key">
 				<view class="right_area align_center">
 					<view class="select_key align_center">
-						<text class="iconfont new-icon">&#xe615;</text>
+						<text class="iconfont new-icon fs-18">&#xe615;</text>
 						<input v-model="keyword" placeholder="搜索你想知道的" @focus="focus" placeholder-class="place_style"
 							class="keyword" />
+						<text class="iconfont iconyuyin" style="width: 60rpx;" @click="speed"></text>
 					</view>
 					<view style="color:#333;text-align: center;" class="bold" @click="submit">搜索</view>
 				</view>
-				<!-- <view class="flex_left_right fs-15 sort" v-show="!showSearch&&list.length">
+				<!-- 	<view class="flex_left_right fs-15 sort" v-show="!showSearch&&list.length">
 					<view @click="sortIndex=1" :class="sortIndex==1?'m-color':''"><text>综合</text></view>
 					<view @click="sortIndex=2" :class="sortIndex==2?'m-color':''"><text>销量</text></view>
 					<view @click="sortIndex=3" :class="sortIndex==3?'m-color':''" class="flex">
@@ -54,9 +55,7 @@
 						class="myc_recomend"></my-recomend>
 				</view>
 			</view>
-			<!-- 	<my-profile v-for="(item,index) in list" :wares="item" :config="config" :key="index"
-				@showCart="openCart(item)" @showKey="showKey(item,index)"></my-profile> -->
-			<!-- 占位图 -->
+
 			<view class="search_bitmap" v-if="bitmap">
 				<image class="bitmap" src="../../static/img/searchbitmap.png" mode="aspectFit"></image>
 				<view class="gray_font fs-15">抱歉，没有相关商品哦~</view>
@@ -131,7 +130,7 @@
 			},
 			focus() {
 				this.keyword = '',
-				this.showSearch = true;
+					this.showSearch = true;
 			},
 			// 搜索列表
 			searchList(key) {
@@ -164,8 +163,25 @@
 					}
 				})
 			},
-			// #ifdef APP-PLUS |MP-WEIXIN
 			speed() {
+				var plugin = requirePlugin("WechatSI");
+				console.log(plugin)
+				let manager = plugin.getRecordRecognitionManager()
+				manager.onRecognize = function(res) {
+				    console.log("current result", res.result)
+				}
+				manager.onStop = function(res) {
+				    console.log("record file path", res.tempFilePath)
+				    console.log("result", res.result)
+				}
+				manager.onStart = function(res) {
+				    console.log("成功开始录音识别", res)
+				}
+				manager.onError = function(res) {
+				    console.error("error msg", res.msg)
+				}
+				manager.start({duration:30000, lang: "zh_CN"});
+				return
 				this.$refs.speech.open();
 				let that = this;
 				that.startSpeech = true;
@@ -183,12 +199,7 @@
 				recorderManager.start(options)
 
 				recorderManager.onStop((res) => {
-					var timeStamp = Math.round(new Date().getTime() / 1000);
-					var obj = {
-						appid: appid,
-						timeStamp: timeStamp,
-					}
-					let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+					
 					var audio = res.tempFilePath;
 					uni.uploadFile({
 						url: app.rootUrl + "/mobileOrder/voiceSearch",
@@ -199,10 +210,8 @@
 							'content-type': 'multipart/form-data',
 						},
 						formData: {
-							appid: appid,
-							timeStamp: timeStamp,
+						
 							audio: audio,
-							sign: sign,
 						},
 						success: function(reg) {
 							console.log(JSON.parse(reg.data))
@@ -225,7 +234,6 @@
 					})
 				});
 			},
-			// #endif
 		},
 		onShow() {
 			this.hotSearch()
@@ -332,28 +340,6 @@
 		text-align: center;
 	}
 
-	/* #ifdef APP-PLUS */
-	.search_list .lang_search .error_txt .mic_filled {
-		background: #009943;
-		border-radius: 50%;
-		padding: 10rpx;
-	}
-
-	.search_list .fixed {
-		background: white;
-		position: fixed;
-		z-index: 9;
-	}
-
-	/* #endif */
-	/* #ifdef MP-WEIXIN */
-	.search_list .lang_search .error_txt .mic_filled .uni-icons {
-		background: #009943;
-		border-radius: 50%;
-		padding: 10rpx;
-	}
-
-	/* #endif */
 
 	.new-icon {
 		padding: 0 9rpx 0 33rpx;

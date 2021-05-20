@@ -87,7 +87,6 @@
 			};
 		},
 		methods: {
-
 			//查找索引
 			findIndex(obj, dest) {
 				for (let i in obj) {
@@ -177,14 +176,12 @@
 			},
 		},
 		onShow() {
-			
 			if (app.isReload) {
-				
+				this.page=1;
 				this.list = [];
 				this.firstCate=[];
 				this.goodCate();
 			}
-
 		},
 		onHide() {
 			getApp().globalData.isReload = false;

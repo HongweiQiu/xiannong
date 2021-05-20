@@ -1,6 +1,6 @@
 <template>
 	<view class="register">
-		
+
 		<view class="get_info">
 			<view>
 				<text>手机号</text>
@@ -19,7 +19,8 @@
 			<view class="flex">
 				<text>验证码</text>
 				<view class="flex_left_right" style="width:79%;">
-					<input type="number" v-model="verify_code" placeholder="请输入验证码" placeholder-class="place_style" @focus="back=false" />
+					<input type="number" v-model="verify_code" placeholder="请输入验证码" placeholder-class="place_style"
+						@focus="back=false" />
 					<my-identifyingcode @getCode="getCode" ref="code"></my-identifyingcode>
 				</view>
 			</view>
@@ -30,17 +31,8 @@
 </template>
 
 <script>
-	
-	import md5 from '../../static/js/md5.js';
-	import rs from '../../static/js/request.js';
-	const app = getApp().globalData;
-	const {
-		navBar,
-		appid,
-		appsecret
-	} = app;
 	export default {
-	
+
 		data() {
 			return {
 				resultData: {},
@@ -51,185 +43,12 @@
 				secret_str: '',
 				navBar: navBar,
 				back: true,
-				count:0
+				count: 0
 			};
 		},
 		methods: {
-			onShow(){
-				
-				uni.setNavigationBarTitle({
-					    title: uni.getStorageSync('titleKey')
-					});},
-			leftClick() {
-				// #ifdef H5
-				// uni.hideKeyboard();
-				 window.history.back(-1);
-				// #endif 
-				// #ifndef H5
-				uni.navigateBack({
-					delta: 1
-				})
-				// #endif	
-				
-			},
-			verifyResult(res) {
-				this.resultData = res;
-				if (this.resultData.flag == true) {
-					this.captcha()
-					return;
-				}
-			},
-			/* 校验插件重置 */
-			verifyReset() {
-				this.$refs.verifyElement.reset();
-				/* 删除当前页面的数据 */
-				this.resultData = {};
-			},
 
-			captcha() {
-				let timeStamp = Math.round(new Date().getTime() / 1000);
-				let obj = {
-					appid: appid,
-					timeStamp: timeStamp
-				};
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-					sign: sign
-				}, obj)
-				rs.getRequests("random", params, (res) => {
-					let data = res.data;
-					if (data.code == 200) {
-						this.secret_str = data.data.number
-						uni.setStorageSync("laravel_session", res.header["Set-Cookie"]);
-					} else {
-						rs.Toast(data.msg);
-					}
-				})
-			},
-			// 获取短信验证码
-			getCode() {
-				var that = this;
-
-				let timeStamp = Math.round(new Date().getTime() / 1000);
-				if (!that.mobile) {
-					rs.Toast('手机号不能为空');
-					return;
-				}
-				var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
-				if (!reg.test(that.mobile)) {
-					rs.Toast('不能输入特殊字符和空格');
-					return;
-				}
-				if (!that.secret_str) {
-					rs.Toast('请拖动滑块验证');
-					return;
-				}
-
-				let obj = {
-					appid: appid,
-					mobile: that.mobile,
-					timeStamp: timeStamp
-				};
-
-				var random_str = md5.hexMD5(appsecret + that.secret_str);
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-					sign: sign,
-					secret_str: random_str
-				}, obj)
-				uni.request({
-					url: app.rootUrl + "/mobileOrder/sendCodeNot",
-					method: 'POST',
-					header: {
-						'content-type': 'application/json', // 默认值
-						'cookie': uni.getStorageSync("laravel_session")
-					},
-					data: params,
-					success: function(res) {
-						if (res.data.code == 200) {
-							that.secret_str = res.data.data.random_str;
-							rs.Toast('验证码已发送到你手机中，请注意查收');
-							that.$refs.code.sendCode();
-						} else {
-							that.verifyReset()
-							rs.Toast(res.data.msg);
-						}
-					}
-				})
-			},
-			//提交
-			forget() {
-				this.count++;
-				if (this.count != 1) return;
-				setTimeout(() => {
-					this.count = 0
-				}, 1000)
-				var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
-				if (!this.mobile) {
-					rs.Toast('手机号不能为空');
-					return;
-				}
-				if (!this.password) {
-					rs.Toast('密码不能为空');
-					return;
-				}
-				console.log(this.password.length)
-				if (this.password.length < 6) {
-					rs.Toast('请设置六位及以上的密码');
-					return;
-				}
-				if (this.password != this.confirm_pwd) {
-					rs.Toast('请确保密码一致');
-					return;
-				}
-
-				if (!reg.test(this.mobile) || !reg.test(this.password) || !reg.test(this.confirm_pwd)) {
-					rs.Toast('不能输入特殊字符和空格');
-					return;
-				}
-				if (!this.verify_code) {
-					rs.Toast('请输入验证码');
-					return;
-				}
-
-				let timeStamp = Math.round(new Date().getTime() / 1000);
-				let obj = {
-					appid: appid,
-					timeStamp: timeStamp,
-					mobile: this.mobile,
-					password: this.password,
-					confirm_pwd: this.confirm_pwd,
-					verify_code: this.verify_code,
-				};
-				let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				let params = Object.assign({
-					sign: sign,
-				}, obj)
-				var that = this;
-				uni.request({
-					url: app.rootUrl + "/mobileOrder/forgetPassword",
-					method: 'POST',
-					data: params,
-					header: {
-						'content-type': 'application/json', // 默认值
-						'cookie': uni.getStorageSync("laravel_session")
-					},
-					success: function(res) {
-						if (res.data.code == 200) {
-							rs.Toast('修改成功,去登陆');
-							setTimeout(() => {
-								uni.navigateTo({
-									url: './login',
-								})
-							}, 1000);
-
-						} else {
-							that.verifyReset()
-							rs.Toast(res.data.msg);
-						}
-					}
-				})
-			},
+			forget() {}
 		}
 	};
 </script>

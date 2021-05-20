@@ -22,6 +22,8 @@ _vue.default.prototype.$Toast = _request.Toast;
 _vue.default.prototype.$needLogin = _request.needLogin;
 _vue.default.prototype.$showModal = _request.showModal;
 _vue.default.prototype.$doubleClick = _common.dianji;
+_vue.default.prototype.$fomartDate = _common.fomartDate;
+_vue.default.prototype.$fixed = _common.fixed;
 _vue.default.config.productionTip = false;
 
 _App.default.mpType = 'app';
@@ -111,7 +113,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     imgRemote: 'https://xntcps.jxsxkeji.com',
     classId: '',
     isReload: true,
-    onoff: true } };exports.default = _default;
+    onoff: true,
+    orderIndex: '' } };exports.default = _default;
 
 /***/ }),
 /* 12 */

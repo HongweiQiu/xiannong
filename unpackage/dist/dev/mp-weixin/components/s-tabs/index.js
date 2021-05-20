@@ -173,7 +173,7 @@ var _default =
     // 导航选中颜色
     activeColor: {
       type: String,
-      default: '#1EA55A' },
+      default: '#57B127' },
 
     // 导航高度 rpx
     height: {

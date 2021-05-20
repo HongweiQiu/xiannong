@@ -123,6 +123,25 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.list.length
+    ? _vm.__map(_vm.list, function(item, index) {
+        var $orig = _vm.__get_orig(item)
+
+        var m0 = _vm.$fomartDate(item.createtime)
+        return {
+          $orig: $orig,
+          m0: m0
+        }
+      })
+    : null
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -156,7 +175,14 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -198,11 +224,61 @@ var _default =
       tabList: [{
         name: '支出明细' },
       {
-        name: '收入明细' }] };
+        name: '收入明细' }],
 
+      direct: 1,
+      page: 1,
+      list: [],
+      personInfo: {} };
 
   },
-  methods: {} };exports.default = _default;
+  methods: {
+    changeFirst: function changeFirst(e) {
+      this.direct = e + 1;
+      this.list = [];
+      this.page = 1;
+      this.getList();
+    },
+    getList: function getList() {var _this = this;
+      var params = {
+        token: uni.getStorageSync('userToken'),
+        direct: this.direct,
+        page: this.page };
+
+      this.$get(this.$api.userMoney_log, params, function (res) {var
+
+        data =
+        res.data;
+        if (data.code == 1) {
+          _this.list = _this.list.concat(data.data);
+        } else {
+          _this.$Toast(data.msg);
+        }
+      }, true);
+    },
+    memberInfo: function memberInfo() {var _this2 = this;
+      var params = {
+        token: uni.getStorageSync('userToken') };
+
+      this.$get(this.$api.userInfo, params, function (res) {var
+
+        data =
+        res.data;
+        if (data.code == 1) {
+          _this2.personInfo = data.data;
+        }
+      });
+    } },
+
+  onLoad: function onLoad() {
+    this.memberInfo();
+    this.getList();
+  },
+  onReachBottom: function onReachBottom() {
+    this.page++;
+    this.getList();
+  } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

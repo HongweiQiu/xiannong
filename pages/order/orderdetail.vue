@@ -1,108 +1,124 @@
 <template>
 	<view class="order-detail">
 		<view>
-			<view class="bold order-statu fs-24">
-				<text>待支付</text>
-				<text>已取消</text>
-				<text>已完成</text>
-				<text>待发货</text>
+			<view class="bold order-statu padding-15">
+				{{info.order_status_msg}}
 			</view>
-			<view class="white_b r-5">
-				<view class="explain flex-column flex-j-c border">
-					<view class="flex">
-						<text class="bold">剩余支付时间为&nbsp;</text>
-						<my-countdown time="100" bgC="none" lineC="#F33"></my-countdown>
-
+			<view class="white_b padding-15 delivery-address align_center">
+				<view class="">
+					<text class="iconfont iconshouhuodizhi fs-24 gray_font"></text>
+				</view>
+				<view class="flex-full ">
+					<view class="flex_left_right">
+						<text class="bold">{{info.shou_name}}</text>
+						<text class="right">{{info.shou_phone}}</text>
 					</view>
-					<text class="fs-11 gray_font">5分钟之内未支付，订单将自动取消</text>
+					<view style="margin-top: 20rpx;">{{info.province+info.city+info.area+info.address}}</view>
+				</view>
+			</view>
+			<view class="white_b" style="margin-bottom: 30rpx;padding:30rpx 0;"
+				v-if="/2|3|4|5|6/.test(info.order_status)">
+				<view class="explain flex-column flex-j-c">
+					<!-- <block v-if="info.order_status==1">
+						<view class="flex">
+							<text class="bold">剩余支付时间为&nbsp;</text>
+							<my-countdown time="100" bgC="none" lineC="#F33"></my-countdown>
+
+						</view>
+						<text class="fs-11 gray_font">5分钟之内未支付，订单将自动取消</text>
+					</block> -->
 					<view class="bold">
-						<!-- 	<text >您取消了订单，退款预计1-5个工作日原路退回 你的账户中</text>
-							<text >订单未支付，已自动取消</text>
-							<text>支付成功，等待商家发货</text>
-							<text>	商家已发货，请你耐心等待快递</text>
-							<text>订单完成，感谢你的支持</text> -->
+						<text v-if="info.order_status==6">您取消了订单，退款预计1-5个工作日原路退回 你的账户中</text>
+						<!-- <text v-if="info.order_status==2">订单未支付，已自动取消</text> -->
+						<text v-if="/2|3/.test(info.order_status)">支付成功，等待商家发货</text>
+						<text v-if="info.order_status==4"> 商家已发货，请你耐心等待快递</text>
+						<text v-if="info.order_status==5">订单完成，感谢你的支持</text>
 					</view>
-
-				</view>
-				<view class="button align_center">
-					<text class="cancel" @click="$refs.popup.open()">取消订单</text>
-					<text class="go-pay">去支付</text>
 				</view>
 			</view>
 		</view>
-		<view class="white_b padding-15 delivery-address r-5">
-			<view class="flex_left_right border way">
-				<text class="gray_font">配送方式</text>
-				<text class="fs-13">商家配送，请你耐心等待</text>
-			</view>
-			<view class="flex-space-between desc">
-				<text class="gray_font">收货地址</text>
-				<view class="fs-13 flex-column more-address">
-					<text>青山湖区128街道80好便利店</text>
-					<text class="right">张三 12456786943</text>
-				</view>
 
-			</view>
-		</view>
-		<view class="bold white_b good r-5">
+		<view class="white_b good ">
 			<view>
-				<view v-for="item in 2" class="sign-good">
+				<view class="border title">商品信息</view>
+				<view v-for="(item,index) in info.goods" :key="index" class="sign-good">
 					<view class="flex ">
 						<view class="photo">
-							<image src="../../static/img/404.png" mode="aspectFit"></image>
+							<image :src="imgRemote+item.goods_img" mode="aspectFill" class="r-5"></image>
 						</view>
-						<view class="flex-space-between flex-full">
+						<view class="flex-full flex-column flex-space-between">
 							<view class="flex-column">
-								<text>新鲜草莓</text>
-								<text class="gray_font fs-11 buy-num">x120</text>
+								<text>{{item.goods_name}}</text>
 							</view>
-							<view class="align_center">
-								￥93.4
+							<view class="flex-end fs-13 return-button">
+								<text class=" align_center gray_font" @click="applyReturnMoney(index)">申请退货</text>
+								<!-- <text class="align_center">退款成功</text>
+								<text class="align_center">退款失败</text>
+								<text class="align_center">退款中</text> -->
 							</view>
+							<view class="flex_left_right">
+								<text>￥{{item.market_price}}</text>
+								<text class="gray_font fs-11 buy-num">X{{item.buy_num}}</text>
+							</view>
+
 						</view>
 					</view>
-					<view class="flex-end fs-13 return-button">
-						<text class=" align_center gray_font" @click="applyReturnMoney">申请退款</text>
-						<text class="align_center">退款成功</text>
-						<text class="align_center">退款失败</text>
-						<text class="align_center">退款中</text>
-					</view>
+
 				</view>
 			</view>
-			<view class="border">
+			<view>
 				<view class="total-fee">
 					<text>商品总价</text>
-					<text>￥180</text>
+					<text>￥{{info.total_price}}</text>
 				</view>
 				<view class="total-fee">
 					<text>基础运费</text>
-					<text>￥0.00</text>
+					<text>￥{{info.freight}}</text>
+				</view>
+				<view class="total-fee">
+					<text>实付款：</text>
+					<text class="red-font">￥{{(Number(info.total_price)+Number(info.freight)).toFixed(2)}}</text>
 				</view>
 			</view>
-			<view class="right paid-in">
-				<text>实付：</text>
-				<text class="red-font">￥180.99</text>
-			</view>
+
 		</view>
-		<view class="white_b fs-13 gray_font r-5 order-number flex-column">
+		<view class="white_b fs-13 gray_font order-number flex-column">
 			<view>
-				订单编号：365739475629845
+				订单编号：{{info.order_num}}
 			</view>
-			<view>下单时间：2021-03-22 23：22</view>
-			<view>支付方式：微信支付</view>
-			<view>申请退款：2021-04-01 12：11</view>
+			<view>下单时间：{{$fomartDate(info.createtime)}}</view>
+			<view>支付方式：
+				<text v-if="info.pay_type=='wxpay'">微信支付</text>
+				<text v-if="info.pay_type=='money'">余额支付</text>
+				<text v-if="info.pay_type=='offline'">线下支付</text>
+			</view>
+			<view v-if="info.refund_time">申请退款：{{$fomartDate(info.refund_time)}}</view>
 		</view>
+		<view style="height: 96rpx;"></view>
+		<view class="fixed-buttons">
+			<view class="button align_center">
+				<text class="cancel" @click="$refs.popup.open()" v-if="info.order_status==1">取消订单</text>
+			
+				<text class="go-pay" v-if="info.order_status==1">去支付</text>
+				<!-- <text class="cancel" @click="ckwl" v-if="/4|5/.test(info.order_status)">查看物流</text> -->
+				<text class="confirm-receipt" @click="confirmReceipt(info.id)" v-if="info.order_status==4">确认收货</text>
+					<text class="return-good"   @click="applyReturnMoney(-1)">申请退货</text>
+
+			</view>
+		</view>
+
 		<uni-popup ref="popup" type="bottom">
 			<view class="white_b cancel-order">
 				<view class="bold center title">取消订单</view>
 				<view class="bold " style="margin-bottom: 59rpx;">选择取消订单原因，帮助我们改进</view>
-				<radio-group class="radio-pay">
-					<view class="flex_left_right align_center desc-reason" v-for="(item,index) in returnReason">
+				<radio-group class="radio-pay" @change="selectReson">
+					<view class="flex_left_right align_center desc-reason" v-for="(item,index) in returnReason"
+						:key="index">
 						<text>{{item.reason}}</text>
-						<radio value="r1" checked="true" style="transform:scale(0.7)" />
+						<radio :value="item.reason" style="transform:scale(0.7)" />
 					</view>
 				</radio-group>
-				<view class="submit">确定提交</view>
+				<view class="submit" @click="cancelOrder(info.id)">确定提交</view>
 			</view>
 		</uni-popup>
 	</view>
@@ -111,8 +127,10 @@
 	export default {
 		data() {
 			return {
+				imgRemote: getApp().globalData.imgRemote,
 				time: 1222,
-				second: '',
+				id: '',
+				info: [],
 				returnReason: [{
 						reason: '不想买了'
 					},
@@ -128,33 +146,106 @@
 					{
 						reason: '无理由'
 					},
-				]
+
+				],
+				reason: '',
+				orderIndex:''
 			}
 		},
 		methods: {
-
-			applyReturnMoney() {
+			fixed(val) {
+				return Number(val).toFixed(2);
+			},
+			applyReturnMoney(index) {
 				uni.navigateTo({
-					url: 'applyAfterSale'
+					url: 'applyAfterSale?id='+this.id+'&returnIndex='+index
+				})
+			},
+			selectReson(e) {
+				this.reason = e.detail;
+			},
+			cancelOrder(id) {
+				if (!this.reason) {
+					return this.$Toast('请选择退款原因');
+				}
+				this.$showModal('确认取消订单?', () => {
+					let params = {
+						token: uni.getStorageSync('userToken'),
+						order_id: id,
+						shenhe_remark: this.reason
+					};
+					this.$get(this.$api.orderCancel, params, (res) => {
+						let {
+							data
+						} = res;
+						if (data.code == 1) {
+							this.$Toast('取消订单成功');
+							getApp().globalData.orderIndex = this.orderIndex;
+							this.getOrderDetail(id);
+							this.$refs.popup.close()
+						} else {
+							this.$Toast(data.msg);
+						}
+					})
+				})
+
+			},
+			confirmReceipt(id) {
+				this.$showModal('确认收货?', () => {
+					let params = {
+						token: uni.getStorageSync('userToken'),
+						order_id: id
+					};
+					this.$get(this.$api.orderReceipt, params, (res) => {
+						let {
+							data
+						} = res;
+						if (data.code == 1) {
+							this.$Toast('收货成功');
+							this.getOrderDetail(id);
+							getApp().globalData.orderIndex = this.orderIndex;
+						} else {
+							this.$Toast(data.msg);
+						}
+					})
+				})
+			},
+			getOrderDetail(id) {
+				this.$get(this.$api.orderDetail, {
+					token: uni.getStorageSync('userToken'),
+					order_id: id
+				}, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						this.info = data.data;
+					} else {
+						this.$Toast(data.msg);
+					}
 				})
 			}
 		},
-		onShow() {
-			this.countdown()
+		onLoad(e) {
+			this.id = e.id;
+			this.orderIndex=e.index;
+			this.getOrderDetail(e.id);
 		}
 	}
 </script>
 <style scoped lang="scss">
 	.order-detail {
-		margin: 0 30rpx;
 
 		.order-statu {
-			margin: 40rpx 0 29rpx;
+			height: 100rpx;
+			color: white;
+			line-height: 100rpx;
+			background: #57B127;
 		}
 
 		.explain {
-			margin: 0 30rpx;
-			height: 120rpx;
+			padding: 0 30rpx;
+			// height: 120rpx;
 			// line-height: 120rpx;
 		}
 
@@ -166,7 +257,7 @@
 			text {
 				width: 140rpx;
 				height: 46rpx;
-				line-height: 46rpx;
+				line-height: 42rpx;
 				border-radius: 23rpx;
 				font-size: 26rpx;
 				display: inline-block;
@@ -187,11 +278,11 @@
 		}
 
 		.delivery-address {
-			margin: 30rpx 0;
+			margin: 0rpx 0 30rpx;
+			height: 160rpx;
 
-			.way {
-				height: 88rpx;
-				line-height: 88rpx;
+			&>view:first-child {
+				margin-right: 20rpx;
 			}
 		}
 
@@ -205,10 +296,15 @@
 		}
 
 		.good {
-			padding: 30rpx 30rpx 0;
+			// margin-top: 30rpx;
+			padding: 0rpx 30rpx 1rpx;
+
+			.title {
+				padding: 15rpx 0;
+			}
 
 			.sign-good {
-				margin-bottom: 30rpx;
+				margin: 30rpx 0;
 
 				.buy-num {
 					margin-top: 20rpx;
@@ -219,7 +315,7 @@
 
 				.photo {
 					width: 180rpx;
-					height: 120rpx;
+					height: 180rpx;
 					margin-right: 30rpx;
 
 					image {
@@ -281,6 +377,20 @@
 				height: 78rpx;
 				line-height: 78rpx;
 				text-align: center;
+			}
+		}
+
+		.fixed-buttons {
+			position: fixed;
+			bottom: 0;
+			background: white;
+			width: 100%;
+           .return-good{
+			   color:#999;border: 1px solid #999;
+		   }
+			.confirm-receipt {
+				border: 1px solid #f33;
+				color: #f33;
 			}
 		}
 	}

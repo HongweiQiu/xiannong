@@ -19,7 +19,7 @@
 				let seconds = 60;
 				let clear = setInterval(() => {
 					seconds--;
-					this.str = seconds + 's';
+					this.str = '重新获取('+seconds + ')';
 					if (seconds <= 0) {
 						clearInterval(clear);
 						this.str = '获取验证码';
@@ -39,7 +39,7 @@
 
 <style>
 	.identifying_code {
-		width: 180rpx;
+		width: 200rpx;
 		height: 50rpx;
 		line-height: 50rpx;
 		color: white;

@@ -4,7 +4,6 @@
   "navigationBarTextStyle": "white",
   "usingComponents": {
     "my-search": "/components/search/index",
-    "my-recomend": "/components/recomend/index",
-    "my-backtop": "/components/backtop/index"
+    "my-recomend": "/components/recomend/index"
   }
 }

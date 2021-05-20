@@ -135,7 +135,7 @@ var _default =
       var seconds = 60;
       var clear = setInterval(function () {
         seconds--;
-        _this.str = seconds + 's';
+        _this.str = '重新获取(' + seconds + ')';
         if (seconds <= 0) {
           clearInterval(clear);
           _this.str = '获取验证码';

@@ -11,13 +11,12 @@
 			</view>
 			<view class="flex_left_right">
 				<text>单位名称</text>
-				<input type="text" v-model="personInfo.company" class="right gray_font" />
+				<input type="text" v-model="personInfo.company" class="right gray_font" disabled />
 			</view>
 			<view class="flex_left_right">
 				<text>手机号</text>
-				<input type="number" v-model="personInfo.mobile" class="right gray_font" />
+				<input type="number" v-model="personInfo.mobile" class="right gray_font" disabled />
 			</view>
-
 		</view>
 		<view class="center button_style" @click="formSubmit">保存</view>
 		<uni-popup ref="popup" type="bottom">
@@ -45,7 +44,7 @@
 				imgRemote: imgRemote,
 				avatarUrl: '',
 				personInfo: {},
-				file:''
+				file: ''
 			};
 		},
 		methods: {
@@ -69,7 +68,6 @@
 				} else {
 					this.$refs.popup.close();
 				}
-
 			},
 			chooseImage(type) {
 				let _ = this;
@@ -78,27 +76,24 @@
 					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 					sourceType: [type], //从相册选择
 					success(res) {
-						_.file=res.tempFilePaths[0];
+						_.file = res.tempFilePaths[0];
 						_.$refs.popup.close();
 						_.uploadImg()
-						
 					}
 				});
 			},
-			uploadImg(){
-				let _=this;
+			uploadImg() {
+				let _ = this;
 				uni.uploadFile({
 					url: getApp().globalData.rootUrl + _.$api.mainUpload, //此处换上你的接口地址
 					name: 'file',
-					filePath:_.file,
+					filePath: _.file,
 					success: function(res1) {
 						_.avatarUrl = _.imgRemote + JSON.parse(res1.data).data;
-						
 					}
 				})
 			},
 			formSubmit() {
-
 				this.$showModal('确认修改信息', () => {
 					let params = {
 						avatar: this.avatarUrl
@@ -115,12 +110,6 @@
 					})
 				})
 			}
-		},
-		/**
-		 * 生命周期函数--监听页面显示
-		 */
-		onShow: function() {
-
 		},
 		onLoad() {
 			var that = this;

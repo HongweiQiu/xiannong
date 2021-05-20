@@ -30,15 +30,11 @@
 				<view class="">
 					<view class="divider gray_font">其他登录</view>
 					<view class="weixin_button">
-						<button open-type="getUserInfo" @click="wechatLogin">
+						<button open-type="getUserInfo" @click="$doubleClick(wechatLogin)">
 							<text class="iconfont iconweixin weixin_img"></text>
-							<!-- <image class="weixin_img" src="../../static/img/wechat.png" mode=""></image> -->
 						</button>
 					</view>
-					<!-- <view class="read_treaty">
-						<text style="color: #000;" @click="pageUrl('treaty')">已阅读并同意</text>
-						<text @click="pageUrl('treaty')">注册协议</text>
-					</view> -->
+
 				</view>
 			</view>
 		</view>
@@ -83,9 +79,9 @@
 					let data = res.data;
 					if (data.code == 1) {
 						this.$Toast('登录成功，将跳转到首页');
-							getApp().globalData.isReload=true;
-					uni.setStorageSync('userInfo', data.data.userinfo);
-					uni.setStorageSync('userToken', data.data.userinfo.token);
+						getApp().globalData.isReload = true;
+						uni.setStorageSync('userInfo', data.data.userinfo);
+						uni.setStorageSync('userToken', data.data.userinfo.token);
 						setTimeout(() => {
 							uni.switchTab({
 								url: '/pages/tabar/index'
@@ -100,12 +96,7 @@
 			// 微信端微信登录
 			// #ifdef MP-WEIXIN
 			wechatLogin() {
-				console.log('weixin')
-				this.count++;
-				if (this.count != 1) return;
-				setTimeout(() => {
-					this.count = 0
-				}, 500)
+				let _ = this;
 				uni.getUserInfo({
 					provider: 'weixin',
 					success(infoRes) {
@@ -117,51 +108,28 @@
 						uni.login({
 							provider: 'weixin',
 							success(res) {
-								let timeStamp = Math.round(new Date().getTime() / 1000);
-								let obj = {
-									appid: appid,
-									timeStamp: timeStamp,
+								console.log(res);
+								_.$get(_.$api.userWx_login, {
 									code: res.code
-								};
-								let sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-								let params = Object.assign({
-									type: 'mini',
-									sign: sign,
-									code: res.code,
-									encryptedData: encryptedData,
-									iv: iv
-								}, obj);
-								rs.postRequests('wxLogin', params, (result) => {
-									let data = result.data;
+								}, (result) => {
 
-									if (data.code == 200) {
-										rs.Toast('登录成功，将跳转到首页');
-										wx.setStorageSync("cdj_token", data.data.token);
-										wx.setStorageSync("is_child", data.data.is_child);
-										wx.setStorageSync("is_miniBind", data.data.is_miniBind);
-										setTimeout(function() {
-											uni.switchTab({
-												url: '../tabar/index'
+									let {
+										data
+									} = result;
+									if (data.code == 1) {
+										if (typeof data.data == 'string') {
+											uni.navigateTo({
+												url: './bind?openId='+data.data
 											})
-										}, 1000);
-									} else if (data.code == 201) {
-										wx.navigateTo({
-											url: 'selectway?identifying=' + data.data
-												.identifying
-										})
-									} else {
-										rs.Toast(data.msg);
+										}
 									}
 								})
 							}
-
 						})
 					}
 				})
 			}
-
 			// #endif
-
 		}
 	};
 </script>

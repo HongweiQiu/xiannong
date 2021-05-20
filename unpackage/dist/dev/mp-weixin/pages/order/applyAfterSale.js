@@ -120,6 +120,36 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.info.goods, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var m0 = _vm.$fixed(item.buy_num * item.market_price)
+    return {
+      $orig: $orig,
+      m0: m0
+    }
+  })
+
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event, index) {
+      var _temp = arguments[arguments.length - 1].currentTarget.dataset,
+        _temp2 = _temp.eventParams || _temp["event-params"],
+        index = _temp2.index
+
+      var _temp, _temp2
+
+      return _vm.file.splice(index, 1)
+    }
+  }
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -153,7 +183,11 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;} //
+//
+//
+//
+//
 //
 //
 //
@@ -228,8 +262,12 @@ var _default =
 {
   data: function data() {
     return {
-      reason: '' };
-
+      reason: '',
+      info: [],
+      allCheck: true,
+      imgRemote: getApp().globalData.imgRemote,
+      totalPrice: 0,
+      file: [] };
 
   },
   methods: {
@@ -240,7 +278,90 @@ var _default =
         this.$refs.popup.close();
       }
 
-    } } };exports.default = _default;
+    },
+    chooseImage: function chooseImage(type) {
+      var _ = this;
+      uni.chooseImage({
+        sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+        sourceType: [type], //从相册选择
+        success: function success(res) {
+          var file = res.tempFilePaths;
+
+          _.$refs.popup.close();
+          for (var i in file) {
+            uni.uploadFile({
+              url: getApp().globalData.rootUrl + _.$api.mainUpload, //此处换上你的接口地址
+              name: 'file',
+              filePath: file[i],
+              success: function success(res1) {
+                _.file = _.file.concat(_.imgRemote + JSON.parse(res1.data).data);
+              } });
+
+          }
+
+        } });
+
+    },
+    uploadImg: function uploadImg() {
+      var _ = this;
+
+    },
+    allCheckGood: function allCheckGood() {var _this = this;
+      this.allCheck = !this.allCheck;
+      this.info.goods.map(function (item) {
+        item.checked = _this.allCheck;
+        return item;
+      });
+      this.selectCheck();
+    },
+    selectCheck: function selectCheck(index) {
+      if (index >= 0) {
+        this.info.goods[index].checked = !this.info.goods[index].checked;
+
+      }
+      this.allCheck = this.info.goods.every(function (item) {
+        return item.checked == true;
+      });
+      this.calculate();
+    },
+    calculate: function calculate() {
+      var sum = 0;var _iterator = _createForOfIteratorHelper(
+      this.info.goods),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var i = _step.value;
+          if (i.checked) {
+            sum += i.buy_num * i.market_price;
+          }
+
+        }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
+      this.totalPrice = sum.toFixed(2);
+      return this.totalPrice;
+    } },
+
+  onLoad: function onLoad(e) {var _this2 = this;
+    this.$get(this.$api.orderDetail, {
+      token: uni.getStorageSync('userToken'),
+      order_id: e.id },
+    function (res) {var
+
+      data =
+      res.data;
+      if (data.code == 1) {
+        if (e.returnIndex >= 0) {
+          data.data.goods = data.data.goods.filter(function (item, index) {
+            return index == e.returnIndex;
+          });
+        }
+        data.data.goods.map(function (item) {
+          item.checked = true;
+          return item;
+        });
+        _this2.info = data.data;
+        _this2.calculate();
+      } else {
+        _this2.$Toast(data.msg);
+      }
+    });
+  } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

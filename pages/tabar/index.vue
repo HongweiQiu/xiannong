@@ -52,10 +52,8 @@
 				<my-recomend v-for="(item, index) in recommendList" :key="index" :ware="item" :config="config"
 					@showCart="openCart(item)" class="myc_recomend"></my-recomend>
 			</view>
-
 		</view>
 		<view style="height:30rpx;"></view>
-		<my-backtop bottom="60" :showTop="showTop"></my-backtop>
 	</view>
 </template>
 
@@ -115,7 +113,6 @@
 					let data = res.data;
 					if (data.code == 1) {
 						this.recommendList = data.data;
-
 					}
 				});
 			},
@@ -124,7 +121,6 @@
 					let data = res.data;
 					if (data.code == 1) {
 						this.newList = data.data;
-
 					}
 				})
 			},
@@ -133,7 +129,6 @@
 					let data = res.data;
 					if (data.code == 1) {
 						this.noticeList = data.data;
-
 					}
 				})
 			}
@@ -150,7 +145,11 @@
 			var that = this;
 			that.page++;
 			// that.indexItem();
-		}
+		},
+		onShareAppMessage() {
+			 
+		},
+		onShareTimeline() {}
 	};
 </script>
 

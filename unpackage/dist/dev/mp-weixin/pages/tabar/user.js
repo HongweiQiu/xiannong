@@ -218,6 +218,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 var app = getApp().globalData;var
 
@@ -228,6 +229,7 @@ app.imgRemote;var _default =
     return {
       userInfo: uni.getStorageSync('userInfo'),
       userToken: uni.getStorageSync('userToken'),
+      auditNum: 0,
       userList: [{
         icon: 'iconshouhuodizhi',
         name: '地址管理',
@@ -288,7 +290,6 @@ app.imgRemote;var _default =
       uni.navigateTo({
         url: '../user/updateavatar' });
 
-
     },
     remainPage: function remainPage() {
       this.$needLogin(function () {
@@ -296,7 +297,6 @@ app.imgRemote;var _default =
           url: '../user/remainder' });
 
       });
-
     },
     pageUrl: function pageUrl(item) {
       this.$needLogin(function () {
@@ -331,15 +331,27 @@ app.imgRemote;var _default =
           _this.personInfo = data.data;
         }
       });
-    } },
+    },
+    auditOrder: function auditOrder() {var _this2 = this;
+      var params = {
+        token: uni.getStorageSync('userToken') };
 
+      this.$get(this.$api.orderNo_shenhe_order, params, function (res) {var
+
+        data =
+        res.data;
+        if (data.code == 1) {
+          _this2.auditNum = data.data;
+        }
+      });
+    } },
 
   onShow: function onShow() {
     var that = this;
     if (uni.getStorageSync('userToken')) {
       that.memberInfo();
+      that.auditOrder();
     }
-
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

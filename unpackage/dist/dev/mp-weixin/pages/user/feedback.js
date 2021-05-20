@@ -97,17 +97,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event, index) {
-      var _temp = arguments[arguments.length - 1].currentTarget.dataset,
-        _temp2 = _temp.eventParams || _temp["event-params"],
-        index = _temp2.index
-
-      var _temp, _temp2
-
-      _vm.indexType = index
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -141,11 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -160,11 +145,29 @@ var _default =
 {
   data: function data() {
     return {
-      indexType: 0 };
-
+      indexType: 0,
+      content: '' };
 
   },
-  methods: {} };exports.default = _default;
+  methods: {
+    submit: function submit() {var _this = this;
+      var params = {
+        token: uni.getStorageSync('userToken'),
+        content: this.content };
+
+      this.$get(this.$api.userFankui, params, function (res) {
+        var data = res.data;
+        if (data.code == 1) {
+          _this.$Toast('提交意见成功');
+          setTimeout(function () {
+            uni.navigateBack();
+          }, 1000);
+        } else {
+          _this.$Toast(data.msg);
+        }
+      });
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

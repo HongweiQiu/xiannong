@@ -51,23 +51,4 @@
   background: white;
   color: #333;
 }
-.myinfo .get_info .avator.data-v-6b8baf96 {
-  height: 182rpx;
-}
-.myinfo .avator image.data-v-6b8baf96 {
-  width: 110rpx !important;
-  height: 110rpx;
-  border-radius: 50%;
-}
-.upload-img.data-v-6b8baf96 {
-  margin: 0 30rpx;
-}
-.upload-img .method.data-v-6b8baf96 {
-  height: 109rpx;
-  line-height: 109rpx;
-  text-align: center;
-}
-.upload-img .cancel.data-v-6b8baf96 {
-  margin: 30rpx 0;
-}
 

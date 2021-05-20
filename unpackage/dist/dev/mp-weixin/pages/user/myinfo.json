@@ -2,7 +2,5 @@
   "navigationBarTitleText": "设置",
   "navigationBarBackgroundColor": "#fff",
   "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "uni-popup": "/components/uni-popup/uni-popup"
-  }
+  "usingComponents": {}
 }
