@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/tabar/index",
+    "pages/tabar/company",
     "pages/tabar/classify",
     "pages/tabar/order",
     "pages/tabar/shopcart",
@@ -87,6 +88,12 @@
         "iconPath": "/static/img/user_gray.png",
         "selectedIconPath": "/static/img/user_green.png",
         "text": "我的"
+      },
+      {
+        "pagePath": "pages/tabar/company",
+        "iconPath": "/static/img/shopcart_gray.png",
+        "selectedIconPath": "/static/img/shopcart_green.png",
+        "text": "公司介绍"
       }
     ]
   },
@@ -97,6 +104,12 @@
   },
   "uniStatistics": {
     "enable": true
+  },
+  "plugins": {
+    "WechatSI": {
+      "version": "0.3.4",
+      "provider": "wx069ba97219f66d99"
+    }
   },
   "usingComponents": {},
   "sitemapLocation": "sitemap.json"

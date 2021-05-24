@@ -32,6 +32,8 @@ const api = {
 	goodsList: '/goods/goods_list', //搜索商品列表
 	goodsJoin_like: '/goods/join_like', //搜索商品列表
 	goodsUser_like: '/goods/user_like', //搜索商品列表
+	goodsSearch_history: '/goods/search_history', //搜索历史记录
+	goodsClear_history: '/goods/clear_history', //清空搜索历史记录
 
 	cartAdd_cart: '/cart/add_cart', //加入购物车
 	cartIndex: '/cart/index', //购物车列表

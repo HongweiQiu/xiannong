@@ -87,8 +87,8 @@
 		</view>
 		<view v-else class="null_cart">
 			<view class="null_img">
-				<image src="../../static/img/nullcart.png" mode="aspectFit"></image>
-				<view class="fs-15 gray_font" style="margin:61rpx 0 40rpx;">购物车里空空如也~</view>
+				<image src="../../static/img/nullcart.svg" mode="aspectFit"></image>
+				<view class="fs-15 gray_font" style="margin:0 0 40rpx;">购物车里空空如也~</view>
 				<navigator open-type="switchTab" url="/pages/tabar/classify">
 					<view class="go-shopping">去逛一逛</view>
 				</navigator>
@@ -436,8 +436,8 @@
 		text-align: center;
 
 		image {
-			width: 318rpx;
-			height: 350rpx;
+			width: 100%;
+			height:500rpx;
 			margin-top: 60rpx;
 		}
 

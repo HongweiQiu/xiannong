@@ -102,7 +102,7 @@
 				<text class="go-pay" v-if="info.order_status==1">去支付</text>
 				<!-- <text class="cancel" @click="ckwl" v-if="/4|5/.test(info.order_status)">查看物流</text> -->
 				<text class="confirm-receipt" @click="confirmReceipt(info.id)" v-if="info.order_status==4">确认收货</text>
-					<text class="return-good"   @click="applyReturnMoney(-1)">申请退货</text>
+					<text class="return-good"   @click="applyReturnMoney(-1)">整单退货</text>
 
 			</view>
 		</view>

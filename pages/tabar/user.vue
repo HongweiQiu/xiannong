@@ -40,11 +40,10 @@
 			<view class="order-statu flex_left_right">
 				<view v-for="(item,index) in orderStatu" @click="orderPage(item)" :key="index">
 					<view class="center">
-						<image :src="'../../static/img/'+item.path+'.png'" mode="aspectFit"
-							:class="index==1?'scale':''"></image>
+						<image :src="'../../static/img/'+item.path+'.svg'" mode="aspectFit"></image>
 						<text class="to-be-paid" v-if="index==0&&auditNum>0">{{auditNum}}</text>
 					</view>
-					<view class="fs-13 center">{{item.name}}</view>
+					<view class="fs-13 center name">{{item.name}}</view>
 				</view>
 			</view>
 		</view>
@@ -335,13 +334,14 @@
 		.order-statu {
 
 			flex-basis: 20%;
-			margin-top: 30rpx;
+			margin-top: 10rpx;
 
 			image {
-				width: 80rpx;
-				height: 60rpx;
+				width: 100rpx;
+				height: 100rpx;
 
 			}
+			.name{margin-top: -20rpx;}
 
 			.to-be-paid {
 				position: absolute;
@@ -350,7 +350,7 @@
 				background: #FF3333;
 				color: white;
 				border-radius: 50%;
-				margin: -10rpx 0 0 -25rpx;
+				margin: 13rpx 0 0 -40rpx;
 				line-height: 32rpx;
 				font-size: 16rpx;
 			}

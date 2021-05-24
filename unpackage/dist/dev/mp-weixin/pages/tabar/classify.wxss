@@ -122,7 +122,8 @@ page.data-v-c63a8bb4 {
   background: white;
 }
 .classify .bitmap image.data-v-c63a8bb4 {
-  width: 50%;
+  width: 100%;
+  height: 500rpx;
 }
 .classify .option.data-v-c63a8bb4 {
   position: fixed;

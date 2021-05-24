@@ -257,6 +257,7 @@
 				minPrice: '',
 				explain: '',
 				currentIndex: 0, //当前默认选中,
+				id:'',
 			};
 		},
 		methods: {
@@ -373,12 +374,18 @@
 				id
 			} = e;
 			this.goodDetail(id);
+			this.id=e.id;
 			this.getCount();
 			if (uni.getStorageSync('userToken')) {
 				this.goodLike(id);
 			}
 		},
 		onShareAppMessage() {
+			  return {
+			      title: this.ware.name,
+			      path: '/pages/index/shopdetail?id='+this.id,
+				  imgageUrl:this.imgRemote+this.ware.main_image
+			    }
 
 		},
 		onShareTimeline() {}

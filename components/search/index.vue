@@ -54,6 +54,7 @@
 		z-index: 3;
 
 		.new {
+			height: 66rpx;
 			justify-content: space-around;
 			align-items: center;
 			line-height: 1;

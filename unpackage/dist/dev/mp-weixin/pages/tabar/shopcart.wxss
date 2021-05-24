@@ -112,8 +112,8 @@ page.data-v-529031b8 {
   text-align: center;
 }
 .null_img image.data-v-529031b8 {
-  width: 318rpx;
-  height: 350rpx;
+  width: 100%;
+  height: 500rpx;
   margin-top: 60rpx;
 }
 .null_img .go-shopping.data-v-529031b8 {

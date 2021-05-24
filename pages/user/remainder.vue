@@ -33,7 +33,8 @@
 				</view>
 			</view>
 			<view v-else class="bitmap flex-column align_center">
-				<image src="../../static/img/remain_record.png" mode="aspectFit"></image>
+			
+				<image src="../../static/img/remain_record.svg" mode="aspectFit"></image>
 				<text class="fs-13 gray_font">没有明细记录哦~</text>
 			</view>
 		</view>
@@ -118,9 +119,9 @@
 		}
 
 		.bitmap image {
-			margin: 200rpx 0 60rpx;
+			margin: 200rpx 0 0;
 			width: 593rpx;
-			height: 200rpx;
+			height: 300rpx;
 		}
 
 		.account-money {

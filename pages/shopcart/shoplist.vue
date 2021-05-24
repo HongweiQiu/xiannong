@@ -296,7 +296,7 @@
 					} = res;
 					if (data.code == 1) {
 						this.addressInfo = data.data;
-						this.receiving = data.data.province + data.data.city + data.data.area;
+						this.receiving = data.data.province + data.data.city + data.data.area+data.data.address;
 						if (this.receiving.match('null')) {
 							this.receiving = '';
 						}

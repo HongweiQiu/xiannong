@@ -106,13 +106,12 @@
 			},
 			indexMainRecommend() {
 				let {
-					num,
 					page
 				} = this;
 				this.$get(this.$api.mainRecommend, {}, res => {
 					let data = res.data;
 					if (data.code == 1) {
-						this.recommendList = data.data;
+						this.recommendList = this.recommendList.concat(data.data);
 					}
 				});
 			},
@@ -143,11 +142,11 @@
 		onReachBottom() {
 			//页面上拉触底事件的处理函数
 			var that = this;
-			that.page++;
-			// that.indexItem();
+			// that.page++;
+			// that.indexMainRecommend();
 		},
 		onShareAppMessage() {
-			 
+
 		},
 		onShareTimeline() {}
 	};
@@ -197,13 +196,9 @@
 	}
 
 	.banner4 image {
-
 		width: 100%;
 		height: 200rpx;
 	}
-
-
-
 
 	.home .limit_buy .icon-jiantou {
 		font-size: 20rpx;

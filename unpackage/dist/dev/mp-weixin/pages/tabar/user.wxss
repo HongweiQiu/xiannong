@@ -116,11 +116,14 @@ page,
 .user .order-statu {
   -webkit-flex-basis: 20%;
           flex-basis: 20%;
-  margin-top: 30rpx;
+  margin-top: 10rpx;
 }
 .user .order-statu image {
-  width: 80rpx;
-  height: 60rpx;
+  width: 100rpx;
+  height: 100rpx;
+}
+.user .order-statu .name {
+  margin-top: -20rpx;
 }
 .user .order-statu .to-be-paid {
   position: absolute;
@@ -129,7 +132,7 @@ page,
   background: #FF3333;
   color: white;
   border-radius: 50%;
-  margin: -10rpx 0 0 -25rpx;
+  margin: 13rpx 0 0 -40rpx;
   line-height: 32rpx;
   font-size: 16rpx;
 }

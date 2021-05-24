@@ -1,4 +1,29 @@
 
+.start-recorder.data-v-64d2b7fe {
+	-webkit-animation: twinkling-data-v-64d2b7fe 1s infinite ease-in-out
+}
+.animated.data-v-64d2b7fe {
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both
+}
+@-webkit-keyframes twinkling-data-v-64d2b7fe {
+0% {
+		opacity: 0.5;
+}
+100% {
+		opacity: 1;
+}
+}
+@keyframes twinkling-data-v-64d2b7fe {
+0% {
+		opacity: 0.5;
+}
+100% {
+		opacity: 1;
+}
+}
 .search_list .input_key.data-v-64d2b7fe {
 	position: fixed;
 	width: 100%;
@@ -46,14 +71,14 @@
 	padding: 2rpx 20rpx;
 	background: #eee;
 	font-size: 26rpx;
-	margin: 20rpx 38rpx 0 0;
+	margin: 16rpx 38rpx 10rpx 0;
 }
 .search_list .search_bitmap.data-v-64d2b7fe {
 	margin-top: 10%;
 	text-align: center;
 }
 .search_list .search_bitmap .bitmap.data-v-64d2b7fe {
-	width: 47%;
+	width: 69%;
 }
 .search_list .search_result .my_profile.data-v-64d2b7fe {
 	margin-bottom: 10rpx;
@@ -77,8 +102,8 @@
 	text-align: center;
 }
 .search_list .lang_search .error_txt>view.data-v-64d2b7fe {
-	height: 50rpx;
-	line-height: 50rpx;
+	/* 	height: 50rpx;
+	line-height: 50rpx;*/
 	text-align: center;
 }
 .new-icon.data-v-64d2b7fe {

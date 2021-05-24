@@ -163,8 +163,8 @@
   text-align: center;
 }
 .order .bitmap image.data-v-5d2e0a6f {
-  width: 397rpx;
-  height: 335rpx;
+  width: 100%;
+  height: 500rpx;
   margin: 252rpx 0 60rpx;
 }
 .order .order_oneline.data-v-5d2e0a6f {

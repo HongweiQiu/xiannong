@@ -1,8 +1,7 @@
 <template>
 	<view class="pay-success">
-
 		<view class="desc-text flex-column ac">
-			<image src="../../static/img/pay_success.png" mode="aspectFit"></image>
+			<image src="../../static/img/pay_success.svg" mode="aspectFit"></image>
 			<text class="fs-13 gray_font">恭喜下单成功，快递将以最快的速度送到你的手里， 期待你下次光临！</text>
 		</view>
 		<view class="next-page flex-column align_center">
@@ -15,7 +14,6 @@
 <script>
 	export default{
 		onHide(){
-			console.log(12)
 				getApp().globalData.isReload=true;
 		}
 	}
@@ -26,7 +24,7 @@
 	.pay-success {
 
 		.desc-text {
-			padding-top: 225rpx;
+			padding-top:80rpx;
 			align-items: center;
 
 			text {
@@ -37,8 +35,8 @@
 		}
 
 		image {
-			width: 383rpx;
-			height: 345rpx;
+			width: 100%;
+			height: 500rpx;
 		}
 
 

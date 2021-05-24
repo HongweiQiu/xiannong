@@ -14,7 +14,7 @@
 						<text class="fs-13">￥</text>
 						<text class="fs-23">{{ware.sku[kind].market_price}}</text>
 					</view>
-					<view>已选：{{ware.sku[kind].guige}}/{{ware.sku[kind].unit}}, {{num}}件</view>
+					<view>已选：{{ware.sku[kind].guige}},{{num}}{{ware.sku[kind].unit}} </view>
 				</view>
 			</view>
 		</view>
@@ -25,7 +25,7 @@
 			<view class="fs-13 attr">
 				<text v-for="(item,index) in ware.sku" :key="index" @click="kind=index" class="text-label"
 					:class="kind==index?'active':''">
-					{{item.guige}}/{{item.unit}}
+					{{item.guige}}
 				</text>
 			</view>
 		</view>

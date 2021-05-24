@@ -48,7 +48,7 @@
 
 			</view>
 			<view class="bitmap" v-else>
-				<image src="../../static/img/no_content.png" mode="aspectFit"></image>
+				<image src="../../static/img/no_content.svg" mode="aspectFit"></image>
 				<view class="gray_font">
 					没有订单信息哦~
 				</view>
@@ -356,9 +356,9 @@
 	}
 
 	.order .bitmap image {
-		width: 445rpx;
-		height: 335rpx;
-		margin: 252rpx 0 60rpx;
+		width: 70%;
+		height: 500rpx;
+		margin: 200rpx 0 0;
 	}
 
 	.order .order_oneline {

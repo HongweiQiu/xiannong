@@ -51,7 +51,7 @@
 			</view>
 
 			<view class="bitmap" v-else>
-				<image src="../../static/img/after-order.png" mode="aspectFit"></image>
+				<image src="../../static/img/after-order.svg" mode="aspectFit"></image>
 				<view class="gray_font">
 					没有订单信息哦~
 				</view>
@@ -77,7 +77,7 @@
 					name: '全部售后'
 				}],
 				activeTab: 1,
-				search_default: true,
+				search_default: false,
 			};
 		},
 		methods: {
@@ -233,8 +233,8 @@
 	}
 
 	.order .bitmap image {
-		width: 397rpx;
-		height: 335rpx;
+		width: 100%;
+		height: 500rpx;
 		margin: 252rpx 0 60rpx;
 	}
 

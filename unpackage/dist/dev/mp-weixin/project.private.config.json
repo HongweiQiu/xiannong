@@ -111,6 +111,66 @@
         {
           "name": "pages/shopcart/shoplist",
           "pathName": "pages/shopcart/shoplist",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/index/search",
+          "pathName": "pages/index/search",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/order/orderAfterSale",
+          "pathName": "pages/order/orderAfterSale",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/shopcart/paySuccess",
+          "pathName": "pages/shopcart/paySuccess",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/tabar/order",
+          "pathName": "pages/tabar/order",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/user/remainder",
+          "pathName": "pages/user/remainder",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/tabar/shopcart",
+          "pathName": "pages/tabar/shopcart",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/tabar/user",
+          "pathName": "pages/tabar/user",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/tabar/index",
+          "pathName": "pages/tabar/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/index/search",
+          "pathName": "pages/index/search",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/tabar/company",
+          "pathName": "pages/tabar/company",
           "scene": null
         }
       ]

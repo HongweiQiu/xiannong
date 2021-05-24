@@ -30,7 +30,7 @@
 				<view class="">
 					<view class="divider gray_font">其他登录</view>
 					<view class="weixin_button">
-						<button open-type="getUserInfo" @click="$doubleClick(wechatLogin)">
+						<button @click="wechatLogin">
 							<text class="iconfont iconweixin weixin_img"></text>
 						</button>
 					</view>
@@ -95,20 +95,14 @@
 
 			// 微信端微信登录
 			// #ifdef MP-WEIXIN
-			wechatLogin() {
+			wechatLogin(e) {
 				let _ = this;
-				uni.getUserInfo({
-					provider: 'weixin',
-					success(infoRes) {
-						let {
-							encryptedData,
-							iv
-						} = infoRes;
-						// console.log(infoRes);
+				uni.getUserProfile({
+					desc: '授权确认',
+					success(res1) {
 						uni.login({
 							provider: 'weixin',
 							success(res) {
-								console.log(res);
 								_.$get(_.$api.userWx_login, {
 									code: res.code
 								}, (result) => {
@@ -119,15 +113,28 @@
 									if (data.code == 1) {
 										if (typeof data.data == 'string') {
 											uni.navigateTo({
-												url: './bind?openId='+data.data
+												url: './bind?openId=' + data.data
 											})
+										} else {
+											_.$Toast('登录成功，将跳转到首页');
+											getApp().globalData.isReload = true;
+											uni.setStorageSync('userInfo', data.data);
+											uni.setStorageSync('userToken', data.data.token);
+											setTimeout(() => {
+												uni.reLaunch({
+													url: '/pages/tabar/index'
+												});
+											}, 1000)
 										}
+									} else {
+										_.$Toast(data.msg)
 									}
 								})
 							}
 						})
 					}
 				})
+
 			}
 			// #endif
 		}

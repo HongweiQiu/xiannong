@@ -22,7 +22,13 @@
         },
         "uniStatistics" : {
             "enable" : true
-        }
+        },
+		"plugins" : {  
+		            "WechatSI" : {  
+		                "version" : "0.3.4",  
+		                "provider" : "wx069ba97219f66d99"  
+		            }  
+		        }  
     },
      /* 5+App特有相关 */
     "app-plus" : {

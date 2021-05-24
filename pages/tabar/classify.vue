@@ -50,7 +50,7 @@
 			</view>
 			<view v-else class="bitmap">
 				<view style="height:150rpx;"></view>
-				<image src="../../static/img/no_content.png" mode="aspectFit"></image>
+				<image src="../../static/img/no_content.svg" mode="aspectFit"></image>
 				<view class="center gray_font">暂时没有商品，请耐心等候</view>
 			</view>
 		</v-tabs-column>
@@ -302,7 +302,8 @@
 	}
 
 	.classify .bitmap image {
-		width: 50%;
+		width: 100%;
+		height: 500rpx;
 	}
 
 	.classify .option {

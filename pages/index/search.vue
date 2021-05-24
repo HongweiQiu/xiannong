@@ -7,7 +7,7 @@
 						<text class="iconfont new-icon fs-18">&#xe615;</text>
 						<input v-model="keyword" placeholder="搜索你想知道的" @focus="focus" placeholder-class="place_style"
 							class="keyword" />
-						<text class="iconfont iconyuyin" style="width: 60rpx;" @click="speed"></text>
+						<text class="iconfont iconyuyin" style="width: 60rpx;" @click="$refs.speech.open()"></text>
 					</view>
 					<view style="color:#333;text-align: center;" class="bold" @click="submit">搜索</view>
 				</view>
@@ -27,21 +27,20 @@
 		</view>
 
 
-		<view :style="{'height':showSearch?'120rpx':'130rpx'}"></view>
+		<view :style="{'height':showSearch?'110rpx':'130rpx'}"></view>
 		<!-- 热门搜索 -->
 		<view class="hot_search" v-if="showSearch">
-			<!-- <view>
+			<view v-if="historyList.length">
 				<view class="title flex_left_right">
 					<text class="fs-13 bold"> 历史记录</text>
 					<text class="iconfont delete" @click="deleteHistory">&#xe626;</text>
 				</view>
 				<view class="key_tag">
-					<text v-for="(item, index) in keyList" :key="index"
-						@click="searchList(item.keywords)">{{item.keywords}}</text>
+					<text v-for="(item, index) in historyList" :key="index" @click="searchList(item)">{{item}}</text>
 				</view>
-			</view> -->
-			<view>
-				<view class="title fs-13 bold">猜你喜欢</view>
+			</view>
+			<view style="padding:15rpx 0;" class=" fs-13 " v-if="keyList.length">
+				<view class="title bold">热门搜索</view>
 				<view class="key_tag"><text v-for="(item, index) in keyList" :key="index"
 						@click="searchList(item)">{{item}}</text></view>
 			</view>
@@ -51,13 +50,13 @@
 		<view class="search_result" v-else>
 			<view class="recomend" style="margin-top:20rpx;">
 				<view class="body">
-					<my-recomend v-for="(item, index) in list" :key="index" :ware="item" @showCart="openCart(item)"
-						class="myc_recomend"></my-recomend>
+					<my-recomend v-for="(item, index) in list" :key="index" :ware="item" class="myc_recomend">
+					</my-recomend>
 				</view>
 			</view>
 
 			<view class="search_bitmap" v-if="bitmap">
-				<image class="bitmap" src="../../static/img/searchbitmap.png" mode="aspectFit"></image>
+				<image class="bitmap" src="../../static/img/searchbitmap.svg" mode="aspectFit"></image>
 				<view class="gray_font fs-15">抱歉，没有相关商品哦~</view>
 			</view>
 		</view>
@@ -67,18 +66,19 @@
 				<text class="iconfont icon-X" @click="$refs.speech.close()"></text>
 
 				<view style="display: flex;justify-content: center;align-items: center;height: 371rpx;">
-					<view v-if="startSpeech" class="correct">
+					<!-- <view v-if="startSpeech" class="correct">
 						<view>正在倾听</view>
 						<view>请说出你想要的的内容</view>
-					</view>
-					<view v-else class="error_txt">
-						<view>没有听清,请重试</view>
+					</view> -->
+					<view class="error_txt" @touchstart="touchStart" @touchend="touchEnd">
+						<!-- <view>没有听清,请重试</view>
 						<view>点击说话</view>
 						<view style="height: 40rpx;line-height: 14rpx;">
-							<!-- <uni-icons type="arrowdown" size="18" color="#009943"></uni-icons> -->
-						</view>
-						<view style="margin-top:10rpx;" @click="speed">
-							<!-- <uni-icons type="mic-filled" size="40" color="white" class="mic_filled"></uni-icons> -->
+						</view> -->
+						<view style="margin-top:10rpx;" class="flex-column">
+							<text class="iconfont iconyuyin" :class="langStatu?'start-recorder':''"
+								style="font-size: 90rpx;"></text>
+							<text>长按识别语音</text>
 						</view>
 					</view>
 				</view>
@@ -88,6 +88,8 @@
 </template>
 
 <script>
+	var plugin = requirePlugin("WechatSI")
+	let manager = plugin.getRecordRecognitionManager();
 	const app = getApp().globalData;
 	const {
 		imgRemote
@@ -103,27 +105,25 @@
 				page: 1,
 				showSearch: true,
 				startSpeech: true,
-				config: [],
 				bitmap: false,
-				arrObj: {},
-				index: '',
-				cartware: {}
+				historyList: [],
+				langStatu: false
 			}
 		},
 		methods: {
 			deleteHistory() {
-				uni.showModal({
-					title: '提示',
-					content: '确定清空历史记录吗？',
-					confirmColor: '#57B127',
-					success: function(res) {
-						if (res.confirm) {
-							console.log('用户点击确定');
-						} else if (res.cancel) {
-							console.log('用户点击取消');
+				this.$showModal('清空历史记录?', () => {
+					this.$get(this.$api.goodsClear_history, {
+						token: uni.getStorageSync('userToken')
+					}, (res) => {
+						let {
+							data
+						} = res;
+						if (data.code == 1) {
+							this.historyList = data.data
 						}
-					}
-				});
+					})
+				})
 			},
 			submit() {
 				this.searchList(this.keyword);
@@ -131,9 +131,12 @@
 			focus() {
 				this.keyword = '',
 					this.showSearch = true;
+				this.searchHistory();
 			},
 			// 搜索列表
 			searchList(key) {
+				this.keyword = key;
+				this.searchHistory();
 				let params = {
 					keyword: key,
 					page: this.page
@@ -163,85 +166,76 @@
 					}
 				})
 			},
-			speed() {
-				var plugin = requirePlugin("WechatSI");
-				console.log(plugin)
-				let manager = plugin.getRecordRecognitionManager()
-				manager.onRecognize = function(res) {
-				    console.log("current result", res.result)
-				}
-				manager.onStop = function(res) {
-				    console.log("record file path", res.tempFilePath)
-				    console.log("result", res.result)
-				}
-				manager.onStart = function(res) {
-				    console.log("成功开始录音识别", res)
-				}
-				manager.onError = function(res) {
-				    console.error("error msg", res.msg)
-				}
-				manager.start({duration:30000, lang: "zh_CN"});
-				return
-				this.$refs.speech.open();
-				let that = this;
-				that.startSpeech = true;
-				const recorderManager = uni.getRecorderManager();
-
-				const options = {
-					duration: 3000, //指定录音的时长，单位 ms
-					sampleRate: 16000, //采样率
-					numberOfChannels: 1, //录音通道数
-					encodeBitRate: 96000, //编码码率
-					format: 'mp3', //音频格式，有效值 aac/mp3
-					frameSize: 50, //指定帧大小，单位 KB
-				}
-
-				recorderManager.start(options)
-
-				recorderManager.onStop((res) => {
-					
-					var audio = res.tempFilePath;
-					uni.uploadFile({
-						url: app.rootUrl + "/mobileOrder/voiceSearch",
-						filePath: audio,
-						method: 'POST',
-						name: 'audio',
-						header: {
-							'content-type': 'multipart/form-data',
-						},
-						formData: {
-						
-							audio: audio,
-						},
-						success: function(reg) {
-							console.log(JSON.parse(reg.data))
-							var reg = JSON.parse(reg.data)
-
-							if (reg.code == 200) {
-								that.keyword = reg.data.message.replace(/。/g, '');
-								that.showSearch = false;
-								that.$refs.speech.close();
-								that.searchList(that.keyword);
-							}
-							if (reg.code == 501) {
-								that.startSpeech = false;
-							}
-						},
-						fail: function() {
-							that.startSpeech = false;
-							console.log("语音识别失败");
-						}
-					})
+			searchHistory() {
+				this.$get(this.$api.goodsSearch_history, {
+					token: uni.getStorageSync('userToken')
+				}, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						let newArr=new Set(data.data)
+						this.historyList = Array.from(newArr);
+					}
+				})
+			},
+			touchStart: function() {
+				this.langStatu = true;
+				manager.start({
+					duration: 60000,
+					lang: "zh_CN"
 				});
+			},
+			touchEnd: function() {
+				manager.stop();
+				this.langStatu = false;
+				this.$refs.speech.close();
+				manager.onStop = (res) => {
+					this.keyword = res.result.replace(/。/g, '');
+					this.searchList(this.keyword);
+				}
 			},
 		},
 		onShow() {
-			this.hotSearch()
-		}
+			this.hotSearch();
+			this.searchHistory();
+		},
+		onLoad() {}
 	}
 </script>
 
 <style scoped>
+	.start-recorder {
+		-webkit-animation: twinkling 1s infinite ease-in-out
+	}
+
+	.animated {
+		-webkit-animation-duration: 1s;
+		animation-duration: 1s;
+		-webkit-animation-fill-mode: both;
+		animation-fill-mode: both
+	}
+
+	@-webkit-keyframes twinkling {
+		0% {
+			opacity: 0.5;
+		}
+
+		100% {
+			opacity: 1;
+		}
+	}
+
+	@keyframes twinkling {
+		0% {
+			opacity: 0.5;
+		}
+
+		100% {
+			opacity: 1;
+		}
+	}
+
 	.search_list .input_key {
 		position: fixed;
 		width: 100%;
@@ -295,7 +289,7 @@
 		padding: 2rpx 20rpx;
 		background: #eee;
 		font-size: 26rpx;
-		margin: 20rpx 38rpx 0 0;
+		margin: 16rpx 38rpx 10rpx 0;
 	}
 
 	.search_list .search_bitmap {
@@ -304,7 +298,7 @@
 	}
 
 	.search_list .search_bitmap .bitmap {
-		width: 47%;
+		width: 69%;
 	}
 
 	.search_list .search_result .my_profile {
@@ -335,8 +329,8 @@
 	}
 
 	.search_list .lang_search .error_txt>view {
-		height: 50rpx;
-		line-height: 50rpx;
+		/* 	height: 50rpx;
+		line-height: 50rpx;*/
 		text-align: center;
 	}
 

@@ -108,26 +108,21 @@
 					code
 				} = that.form;
 				if (!company) {
-					that.$Toast('单位名称不能为空');
-					return;
+					return that.$Toast('单位名称不能为空');
 				}
 				let reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
 				if (!reg.test(mobile)) {
-					that.$Toast('请输入正确的电话号码', );
-					return;
+					return that.$Toast('请输入正确的电话号码', );
 				}
 
 				if (!code) {
-					that.$Toast('请输入正确的短信验证码');
-					return;
+					return that.$Toast('请输入正确的短信验证码');
 				}
 				if (!password || !repassword) {
-					that.$Toast('密码不能为空');
-					return;
+					return that.$Toast('密码不能为空');
 				}
 				if (password != repassword) {
-					that.$Toast('两次输入的密码不一致');
-					return;
+					return that.$Toast('两次输入的密码不一致');
 				}
 
 				that.$get(that.$api.userRegister, that.form, (res) => {

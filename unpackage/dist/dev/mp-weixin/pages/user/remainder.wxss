@@ -37,9 +37,9 @@
   padding-top: 30rpx;
 }
 .remainder .bitmap image.data-v-7ee81dcc {
-  margin: 200rpx 0 60rpx;
+  margin: 200rpx 0 0;
   width: 593rpx;
-  height: 200rpx;
+  height: 300rpx;
 }
 .remainder .account-money.data-v-7ee81dcc {
   margin: 0rpx 30rpx 10rpx;

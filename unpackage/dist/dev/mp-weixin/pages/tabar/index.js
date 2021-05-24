@@ -96,10 +96,10 @@ var components
 try {
   components = {
     mySearch: function() {
-      return __webpack_require__.e(/*! import() | components/search/index */ "components/search/index").then(__webpack_require__.bind(null, /*! @/components/search/index.vue */ 227))
+      return __webpack_require__.e(/*! import() | components/search/index */ "components/search/index").then(__webpack_require__.bind(null, /*! @/components/search/index.vue */ 234))
     },
     myRecomend: function() {
-      return __webpack_require__.e(/*! import() | components/recomend/index */ "components/recomend/index").then(__webpack_require__.bind(null, /*! @/components/recomend/index.vue */ 234))
+      return __webpack_require__.e(/*! import() | components/recomend/index */ "components/recomend/index").then(__webpack_require__.bind(null, /*! @/components/recomend/index.vue */ 241))
     }
   }
 } catch (e) {
@@ -264,13 +264,12 @@ app.imgRemote;var _default =
     },
     indexMainRecommend: function indexMainRecommend() {var _this3 = this;var
 
-      num =
-
-      this.num,page = this.page;
+      page =
+      this.page;
       this.$get(this.$api.mainRecommend, {}, function (res) {
         var data = res.data;
         if (data.code == 1) {
-          _this3.recommendList = data.data;
+          _this3.recommendList = _this3.recommendList.concat(data.data);
         }
       });
     },
@@ -301,8 +300,8 @@ app.imgRemote;var _default =
   onReachBottom: function onReachBottom() {
     //页面上拉触底事件的处理函数
     var that = this;
-    that.page++;
-    // that.indexItem();
+    // that.page++;
+    // that.indexMainRecommend();
   },
   onShareAppMessage: function onShareAppMessage() {
 

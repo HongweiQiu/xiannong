@@ -33,6 +33,7 @@
   z-index: 3;
 }
 .my_search .new.data-v-0f7112e6 {
+  height: 66rpx;
   -webkit-justify-content: space-around;
           justify-content: space-around;
   -webkit-box-align: center;
