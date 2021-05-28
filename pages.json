@@ -124,6 +124,14 @@
 						"navigationBarBackgroundColor": "#fff",
 						"navigationBarTextStyle": "black"
 					}
+				},
+				{
+					"path": "refunddetail",
+					"style": {
+						"navigationBarTitleText": "售后详情",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
 				}
 			]
 		}, {
@@ -252,8 +260,8 @@
 			},
 			{
 				"pagePath": "pages/tabar/company",
-				"iconPath": "/static/img/shopcart_gray.png",
-				"selectedIconPath": "/static/img/shopcart_green.png",
+				"iconPath": "/static/img/company_gray.png",
+				"selectedIconPath": "/static/img/company_green.png",
 				"text": "公司介绍"
 			}
 		]

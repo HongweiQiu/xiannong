@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/tabar/order"],{
 
 /***/ 42:
-/*!******************************************************************!*\
-  !*** F:/desktop/uniapp/main.js?{"page":"pages%2Ftabar%2Forder"} ***!
-  \******************************************************************/
+/*!********************************************************************!*\
+  !*** F:/desktop/xiannong/main.js?{"page":"pages%2Ftabar%2Forder"} ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17,9 +17,9 @@ createPage(_order.default);
 /***/ }),
 
 /***/ 43:
-/*!***********************************************!*\
-  !*** F:/desktop/uniapp/pages/tabar/order.vue ***!
-  \***********************************************/
+/*!*************************************************!*\
+  !*** F:/desktop/xiannong/pages/tabar/order.vue ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -58,9 +58,9 @@ component.options.__file = "pages/tabar/order.vue"
 /***/ }),
 
 /***/ 44:
-/*!******************************************************************************************!*\
-  !*** F:/desktop/uniapp/pages/tabar/order.vue?vue&type=template&id=4f8f7fc8&scoped=true& ***!
-  \******************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** F:/desktop/xiannong/pages/tabar/order.vue?vue&type=template&id=4f8f7fc8&scoped=true& ***!
+  \********************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -80,9 +80,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 45:
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!F:/desktop/uniapp/pages/tabar/order.vue?vue&type=template&id=4f8f7fc8&scoped=true& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!F:/desktop/xiannong/pages/tabar/order.vue?vue&type=template&id=4f8f7fc8&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -96,10 +96,13 @@ var components
 try {
   components = {
     mySTabs: function() {
-      return __webpack_require__.e(/*! import() | components/s-tabs/index */ "components/s-tabs/index").then(__webpack_require__.bind(null, /*! @/components/s-tabs/index.vue */ 248))
+      return __webpack_require__.e(/*! import() | components/s-tabs/index */ "components/s-tabs/index").then(__webpack_require__.bind(null, /*! @/components/s-tabs/index.vue */ 256))
     },
     mySTab: function() {
-      return __webpack_require__.e(/*! import() | components/s-tab/index */ "components/s-tab/index").then(__webpack_require__.bind(null, /*! @/components/s-tab/index.vue */ 255))
+      return __webpack_require__.e(/*! import() | components/s-tab/index */ "components/s-tab/index").then(__webpack_require__.bind(null, /*! @/components/s-tab/index.vue */ 263))
+    },
+    uniPopup: function() {
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 284))
     }
   }
 } catch (e) {
@@ -136,11 +139,24 @@ var render = function() {
         }
       })
     : null
+  var m2 = _vm.fixed(_vm.addressInfo.money)
+  var m3 = parseFloat(_vm.totalPrice)
+  var m4 = parseFloat(_vm.freight)
+
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      return _vm.$refs.popup.close()
+    }
+  }
+
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
-        l0: l0
+        l0: l0,
+        m2: m2,
+        m3: m3,
+        m4: m4
       }
     }
   )
@@ -154,9 +170,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ 46:
-/*!************************************************************************!*\
-  !*** F:/desktop/uniapp/pages/tabar/order.vue?vue&type=script&lang=js& ***!
-  \************************************************************************/
+/*!**************************************************************************!*\
+  !*** F:/desktop/xiannong/pages/tabar/order.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -170,14 +186,60 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 47:
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!F:/desktop/uniapp/pages/tabar/order.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!F:/desktop/xiannong/pages/tabar/order.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -270,10 +332,80 @@ app.imgRemote;var _default =
       search_default: true,
       list: [],
       page: 1,
-      id: '' };
+      id: '',
+      addressInfo: '',
+      totalPrice: 0,
+      feeInfo: {},
+      freight: 0,
+      pay_type: 'wxpay',
+      orderInfo: '',
+      index: '' };
 
   },
   methods: {
+    nowPay: function nowPay(item, index) {
+      this.totalPrice = item.total_price;
+      this.freight = this.totalPrice > this.feeInfo.over ? 0 : this.feeInfo.freight;
+      this.index = index;
+      this.orderInfo = item;
+      this.$refs.popup.open();
+    },
+    orderPay: function orderPay() {
+      var _ = this;
+      uni.login({
+        provider: 'weixin',
+        success: function success(res) {
+          var params = {
+            token: uni.getStorageSync('userToken'),
+            order_id: _.orderInfo.id,
+            pay_type: _.pay_type,
+            code: res.code };
+
+          _.$get(_.$api.orderPay, params, function (res1) {var
+
+            data =
+            res1.data;
+            if (data.code == 1) {
+              if (data.data == null) {
+                _.$Toast('支付成功');
+                _.getAddress();
+                _.list[_.index].order_status = 2;
+                _.list[_.index].order_status_msg = _.list[_.index].order_status_msg.
+                replace('未支付', '已支付');
+              } else {
+                uni.requestPayment({
+                  provider: 'wxpay',
+                  timeStamp: data.data.timeStamp,
+                  nonceStr: data.data.nonceStr,
+                  package: data.data.package,
+                  signType: data.data.signType,
+                  paySign: data.data.paySign,
+                  success: function success(res) {
+                    _.$Toast('支付成功');
+                    _.list[_.index].order_status_msg = _.list[_.index].
+                    order_status_msg.replace('未支付', '已支付');
+                    _.list[_.index].order_status = 2;
+                    _.getAddress();
+
+                  },
+                  fail: function fail(err) {
+                    _.$Toast('支付取消');
+
+                  } });
+
+              }
+            } else {
+              _.$Toast(data.msg);
+            }
+            _.$refs.popup.close();
+          });
+        } });
+
+
+    },
+    payWay: function payWay(e) {
+      this.pay_type = e.detail.value;
+    },
     fixed: function fixed(val) {
       return Number(val).toFixed(2);
     },
@@ -329,23 +461,93 @@ app.imgRemote;var _default =
       });
 
     },
-    confirmReceipt: function confirmReceipt(id, index) {var _this3 = this;
-      this.$showModal('确认收货?', function () {
+    deleteOrder: function deleteOrder(id, index) {var _this3 = this;
+      this.$showModal('确认删除订单?', function () {
         var params = {
           token: uni.getStorageSync('userToken'),
           order_id: id };
 
-        _this3.$get(_this3.$api.orderReceipt, params, function (res) {var
+        _this3.$get(_this3.$api.orderDel_order, params, function (res) {var
 
           data =
           res.data;
           if (data.code == 1) {
-            _this3.$Toast('收货成功');
+            _this3.$Toast('删除订单成功');
             _this3.list.splice(index, 1);
           } else {
             _this3.$Toast(data.msg);
           }
         });
+      });
+
+    },
+    oneMoreOrder: function oneMoreOrder(item) {var _this4 = this;var _iterator = _createForOfIteratorHelper(
+      item.details),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var i = _step.value;
+          var params = {
+            token: uni.getStorageSync('userToken'),
+            sku_id: i.sku_id,
+            goods_id: i.goods_id,
+            buy_num: i.buy_num };
+
+          this.$get(this.$api.cartAdd_cart, params, function (res) {var
+
+            data =
+            res.data;
+            if (data.code == 1) {
+              _this4.$Toast('加入购物车成功');
+              _this4.close();
+            } else {
+              _this4.$Toast(data.msg);
+            }
+          });
+        }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
+      setTimeout(function () {
+        uni.switchTab({
+          url: "/pages/tabar/shopcart" });
+
+      }, 1000);
+    },
+    confirmReceipt: function confirmReceipt(id, index) {var _this5 = this;
+      this.$showModal('确认收货?', function () {
+        var params = {
+          token: uni.getStorageSync('userToken'),
+          order_id: id };
+
+        _this5.$get(_this5.$api.orderReceipt, params, function (res) {var
+
+          data =
+          res.data;
+          if (data.code == 1) {
+            _this5.$Toast('收货成功');
+            _this5.list.splice(index, 1);
+          } else {
+            _this5.$Toast(data.msg);
+          }
+        });
+      });
+    },
+    getAddress: function getAddress() {var _this6 = this;
+      var params = {
+        token: uni.getStorageSync('userToken') };
+
+      this.$get(this.$api.userInfo, params, function (res) {var
+
+        data =
+        res.data;
+        if (data.code == 1) {
+          _this6.addressInfo = data.data;
+
+        }
+      });
+    },
+    // 邮费
+    getFreight: function getFreight() {var _this7 = this;
+      this.$get(this.$api.mainFreight, {}, function (res) {
+        var data = res.data;
+        if (data.code == 1) {
+
+          _this7.feeInfo = data.data;
+        }
       });
     } },
 
@@ -353,19 +555,21 @@ app.imgRemote;var _default =
     this.activeTab = e.id ? e.id : 0;
     this.id = e.id;
     this.orderList(e.id);
+    this.getAddress();
+    this.getFreight();
 
   },
   onReachBottom: function onReachBottom() {
     this.page++;
     this.orderList(this.id);
   },
-  onShow: function onShow() {var _this4 = this;
+  onShow: function onShow() {var _this8 = this;
     setTimeout(function () {var
 
       orderIndex =
       getApp().globalData.orderIndex;
       if (orderIndex) {
-        _this4.list.splice(orderIndex, 1);
+        _this8.list.splice(orderIndex, 1);
       }
     }, 1000);
   },
@@ -380,9 +584,9 @@ app.imgRemote;var _default =
 /***/ }),
 
 /***/ 48:
-/*!*********************************************************************************************************!*\
-  !*** F:/desktop/uniapp/pages/tabar/order.vue?vue&type=style&index=0&id=4f8f7fc8&lang=scss&scoped=true& ***!
-  \*********************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** F:/desktop/xiannong/pages/tabar/order.vue?vue&type=style&index=0&id=4f8f7fc8&lang=scss&scoped=true& ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -396,9 +600,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 49:
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--8-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-2!./node_modules/postcss-loader/src??ref--8-oneOf-1-3!./node_modules/sass-loader/dist/cjs.js??ref--8-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!F:/desktop/uniapp/pages/tabar/order.vue?vue&type=style&index=0&id=4f8f7fc8&lang=scss&scoped=true& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--8-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-2!./node_modules/postcss-loader/src??ref--8-oneOf-1-3!./node_modules/sass-loader/dist/cjs.js??ref--8-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!F:/desktop/xiannong/pages/tabar/order.vue?vue&type=style&index=0&id=4f8f7fc8&lang=scss&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

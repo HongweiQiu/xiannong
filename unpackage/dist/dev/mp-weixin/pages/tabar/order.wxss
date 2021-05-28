@@ -25,6 +25,26 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.order .pay-method.data-v-4f8f7fc8 {
+  padding: 0 20rpx 30rpx;
+}
+.order .pay-method .way.data-v-4f8f7fc8 {
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.order .pay-method .iconfont.data-v-4f8f7fc8 {
+  font-size: 50rpx;
+}
+.order .pay-method .submit-order.data-v-4f8f7fc8 {
+  background: #009943;
+  width: 200rpx;
+  color: white;
+  text-align: center;
+  height: 60rpx;
+  border-radius: 10rpx;
+  line-height: 60rpx;
+  margin: 0 auto;
+}
 .order .select_account.data-v-4f8f7fc8 {
   border-bottom: 1px solid #efefef;
   display: -webkit-box;

@@ -171,6 +171,48 @@
         {
           "name": "pages/tabar/company",
           "pathName": "pages/tabar/company",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/order/applyAfterSale",
+          "pathName": "pages/order/applyAfterSale",
+          "query": "id=84",
+          "scene": null
+        },
+        {
+          "name": "pages/order/orderdetail",
+          "pathName": "pages/order/orderdetail",
+          "query": "id=92",
+          "scene": null
+        },
+        {
+          "name": "pages/order/orderAfterSale",
+          "pathName": "pages/order/orderAfterSale",
+          "query": "id=92",
+          "scene": null
+        },
+        {
+          "name": "pages/tabar/order",
+          "pathName": "pages/tabar/order",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/tabar/user",
+          "pathName": "pages/tabar/user",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/order/orderAfterSale",
+          "pathName": "pages/order/orderAfterSale",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/tabar/company",
+          "pathName": "pages/tabar/company",
           "scene": null
         }
       ]

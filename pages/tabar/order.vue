@@ -40,9 +40,13 @@
 						<!-- <text class="cancel_order" @click="ckwl" v-if="item.order_status==4">查看物流</text> -->
 						<text class="another_order" @click="confirmReceipt(item.id,index)"
 							v-if="item.order_status==4">确认收货</text>
-						<text class="another_order" v-if="item.order_status==1">立即支付</text>
+						<text class="another_order" v-if="item.order_status==1" @click="nowPay(item,index)">立即支付</text>
 						<text class="cancel_order" v-if="item.order_status==1"
 							@click="cancelOrder(item.id,index)">取消订单</text>
+						<block v-if="item.order_status==6">
+							<text class="cancel_order" @click="deleteOrder(item.id,index)">删除订单</text>
+							<text class="cancel_order" @click="oneMoreOrder(item)">再来一单</text>
+						</block>
 					</view>
 				</view>
 
@@ -54,6 +58,48 @@
 				</view>
 			</view>
 		</view>
+		<uni-popup ref="popup" type="bottom">
+			<view class="white_b pay-method ">
+				<view class="way flex_left_right">
+					<text class="bold">支付方式</text>
+					<text class="iconfont iconguanbi" @click="$refs.popup.close()"></text>
+				</view>
+				<radio-group class="radio-pay" @change="payWay">
+					<view class="flex_left_right">
+						<view class="align_center">
+							<text class="iconfont iconweixinzhifu" style="color:#09BB07;"> </text>
+							<text class="bold fs-13">微信支付</text>
+						</view>
+						<radio value="wxpay" checked="true" style="transform:scale(0.7)" />
+					</view>
+					<view class="border-color">
+
+					</view>
+					<view class="flex_left_right remain-money">
+						<view class="align_center">
+							<text class="iconfont iconfeiyong" style="color:#FFB92C;"> </text>
+							<text class="bold fs-13">余额支付</text>
+							<text class="fs-11 gray_font"
+								style="margin-left:4rpx;">(可用￥{{fixed(addressInfo.money)}})</text>
+						</view>
+
+						<radio value="money" style="transform:scale(0.7)"
+							:disabled="(parseFloat(totalPrice)+parseFloat(freight))>addressInfo.money?true:false" />
+					</view>
+					<view class="border-color">
+
+					</view>
+					<!-- <view class="flex_left_right remain-money">
+						<view class="align_center">
+							<text class="iconfont iconfeiyong" style="color:#FFB92C;"> </text>
+							<text class="bold fs-13">线下支付</text>
+						</view>
+						<radio value="offline" style="transform:scale(0.7)" />
+					</view> -->
+				</radio-group>
+				<view class="submit-order" @click="orderPay">提交</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -91,10 +137,80 @@
 				search_default: true,
 				list: [],
 				page: 1,
-				id: ''
+				id: '',
+				addressInfo: '',
+				totalPrice: 0,
+				feeInfo: {},
+				freight: 0,
+				pay_type: 'wxpay',
+				orderInfo: '',
+				index: ''
 			};
 		},
 		methods: {
+			nowPay(item, index) {
+				this.totalPrice = item.total_price;
+				this.freight = this.totalPrice > this.feeInfo.over ? 0 : this.feeInfo.freight;
+				this.index = index;
+				this.orderInfo = item;
+				this.$refs.popup.open()
+			},
+			orderPay() {
+				let _ = this;
+				uni.login({
+					provider: 'weixin',
+					success(res) {
+						let params = {
+							token: uni.getStorageSync('userToken'),
+							order_id: _.orderInfo.id,
+							pay_type: _.pay_type,
+							code: res.code
+						};
+						_.$get(_.$api.orderPay, params, (res1) => {
+							let {
+								data
+							} = res1;
+							if (data.code == 1) {
+								if (data.data == null) {
+									_.$Toast('支付成功');
+									_.getAddress();
+									_.list[_.index].order_status = 2;
+									_.list[_.index].order_status_msg = _.list[_.index].order_status_msg
+										.replace('未支付', '已支付');
+								} else {
+									uni.requestPayment({
+										provider: 'wxpay',
+										timeStamp: data.data.timeStamp,
+										nonceStr: data.data.nonceStr,
+										package: data.data.package,
+										signType: data.data.signType,
+										paySign: data.data.paySign,
+										success: function(res) {
+											_.$Toast('支付成功');
+											_.list[_.index].order_status_msg = _.list[_.index]
+												.order_status_msg.replace('未支付', '已支付');
+											_.list[_.index].order_status = 2;
+											_.getAddress();
+
+										},
+										fail: function(err) {
+											_.$Toast('支付取消');
+
+										}
+									});
+								}
+							} else {
+								_.$Toast(data.msg);
+							}
+							_.$refs.popup.close()
+						})
+					}
+				})
+
+			},
+			payWay(e) {
+				this.pay_type = e.detail.value;
+			},
 			fixed(val) {
 				return Number(val).toFixed(2);
 			},
@@ -150,6 +266,52 @@
 				})
 
 			},
+			deleteOrder(id, index) {
+				this.$showModal('确认删除订单?', () => {
+					let params = {
+						token: uni.getStorageSync('userToken'),
+						order_id: id
+					};
+					this.$get(this.$api.orderDel_order, params, (res) => {
+						let {
+							data
+						} = res;
+						if (data.code == 1) {
+							this.$Toast('删除订单成功');
+							this.list.splice(index, 1);
+						} else {
+							this.$Toast(data.msg);
+						}
+					})
+				})
+
+			},
+			oneMoreOrder(item) {
+				for (let i of item.details) {
+					let params = {
+						token: uni.getStorageSync('userToken'),
+						sku_id: i.sku_id,
+						goods_id: i.goods_id,
+						buy_num: i.buy_num
+					}
+					this.$get(this.$api.cartAdd_cart, params, (res) => {
+						let {
+							data
+						} = res;
+						if (data.code == 1) {
+							this.$Toast('加入购物车成功');
+							this.close();
+						} else {
+							this.$Toast(data.msg);
+						}
+					})
+				}
+				setTimeout(() => {
+					uni.switchTab({
+						url: "/pages/tabar/shopcart"
+					})
+				}, 1000)
+			},
 			confirmReceipt(id, index) {
 				this.$showModal('确认收货?', () => {
 					let params = {
@@ -169,11 +331,37 @@
 					})
 				})
 			},
+			getAddress() {
+				let params = {
+					token: uni.getStorageSync('userToken')
+				}
+				this.$get(this.$api.userInfo, params, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						this.addressInfo = data.data;
+
+					}
+				})
+			},
+			// 邮费
+			getFreight() {
+				this.$get(this.$api.mainFreight, {}, (res) => {
+					let data = res.data;
+					if (data.code == 1) {
+
+						this.feeInfo = data.data;
+					}
+				});
+			},
 		},
 		onLoad(e) {
 			this.activeTab = e.id ? e.id : 0;
 			this.id = e.id;
 			this.orderList(e.id);
+			this.getAddress();
+			this.getFreight()
 
 		},
 		onReachBottom() {
@@ -200,6 +388,30 @@
 </script>
 
 <style lang="scss" scoped>
+	.order .pay-method {
+		padding: 0 20rpx 30rpx;
+
+		.way {
+			height: 80rpx;
+			line-height: 80rpx;
+		}
+
+		.iconfont {
+			font-size: 50rpx;
+		}
+
+		.submit-order {
+			background: #009943;
+			width: 200rpx;
+			color: white;
+			text-align: center;
+			height: 60rpx;
+			border-radius: 10rpx;
+			line-height: 60rpx;
+			margin: 0 auto;
+		}
+	}
+
 	.order .select_account {
 		border-bottom: 1px solid #efefef;
 		display: flex;

@@ -50,11 +50,17 @@
 							<view class="flex-column">
 								<text>{{item.goods_name}}</text>
 							</view>
-							<view class="flex-end fs-13 return-button">
-								<text class=" align_center gray_font" @click="applyReturnMoney(index)">申请退货</text>
-								<!-- <text class="align_center">退款成功</text>
-								<text class="align_center">退款失败</text>
-								<text class="align_center">退款中</text> -->
+							<view class="flex-end fs-13 return-button" v-if="/3|4/.test(info.order_status)">
+
+								<text class=" align_center gray_font" @click="applyReturnMoney(index)"
+									v-if="/0|3|4/.test(item.is_refund)">申请退货</text>
+								<view @click="refundDetail">
+									<text class="align_center" v-if="item.is_refund==1">退款中</text>
+									<text class="align_center" v-if="item.is_refund==2">退款成功</text>
+									<text class="align_center" v-if="item.is_refund==3">退款失败</text>
+									<text class="align_center" v-if="item.is_refund==4">退款被拒</text>
+								</view>
+
 							</view>
 							<view class="flex_left_right">
 								<text>￥{{item.market_price}}</text>
@@ -94,15 +100,18 @@
 			</view>
 			<view v-if="info.refund_time">申请退款：{{$fomartDate(info.refund_time)}}</view>
 		</view>
-		<view style="height: 96rpx;"></view>
+		<view style="height: 96rpx;" v-if="info.order_status!=6"></view>
 		<view class="fixed-buttons">
 			<view class="button align_center">
 				<text class="cancel" @click="$refs.popup.open()" v-if="info.order_status==1">取消订单</text>
-			
-				<text class="go-pay" v-if="info.order_status==1">去支付</text>
+
+				<text class="go-pay" v-if="info.order_status==1" @click="nowPay">去支付</text>
 				<!-- <text class="cancel" @click="ckwl" v-if="/4|5/.test(info.order_status)">查看物流</text> -->
 				<text class="confirm-receipt" @click="confirmReceipt(info.id)" v-if="info.order_status==4">确认收货</text>
-					<text class="return-good"   @click="applyReturnMoney(-1)">整单退货</text>
+				<block v-if="/3|4/.test(info.order_status)"> 
+				<text class="return-good" @click="applyReturnMoney(-1)"
+						v-if="showAllRefund">整单退货</text></block>
+
 
 			</view>
 		</view>
@@ -121,6 +130,50 @@
 				<view class="submit" @click="cancelOrder(info.id)">确定提交</view>
 			</view>
 		</uni-popup>
+		<uni-popup ref="select" type="bottom">
+			<view class="white_b pay-method ">
+				<view class="way flex_left_right">
+					<text class="bold">支付方式</text>
+					<text class="iconfont iconguanbi" @click="$refs.select.close()"></text>
+				</view>
+				<radio-group class="radio-pay" @change="payWay">
+					<view class="flex_left_right">
+						<view class="align_center">
+							<text class="iconfont iconweixinzhifu" style="color:#09BB07;"> </text>
+							<text class="bold fs-13">微信支付</text>
+						</view>
+						<radio value="wxpay" checked="true" style="transform:scale(0.7)" />
+					</view>
+					<view class="border-color">
+
+					</view>
+					<view class="flex_left_right remain-money">
+						<view class="align_center">
+							<text class="iconfont iconfeiyong" style="color:#FFB92C;"> </text>
+							<text class="bold fs-13">余额支付</text>
+							<text class="fs-11 gray_font"
+								style="margin-left:4rpx;">(可用￥{{fixed(addressInfo.money)}})</text>
+						</view>
+
+						<radio value="money" style="transform:scale(0.7)"
+							:disabled="(parseFloat(totalPrice)+parseFloat(freight))>addressInfo.money?true:false" />
+					</view>
+					<view class="border-color">
+
+					</view>
+					<!-- <view class="flex_left_right remain-money">
+						<view class="align_center">
+							<text class="iconfont iconfeiyong" style="color:#FFB92C;"> </text>
+							<text class="bold fs-13">线下支付</text>
+
+						</view>
+						<radio value="offline" style="transform:scale(0.7)" />
+					</view> -->
+				</radio-group>
+				<view class="submit-order" @click="orderPay">提交</view>
+			</view>
+		</uni-popup>
+
 	</view>
 </template>
 <script>
@@ -149,16 +202,83 @@
 
 				],
 				reason: '',
-				orderIndex:''
+				orderIndex: '',
+				addressInfo: '',
+				totalPrice: 0,
+				feeInfo: {},
+				freight: 0,
+				pay_type: 'wxpay',
+				showAllRefund: true,
 			}
 		},
 		methods: {
+			refundDetail() {
+				uni.navigateTo({
+					// url:'refunddetail?id='+this.id
+				})
+			},
+			nowPay(item) {
+				this.totalPrice = this.info.total_price;
+				this.freight = this.totalPrice > this.feeInfo.over ? 0 : this.feeInfo.freight;
+				console.log(this.freight)
+				this.$refs.select.open()
+			},
+			orderPay() {
+				let _ = this;
+				uni.login({
+					provider: 'weixin',
+					success(res) {
+						let params = {
+							token: uni.getStorageSync('userToken'),
+							order_id: _.id,
+							pay_type: _.pay_type,
+							code: res.code
+						};
+						_.$get(_.$api.orderPay, params, (res1) => {
+							let {
+								data
+							} = res1;
+							if (data.code == 1) {
+								if (data.data == null) {
+									_.$Toast('支付成功');
+									_.getAddress();
+									_.getOrderDetail(_.id);
+								} else {
+									uni.requestPayment({
+										provider: 'wxpay',
+										timeStamp: data.data.timeStamp,
+										nonceStr: data.data.nonceStr,
+										package: data.data.package,
+										signType: data.data.signType,
+										paySign: data.data.paySign,
+										success: function(res) {
+											_.$Toast('支付成功');
+											_.getAddress();
+											_.getOrderDetail(_.id);
+										},
+										fail: function(err) {
+											_.$Toast('支付取消');
+										}
+									});
+								}
+							} else {
+								_.$Toast(data.msg);
+							}
+							_.$refs.select.close();
+						})
+					}
+				})
+
+			},
+			payWay(e) {
+				this.pay_type = e.detail.value;
+			},
 			fixed(val) {
 				return Number(val).toFixed(2);
 			},
 			applyReturnMoney(index) {
 				uni.navigateTo({
-					url: 'applyAfterSale?id='+this.id+'&returnIndex='+index
+					url: 'applyAfterSale?id=' + this.id + '&returnIndex=' + index
 				})
 			},
 			selectReson(e) {
@@ -188,7 +308,6 @@
 						}
 					})
 				})
-
 			},
 			confirmReceipt(id) {
 				this.$showModal('确认收货?', () => {
@@ -220,20 +339,75 @@
 					} = res;
 					if (data.code == 1) {
 						this.info = data.data;
+						this.showAllRefund = !this.info.goods.some((item) => {
+							return item.is_refund == 1 || item.is_refund == 2;
+						})
+
 					} else {
 						this.$Toast(data.msg);
 					}
 				})
-			}
+			},
+			getAddress() {
+				let params = {
+					token: uni.getStorageSync('userToken')
+				}
+				this.$get(this.$api.userInfo, params, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						this.addressInfo = data.data;
+
+					}
+				})
+			},
+			// 邮费
+			getFreight() {
+				this.$get(this.$api.mainFreight, {}, (res) => {
+					let data = res.data;
+					if (data.code == 1) {
+
+						this.feeInfo = data.data;
+					}
+				});
+			},
+
 		},
 		onLoad(e) {
 			this.id = e.id;
-			this.orderIndex=e.index;
+			this.orderIndex = e.index;
 			this.getOrderDetail(e.id);
+			this.getAddress();
+			this.getFreight()
 		}
 	}
 </script>
 <style scoped lang="scss">
+	.order-detail .pay-method {
+		padding: 0 20rpx 30rpx;
+
+		.way {
+			height: 80rpx;
+			line-height: 80rpx;
+		}
+
+		.iconfont {
+			font-size: 50rpx;
+		}
+
+		.submit-order {
+			background: #009943;
+			width: 200rpx;
+			color: white;
+			text-align: center;
+			height: 60rpx;
+			border-radius: 10rpx;
+			line-height: 60rpx;
+			margin: 0 auto;
+		}
+	}
+
 	.order-detail {
 
 		.order-statu {
@@ -385,9 +559,12 @@
 			bottom: 0;
 			background: white;
 			width: 100%;
-           .return-good{
-			   color:#999;border: 1px solid #999;
-		   }
+
+			.return-good {
+				color: #999;
+				border: 1px solid #999;
+			}
+
 			.confirm-receipt {
 				border: 1px solid #f33;
 				color: #f33;

@@ -9,8 +9,8 @@
 					<view class="bold ">{{receiving}}
 					</view>
 					<view class="fs-13" style="margin-top: 10rpx;">
-						<text>{{addressInfo.shou_name}}</text>
-						<text style="margin-left:20rpx;">{{addressInfo.shou_phone}}</text>
+						<text v-if="addressInfo.shou_name">{{addressInfo.shou_name}}</text>
+						<text v-if="addressInfo.shou_phone" style="margin-left:20rpx;">{{addressInfo.shou_phone}}</text>
 					</view>
 				</view>
 				<view>
@@ -41,14 +41,15 @@
 							<view style="width:100%;">
 								<view class="bold two-line">{{item.goods.name}}</view>
 								<view style="margin-top: 20rpx;" class="flex_left_right">
-									<text class="gray_font fs-11">￥{{item.sku.market_price}}/{{item.sku.unit}}（{{item.sku.guige}}）x{{item.buy_num}}</text>
+									<text
+										class="gray_font fs-11">￥{{item.sku.market_price}}/{{item.sku.unit}}（{{item.sku.guige}}）x{{item.buy_num}}</text>
 									<text class="bold " style="margin-top:-8rpx;">
 										￥{{fixed(item.sku.market_price*item.buy_num)}}
 									</text>
 								</view>
 							</view>
 						</view>
-					
+
 					</view>
 				</view>
 			</view>
@@ -83,7 +84,6 @@
 				</view>
 				<view class="align_center order-remark">
 					<text style="width:160rpx;">发票税号</text>
-
 					<input type="number" v-model="addressInfo.tax_num" placeholder="请输入发票税号" class="flex-full" />
 				</view>
 			</view>
@@ -190,8 +190,9 @@
 				this.pay_type = e.detail.value;
 			},
 			confirmPay() {
+				let _ = this;
 				let ids = '';
-				for (let i of this.shop) {
+				for (let i of _.shop) {
 					if (i.checked == true) {
 						ids += i.id + ','
 					}
@@ -206,57 +207,108 @@
 					shou_phone,
 					tax_name,
 					tax_num
-				} = this.addressInfo;
+				} = _.addressInfo;
 				if (!province) {
-					return this.$Toast('请先填写收货地址');
+					return _.$Toast('请先填写收货地址');
 				}
 				if (!shou_name &&
 					!shou_phone) {
-					return this.$Toast('请先填写收货人和收货人电话');
+					return _.$Toast('请先填写收货人和收货人电话');
 				}
-				if (this.showSwitch) {
+				if (_.showSwitch) {
 					if (!tax_name && !tax_num) {
-						return this.$Toast('发票信息不能为空');
+						return _.$Toast('发票信息不能为空');
 					}
 				} else {
 					tax_name = '';
 					tax_num = '';
 				}
-				let params = {
-					token: uni.getStorageSync('userToken'),
-					province: province,
-					city: city,
-					area: area,
-					address: address,
-					shou_name: shou_name,
-					shou_phone: shou_phone,
-					tax_name: tax_name,
-					tax_num: tax_num,
-					cart_ids: newId,
-					freight: this.freight,
-					pay_type: this.pay_type,
-					total: this.totalPrice,
-					remark: this.remark,
-					delivery_time: this.pickerDate
-				};
+				// if(this.pay_type=='wxpay'){
+				// 	return this.$Toast('暂时不支持')
+				// }
 
-				this.$get(this.$api.orderAdd_order, params, (res) => {
-					let data = res.data;
-					if (data.code == 1) {
-						this.$Toast('提交订单成功');
-						setTimeout(() => {
-							uni.reLaunch({
-								url: './paySuccess',
-								success() {
-									getApp().globalData.isReload = true;
+				uni.login({
+					provider: 'weixin',
+					success(res) {
+						let params = {
+							token: uni.getStorageSync('userToken'),
+							province: province,
+							city: city,
+							area: area,
+							address: address,
+							shou_name: shou_name,
+							shou_phone: shou_phone,
+							tax_name: tax_name,
+							tax_num: tax_num,
+							cart_ids: newId,
+							freight: _.freight,
+							pay_type: _.pay_type,
+							total: _.totalPrice,
+							remark: _.remark,
+							delivery_time: _.pickerDate,
+							code: res.code
+						};
+
+						_.$get(_.$api.orderAdd_order, params, (res1) => {
+							let data = res1.data;
+							if (data.code == 1) {
+								if (_.pay_type != 'wxpay') {
+									_.$Toast('提交订单成功');
+									setTimeout(() => {
+										uni.reLaunch({
+											url: './paySuccess',
+											success() {
+												getApp().globalData.isReload = true;
+											}
+										})
+									}, 1000)
+								} else {
+									uni.requestPayment({
+										provider: 'wxpay',
+										timeStamp: data.data.timeStamp,
+										nonceStr: data.data.nonceStr,
+										package: data.data.package,
+										signType: data.data.signType,
+										paySign: data.data.paySign,
+										success: function(res) {
+											_.$Toast('支付成功');
+											setTimeout(() => {
+												uni.reLaunch({
+													url: './paySuccess',
+													success() {
+														getApp().globalData
+															.isReload = true;
+													}
+												})
+											}, 500)
+
+										},
+										fail: function(err) {
+											_.$Toast('支付取消');
+											setTimeout(() => {
+												uni.reLaunch({
+													url: './paySuccess',
+													success() {
+														getApp().globalData
+															.isReload = true;
+													}
+												})
+											}, 500)
+										}
+									});
 								}
-							})
-						}, 1000)
 
-					} else {
-						this.$Toast(data.msg);
+
+							} else {
+								_.$Toast(data.msg);
+							}
+						});
 					}
-				});
+				})
+
+			},
+			xiadan() {
+
 			},
 			pay() {
 				this.confirmPay();
@@ -296,7 +348,7 @@
 					} = res;
 					if (data.code == 1) {
 						this.addressInfo = data.data;
-						this.receiving = data.data.province + data.data.city + data.data.area+data.data.address;
+						this.receiving = data.data.province + data.data.city + data.data.area + data.data.address;
 						if (this.receiving.match('null')) {
 							this.receiving = '';
 						}

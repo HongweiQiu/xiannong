@@ -50,7 +50,11 @@
 			maskClick: {
 				type: Boolean,
 				default: true
-			}
+			},
+			maskShow:{
+				type: Boolean,
+				default: true
+			},
 		},
 		provide() {
 			return {
@@ -96,7 +100,7 @@
 					'left': 0,
 					'right': 0,
 				},
-				maskShow: true,
+				// maskShow: true,
 				mkclick: true,
 				popupstyle: 'top'
 			}

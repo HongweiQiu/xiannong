@@ -12,44 +12,35 @@
 		</view>
 		<view style="height:80rpx;"></view>
 		<view class="order_info">
-			<view class="content" v-if="search_default">
+			<view class="content" v-if="orderList.length">
 				<view v-for="(item, index) in orderList" :key="index">
-					<view class="top">
-						<view>订单编号：{{item.order_sn}}</view>
-						<view style="color:#1EA55A;" class="right" v-if="item.order_status==0">待审核</view>
-						<view style="color:#1EA55A;" class="right" v-if="item.order_status==1">备货中</view>
-						<view style="color:#1EA55A;" class="right" v-if="item.order_status==2">配送中</view>
-						<view style="color:#1EA55A;" class="right" v-if="item.order_status==3">已收货</view>
-						<view style="color:#FF3E1E;" class="right" v-if="item.order_status==4">已取消</view>
+					<view class="top border fs-13">
+						<view>{{$fomartDate(item.createtime)}}</view>
+						<view :class="item.status==3?'gray_font':'red-font'">
+						<text v-if="item.status==1">退款中</text>
+						<text v-if="item.status==2">退款完成</text>
+						<text v-if="item.status==3">退款失败</text>
+						<text v-if="item.status==4">退款被拒</text>
+						</view>
 					</view>
-					<view class="flex detail" @click="orderDetailPage('orderDetail',item)">
-						<image class="order_img" :src="item.item_img==''?imgRemote+orderInfo.item_default:item.item_img"
-							mode="aspectFit"></image>
-
-						<view class="order_oneline">
-							<view class="">
-								<text class="bold">新鲜大白菜干净新鲜大白菜干净新鲜大白菜...</text>
-								<view class="fs-13 gray_font" style="margin-top:10rpx;">x20</view>
-							</view>
-
-							<view class="time" style="text-align: right;">
-								<text class="fs-11">共计20件商品 合计：</text>
-								<text class="red-font bold">￥19.99</text>
+					<view @click="orderDetailPage(item,index)">
+						<view class="flex detail" v-for="(second,sIndex) in item.goods" :key="sIndex">
+							<image class="order_img" :src="imgRemote+second.goods_img" mode="aspectFit" />
+							<view class="order_oneline">
+								<view class="flex-column flex-full" style="justify-content: space-between;">
+									<view class="bold two-line" style="height: 80rpx;">{{second.goods_name}}</view>
+									<view class="fs-13 gray_font" style="margin-top:10rpx;">x{{second.buy_num}}</view>
+									<view class="fs-13 red-font" style="margin-top:10rpx;">
+										￥{{second.market_price*second.buy_num}}</view>
+								</view>
 							</view>
 						</view>
 					</view>
 					<view class="order_option">
-						<text class=" cancel_order" @click="oneMoreTime(item.id)">查看详情</text>
-						<text class="cancel_order" @click="ckwl">查看物流</text>
-						<text class="another_order" @click="cancelOrder(item.id,index)">确认收货</text>
-						<text class="another_order">付款</text>
-						<!-- <text class="confirm_good" @click="play(item.id)">马上支付</text> -->
-
+						<text class=" cancel_order" @click="orderDetailPage(item,index)">查看详情</text>
 					</view>
 				</view>
-			
 			</view>
-
 			<view class="bitmap" v-else>
 				<image src="../../static/img/after-order.svg" mode="aspectFit"></image>
 				<view class="gray_font">
@@ -64,7 +55,7 @@
 <script>
 	const app = getApp().globalData;
 	const {
-		
+
 		imgRemote
 	} = app;
 	export default {
@@ -77,13 +68,45 @@
 					name: '全部售后'
 				}],
 				activeTab: 1,
-				search_default: false,
+				page: 1,
+				orderList: [],
+				status: 2
 			};
 		},
 		methods: {
+			orderDetailPage(item, index) {
+				uni.navigateTo({
+					url: './refunddetail?id=' + item.id
+				})
+			},
+			changeFirst(e) {
+				this.activeTab = e;
+				this.status = e + Number(1);
+				this.orderList = [];
+				this.page = 1;
+				this.getList()
+			},
+			getList() {
+				let params = {
+					token: uni.getStorageSync('userToken'),
+					page: this.page,
+					status: this.status
+				}
+				this.$get(this.$api.orderRefund_list, params, (res) => {
+					let data = res.data;
+					if (data.code == 1) {
+
+						this.orderList = this.orderList.concat(data.data);
+					}
+				}, true);
+			},
 		},
 		onLoad() {
-
+			this.getList()
+		},
+		onReachBottom() {
+			this.page++;
+			this.getList()
 		}
 	};
 </script>

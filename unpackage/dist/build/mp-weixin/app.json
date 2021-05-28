@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/tabar/index",
+    "pages/tabar/company",
     "pages/tabar/classify",
     "pages/tabar/order",
     "pages/tabar/shopcart",
@@ -29,7 +30,8 @@
       "pages": [
         "orderdetail",
         "orderAfterSale",
-        "applyAfterSale"
+        "applyAfterSale",
+        "refunddetail"
       ]
     },
     {
@@ -87,6 +89,12 @@
         "iconPath": "/static/img/user_gray.png",
         "selectedIconPath": "/static/img/user_green.png",
         "text": "我的"
+      },
+      {
+        "pagePath": "pages/tabar/company",
+        "iconPath": "/static/img/company_gray.png",
+        "selectedIconPath": "/static/img/company_green.png",
+        "text": "公司介绍"
       }
     ]
   },

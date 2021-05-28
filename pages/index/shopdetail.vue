@@ -83,7 +83,7 @@
 			</view>
 
 		</view>
-		<uni-popup ref="popup" type="bottom">
+		<uni-popup ref="popup" type="bottom" :maskShow="maskShow">
 			<view class="white_b share-option">
 				<view class="flex_left_right select">
 					<button open-type="share">
@@ -101,7 +101,7 @@
 				<view @click="cancelShare" class="cancel fs-15">取消</view>
 			</view>
 		</uni-popup>
-		<uni-popup ref="poster">
+		<uni-popup ref="poster" >
 			<view class="share-friend-info r-5">
 				<view class="right close-share"><text class="iconfont iconguanbi" @click="$refs.poster.close()"></text>
 				</view>
@@ -139,7 +139,7 @@
 			</view>
 
 		</uni-popup>
-		<uni-popup ref="addcart" type="bottom">
+		<uni-popup ref="addcart" type="bottom" >
 			<my-addcart :ware="ware" @close="close"></my-addcart>
 		</uni-popup>
 
@@ -158,6 +158,7 @@
 		},
 		data() {
 			return {
+				maskShow:true,
 				showcart: false,
 				path: '',
 				cartCount: '',
@@ -381,6 +382,7 @@
 			}
 		},
 		onShareAppMessage() {
+			this.maskShow=false;
 			  return {
 			      title: this.ware.name,
 			      path: '/pages/index/shopdetail?id='+this.id,

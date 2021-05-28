@@ -10,7 +10,7 @@
 						<image src="../../static/img/avatar.png" class="avator" v-else></image>
 						<view>
 							<view>{{personInfo.company}}</view>
-							<view class="user-level">
+							<view class="user-level" v-if="personInfo.level">
 								<text>{{personInfo.level}}</text>
 							</view>
 						</view>

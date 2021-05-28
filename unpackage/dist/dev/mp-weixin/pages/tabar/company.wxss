@@ -36,26 +36,28 @@
   bottom: 0rpx;
 }
 .company .qualifications.data-v-6a9f504b {
-  margin: 30rpx;
+  margin: 30rpx 30rpx 0;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
   -webkit-flex-wrap: wrap;
           flex-wrap: wrap;
-  -webkit-justify-content: space-around;
-          justify-content: space-around;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
 }
 .company .qualifications > view.data-v-6a9f504b {
   border-radius: 10rpx;
   background: white;
   padding: 20rpx;
+  width: 48%;
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
 }
 .company .qualifications > view image.data-v-6a9f504b {
-  width: 270rpx;
-  height: 270rpx;
+  width: 290rpx;
+  height: 290rpx;
 }
 

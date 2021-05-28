@@ -40,9 +40,9 @@
 			</view>
 			<view class="more-reason flex">
 				<text class="bold">退款说明：</text>
-				<textarea v-model="reason" maxlength=50 placeholder="选填" />
+				<textarea v-model="refund_desc" maxlength=50 placeholder="选填" />
 			</view>
-			<view class="right gray_font">{{reason.length}}/50</view>
+			<view class="right gray_font">{{refund_desc.length}}/50</view>
 		</view>
 		<view>
 			<view class="bold" style="padding: 30rpx 0;">上传凭证：</view>
@@ -58,7 +58,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="submit"> 提交</view>
+		<view class="submit" @click="submit"> 提交</view>
 		<uni-popup ref="popup" type="bottom">
 			<view class="upload-img">
 				<view class="white_b r-10">
@@ -77,12 +77,14 @@
 	export default {
 		data() {
 			return {
-				reason: '',
+
 				info: [],
 				allCheck: true,
 				imgRemote: getApp().globalData.imgRemote,
 				totalPrice: 0,
-				file: []
+				file: [],
+				id: '',
+				refund_desc: ''
 			}
 		},
 		methods: {
@@ -117,10 +119,7 @@
 					}
 				});
 			},
-			uploadImg() {
-				let _ = this;
 
-			},
 			allCheckGood() {
 				this.allCheck = !this.allCheck;
 				this.info.goods.map((item) => {
@@ -150,8 +149,50 @@
 				this.totalPrice = sum.toFixed(2);
 				return this.totalPrice;
 			},
+			submit() {
+				let selectGoods = this.info.goods.filter((item) => {
+					return item.checked == true
+				})
+				let ids = '';
+				for (let i of selectGoods) {
+					ids += i.id + ','
+				}
+				let newId = ids.substring(0, ids.length - 1);
+				if (!newId) {
+					return this.$Toast('请选择退货商品')
+				}
+				this.$showModal('确认退货？',()=>{
+					let params = {
+						token: uni.getStorageSync('userToken'),
+						order_id: this.id,
+						order_goods_id: newId,
+						refund_desc: this.refund_desc,
+						refund_images: this.file.join(',')
+					};
+					
+					this.$get(this.$api.orderRefund, params, (res) => {
+						let {
+							data
+						} = res;
+						if (data.code == 1) {
+							this.$Toast('申请成功');
+							getApp().globalData.isReload = true;
+							setTimeout(() => {
+								uni.reLaunch({
+									url: 'orderAfterSale'
+								})
+							}, 1000)
+					
+						} else {
+							this.$Toast(data.msg)
+						}
+					})
+				})
+			
+			}
 		},
 		onLoad(e) {
+			this.id = e.id;
 			this.$get(this.$api.orderDetail, {
 				token: uni.getStorageSync('userToken'),
 				order_id: e.id

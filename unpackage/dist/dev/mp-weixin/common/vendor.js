@@ -2000,9 +2000,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 15:
-/*!*********************************************!*\
-  !*** F:/desktop/uniapp/static/js/common.js ***!
-  \*********************************************/
+/*!***********************************************!*\
+  !*** F:/desktop/xiannong/static/js/common.js ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2048,9 +2048,9 @@ function fixed(val) {
 /***/ }),
 
 /***/ 16:
-/*!******************************************!*\
-  !*** F:/desktop/uniapp/static/js/api.js ***!
-  \******************************************/
+/*!********************************************!*\
+  !*** F:/desktop/xiannong/static/js/api.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2069,6 +2069,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.api = void
   mainAgree: "/main/agree", //个人协议
   mainRegion: "/main/region", //个人协议
   mainUpload: "/main/upload", //上传图片
+  mainQualifications: "/main/qualifications", //公司资质
+  mainAbout: "/main/about", //公司简介
 
 
   userRegister: "/user/register", //用户注册
@@ -2105,15 +2107,20 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.api = void
   orderDetail: '/order/order_detail', //订单详情
   orderCancel: '/order/order_cancel', //取消订单
   orderReceipt: '/order/order_receipt', //确认收货
-  orderNo_shenhe_order: '/order/no_shenhe_order' //待审核订单数量
+  orderNo_shenhe_order: '/order/no_shenhe_order', //待审核订单数量
+  orderRefund: '/order/refund', //申请退款
+  orderRefund_list: '/order/refund_list', //退款列表
+  orderRefund_detail: '/order/refund_detail', //退款详情
+  orderDel_order: '/order/del_order', //删除订单
+  orderPay: '/order/order_pay' //支付订单
 };exports.api = api;
 
 /***/ }),
 
 /***/ 17:
-/*!**********************************************!*\
-  !*** F:/desktop/uniapp/static/js/request.js ***!
-  \**********************************************/
+/*!************************************************!*\
+  !*** F:/desktop/xiannong/static/js/request.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8325,15 +8332,15 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 288:
-/*!*******************************************************!*\
-  !*** F:/desktop/uniapp/components/uni-popup/popup.js ***!
-  \*******************************************************/
+/***/ 289:
+/*!*********************************************************!*\
+  !*** F:/desktop/xiannong/components/uni-popup/popup.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 289));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 290));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 // 定义 type 类型:弹出类型：top/bottom/center
 var config = {
   // 顶部弹出
@@ -8360,10 +8367,10 @@ var config = {
 
 /***/ }),
 
-/***/ 289:
-/*!*********************************************************!*\
-  !*** F:/desktop/uniapp/components/uni-popup/message.js ***!
-  \*********************************************************/
+/***/ 290:
+/*!***********************************************************!*\
+  !*** F:/desktop/xiannong/components/uni-popup/message.js ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8429,18 +8436,18 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 304:
+/***/ 312:
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 305);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 313);
 
 /***/ }),
 
-/***/ 305:
+/***/ 313:
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -8471,7 +8478,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 306);
+module.exports = __webpack_require__(/*! ./runtime */ 314);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -8488,7 +8495,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 306:
+/***/ 314:
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -9220,15 +9227,15 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 307:
-/*!***********************************************************************************!*\
-  !*** F:/desktop/uniapp/uni_modules/lime-painter/components/lime-painter/utils.js ***!
-  \***********************************************************************************/
+/***/ 315:
+/*!*************************************************************************************!*\
+  !*** F:/desktop/xiannong/uni_modules/lime-painter/components/lime-painter/utils.js ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.sleep = sleep;exports.isNumber = isNumber;exports.toPx = toPx;exports.compareVersion = compareVersion;exports.base64ToPath = base64ToPath;exports.pathToBase64 = pathToBase64;exports.getImageInfo = getImageInfo;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 304));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}var networkReg = /^(http|\/\/)/;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.sleep = sleep;exports.isNumber = isNumber;exports.toPx = toPx;exports.compareVersion = compareVersion;exports.base64ToPath = base64ToPath;exports.pathToBase64 = pathToBase64;exports.getImageInfo = getImageInfo;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 312));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}var networkReg = /^(http|\/\/)/;
 function sleep(delay) {
   return new Promise(function (resolve) {return setTimeout(resolve, delay);});
 }
@@ -9635,17 +9642,17 @@ function getImageInfo(img, isH5PathToBase64) {var isReset = arguments.length > 2
 
 /***/ }),
 
-/***/ 308:
-/*!**********************************************************************************!*\
-  !*** F:/desktop/uniapp/uni_modules/lime-painter/components/lime-painter/draw.js ***!
-  \**********************************************************************************/
+/***/ 316:
+/*!************************************************************************************!*\
+  !*** F:/desktop/xiannong/uni_modules/lime-painter/components/lime-painter/draw.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.Draw = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 304));var _utils = __webpack_require__(/*! ./utils */ 307);
-var _gradient = __webpack_require__(/*! ./gradient */ 309);
-var _qrcode = _interopRequireDefault(__webpack_require__(/*! ./qrcode */ 310));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e2) {throw _e2;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e3) {didErr = true;err = _e3;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.Draw = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 312));var _utils = __webpack_require__(/*! ./utils */ 315);
+var _gradient = __webpack_require__(/*! ./gradient */ 317);
+var _qrcode = _interopRequireDefault(__webpack_require__(/*! ./qrcode */ 318));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e2) {throw _e2;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e3) {didErr = true;err = _e3;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
 
 Draw = /*#__PURE__*/function () {
   function Draw(context, canvas) {var use2dCanvas = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;var isH5PathToBase64 = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;var sleep = arguments.length > 4 ? arguments[4] : undefined;_classCallCheck(this, Draw);
@@ -10325,10 +10332,10 @@ Draw = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ 309:
-/*!**************************************************************************************!*\
-  !*** F:/desktop/uniapp/uni_modules/lime-painter/components/lime-painter/gradient.js ***!
-  \**************************************************************************************/
+/***/ 317:
+/*!****************************************************************************************!*\
+  !*** F:/desktop/xiannong/uni_modules/lime-painter/components/lime-painter/gradient.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10443,10 +10450,10 @@ function linearEffect(width, height, bg, ctx) {
 
 /***/ }),
 
-/***/ 310:
-/*!************************************************************************************!*\
-  !*** F:/desktop/uniapp/uni_modules/lime-painter/components/lime-painter/qrcode.js ***!
-  \************************************************************************************/
+/***/ 318:
+/*!**************************************************************************************!*\
+  !*** F:/desktop/xiannong/uni_modules/lime-painter/components/lime-painter/qrcode.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -10454,15 +10461,15 @@ function linearEffect(width, height, bg, ctx) {
 
 /***/ }),
 
-/***/ 311:
-/*!************************************************************************************!*\
-  !*** F:/desktop/uniapp/uni_modules/lime-painter/components/lime-painter/layout.js ***!
-  \************************************************************************************/
+/***/ 319:
+/*!**************************************************************************************!*\
+  !*** F:/desktop/xiannong/uni_modules/lime-painter/components/lime-painter/layout.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.Layout = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 304));var _utils = __webpack_require__(/*! ./utils */ 307);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
+Object.defineProperty(exports, "__esModule", { value: true });exports.Layout = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 312));var _utils = __webpack_require__(/*! ./utils */ 315);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
 
 Layout = /*#__PURE__*/function () {
   function Layout() {_classCallCheck(this, Layout);
@@ -10833,10 +10840,10 @@ Layout = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ 312:
-/*!************************************************************************************!*\
-  !*** F:/desktop/uniapp/uni_modules/lime-painter/components/lime-painter/canvas.js ***!
-  \************************************************************************************/
+/***/ 320:
+/*!**************************************************************************************!*\
+  !*** F:/desktop/xiannong/uni_modules/lime-painter/components/lime-painter/canvas.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10902,9 +10909,9 @@ function adaptor(ctx) {
 /***/ }),
 
 /***/ 4:
-/*!************************************!*\
-  !*** F:/desktop/uniapp/pages.json ***!
-  \************************************/
+/*!**************************************!*\
+  !*** F:/desktop/xiannong/pages.json ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -11914,9 +11921,9 @@ module.exports = JSON.parse("{\"_from\":\"@dcloudio/uni-stat@next\",\"_id\":\"@d
 /***/ }),
 
 /***/ 7:
-/*!****************************************************!*\
-  !*** F:/desktop/uniapp/pages.json?{"type":"stat"} ***!
-  \****************************************************/
+/*!******************************************************!*\
+  !*** F:/desktop/xiannong/pages.json?{"type":"stat"} ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11926,14 +11933,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ }),
 
 /***/ 8:
-/*!*****************************************************!*\
-  !*** F:/desktop/uniapp/pages.json?{"type":"style"} ***!
-  \*****************************************************/
+/*!*******************************************************!*\
+  !*** F:/desktop/xiannong/pages.json?{"type":"style"} ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#57B127", "navigationBarTextStyle": "white" }, "pages/tabar/company": { "navigationBarTitleText": "公司", "navigationBarBackgroundColor": "#57B127", "navigationBarTextStyle": "white" }, "pages/tabar/classify": { "navigationBarTitleText": "分类", "navigationBarBackgroundColor": "#FFF", "navigationBarTextStyle": "black" }, "pages/tabar/order": { "navigationBarTitleText": "全部订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/tabar/shopcart": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/tabar/user": { "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#59BC2C", "navigationBarTextStyle": "white" }, "pages/index/shopdetail": { "navigationBarTitleText": "商品详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/index/search": { "navigationBarTitleText": "搜索", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/login": { "navigationBarTitleText": "登录", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/forget": {}, "pages/account/register": { "navigationBarTitleText": "注册", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/treaty": { "navigationBarTitleText": "注册协议", "navigationBarBackgroundColor": "#59BC2C", "navigationBarTextStyle": "white" }, "pages/account/bind": { "navigationBarTitleText": "返回", "navigationBarBackgroundColor": "#FFF", "navigationBarTextStyle": "black" }, "pages/order/orderdetail": { "navigationBarTitleText": "订单详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/order/orderAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/order/applyAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/delivery": { "navigationBarTitleText": "地址", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/shoplist": { "navigationBarTitleText": "提交订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/goodbill": { "navigationBarTitleText": "商品凑单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/paySuccess": { "navigationBarTitleText": "支付成功", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/modifypwd": {}, "pages/user/myinfo": { "navigationBarTitleText": "设置", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/updateavatar": { "navigationBarTitleText": "设置", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/receipt": { "navigationBarTitleText": "发票", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/newProductDemand": { "navigationBarTitleText": "新品需求", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/feedback": { "navigationBarTitleText": "意见反馈", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/remainder": { "navigationBarTitleText": "我的余额", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": " ", "navigationBarBackgroundColor": "#F0F0F0", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#57B127", "navigationBarTextStyle": "white" }, "pages/tabar/company": { "navigationBarTitleText": "公司", "navigationBarBackgroundColor": "#57B127", "navigationBarTextStyle": "white" }, "pages/tabar/classify": { "navigationBarTitleText": "分类", "navigationBarBackgroundColor": "#FFF", "navigationBarTextStyle": "black" }, "pages/tabar/order": { "navigationBarTitleText": "全部订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/tabar/shopcart": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/tabar/user": { "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#59BC2C", "navigationBarTextStyle": "white" }, "pages/index/shopdetail": { "navigationBarTitleText": "商品详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/index/search": { "navigationBarTitleText": "搜索", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/login": { "navigationBarTitleText": "登录", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/forget": {}, "pages/account/register": { "navigationBarTitleText": "注册", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/account/treaty": { "navigationBarTitleText": "注册协议", "navigationBarBackgroundColor": "#59BC2C", "navigationBarTextStyle": "white" }, "pages/account/bind": { "navigationBarTitleText": "返回", "navigationBarBackgroundColor": "#FFF", "navigationBarTextStyle": "black" }, "pages/order/orderdetail": { "navigationBarTitleText": "订单详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/order/orderAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/order/applyAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/order/refunddetail": { "navigationBarTitleText": "售后详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/delivery": { "navigationBarTitleText": "地址", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/shoplist": { "navigationBarTitleText": "提交订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/goodbill": { "navigationBarTitleText": "商品凑单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/shopcart/paySuccess": { "navigationBarTitleText": "支付成功", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/modifypwd": {}, "pages/user/myinfo": { "navigationBarTitleText": "设置", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/updateavatar": { "navigationBarTitleText": "设置", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/receipt": { "navigationBarTitleText": "发票", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/newProductDemand": { "navigationBarTitleText": "新品需求", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/feedback": { "navigationBarTitleText": "意见反馈", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" }, "pages/user/remainder": { "navigationBarTitleText": "我的余额", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": " ", "navigationBarBackgroundColor": "#F0F0F0", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ })
 

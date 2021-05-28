@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "公司",
+  "navigationBarBackgroundColor": "#57B127",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "my-s-tabs": "/components/s-tabs/index",
+    "my-s-tab": "/components/s-tab/index"
+  }
+}

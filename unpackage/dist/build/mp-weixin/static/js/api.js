@@ -12,6 +12,8 @@ const api = {
 	mainAgree: "/main/agree", //个人协议
 	mainRegion: "/main/region", //个人协议
 	mainUpload: "/main/upload", //上传图片
+	mainQualifications: "/main/qualifications", //公司资质
+	mainAbout: "/main/about", //公司简介
 
 
 	userRegister: "/user/register", //用户注册
@@ -49,6 +51,11 @@ const api = {
 	orderCancel: '/order/order_cancel', //取消订单
 	orderReceipt: '/order/order_receipt', //确认收货
 	orderNo_shenhe_order: '/order/no_shenhe_order', //待审核订单数量
+	orderRefund: '/order/refund', //申请退款
+	orderRefund_list: '/order/refund_list', //退款列表
+	orderRefund_detail: '/order/refund_detail', //退款详情
+	orderDel_order: '/order/del_order', //删除订单
+	orderPay: '/order/order_pay', //支付订单
 }
 export {
 	api
