@@ -102,7 +102,7 @@ var render = function() {
     Number(_vm.info.order.total_price) + Number(_vm.info.order.freight)
   ).toFixed(2)
   var m0 = _vm.$fomartDate(_vm.info.order.createtime)
-  var m1 = _vm.$fomartDate(_vm.info.order.refund_time)
+  var m1 = _vm.info.refund_time ? _vm.$fomartDate(_vm.info.refund_time) : null
   _vm.$mp.data = Object.assign(
     {},
     {
@@ -148,6 +148,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
 //
 //
 //

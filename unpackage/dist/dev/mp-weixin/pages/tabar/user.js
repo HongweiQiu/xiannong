@@ -218,6 +218,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 var app = getApp().globalData;var
 
@@ -228,7 +229,7 @@ app.imgRemote;var _default =
     return {
       userInfo: uni.getStorageSync('userInfo'),
       userToken: uni.getStorageSync('userToken'),
-      auditNum: 0,
+      statusNum: {},
       userList: [{
         icon: 'iconshouhuodizhi',
         name: '地址管理',
@@ -340,7 +341,7 @@ app.imgRemote;var _default =
         data =
         res.data;
         if (data.code == 1) {
-          _this2.auditNum = data.data;
+          _this2.statusNum = data.data;
         }
       });
     } },

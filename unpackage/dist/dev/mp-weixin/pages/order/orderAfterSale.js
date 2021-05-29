@@ -240,9 +240,9 @@ app.imgRemote;var _default =
     return {
       imgRemote: imgRemote,
       tabList: [{
-        name: '申请售后' },
+        name: '待审核' },
       {
-        name: '全部售后' }],
+        name: '全部' }],
 
       activeTab: 1,
       page: 1,

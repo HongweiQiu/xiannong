@@ -100,7 +100,7 @@ var render = function() {
   var l0 = _vm.__map(_vm.shop, function(item, index) {
     var $orig = _vm.__get_orig(item)
 
-    var m0 = _vm.fixed(item.sku.market_price * item.buy_num)
+    var m0 = _vm.$fixed(item.sku.market_price * item.buy_num)
     return {
       $orig: $orig,
       m0: m0

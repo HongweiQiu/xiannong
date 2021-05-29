@@ -44,7 +44,7 @@
 									<text
 										class="gray_font fs-11">￥{{item.sku.market_price}}/{{item.sku.unit}}（{{item.sku.guige}}）x{{item.buy_num}}</text>
 									<text class="bold " style="margin-top:-8rpx;">
-										￥{{fixed(item.sku.market_price*item.buy_num)}}
+										￥{{$fixed(item.sku.market_price*item.buy_num)}}
 									</text>
 								</view>
 							</view>
@@ -113,14 +113,14 @@
 				<view class="border-color">
 
 				</view>
-				<view class="flex_left_right remain-money">
+				<!-- <view class="flex_left_right remain-money">
 					<view class="align_center">
-						<text class="iconfont iconfeiyong" style="color:#FFB92C;"> </text>
+						<text class="iconfont iconxianxiazhifu" style="color:#FFB92C;font-size: 24rpx;margin:0 28rpx 0 8rpx;"> </text>
 						<text class="bold fs-13">线下支付</text>
 
 					</view>
 					<radio value="offline" style="transform:scale(0.7)" />
-				</view>
+				</view> -->
 			</radio-group>
 		</view>
 		<view style="height:60px;">
@@ -132,7 +132,7 @@
 					<text class="fs-13">合计：</text>
 					<text class="bold red-font">￥{{fixed(totalPrice+parseFloat(freight))}}</text>
 				</view>
-				<view class="pay-button" @click="pay">支付</view>
+				<view class="pay-button" @click="$doubleClick(pay)">支付</view>
 			</view>
 
 		</view>

@@ -12,7 +12,7 @@
 		</view>
 		<view v-else class="flex qualifications">
 			<view @click="preImage(item)" v-for="item in honorList" class="flex-column" style="margin-bottom: 30rpx;">
-				<image :src="imgRemote+item.image" mode="aspectFit" class="r-5"></image>
+				<image :src="imgRemote+item.image" mode="aspectFit" class="r-5" lazy-load="true"></image>
 				<text style="margin-top: 20rpx;" class="two-line">{{item.title}}</text>
 			</view>
 
@@ -56,15 +56,32 @@
 					}
 				})
 			},
+			formatRichText(html) {
+					let newContent = html.replace(/<img[^>]*>/gi, function(match, capture) {
+						match = match.replace(/style="[^"]+"/gi, '').replace(/style='[^']+'/gi, '');
+						match = match.replace(/width="[^"]+"/gi, '').replace(/width='[^']+'/gi, '');
+						match = match.replace(/height="[^"]+"/gi, '').replace(/height='[^']+'/gi, '');
+						return match;
+					});
+					newContent = newContent.replace(/style="[^"]+"/gi, function(match, capture) {
+						match = match.replace(/width:[^;]+;/gi, 'max-width:100%;').replace(/width:[^;]+;/gi, 'max-width:100%;');
+						return match;
+					});
+					newContent = newContent.replace(/<br[^>]*\/>/gi, '');
+					newContent = newContent.replace(/\<img/gi,
+						'<img style="max-width:100%;height:auto;border-raidus:10rpx!important;"');
+					return newContent;
+				},
 			companyAbout() {
 				this.$get(this.$api.mainAbout, {}, (res) => {
 					let {
 						data
 					} = res;
+					
 					if (data.code == 1) {
-						data.data = data.data.replace('<img src="',
-							'<img style="max-width:100%;height:auto" src="' + this.imgRemote);
-						this.about = data.data;
+						// data.data = data.data.replace('<img src="',
+						// 	'<img style="width:100%;height:auto;object-fit:contain;"');
+						this.about = this.formatRichText(data.data);
 					}
 				})
 			},

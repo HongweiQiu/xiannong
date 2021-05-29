@@ -41,7 +41,8 @@
 				<view v-for="(item,index) in orderStatu" @click="orderPage(item)" :key="index">
 					<view class="center">
 						<image :src="'../../static/img/'+item.path+'.svg'" mode="aspectFit"></image>
-						<text class="to-be-paid" v-if="index==0&&auditNum>0">{{auditNum}}</text>
+						<text class="to-be-paid" v-if="index==0&&statusNum.shenhe>0">{{statusNum.shenhe}}</text>
+						<text class="to-be-paid" v-if="index==1&&statusNum.fahuo>0">{{statusNum.fahuo}}</text>
 					</view>
 					<view class="fs-13 center name">{{item.name}}</view>
 				</view>
@@ -96,7 +97,7 @@
 			return {
 				userInfo: uni.getStorageSync('userInfo'),
 				userToken: uni.getStorageSync('userToken'),
-				auditNum: 0,
+				statusNum:{},
 				userList: [{
 						icon: 'iconshouhuodizhi',
 						name: '地址管理',
@@ -208,7 +209,7 @@
 						data
 					} = res;
 					if (data.code == 1) {
-						this.auditNum = data.data;
+						this.statusNum = data.data;
 					}
 				})
 			}
@@ -347,10 +348,11 @@
 				position: absolute;
 				width: 32rpx;
 				height: 32rpx;
-				background: #FF3333;
-				color: white;
+				// background: #FF3333;
+				color: orange;
+				border: 1px solid orange;
 				border-radius: 50%;
-				margin: 13rpx 0 0 -40rpx;
+				margin: 4rpx 0 0 -20rpx;
 				line-height: 32rpx;
 				font-size: 16rpx;
 			}

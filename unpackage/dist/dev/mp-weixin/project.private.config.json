@@ -213,6 +213,31 @@
         {
           "name": "pages/tabar/company",
           "pathName": "pages/tabar/company",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/tabar/shopcart",
+          "pathName": "pages/tabar/shopcart",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/tabar/user",
+          "pathName": "pages/tabar/user",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/tabar/order",
+          "pathName": "pages/tabar/order",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/order/orderdetail",
+          "pathName": "pages/order/orderdetail",
+          "query": "id=145",
           "scene": null
         }
       ]

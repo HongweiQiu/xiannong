@@ -1,15 +1,20 @@
 @font-face {
   font-family: 'iconfont';  /* Project id 2495862 */
-  src: url('https://at.alicdn.com/t/font_2495862_la3shvqu0ga.woff2?t=1621480321213') format('woff2'),
-       url('https://at.alicdn.com/t/font_2495862_la3shvqu0ga.woff?t=1621480321213') format('woff'),
-       url('https://at.alicdn.com/t/font_2495862_la3shvqu0ga.ttf?t=1621480321213') format('truetype');
+  src: url('https://at.alicdn.com/t/font_2495862_0zac8znjvqni.woff2?t=1622184539527') format('woff2'),
+       url('https://at.alicdn.com/t/font_2495862_0zac8znjvqni.woff?t=1622184539527') format('woff'),
+       url('https://at.alicdn.com/t/font_2495862_0zac8znjvqni.ttf?t=1622184539527') format('truetype');
 }
+
 .iconfont {
   font-family: "iconfont" !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.iconxianxiazhifu:before {
+  content: "\e773";
 }
 
 .iconyuyin:before {
@@ -222,6 +227,10 @@
 
 .icondaipingjia:before {
   content: "\e66c";
+}
+
+.iconfanhui-copy:before {
+  content: "\f371";
 }
 
 .icongouwuche2:before {

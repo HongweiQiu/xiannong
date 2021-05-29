@@ -15,18 +15,21 @@
 			<view class="content" v-if="list.length">
 				<view v-for="(item, index) in list" :key="index">
 					<view class="top border fs-13">
-						<view>{{$fomartDate(item.createtime)}}</view>
+						<!-- <view>{{$fomartDate(item.createtime)}}</view> -->
+						<view>订单编号:{{item.order_num}}</view>
 						<view :class="item.order_status==6?'gray_font':(item.order_status==5?'':'red-font')">
 							{{item.order_status_msg}}
 						</view>
 					</view>
 					<view @click="orderDetailPage(item,index)">
-						<view class="flex detail" v-for="(second,sIndex) in item.details" :key="sIndex">
+						<view class="flex detail" v-for="(second,sIndex) in item.details" :key="sIndex" v-if="sIndex==0">
 							<image class="order_img" :src="imgRemote+second.goods_img" mode="aspectFit" />
 							<view class="order_oneline">
 								<view class="">
-									<view class="bold two-line" style="height: 80rpx;">{{second.goods_name}}</view>
-									<view class="fs-13 gray_font" style="margin-top:10rpx;">x{{second.buy_num}}</view>
+									<view class="bold two-line" >{{second.goods_name}}</view>
+									<!-- <view class="fs-13 gray_font" style="margin-top:10rpx;">x{{second.buy_num}}</view> -->
+									<view class="fs-13 " style="margin: 10rpx 0;">配送日期：{{($fomartDate(item.delivery_time)).substr(0,10)}}</view>
+									<view class="fs-13 ">下单时间：{{($fomartDate(item.createtime)).substr(0,10)}}</view>
 								</view>
 							</view>
 						</view>
@@ -40,7 +43,7 @@
 						<!-- <text class="cancel_order" @click="ckwl" v-if="item.order_status==4">查看物流</text> -->
 						<text class="another_order" @click="confirmReceipt(item.id,index)"
 							v-if="item.order_status==4">确认收货</text>
-						<text class="another_order" v-if="item.order_status==1" @click="nowPay(item,index)">立即支付</text>
+						<text class="another_order" v-if="/4|5/.test(item.order_status)&&item.pay_status==1" @click="nowPay(item,index)">立即支付</text>
 						<text class="cancel_order" v-if="item.order_status==1"
 							@click="cancelOrder(item.id,index)">取消订单</text>
 						<block v-if="item.order_status==6">
@@ -174,9 +177,10 @@
 								if (data.data == null) {
 									_.$Toast('支付成功');
 									_.getAddress();
-									_.list[_.index].order_status = 2;
-									_.list[_.index].order_status_msg = _.list[_.index].order_status_msg
-										.replace('未支付', '已支付');
+									_.list[_.index].pay_status = 2;
+									// _.list[_.index].order_status = 2;
+									// _.list[_.index].order_status_msg = _.list[_.index].order_status_msg
+									// 	.replace('未支付', '已支付');
 								} else {
 									uni.requestPayment({
 										provider: 'wxpay',
@@ -187,9 +191,10 @@
 										paySign: data.data.paySign,
 										success: function(res) {
 											_.$Toast('支付成功');
-											_.list[_.index].order_status_msg = _.list[_.index]
-												.order_status_msg.replace('未支付', '已支付');
-											_.list[_.index].order_status = 2;
+										_.list[_.index].pay_status = 2;
+										// _.list[_.index].order_status = 2;
+										// _.list[_.index].order_status_msg = _.list[_.index].order_status_msg
+										// 	.replace('未支付', '已支付');
 											_.getAddress();
 
 										},

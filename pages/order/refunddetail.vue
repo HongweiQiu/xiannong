@@ -87,12 +87,18 @@
 				订单编号：{{info.order.order_num}}
 			</view>
 			<view>下单时间：{{$fomartDate(info.order.createtime)}}</view>
-			<view>支付方式：
-				<text v-if="info.order.pay_type=='wxpay'">微信支付</text>
-				<text v-if="info.order.pay_type=='money'">余额支付</text>
-				<text v-if="info.order.pay_type=='offline'">线下支付</text>
+			<!-- <view v-if="info.pay_type">支付方式：
+				<text v-if="info.pay_type=='wxpay'">微信支付</text>
+				<text v-if="info.pay_type=='money'">余额支付</text>
+				<text v-if="info.pay_type=='offline'">线下支付</text>
+			</view> -->
+			<view class="">
+				支付状态：
+				<text v-if="info.order.pay_status==1">未支付</text>
+				<text v-if="info.order.pay_status==2">已支付</text>
 			</view>
-			<view>申请退款：{{$fomartDate(info.order.refund_time)}}</view>
+			<view v-if="info.refund_time">申请退款：{{$fomartDate(info.refund_time)}}</view>
+			<!-- <view>申请退款：{{$fomartDate(info.order.refund_time)}}</view> -->
 			<!-- <view>退款时间：{{$fomartDate(info.refund_time)}}</view> -->
 		</view>
 	</view>

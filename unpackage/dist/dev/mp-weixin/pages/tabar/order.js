@@ -126,22 +126,39 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l0 = _vm.list.length
+  var l1 = _vm.list.length
     ? _vm.__map(_vm.list, function(item, index) {
         var $orig = _vm.__get_orig(item)
 
-        var m0 = _vm.$fomartDate(item.createtime)
-        var m1 = _vm.fixed(Number(item.total_price) + Number(item.freight))
+        var l0 = _vm.__map(item.details, function(second, sIndex) {
+          var $orig = _vm.__get_orig(second)
+
+          var g0 =
+            sIndex == 0
+              ? _vm.$fomartDate(item.delivery_time).substr(0, 10)
+              : null
+          var g1 =
+            sIndex == 0 ? _vm.$fomartDate(item.createtime).substr(0, 10) : null
+          return {
+            $orig: $orig,
+            g0: g0,
+            g1: g1
+          }
+        })
+
+        var m0 = _vm.fixed(Number(item.total_price) + Number(item.freight))
+        var g2 = /4|5/.test(item.order_status)
         return {
           $orig: $orig,
+          l0: l0,
           m0: m0,
-          m1: m1
+          g2: g2
         }
       })
     : null
-  var m2 = _vm.fixed(_vm.addressInfo.money)
-  var m3 = parseFloat(_vm.totalPrice)
-  var m4 = parseFloat(_vm.freight)
+  var m1 = _vm.fixed(_vm.addressInfo.money)
+  var m2 = parseFloat(_vm.totalPrice)
+  var m3 = parseFloat(_vm.freight)
 
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
@@ -153,10 +170,10 @@ var render = function() {
     {},
     {
       $root: {
-        l0: l0,
+        l1: l1,
+        m1: m1,
         m2: m2,
-        m3: m3,
-        m4: m4
+        m3: m3
       }
     }
   )
@@ -194,6 +211,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;} //
+//
+//
+//
 //
 //
 //
@@ -369,9 +389,10 @@ app.imgRemote;var _default =
               if (data.data == null) {
                 _.$Toast('支付成功');
                 _.getAddress();
-                _.list[_.index].order_status = 2;
-                _.list[_.index].order_status_msg = _.list[_.index].order_status_msg.
-                replace('未支付', '已支付');
+                _.list[_.index].pay_status = 2;
+                // _.list[_.index].order_status = 2;
+                // _.list[_.index].order_status_msg = _.list[_.index].order_status_msg
+                // 	.replace('未支付', '已支付');
               } else {
                 uni.requestPayment({
                   provider: 'wxpay',
@@ -382,9 +403,10 @@ app.imgRemote;var _default =
                   paySign: data.data.paySign,
                   success: function success(res) {
                     _.$Toast('支付成功');
-                    _.list[_.index].order_status_msg = _.list[_.index].
-                    order_status_msg.replace('未支付', '已支付');
-                    _.list[_.index].order_status = 2;
+                    _.list[_.index].pay_status = 2;
+                    // _.list[_.index].order_status = 2;
+                    // _.list[_.index].order_status_msg = _.list[_.index].order_status_msg
+                    // 	.replace('未支付', '已支付');
                     _.getAddress();
 
                   },

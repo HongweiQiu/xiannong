@@ -395,16 +395,18 @@
 </script>
 <style scoped lang="scss">
 	.cart-count {
-		margin: -10rpx 0 0 30rpx;
+		margin: -5rpx 0 0 36rpx;
 		text-align: center;
 		position: absolute;
-		width: 32rpx;
-		height: 32rpx;
-		line-height: 32rpx;
+		width: 30rpx;
+		height: 30rpx;
+		line-height: 30rpx;
 		font-size: 14rpx;
+		font-size: bold;
 		border-radius: 50%;
 		background: #57B127;
 		color: white;
+		// border: 1px solid orange;
 	}
 
 	.imgLength {

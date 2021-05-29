@@ -30,7 +30,7 @@
 					<view class="bold">
 						<text v-if="info.order_status==6">您取消了订单，退款预计1-5个工作日原路退回 你的账户中</text>
 						<!-- <text v-if="info.order_status==2">订单未支付，已自动取消</text> -->
-						<text v-if="/2|3/.test(info.order_status)">支付成功，等待商家发货</text>
+						<text v-if="/2|3/.test(info.order_status)">等待商家发货</text>
 						<text v-if="info.order_status==4"> 商家已发货，请你耐心等待快递</text>
 						<text v-if="info.order_status==5">订单完成，感谢你的支持</text>
 					</view>
@@ -38,33 +38,37 @@
 			</view>
 		</view>
 
-		<view class="white_b good ">
-			<view>
-				<view class="border title">商品信息</view>
+		<view>
+			<view class="white_b good ">
+				<view class="border title bold">商品信息</view>
 				<view v-for="(item,index) in info.goods" :key="index" class="sign-good">
-					<view class="flex ">
-						<view class="photo">
+					<view class=" ">
+						<!-- <view class="photo">
 							<image :src="imgRemote+item.goods_img" mode="aspectFill" class="r-5"></image>
-						</view>
+						</view> -->
 						<view class="flex-full flex-column flex-space-between">
-							<view class="flex-column">
-								<text>{{item.goods_name}}</text>
-							</view>
-							<view class="flex-end fs-13 return-button" v-if="/3|4/.test(info.order_status)">
-
-								<text class=" align_center gray_font" @click="applyReturnMoney(index)"
-									v-if="/0|3|4/.test(item.is_refund)">申请退货</text>
-								<view @click="refundDetail">
-									<text class="align_center" v-if="item.is_refund==1">退款中</text>
-									<text class="align_center" v-if="item.is_refund==2">退款成功</text>
-									<text class="align_center" v-if="item.is_refund==3">退款失败</text>
-									<text class="align_center" v-if="item.is_refund==4">退款被拒</text>
-								</view>
-
-							</view>
 							<view class="flex_left_right">
-								<text>￥{{item.market_price}}</text>
-								<text class="gray_font fs-11 buy-num">X{{item.buy_num}}</text>
+								<text>{{item.goods_name}}</text>
+								<text class="red-font">￥{{item.market_price}}</text>
+							</view>
+
+
+							<view class="flex_left_right">
+								<!-- <text>￥{{item.market_price}}</text> -->
+								<text class="gray_font fs-11 buy-num">下单数量：X{{item.init_num}}</text>
+								<text class="gray_font fs-11 buy-num">配送数量：X{{item.fenjian_num }}</text>
+							</view>
+						</view>
+						<view class="flex-end fs-13 return-button" v-if="/3|4/.test(info.order_status)"
+							style="margin-top: 30rpx;">
+
+							<text class=" align_center gray_font" @click="applyReturnMoney(index)"
+								v-if="/0|3|4/.test(item.is_refund)">申请退货</text>
+							<view @click="refundDetail">
+								<text class="align_center" v-if="item.is_refund==1">退款中</text>
+								<text class="align_center" v-if="item.is_refund==2">退款成功</text>
+								<text class="align_center" v-if="item.is_refund==3">退款失败</text>
+								<text class="align_center" v-if="item.is_refund==4">退款被拒</text>
 							</view>
 
 						</view>
@@ -72,7 +76,11 @@
 
 				</view>
 			</view>
-			<view>
+			<view class="white_b good " style="margin-top: 30rpx;">
+
+				<view class="border title bold">
+					金额信息
+				</view>
 				<view class="total-fee">
 					<text>商品总价</text>
 					<text>￥{{info.total_price}}</text>
@@ -88,15 +96,22 @@
 			</view>
 
 		</view>
+
 		<view class="white_b fs-13 gray_font order-number flex-column">
+			<view class="border bold fs-18 title">支付信息</view>
 			<view>
 				订单编号：{{info.order_num}}
 			</view>
 			<view>下单时间：{{$fomartDate(info.createtime)}}</view>
-			<view>支付方式：
+			<!-- <view v-if="info.pay_type">支付方式：
 				<text v-if="info.pay_type=='wxpay'">微信支付</text>
 				<text v-if="info.pay_type=='money'">余额支付</text>
 				<text v-if="info.pay_type=='offline'">线下支付</text>
+			</view> -->
+			<view class="">
+				支付状态：
+				<text v-if="info.pay_status==1">未支付</text>
+				<text v-if="info.pay_status==2">已支付</text>
 			</view>
 			<view v-if="info.refund_time">申请退款：{{$fomartDate(info.refund_time)}}</view>
 		</view>
@@ -105,12 +120,12 @@
 			<view class="button align_center">
 				<text class="cancel" @click="$refs.popup.open()" v-if="info.order_status==1">取消订单</text>
 
-				<text class="go-pay" v-if="info.order_status==1" @click="nowPay">去支付</text>
+				<text class="go-pay" v-if="/4|5/.test(info.order_status)&&info.pay_status==1" @click="nowPay">去支付</text>
 				<!-- <text class="cancel" @click="ckwl" v-if="/4|5/.test(info.order_status)">查看物流</text> -->
 				<text class="confirm-receipt" @click="confirmReceipt(info.id)" v-if="info.order_status==4">确认收货</text>
-				<block v-if="/3|4/.test(info.order_status)"> 
-				<text class="return-good" @click="applyReturnMoney(-1)"
-						v-if="showAllRefund">整单退货</text></block>
+				<block v-if="/3|4/.test(info.order_status)">
+					<text class="return-good" @click="applyReturnMoney(-1)" v-if="showAllRefund">整单退货</text>
+				</block>
 
 
 			</view>
@@ -475,6 +490,7 @@
 
 			.title {
 				padding: 15rpx 0;
+				font-size: 36rpx;
 			}
 
 			.sign-good {
@@ -509,8 +525,10 @@
 				}
 			}
 
+
+
 			.total-fee {
-				margin-bottom: 25rpx;
+				margin: 20rpx 0;
 				display: flex;
 				justify-content: space-between;
 			}
@@ -527,7 +545,13 @@
 			justify-content: space-between;
 			box-sizing: border-box;
 
-			&>view {
+			.title {
+				height: 70rpx;
+				line-height: 70rpx;
+				color: black;
+			}
+
+			&>view:nth-child(n+2) {
 				padding-top: 30rpx;
 			}
 		}

@@ -249,4 +249,7 @@
 		line-clamp: 2;
 		-webkit-box-orient: vertical;
 	}
+	uni-rich-text img {
+		max-width: 100% !important;
+	}
 </style>

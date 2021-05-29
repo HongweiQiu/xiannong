@@ -214,15 +214,32 @@ var _default =
         }
       });
     },
+    formatRichText: function formatRichText(html) {
+      var newContent = html.replace(/<img[^>]*>/gi, function (match, capture) {
+        match = match.replace(/style="[^"]+"/gi, '').replace(/style='[^']+'/gi, '');
+        match = match.replace(/width="[^"]+"/gi, '').replace(/width='[^']+'/gi, '');
+        match = match.replace(/height="[^"]+"/gi, '').replace(/height='[^']+'/gi, '');
+        return match;
+      });
+      newContent = newContent.replace(/style="[^"]+"/gi, function (match, capture) {
+        match = match.replace(/width:[^;]+;/gi, 'max-width:100%;').replace(/width:[^;]+;/gi, 'max-width:100%;');
+        return match;
+      });
+      newContent = newContent.replace(/<br[^>]*\/>/gi, '');
+      newContent = newContent.replace(/\<img/gi,
+      '<img style="max-width:100%;height:auto;border-raidus:10rpx!important;"');
+      return newContent;
+    },
     companyAbout: function companyAbout() {var _this2 = this;
       this.$get(this.$api.mainAbout, {}, function (res) {var
 
         data =
         res.data;
+
         if (data.code == 1) {
-          data.data = data.data.replace('<img src="',
-          '<img style="max-width:100%;height:auto" src="' + _this2.imgRemote);
-          _this2.about = data.data;
+          // data.data = data.data.replace('<img src="',
+          // 	'<img style="width:100%;height:auto;object-fit:contain;"');
+          _this2.about = _this2.formatRichText(data.data);
         }
       });
     } },

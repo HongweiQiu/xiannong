@@ -137,7 +137,8 @@ var render = function() {
   var g4 = (Number(_vm.info.total_price) + Number(_vm.info.freight)).toFixed(2)
   var m0 = _vm.$fomartDate(_vm.info.createtime)
   var m1 = _vm.info.refund_time ? _vm.$fomartDate(_vm.info.refund_time) : null
-  var g5 = /3|4/.test(_vm.info.order_status)
+  var g5 = /4|5/.test(_vm.info.order_status)
+  var g6 = /3|4/.test(_vm.info.order_status)
   var m2 = _vm.fixed(_vm.addressInfo.money)
   var m3 = parseFloat(_vm.totalPrice)
   var m4 = parseFloat(_vm.freight)
@@ -164,6 +165,7 @@ var render = function() {
         m0: m0,
         m1: m1,
         g5: g5,
+        g6: g6,
         m2: m2,
         m3: m3,
         m4: m4
@@ -204,6 +206,21 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
