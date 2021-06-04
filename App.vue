@@ -8,6 +8,9 @@
 			isReload: true,
 			onoff: true,
 			orderIndex:''
+		},
+		onShow() {
+			this.globalData.isReload=true;
 		}
 	};
 </script>

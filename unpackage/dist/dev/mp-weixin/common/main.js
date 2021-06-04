@@ -114,7 +114,11 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     classId: '',
     isReload: true,
     onoff: true,
-    orderIndex: '' } };exports.default = _default;
+    orderIndex: '' },
+
+  onShow: function onShow() {
+    this.globalData.isReload = true;
+  } };exports.default = _default;
 
 /***/ }),
 /* 12 */

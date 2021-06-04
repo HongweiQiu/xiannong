@@ -103,6 +103,7 @@
 				订单编号：{{info.order_num}}
 			</view>
 			<view>下单时间：{{$fomartDate(info.createtime)}}</view>
+			<view>配送时间：{{($fomartDate(info.delivery_time)).substr(0,10)}}</view>
 			<!-- <view v-if="info.pay_type">支付方式：
 				<text v-if="info.pay_type=='wxpay'">微信支付</text>
 				<text v-if="info.pay_type=='money'">余额支付</text>

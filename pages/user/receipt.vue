@@ -7,7 +7,7 @@
 			</view>
 			<view>
 				<text>发票税号</text>
-				<input type="number" v-model="tax_num" placeholder="请输入发票税号" placeholder-class="place_style" />
+				<input v-model="tax_num" placeholder="请输入发票税号" placeholder-class="place_style" />
 			</view>
 
 		</view>

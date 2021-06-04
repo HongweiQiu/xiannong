@@ -27,9 +27,9 @@
 							<view class="order_oneline">
 								<view class="">
 									<view class="bold two-line" >{{second.goods_name}}</view>
-									<!-- <view class="fs-13 gray_font" style="margin-top:10rpx;">x{{second.buy_num}}</view> -->
-									<view class="fs-13 " style="margin: 10rpx 0;">配送日期：{{($fomartDate(item.delivery_time)).substr(0,10)}}</view>
-									<view class="fs-13 ">下单时间：{{($fomartDate(item.createtime)).substr(0,10)}}</view>
+										<view class="fs-13 ">下单时间：{{($fomartDate(item.createtime)).substr(0,10)}}</view>
+									<view class="fs-13 " style="margin: 10rpx 0;">配送时间：{{($fomartDate(item.delivery_time)).substr(0,10)}}</view>
+							
 								</view>
 							</view>
 						</view>

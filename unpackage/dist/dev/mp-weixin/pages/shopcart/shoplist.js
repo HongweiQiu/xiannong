@@ -337,10 +337,10 @@ app.imgRemote;var _default =
         return dest < 10 ? '0' + dest : dest;
       }
 
-      var arg = new Date();
+      var arg = new Date(new Date() - 0 + 3600000 * 24);
       var year = arg.getFullYear();
       var month = arg.getMonth() + parseInt(1);
-      var day = arg.getDate() + parseInt(1);
+      var day = arg.getDate();
       this.startDate = "".concat(year, "-").concat(format(month), "-").concat(format(day));
       this.pickerDate = "".concat(year, "-").concat(format(month), "-").concat(format(day));
       this.endDate = "".concat(year + 2, "-12-31");

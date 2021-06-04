@@ -58,7 +58,12 @@
 					} = res;
 					if (data.code == 1) {
 						this.personInfo = data.data;
-						this.avatarUrl = data.data.avatar;
+						if(data.data.avatar.match('xml;base64')){
+							this.avatarUrl='../../static/img/avatar.png'
+						}else{
+							this.avatarUrl = data.data.avatar;
+						}
+						
 					}
 				})
 			},

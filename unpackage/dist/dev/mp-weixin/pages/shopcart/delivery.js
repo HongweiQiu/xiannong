@@ -246,7 +246,11 @@ __webpack_require__.r(__webpack_exports__);
         token: uni.getStorageSync('userToken') },
       this.form);
 
-
+      for (var i in this.form) {
+        if (!this.form[i]) {
+          return this.$Toast('信息请填写完全');
+        }
+      }
       this.$get(this.$api.ordershipping_address, params, function (res) {var
 
         data =

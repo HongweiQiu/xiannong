@@ -16,7 +16,8 @@
 							activeColor="#57B127" lineColor="none" v-model="activeTab" color="#999">
 							<my-s-tab v-for="(item,index) of secondCate" :key="index">{{item.name}}</my-s-tab>
 						</my-s-tabs>
-						<text @click="moreSecond=!moreSecond" class="iconfont iconfanhui" style="margin:0 0 15rpx 15rpx;"
+						<text @click="moreSecond=!moreSecond" class="iconfont iconfanhui"
+							style="margin:0 0 15rpx 15rpx;"
 							:style="{'transform':moreSecond?'rotate(270deg)':'rotate(90deg)'}"></text>
 
 					</view>
@@ -66,14 +67,14 @@
 		imgRemote
 	} = app;
 	import tabs2 from '../../components/v-tabs-column/v-tabs-column.vue';
-	
+
 	export default {
 		components: {
 			tabs2
 		},
 		data() {
 			return {
-				kind:0,
+				kind: 0,
 				cateId: '',
 				page: 1,
 				firstCate: [],
@@ -112,7 +113,7 @@
 						this.firstCate = data.data;
 						this.cateId = classId ? classId : data.data[0].id;
 						this.goodSecondCate();
-						this.getGood();
+						this.getGoods();
 					}
 				})
 			},
@@ -134,6 +135,25 @@
 						this.secondCate = arr;
 					}
 				})
+			},
+			getGoods() {
+				let params = {
+					cate_id: this.cateId,
+					page: this.page
+				}
+
+				this.$get(this.$api.goodCateGood, params, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						this.list = data.data;
+						if (this.page == 1) {
+							this.bitmap = data.data.length ? true : false;
+						}
+					}
+
+				}, true)
 			},
 			//分类商品
 			getGood() {
@@ -176,16 +196,19 @@
 			},
 		},
 		onShow() {
-			if (app.isReload) {
-				this.page=1;
+			if (getApp().globalData.classId) {
+				this.page = 1;
 				this.list = [];
-				this.firstCate=[];
+				this.firstCate = [];
 				this.goodCate();
 			}
 		},
+		onLoad() {
+			this.goodCate();
+		},
 		onHide() {
 			getApp().globalData.isReload = false;
-			getApp().globalData.classId="";
+			getApp().globalData.classId = "";
 		},
 		onReachBottom() {
 			this.page++;

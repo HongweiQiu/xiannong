@@ -5,13 +5,16 @@
 			<view class="flex-column flex-space-between img">
 				<view class="flex_left_right" v-if="userToken" @click="$doubleClick(updateAvatar)">
 					<view class="align_center ">
-						<image :src='personInfo.avatar' class="avator" v-if="personInfo.avatar" mode="aspectFill">
-						</image>
-						<image src="../../static/img/avatar.png" class="avator" v-else></image>
+						<block v-if="personInfo.avatar">
+							<image src='../../static/img/avatar.png' class="avator" mode="aspectFill" v-if="personInfo.avatar.match('xml;base64')" />
+							<image :src='personInfo.avatar' class="avator" mode="aspectFill" v-else/>
+						</block>
+
+						<image src="../../static/img/avatar.png" class="avator" v-else />
 						<view>
 							<view>{{personInfo.company}}</view>
-							<view class="user-level" v-if="personInfo.level">
-								<text>{{personInfo.level}}</text>
+							<view class="user-level">
+								<text>{{personInfo.level?personInfo.level:'普通用户'}}</text>
 							</view>
 						</view>
 					</view>
@@ -43,6 +46,8 @@
 						<image :src="'../../static/img/'+item.path+'.svg'" mode="aspectFit"></image>
 						<text class="to-be-paid" v-if="index==0&&statusNum.shenhe>0">{{statusNum.shenhe}}</text>
 						<text class="to-be-paid" v-if="index==1&&statusNum.fahuo>0">{{statusNum.fahuo}}</text>
+						<text class="to-be-paid" v-if="index==2&&statusNum.shouhuo>0">{{statusNum.shouhuo}}</text>
+						<text class="to-be-paid" v-if="index==4&&statusNum.refund>0">{{statusNum.refund}}</text>
 					</view>
 					<view class="fs-13 center name">{{item.name}}</view>
 				</view>
@@ -97,7 +102,7 @@
 			return {
 				userInfo: uni.getStorageSync('userInfo'),
 				userToken: uni.getStorageSync('userToken'),
-				statusNum:{},
+				statusNum: {},
 				userList: [{
 						icon: 'iconshouhuodizhi',
 						name: '地址管理',
@@ -342,7 +347,10 @@
 				height: 100rpx;
 
 			}
-			.name{margin-top: -20rpx;}
+
+			.name {
+				margin-top: -20rpx;
+			}
 
 			.to-be-paid {
 				position: absolute;

@@ -91,7 +91,11 @@
 					token: uni.getStorageSync('userToken')
 				}, this.form)
 
-
+				for (let i in this.form) {
+					if(!this.form[i]){
+						return this.$Toast('信息请填写完全');
+					}
+				}
 				this.$get(this.$api.ordershipping_address, params, (res) => {
 					let {
 						data

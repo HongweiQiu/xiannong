@@ -6,7 +6,7 @@
 					<image src="../../static/img/shoplistadd.png"></image>
 				</view>
 				<view class="detail-address">
-					<view class="bold ">{{receiving}}
+					<view class="bold ">{{receiving?receiving:'请先添加收货地址'}}
 					</view>
 					<view class="fs-13" style="margin-top: 10rpx;">
 						<text v-if="addressInfo.shou_name">{{addressInfo.shou_name}}</text>
@@ -84,7 +84,7 @@
 				</view>
 				<view class="align_center order-remark">
 					<text style="width:160rpx;">发票税号</text>
-					<input type="number" v-model="addressInfo.tax_num" placeholder="请输入发票税号" class="flex-full" />
+					<input  v-model="addressInfo.tax_num" placeholder="请输入发票税号" class="flex-full" />
 				</view>
 			</view>
 		</view>
@@ -175,10 +175,10 @@
 					return dest < 10 ? '0' + dest : dest;
 				}
 
-				let arg = new Date();
+				let arg = new Date(new Date()-0+3600000*24);
 				let year = arg.getFullYear();
 				let month = arg.getMonth() + parseInt(1);
-				let day = arg.getDate() + parseInt(1);
+				let day = arg.getDate() ;
 				this.startDate = `${year}-${format(month)}-${format(day)}`;
 				this.pickerDate = `${year}-${format(month)}-${format(day)}`;
 				this.endDate = `${year+2}-12-31`;

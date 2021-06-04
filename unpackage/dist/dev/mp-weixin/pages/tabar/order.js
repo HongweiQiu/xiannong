@@ -134,11 +134,11 @@ var render = function() {
           var $orig = _vm.__get_orig(second)
 
           var g0 =
+            sIndex == 0 ? _vm.$fomartDate(item.createtime).substr(0, 10) : null
+          var g1 =
             sIndex == 0
               ? _vm.$fomartDate(item.delivery_time).substr(0, 10)
               : null
-          var g1 =
-            sIndex == 0 ? _vm.$fomartDate(item.createtime).substr(0, 10) : null
           return {
             $orig: $orig,
             g0: g0,

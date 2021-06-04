@@ -213,7 +213,12 @@ app.imgRemote;var _default =
         res.data;
         if (data.code == 1) {
           _this.personInfo = data.data;
-          _this.avatarUrl = data.data.avatar;
+          if (data.data.avatar.match('xml;base64')) {
+            _this.avatarUrl = '../../static/img/avatar.png';
+          } else {
+            _this.avatarUrl = data.data.avatar;
+          }
+
         }
       });
     },

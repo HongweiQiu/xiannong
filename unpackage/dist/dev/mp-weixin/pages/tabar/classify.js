@@ -236,6 +236,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
 
 var app = getApp().globalData;var
 
@@ -288,7 +289,7 @@ app.imgRemote;var tabs2 = function tabs2() {__webpack_require__.e(/*! require.en
           _this.firstCate = data.data;
           _this.cateId = classId ? classId : data.data[0].id;
           _this.goodSecondCate();
-          _this.getGood();
+          _this.getGoods();
         }
       });
     },
@@ -311,8 +312,7 @@ app.imgRemote;var tabs2 = function tabs2() {__webpack_require__.e(/*! require.en
         }
       });
     },
-    //分类商品
-    getGood: function getGood() {var _this3 = this;
+    getGoods: function getGoods() {var _this3 = this;
       var params = {
         cate_id: this.cateId,
         page: this.page };
@@ -323,9 +323,29 @@ app.imgRemote;var tabs2 = function tabs2() {__webpack_require__.e(/*! require.en
         data =
         res.data;
         if (data.code == 1) {
-          _this3.list = _this3.list.concat(data.data);
+          _this3.list = data.data;
           if (_this3.page == 1) {
             _this3.bitmap = data.data.length ? true : false;
+          }
+        }
+
+      }, true);
+    },
+    //分类商品
+    getGood: function getGood() {var _this4 = this;
+      var params = {
+        cate_id: this.cateId,
+        page: this.page };
+
+
+      this.$get(this.$api.goodCateGood, params, function (res) {var
+
+        data =
+        res.data;
+        if (data.code == 1) {
+          _this4.list = _this4.list.concat(data.data);
+          if (_this4.page == 1) {
+            _this4.bitmap = data.data.length ? true : false;
           }
         }
 
@@ -352,12 +372,15 @@ app.imgRemote;var tabs2 = function tabs2() {__webpack_require__.e(/*! require.en
     } },
 
   onShow: function onShow() {
-    if (app.isReload) {
+    if (getApp().globalData.classId) {
       this.page = 1;
       this.list = [];
       this.firstCate = [];
       this.goodCate();
     }
+  },
+  onLoad: function onLoad() {
+    this.goodCate();
   },
   onHide: function onHide() {
     getApp().globalData.isReload = false;

@@ -102,6 +102,7 @@ var render = function() {
     Number(_vm.info.order.total_price) + Number(_vm.info.order.freight)
   ).toFixed(2)
   var m0 = _vm.$fomartDate(_vm.info.order.createtime)
+  var g2 = _vm.$fomartDate(_vm.info.delivery_time).substr(0, 10)
   var m1 = _vm.info.refund_time ? _vm.$fomartDate(_vm.info.refund_time) : null
   _vm.$mp.data = Object.assign(
     {},
@@ -110,6 +111,7 @@ var render = function() {
         g0: g0,
         g1: g1,
         m0: m0,
+        g2: g2,
         m1: m1
       }
     }
@@ -148,6 +150,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
 //
 //
 //
