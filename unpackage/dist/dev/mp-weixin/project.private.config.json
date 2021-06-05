@@ -239,6 +239,24 @@
           "pathName": "pages/order/orderdetail",
           "query": "id=145",
           "scene": null
+        },
+        {
+          "name": "pages/acc",
+          "pathName": "pages/account/forget",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/shopcart/shoplist",
+          "pathName": "pages/shopcart/shoplist",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/user/setPay",
+          "pathName": "pages/user/setPay",
+          "query": "",
+          "scene": null
         }
       ]
     }

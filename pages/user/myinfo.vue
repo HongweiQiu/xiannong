@@ -9,6 +9,10 @@
 				<text>修改发票</text>
 				<text class="iconfont iconfanhui t-180"></text>
 			</view>
+			<view class="flex_left_right" @click="pay">
+				<text>修改支付密码</text>
+				<text class="iconfont iconfanhui t-180"></text>
+			</view>
 		</view>
 		<view class="center button_style" @click="formSubmit">退出登录</view>
 	</view>
@@ -31,6 +35,13 @@
 				uni.navigateTo({
 					url: './receipt'
 				})
+			},
+			pay() {
+				uni.navigateTo({
+					url: './modifyPaypwd'
+
+				})
+
 			},
 			formSubmit() {
 				let that = this;
@@ -93,5 +104,4 @@
 		background: white;
 		color: #333;
 	}
-
-	</style>
+</style>

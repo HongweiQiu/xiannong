@@ -146,6 +146,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -162,6 +166,13 @@ var _default =
     receipt: function receipt() {
       uni.navigateTo({
         url: './receipt' });
+
+    },
+    pay: function pay() {
+      uni.navigateTo({
+        url: './modifyPaypwd' });
+
+
 
     },
     formSubmit: function formSubmit() {

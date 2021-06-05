@@ -28,13 +28,13 @@
 								<view class="">
 									<view class="bold two-line" >{{second.goods_name}}</view>
 										<view class="fs-13 ">下单时间：{{($fomartDate(item.createtime)).substr(0,10)}}</view>
-									<view class="fs-13 " style="margin: 10rpx 0;">配送时间：{{($fomartDate(item.delivery_time)).substr(0,10)}}</view>
+									<view class="fs-13 " style="margin: 10rpx 0;" v-if="item.delivery_time">配送时间：{{($fomartDate(item.delivery_time)).substr(0,10)}}</view>
 							
 								</view>
 							</view>
 						</view>
 						<view class="time" style="text-align: right;">
-							<text class="fs-11">共计{{item.details.length}}件商品 合计：</text>
+							<text class="fs-11">共计{{item.details.length}}款商品 合计：</text>
 							<text class="red-font bold">￥{{fixed(Number(item.total_price)+Number(item.freight))}}</text>
 						</view>
 					</view>

@@ -24,14 +24,13 @@
 				<view class="price flex_left_right">
 					<view>
 						<text class="fs-18  pink bold">￥</text>
-						<text class="fs-23 pink bold" v-if="ware.sku.length==1">{{ware.sku[0].market_price}}</text>
-						<text class="fs-23 pink bold" v-else>{{minPrice}}-{{maxPrice}}</text>
+						<text class="fs-23 pink bold" >{{ware.sku[0].market_price}}</text>
 						<!-- <text class="fs-11 pink bold">￥</text>
 						<text class="pink fs-23 bold">19.9</text>
 						<text class="fs-11">/盒</text>
 						<text class="fs-11 gray_font line_through" style="margin-left: 10rpx;">￥25.8</text> -->
 					</view>
-					<view class="fs-11 gray_font">月销{{ware.sales}}件</view>
+					<view class="fs-11 gray_font">月销{{ware.sales}}</view>
 				</view>
 			</view>
 		</view>

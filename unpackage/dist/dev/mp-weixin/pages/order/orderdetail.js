@@ -135,14 +135,16 @@ var render = function() {
   })
 
   var g4 = (Number(_vm.info.total_price) + Number(_vm.info.freight)).toFixed(2)
-  var m0 = _vm.$fomartDate(_vm.info.createtime)
-  var g5 = _vm.$fomartDate(_vm.info.delivery_time).substr(0, 10)
-  var m1 = _vm.info.refund_time ? _vm.$fomartDate(_vm.info.refund_time) : null
-  var g6 = /4|5/.test(_vm.info.order_status)
-  var g7 = /3|4/.test(_vm.info.order_status)
-  var m2 = _vm.fixed(_vm.addressInfo.money)
-  var m3 = parseFloat(_vm.totalPrice)
-  var m4 = parseFloat(_vm.freight)
+  var g5 = _vm.$fomartDate(_vm.info.createtime).substr(0, 10)
+  var g6 = _vm.info.delivery_time
+    ? _vm.$fomartDate(_vm.info.delivery_time).substr(0, 10)
+    : null
+  var m0 = _vm.info.refund_time ? _vm.$fomartDate(_vm.info.refund_time) : null
+  var g7 = /4|5/.test(_vm.info.order_status)
+  var g8 = /3|4/.test(_vm.info.order_status)
+  var m1 = _vm.fixed(_vm.addressInfo.money)
+  var m2 = parseFloat(_vm.totalPrice)
+  var m3 = parseFloat(_vm.freight)
 
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
@@ -163,14 +165,14 @@ var render = function() {
         g2: g2,
         l0: l0,
         g4: g4,
-        m0: m0,
         g5: g5,
-        m1: m1,
         g6: g6,
+        m0: m0,
         g7: g7,
+        g8: g8,
+        m1: m1,
         m2: m2,
-        m3: m3,
-        m4: m4
+        m3: m3
       }
     }
   )

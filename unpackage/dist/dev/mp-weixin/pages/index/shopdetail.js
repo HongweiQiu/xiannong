@@ -310,7 +310,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var app = getApp().globalData;var
 
 imgRemote =

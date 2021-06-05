@@ -52,7 +52,10 @@
         "receipt",
         "newProductDemand",
         "feedback",
-        "remainder"
+        "remainder",
+        "modifyPaypwd",
+        "forgetPay",
+        "setPay"
       ]
     }
   ],
@@ -112,6 +115,5 @@
       "provider": "wx069ba97219f66d99"
     }
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "usingComponents": {}
 }

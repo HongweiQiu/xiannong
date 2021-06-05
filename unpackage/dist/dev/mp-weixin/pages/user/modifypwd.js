@@ -158,7 +158,7 @@ var _default =
       old_pwd: '', //旧密码
       password: '', //旧密码
       password_confirmation: '', //旧密码
-      navBar: navBar,
+
       count: 0 };
 
   },

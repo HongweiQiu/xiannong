@@ -286,12 +286,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 var app = getApp().globalData;var
 
 imgRemote =
 app.imgRemote;var _default =
+
 {
+  components: {},
+
+
   data: function data() {
     return {
       imgRemote: imgRemote,
@@ -304,6 +309,7 @@ app.imgRemote;var _default =
       recommendList: false,
       totalPrice: '',
       feeInfo: '' };
+
 
   },
   methods: {

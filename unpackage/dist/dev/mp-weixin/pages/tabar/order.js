@@ -136,7 +136,7 @@ var render = function() {
           var g0 =
             sIndex == 0 ? _vm.$fomartDate(item.createtime).substr(0, 10) : null
           var g1 =
-            sIndex == 0
+            sIndex == 0 && item.delivery_time
               ? _vm.$fomartDate(item.delivery_time).substr(0, 10)
               : null
           return {

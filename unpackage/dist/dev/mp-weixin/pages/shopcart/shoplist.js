@@ -113,6 +113,13 @@ var render = function() {
   var m4 = _vm.fixed(_vm.addressInfo.money)
   var m5 = parseFloat(_vm.freight)
   var m6 = _vm.fixed(_vm.totalPrice + parseFloat(_vm.freight))
+
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      _vm.show = false
+    }
+  }
+
   _vm.$mp.data = Object.assign(
     {},
     {
@@ -160,7 +167,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var gppDatePicker = function gppDatePicker() {__webpack_require__.e(/*! require.ensure | components/gpp-datePicker/gpp-datePicker */ "components/gpp-datePicker/gpp-datePicker").then((function () {return resolve(__webpack_require__(/*! @/components/gpp-datePicker/gpp-datePicker.vue */ 335));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var gppDatePicker = function gppDatePicker() {__webpack_require__.e(/*! require.ensure | components/gpp-datePicker/gpp-datePicker */ "components/gpp-datePicker/gpp-datePicker").then((function () {return resolve(__webpack_require__(/*! @/components/gpp-datePicker/gpp-datePicker.vue */ 335));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var passkeyborad = function passkeyborad() {__webpack_require__.e(/*! require.ensure | components/yzc-paykeyboard/yzc-paykeyboard */ "components/yzc-paykeyboard/yzc-paykeyboard").then((function () {return resolve(__webpack_require__(/*! @/components/yzc-paykeyboard/yzc-paykeyboard.vue */ 407));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+
 
 
 
@@ -310,7 +318,8 @@ imgRemote =
 app.imgRemote;var _default =
 {
   components: {
-    gppDatePicker: gppDatePicker },
+    gppDatePicker: gppDatePicker,
+    passkeyborad: passkeyborad },
 
   data: function data() {var _ref;
     return _ref = {
@@ -328,9 +337,11 @@ app.imgRemote;var _default =
     false), _defineProperty(_ref, "pay_type",
     'wxpay'), _defineProperty(_ref, "remark",
     ''), _defineProperty(_ref, "receiving",
-    ''), _ref;
+    ''), _defineProperty(_ref, "show",
+    false), _ref;
 
   },
+
   methods: {
     getTomorrow: function getTomorrow() {
       function format(dest) {
@@ -385,9 +396,7 @@ app.imgRemote;var _default =
         tax_name = '';
         tax_num = '';
       }
-      // if(this.pay_type=='wxpay'){
-      // 	return this.$Toast('暂时不支持')
-      // }
+
 
       uni.login({
         provider: 'weixin',
@@ -469,11 +478,33 @@ app.imgRemote;var _default =
 
 
     },
-    xiadan: function xiadan() {
+
+    pay: function pay() {
+      if (this.pay_type == 'wxpay') {
+        this.confirmPay();
+      } else {
+        this.show = true;
+      }
 
     },
-    pay: function pay() {
-      this.confirmPay();
+    moneyPay: function moneyPay(e) {
+      console.log(e);
+      var _ = this;
+      uni.showModal({
+        title: '',
+        content: '支付密码错误,请重试',
+        cancelText: '忘记密码',
+        confirmColor: '#009943',
+        success: function success(res) {
+          if (res.confirm) {
+            _.show = true;
+          } else if (res.cancel) {
+            uni.navigateTo({
+              url: '/pages/user/forgetPay' });
+
+          }
+        } });
+
     },
     switchChange: function switchChange(e) {
       this.showSwitch = e.target.value;

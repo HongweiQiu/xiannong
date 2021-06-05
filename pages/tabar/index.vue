@@ -53,7 +53,10 @@
 					@showCart="openCart(item)" class="myc_recomend"></my-recomend>
 			</view>
 		</view>
-		<view style="height:30rpx;"></view>
+		<view class="gray_font center fs-13" style="margin:30rpx 0">
+			技术支持 · 上贤科技
+		</view>
+	
 	</view>
 </template>
 

@@ -221,6 +221,30 @@
 						"navigationBarBackgroundColor": "#fff",
 						"navigationBarTextStyle": "black"
 					}
+				},
+				{
+					"path": "modifyPaypwd",
+					"style": {
+						"navigationBarTitleText": "支付密码",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
+				},
+				{
+					"path": "forgetPay",
+					"style": {
+						"navigationBarTitleText": "忘记密码",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
+				},
+				{
+					"path": "setPay",
+					"style": {
+						"navigationBarTitleText": "设置密码",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
 				}
 			]
 		}

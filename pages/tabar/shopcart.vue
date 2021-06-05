@@ -104,6 +104,7 @@
 				<view style="height: 30rpx;"></view>
 			</view>
 		</view>
+	
 	</view>
 </template>
 
@@ -112,7 +113,11 @@
 	const {
 		imgRemote
 	} = app;
+	
 	export default {
+		  components: {
+		    
+		    },
 		data() {
 			return {
 				imgRemote: imgRemote,
@@ -124,7 +129,8 @@
 				allCheck: false,
 				recommendList: false,
 				totalPrice: '',
-				feeInfo: ''
+				feeInfo: '',
+			
 			};
 		},
 		methods: {

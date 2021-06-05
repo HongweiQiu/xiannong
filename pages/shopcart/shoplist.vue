@@ -132,23 +132,25 @@
 					<text class="fs-13">合计：</text>
 					<text class="bold red-font">￥{{fixed(totalPrice+parseFloat(freight))}}</text>
 				</view>
-				<view class="pay-button" @click="$doubleClick(pay)">支付</view>
+				<view class="pay-button" @click="$doubleClick(pay)" >支付</view>
 			</view>
 
 		</view>
-
+	<passkeyborad :show="show" @complte="moneyPay" @close="show=false"></passkeyborad>
 	</view>
 </template>
 
 <script>
 	import gppDatePicker from "@/components/gpp-datePicker/gpp-datePicker.vue"
+	import passkeyborad from '@/components/yzc-paykeyboard/yzc-paykeyboard.vue'
 	const app = getApp().globalData;
 	const {
 		imgRemote,
 	} = app;
 	export default {
 		components: {
-			gppDatePicker
+			gppDatePicker,
+			  passkeyborad
 		},
 		data() {
 			return {
@@ -166,9 +168,11 @@
 				showSwitch: false,
 				pay_type: 'wxpay',
 				remark: '',
-				receiving: ''
+				receiving: '',
+				show:false
 			}
 		},
+		
 		methods: {
 			getTomorrow() {
 				function format(dest) {
@@ -223,9 +227,7 @@
 					tax_name = '';
 					tax_num = '';
 				}
-				// if(this.pay_type=='wxpay'){
-				// 	return this.$Toast('暂时不支持')
-				// }
+			
 
 				uni.login({
 					provider: 'weixin',
@@ -307,11 +309,33 @@
 				})
 
 			},
-			xiadan() {
-
-			},
+			
 			pay() {
-				this.confirmPay();
+				if(this.pay_type=='wxpay'){
+					this.confirmPay();
+				}else{
+					this.show=true;
+				}
+				
+			},
+			moneyPay(e){
+				console.log(e);
+				let _=this;
+				uni.showModal({
+					title:'',
+					content:'支付密码错误,请重试',
+					cancelText:'忘记密码',
+					confirmColor:'#009943',
+					success(res){
+						 if (res.confirm) {
+						         _.show=true;
+						        } else if (res.cancel) {
+						          uni.navigateTo({
+						          	url:'/pages/user/forgetPay'
+						          })
+						        }
+					}
+				})
 			},
 			switchChange(e) {
 				this.showSwitch = e.target.value;
