@@ -186,14 +186,18 @@
 						<radio value="offline" style="transform:scale(0.7)" />
 					</view> -->
 				</radio-group>
-				<view class="submit-order" @click="orderPay">提交</view>
+				<view class="submit-order" @click="confirmPay">提交</view>
 			</view>
 		</uni-popup>
-
+		<passkeyborad :show="show" @complte="moneyPay" @close="show=false" :price="price"></passkeyborad>
 	</view>
 </template>
 <script>
+	import passkeyborad from '@/components/yzc-paykeyboard/yzc-paykeyboard.vue'
 	export default {
+		components: {
+			passkeyborad
+		},
 		data() {
 			return {
 				imgRemote: getApp().globalData.imgRemote,
@@ -225,9 +229,36 @@
 				freight: 0,
 				pay_type: 'wxpay',
 				showAllRefund: true,
+				show: false,
+				showPay: 0,
+				pay_password: '',
+				price:''
 			}
 		},
 		methods: {
+			moneyPay(e) {
+				this.pay_password = e;
+				this.orderPay();
+			
+			},
+			confirmPay(){
+			
+				if (this.pay_type == 'wxpay') {
+					this.orderPay();
+				} else {
+					if (this.showPay = 1) {
+						this.price=parseFloat(this.totalPrice)+parseFloat(this.freight);
+						this.$refs.select.close();
+						this.show = true;
+					} else {
+						this.$showModal('是否设置支付密码', (res) => {
+							uni.navigateTo({
+								url: '/pages/user/setPay'
+							})
+						})
+					}
+				}
+			},
 			refundDetail() {
 				uni.navigateTo({
 					// url:'refunddetail?id='+this.id
@@ -236,7 +267,6 @@
 			nowPay(item) {
 				this.totalPrice = this.info.total_price;
 				this.freight = this.totalPrice > this.feeInfo.over ? 0 : this.feeInfo.freight;
-				console.log(this.freight)
 				this.$refs.select.open()
 			},
 			orderPay() {
@@ -250,6 +280,9 @@
 							pay_type: _.pay_type,
 							code: res.code
 						};
+						if (_.pay_type == 'money') {
+							params.pay_password = _.pay_password;
+						}
 						_.$get(_.$api.orderPay, params, (res1) => {
 							let {
 								data
@@ -278,7 +311,23 @@
 									});
 								}
 							} else {
-								_.$Toast(data.msg);
+								if(_.pay_type=='money'&&data.msg=="支付密码错误"){
+									uni.showModal({
+										title: '',
+										content: '支付密码错误,请重试',
+										cancelText: '忘记密码',
+										confirmColor: '#009943',
+										success(res) {
+											if (res.confirm) {
+												_.show = true;
+											} else if (res.cancel) {
+												uni.navigateTo({
+													url: '/pages/user/forgetPay'
+												})
+											}
+										}
+									})
+								}
 							}
 							_.$refs.select.close();
 						})

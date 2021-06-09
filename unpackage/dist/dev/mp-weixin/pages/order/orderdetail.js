@@ -96,7 +96,7 @@ var components
 try {
   components = {
     uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 284))
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 308))
     }
   }
 } catch (e) {
@@ -154,6 +154,10 @@ var render = function() {
     _vm.e1 = function($event) {
       return _vm.$refs.select.close()
     }
+
+    _vm.e2 = function($event) {
+      _vm.show = false
+    }
   }
 
   _vm.$mp.data = Object.assign(
@@ -209,202 +213,206 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var passkeyborad = function passkeyborad() {__webpack_require__.e(/*! require.ensure | components/yzc-paykeyboard/yzc-paykeyboard */ "components/yzc-paykeyboard/yzc-paykeyboard").then((function () {return resolve(__webpack_require__(/*! @/components/yzc-paykeyboard/yzc-paykeyboard.vue */ 366));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
+  components: {
+    passkeyborad: passkeyborad },
+
   data: function data() {
     return {
       imgRemote: getApp().globalData.imgRemote,
@@ -435,10 +443,37 @@ var _default =
       feeInfo: {},
       freight: 0,
       pay_type: 'wxpay',
-      showAllRefund: true };
+      showAllRefund: true,
+      show: false,
+      showPay: 0,
+      pay_password: '',
+      price: '' };
 
   },
   methods: {
+    moneyPay: function moneyPay(e) {
+      this.pay_password = e;
+      this.orderPay();
+
+    },
+    confirmPay: function confirmPay() {
+
+      if (this.pay_type == 'wxpay') {
+        this.orderPay();
+      } else {
+        if (this.showPay = 1) {
+          this.price = parseFloat(this.totalPrice) + parseFloat(this.freight);
+          this.$refs.select.close();
+          this.show = true;
+        } else {
+          this.$showModal('是否设置支付密码', function (res) {
+            uni.navigateTo({
+              url: '/pages/user/setPay' });
+
+          });
+        }
+      }
+    },
     refundDetail: function refundDetail() {
       uni.navigateTo({
         // url:'refunddetail?id='+this.id
@@ -447,7 +482,6 @@ var _default =
     nowPay: function nowPay(item) {
       this.totalPrice = this.info.total_price;
       this.freight = this.totalPrice > this.feeInfo.over ? 0 : this.feeInfo.freight;
-      console.log(this.freight);
       this.$refs.select.open();
     },
     orderPay: function orderPay() {
@@ -461,6 +495,9 @@ var _default =
             pay_type: _.pay_type,
             code: res.code };
 
+          if (_.pay_type == 'money') {
+            params.pay_password = _.pay_password;
+          }
           _.$get(_.$api.orderPay, params, function (res1) {var
 
             data =
@@ -489,7 +526,23 @@ var _default =
 
               }
             } else {
-              _.$Toast(data.msg);
+              if (_.pay_type == 'money' && data.msg == "支付密码错误") {
+                uni.showModal({
+                  title: '',
+                  content: '支付密码错误,请重试',
+                  cancelText: '忘记密码',
+                  confirmColor: '#009943',
+                  success: function success(res) {
+                    if (res.confirm) {
+                      _.show = true;
+                    } else if (res.cancel) {
+                      uni.navigateTo({
+                        url: '/pages/user/forgetPay' });
+
+                    }
+                  } });
+
+              }
             }
             _.$refs.select.close();
           });

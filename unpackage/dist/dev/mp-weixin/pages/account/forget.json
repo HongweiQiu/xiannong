@@ -1,4 +1,7 @@
 {
+  "navigationBarTitleText": "忘记密码",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
   "usingComponents": {
     "my-identifyingcode": "/components/identifyingcode/index"
   }

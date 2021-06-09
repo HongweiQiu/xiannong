@@ -96,7 +96,7 @@ var components
 try {
   components = {
     myIdentifyingcode: function() {
-      return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 321))
+      return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 345))
     }
   }
 } catch (e) {
@@ -158,7 +158,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -195,20 +195,70 @@ var _default =
 
   data: function data() {
     return {
-      resultData: {},
-      mobile: '',
-      password: '',
-      confirm_pwd: '',
-      verify_code: '',
-      secret_str: '',
-      navBar: navBar,
-      back: true,
-      count: 0 };
+      form: {
+        mobile: '',
+        newpassword: '',
+        rePwd: '',
+        captcha: '' },
+
+
+      back: true };
 
   },
   methods: {
+    // 获取短信验证码
+    getCode: function getCode() {
+      var that = this;var
 
-    forget: function forget() {} } };exports.default = _default;
+      mobile =
+      that.form.mobile;
+
+      var reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+      if (!reg.test(mobile)) {
+        that.$Toast('请输入正确的电话号码');
+        return;
+      }
+
+      that.$get(that.$api.mainSend_sms, {
+        phone: mobile },
+      function (res) {
+        if (res.data.code == 1) {
+          that.$refs.code.sendCode();
+          that.$Toast('验证码已发送到你手机中，请注意查收');
+        } else {
+          that.$Toast(res.data.msg);
+        }
+      });
+    },
+    forget: function forget() {var _this = this;
+
+      var that = this;var _that$form =
+
+
+
+
+      that.form,mobile = _that$form.mobile,newpassword = _that$form.newpassword,rePwd = _that$form.rePwd;
+
+      var reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+      if (!reg.test(mobile)) {
+        return that.$Toast('请输入正确的电话号码');
+      }
+      if (newpassword != rePwd) {
+        return that.$Toast('两次输入的密码不一致');
+      }
+      that.$get(that.$api.userResetPwd, this.form, function (res) {
+        if (res.data.code == 1) {
+          _this.$Toast('设置密码成功');
+          setTimeout(function () {
+            uni.navigateBack();
+          }, 1000);
+        } else {
+          that.$Toast(res.data.msg);
+        }
+      });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

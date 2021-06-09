@@ -5,6 +5,7 @@
   "usingComponents": {
     "my-s-tabs": "/components/s-tabs/index",
     "my-s-tab": "/components/s-tab/index",
-    "uni-popup": "/components/uni-popup/uni-popup"
+    "uni-popup": "/components/uni-popup/uni-popup",
+    "passkeyborad": "/components/yzc-paykeyboard/yzc-paykeyboard"
   }
 }

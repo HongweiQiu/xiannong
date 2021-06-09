@@ -13,7 +13,7 @@
 			</view>
 			<view class="pay-money">
 				<view>鲜农同城</view>
-				<view class="money">￥ <text>11</text></view>
+				<view class="money">￥ <text>{{$fixed(price)}}</text></view>
 			</view>
 			<view class="pay-way">
 				<view>支付方式</view>
@@ -48,6 +48,10 @@
 <script>
 	export default {
 		props: {
+			price: {
+				type: String,
+				default: ''
+			},
 			show: {
 				type: Boolean,
 				default: false

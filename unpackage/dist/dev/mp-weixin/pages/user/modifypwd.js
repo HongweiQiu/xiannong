@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -155,15 +155,38 @@ var _default =
 {
   data: function data() {
     return {
-      old_pwd: '', //旧密码
-      password: '', //旧密码
-      password_confirmation: '', //旧密码
+      form: {
+        old_password: '',
+        new_password: '',
+        re_new_password: '',
+        token: uni.getStorageSync('userToken') } };
 
-      count: 0 };
 
   },
   methods: {
-    formSubmit: function formSubmit() {} } };exports.default = _default;
+    formSubmit: function formSubmit() {var _this = this;
+      if (this.form.new_password != this.form.re_new_password) {
+        return this.$Toast('两次输入的密码不一致');
+      }
+      this.$get(this.$api.userSet_new_password, this.form, function (res) {var
+
+        data =
+        res.data;
+        if (data.code == 1) {
+          uni.removeStorageSync('userToken');
+          _this.$Toast('修改密码成功');
+          getApp().globalData.isReload = true;
+          setTimeout(function () {
+            uni.reLaunch({
+              url: '/pages/account/login' });
+
+          }, 1000);
+        } else {
+          _this.$Toast(data.msg);
+        }
+      });
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

@@ -55,8 +55,30 @@
 					this.password = val;
 				} else {
 					this.rpassword = val;
+
 				}
-				console.log(val)
+				if (this.rpassword != this.password && this.rpassword.length == 6) {
+					this.$Toast('两次输入的密码不一致');
+					this.password = '';
+					this.rpassword = '';
+				}
+				if (this.rpassword == this.password && this.rpassword.length == 6) {
+					let params = {
+						pay_password: this.password,
+						repay_password: this.rpassword,
+						token: uni.getStorageSync('userInfo').token
+					}
+					this.$get(this.$api.userSet_pay_password, params, (res) => {
+						if (res.data.code == 1) {
+							this.$Toast('设置支付密码成功');
+							setTimeout(() => {
+								uni.navigateBack();
+							}, 1000)
+						} else {
+							this.$Toast(data.msg)
+						}
+					})
+				}
 			},
 			showKey(type) {
 				// complete(val)

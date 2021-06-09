@@ -33,7 +33,7 @@ function fomartDate(date) {
 		S)
 }
 function fixed(val){
-	return val.toFixed(2)
+	return Number(val).toFixed(2)
 }
 export {
 	dianji,

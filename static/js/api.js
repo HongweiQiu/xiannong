@@ -26,7 +26,13 @@ const api = {
 	userFankui: "/user/fankui", //意见反馈
 	userWx_login: "/user/wx_login", //意见反馈
 	userBind_user: "/user/bind_user", //意见反馈
-
+	userIsset_pay_password: "/user/isset_pay_password", //是否设置支付密码
+	userSet_pay_password: "/user/set_pay_password", //设置支付密码
+	userSet_new_pay: "/user/set_new_pay", //修改支付密码
+	userReset_new_pay: "/user/reset_pay_password", //重置支付密码
+	userResetPwd: "/user/resetpwd", //重置登录密码
+	userSet_new_password: "/user/set_new_password", //修改登录密码
+	
 	goodDetail: "/goods/detail", //商品详情
 	goodCate: "/goods/cate", //商品分类一级
 	goodChild_cate: "/goods/child_cate", //商品分类二级

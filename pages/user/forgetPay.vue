@@ -3,7 +3,7 @@
 		<view>
 			<form @submit="formSubmit">
 				<view class="get_info">
-				
+
 					<view>
 						<text class="iconfont iconshouji1"></text>
 						<input type="number" v-model="form.mobile" placeholder="请输入手机号"
@@ -19,19 +19,19 @@
 					</view>
 					<view>
 						<text class="iconfont iconmima"></text>
-						<input password v-model="form.password" placeholder="请输入支付密码" placeholder-class="place_style" />
+						<input password v-model="form.new_pay" placeholder="请输入支付密码" placeholder-class="place_style" />
 					</view>
 					<view>
 						<text class="iconfont iconmima"></text>
-						<input password v-model="form.repassword" placeholder="请再次确认支付密码"
+						<input password v-model="form.re_new_pay" placeholder="请再次确认支付密码"
 							placeholder-class="place_style" />
 					</view>
 				</view>
 				<button form-type="submit" class="submit_button button_style">提交</button>
 			</form>
-		
+
 		</view>
-	
+
 	</view>
 </template>
 
@@ -45,11 +45,11 @@
 			return {
 
 				form: {
-					company: '',
+					token: uni.getStorageSync('userToken'),
 					mobile: '',
 					code: '',
-					password: '',
-					repassword: '',
+					new_pay: '',
+					re_new_pay: '',
 				},
 				check: true,
 			};
@@ -87,15 +87,12 @@
 			formSubmit(e) {
 				let that = this;
 				let {
-					company,
-					password,
-					repassword,
+					new_pay,
+					re_new_pay,
 					mobile,
 					code
 				} = that.form;
-				if (!company) {
-					return that.$Toast('单位名称不能为空');
-				}
+
 				let reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
 				if (!reg.test(mobile)) {
 					return that.$Toast('请输入正确的电话号码', );
@@ -104,26 +101,21 @@
 				if (!code) {
 					return that.$Toast('请输入正确的短信验证码');
 				}
-				if (!password || !repassword) {
+				if (!new_pay || !re_new_pay) {
 					return that.$Toast('密码不能为空');
 				}
-				if (password != repassword) {
+				if (new_pay != re_new_pay) {
 					return that.$Toast('两次输入的密码不一致');
 				}
 
-				that.$get(that.$api.userRegister, that.form, (res) => {
+				that.$get(that.$api.userReset_new_pay, that.form, (res) => {
 					let {
 						data
 					} = res;
 					if (data.code == 1) {
-						this.$Toast('登录成功，将跳转到首页');
-						getApp().globalData.isReload = true;
-						uni.setStorageSync('userInfo', data.data);
-						uni.setStorageSync('userToken', data.data.token);
+						this.$Toast('重新设置密码成功');
 						setTimeout(() => {
-							uni.reLaunch({
-								url: '/pages/tabar/index'
-							});
+							uni.navigateBack();
 						}, 1000)
 					} else {
 						this.$Toast(data.msg)

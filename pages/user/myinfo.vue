@@ -9,10 +9,15 @@
 				<text>修改发票</text>
 				<text class="iconfont iconfanhui t-180"></text>
 			</view>
-			<view class="flex_left_right" @click="pay">
+			<view class="flex_left_right" @click="setPay" v-if="showPay==0">
+				<text>设置支付密码</text>
+				<text class="iconfont iconfanhui t-180"></text>
+			</view>
+			<view class="flex_left_right" @click="pay" v-else>
 				<text>修改支付密码</text>
 				<text class="iconfont iconfanhui t-180"></text>
 			</view>
+
 		</view>
 		<view class="center button_style" @click="formSubmit">退出登录</view>
 	</view>
@@ -22,7 +27,7 @@
 	export default {
 		data() {
 			return {
-
+				showPay: 0
 			};
 		},
 		methods: {
@@ -42,6 +47,11 @@
 
 				})
 
+			},
+			setPay() {
+				uni.navigateTo({
+					url: './setPay'
+				})
 			},
 			formSubmit() {
 				let that = this;
@@ -65,14 +75,19 @@
 						}
 					})
 				})
+			},
+			isSetPwd() {
+				let that = this;
+				that.$get(that.$api.userIsset_pay_password, {
+					token: uni.getStorageSync('userInfo').token
+				}, (res) => {
+					this.showPay = res.data.code;
+				})
 			}
 		},
-		/**
-		 * 生命周期函数--监听页面显示
-		 */
-		onShow: function() {
-			var that = this;
-			// that.memberInfo();
+
+		onShow() {
+			this.isSetPwd()
 		},
 	};
 </script>

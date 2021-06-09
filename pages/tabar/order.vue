@@ -22,14 +22,16 @@
 						</view>
 					</view>
 					<view @click="orderDetailPage(item,index)">
-						<view class="flex detail" v-for="(second,sIndex) in item.details" :key="sIndex" v-if="sIndex==0">
+						<view class="flex detail" v-for="(second,sIndex) in item.details" :key="sIndex"
+							v-if="sIndex==0">
 							<image class="order_img" :src="imgRemote+second.goods_img" mode="aspectFit" />
 							<view class="order_oneline">
 								<view class="">
-									<view class="bold two-line" >{{second.goods_name}}</view>
-										<view class="fs-13 ">下单时间：{{($fomartDate(item.createtime)).substr(0,10)}}</view>
-									<view class="fs-13 " style="margin: 10rpx 0;" v-if="item.delivery_time">配送时间：{{($fomartDate(item.delivery_time)).substr(0,10)}}</view>
-							
+									<view class="bold two-line">{{second.goods_name}}</view>
+									<view class="fs-13 ">下单时间：{{($fomartDate(item.createtime)).substr(0,10)}}</view>
+									<view class="fs-13 " style="margin: 10rpx 0;" v-if="item.delivery_time">
+										配送时间：{{($fomartDate(item.delivery_time)).substr(0,10)}}</view>
+
 								</view>
 							</view>
 						</view>
@@ -43,7 +45,8 @@
 						<!-- <text class="cancel_order" @click="ckwl" v-if="item.order_status==4">查看物流</text> -->
 						<text class="another_order" @click="confirmReceipt(item.id,index)"
 							v-if="item.order_status==4">确认收货</text>
-						<text class="another_order" v-if="/4|5/.test(item.order_status)&&item.pay_status==1" @click="nowPay(item,index)">立即支付</text>
+						<text class="another_order" v-if="/4|5/.test(item.order_status)&&item.pay_status==1"
+							@click="nowPay(item,index)">立即支付</text>
 						<text class="cancel_order" v-if="item.order_status==1"
 							@click="cancelOrder(item.id,index)">取消订单</text>
 						<block v-if="item.order_status==6">
@@ -100,18 +103,23 @@
 						<radio value="offline" style="transform:scale(0.7)" />
 					</view> -->
 				</radio-group>
-				<view class="submit-order" @click="orderPay">提交</view>
+				<view class="submit-order" @click="confirmPay">提交</view>
 			</view>
 		</uni-popup>
+		<passkeyborad :show="show" @complte="moneyPay" @close="show=false" :price="price"></passkeyborad>
 	</view>
 </template>
 
 <script>
 	const app = getApp().globalData;
+	import passkeyborad from '@/components/yzc-paykeyboard/yzc-paykeyboard.vue'
 	const {
 		imgRemote,
 	} = app;
 	export default {
+		components: {
+			passkeyborad
+		},
 		data() {
 			return {
 				imgRemote: imgRemote,
@@ -147,15 +155,45 @@
 				freight: 0,
 				pay_type: 'wxpay',
 				orderInfo: '',
-				index: ''
+				index: '',
+				show: false,
+				showPay: 0,
+				pay_password: '',
+				price:''
 			};
 		},
 		methods: {
+			moneyPay(e) {
+				this.pay_password = e;
+				this.orderPay();
+
+			},
+			confirmPay(){
+			
+				if (this.pay_type == 'wxpay') {
+					this.orderPay();
+				} else {
+					if (this.showPay = 1) {
+						this.price=parseFloat(this.orderInfo.total_price)+parseFloat(this.freight);
+						
+							console.log(this.price)
+						this.$refs.popup.close();
+						this.show = true;
+					} else {
+						this.$showModal('是否设置支付密码', (res) => {
+							uni.navigateTo({
+								url: '/pages/user/setPay'
+							})
+						})
+					}
+				}
+			},
 			nowPay(item, index) {
 				this.totalPrice = item.total_price;
 				this.freight = this.totalPrice > this.feeInfo.over ? 0 : this.feeInfo.freight;
 				this.index = index;
 				this.orderInfo = item;
+					
 				this.$refs.popup.open()
 			},
 			orderPay() {
@@ -169,6 +207,9 @@
 							pay_type: _.pay_type,
 							code: res.code
 						};
+						if (_.pay_type == 'money') {
+							params.pay_password = _.pay_password;
+						}
 						_.$get(_.$api.orderPay, params, (res1) => {
 							let {
 								data
@@ -178,9 +219,7 @@
 									_.$Toast('支付成功');
 									_.getAddress();
 									_.list[_.index].pay_status = 2;
-									// _.list[_.index].order_status = 2;
-									// _.list[_.index].order_status_msg = _.list[_.index].order_status_msg
-									// 	.replace('未支付', '已支付');
+
 								} else {
 									uni.requestPayment({
 										provider: 'wxpay',
@@ -191,10 +230,8 @@
 										paySign: data.data.paySign,
 										success: function(res) {
 											_.$Toast('支付成功');
-										_.list[_.index].pay_status = 2;
-										// _.list[_.index].order_status = 2;
-										// _.list[_.index].order_status_msg = _.list[_.index].order_status_msg
-										// 	.replace('未支付', '已支付');
+											_.list[_.index].pay_status = 2;
+
 											_.getAddress();
 
 										},
@@ -205,7 +242,23 @@
 									});
 								}
 							} else {
-								_.$Toast(data.msg);
+								if(_.pay_type=='money'&&data.msg=="支付密码错误"){
+									uni.showModal({
+										title: '',
+										content: '支付密码错误,请重试',
+										cancelText: '忘记密码',
+										confirmColor: '#009943',
+										success(res) {
+											if (res.confirm) {
+												_.show = true;
+											} else if (res.cancel) {
+												uni.navigateTo({
+													url: '/pages/user/forgetPay'
+												})
+											}
+										}
+									})
+								}
 							}
 							_.$refs.popup.close()
 						})
@@ -360,6 +413,14 @@
 					}
 				});
 			},
+			isSetPwd() {
+				let that = this;
+				that.$get(that.$api.userIsset_pay_password, {
+					token: uni.getStorageSync('userInfo').token
+				}, (res) => {
+					this.showPay = res.data.code;
+				})
+			},
 		},
 		onLoad(e) {
 			this.activeTab = e.id ? e.id : 0;
@@ -374,6 +435,7 @@
 			this.orderList(this.id);
 		},
 		onShow() {
+			this.isSetPwd()
 			setTimeout(() => {
 				let {
 					orderIndex

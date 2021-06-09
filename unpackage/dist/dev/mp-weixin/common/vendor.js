@@ -822,7 +822,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -2042,7 +2042,7 @@ function fomartDate(date) {
   S);
 }
 function fixed(val) {
-  return val.toFixed(2);
+  return Number(val).toFixed(2);
 }
 
 /***/ }),
@@ -2083,6 +2083,12 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.api = void
   userFankui: "/user/fankui", //意见反馈
   userWx_login: "/user/wx_login", //意见反馈
   userBind_user: "/user/bind_user", //意见反馈
+  userIsset_pay_password: "/user/isset_pay_password", //是否设置支付密码
+  userSet_pay_password: "/user/set_pay_password", //设置支付密码
+  userSet_new_pay: "/user/set_new_pay", //修改支付密码
+  userReset_new_pay: "/user/reset_pay_password", //重置支付密码
+  userResetPwd: "/user/resetpwd", //重置登录密码
+  userSet_new_password: "/user/set_new_password", //修改登录密码
 
   goodDetail: "/goods/detail", //商品详情
   goodCate: "/goods/cate", //商品分类一级
@@ -2273,8 +2279,10 @@ function showModal(message, res) {
     title: '温馨提示',
     content: message,
     confirmColor: '#57B127',
-    success: function success() {
-      res();
+    success: function success(result) {
+      if (result.confirm) {
+        res();
+      }
     } });
 
 
@@ -7810,7 +7818,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7831,14 +7839,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7924,7 +7932,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"鲜农","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8332,7 +8340,38 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 289:
+/***/ 3:
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 313:
 /*!*********************************************************!*\
   !*** F:/desktop/xiannong/components/uni-popup/popup.js ***!
   \*********************************************************/
@@ -8340,7 +8379,7 @@ internalMixin(Vue);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 290));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 314));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 // 定义 type 类型:弹出类型：top/bottom/center
 var config = {
   // 顶部弹出
@@ -8367,7 +8406,7 @@ var config = {
 
 /***/ }),
 
-/***/ 290:
+/***/ 314:
 /*!***********************************************************!*\
   !*** F:/desktop/xiannong/components/uni-popup/message.js ***!
   \***********************************************************/
@@ -8405,49 +8444,18 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 3:
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ 312:
+/***/ 336:
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 313);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 337);
 
 /***/ }),
 
-/***/ 313:
+/***/ 337:
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -8478,7 +8486,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 314);
+module.exports = __webpack_require__(/*! ./runtime */ 338);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -8495,7 +8503,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 314:
+/***/ 338:
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -9227,7 +9235,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 315:
+/***/ 339:
 /*!*************************************************************************************!*\
   !*** F:/desktop/xiannong/uni_modules/lime-painter/components/lime-painter/utils.js ***!
   \*************************************************************************************/
@@ -9235,7 +9243,7 @@ if (hadRuntime) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.sleep = sleep;exports.isNumber = isNumber;exports.toPx = toPx;exports.compareVersion = compareVersion;exports.base64ToPath = base64ToPath;exports.pathToBase64 = pathToBase64;exports.getImageInfo = getImageInfo;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 312));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}var networkReg = /^(http|\/\/)/;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.sleep = sleep;exports.isNumber = isNumber;exports.toPx = toPx;exports.compareVersion = compareVersion;exports.base64ToPath = base64ToPath;exports.pathToBase64 = pathToBase64;exports.getImageInfo = getImageInfo;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 336));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}var networkReg = /^(http|\/\/)/;
 function sleep(delay) {
   return new Promise(function (resolve) {return setTimeout(resolve, delay);});
 }
@@ -9642,7 +9650,7 @@ function getImageInfo(img, isH5PathToBase64) {var isReset = arguments.length > 2
 
 /***/ }),
 
-/***/ 316:
+/***/ 340:
 /*!************************************************************************************!*\
   !*** F:/desktop/xiannong/uni_modules/lime-painter/components/lime-painter/draw.js ***!
   \************************************************************************************/
@@ -9650,9 +9658,9 @@ function getImageInfo(img, isH5PathToBase64) {var isReset = arguments.length > 2
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.Draw = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 312));var _utils = __webpack_require__(/*! ./utils */ 315);
-var _gradient = __webpack_require__(/*! ./gradient */ 317);
-var _qrcode = _interopRequireDefault(__webpack_require__(/*! ./qrcode */ 318));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e2) {throw _e2;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e3) {didErr = true;err = _e3;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.Draw = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 336));var _utils = __webpack_require__(/*! ./utils */ 339);
+var _gradient = __webpack_require__(/*! ./gradient */ 341);
+var _qrcode = _interopRequireDefault(__webpack_require__(/*! ./qrcode */ 342));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e2) {throw _e2;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e3) {didErr = true;err = _e3;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
 
 Draw = /*#__PURE__*/function () {
   function Draw(context, canvas) {var use2dCanvas = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;var isH5PathToBase64 = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;var sleep = arguments.length > 4 ? arguments[4] : undefined;_classCallCheck(this, Draw);
@@ -10332,7 +10340,7 @@ Draw = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ 317:
+/***/ 341:
 /*!****************************************************************************************!*\
   !*** F:/desktop/xiannong/uni_modules/lime-painter/components/lime-painter/gradient.js ***!
   \****************************************************************************************/
@@ -10450,7 +10458,7 @@ function linearEffect(width, height, bg, ctx) {
 
 /***/ }),
 
-/***/ 318:
+/***/ 342:
 /*!**************************************************************************************!*\
   !*** F:/desktop/xiannong/uni_modules/lime-painter/components/lime-painter/qrcode.js ***!
   \**************************************************************************************/
@@ -10461,7 +10469,7 @@ function linearEffect(width, height, bg, ctx) {
 
 /***/ }),
 
-/***/ 319:
+/***/ 343:
 /*!**************************************************************************************!*\
   !*** F:/desktop/xiannong/uni_modules/lime-painter/components/lime-painter/layout.js ***!
   \**************************************************************************************/
@@ -10469,7 +10477,7 @@ function linearEffect(width, height, bg, ctx) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.Layout = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 312));var _utils = __webpack_require__(/*! ./utils */ 315);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
+Object.defineProperty(exports, "__esModule", { value: true });exports.Layout = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 336));var _utils = __webpack_require__(/*! ./utils */ 339);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
 
 Layout = /*#__PURE__*/function () {
   function Layout() {_classCallCheck(this, Layout);
@@ -10840,7 +10848,7 @@ Layout = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ 320:
+/***/ 344:
 /*!**************************************************************************************!*\
   !*** F:/desktop/xiannong/uni_modules/lime-painter/components/lime-painter/canvas.js ***!
   \**************************************************************************************/
@@ -11940,7 +11948,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#57B127", "navigationBarTextStyle": "white", "usingComponents": {}, "usingAutoImportComponents": { "my-search": "/components/search/index", "my-recomend": "/components/recomend/index" } }, "pages/tabar/company": { "navigationBarTitleText": "公司", "navigationBarBackgroundColor": "#57B127", "navigationBarTextStyle": "white", "usingComponents": {}, "usingAutoImportComponents": { "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index" } }, "pages/tabar/classify": { "navigationBarTitleText": "分类", "navigationBarBackgroundColor": "#FFF", "navigationBarTextStyle": "black", "usingComponents": { "tabs2": "/components/v-tabs-column/v-tabs-column" }, "usingAutoImportComponents": { "my-search": "/components/search/index", "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index", "v-tabs-column": "/components/v-tabs-column/v-tabs-column", "my-profile": "/components/profile/index" } }, "pages/tabar/order": { "navigationBarTitleText": "全部订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index", "uni-popup": "/components/uni-popup/uni-popup" } }, "pages/tabar/shopcart": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "my-stepper": "/components/stepper/index", "my-recomend": "/components/recomend/index" } }, "pages/tabar/user": { "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#59BC2C", "navigationBarTextStyle": "white", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/index/shopdetail": { "navigationBarTitleText": "商品详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": { "l-painter": "/uni_modules/lime-painter/components/lime-painter/index" }, "usingAutoImportComponents": { "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index" } }, "pages/index/search": { "navigationBarTitleText": "搜索", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "my-recomend": "/components/recomend/index", "uni-popup": "/components/uni-popup/uni-popup" } }, "pages/account/login": { "navigationBarTitleText": "登录", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/account/forget": { "usingComponents": {}, "usingAutoImportComponents": { "my-identifyingcode": "/components/identifyingcode/index" } }, "pages/account/register": { "navigationBarTitleText": "注册", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "my-identifyingcode": "/components/identifyingcode/index" } }, "pages/account/treaty": { "navigationBarTitleText": "注册协议", "navigationBarBackgroundColor": "#59BC2C", "navigationBarTextStyle": "white", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/account/bind": { "navigationBarTitleText": "返回", "navigationBarBackgroundColor": "#FFF", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index", "my-identifyingcode": "/components/identifyingcode/index" } }, "pages/order/orderdetail": { "navigationBarTitleText": "订单详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "uni-popup": "/components/uni-popup/uni-popup" } }, "pages/order/orderAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index" } }, "pages/order/applyAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "uni-popup": "/components/uni-popup/uni-popup" } }, "pages/order/refunddetail": { "navigationBarTitleText": "售后详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopcart/delivery": { "navigationBarTitleText": "地址", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": { "w-picker": "/components/w-picker/w-picker" }, "usingAutoImportComponents": { "w-picker": "/components/w-picker/w-picker" } }, "pages/shopcart/shoplist": { "navigationBarTitleText": "提交订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": { "gpp-date-picker": "/components/gpp-datePicker/gpp-datePicker", "passkeyborad": "/components/yzc-paykeyboard/yzc-paykeyboard" }, "usingAutoImportComponents": {} }, "pages/shopcart/goodbill": { "navigationBarTitleText": "商品凑单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "my-recomend": "/components/recomend/index" } }, "pages/shopcart/paySuccess": { "navigationBarTitleText": "支付成功", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/modifypwd": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/myinfo": { "navigationBarTitleText": "设置", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/updateavatar": { "navigationBarTitleText": "设置", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "uni-popup": "/components/uni-popup/uni-popup" } }, "pages/user/receipt": { "navigationBarTitleText": "发票", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/newProductDemand": { "navigationBarTitleText": "新品需求", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": { "w-picker": "/components/w-picker/w-picker" }, "usingAutoImportComponents": { "w-picker": "/components/w-picker/w-picker" } }, "pages/user/feedback": { "navigationBarTitleText": "意见反馈", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/remainder": { "navigationBarTitleText": "我的余额", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index" } }, "pages/user/modifyPaypwd": { "navigationBarTitleText": "支付密码", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/forgetPay": { "navigationBarTitleText": "忘记密码", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "my-identifyingcode": "/components/identifyingcode/index" } }, "pages/user/setPay": { "navigationBarTitleText": "设置密码", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": " ", "navigationBarBackgroundColor": "#F0F0F0", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabar/index": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#57B127", "navigationBarTextStyle": "white", "usingComponents": {}, "usingAutoImportComponents": { "my-search": "/components/search/index", "my-recomend": "/components/recomend/index" } }, "pages/tabar/company": { "navigationBarTitleText": "公司", "navigationBarBackgroundColor": "#57B127", "navigationBarTextStyle": "white", "usingComponents": {}, "usingAutoImportComponents": { "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index" } }, "pages/tabar/classify": { "navigationBarTitleText": "分类", "navigationBarBackgroundColor": "#FFF", "navigationBarTextStyle": "black", "usingComponents": { "tabs2": "/components/v-tabs-column/v-tabs-column" }, "usingAutoImportComponents": { "my-search": "/components/search/index", "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index", "v-tabs-column": "/components/v-tabs-column/v-tabs-column", "my-profile": "/components/profile/index" } }, "pages/tabar/order": { "navigationBarTitleText": "全部订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": { "passkeyborad": "/components/yzc-paykeyboard/yzc-paykeyboard" }, "usingAutoImportComponents": { "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index", "uni-popup": "/components/uni-popup/uni-popup" } }, "pages/tabar/shopcart": { "navigationBarTitleText": "鲜农同城配送", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "my-stepper": "/components/stepper/index", "my-recomend": "/components/recomend/index" } }, "pages/tabar/user": { "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#59BC2C", "navigationBarTextStyle": "white", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/index/shopdetail": { "navigationBarTitleText": "商品详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": { "l-painter": "/uni_modules/lime-painter/components/lime-painter/index" }, "usingAutoImportComponents": { "uni-popup": "/components/uni-popup/uni-popup", "my-addcart": "/components/addcart/index" } }, "pages/index/search": { "navigationBarTitleText": "搜索", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "my-recomend": "/components/recomend/index", "uni-popup": "/components/uni-popup/uni-popup" } }, "pages/account/login": { "navigationBarTitleText": "登录", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/account/forget": { "navigationBarTitleText": "忘记密码", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "my-identifyingcode": "/components/identifyingcode/index" } }, "pages/account/register": { "navigationBarTitleText": "注册", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "my-identifyingcode": "/components/identifyingcode/index" } }, "pages/account/treaty": { "navigationBarTitleText": "注册协议", "navigationBarBackgroundColor": "#59BC2C", "navigationBarTextStyle": "white", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/account/bind": { "navigationBarTitleText": "返回", "navigationBarBackgroundColor": "#FFF", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index", "my-identifyingcode": "/components/identifyingcode/index" } }, "pages/order/orderdetail": { "navigationBarTitleText": "订单详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": { "passkeyborad": "/components/yzc-paykeyboard/yzc-paykeyboard" }, "usingAutoImportComponents": { "uni-popup": "/components/uni-popup/uni-popup" } }, "pages/order/orderAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index" } }, "pages/order/applyAfterSale": { "navigationBarTitleText": "订单售后", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "uni-popup": "/components/uni-popup/uni-popup" } }, "pages/order/refunddetail": { "navigationBarTitleText": "售后详情", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopcart/delivery": { "navigationBarTitleText": "地址", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": { "w-picker": "/components/w-picker/w-picker" }, "usingAutoImportComponents": { "w-picker": "/components/w-picker/w-picker" } }, "pages/shopcart/shoplist": { "navigationBarTitleText": "提交订单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": { "gpp-date-picker": "/components/gpp-datePicker/gpp-datePicker", "passkeyborad": "/components/yzc-paykeyboard/yzc-paykeyboard" }, "usingAutoImportComponents": {} }, "pages/shopcart/goodbill": { "navigationBarTitleText": "商品凑单", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "my-recomend": "/components/recomend/index" } }, "pages/shopcart/paySuccess": { "navigationBarTitleText": "支付成功", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/modifypwd": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/myinfo": { "navigationBarTitleText": "设置", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/updateavatar": { "navigationBarTitleText": "设置", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "uni-popup": "/components/uni-popup/uni-popup" } }, "pages/user/receipt": { "navigationBarTitleText": "发票", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/newProductDemand": { "navigationBarTitleText": "新品需求", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": { "w-picker": "/components/w-picker/w-picker" }, "usingAutoImportComponents": { "w-picker": "/components/w-picker/w-picker" } }, "pages/user/feedback": { "navigationBarTitleText": "意见反馈", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/remainder": { "navigationBarTitleText": "我的余额", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "my-s-tabs": "/components/s-tabs/index", "my-s-tab": "/components/s-tab/index" } }, "pages/user/modifyPaypwd": { "navigationBarTitleText": "支付密码", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/forgetPay": { "navigationBarTitleText": "忘记密码", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "my-identifyingcode": "/components/identifyingcode/index" } }, "pages/user/setPay": { "navigationBarTitleText": "设置密码", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "usingComponents": {}, "usingAutoImportComponents": { "my-keyboard": "/components/keyboard/index" } } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": " ", "navigationBarBackgroundColor": "#F0F0F0", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ })
 

@@ -4,26 +4,26 @@
 		<view class="get_info">
 			<view>
 				<text>手机号</text>
-				<input type="number" v-model="mobile" placeholder="请输入手机号" placeholder-class="place_style" />
+				<input type="number" v-model="form.mobile" placeholder="请输入手机号" placeholder-class="place_style" />
 			</view>
-
-			<view>
-				<text>密码</text>
-				<input password v-model="password" placeholder="请输入六位及以上的密码" placeholder-class="place_style" />
-			</view>
-			<view>
-				<text>确认密码</text>
-				<input password v-model="confirm_pwd" placeholder="请再次确认登录密码" placeholder-class="place_style" />
-			</view>
-			<move-verify @result="verifyResult" ref="verifyElement"></move-verify>
 			<view class="flex">
 				<text>验证码</text>
 				<view class="flex_left_right" style="width:79%;">
-					<input type="number" v-model="verify_code" placeholder="请输入验证码" placeholder-class="place_style"
+					<input type="number" v-model="form.captcha" placeholder="请输入验证码" placeholder-class="place_style"
 						@focus="back=false" />
 					<my-identifyingcode @getCode="getCode" ref="code"></my-identifyingcode>
 				</view>
 			</view>
+			<view>
+				<text>密码</text>
+				<input password v-model="form.newpassword" placeholder="请输入登录密码" placeholder-class="place_style" />
+			</view>
+			<view>
+				<text>确认密码</text>
+				<input password v-model="form.rePwd" placeholder="请再次确认登录密码" placeholder-class="place_style" />
+			</view>
+
+
 
 		</view>
 		<view class="submit_button button_style" :class="{'gray_b':back}" @click="forget">保存</view>
@@ -35,20 +35,69 @@
 
 		data() {
 			return {
-				resultData: {},
-				mobile: '',
-				password: '',
-				confirm_pwd: '',
-				verify_code: '',
-				secret_str: '',
-				navBar: navBar,
+				form: {
+					mobile: '',
+					newpassword: '',
+					rePwd: '',
+					captcha: ''
+
+				},
 				back: true,
-				count: 0
 			};
 		},
 		methods: {
+			// 获取短信验证码
+			getCode() {
+				let that = this;
+				let {
+					mobile
+				} = that.form;
 
-			forget() {}
+				let reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+				if (!reg.test(mobile)) {
+					that.$Toast('请输入正确的电话号码', );
+					return;
+				}
+
+				that.$get(that.$api.mainSend_sms, {
+					phone: mobile
+				}, (res) => {
+					if (res.data.code == 1) {
+						that.$refs.code.sendCode();
+						that.$Toast('验证码已发送到你手机中，请注意查收');
+					} else {
+						that.$Toast(res.data.msg);
+					}
+				})
+			},
+			forget() {
+
+				let that = this;
+				let {
+					mobile,
+					newpassword,
+					rePwd,
+				} = that.form;
+
+				let reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+				if (!reg.test(mobile)) {
+					return that.$Toast('请输入正确的电话号码');
+				}
+				if (newpassword != rePwd) {
+					return that.$Toast('两次输入的密码不一致');
+				}
+				that.$get(that.$api.userResetPwd, this.form, (res) => {
+					if (res.data.code == 1) {
+						this.$Toast('设置密码成功');
+						setTimeout(() => {
+							uni.navigateBack()
+						}, 1000)
+					} else {
+						that.$Toast(res.data.msg);
+					}
+				})
+
+			}
 		}
 	};
 </script>
@@ -77,10 +126,17 @@
 	}
 
 	.register .button_style {
+
+		width: 580rpx;
+
+		background: #009a44;
+		height: 80rpx;
+		color: white;
+		border-radius: 12rpx;
+		line-height: 80rpx;
+		text-align: center;
 		font-size: 32rpx;
-		width: 384rpx;
-		height: 64rpx;
-		line-height: 64rpx;
+		margin: 60rpx auto;
 	}
 
 	.register .now_login {

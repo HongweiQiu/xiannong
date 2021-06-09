@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "设置密码",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "my-keyboard": "/components/keyboard/index"
+  }
+}

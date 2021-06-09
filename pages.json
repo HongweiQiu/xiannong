@@ -73,7 +73,12 @@
 					}
 				},
 				{
-					"path": "forget"
+					"path": "forget",
+					"style": {
+						"navigationBarTitleText": "忘记密码",
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black"
+					}
 				},
 				{
 					"path": "register",

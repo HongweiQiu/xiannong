@@ -150,11 +150,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
-    return {};
-
+    return {
+      showPay: 0 };
 
   },
   methods: {
@@ -173,6 +178,11 @@ var _default =
         url: './modifyPaypwd' });
 
 
+
+    },
+    setPay: function setPay() {
+      uni.navigateTo({
+        url: './setPay' });
 
     },
     formSubmit: function formSubmit() {
@@ -197,14 +207,19 @@ var _default =
           }
         });
       });
+    },
+    isSetPwd: function isSetPwd() {var _this = this;
+      var that = this;
+      that.$get(that.$api.userIsset_pay_password, {
+        token: uni.getStorageSync('userInfo').token },
+      function (res) {
+        _this.showPay = res.data.code;
+      });
     } },
 
-  /**
-          * 生命周期函数--监听页面显示
-          */
+
   onShow: function onShow() {
-    var that = this;
-    // that.memberInfo();
+    this.isSetPwd();
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

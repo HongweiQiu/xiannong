@@ -3,15 +3,15 @@
 		<view class="get_info">
 			<view>
 				<text>原密码</text>
-				<input type="password" v-model="old_pwd" placeholder="请输入原密码" placeholder-class="place_style" />
+				<input type="password" v-model="form.old_password" placeholder="请输入原密码" placeholder-class="place_style" />
 			</view>
 			<view>
 				<text>新密码</text>
-				<input password v-model="password" placeholder="请填写六位及以上的密码" placeholder-class="place_style" />
+				<input password v-model="form.new_password" placeholder="请填写六位及以上的密码" placeholder-class="place_style" />
 			</view>
 			<view>
 				<text>确认密码</text>
-				<input password v-model="password_confirmation" placeholder="请再次确认密码" placeholder-class="place_style" />
+				<input password v-model="form.re_new_password" placeholder="请再次确认密码" placeholder-class="place_style" />
 
 			</view>
 		</view>
@@ -23,15 +23,37 @@
 	export default {
 		data() {
 			return {
-				old_pwd: '', //旧密码
-				password: '', //旧密码
-				password_confirmation: '', //旧密码
-				
-				count: 0
+				form: {
+					old_password: '',
+					new_password: '',
+					re_new_password: '',
+					token: uni.getStorageSync('userToken')
+				}
 			};
 		},
 		methods: {
-			formSubmit() {}
+			formSubmit() {
+				if(this.form.new_password!=this.form.re_new_password){
+					return this.$Toast('两次输入的密码不一致');
+				}
+				this.$get(this.$api.userSet_new_password, this.form, (res) => {
+					let {
+						data
+					} = res;
+					if (data.code == 1) {
+						uni.removeStorageSync('userToken');
+						this.$Toast('修改密码成功');
+						getApp().globalData.isReload = true;
+						setTimeout(() => {
+							uni.reLaunch({
+								url: '/pages/account/login'
+							})
+						}, 1000)
+					} else {
+						this.$Toast(data.msg)
+					}
+				})
+			}
 		},
 
 	};

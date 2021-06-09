@@ -45,6 +45,7 @@
 				this.val += num;
 				this.$emit('complete', this.val);
 				if (this.val.length == 6) {
+
 					this.close()
 				}
 			},
@@ -53,6 +54,11 @@
 					this.val = this.val.substring(0, this.val.length - 1);
 				}
 				this.$emit('complete', this.val)
+			}
+		},
+		mounted() {
+			if (this.show) {
+				this.val = ''
 			}
 		}
 	}

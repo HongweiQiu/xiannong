@@ -84,7 +84,7 @@
 				</view>
 				<view class="align_center order-remark">
 					<text style="width:160rpx;">发票税号</text>
-					<input  v-model="addressInfo.tax_num" placeholder="请输入发票税号" class="flex-full" />
+					<input v-model="addressInfo.tax_num" placeholder="请输入发票税号" class="flex-full" />
 				</view>
 			</view>
 		</view>
@@ -132,11 +132,11 @@
 					<text class="fs-13">合计：</text>
 					<text class="bold red-font">￥{{fixed(totalPrice+parseFloat(freight))}}</text>
 				</view>
-				<view class="pay-button" @click="$doubleClick(pay)" >支付</view>
+				<view class="pay-button" @click="$doubleClick(pay)">支付</view>
 			</view>
 
 		</view>
-	<passkeyborad :show="show" @complte="moneyPay" @close="show=false"></passkeyborad>
+		<passkeyborad :show="show" @complte="moneyPay" @close="show=false" :price="price"></passkeyborad>
 	</view>
 </template>
 
@@ -150,7 +150,7 @@
 	export default {
 		components: {
 			gppDatePicker,
-			  passkeyborad
+			passkeyborad
 		},
 		data() {
 			return {
@@ -169,20 +169,23 @@
 				pay_type: 'wxpay',
 				remark: '',
 				receiving: '',
-				show:false
+				show: false,
+				showPay: 0,
+				pay_password: '',
+				price:''
 			}
 		},
-		
+
 		methods: {
 			getTomorrow() {
 				function format(dest) {
 					return dest < 10 ? '0' + dest : dest;
 				}
 
-				let arg = new Date(new Date()-0+3600000*24);
+				let arg = new Date(new Date() - 0 + 3600000 * 24);
 				let year = arg.getFullYear();
 				let month = arg.getMonth() + parseInt(1);
-				let day = arg.getDate() ;
+				let day = arg.getDate();
 				this.startDate = `${year}-${format(month)}-${format(day)}`;
 				this.pickerDate = `${year}-${format(month)}-${format(day)}`;
 				this.endDate = `${year+2}-12-31`;
@@ -227,7 +230,7 @@
 					tax_name = '';
 					tax_num = '';
 				}
-			
+
 
 				uni.login({
 					provider: 'weixin',
@@ -250,7 +253,9 @@
 							delivery_time: _.pickerDate,
 							code: res.code
 						};
-
+						if (_.pay_type == 'money') {
+							params.pay_password = _.pay_password;
+						}
 						_.$get(_.$api.orderAdd_order, params, (res1) => {
 							let data = res1.data;
 							if (data.code == 1) {
@@ -302,40 +307,60 @@
 
 
 							} else {
-								_.$Toast(data.msg);
+								// _.$Toast(data.msg);
+								if(_.pay_type=='money'&&data.msg=="支付密码错误"){
+									uni.showModal({
+										title: '',
+										content: '支付密码错误,请重试',
+										cancelText: '忘记密码',
+										confirmColor: '#009943',
+										success(res) {
+											if (res.confirm) {
+												_.show = true;
+											} else if (res.cancel) {
+												uni.navigateTo({
+													url: '/pages/user/forgetPay'
+												})
+											}
+										}
+									})
+								}
 							}
 						});
 					}
 				})
 
 			},
-			
+
 			pay() {
-				if(this.pay_type=='wxpay'){
+				if (this.pay_type == 'wxpay') {
 					this.confirmPay();
-				}else{
-					this.show=true;
-				}
-				
-			},
-			moneyPay(e){
-				console.log(e);
-				let _=this;
-				uni.showModal({
-					title:'',
-					content:'支付密码错误,请重试',
-					cancelText:'忘记密码',
-					confirmColor:'#009943',
-					success(res){
-						 if (res.confirm) {
-						         _.show=true;
-						        } else if (res.cancel) {
-						          uni.navigateTo({
-						          	url:'/pages/user/forgetPay'
-						          })
-						        }
+				} else {
+					if (this.showPay = 1) {
+						this.show = true;
+						this.price=this.totalPrice+parseFloat(this.freight)
+					} else {
+						this.$showModal('是否设置支付密码', (res) => {
+							uni.navigateTo({
+								url: '/pages/user/setPay'
+							})
+						})
 					}
+				}
+
+			},
+			isSetPwd() {
+				let that = this;
+				that.$get(that.$api.userIsset_pay_password, {
+					token: uni.getStorageSync('userInfo').token
+				}, (res) => {
+					this.showPay = res.data.code;
 				})
+			},
+			moneyPay(e) {
+				this.pay_password = e;
+				this.confirmPay();
+				
 			},
 			switchChange(e) {
 				this.showSwitch = e.target.value;
@@ -382,6 +407,7 @@
 		},
 		onShow() {
 			this.getAddress();
+			this.isSetPwd()
 
 		},
 		onLoad(e) {

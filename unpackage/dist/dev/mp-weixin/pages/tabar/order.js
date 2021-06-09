@@ -96,13 +96,13 @@ var components
 try {
   components = {
     mySTabs: function() {
-      return __webpack_require__.e(/*! import() | components/s-tabs/index */ "components/s-tabs/index").then(__webpack_require__.bind(null, /*! @/components/s-tabs/index.vue */ 256))
+      return __webpack_require__.e(/*! import() | components/s-tabs/index */ "components/s-tabs/index").then(__webpack_require__.bind(null, /*! @/components/s-tabs/index.vue */ 280))
     },
     mySTab: function() {
-      return __webpack_require__.e(/*! import() | components/s-tab/index */ "components/s-tab/index").then(__webpack_require__.bind(null, /*! @/components/s-tab/index.vue */ 263))
+      return __webpack_require__.e(/*! import() | components/s-tab/index */ "components/s-tab/index").then(__webpack_require__.bind(null, /*! @/components/s-tab/index.vue */ 287))
     },
     uniPopup: function() {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 284))
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 308))
     }
   }
 } catch (e) {
@@ -163,6 +163,10 @@ var render = function() {
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
       return _vm.$refs.popup.close()
+    }
+
+    _vm.e1 = function($event) {
+      _vm.show = false
     }
   }
 
@@ -318,12 +322,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
-var app = getApp().globalData;var
+var app = getApp().globalData;var passkeyborad = function passkeyborad() {__webpack_require__.e(/*! require.ensure | components/yzc-paykeyboard/yzc-paykeyboard */ "components/yzc-paykeyboard/yzc-paykeyboard").then((function () {return resolve(__webpack_require__(/*! @/components/yzc-paykeyboard/yzc-paykeyboard.vue */ 366));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var
+
 
 imgRemote =
 app.imgRemote;var _default =
 {
+  components: {
+    passkeyborad: passkeyborad },
+
   data: function data() {
     return {
       imgRemote: imgRemote,
@@ -359,15 +371,45 @@ app.imgRemote;var _default =
       freight: 0,
       pay_type: 'wxpay',
       orderInfo: '',
-      index: '' };
+      index: '',
+      show: false,
+      showPay: 0,
+      pay_password: '',
+      price: '' };
 
   },
   methods: {
+    moneyPay: function moneyPay(e) {
+      this.pay_password = e;
+      this.orderPay();
+
+    },
+    confirmPay: function confirmPay() {
+
+      if (this.pay_type == 'wxpay') {
+        this.orderPay();
+      } else {
+        if (this.showPay = 1) {
+          this.price = parseFloat(this.orderInfo.total_price) + parseFloat(this.freight);
+
+          console.log(this.price);
+          this.$refs.popup.close();
+          this.show = true;
+        } else {
+          this.$showModal('是否设置支付密码', function (res) {
+            uni.navigateTo({
+              url: '/pages/user/setPay' });
+
+          });
+        }
+      }
+    },
     nowPay: function nowPay(item, index) {
       this.totalPrice = item.total_price;
       this.freight = this.totalPrice > this.feeInfo.over ? 0 : this.feeInfo.freight;
       this.index = index;
       this.orderInfo = item;
+
       this.$refs.popup.open();
     },
     orderPay: function orderPay() {
@@ -381,6 +423,9 @@ app.imgRemote;var _default =
             pay_type: _.pay_type,
             code: res.code };
 
+          if (_.pay_type == 'money') {
+            params.pay_password = _.pay_password;
+          }
           _.$get(_.$api.orderPay, params, function (res1) {var
 
             data =
@@ -390,9 +435,7 @@ app.imgRemote;var _default =
                 _.$Toast('支付成功');
                 _.getAddress();
                 _.list[_.index].pay_status = 2;
-                // _.list[_.index].order_status = 2;
-                // _.list[_.index].order_status_msg = _.list[_.index].order_status_msg
-                // 	.replace('未支付', '已支付');
+
               } else {
                 uni.requestPayment({
                   provider: 'wxpay',
@@ -404,9 +447,7 @@ app.imgRemote;var _default =
                   success: function success(res) {
                     _.$Toast('支付成功');
                     _.list[_.index].pay_status = 2;
-                    // _.list[_.index].order_status = 2;
-                    // _.list[_.index].order_status_msg = _.list[_.index].order_status_msg
-                    // 	.replace('未支付', '已支付');
+
                     _.getAddress();
 
                   },
@@ -417,7 +458,23 @@ app.imgRemote;var _default =
 
               }
             } else {
-              _.$Toast(data.msg);
+              if (_.pay_type == 'money' && data.msg == "支付密码错误") {
+                uni.showModal({
+                  title: '',
+                  content: '支付密码错误,请重试',
+                  cancelText: '忘记密码',
+                  confirmColor: '#009943',
+                  success: function success(res) {
+                    if (res.confirm) {
+                      _.show = true;
+                    } else if (res.cancel) {
+                      uni.navigateTo({
+                        url: '/pages/user/forgetPay' });
+
+                    }
+                  } });
+
+              }
             }
             _.$refs.popup.close();
           });
@@ -571,6 +628,14 @@ app.imgRemote;var _default =
           _this7.feeInfo = data.data;
         }
       });
+    },
+    isSetPwd: function isSetPwd() {var _this8 = this;
+      var that = this;
+      that.$get(that.$api.userIsset_pay_password, {
+        token: uni.getStorageSync('userInfo').token },
+      function (res) {
+        _this8.showPay = res.data.code;
+      });
     } },
 
   onLoad: function onLoad(e) {
@@ -585,13 +650,14 @@ app.imgRemote;var _default =
     this.page++;
     this.orderList(this.id);
   },
-  onShow: function onShow() {var _this8 = this;
+  onShow: function onShow() {var _this9 = this;
+    this.isSetPwd();
     setTimeout(function () {var
 
       orderIndex =
       getApp().globalData.orderIndex;
       if (orderIndex) {
-        _this8.list.splice(orderIndex, 1);
+        _this9.list.splice(orderIndex, 1);
       }
     }, 1000);
   },
