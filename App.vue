@@ -7,10 +7,10 @@
 			classId: '',
 			isReload: true,
 			onoff: true,
-			orderIndex:''
+			orderIndex: ''
 		},
 		onShow() {
-			this.globalData.isReload=true;
+			this.globalData.isReload = true;
 		}
 	};
 </script>
@@ -127,7 +127,7 @@
 		align-items: center;
 		justify-content: center;
 		height: 104rpx;
-		}
+	}
 
 	.recomend .title .name {
 		margin: 0 4rpx;
@@ -219,14 +219,15 @@
 	}
 
 	input {
-		font-size: 30rpx ;
+		font-size: 30rpx;
 		line-height: initial !important;
 		min-height: initial !important;
 	}
 
 
 	.gray_b {
-		background: gray;;
+		background: gray;
+		;
 	}
 
 
@@ -252,6 +253,7 @@
 		line-clamp: 2;
 		-webkit-box-orient: vertical;
 	}
+
 	uni-rich-text img {
 		max-width: 100% !important;
 	}

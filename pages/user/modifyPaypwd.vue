@@ -3,15 +3,15 @@
 		<view class="get_info">
 			<view>
 				<text>原密码</text>
-				<input type="password" v-model="form.old_pay" placeholder="请输入原密码" placeholder-class="place_style" />
+				<input type="number" v-model="form.old_pay" placeholder="请输入原密码" placeholder-class="place_style" />
 			</view>
 			<view>
 				<text>新密码</text>
-				<input password v-model="form.new_pay" placeholder="请填写六位及以上的密码" placeholder-class="place_style" />
+				<input type="number" v-model="form.new_pay" placeholder="请填写六位数密码" placeholder-class="place_style" />
 			</view>
 			<view>
 				<text>确认密码</text>
-				<input password v-model="form.re_new_pay" placeholder="请再次确认密码" placeholder-class="place_style" />
+				<input type="number" v-model="form.re_new_pay" placeholder="请再次确认密码" placeholder-class="place_style" />
 
 			</view>
 		</view>
@@ -33,6 +33,10 @@
 		},
 		methods: {
 			formSubmit() {
+				let {new_pay,re_new_pay}=this.form;
+				if(new_pay!=re_new_pay&&new_pay.length!=6){
+					return this.$Toast('请重新填写密码')
+				}
 				this.$get(this.$api.userSet_new_pay, this.form, (res) => {
 					let {
 						data

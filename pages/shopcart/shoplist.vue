@@ -55,16 +55,16 @@
 			</view>
 			<view class="flex_left_right" style="margin-top: 30rpx;">
 				<text>商品金额</text>
-				<text>￥{{fixed(totalPrice)}}</text>
+				<text>￥{{$fixed(totalPrice)}}</text>
 			</view>
 			<view class="flex_left_right " style="margin-top: 30rpx;">
 				<text>配送费</text>
-				<text>￥{{fixed(freight?freight:0)}}</text>
+				<text>￥{{$fixed(freight?freight:0)}}</text>
 			</view>
 
 			<view class="total-price">
 				<text class="fs-11">合计：</text>
-				<text class="red-font bold">￥{{fixed(totalPrice+parseFloat(freight))}}</text>
+				<text class="red-font bold">￥{{$fixed(totalPrice+parseFloat(freight))}}</text>
 			</view>
 		</view>
 		<view class="white_b padding-15 r-5" style="margin:30rpx;">
@@ -105,7 +105,7 @@
 					<view class="align_center">
 						<text class="iconfont iconfeiyong" style="color:#FFB92C;"> </text>
 						<text class="bold fs-13">余额支付</text>
-						<text class="fs-11 gray_font" style="margin-left:4rpx;">(可用￥{{fixed(addressInfo.money)}})</text>
+						<text class="fs-11 gray_font" style="margin-left:4rpx;">(可用￥{{$fixed(addressInfo.money)}})</text>
 					</view>
 					<radio value="money" style="transform:scale(0.7)"
 						:disabled="(totalPrice+parseFloat(freight))>addressInfo.money?true:false" />
@@ -130,7 +130,7 @@
 			<view class="align_center price-info">
 				<view>
 					<text class="fs-13">合计：</text>
-					<text class="bold red-font">￥{{fixed(totalPrice+parseFloat(freight))}}</text>
+					<text class="bold red-font">￥{{$fixed(totalPrice+parseFloat(freight))}}</text>
 				</view>
 				<view class="pay-button" @click="$doubleClick(pay)">支付</view>
 			</view>
@@ -163,7 +163,7 @@
 				shop: [],
 				totalPrice: '',
 				visible: false,
-				feeInfo: '',
+				
 				freight: '',
 				showSwitch: false,
 				pay_type: 'wxpay',
@@ -270,6 +270,14 @@
 										})
 									}, 1000)
 								} else {
+									if(!uni.getStorageSync('userInfo').openid){
+										setTimeout(()=>{
+											uni.navigateTo({
+												url:'/pages/account/login'
+											})
+										},1000)
+										return _.$Toast('请先登录微信，再绑定');
+									}
 									uni.requestPayment({
 										provider: 'wxpay',
 										timeStamp: data.data.timeStamp,
@@ -365,12 +373,7 @@
 			switchChange(e) {
 				this.showSwitch = e.target.value;
 			},
-			fixed(val) {
-				if (val == 0) {
-					return '0.00';
-				}
-				return parseFloat(val).toFixed(2);
-			},
+			
 			modifyAddress() {
 				uni.navigateTo({
 					url: './delivery'
@@ -382,7 +385,7 @@
 				this.$get(this.$api.mainFreight, {}, (res) => {
 					let data = res.data;
 					if (data.code == 1) {
-						this.feeInfo = data.data;
+						
 						this.freight = this.totalPrice > data.data.over ? 0 : data.data.freight;
 					}
 				});

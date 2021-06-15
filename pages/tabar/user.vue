@@ -90,7 +90,7 @@
 			</view>
 		</view>
 		<view class="gray_font center fs-13" style="margin:30rpx 0">
-			技术支持 · 上贤科技
+			技术支持：上贤科技
 		</view>
 	</view>
 </template>

@@ -96,7 +96,7 @@ var components
 try {
   components = {
     myIdentifyingcode: function() {
-      return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 345))
+      return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 352))
     }
   }
 } catch (e) {
@@ -159,6 +159,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
 //
 //
 //
@@ -261,13 +262,16 @@ app.rootUrl;var _default =
       if (!code) {
         return that.$Toast('请输入正确的短信验证码');
       }
+
       if (!new_pay || !re_new_pay) {
         return that.$Toast('密码不能为空');
       }
       if (new_pay != re_new_pay) {
         return that.$Toast('两次输入的密码不一致');
       }
-
+      if (new_pay.length != 6) {
+        return this.$Toast('请输入六位数的支付密码');
+      }
       that.$get(that.$api.userReset_new_pay, that.form, function (res) {var
 
         data =

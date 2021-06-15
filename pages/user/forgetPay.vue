@@ -19,11 +19,12 @@
 					</view>
 					<view>
 						<text class="iconfont iconmima"></text>
-						<input password v-model="form.new_pay" placeholder="请输入支付密码" placeholder-class="place_style" />
+						<input type="number" v-model="form.new_pay" placeholder="请输入六位数的支付密码"
+							placeholder-class="place_style" />
 					</view>
 					<view>
 						<text class="iconfont iconmima"></text>
-						<input password v-model="form.re_new_pay" placeholder="请再次确认支付密码"
+						<input type="number" v-model="form.re_new_pay" placeholder="请再次确认支付密码"
 							placeholder-class="place_style" />
 					</view>
 				</view>
@@ -101,13 +102,16 @@
 				if (!code) {
 					return that.$Toast('请输入正确的短信验证码');
 				}
+
 				if (!new_pay || !re_new_pay) {
 					return that.$Toast('密码不能为空');
 				}
 				if (new_pay != re_new_pay) {
 					return that.$Toast('两次输入的密码不一致');
 				}
-
+				if (new_pay.length != 6) {
+					return this.$Toast('请输入六位数的支付密码')
+				}
 				that.$get(that.$api.userReset_new_pay, that.form, (res) => {
 					let {
 						data

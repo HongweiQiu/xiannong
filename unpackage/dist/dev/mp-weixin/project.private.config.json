@@ -257,6 +257,11 @@
           "pathName": "pages/user/setPay",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/tabar/shopcart",
+          "pathName": "pages/tabar/shopcart",
+          "scene": null
         }
       ]
     }

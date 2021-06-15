@@ -96,7 +96,7 @@ var components
 try {
   components = {
     myStepper: function() {
-      return __webpack_require__.e(/*! import() | components/stepper/index */ "components/stepper/index").then(__webpack_require__.bind(null, /*! @/components/stepper/index.vue */ 317))
+      return __webpack_require__.e(/*! import() | components/stepper/index */ "components/stepper/index").then(__webpack_require__.bind(null, /*! @/components/stepper/index.vue */ 324))
     },
     myRecomend: function() {
       return __webpack_require__.e(/*! import() | components/recomend/index */ "components/recomend/index").then(__webpack_require__.bind(null, /*! @/components/recomend/index.vue */ 273))
@@ -125,9 +125,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   var m0 =
     _vm.itemList.length != 0 && _vm.feeInfo.over > _vm.totalPrice
-      ? _vm.fixed(Math.abs(_vm.totalPrice - _vm.feeInfo.over))
+      ? _vm.$fixed(Math.abs(_vm.totalPrice - _vm.feeInfo.over))
       : null
-  var m1 = _vm.itemList.length != 0 ? _vm.fixed(_vm.totalPrice) : null
+  var m1 = _vm.itemList.length != 0 ? _vm.$fixed(_vm.totalPrice) : null
 
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
@@ -313,9 +313,7 @@ app.imgRemote;var _default =
 
   },
   methods: {
-    fixed: function fixed(val) {
-      return val.toFixed(2);
-    },
+
     calculate: function calculate() {
       var sum = 0;var _iterator = _createForOfIteratorHelper(
       this.itemList),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var i = _step.value;

@@ -56,7 +56,7 @@
 				</view>
 				<view class="flex_left_right go-bill fs-11" v-if="feeInfo.over>totalPrice">
 					<view> 实付满{{feeInfo.over}}元免运费，还差
-						<text class="red-font">{{fixed(Math.abs(totalPrice-feeInfo.over))}}</text>元
+						<text class="red-font">{{$fixed(Math.abs(totalPrice-feeInfo.over))}}</text>元
 					</view>
 					<navigator open-type="switchTab" url="/pages/tabar/classify">
 						<view class="red-font align_center">
@@ -76,7 +76,7 @@
 					</view>
 					<view class="align_center">
 						<text class="fs-13 gray_font">不含运费 合计：</text>
-						<text class="fs-18 red-font">￥{{fixed(totalPrice)}}</text>
+						<text class="fs-18 red-font">￥{{$fixed(totalPrice)}}</text>
 						<text class="fs-15 gray_font  pay-button" :class="settlement?'go-settle':'in-go-settle'"
 							@click="shoplist">去结算</text>
 
@@ -134,9 +134,7 @@
 			};
 		},
 		methods: {
-			fixed(val) {
-				return val.toFixed(2)
-			},
+			
 			calculate() {
 				let sum = 0;
 				for (let i of this.itemList) {

@@ -39,7 +39,7 @@ var components
 try {
   components = {
     myIdentifyingcode: function() {
-      return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 345))
+      return __webpack_require__.e(/*! import() | components/identifyingcode/index */ "components/identifyingcode/index").then(__webpack_require__.bind(null, /*! @/components/identifyingcode/index.vue */ 352))
     }
   }
 } catch (e) {

@@ -164,7 +164,11 @@ var _default =
 
   },
   methods: {
-    formSubmit: function formSubmit() {var _this = this;
+    formSubmit: function formSubmit() {var _this = this;var _this$form =
+      this.form,new_pay = _this$form.new_pay,re_new_pay = _this$form.re_new_pay;
+      if (new_pay != re_new_pay && new_pay.length != 6) {
+        return this.$Toast('请重新填写密码');
+      }
       this.$get(this.$api.userSet_new_pay, this.form, function (res) {var
 
         data =
